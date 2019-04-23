@@ -1,0 +1,17 @@
+{
+    "port": "8082",
+    "db": {
+        "main": {
+            "url": "jdbc:mysql://120.25.156.159:3306/yoehi?useUnicode=true&characterEncoding=utf8&useSSL=false",
+            "driver": "com.mysql.jdbc.Driver",
+            "username": "root",
+            "password": "qwerty!@#$%^"
+        }
+    },
+    "hotswap": [
+        "com.beeasy.easyshop.ctrl"
+    ],
+    "route": [
+        "/qcc/:c/:a -> com.beeasy.easyshop.filter,com.beeasy.easyshop.filter2 -> com.beeasy.easyshop.ctrl"
+    ]
+}
