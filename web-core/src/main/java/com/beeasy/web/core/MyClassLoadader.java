@@ -1,13 +1,20 @@
 package com.beeasy.web.core;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.tools.JavaCompiler;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
+import java.io.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import static com.beeasy.web.core.Config.config;
 
 public class MyClassLoadader extends ClassLoader {
+    private Map<String,byte[]> byteCache = new HashMap<>();
+
     private static ClassLoader defaultClassLoader = MyClassLoadader.class.getClassLoader();
     /**
      * @param filename
@@ -43,6 +50,24 @@ public class MyClassLoadader extends ClassLoader {
         if(!hotswap){
             return defaultClassLoader.loadClass(name);
         }
+
+        if(null != config.compile){
+            try {
+                String realName = name.replaceAll("\\.", "/").replaceAll("\\$.+?\\.", "");
+                byte[] b = byteCache.get(realName);
+                if (b != null) {
+                    return defineClass(null, b, 0, b.length);
+                } else {
+                    b = compilerJava(name.replaceAll("\\.", "/"));
+                    byteCache.put(realName, b);
+                    return defineClass(null, b, 0, b.length);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return super.findClass(name);
+            }
+        }
+
         ClassPathResource resource = new ClassPathResource(name.replaceAll("\\.", "/") + ".class");
         try (
             InputStream is = resource.getStream();
@@ -53,4 +78,31 @@ public class MyClassLoadader extends ClassLoader {
             return super.findClass(name);
         }
     }
+
+
+    static JavaCompiler javaCompiler = ToolProvider.getSystemJavaCompiler();
+    static StandardJavaFileManager javaFileManager = javaCompiler.getStandardFileManager(null, null, null);
+    public static byte[] compilerJava(String name) throws Exception{
+//        String source = "D:\\work\\easyshop\\easy-shop\\src\\main\\java\\";
+//        String target = "D:\\work\\easyshop\\www\\";
+        // 取得当前系统的编译器
+//        for (File listFile : new File("D:\\work\\easyshop\\www").listFiles()) {
+//            listFile.delete();
+//        }
+        //获取一个文件管理器
+            //文件管理器与文件连接起来
+            Iterable it = javaFileManager.getJavaFileObjects(config.compile.source + File.separator + name + ".java");
+//            File dir = new File("D:\\work\\easyshop\\www");
+            //创建编译任务
+            JavaCompiler.CompilationTask  task = javaCompiler.getTask(new StringWriter(), null, null, Arrays.asList("-d", config.compile.target, "-parameters"), null, it);
+            //执行编译
+            task.call();
+            try(
+                InputStream is = new FileInputStream(config.compile.target + File.separator + name + ".class");
+                ){
+                return IoUtil.readBytes(is);
+            }
+
+    }
+
 }

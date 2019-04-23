@@ -8,6 +8,7 @@ import org.beetl.sql.core.SQLReady;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.beeasy.web.core.DBService.sqlManager;
@@ -42,8 +43,11 @@ public class a {
     public String cookieAdd(
         Cookie cookie
     ){
+        new ArrayList<>().stream().map(i -> i).forEachOrdered(i -> {
+
+        });
         cookie.set("cubi","123l");
-        return "";
+        return "haha wo bian le";
     }
 
     public String cookieDelete(

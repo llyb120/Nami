@@ -9,9 +9,14 @@
         }
     },
     "hotswap": [
-        "com.beeasy.easyshop.ctrl"
+        "com.beeasy.easyshop.ctrl",
+        "com.beeasy.easyshop.filter"
     ],
+    "compile": {
+        "source": "D:\\work\\easyshop\\easy-shop\\src\\main\\java",
+        "target": "D:\\work\\easyshop\\www"
+    },
     "route": [
-        "/qcc/:c/:a -> com.beeasy.easyshop.filter,com.beeasy.easyshop.filter2 -> com.beeasy.easyshop.ctrl"
+        "/qcc/:c/:a -> com.beeasy.easyshop.filter.filter2 -> com.beeasy.easyshop.ctrl"
     ]
 }

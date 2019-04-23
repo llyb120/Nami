@@ -16,7 +16,7 @@ public class Config {
     public Map<String,Db> db;
     public Set<String> hotswap;
     public LinkedHashSet<String> route;
-
+    public Compile compile;
 
     public static void init(String path){
         try (
@@ -40,5 +40,10 @@ public class Config {
         public String driver;
         public String username;
         public String password;
+    }
+
+    static class Compile{
+        public String source;
+        public String target;
     }
 }
