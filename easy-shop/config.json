@@ -14,7 +14,7 @@
     ],
     "compile": {
         "source": "D:\\work\\easyshop\\easy-shop\\src\\main\\java",
-        "target": "D:\\work\\easyshop\\www"
+        "target": "D:\\work\\easyshop\\easy-shop\\target\\classes"
     },
     "route": [
         "/qcc/:c/:a -> com.beeasy.easyshop.filter.filter2 -> com.beeasy.easyshop.ctrl"

@@ -47,7 +47,7 @@ public class a {
 
         });
         cookie.set("cubi","123l");
-        return "haha wo bian le";
+        return "haha wo bian le 你变你妈呢";
     }
 
     public String cookieDelete(
