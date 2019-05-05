@@ -29,6 +29,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import static com.beeasy.web.core.Config.config;
 
 public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 //    private static List<Route> RouteList = new ArrayList<>();
@@ -46,19 +47,32 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 //        RouteList.addAll(Arrays.asList(routes));
 //    }
 
-    public void send404(ChannelHandlerContext ctx, Object msg) {
-        ctx.writeAndFlush(get404());
+    public void send(ChannelHandlerContext ctx, int code, Object msg) {
+        ctx.writeAndFlush(getResponse(null, code));
     }
 
-    public FullHttpResponse get404() {
-        JSONObject object = new JSONObject();
-        object.put("Status", "500");
-        object.put("Message", "错误请求");
-        String json = object.toJSONString();
-        byte[] bytes = json.getBytes(StandardCharsets.UTF_8);
-        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.NOT_FOUND, Unpooled.wrappedBuffer(bytes));
+    public FullHttpResponse getResponse(Throwable e, int code) {
+        R r = R.fail();
+        if (e != null) {
+            Throwable cause = e;
+            do{
+                if(cause instanceof RestException){
+                    r.errMessage = ((RestException) cause).msg;
+                }
+            }while((cause = cause.getCause()) != null);
+        }
+        ByteBuf buf = Unpooled.buffer();
+        buf.writeBytes(r.toString().getBytes(StandardCharsets.UTF_8));
+        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.NOT_FOUND, buf);
+        if(code == 404){
+           response.setStatus(HttpResponseStatus.NOT_FOUND);
+        }
+        else if(code == 200){
+            response.setStatus(HttpResponseStatus.OK);
+        }
         response.headers().set("Content-Type", "application/json; charset=utf-8");
-        response.headers().set("Content-Length", bytes.length);
+        response.headers().set("Content-Length", buf.readableBytes());
+        writeCors(response);
         return response;
     }
 
@@ -164,20 +178,21 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, buf);
             response.headers().set(HttpHeaders.Names.CONTENT_TYPE, "application/json; charset=utf-8");
             response.headers().set(HttpHeaders.Names.CONTENT_LENGTH, buf.readableBytes());
+            writeCors(response);
             cookie.writeToResponse(response);
 
             write(ctx, response, keepAlive);
             return;
         }
 
-        send404(ctx, null);
+        send(ctx, 404, null);
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         LastException = cause;
         cause.printStackTrace();
-        ctx.writeAndFlush(get404());
+        ctx.writeAndFlush(getResponse(cause,200));
         ctx.close();
     }
 
@@ -215,6 +230,16 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
         ByteBuf buf = request.content();
         String json = buf.toString(StandardCharsets.UTF_8);
         return (JSON) JSON.parse(json);
+    }
+
+    private static void writeCors(FullHttpResponse response){
+        if (config.cors == null) {
+           return;
+        }
+        HttpHeaders headers = response.headers();
+        headers.set(HttpHeaders.Names.ACCESS_CONTROL_ALLOW_ORIGIN, config.cors.origin);
+        headers.set(HttpHeaders.Names.ACCESS_CONTROL_ALLOW_METHODS, config.cors.method);
+        headers.set(HttpHeaders.Names.ACCESS_CONTROL_ALLOW_HEADERS, config.cors.headers);
     }
 //    public static Map<String, Object> getGetParamsFromChannel(FullHttpRequest fullHttpRequest) {
 //
@@ -310,7 +335,16 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             ret[i] = null;
             //如果有静态，则直接使用
             if (null != staticArgs && staticArgs.containsKey(type)) {
-                ret[i] = staticArgs.get(type);
+                ret[i++] = staticArgs.get(type);
+                continue;
+            }
+
+            if(type == Cookie.class){
+                ret[i++] = Cookie.getInstance();
+                continue;
+            }
+            if(type == FullHttpRequest.class){
+                ret[i++] = request;
                 continue;
             }
 
@@ -326,10 +360,6 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 
                 case "params":
                     ret[i] = params.toJavaObject(type);
-                    break;
-
-                case "cookie":
-                    ret[i] = Cookie.getInstance();
                     break;
 
                 default:

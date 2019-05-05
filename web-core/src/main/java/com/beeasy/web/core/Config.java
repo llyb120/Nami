@@ -17,6 +17,8 @@ public class Config {
     public Set<String> hotswap;
     public LinkedHashSet<String> route;
     public Compile compile;
+    public Cors cors;
+    public String chakra;
 
     public static void init(String path){
         try (
@@ -45,5 +47,12 @@ public class Config {
     static class Compile{
         public String source;
         public String target;
+        public String compiler;
+    }
+
+    static class Cors{
+        public String origin;
+        public String method;
+        public String headers;
     }
 }

@@ -1,5 +1,6 @@
 package com.beeasy.web.core;
 
+import cn.hutool.core.util.StrUtil;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -14,12 +15,20 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
 import java.nio.charset.Charset;
+import  static com.beeasy.web.core.Config.config;
 
 public class EasyShop {
 
+//    public static ChakraCore chakraCore;
+
     public static void start(String configPath){
         Config.init(configPath);
-        DBService.start();
+        DBService.start(true);
+
+//        if(StrUtil.isNotEmpty(config.chakra)){
+//            chakraCore = new ChakraCore();
+//            chakraCore.start(true);
+//        }
 
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();

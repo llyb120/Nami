@@ -35,6 +35,14 @@ public class Cookie {
         changed = true;
     }
 
+    public String get(String key){
+        io.netty.handler.codec.http.cookie.Cookie cookie = cookieMap.get(key);
+        if (cookie != null) {
+            return cookie.value() ;
+        }
+        return "";
+    }
+
     public void delete(String key){
         io.netty.handler.codec.http.cookie.Cookie cookie = cookieMap.get(key);
         if (cookie != null) {

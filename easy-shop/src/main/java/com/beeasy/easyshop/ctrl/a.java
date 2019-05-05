@@ -1,5 +1,6 @@
 package com.beeasy.easyshop.ctrl;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.beeasy.web.core.Cookie;
@@ -41,13 +42,17 @@ public class a {
     }
 
     public String cookieAdd(
-        Cookie cookie
+        Cookie cookie,
+        String d
     ){
         new ArrayList<>().stream().map(i -> i).forEachOrdered(i -> {
 
         });
+        if(StrUtil.isEmpty(d)){
+            d = "ccc";
+        }
         cookie.set("cubi","123l");
-        return "haha wo bian le 你变你妈呢";
+        return d + "我没有变 你变你妈呢";
     }
 
     public String cookieDelete(
