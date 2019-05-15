@@ -7,6 +7,7 @@ import com.beeasy.web.core.DBService;
 import org.beetl.sql.core.SQLReady;
 import org.beetl.sql.ext.gen.GenConfig;
 import org.beetl.sql.ext.gen.GenFilter;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.List;
@@ -15,10 +16,15 @@ import static com.beeasy.web.core.DBService.sqlManager;
 
 public class Generate {
 
-    @Test
-    public void test() throws Exception {
+    @BeforeClass
+    public static void before(){
         Config.init("config.json");
         DBService.start(false);
+    }
+
+    @Test
+    public void test() throws Exception {
+
 //        DBService.start();
 
         sqlManager.genALL("com.beeasy.easyshop.model", new GenConfig(), new GenFilter() {
@@ -35,5 +41,10 @@ public class Generate {
         });
     }
 
+
+    @Test
+    public void genOne() throws Exception {
+        sqlManager.genPojoCode("ra_store", "com.beeasy.easyshop.model");
+    }
 
 }

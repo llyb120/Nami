@@ -12,16 +12,6 @@ import java.util.Set;
 public class Cookie {
     private boolean changed = false;
     private Map<String, io.netty.handler.codec.http.cookie.Cookie> cookieMap = new HashMap<>();
-    private static ThreadLocal<Cookie> local = new ThreadLocal<Cookie>(){
-        @Override
-        protected Cookie initialValue() {
-            return new Cookie();
-        }
-    };
-
-    public static Cookie getInstance(){
-        return local.get();
-    }
 
     public void reset(){
         changed = false;
@@ -52,7 +42,6 @@ public class Cookie {
     }
 
     public void wrap(Set<io.netty.handler.codec.http.cookie.Cookie> cookies){
-        reset();
         for (io.netty.handler.codec.http.cookie.Cookie cookie : cookies) {
             cookieMap.put(cookie.name(), cookie);
         }
@@ -63,7 +52,6 @@ public class Cookie {
            return;
         }
         response.headers().set(HttpHeaders.Names.SET_COOKIE, ServerCookieEncoder.LAX.encode(cookieMap.values()));
-        reset();
     }
 
 }

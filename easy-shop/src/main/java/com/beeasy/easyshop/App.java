@@ -1,14 +1,7 @@
 package com.beeasy.easyshop;
 
-import cn.hutool.core.thread.ThreadUtil;
-import com.beeasy.web.core.ChakraCore;
 import com.beeasy.web.core.EasyShop;
 import com.sun.jna.*;
-import com.sun.jna.ptr.NativeLongByReference;
-import com.sun.jna.ptr.PointerByReference;
-import jdk.nashorn.internal.ir.FunctionCall;
-
-import java.nio.charset.StandardCharsets;
 
 public class App {
 
@@ -88,10 +81,12 @@ public class App {
 //        };
 
         new Thread(() -> {
-            ThreadUtil.sleep(500);
-            ChakraCore chakra = new ChakraCore(false);
-            String str = chakra.eval("(() => { console.log(1,2,3); var a = [1,2,3]; a = a.map(i => ++i); return a.join(',') })()");
-            System.out.println(str);
+//            ThreadUtil.sleep(500);
+//            ChakraCore chakra = new ChakraCore(false);
+//            chakra.eval(new File("D:\\work\\easyshop\\easy-shop\\js\\1.js"));
+//            chakra.eval(new File("D:\\work\\easyshop\\easy-shop\\js\\2.js"));
+//            String str = chakra.eval("(() => { console.log(1,2,3); var a = [1,2,3]; a = a.map(i => ++i); return a.join(',') })()");
+//            System.out.println(str);
         }).start();
 
         //注册控制器

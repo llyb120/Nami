@@ -7,6 +7,10 @@ public class R {
     public Object data = null;
     public String errMessage = "";
 
+    public static R ok(){
+       return ok(null);
+    }
+
     public static R ok(Object object){
         R r =  new R();
         r.code = 200;

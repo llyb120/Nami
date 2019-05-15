@@ -1,11 +1,15 @@
 package com.beeasy.web.core;
 
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.sql.Struct;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +22,9 @@ public class Config {
     public LinkedHashSet<String> route;
     public Compile compile;
     public Cors cors;
-    public String chakra;
+    public JSONObject ext;
+    public String upload;
+    public File uploadDir;
 
     public static void init(String path){
         try (
@@ -32,6 +38,11 @@ public class Config {
                     HttpServerHandler.ctrls.add(new Route(s));
                 }
             }
+            if(StrUtil.isNotEmpty(config.upload)){
+                config.uploadDir = new File(config.upload);
+                config.uploadDir.mkdirs();
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,5 +65,6 @@ public class Config {
         public String origin;
         public String method;
         public String headers;
+        public String credentials;
     }
 }

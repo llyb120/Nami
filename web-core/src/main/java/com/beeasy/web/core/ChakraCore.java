@@ -1,22 +1,27 @@
 package com.beeasy.web.core;
 
+import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.sun.jna.*;
 import com.sun.jna.Native;
 import com.sun.jna.ptr.NativeLongByReference;
 import com.sun.jna.ptr.PointerByReference;
-import jdk.nashorn.internal.ir.FunctionCall;
 
 import static com.beeasy.web.core.Config.config;
 
 import java.awt.*;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Deprecated
 public class ChakraCore {
 
     public ChakraCore(boolean async) {
@@ -28,6 +33,7 @@ public class ChakraCore {
      */
     private Pointer runtime;
     private Pointer context;
+//    private Pointer module;
 
 //    public List<Holder> holders = new ArrayList<>();
 //    private ThreadLocal<Holder> localHolder = new ThreadLocal(){
@@ -59,10 +65,16 @@ public class ChakraCore {
         int JsCreateContext(Pointer a, PointerType b);
 
         int JsCreateRuntime(int a, PointerType b, PointerByReference c);
+        int JsInitializeModuleRecord(PointerByReference module, Pointer p, PointerByReference ret);
+        int JsSetModuleHostInfo(Pointer module, int code, Pointer hostInfo);
 
         int JsSetCurrentContext(Pointer context);
 
         int JsRunScript(WString a, int b, WString c, PointerByReference d);
+        int JsParseScript(WString script, int contextIdex, WString url, PointerByReference ret);
+        int JsParseModuleSource(Pointer module, int ctxId, byte[] script, int length, int flag, PointerByReference ret);
+
+        int JsRun(Pointer source, int contextIdex, Pointer url, int attr, PointerByReference ret);
 
         int JsConvertValueToString(Pointer a, PointerByReference b);
 
@@ -81,6 +93,7 @@ public class ChakraCore {
         int JsGetGlobalObject(PointerByReference p);
 
         int JsCreateObject(PointerByReference p);
+        int JsCreateObject(String str, long len, PointerByReference ret);
 
         int JsCreatePropertyId(String name, long len, PointerByReference ret);
 
@@ -124,7 +137,7 @@ public class ChakraCore {
 
     private void start() {
         try {
-            File file = new File(config.chakra, "ChakraCore");
+            File file = new File(config.ext.getString("chakra"), "ChakraCore");
             instance = (Dll) Native.load(file.getPath(), Dll.class);
         } finally {
             if (instance == null) {
@@ -136,6 +149,11 @@ public class ChakraCore {
         runtime = createRuntime();
         context = createContext();
         setContent(context);
+
+//        PointerByReference modulePtr = new PointerByReference();
+//        int state = instance.JsInitializeModuleRecord(null, createString("1.js").getValue(), modulePtr);
+//        module = modulePtr.getValue();
+//        instance.JsSetModuleHostInfo(module, 0x2, createString("1.js").getValue());
 
         //加载库
         loadLibraries();
@@ -179,15 +197,79 @@ public class ChakraCore {
                 System.out.println("");
             }
         });
+        map.put("_require", new Callback() {
+            public Pointer _require(PointerByReference callee, boolean isConstructcall, PointerByReference arguments, short argumentCount, PointerByReference callbackState) {
+                Pointer[] ps = arguments.getPointer().getPointerArray(0, argumentCount);
+                if(ps.length < 3){
+                    System.out.println("");
+                    return null;
+                }
+                Pointer par = ps[1];
+                Pointer file = ps[2];
+                String parStr = convertToString(par);
+                String fileStr = convertToString(file);
+                Pointer exports = eval(new File(parStr, fileStr));
+                return exports;
+
+//                short i = -1;
+//                for (Pointer p : ps) {
+//                    i++;
+//                    if (i == 0) continue;
+//                    System.out.print(convertToString(p));
+//                    if (i != argumentCount - 1) {
+//                        System.out.print(",");
+//                    }
+//                }
+//                System.out.println("");
+            }
+        });
         defineGlobalObject("console", map);
     }
 
-    public String eval(String str) {
-        try {
-//           initContext();
+    private void parse(String str){
+    }
+
+    public Pointer eval(File file){
+        String str = "";
+        try(
+            FileInputStream fis = new FileInputStream(file);
+            ){
+            str = IoUtil.read(fis, StandardCharsets.UTF_8);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        str = String.format("(function($$path,exports){ %s; return exports; })('%s', {})", str, file.getParent().replaceAll("\\\\", "/"));
+//        Pointer fun = eval("(function($$path,exports){ %s; return exports; })");
+        return eval(str, file.getPath());
+//        WString code = new WString(str);
+//        PointerByReference ret = new PointerByReference();
+//        int state = instance.JsParseScript(code, 0, new WString(file.getParent()), ret);
+//
+//        instance.JsSetModuleHostInfo(module, 0x6, createString("1.js").getValue());
+//        PointerByReference ret2 = new PointerByReference();
+////        int state = instance.JsParseModuleSource(module, 0, str.getBytes(), str.getBytes().length, 1, ret2);
+////        int state = instance.JsRunScript(code, 0, new WString(file.getParent()), ret);
+//        PointerByReference errorPtr = new PointerByReference();
+//        instance.JsGetAndClearException(errorPtr);
+//        String errStr = convertToString(errorPtr);
+////                free(errorPtr);
+//        System.out.println("");
+//        System.out.println("ChakraCore: error-start");
+//        System.out.println(errStr);
+//        System.out.println("ChakraCore: error-end");
+//        System.out.println("");
+////        PointerByReference strPtr = createString(file.getParent());
+////        ret = new PointerByReference();
+////        state = instance.JsRun(ret.getValue(), 0, strPtr.getValue(),0 , ret);
+//        return "";
+    }
+
+
+    public Pointer eval(String str, String path){
             WString code = new WString(str);
             PointerByReference ret = new PointerByReference();
-            int state = instance.JsRunScript(code, 0, emptyString, ret);
+            int state = instance.JsRunScript(code, 0, new WString(path), ret);
             if (state != 0) {
                 PointerByReference errorPtr = new PointerByReference();
                 instance.JsGetAndClearException(errorPtr);
@@ -199,14 +281,17 @@ public class ChakraCore {
                 System.out.println("ChakraCore: error-end");
                 System.out.println("");
             } else {
-                String retStr = convertToString(ret);
+                return ret.getValue();
+//                String retStr = convertToString(ret);
 //                free(ret.getPointer());
-                return retStr;
+//                return retStr;
             }
-        } finally {
-//            resetContext();
-        }
-        return "";
+        return null;
+//        return "";
+    }
+
+    public Pointer eval(String str) {
+        return eval(str ,"");
     }
 
 //    private Pointer createContext(){
@@ -284,6 +369,12 @@ public class ChakraCore {
         return ret;
     }
 
+    private PointerByReference createString(String str){
+        PointerByReference ret = new PointerByReference();
+        instance.JsCreateString(str, str.length(), ret);
+        return ret;
+    }
+
     private void setProperty(Pointer object, String name, Pointer value) {
         if (value == null) {
             return;
@@ -299,6 +390,12 @@ public class ChakraCore {
         }
         return funPtr.getValue();
     }
+
+    private void debug(Pointer p){
+        PointerByReference global = getGlobalObject();
+
+    }
+
 
 //    private void free(Pointer p){
 //        Native.free(Pointer.nativeValue(p));

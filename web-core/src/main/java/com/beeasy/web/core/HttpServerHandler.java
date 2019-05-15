@@ -127,6 +127,12 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             return;
         }
 
+        if(request.method().equals(HttpMethod.OPTIONS)){
+            ctx.writeAndFlush(getResponse(null,200));
+//            ctx.close();
+            return;
+        }
+
         boolean keepAlive = HttpUtil.isKeepAlive(request);
         String path = URLUtil.getPath(uri);
         String[] arr = path.substring(1).split("\\/");
@@ -143,13 +149,37 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
                 break route;
             }
 
+            //开始解析请求
+            var context = Context.holder.get();
+            context.reset();
+            decodeQuery(request, context.query);
+            if (request.headers().contains(HttpHeaders.Names.COOKIE)) {
+                context.cookie.wrap(ServerCookieDecoder.LAX.decode(request.headers().get(HttpHeaders.Names.COOKIE)));
+            }
+
+            if (HttpMethod.POST == request.method()) {
+                String contentType = request.headers().getAsString("Content-Type");
+                if (contentType.contains("application/json")) {
+                    context.body = decodeJson(request);
+                } else {
+                    context.body = decodePost(request);
+                }
+            }
+            //全放到这里
+            context.params.putAll(context.query);
+            if (context.body instanceof JSONObject) {
+                context.params.putAll((JSONObject) context.body);
+            }
+
+            //header
+            for (Map.Entry<String, String> header : request.headers()) {
+                context.headers.put(header.getKey(), header.getValue());
+            }
+            //end
+
             String className = ArrayUtil.get(arr, route.cIndex);
             String methodName = ArrayUtil.get(arr, route.aIndex);
 
-            Cookie cookie = Cookie.getInstance();
-            if (request.headers().contains(HttpHeaders.Names.COOKIE)) {
-                cookie.wrap(ServerCookieDecoder.LAX.decode(request.headers().get(HttpHeaders.Names.COOKIE)));
-            }
             MyClassLoadader loader = new MyClassLoadader();
             Class clz = loader.loadClass(route.packageName + "." + className);
             Object result = null;
@@ -179,7 +209,8 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             response.headers().set(HttpHeaders.Names.CONTENT_TYPE, "application/json; charset=utf-8");
             response.headers().set(HttpHeaders.Names.CONTENT_LENGTH, buf.readableBytes());
             writeCors(response);
-            cookie.writeToResponse(response);
+            context.cookie.writeToResponse(response);
+//            buf.release();
 
             write(ctx, response, keepAlive);
             return;
@@ -202,6 +233,11 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
         JSONObject object = new JSONObject();
         decoder.parameters().forEach((k, v) -> object.put(k, v.get(0)));
         return object;
+    }
+
+    public static void decodeQuery(FullHttpRequest request, JSONObject query){
+        QueryStringDecoder decoder = new QueryStringDecoder(request.uri(), StandardCharsets.UTF_8);
+        decoder.parameters().forEach((k, v) -> query.put(k, v.get(0)));
     }
 
     public static JSONObject decodePost(FullHttpRequest request) {
@@ -240,6 +276,7 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
         headers.set(HttpHeaders.Names.ACCESS_CONTROL_ALLOW_ORIGIN, config.cors.origin);
         headers.set(HttpHeaders.Names.ACCESS_CONTROL_ALLOW_METHODS, config.cors.method);
         headers.set(HttpHeaders.Names.ACCESS_CONTROL_ALLOW_HEADERS, config.cors.headers);
+        headers.set(HttpHeaders.Names.ACCESS_CONTROL_ALLOW_CREDENTIALS, config.cors.credentials);
     }
 //    public static Map<String, Object> getGetParamsFromChannel(FullHttpRequest fullHttpRequest) {
 //
@@ -306,26 +343,11 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     private Object[] autoWiredParams(FullHttpRequest request, Class clz, Method method, Map<Class, Object> staticArgs) {
+        var context = Context.holder.get();
         Parameter[] parameters = method.getParameters();
         Object[] ret = new Object[parameters.length];
         int idex = -1;
         int i = 0;
-        JSONObject query = decodeQuery(request);
-        JSON body = null;
-        JSONObject params = new JSONObject();
-        if (HttpMethod.POST == request.method()) {
-            String contentType = request.headers().getAsString("Content-Type");
-            if (contentType.contains("application/json")) {
-                body = decodeJson(request);
-            } else {
-                body = decodePost(request);
-            }
-        }
-        //全放到这里
-        params.putAll(query);
-        if (body instanceof JSONObject) {
-            params.putAll((JSONObject) body);
-        }
 
         for (Parameter parameter : parameters) {
             //特殊字段
@@ -340,7 +362,7 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             }
 
             if(type == Cookie.class){
-                ret[i++] = Cookie.getInstance();
+                ret[i++] = context.cookie;
                 continue;
             }
             if(type == FullHttpRequest.class){
@@ -350,16 +372,20 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 
             switch (name) {
                 case "query":
-                    ret[i] = query.toJavaObject(type);
+                    ret[i] = context.query.toJavaObject(type);
 
                 case "body":
-                    if (body != null) {
-                        ret[i] = body.toJavaObject(type);
+                    if (context.body != null) {
+                        ret[i] = context.body.toJavaObject(type);
                     }
                     break;
 
                 case "params":
-                    ret[i] = params.toJavaObject(type);
+                    ret[i] = context.params.toJavaObject(type);
+                    break;
+
+                case "headers":
+                    ret[i] = context.headers.toJavaObject(type);
                     break;
 
                 default:
@@ -367,10 +393,10 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
                     idex = type.getTypeName().indexOf("[]");
                     //是数组的情况
                     if (idex > -1) {
-                        String source = query.getString(name);
+                        String source = context.query.getString(name);
                         if (isNotEmpty(source)) {
                             if (source.startsWith("[") && source.endsWith("]")) {
-                                JSONArray array = query.getJSONArray(name);
+                                JSONArray array = context.query.getJSONArray(name);
                                 ret[i] = array.toJavaObject(type);
                             } else if (source.contains(",")) {
                                 String[] split = source.split(",");
@@ -383,9 +409,11 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
                             }
                         }
                     } else if (type == MultipartFile.class) {
-                        ret[i] = params.get(name);
+                        ret[i] = context.params.get(name);
+                    } else if (type == Context.class){
+                        ret[i] = context;
                     } else {
-                        ret[i] = getParamValue(query, name, type);
+                        ret[i] = context.getParamValue(name, type);
                     }
                     break;
             }
@@ -394,11 +422,5 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
         return ret;
     }
 
-    private Object getParamValue(JSONObject query, String name, Class type) {
-        try {
-            return query.getObject(name, type);
-        } catch (Exception e) {
-            return null;
-        }
-    }
+
 }

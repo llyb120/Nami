@@ -21,9 +21,14 @@
         "/:c/:a -> com.beeasy.easyshop.filter.Auth -> com.beeasy.easyshop.ctrl"
     ],
     "cors": {
-        "origin": "*",
+        "origin": "http://127.0.0.1:8010",
         "method": "GET,POST,OPTIONS",
-        "headers": "x-requested-with, Authorization, TOKEN, Content-Type"
+        "headers": "X-Requested-With, Authorization, TOKEN, Content-Type",
+        "credentials": "true"
     },
-    "chakra": "d:/"
+    "ext": {
+        "chakra" : "D:\\work\\easyshop\\easy-shop\\js"
+    },
+    "dev": true,
+    "upload" : "d:/uploads"
 }

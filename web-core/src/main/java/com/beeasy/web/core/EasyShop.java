@@ -25,6 +25,9 @@ public class EasyShop {
         Config.init(configPath);
         DBService.start(true);
 
+//        Chakra.start();
+
+
 //        if(StrUtil.isNotEmpty(config.chakra)){
 //            chakraCore = new ChakraCore();
 //            chakraCore.start(true);

@@ -4,6 +4,7 @@ import cn.hutool.core.lang.func.Func;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.netty.util.internal.chmv8.ConcurrentHashMapV8;
 import org.beetl.sql.core.kit.StringKit;
@@ -23,7 +24,8 @@ public class Flow<T,U> {
 //    private LinkedList<Holder> stack = new LinkedList();
     private Class clz;
     private String lastKey = null;
-    private LinkedList<OnItem> onBuf = new LinkedList<>();
+    private List<Object[]> fieldBuffer = new ArrayList<>();
+//    private LinkedList<OnItem> onBuf = new LinkedList<>();
 
     private Flow(JSONObject data){
         this.data = data;
@@ -48,7 +50,7 @@ public class Flow<T,U> {
 
 
     public static <T> Flow<T,?> of(Class<T> clz, JSONObject object){
-        return new Flow(clz, object);
+        return (Flow<T,?>) new Flow(clz, object);
     }
 //    public static <R> Flow<R> of(Object object, Class<R> clz){
 //        return new Flow<R>(object, clz);
@@ -63,7 +65,8 @@ public class Flow<T,U> {
         return as(JSONObject.class);
     }
 
-    public Flow<T,U> append(Function<T,?> function){
+    public Flow<T,U> assign(Function<T,?> function){
+        //因为append涉及实体操作，所以必须转换为对应的类型，并且再操作完后重新放回所有属性
         //这里必须强转
         T obj = (T) data.toJavaObject(clz);
         Object object = function.apply((T) obj);
@@ -74,20 +77,45 @@ public class Flow<T,U> {
         return this;
     }
 
-    public <X> Flow<T,X> on(Property<T,X> function, ValidateType validateType, String errorMessage){
+    public <X> Flow<T,X> on(Property<T,X> function, ValidateType validateType, String errorMessage, SqlOperator operator) {
         String name = getFunctionKey(function);
-        return (Flow<T, X>) on(name, validateType, errorMessage);
+        return (Flow<T, X>) on(name, validateType, errorMessage, operator);
+    }
+    public <X> Flow<T,X> on(Property<T,X> function, ValidateType validateType, String errorMessage){
+        return on(function, validateType, errorMessage, SqlOperator.andeq);
     }
 
-    public Flow<T,U> on(String field, ValidateType validateType, String errorMessage){
+    public Flow<T,U> on(String field, ValidateType validateType, String errorMessage, SqlOperator operator) {
         lastKey = field;
         Object value = data.get(field);
         assertSingle(value ,validateType, errorMessage);
+        //记录operator
+        fieldBuffer.add(new Object[]{field, operator});
         return this;
+    }
+
+    public Flow<T,U> on(String field, ValidateType validateType, String errorMessage){
+        return on(field, validateType, errorMessage, SqlOperator.andeq);
     }
 
     public Flow<T,U> on(ValidateType validateType, String errorMessage){
         assertSingle(data, validateType, errorMessage);
+        return this;
+    }
+    public Flow<T,U> hold(Property<T,?> ...funs){
+        if(data instanceof JSONObject){
+            JSONObject obj = new JSONObject();
+            for (Property<T, ?> fun : funs) {
+                String name = getFunctionKey(fun);
+                obj.put(name, data.get(name));
+            }
+            data.clear();
+            data.putAll(obj);
+//            data = obj;
+        }
+//        else if(data instanceof JSONArray){
+//
+//        }
         return this;
     }
 
@@ -117,6 +145,10 @@ public class Flow<T,U> {
         return this;
     }
 
+//    public <X> Flow<T,U> set(Property<T,X> fun, Function<X,?> vlaueCb){
+//        return this;
+//    }
+
     public Flow<T,U> set(Function<U,U> function){
         Object value = function.apply((U) data.get(lastKey));
         data.put(lastKey, value);
@@ -132,7 +164,7 @@ public class Flow<T,U> {
         return null;
     }
 
-    public Flow<T,U> flowFrom(){
+    public Flow<T,U> find(){
         Query query = sqlManager.query(clz);
         if(data instanceof JSONObject){
             data.forEach((k,v) -> {
@@ -152,11 +184,10 @@ public class Flow<T,U> {
         return this;
     }
 
-    public <X> Flow<X,?> flowFrom(Class<X> clz){
+    public <X> Flow<X,?> find(Class<X> clz){
         as(clz);
-        return (Flow<X, ?>) flowFrom();
+        return (Flow<X, ?>) find();
     }
-
 
 
 
@@ -178,6 +209,10 @@ public class Flow<T,U> {
         notnull,
         notempty,
         notblank;
+    }
+
+    public enum SqlOperator{
+        andeq;
     }
 
 

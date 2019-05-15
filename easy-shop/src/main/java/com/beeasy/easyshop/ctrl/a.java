@@ -24,8 +24,9 @@ public class a {
         int c,
         int[] d
     ) {
+        var a = 100;
         List<JSONObject> list = sqlManager.execute(new SQLReady("select count(1) from ra_member "), JSONObject.class);
-        return "source word " + new b().word;
+        return a + "source word " + new b().word;
     }
 
     public String upload(

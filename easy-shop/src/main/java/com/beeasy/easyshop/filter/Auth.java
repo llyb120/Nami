@@ -7,8 +7,10 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.DES;
 import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
 import cn.hutool.crypto.symmetric.SymmetricCrypto;
+import com.alibaba.fastjson.JSONObject;
 import com.beeasy.web.core.AopInvoke;
 import com.beeasy.web.core.Cookie;
+import com.beeasy.web.core.R;
 import io.netty.handler.codec.http.FullHttpRequest;
 
 import javax.crypto.Cipher;
@@ -22,21 +24,42 @@ import static com.beeasy.web.core.DBService.sqlManager;
 
 public class Auth {
 
+    private static ThreadLocal<Object[]> local = new ThreadLocal<>(){
+        @Override
+        protected Object[] initialValue() {
+            return new Object[10];
+        }
+    };
+
     private static SymmetricCrypto aes;
     static {
         byte[] salt = SecureUtil.generateKey(SymmetricAlgorithm.AES.getValue(), "easyshopeasyshop".getBytes()).getEncoded();
         aes = new SymmetricCrypto(SymmetricAlgorithm.AES, salt);
     }
 
-    public Object around(AopInvoke invoke, Cookie cookie, FullHttpRequest request) throws Exception {
+    public Object around(AopInvoke invoke, JSONObject headers, FullHttpRequest request) throws Exception {
         String path = request.uri();
         if(path.startsWith("/user/login")){
             return invoke.call();
         }
+        //检查权限
+        var token = headers.getString("token");
+        if (StrUtil.isEmpty(token)) {
+            return R.fail("请登录");
+        }
+        try{
+            String str = aes.decryptStr(token);
+            String[] arr = str.split("\\|");
+            if(arr.length < 5){
+                return R.fail("请登录");
+            }
+            System.arraycopy(arr, 0, local.get(), 0, arr.length);
+        }
+        catch (Exception e){
+            return R.fail("请登录");
+        }
         Object ret = invoke.call();
         return ret;
-//        String auth = cookie.get("token");
-//        return createToken("1\t2\t3\t4\t");
     }
 
     public static String createToken(String str){
@@ -44,5 +67,12 @@ public class Auth {
         return aes.encryptHex(str);
     }
 
+    public static String getUid(){
+        return (String) local.get()[0];
+    }
+
+    public static String getStoreId(){
+        return (String) local.get()[2];
+    }
 
 }
