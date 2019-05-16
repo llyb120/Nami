@@ -18,19 +18,13 @@ public class pic {
 
     public R upload(
         MultipartFile file
-    ){
-        String date = DateUtil.format(new Date(), "yyyy-MM-dd");
-        String fileName = StrUtil.uuid() + U.getExt(file.fileName());
-        File dir = new File(config.uploadDir, date);
+    ) throws IOException {
+        var date = DateUtil.format(new Date(), "yyyy-MM-dd");
+        var fileName = StrUtil.uuid() + U.getExt(file.fileName());
+        var dir = new File(config.uploadDir, date);
         dir.mkdirs();
-        try {
-            File target = new File(dir, fileName);
-            file.transferTo(target);
-            return R.ok("/" + date + "/" + fileName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return R.fail();
-
+        File target = new File(dir, fileName);
+        file.transferTo(target);
+        return R.ok("/" + date + "/" + fileName);
     }
 }

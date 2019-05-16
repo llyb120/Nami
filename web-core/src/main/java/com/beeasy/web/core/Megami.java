@@ -17,7 +17,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 import java.nio.charset.Charset;
 import  static com.beeasy.web.core.Config.config;
 
-public class EasyShop {
+public class Megami {
 
 //    public static ChakraCore chakraCore;
 

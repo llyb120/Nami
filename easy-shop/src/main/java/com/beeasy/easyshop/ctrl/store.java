@@ -3,14 +3,10 @@ package com.beeasy.easyshop.ctrl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.beeasy.easyshop.U;
-import com.beeasy.easyshop.filter.Auth;
+import com.beeasy.easyshop.filter.auth;
 import com.beeasy.easyshop.model.*;
 import com.beeasy.web.core.Flow;
 import com.beeasy.web.core.R;
-
-import java.awt.image.Raster;
-import java.util.Arrays;
-import java.util.HashMap;
 
 import static com.beeasy.web.core.DBService.sqlManager;
 
@@ -42,9 +38,10 @@ public class store {
                 RaStore::getnAvatar,
                 RaStore::getnBanner
             );
+        // TODO: 2019/5/16 参数必须校验
         //只能更新我自己的店铺
         sqlManager.lambdaQuery(RaStore.class)
-            .andEq(RaStore::getStoreId, Auth.getStoreId())
+            .andEq(RaStore::getStoreId, auth.getStoreId())
             .updateSelective(body);
         return R.ok(true);
     }
@@ -52,7 +49,7 @@ public class store {
 
     public R orderlist(JSONObject query) {
         //只查我店铺的订单
-        query.put("storeId", Auth.getStoreId());
+        query.put("storeId", auth.getStoreId());
         var pq = U.pageQuery("raOrder.店铺订单查询", JSONObject.class, query);
         if (pq.getTotalRow() > 0) {
 

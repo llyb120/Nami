@@ -1,7 +1,6 @@
 package com.beeasy.easyshop;
 
-import com.beeasy.web.core.EasyShop;
-import com.sun.jna.*;
+import com.beeasy.web.core.Megami;
 
 public class App {
 
@@ -90,7 +89,7 @@ public class App {
         }).start();
 
         //注册控制器
-        EasyShop.start();
+        Megami.start();
 
 
     }

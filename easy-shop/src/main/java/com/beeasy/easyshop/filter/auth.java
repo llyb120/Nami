@@ -22,7 +22,7 @@ import java.util.Base64;
 import static com.beeasy.web.core.DBService.dataSource;
 import static com.beeasy.web.core.DBService.sqlManager;
 
-public class Auth {
+public class auth {
 
     private static ThreadLocal<Object[]> local = new ThreadLocal<>(){
         @Override

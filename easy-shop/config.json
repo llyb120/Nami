@@ -18,7 +18,7 @@
         "compiler": "ecj"
     },
     "route": [
-        "/:c/:a -> com.beeasy.easyshop.filter.Auth -> com.beeasy.easyshop.ctrl"
+        "/:c/:a -> com.beeasy.easyshop.filter.auth -> com.beeasy.easyshop.ctrl"
     ],
     "cors": {
         "origin": "http://127.0.0.1:8010",

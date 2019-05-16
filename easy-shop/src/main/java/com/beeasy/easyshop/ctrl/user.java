@@ -1,7 +1,7 @@
 package com.beeasy.easyshop.ctrl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.beeasy.easyshop.filter.Auth;
+import com.beeasy.easyshop.filter.auth;
 import com.beeasy.easyshop.model.RaMember;
 import com.beeasy.easyshop.model.RaSeller;
 import com.beeasy.web.core.Flow;
@@ -40,7 +40,7 @@ public class user {
             .ok(obj -> {
                 String str = String.format("%s|%s|%s|%s|%d", obj.getString("memberId") , obj.getString("sellerId"), obj.getString("storeId"), obj.getString("sellerName"), System.currentTimeMillis() + 24 * 3600000);
                 return obj(
-                    "token", Auth.createToken(str),
+                    "token", auth.createToken(str),
                     "info", str
                 );
             });

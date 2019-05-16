@@ -19,7 +19,6 @@ public class Chakra {
 
     private static native void start(String workDir, String fileName);
 
-
     public static void start(){
         //判断是否可以加载chakracore
         //必须异步启动
