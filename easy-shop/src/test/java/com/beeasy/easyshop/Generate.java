@@ -44,7 +44,7 @@ public class Generate {
 
     @Test
     public void genOne() throws Exception {
-        sqlManager.genPojoCode("ra_store", "com.beeasy.easyshop.model");
+        sqlManager.genPojoCode("ra_album_class", "com.beeasy.easyshop.model");
     }
 
 }

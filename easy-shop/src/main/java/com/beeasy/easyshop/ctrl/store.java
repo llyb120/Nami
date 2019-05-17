@@ -68,4 +68,58 @@ public class store {
         }
         return R.ok(pq);
     }
+
+
+    public R gallerylist(JSONObject query){
+       //只查我的店铺
+        query.put("storeId", auth.getStoreId());
+        return R.ok(
+            sqlManager.select("raAlbumClass.查询相册", JSONObject.class, query)
+        );
+//        return R.ok(sqlManager.lambdaQuery(RaAlbumClass.class)
+//            .andEq(RaAlbumClass::getStoreId, auth.getStoreId())
+//            .select());
+    }
+
+    /**
+     * 添加相册
+     * @param body
+     * @return
+     */
+    public R addgallery(JSONObject body){
+        var item = Flow.of(RaAlbumClass.class, body)
+            .hold(
+                RaAlbumClass::getAclassSort,
+                RaAlbumClass::getAclassId,
+                RaAlbumClass::getAclassName,
+                RaAlbumClass::getAclassDes
+            )
+            .on(RaAlbumClass::getAclassName, Flow.ValidateType.notempty, "相册名不能为空")
+            .cast();
+        if(item.getAclassId() != null){
+            sqlManager.lambdaQuery(RaAlbumClass.class)
+                .andEq(RaAlbumClass::getStoreId, auth.getStoreId())
+                .andEq(RaAlbumClass::getAclassId, item.getAclassId())
+                .updateSelective(item);
+        } else {
+            item.setStoreId(Integer.parseInt(auth.getStoreId()));
+            sqlManager.insert(item);
+        }
+
+        return R.ok();
+    }
+
+    /**
+     * 删除相册
+     * @param id
+     * @return
+     */
+    public R delgallery(String id){
+        //只能删除自己的
+        sqlManager.lambdaQuery(RaAlbumClass.class)
+            .andEq(RaAlbumClass::getStoreId, auth.getStoreId())
+            .andEq(RaAlbumClass::getAclassId, id)
+            .delete();
+        return R.ok();
+    }
 }

@@ -19,12 +19,14 @@ public class pic {
     public R upload(
         MultipartFile file
     ) throws IOException {
-        var date = DateUtil.format(new Date(), "yyyy-MM-dd");
-        var fileName = StrUtil.uuid() + U.getExt(file.fileName());
-        var dir = new File(config.uploadDir, date);
-        dir.mkdirs();
-        File target = new File(dir, fileName);
-        file.transferTo(target);
-        return R.ok("/" + date + "/" + fileName);
+        String name = U.fixFileName(file.fileName());
+//        var date = DateUtil.format(new Date(), "yyyy-MM-dd");
+//        var fileName = StrUtil.uuid() + U.getExt(file.fileName());
+//        var dir = new File(config.uploadDir, date);
+//        dir.mkdirs();
+//        File target = new File(dir, fileName);
+//        return R.ok(target.getAbsolutePath().replace(config.uploadDir.getAbsolutePath(), ""));
+        file.transferTo(new File(config.uploadDir, name));
+        return R.ok(name);
     }
 }

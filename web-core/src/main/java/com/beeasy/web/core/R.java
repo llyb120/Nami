@@ -8,7 +8,7 @@ public class R {
     public String errMessage = "";
 
     public static R ok(){
-       return ok(null);
+       return ok(true);
     }
 
     public static R ok(Object object){

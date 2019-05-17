@@ -1,11 +1,15 @@
 package com.beeasy.easyshop;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.beetl.sql.core.engine.PageQuery;
 
 import java.io.File;
+import java.util.Date;
 
 import static com.beeasy.web.core.DBService.sqlManager;
+import static com.beeasy.web.core.Config.config;
 
 public class U {
 
@@ -55,5 +59,13 @@ public class U {
         } else {
             return name.substring(lastdot);
         }
+    }
+
+    public static String fixFileName(String fileName){
+        var date = DateUtil.format(new Date(), "yyyy-MM-dd");
+        fileName = StrUtil.uuid() + U.getExt(fileName);
+        var dir = new File(config.uploadDir, date);
+        dir.mkdirs();
+        return "/" + date + "/" + fileName;
     }
 }

@@ -155,6 +155,10 @@ public class Flow<T,U> {
         return this;
     }
 
+    public T cast(){
+        return (T) JSON.toJavaObject(data, clz);
+    }
+
     public T get(){
         return (T) data;
     }

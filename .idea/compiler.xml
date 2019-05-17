@@ -10,9 +10,6 @@
         <module name="web-core" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="easyshop" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
