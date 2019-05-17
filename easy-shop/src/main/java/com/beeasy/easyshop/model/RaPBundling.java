@@ -7,43 +7,53 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_p_bundling")
 public class RaPBundling   {
 	
+	// alias
+	public static final String ALIAS_bl_id = "bl_id";
+	public static final String ALIAS_bl_freight_choose = "bl_freight_choose";
+	public static final String ALIAS_bl_state = "bl_state";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_bl_discount_price = "bl_discount_price";
+	public static final String ALIAS_bl_freight = "bl_freight";
+	public static final String ALIAS_bl_name = "bl_name";
+	public static final String ALIAS_store_name = "store_name";
+	
 	/*
 	组合ID
 	*/
-	private Integer blId ;
+	private Integer bl_id ;
 	/*
 	运费承担方式
 	*/
-	private Integer blFreightChoose ;
+	private Integer bl_freight_choose ;
 	/*
 	组合状态 0-关闭/1-开启
 	*/
-	private Integer blState ;
+	private Integer bl_state ;
 	/*
 	店铺名称
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	组合价格
 	*/
-	private BigDecimal blDiscountPrice ;
+	private BigDecimal bl_discount_price ;
 	/*
 	运费
 	*/
-	private BigDecimal blFreight ;
+	private BigDecimal bl_freight ;
 	/*
 	组合名称
 	*/
-	private String blName ;
+	private String bl_name ;
 	/*
 	店铺名称
 	*/
-	private String storeName ;
+	private String store_name ;
 	
 	public RaPBundling() {
 	}
@@ -52,120 +62,120 @@ public class RaPBundling   {
 	* 组合ID
 	*@return 
 	*/
-	public Integer getBlId(){
-		return  blId;
+	public Integer getBl_id(){
+		return  bl_id;
 	}
 	/**
 	* 组合ID
-	*@param  blId
+	*@param  bl_id
 	*/
-	public void setBlId(Integer blId ){
-		this.blId = blId;
+	public void setBl_id(Integer bl_id ){
+		this.bl_id = bl_id;
 	}
 	
 	/**
 	* 运费承担方式
 	*@return 
 	*/
-	public Integer getBlFreightChoose(){
-		return  blFreightChoose;
+	public Integer getBl_freight_choose(){
+		return  bl_freight_choose;
 	}
 	/**
 	* 运费承担方式
-	*@param  blFreightChoose
+	*@param  bl_freight_choose
 	*/
-	public void setBlFreightChoose(Integer blFreightChoose ){
-		this.blFreightChoose = blFreightChoose;
+	public void setBl_freight_choose(Integer bl_freight_choose ){
+		this.bl_freight_choose = bl_freight_choose;
 	}
 	
 	/**
 	* 组合状态 0-关闭/1-开启
 	*@return 
 	*/
-	public Integer getBlState(){
-		return  blState;
+	public Integer getBl_state(){
+		return  bl_state;
 	}
 	/**
 	* 组合状态 0-关闭/1-开启
-	*@param  blState
+	*@param  bl_state
 	*/
-	public void setBlState(Integer blState ){
-		this.blState = blState;
+	public void setBl_state(Integer bl_state ){
+		this.bl_state = bl_state;
 	}
 	
 	/**
 	* 店铺名称
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺名称
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 组合价格
 	*@return 
 	*/
-	public BigDecimal getBlDiscountPrice(){
-		return  blDiscountPrice;
+	public BigDecimal getBl_discount_price(){
+		return  bl_discount_price;
 	}
 	/**
 	* 组合价格
-	*@param  blDiscountPrice
+	*@param  bl_discount_price
 	*/
-	public void setBlDiscountPrice(BigDecimal blDiscountPrice ){
-		this.blDiscountPrice = blDiscountPrice;
+	public void setBl_discount_price(BigDecimal bl_discount_price ){
+		this.bl_discount_price = bl_discount_price;
 	}
 	
 	/**
 	* 运费
 	*@return 
 	*/
-	public BigDecimal getBlFreight(){
-		return  blFreight;
+	public BigDecimal getBl_freight(){
+		return  bl_freight;
 	}
 	/**
 	* 运费
-	*@param  blFreight
+	*@param  bl_freight
 	*/
-	public void setBlFreight(BigDecimal blFreight ){
-		this.blFreight = blFreight;
+	public void setBl_freight(BigDecimal bl_freight ){
+		this.bl_freight = bl_freight;
 	}
 	
 	/**
 	* 组合名称
 	*@return 
 	*/
-	public String getBlName(){
-		return  blName;
+	public String getBl_name(){
+		return  bl_name;
 	}
 	/**
 	* 组合名称
-	*@param  blName
+	*@param  bl_name
 	*/
-	public void setBlName(String blName ){
-		this.blName = blName;
+	public void setBl_name(String bl_name ){
+		this.bl_name = bl_name;
 	}
 	
 	/**
 	* 店铺名称
 	*@return 
 	*/
-	public String getStoreName(){
-		return  storeName;
+	public String getStore_name(){
+		return  store_name;
 	}
 	/**
 	* 店铺名称
-	*@param  storeName
+	*@param  store_name
 	*/
-	public void setStoreName(String storeName ){
-		this.storeName = storeName;
+	public void setStore_name(String store_name ){
+		this.store_name = store_name;
 	}
 	
 

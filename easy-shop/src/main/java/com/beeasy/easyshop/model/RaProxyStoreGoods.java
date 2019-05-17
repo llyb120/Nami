@@ -7,14 +7,19 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_proxy_store_goods")
 public class RaProxyStoreGoods   {
 	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_goods_commonid = "goods_commonid";
+	public static final String ALIAS_member_id = "member_id";
+	
 	private Integer id ;
-	private Integer goodsCommonid ;
-	private Integer memberId ;
+	private Integer goods_commonid ;
+	private Integer member_id ;
 	
 	public RaProxyStoreGoods() {
 	}
@@ -26,18 +31,18 @@ public class RaProxyStoreGoods   {
 		this.id = id;
 	}
 	
-	public Integer getGoodsCommonid(){
-		return  goodsCommonid;
+	public Integer getGoods_commonid(){
+		return  goods_commonid;
 	}
-	public void setGoodsCommonid(Integer goodsCommonid ){
-		this.goodsCommonid = goodsCommonid;
+	public void setGoods_commonid(Integer goods_commonid ){
+		this.goods_commonid = goods_commonid;
 	}
 	
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 

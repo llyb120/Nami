@@ -7,10 +7,16 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_cron")
 public class RaCron   {
+	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_exeid = "exeid";
+	public static final String ALIAS_exetime = "exetime";
+	public static final String ALIAS_type = "type";
 	
 	private Integer id ;
 	/*

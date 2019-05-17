@@ -53,6 +53,7 @@ public class Config {
         public String driver;
         public String username;
         public String password;
+        public String style;
     }
 
     static class Compile{

@@ -7,12 +7,22 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_goods_browse")
 public class RaGoodsBrowse   {
 	
-	private Integer browseId ;
+	// alias
+	public static final String ALIAS_browse_id = "browse_id";
+	public static final String ALIAS_browsetime = "browsetime";
+	public static final String ALIAS_gc_id = "gc_id";
+	public static final String ALIAS_gc_id_1 = "gc_id_1";
+	public static final String ALIAS_gc_id_2 = "gc_id_2";
+	public static final String ALIAS_gc_id_3 = "gc_id_3";
+	public static final String ALIAS_goods_id = "goods_id";
+	public static final String ALIAS_member_id = "member_id";
+	
+	private Integer browse_id ;
 	/*
 	浏览时间
 	*/
@@ -20,36 +30,36 @@ public class RaGoodsBrowse   {
 	/*
 	商品分类
 	*/
-	private Integer gcId ;
+	private Integer gc_id ;
 	/*
 	商品一级分类
 	*/
-	private Integer gcId1 ;
+	private Integer gc_id_1 ;
 	/*
 	商品二级分类
 	*/
-	private Integer gcId2 ;
+	private Integer gc_id_2 ;
 	/*
 	商品三级分类
 	*/
-	private Integer gcId3 ;
+	private Integer gc_id_3 ;
 	/*
 	商品ID
 	*/
-	private Integer goodsId ;
+	private Integer goods_id ;
 	/*
 	会员ID
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	
 	public RaGoodsBrowse() {
 	}
 	
-	public Integer getBrowseId(){
-		return  browseId;
+	public Integer getBrowse_id(){
+		return  browse_id;
 	}
-	public void setBrowseId(Integer browseId ){
-		this.browseId = browseId;
+	public void setBrowse_id(Integer browse_id ){
+		this.browse_id = browse_id;
 	}
 	
 	/**
@@ -71,90 +81,90 @@ public class RaGoodsBrowse   {
 	* 商品分类
 	*@return 
 	*/
-	public Integer getGcId(){
-		return  gcId;
+	public Integer getGc_id(){
+		return  gc_id;
 	}
 	/**
 	* 商品分类
-	*@param  gcId
+	*@param  gc_id
 	*/
-	public void setGcId(Integer gcId ){
-		this.gcId = gcId;
+	public void setGc_id(Integer gc_id ){
+		this.gc_id = gc_id;
 	}
 	
 	/**
 	* 商品一级分类
 	*@return 
 	*/
-	public Integer getGcId1(){
-		return  gcId1;
+	public Integer getGc_id_1(){
+		return  gc_id_1;
 	}
 	/**
 	* 商品一级分类
-	*@param  gcId1
+	*@param  gc_id_1
 	*/
-	public void setGcId1(Integer gcId1 ){
-		this.gcId1 = gcId1;
+	public void setGc_id_1(Integer gc_id_1 ){
+		this.gc_id_1 = gc_id_1;
 	}
 	
 	/**
 	* 商品二级分类
 	*@return 
 	*/
-	public Integer getGcId2(){
-		return  gcId2;
+	public Integer getGc_id_2(){
+		return  gc_id_2;
 	}
 	/**
 	* 商品二级分类
-	*@param  gcId2
+	*@param  gc_id_2
 	*/
-	public void setGcId2(Integer gcId2 ){
-		this.gcId2 = gcId2;
+	public void setGc_id_2(Integer gc_id_2 ){
+		this.gc_id_2 = gc_id_2;
 	}
 	
 	/**
 	* 商品三级分类
 	*@return 
 	*/
-	public Integer getGcId3(){
-		return  gcId3;
+	public Integer getGc_id_3(){
+		return  gc_id_3;
 	}
 	/**
 	* 商品三级分类
-	*@param  gcId3
+	*@param  gc_id_3
 	*/
-	public void setGcId3(Integer gcId3 ){
-		this.gcId3 = gcId3;
+	public void setGc_id_3(Integer gc_id_3 ){
+		this.gc_id_3 = gc_id_3;
 	}
 	
 	/**
 	* 商品ID
 	*@return 
 	*/
-	public Integer getGoodsId(){
-		return  goodsId;
+	public Integer getGoods_id(){
+		return  goods_id;
 	}
 	/**
 	* 商品ID
-	*@param  goodsId
+	*@param  goods_id
 	*/
-	public void setGoodsId(Integer goodsId ){
-		this.goodsId = goodsId;
+	public void setGoods_id(Integer goods_id ){
+		this.goods_id = goods_id;
 	}
 	
 	/**
 	* 会员ID
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 会员ID
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 

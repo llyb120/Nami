@@ -7,55 +7,68 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_circle_threply")
 public class RaCircleThreply   {
 	
+	// alias
+	public static final String ALIAS_reply_id = "reply_id";
+	public static final String ALIAS_theme_id = "theme_id";
+	public static final String ALIAS_circle_id = "circle_id";
+	public static final String ALIAS_is_closed = "is_closed";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_reply_exp = "reply_exp";
+	public static final String ALIAS_reply_replyid = "reply_replyid";
+	public static final String ALIAS_member_name = "member_name";
+	public static final String ALIAS_reply_addtime = "reply_addtime";
+	public static final String ALIAS_reply_content = "reply_content";
+	public static final String ALIAS_reply_replyname = "reply_replyname";
+	
 	/*
 	评论id
 	*/
-	private Integer replyId ;
+	private Integer reply_id ;
 	/*
 	主题id
 	*/
-	private Integer themeId ;
+	private Integer theme_id ;
 	/*
 	圈子id
 	*/
-	private Integer circleId ;
+	private Integer circle_id ;
 	/*
 	屏蔽 1是 0否
 	*/
-	private Integer isClosed ;
+	private Integer is_closed ;
 	/*
 	会员id
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	获得经验
 	*/
-	private Integer replyExp ;
+	private Integer reply_exp ;
 	/*
 	回复楼层id
 	*/
-	private Integer replyReplyid ;
+	private Integer reply_replyid ;
 	/*
 	会员名称
 	*/
-	private String memberName ;
+	private String member_name ;
 	/*
 	发表时间
 	*/
-	private String replyAddtime ;
+	private String reply_addtime ;
 	/*
 	评论内容
 	*/
-	private String replyContent ;
+	private String reply_content ;
 	/*
 	回复楼层会员名称
 	*/
-	private String replyReplyname ;
+	private String reply_replyname ;
 	
 	public RaCircleThreply() {
 	}
@@ -64,165 +77,165 @@ public class RaCircleThreply   {
 	* 评论id
 	*@return 
 	*/
-	public Integer getReplyId(){
-		return  replyId;
+	public Integer getReply_id(){
+		return  reply_id;
 	}
 	/**
 	* 评论id
-	*@param  replyId
+	*@param  reply_id
 	*/
-	public void setReplyId(Integer replyId ){
-		this.replyId = replyId;
+	public void setReply_id(Integer reply_id ){
+		this.reply_id = reply_id;
 	}
 	
 	/**
 	* 主题id
 	*@return 
 	*/
-	public Integer getThemeId(){
-		return  themeId;
+	public Integer getTheme_id(){
+		return  theme_id;
 	}
 	/**
 	* 主题id
-	*@param  themeId
+	*@param  theme_id
 	*/
-	public void setThemeId(Integer themeId ){
-		this.themeId = themeId;
+	public void setTheme_id(Integer theme_id ){
+		this.theme_id = theme_id;
 	}
 	
 	/**
 	* 圈子id
 	*@return 
 	*/
-	public Integer getCircleId(){
-		return  circleId;
+	public Integer getCircle_id(){
+		return  circle_id;
 	}
 	/**
 	* 圈子id
-	*@param  circleId
+	*@param  circle_id
 	*/
-	public void setCircleId(Integer circleId ){
-		this.circleId = circleId;
+	public void setCircle_id(Integer circle_id ){
+		this.circle_id = circle_id;
 	}
 	
 	/**
 	* 屏蔽 1是 0否
 	*@return 
 	*/
-	public Integer getIsClosed(){
-		return  isClosed;
+	public Integer getIs_closed(){
+		return  is_closed;
 	}
 	/**
 	* 屏蔽 1是 0否
-	*@param  isClosed
+	*@param  is_closed
 	*/
-	public void setIsClosed(Integer isClosed ){
-		this.isClosed = isClosed;
+	public void setIs_closed(Integer is_closed ){
+		this.is_closed = is_closed;
 	}
 	
 	/**
 	* 会员id
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 会员id
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 获得经验
 	*@return 
 	*/
-	public Integer getReplyExp(){
-		return  replyExp;
+	public Integer getReply_exp(){
+		return  reply_exp;
 	}
 	/**
 	* 获得经验
-	*@param  replyExp
+	*@param  reply_exp
 	*/
-	public void setReplyExp(Integer replyExp ){
-		this.replyExp = replyExp;
+	public void setReply_exp(Integer reply_exp ){
+		this.reply_exp = reply_exp;
 	}
 	
 	/**
 	* 回复楼层id
 	*@return 
 	*/
-	public Integer getReplyReplyid(){
-		return  replyReplyid;
+	public Integer getReply_replyid(){
+		return  reply_replyid;
 	}
 	/**
 	* 回复楼层id
-	*@param  replyReplyid
+	*@param  reply_replyid
 	*/
-	public void setReplyReplyid(Integer replyReplyid ){
-		this.replyReplyid = replyReplyid;
+	public void setReply_replyid(Integer reply_replyid ){
+		this.reply_replyid = reply_replyid;
 	}
 	
 	/**
 	* 会员名称
 	*@return 
 	*/
-	public String getMemberName(){
-		return  memberName;
+	public String getMember_name(){
+		return  member_name;
 	}
 	/**
 	* 会员名称
-	*@param  memberName
+	*@param  member_name
 	*/
-	public void setMemberName(String memberName ){
-		this.memberName = memberName;
+	public void setMember_name(String member_name ){
+		this.member_name = member_name;
 	}
 	
 	/**
 	* 发表时间
 	*@return 
 	*/
-	public String getReplyAddtime(){
-		return  replyAddtime;
+	public String getReply_addtime(){
+		return  reply_addtime;
 	}
 	/**
 	* 发表时间
-	*@param  replyAddtime
+	*@param  reply_addtime
 	*/
-	public void setReplyAddtime(String replyAddtime ){
-		this.replyAddtime = replyAddtime;
+	public void setReply_addtime(String reply_addtime ){
+		this.reply_addtime = reply_addtime;
 	}
 	
 	/**
 	* 评论内容
 	*@return 
 	*/
-	public String getReplyContent(){
-		return  replyContent;
+	public String getReply_content(){
+		return  reply_content;
 	}
 	/**
 	* 评论内容
-	*@param  replyContent
+	*@param  reply_content
 	*/
-	public void setReplyContent(String replyContent ){
-		this.replyContent = replyContent;
+	public void setReply_content(String reply_content ){
+		this.reply_content = reply_content;
 	}
 	
 	/**
 	* 回复楼层会员名称
 	*@return 
 	*/
-	public String getReplyReplyname(){
-		return  replyReplyname;
+	public String getReply_replyname(){
+		return  reply_replyname;
 	}
 	/**
 	* 回复楼层会员名称
-	*@param  replyReplyname
+	*@param  reply_replyname
 	*/
-	public void setReplyReplyname(String replyReplyname ){
-		this.replyReplyname = replyReplyname;
+	public void setReply_replyname(String reply_replyname ){
+		this.reply_replyname = reply_replyname;
 	}
 	
 

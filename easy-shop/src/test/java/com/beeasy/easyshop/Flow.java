@@ -24,8 +24,8 @@ public class Flow {
     public void testlogin(){
 
         var ret = get("/user/login",obj(
-            "memberName", "myzy",
-            "memberPasswd", "123456"
+            "member_name", "myzy",
+            "member_passwd", "123456"
         ));
         Assert.assertEquals(200, ret.code);
         Assert.assertNotNull(ret.data);

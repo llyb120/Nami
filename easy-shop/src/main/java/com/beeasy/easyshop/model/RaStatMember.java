@@ -7,59 +7,73 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_stat_member")
 public class RaStatMember   {
 	
+	// alias
+	public static final String ALIAS_statm_id = "statm_id";
+	public static final String ALIAS_statm_goodsnum = "statm_goodsnum";
+	public static final String ALIAS_statm_memberid = "statm_memberid";
+	public static final String ALIAS_statm_ordernum = "statm_ordernum";
+	public static final String ALIAS_statm_pointsincrease = "statm_pointsincrease";
+	public static final String ALIAS_statm_pointsreduce = "statm_pointsreduce";
+	public static final String ALIAS_statm_time = "statm_time";
+	public static final String ALIAS_statm_updatetime = "statm_updatetime";
+	public static final String ALIAS_statm_membername = "statm_membername";
+	public static final String ALIAS_statm_orderamount = "statm_orderamount";
+	public static final String ALIAS_statm_predincrease = "statm_predincrease";
+	public static final String ALIAS_statm_predreduce = "statm_predreduce";
+	
 	/*
 	自增ID
 	*/
-	private Integer statmId ;
+	private Integer statm_id ;
 	/*
 	下单商品件数
 	*/
-	private Integer statmGoodsnum ;
+	private Integer statm_goodsnum ;
 	/*
 	会员ID
 	*/
-	private Integer statmMemberid ;
+	private Integer statm_memberid ;
 	/*
 	下单量
 	*/
-	private Integer statmOrdernum ;
+	private Integer statm_ordernum ;
 	/*
 	积分增加额
 	*/
-	private Integer statmPointsincrease ;
+	private Integer statm_pointsincrease ;
 	/*
 	积分减少额
 	*/
-	private Integer statmPointsreduce ;
+	private Integer statm_pointsreduce ;
 	/*
 	统计时间，当前按照最小时间单位为天
 	*/
-	private Integer statmTime ;
+	private Integer statm_time ;
 	/*
 	记录更新时间
 	*/
-	private Integer statmUpdatetime ;
+	private Integer statm_updatetime ;
 	/*
 	会员名称
 	*/
-	private String statmMembername ;
+	private String statm_membername ;
 	/*
 	下单金额
 	*/
-	private BigDecimal statmOrderamount ;
+	private BigDecimal statm_orderamount ;
 	/*
 	预存款增加额
 	*/
-	private BigDecimal statmPredincrease ;
+	private BigDecimal statm_predincrease ;
 	/*
 	预存款减少额
 	*/
-	private BigDecimal statmPredreduce ;
+	private BigDecimal statm_predreduce ;
 	
 	public RaStatMember() {
 	}
@@ -68,180 +82,180 @@ public class RaStatMember   {
 	* 自增ID
 	*@return 
 	*/
-	public Integer getStatmId(){
-		return  statmId;
+	public Integer getStatm_id(){
+		return  statm_id;
 	}
 	/**
 	* 自增ID
-	*@param  statmId
+	*@param  statm_id
 	*/
-	public void setStatmId(Integer statmId ){
-		this.statmId = statmId;
+	public void setStatm_id(Integer statm_id ){
+		this.statm_id = statm_id;
 	}
 	
 	/**
 	* 下单商品件数
 	*@return 
 	*/
-	public Integer getStatmGoodsnum(){
-		return  statmGoodsnum;
+	public Integer getStatm_goodsnum(){
+		return  statm_goodsnum;
 	}
 	/**
 	* 下单商品件数
-	*@param  statmGoodsnum
+	*@param  statm_goodsnum
 	*/
-	public void setStatmGoodsnum(Integer statmGoodsnum ){
-		this.statmGoodsnum = statmGoodsnum;
+	public void setStatm_goodsnum(Integer statm_goodsnum ){
+		this.statm_goodsnum = statm_goodsnum;
 	}
 	
 	/**
 	* 会员ID
 	*@return 
 	*/
-	public Integer getStatmMemberid(){
-		return  statmMemberid;
+	public Integer getStatm_memberid(){
+		return  statm_memberid;
 	}
 	/**
 	* 会员ID
-	*@param  statmMemberid
+	*@param  statm_memberid
 	*/
-	public void setStatmMemberid(Integer statmMemberid ){
-		this.statmMemberid = statmMemberid;
+	public void setStatm_memberid(Integer statm_memberid ){
+		this.statm_memberid = statm_memberid;
 	}
 	
 	/**
 	* 下单量
 	*@return 
 	*/
-	public Integer getStatmOrdernum(){
-		return  statmOrdernum;
+	public Integer getStatm_ordernum(){
+		return  statm_ordernum;
 	}
 	/**
 	* 下单量
-	*@param  statmOrdernum
+	*@param  statm_ordernum
 	*/
-	public void setStatmOrdernum(Integer statmOrdernum ){
-		this.statmOrdernum = statmOrdernum;
+	public void setStatm_ordernum(Integer statm_ordernum ){
+		this.statm_ordernum = statm_ordernum;
 	}
 	
 	/**
 	* 积分增加额
 	*@return 
 	*/
-	public Integer getStatmPointsincrease(){
-		return  statmPointsincrease;
+	public Integer getStatm_pointsincrease(){
+		return  statm_pointsincrease;
 	}
 	/**
 	* 积分增加额
-	*@param  statmPointsincrease
+	*@param  statm_pointsincrease
 	*/
-	public void setStatmPointsincrease(Integer statmPointsincrease ){
-		this.statmPointsincrease = statmPointsincrease;
+	public void setStatm_pointsincrease(Integer statm_pointsincrease ){
+		this.statm_pointsincrease = statm_pointsincrease;
 	}
 	
 	/**
 	* 积分减少额
 	*@return 
 	*/
-	public Integer getStatmPointsreduce(){
-		return  statmPointsreduce;
+	public Integer getStatm_pointsreduce(){
+		return  statm_pointsreduce;
 	}
 	/**
 	* 积分减少额
-	*@param  statmPointsreduce
+	*@param  statm_pointsreduce
 	*/
-	public void setStatmPointsreduce(Integer statmPointsreduce ){
-		this.statmPointsreduce = statmPointsreduce;
+	public void setStatm_pointsreduce(Integer statm_pointsreduce ){
+		this.statm_pointsreduce = statm_pointsreduce;
 	}
 	
 	/**
 	* 统计时间，当前按照最小时间单位为天
 	*@return 
 	*/
-	public Integer getStatmTime(){
-		return  statmTime;
+	public Integer getStatm_time(){
+		return  statm_time;
 	}
 	/**
 	* 统计时间，当前按照最小时间单位为天
-	*@param  statmTime
+	*@param  statm_time
 	*/
-	public void setStatmTime(Integer statmTime ){
-		this.statmTime = statmTime;
+	public void setStatm_time(Integer statm_time ){
+		this.statm_time = statm_time;
 	}
 	
 	/**
 	* 记录更新时间
 	*@return 
 	*/
-	public Integer getStatmUpdatetime(){
-		return  statmUpdatetime;
+	public Integer getStatm_updatetime(){
+		return  statm_updatetime;
 	}
 	/**
 	* 记录更新时间
-	*@param  statmUpdatetime
+	*@param  statm_updatetime
 	*/
-	public void setStatmUpdatetime(Integer statmUpdatetime ){
-		this.statmUpdatetime = statmUpdatetime;
+	public void setStatm_updatetime(Integer statm_updatetime ){
+		this.statm_updatetime = statm_updatetime;
 	}
 	
 	/**
 	* 会员名称
 	*@return 
 	*/
-	public String getStatmMembername(){
-		return  statmMembername;
+	public String getStatm_membername(){
+		return  statm_membername;
 	}
 	/**
 	* 会员名称
-	*@param  statmMembername
+	*@param  statm_membername
 	*/
-	public void setStatmMembername(String statmMembername ){
-		this.statmMembername = statmMembername;
+	public void setStatm_membername(String statm_membername ){
+		this.statm_membername = statm_membername;
 	}
 	
 	/**
 	* 下单金额
 	*@return 
 	*/
-	public BigDecimal getStatmOrderamount(){
-		return  statmOrderamount;
+	public BigDecimal getStatm_orderamount(){
+		return  statm_orderamount;
 	}
 	/**
 	* 下单金额
-	*@param  statmOrderamount
+	*@param  statm_orderamount
 	*/
-	public void setStatmOrderamount(BigDecimal statmOrderamount ){
-		this.statmOrderamount = statmOrderamount;
+	public void setStatm_orderamount(BigDecimal statm_orderamount ){
+		this.statm_orderamount = statm_orderamount;
 	}
 	
 	/**
 	* 预存款增加额
 	*@return 
 	*/
-	public BigDecimal getStatmPredincrease(){
-		return  statmPredincrease;
+	public BigDecimal getStatm_predincrease(){
+		return  statm_predincrease;
 	}
 	/**
 	* 预存款增加额
-	*@param  statmPredincrease
+	*@param  statm_predincrease
 	*/
-	public void setStatmPredincrease(BigDecimal statmPredincrease ){
-		this.statmPredincrease = statmPredincrease;
+	public void setStatm_predincrease(BigDecimal statm_predincrease ){
+		this.statm_predincrease = statm_predincrease;
 	}
 	
 	/**
 	* 预存款减少额
 	*@return 
 	*/
-	public BigDecimal getStatmPredreduce(){
-		return  statmPredreduce;
+	public BigDecimal getStatm_predreduce(){
+		return  statm_predreduce;
 	}
 	/**
 	* 预存款减少额
-	*@param  statmPredreduce
+	*@param  statm_predreduce
 	*/
-	public void setStatmPredreduce(BigDecimal statmPredreduce ){
-		this.statmPredreduce = statmPredreduce;
+	public void setStatm_predreduce(BigDecimal statm_predreduce ){
+		this.statm_predreduce = statm_predreduce;
 	}
 	
 

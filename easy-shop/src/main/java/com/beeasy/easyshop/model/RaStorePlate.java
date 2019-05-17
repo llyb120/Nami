@@ -7,31 +7,38 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_plate")
 public class RaStorePlate   {
 	
+	// alias
+	public static final String ALIAS_plate_id = "plate_id";
+	public static final String ALIAS_plate_position = "plate_position";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_plate_content = "plate_content";
+	public static final String ALIAS_plate_name = "plate_name";
+	
 	/*
 	关联板式id
 	*/
-	private Integer plateId ;
+	private Integer plate_id ;
 	/*
 	关联板式位置 1顶部，0底部
 	*/
-	private Integer platePosition ;
+	private Integer plate_position ;
 	/*
 	所属店铺id
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	关联板式内容
 	*/
-	private String plateContent ;
+	private String plate_content ;
 	/*
 	关联板式名称
 	*/
-	private String plateName ;
+	private String plate_name ;
 	
 	public RaStorePlate() {
 	}
@@ -40,75 +47,75 @@ public class RaStorePlate   {
 	* 关联板式id
 	*@return 
 	*/
-	public Integer getPlateId(){
-		return  plateId;
+	public Integer getPlate_id(){
+		return  plate_id;
 	}
 	/**
 	* 关联板式id
-	*@param  plateId
+	*@param  plate_id
 	*/
-	public void setPlateId(Integer plateId ){
-		this.plateId = plateId;
+	public void setPlate_id(Integer plate_id ){
+		this.plate_id = plate_id;
 	}
 	
 	/**
 	* 关联板式位置 1顶部，0底部
 	*@return 
 	*/
-	public Integer getPlatePosition(){
-		return  platePosition;
+	public Integer getPlate_position(){
+		return  plate_position;
 	}
 	/**
 	* 关联板式位置 1顶部，0底部
-	*@param  platePosition
+	*@param  plate_position
 	*/
-	public void setPlatePosition(Integer platePosition ){
-		this.platePosition = platePosition;
+	public void setPlate_position(Integer plate_position ){
+		this.plate_position = plate_position;
 	}
 	
 	/**
 	* 所属店铺id
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 所属店铺id
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 关联板式内容
 	*@return 
 	*/
-	public String getPlateContent(){
-		return  plateContent;
+	public String getPlate_content(){
+		return  plate_content;
 	}
 	/**
 	* 关联板式内容
-	*@param  plateContent
+	*@param  plate_content
 	*/
-	public void setPlateContent(String plateContent ){
-		this.plateContent = plateContent;
+	public void setPlate_content(String plate_content ){
+		this.plate_content = plate_content;
 	}
 	
 	/**
 	* 关联板式名称
 	*@return 
 	*/
-	public String getPlateName(){
-		return  plateName;
+	public String getPlate_name(){
+		return  plate_name;
 	}
 	/**
 	* 关联板式名称
-	*@param  plateName
+	*@param  plate_name
 	*/
-	public void setPlateName(String plateName ){
-		this.plateName = plateName;
+	public void setPlate_name(String plate_name ){
+		this.plate_name = plate_name;
 	}
 	
 

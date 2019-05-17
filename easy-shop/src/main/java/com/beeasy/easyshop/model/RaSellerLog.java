@@ -7,47 +7,58 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_seller_log")
 public class RaSellerLog   {
 	
+	// alias
+	public static final String ALIAS_log_id = "log_id";
+	public static final String ALIAS_log_seller_id = "log_seller_id";
+	public static final String ALIAS_log_state = "log_state";
+	public static final String ALIAS_log_store_id = "log_store_id";
+	public static final String ALIAS_log_time = "log_time";
+	public static final String ALIAS_log_content = "log_content";
+	public static final String ALIAS_log_seller_ip = "log_seller_ip";
+	public static final String ALIAS_log_seller_name = "log_seller_name";
+	public static final String ALIAS_log_url = "log_url";
+	
 	/*
 	日志编号
 	*/
-	private Integer logId ;
+	private Integer log_id ;
 	/*
 	卖家编号
 	*/
-	private Integer logSellerId ;
+	private Integer log_seller_id ;
 	/*
 	日志状态(0-失败 1-成功)
 	*/
-	private Integer logState ;
+	private Integer log_state ;
 	/*
 	店铺编号
 	*/
-	private Integer logStoreId ;
+	private Integer log_store_id ;
 	/*
 	日志时间
 	*/
-	private Integer logTime ;
+	private Integer log_time ;
 	/*
 	日志内容
 	*/
-	private String logContent ;
+	private String log_content ;
 	/*
 	卖家ip
 	*/
-	private String logSellerIp ;
+	private String log_seller_ip ;
 	/*
 	卖家帐号
 	*/
-	private String logSellerName ;
+	private String log_seller_name ;
 	/*
 	日志url
 	*/
-	private String logUrl ;
+	private String log_url ;
 	
 	public RaSellerLog() {
 	}
@@ -56,135 +67,135 @@ public class RaSellerLog   {
 	* 日志编号
 	*@return 
 	*/
-	public Integer getLogId(){
-		return  logId;
+	public Integer getLog_id(){
+		return  log_id;
 	}
 	/**
 	* 日志编号
-	*@param  logId
+	*@param  log_id
 	*/
-	public void setLogId(Integer logId ){
-		this.logId = logId;
+	public void setLog_id(Integer log_id ){
+		this.log_id = log_id;
 	}
 	
 	/**
 	* 卖家编号
 	*@return 
 	*/
-	public Integer getLogSellerId(){
-		return  logSellerId;
+	public Integer getLog_seller_id(){
+		return  log_seller_id;
 	}
 	/**
 	* 卖家编号
-	*@param  logSellerId
+	*@param  log_seller_id
 	*/
-	public void setLogSellerId(Integer logSellerId ){
-		this.logSellerId = logSellerId;
+	public void setLog_seller_id(Integer log_seller_id ){
+		this.log_seller_id = log_seller_id;
 	}
 	
 	/**
 	* 日志状态(0-失败 1-成功)
 	*@return 
 	*/
-	public Integer getLogState(){
-		return  logState;
+	public Integer getLog_state(){
+		return  log_state;
 	}
 	/**
 	* 日志状态(0-失败 1-成功)
-	*@param  logState
+	*@param  log_state
 	*/
-	public void setLogState(Integer logState ){
-		this.logState = logState;
+	public void setLog_state(Integer log_state ){
+		this.log_state = log_state;
 	}
 	
 	/**
 	* 店铺编号
 	*@return 
 	*/
-	public Integer getLogStoreId(){
-		return  logStoreId;
+	public Integer getLog_store_id(){
+		return  log_store_id;
 	}
 	/**
 	* 店铺编号
-	*@param  logStoreId
+	*@param  log_store_id
 	*/
-	public void setLogStoreId(Integer logStoreId ){
-		this.logStoreId = logStoreId;
+	public void setLog_store_id(Integer log_store_id ){
+		this.log_store_id = log_store_id;
 	}
 	
 	/**
 	* 日志时间
 	*@return 
 	*/
-	public Integer getLogTime(){
-		return  logTime;
+	public Integer getLog_time(){
+		return  log_time;
 	}
 	/**
 	* 日志时间
-	*@param  logTime
+	*@param  log_time
 	*/
-	public void setLogTime(Integer logTime ){
-		this.logTime = logTime;
+	public void setLog_time(Integer log_time ){
+		this.log_time = log_time;
 	}
 	
 	/**
 	* 日志内容
 	*@return 
 	*/
-	public String getLogContent(){
-		return  logContent;
+	public String getLog_content(){
+		return  log_content;
 	}
 	/**
 	* 日志内容
-	*@param  logContent
+	*@param  log_content
 	*/
-	public void setLogContent(String logContent ){
-		this.logContent = logContent;
+	public void setLog_content(String log_content ){
+		this.log_content = log_content;
 	}
 	
 	/**
 	* 卖家ip
 	*@return 
 	*/
-	public String getLogSellerIp(){
-		return  logSellerIp;
+	public String getLog_seller_ip(){
+		return  log_seller_ip;
 	}
 	/**
 	* 卖家ip
-	*@param  logSellerIp
+	*@param  log_seller_ip
 	*/
-	public void setLogSellerIp(String logSellerIp ){
-		this.logSellerIp = logSellerIp;
+	public void setLog_seller_ip(String log_seller_ip ){
+		this.log_seller_ip = log_seller_ip;
 	}
 	
 	/**
 	* 卖家帐号
 	*@return 
 	*/
-	public String getLogSellerName(){
-		return  logSellerName;
+	public String getLog_seller_name(){
+		return  log_seller_name;
 	}
 	/**
 	* 卖家帐号
-	*@param  logSellerName
+	*@param  log_seller_name
 	*/
-	public void setLogSellerName(String logSellerName ){
-		this.logSellerName = logSellerName;
+	public void setLog_seller_name(String log_seller_name ){
+		this.log_seller_name = log_seller_name;
 	}
 	
 	/**
 	* 日志url
 	*@return 
 	*/
-	public String getLogUrl(){
-		return  logUrl;
+	public String getLog_url(){
+		return  log_url;
 	}
 	/**
 	* 日志url
-	*@param  logUrl
+	*@param  log_url
 	*/
-	public void setLogUrl(String logUrl ){
-		this.logUrl = logUrl;
+	public void setLog_url(String log_url ){
+		this.log_url = log_url;
 	}
 	
 

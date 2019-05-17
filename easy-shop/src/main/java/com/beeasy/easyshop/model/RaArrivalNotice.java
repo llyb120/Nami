@@ -7,43 +7,53 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_arrival_notice")
 public class RaArrivalNotice   {
 	
+	// alias
+	public static final String ALIAS_an_id = "an_id";
+	public static final String ALIAS_an_addtime = "an_addtime";
+	public static final String ALIAS_an_type = "an_type";
+	public static final String ALIAS_goods_id = "goods_id";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_an_email = "an_email";
+	public static final String ALIAS_an_mobile = "an_mobile";
+	public static final String ALIAS_goods_name = "goods_name";
+	
 	/*
 	通知id
 	*/
-	private Integer anId ;
+	private Integer an_id ;
 	/*
 	添加时间
 	*/
-	private Integer anAddtime ;
+	private Integer an_addtime ;
 	/*
 	状态 1到货通知，2预售
 	*/
-	private Integer anType ;
+	private Integer an_type ;
 	/*
 	商品id
 	*/
-	private Integer goodsId ;
+	private Integer goods_id ;
 	/*
 	会员id
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	邮箱
 	*/
-	private String anEmail ;
+	private String an_email ;
 	/*
 	手机号
 	*/
-	private String anMobile ;
+	private String an_mobile ;
 	/*
 	商品名称
 	*/
-	private String goodsName ;
+	private String goods_name ;
 	
 	public RaArrivalNotice() {
 	}
@@ -52,120 +62,120 @@ public class RaArrivalNotice   {
 	* 通知id
 	*@return 
 	*/
-	public Integer getAnId(){
-		return  anId;
+	public Integer getAn_id(){
+		return  an_id;
 	}
 	/**
 	* 通知id
-	*@param  anId
+	*@param  an_id
 	*/
-	public void setAnId(Integer anId ){
-		this.anId = anId;
+	public void setAn_id(Integer an_id ){
+		this.an_id = an_id;
 	}
 	
 	/**
 	* 添加时间
 	*@return 
 	*/
-	public Integer getAnAddtime(){
-		return  anAddtime;
+	public Integer getAn_addtime(){
+		return  an_addtime;
 	}
 	/**
 	* 添加时间
-	*@param  anAddtime
+	*@param  an_addtime
 	*/
-	public void setAnAddtime(Integer anAddtime ){
-		this.anAddtime = anAddtime;
+	public void setAn_addtime(Integer an_addtime ){
+		this.an_addtime = an_addtime;
 	}
 	
 	/**
 	* 状态 1到货通知，2预售
 	*@return 
 	*/
-	public Integer getAnType(){
-		return  anType;
+	public Integer getAn_type(){
+		return  an_type;
 	}
 	/**
 	* 状态 1到货通知，2预售
-	*@param  anType
+	*@param  an_type
 	*/
-	public void setAnType(Integer anType ){
-		this.anType = anType;
+	public void setAn_type(Integer an_type ){
+		this.an_type = an_type;
 	}
 	
 	/**
 	* 商品id
 	*@return 
 	*/
-	public Integer getGoodsId(){
-		return  goodsId;
+	public Integer getGoods_id(){
+		return  goods_id;
 	}
 	/**
 	* 商品id
-	*@param  goodsId
+	*@param  goods_id
 	*/
-	public void setGoodsId(Integer goodsId ){
-		this.goodsId = goodsId;
+	public void setGoods_id(Integer goods_id ){
+		this.goods_id = goods_id;
 	}
 	
 	/**
 	* 会员id
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 会员id
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 邮箱
 	*@return 
 	*/
-	public String getAnEmail(){
-		return  anEmail;
+	public String getAn_email(){
+		return  an_email;
 	}
 	/**
 	* 邮箱
-	*@param  anEmail
+	*@param  an_email
 	*/
-	public void setAnEmail(String anEmail ){
-		this.anEmail = anEmail;
+	public void setAn_email(String an_email ){
+		this.an_email = an_email;
 	}
 	
 	/**
 	* 手机号
 	*@return 
 	*/
-	public String getAnMobile(){
-		return  anMobile;
+	public String getAn_mobile(){
+		return  an_mobile;
 	}
 	/**
 	* 手机号
-	*@param  anMobile
+	*@param  an_mobile
 	*/
-	public void setAnMobile(String anMobile ){
-		this.anMobile = anMobile;
+	public void setAn_mobile(String an_mobile ){
+		this.an_mobile = an_mobile;
 	}
 	
 	/**
 	* 商品名称
 	*@return 
 	*/
-	public String getGoodsName(){
-		return  goodsName;
+	public String getGoods_name(){
+		return  goods_name;
 	}
 	/**
 	* 商品名称
-	*@param  goodsName
+	*@param  goods_name
 	*/
-	public void setGoodsName(String goodsName ){
-		this.goodsName = goodsName;
+	public void setGoods_name(String goods_name ){
+		this.goods_name = goods_name;
 	}
 	
 

@@ -7,43 +7,53 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_sns_albumclass")
 public class RaSnsAlbumclass   {
 	
+	// alias
+	public static final String ALIAS_ac_id = "ac_id";
+	public static final String ALIAS_ac_sort = "ac_sort";
+	public static final String ALIAS_is_default = "is_default";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_upload_time = "upload_time";
+	public static final String ALIAS_ac_cover = "ac_cover";
+	public static final String ALIAS_ac_des = "ac_des";
+	public static final String ALIAS_ac_name = "ac_name";
+	
 	/*
 	相册id
 	*/
-	private Integer acId ;
+	private Integer ac_id ;
 	/*
 	排序
 	*/
-	private Integer acSort ;
+	private Integer ac_sort ;
 	/*
 	是否为买家秀相册  1为是,0为否
 	*/
-	private Integer isDefault ;
+	private Integer is_default ;
 	/*
 	所属会员id
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	图片上传时间
 	*/
-	private Integer uploadTime ;
+	private Integer upload_time ;
 	/*
 	相册封面
 	*/
-	private String acCover ;
+	private String ac_cover ;
 	/*
 	相册描述
 	*/
-	private String acDes ;
+	private String ac_des ;
 	/*
 	相册名称
 	*/
-	private String acName ;
+	private String ac_name ;
 	
 	public RaSnsAlbumclass() {
 	}
@@ -52,120 +62,120 @@ public class RaSnsAlbumclass   {
 	* 相册id
 	*@return 
 	*/
-	public Integer getAcId(){
-		return  acId;
+	public Integer getAc_id(){
+		return  ac_id;
 	}
 	/**
 	* 相册id
-	*@param  acId
+	*@param  ac_id
 	*/
-	public void setAcId(Integer acId ){
-		this.acId = acId;
+	public void setAc_id(Integer ac_id ){
+		this.ac_id = ac_id;
 	}
 	
 	/**
 	* 排序
 	*@return 
 	*/
-	public Integer getAcSort(){
-		return  acSort;
+	public Integer getAc_sort(){
+		return  ac_sort;
 	}
 	/**
 	* 排序
-	*@param  acSort
+	*@param  ac_sort
 	*/
-	public void setAcSort(Integer acSort ){
-		this.acSort = acSort;
+	public void setAc_sort(Integer ac_sort ){
+		this.ac_sort = ac_sort;
 	}
 	
 	/**
 	* 是否为买家秀相册  1为是,0为否
 	*@return 
 	*/
-	public Integer getIsDefault(){
-		return  isDefault;
+	public Integer getIs_default(){
+		return  is_default;
 	}
 	/**
 	* 是否为买家秀相册  1为是,0为否
-	*@param  isDefault
+	*@param  is_default
 	*/
-	public void setIsDefault(Integer isDefault ){
-		this.isDefault = isDefault;
+	public void setIs_default(Integer is_default ){
+		this.is_default = is_default;
 	}
 	
 	/**
 	* 所属会员id
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 所属会员id
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 图片上传时间
 	*@return 
 	*/
-	public Integer getUploadTime(){
-		return  uploadTime;
+	public Integer getUpload_time(){
+		return  upload_time;
 	}
 	/**
 	* 图片上传时间
-	*@param  uploadTime
+	*@param  upload_time
 	*/
-	public void setUploadTime(Integer uploadTime ){
-		this.uploadTime = uploadTime;
+	public void setUpload_time(Integer upload_time ){
+		this.upload_time = upload_time;
 	}
 	
 	/**
 	* 相册封面
 	*@return 
 	*/
-	public String getAcCover(){
-		return  acCover;
+	public String getAc_cover(){
+		return  ac_cover;
 	}
 	/**
 	* 相册封面
-	*@param  acCover
+	*@param  ac_cover
 	*/
-	public void setAcCover(String acCover ){
-		this.acCover = acCover;
+	public void setAc_cover(String ac_cover ){
+		this.ac_cover = ac_cover;
 	}
 	
 	/**
 	* 相册描述
 	*@return 
 	*/
-	public String getAcDes(){
-		return  acDes;
+	public String getAc_des(){
+		return  ac_des;
 	}
 	/**
 	* 相册描述
-	*@param  acDes
+	*@param  ac_des
 	*/
-	public void setAcDes(String acDes ){
-		this.acDes = acDes;
+	public void setAc_des(String ac_des ){
+		this.ac_des = ac_des;
 	}
 	
 	/**
 	* 相册名称
 	*@return 
 	*/
-	public String getAcName(){
-		return  acName;
+	public String getAc_name(){
+		return  ac_name;
 	}
 	/**
 	* 相册名称
-	*@param  acName
+	*@param  ac_name
 	*/
-	public void setAcName(String acName ){
-		this.acName = acName;
+	public void setAc_name(String ac_name ){
+		this.ac_name = ac_name;
 	}
 	
 

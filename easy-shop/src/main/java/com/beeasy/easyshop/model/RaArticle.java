@@ -7,43 +7,53 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_article")
 public class RaArticle   {
 	
+	// alias
+	public static final String ALIAS_article_id = "article_id";
+	public static final String ALIAS_ac_id = "ac_id";
+	public static final String ALIAS_article_show = "article_show";
+	public static final String ALIAS_article_sort = "article_sort";
+	public static final String ALIAS_article_time = "article_time";
+	public static final String ALIAS_article_content = "article_content";
+	public static final String ALIAS_article_title = "article_title";
+	public static final String ALIAS_article_url = "article_url";
+	
 	/*
 	索引id
 	*/
-	private Integer articleId ;
+	private Integer article_id ;
 	/*
 	分类id
 	*/
-	private Integer acId ;
+	private Integer ac_id ;
 	/*
 	是否显示，0为否，1为是，默认为1
 	*/
-	private Integer articleShow ;
+	private Integer article_show ;
 	/*
 	排序
 	*/
-	private Integer articleSort ;
+	private Integer article_sort ;
 	/*
 	发布时间
 	*/
-	private Integer articleTime ;
+	private Integer article_time ;
 	/*
 	内容
 	*/
-	private String articleContent ;
+	private String article_content ;
 	/*
 	标题
 	*/
-	private String articleTitle ;
+	private String article_title ;
 	/*
 	跳转链接
 	*/
-	private String articleUrl ;
+	private String article_url ;
 	
 	public RaArticle() {
 	}
@@ -52,120 +62,120 @@ public class RaArticle   {
 	* 索引id
 	*@return 
 	*/
-	public Integer getArticleId(){
-		return  articleId;
+	public Integer getArticle_id(){
+		return  article_id;
 	}
 	/**
 	* 索引id
-	*@param  articleId
+	*@param  article_id
 	*/
-	public void setArticleId(Integer articleId ){
-		this.articleId = articleId;
+	public void setArticle_id(Integer article_id ){
+		this.article_id = article_id;
 	}
 	
 	/**
 	* 分类id
 	*@return 
 	*/
-	public Integer getAcId(){
-		return  acId;
+	public Integer getAc_id(){
+		return  ac_id;
 	}
 	/**
 	* 分类id
-	*@param  acId
+	*@param  ac_id
 	*/
-	public void setAcId(Integer acId ){
-		this.acId = acId;
+	public void setAc_id(Integer ac_id ){
+		this.ac_id = ac_id;
 	}
 	
 	/**
 	* 是否显示，0为否，1为是，默认为1
 	*@return 
 	*/
-	public Integer getArticleShow(){
-		return  articleShow;
+	public Integer getArticle_show(){
+		return  article_show;
 	}
 	/**
 	* 是否显示，0为否，1为是，默认为1
-	*@param  articleShow
+	*@param  article_show
 	*/
-	public void setArticleShow(Integer articleShow ){
-		this.articleShow = articleShow;
+	public void setArticle_show(Integer article_show ){
+		this.article_show = article_show;
 	}
 	
 	/**
 	* 排序
 	*@return 
 	*/
-	public Integer getArticleSort(){
-		return  articleSort;
+	public Integer getArticle_sort(){
+		return  article_sort;
 	}
 	/**
 	* 排序
-	*@param  articleSort
+	*@param  article_sort
 	*/
-	public void setArticleSort(Integer articleSort ){
-		this.articleSort = articleSort;
+	public void setArticle_sort(Integer article_sort ){
+		this.article_sort = article_sort;
 	}
 	
 	/**
 	* 发布时间
 	*@return 
 	*/
-	public Integer getArticleTime(){
-		return  articleTime;
+	public Integer getArticle_time(){
+		return  article_time;
 	}
 	/**
 	* 发布时间
-	*@param  articleTime
+	*@param  article_time
 	*/
-	public void setArticleTime(Integer articleTime ){
-		this.articleTime = articleTime;
+	public void setArticle_time(Integer article_time ){
+		this.article_time = article_time;
 	}
 	
 	/**
 	* 内容
 	*@return 
 	*/
-	public String getArticleContent(){
-		return  articleContent;
+	public String getArticle_content(){
+		return  article_content;
 	}
 	/**
 	* 内容
-	*@param  articleContent
+	*@param  article_content
 	*/
-	public void setArticleContent(String articleContent ){
-		this.articleContent = articleContent;
+	public void setArticle_content(String article_content ){
+		this.article_content = article_content;
 	}
 	
 	/**
 	* 标题
 	*@return 
 	*/
-	public String getArticleTitle(){
-		return  articleTitle;
+	public String getArticle_title(){
+		return  article_title;
 	}
 	/**
 	* 标题
-	*@param  articleTitle
+	*@param  article_title
 	*/
-	public void setArticleTitle(String articleTitle ){
-		this.articleTitle = articleTitle;
+	public void setArticle_title(String article_title ){
+		this.article_title = article_title;
 	}
 	
 	/**
 	* 跳转链接
 	*@return 
 	*/
-	public String getArticleUrl(){
-		return  articleUrl;
+	public String getArticle_url(){
+		return  article_url;
 	}
 	/**
 	* 跳转链接
-	*@param  articleUrl
+	*@param  article_url
 	*/
-	public void setArticleUrl(String articleUrl ){
-		this.articleUrl = articleUrl;
+	public void setArticle_url(String article_url ){
+		this.article_url = article_url;
 	}
 	
 

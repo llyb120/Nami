@@ -7,27 +7,33 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_inform_subject_type")
 public class RaInformSubjectType   {
 	
+	// alias
+	public static final String ALIAS_inform_type_id = "inform_type_id";
+	public static final String ALIAS_inform_type_state = "inform_type_state";
+	public static final String ALIAS_inform_type_desc = "inform_type_desc";
+	public static final String ALIAS_inform_type_name = "inform_type_name";
+	
 	/*
 	举报类型id
 	*/
-	private Integer informTypeId ;
+	private Integer inform_type_id ;
 	/*
 	举报类型状态(1有效/2失效)
 	*/
-	private Integer informTypeState ;
+	private Integer inform_type_state ;
 	/*
 	举报类型描述
 	*/
-	private String informTypeDesc ;
+	private String inform_type_desc ;
 	/*
 	举报类型名称 
 	*/
-	private String informTypeName ;
+	private String inform_type_name ;
 	
 	public RaInformSubjectType() {
 	}
@@ -36,60 +42,60 @@ public class RaInformSubjectType   {
 	* 举报类型id
 	*@return 
 	*/
-	public Integer getInformTypeId(){
-		return  informTypeId;
+	public Integer getInform_type_id(){
+		return  inform_type_id;
 	}
 	/**
 	* 举报类型id
-	*@param  informTypeId
+	*@param  inform_type_id
 	*/
-	public void setInformTypeId(Integer informTypeId ){
-		this.informTypeId = informTypeId;
+	public void setInform_type_id(Integer inform_type_id ){
+		this.inform_type_id = inform_type_id;
 	}
 	
 	/**
 	* 举报类型状态(1有效/2失效)
 	*@return 
 	*/
-	public Integer getInformTypeState(){
-		return  informTypeState;
+	public Integer getInform_type_state(){
+		return  inform_type_state;
 	}
 	/**
 	* 举报类型状态(1有效/2失效)
-	*@param  informTypeState
+	*@param  inform_type_state
 	*/
-	public void setInformTypeState(Integer informTypeState ){
-		this.informTypeState = informTypeState;
+	public void setInform_type_state(Integer inform_type_state ){
+		this.inform_type_state = inform_type_state;
 	}
 	
 	/**
 	* 举报类型描述
 	*@return 
 	*/
-	public String getInformTypeDesc(){
-		return  informTypeDesc;
+	public String getInform_type_desc(){
+		return  inform_type_desc;
 	}
 	/**
 	* 举报类型描述
-	*@param  informTypeDesc
+	*@param  inform_type_desc
 	*/
-	public void setInformTypeDesc(String informTypeDesc ){
-		this.informTypeDesc = informTypeDesc;
+	public void setInform_type_desc(String inform_type_desc ){
+		this.inform_type_desc = inform_type_desc;
 	}
 	
 	/**
 	* 举报类型名称 
 	*@return 
 	*/
-	public String getInformTypeName(){
-		return  informTypeName;
+	public String getInform_type_name(){
+		return  inform_type_name;
 	}
 	/**
 	* 举报类型名称 
-	*@param  informTypeName
+	*@param  inform_type_name
 	*/
-	public void setInformTypeName(String informTypeName ){
-		this.informTypeName = informTypeName;
+	public void setInform_type_name(String inform_type_name ){
+		this.inform_type_name = inform_type_name;
 	}
 	
 

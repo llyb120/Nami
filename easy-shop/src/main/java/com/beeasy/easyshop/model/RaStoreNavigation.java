@@ -7,47 +7,58 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_navigation")
 public class RaStoreNavigation   {
 	
+	// alias
+	public static final String ALIAS_sn_id = "sn_id";
+	public static final String ALIAS_sn_add_time = "sn_add_time";
+	public static final String ALIAS_sn_if_show = "sn_if_show";
+	public static final String ALIAS_sn_new_open = "sn_new_open";
+	public static final String ALIAS_sn_sort = "sn_sort";
+	public static final String ALIAS_sn_store_id = "sn_store_id";
+	public static final String ALIAS_sn_content = "sn_content";
+	public static final String ALIAS_sn_title = "sn_title";
+	public static final String ALIAS_sn_url = "sn_url";
+	
 	/*
 	导航ID
 	*/
-	private Integer snId ;
+	private Integer sn_id ;
 	/*
 	导航
 	*/
-	private Integer snAddTime ;
+	private Integer sn_add_time ;
 	/*
 	导航是否显示
 	*/
-	private Integer snIfShow ;
+	private Integer sn_if_show ;
 	/*
 	店铺导航外链是否在新窗口打开：0不开新窗口1开新窗口，默认是0
 	*/
-	private Integer snNewOpen ;
+	private Integer sn_new_open ;
 	/*
 	导航排序
 	*/
-	private Integer snSort ;
+	private Integer sn_sort ;
 	/*
 	卖家店铺ID
 	*/
-	private Integer snStoreId ;
+	private Integer sn_store_id ;
 	/*
 	导航内容
 	*/
-	private String snContent ;
+	private String sn_content ;
 	/*
 	导航名称
 	*/
-	private String snTitle ;
+	private String sn_title ;
 	/*
 	店铺导航的外链URL
 	*/
-	private String snUrl ;
+	private String sn_url ;
 	
 	public RaStoreNavigation() {
 	}
@@ -56,135 +67,135 @@ public class RaStoreNavigation   {
 	* 导航ID
 	*@return 
 	*/
-	public Integer getSnId(){
-		return  snId;
+	public Integer getSn_id(){
+		return  sn_id;
 	}
 	/**
 	* 导航ID
-	*@param  snId
+	*@param  sn_id
 	*/
-	public void setSnId(Integer snId ){
-		this.snId = snId;
+	public void setSn_id(Integer sn_id ){
+		this.sn_id = sn_id;
 	}
 	
 	/**
 	* 导航
 	*@return 
 	*/
-	public Integer getSnAddTime(){
-		return  snAddTime;
+	public Integer getSn_add_time(){
+		return  sn_add_time;
 	}
 	/**
 	* 导航
-	*@param  snAddTime
+	*@param  sn_add_time
 	*/
-	public void setSnAddTime(Integer snAddTime ){
-		this.snAddTime = snAddTime;
+	public void setSn_add_time(Integer sn_add_time ){
+		this.sn_add_time = sn_add_time;
 	}
 	
 	/**
 	* 导航是否显示
 	*@return 
 	*/
-	public Integer getSnIfShow(){
-		return  snIfShow;
+	public Integer getSn_if_show(){
+		return  sn_if_show;
 	}
 	/**
 	* 导航是否显示
-	*@param  snIfShow
+	*@param  sn_if_show
 	*/
-	public void setSnIfShow(Integer snIfShow ){
-		this.snIfShow = snIfShow;
+	public void setSn_if_show(Integer sn_if_show ){
+		this.sn_if_show = sn_if_show;
 	}
 	
 	/**
 	* 店铺导航外链是否在新窗口打开：0不开新窗口1开新窗口，默认是0
 	*@return 
 	*/
-	public Integer getSnNewOpen(){
-		return  snNewOpen;
+	public Integer getSn_new_open(){
+		return  sn_new_open;
 	}
 	/**
 	* 店铺导航外链是否在新窗口打开：0不开新窗口1开新窗口，默认是0
-	*@param  snNewOpen
+	*@param  sn_new_open
 	*/
-	public void setSnNewOpen(Integer snNewOpen ){
-		this.snNewOpen = snNewOpen;
+	public void setSn_new_open(Integer sn_new_open ){
+		this.sn_new_open = sn_new_open;
 	}
 	
 	/**
 	* 导航排序
 	*@return 
 	*/
-	public Integer getSnSort(){
-		return  snSort;
+	public Integer getSn_sort(){
+		return  sn_sort;
 	}
 	/**
 	* 导航排序
-	*@param  snSort
+	*@param  sn_sort
 	*/
-	public void setSnSort(Integer snSort ){
-		this.snSort = snSort;
+	public void setSn_sort(Integer sn_sort ){
+		this.sn_sort = sn_sort;
 	}
 	
 	/**
 	* 卖家店铺ID
 	*@return 
 	*/
-	public Integer getSnStoreId(){
-		return  snStoreId;
+	public Integer getSn_store_id(){
+		return  sn_store_id;
 	}
 	/**
 	* 卖家店铺ID
-	*@param  snStoreId
+	*@param  sn_store_id
 	*/
-	public void setSnStoreId(Integer snStoreId ){
-		this.snStoreId = snStoreId;
+	public void setSn_store_id(Integer sn_store_id ){
+		this.sn_store_id = sn_store_id;
 	}
 	
 	/**
 	* 导航内容
 	*@return 
 	*/
-	public String getSnContent(){
-		return  snContent;
+	public String getSn_content(){
+		return  sn_content;
 	}
 	/**
 	* 导航内容
-	*@param  snContent
+	*@param  sn_content
 	*/
-	public void setSnContent(String snContent ){
-		this.snContent = snContent;
+	public void setSn_content(String sn_content ){
+		this.sn_content = sn_content;
 	}
 	
 	/**
 	* 导航名称
 	*@return 
 	*/
-	public String getSnTitle(){
-		return  snTitle;
+	public String getSn_title(){
+		return  sn_title;
 	}
 	/**
 	* 导航名称
-	*@param  snTitle
+	*@param  sn_title
 	*/
-	public void setSnTitle(String snTitle ){
-		this.snTitle = snTitle;
+	public void setSn_title(String sn_title ){
+		this.sn_title = sn_title;
 	}
 	
 	/**
 	* 店铺导航的外链URL
 	*@return 
 	*/
-	public String getSnUrl(){
-		return  snUrl;
+	public String getSn_url(){
+		return  sn_url;
 	}
 	/**
 	* 店铺导航的外链URL
-	*@param  snUrl
+	*@param  sn_url
 	*/
-	public void setSnUrl(String snUrl ){
-		this.snUrl = snUrl;
+	public void setSn_url(String sn_url ){
+		this.sn_url = sn_url;
 	}
 	
 

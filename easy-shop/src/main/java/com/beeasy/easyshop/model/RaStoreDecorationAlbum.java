@@ -7,43 +7,53 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_decoration_album")
 public class RaStoreDecorationAlbum   {
 	
+	// alias
+	public static final String ALIAS_image_id = "image_id";
+	public static final String ALIAS_image_height = "image_height";
+	public static final String ALIAS_image_size = "image_size";
+	public static final String ALIAS_image_width = "image_width";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_upload_time = "upload_time";
+	public static final String ALIAS_image_name = "image_name";
+	public static final String ALIAS_image_origin_name = "image_origin_name";
+	
 	/*
 	图片编号
 	*/
-	private Integer imageId ;
+	private Integer image_id ;
 	/*
 	图片高度
 	*/
-	private Integer imageHeight ;
+	private Integer image_height ;
 	/*
 	图片大小
 	*/
-	private Integer imageSize ;
+	private Integer image_size ;
 	/*
 	图片宽度
 	*/
-	private Integer imageWidth ;
+	private Integer image_width ;
 	/*
 	店铺编号
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	上传时间
 	*/
-	private Integer uploadTime ;
+	private Integer upload_time ;
 	/*
 	图片名称
 	*/
-	private String imageName ;
+	private String image_name ;
 	/*
 	图片原始名称
 	*/
-	private String imageOriginName ;
+	private String image_origin_name ;
 	
 	public RaStoreDecorationAlbum() {
 	}
@@ -52,120 +62,120 @@ public class RaStoreDecorationAlbum   {
 	* 图片编号
 	*@return 
 	*/
-	public Integer getImageId(){
-		return  imageId;
+	public Integer getImage_id(){
+		return  image_id;
 	}
 	/**
 	* 图片编号
-	*@param  imageId
+	*@param  image_id
 	*/
-	public void setImageId(Integer imageId ){
-		this.imageId = imageId;
+	public void setImage_id(Integer image_id ){
+		this.image_id = image_id;
 	}
 	
 	/**
 	* 图片高度
 	*@return 
 	*/
-	public Integer getImageHeight(){
-		return  imageHeight;
+	public Integer getImage_height(){
+		return  image_height;
 	}
 	/**
 	* 图片高度
-	*@param  imageHeight
+	*@param  image_height
 	*/
-	public void setImageHeight(Integer imageHeight ){
-		this.imageHeight = imageHeight;
+	public void setImage_height(Integer image_height ){
+		this.image_height = image_height;
 	}
 	
 	/**
 	* 图片大小
 	*@return 
 	*/
-	public Integer getImageSize(){
-		return  imageSize;
+	public Integer getImage_size(){
+		return  image_size;
 	}
 	/**
 	* 图片大小
-	*@param  imageSize
+	*@param  image_size
 	*/
-	public void setImageSize(Integer imageSize ){
-		this.imageSize = imageSize;
+	public void setImage_size(Integer image_size ){
+		this.image_size = image_size;
 	}
 	
 	/**
 	* 图片宽度
 	*@return 
 	*/
-	public Integer getImageWidth(){
-		return  imageWidth;
+	public Integer getImage_width(){
+		return  image_width;
 	}
 	/**
 	* 图片宽度
-	*@param  imageWidth
+	*@param  image_width
 	*/
-	public void setImageWidth(Integer imageWidth ){
-		this.imageWidth = imageWidth;
+	public void setImage_width(Integer image_width ){
+		this.image_width = image_width;
 	}
 	
 	/**
 	* 店铺编号
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺编号
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 上传时间
 	*@return 
 	*/
-	public Integer getUploadTime(){
-		return  uploadTime;
+	public Integer getUpload_time(){
+		return  upload_time;
 	}
 	/**
 	* 上传时间
-	*@param  uploadTime
+	*@param  upload_time
 	*/
-	public void setUploadTime(Integer uploadTime ){
-		this.uploadTime = uploadTime;
+	public void setUpload_time(Integer upload_time ){
+		this.upload_time = upload_time;
 	}
 	
 	/**
 	* 图片名称
 	*@return 
 	*/
-	public String getImageName(){
-		return  imageName;
+	public String getImage_name(){
+		return  image_name;
 	}
 	/**
 	* 图片名称
-	*@param  imageName
+	*@param  image_name
 	*/
-	public void setImageName(String imageName ){
-		this.imageName = imageName;
+	public void setImage_name(String image_name ){
+		this.image_name = image_name;
 	}
 	
 	/**
 	* 图片原始名称
 	*@return 
 	*/
-	public String getImageOriginName(){
-		return  imageOriginName;
+	public String getImage_origin_name(){
+		return  image_origin_name;
 	}
 	/**
 	* 图片原始名称
-	*@param  imageOriginName
+	*@param  image_origin_name
 	*/
-	public void setImageOriginName(String imageOriginName ){
-		this.imageOriginName = imageOriginName;
+	public void setImage_origin_name(String image_origin_name ){
+		this.image_origin_name = image_origin_name;
 	}
 	
 

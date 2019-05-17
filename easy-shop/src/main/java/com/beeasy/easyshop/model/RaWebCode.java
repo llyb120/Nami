@@ -7,35 +7,43 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_web_code")
 public class RaWebCode   {
 	
+	// alias
+	public static final String ALIAS_code_id = "code_id";
+	public static final String ALIAS_web_id = "web_id";
+	public static final String ALIAS_code_info = "code_info";
+	public static final String ALIAS_code_type = "code_type";
+	public static final String ALIAS_show_name = "show_name";
+	public static final String ALIAS_var_name = "var_name";
+	
 	/*
 	内容ID
 	*/
-	private Integer codeId ;
+	private Integer code_id ;
 	/*
 	模块ID
 	*/
-	private Integer webId ;
+	private Integer web_id ;
 	/*
 	内容数据
 	*/
-	private String codeInfo ;
+	private String code_info ;
 	/*
 	数据类型:array,html,json
 	*/
-	private String codeType ;
+	private String code_type ;
 	/*
 	页面名称
 	*/
-	private String showName ;
+	private String show_name ;
 	/*
 	变量名称
 	*/
-	private String varName ;
+	private String var_name ;
 	
 	public RaWebCode() {
 	}
@@ -44,90 +52,90 @@ public class RaWebCode   {
 	* 内容ID
 	*@return 
 	*/
-	public Integer getCodeId(){
-		return  codeId;
+	public Integer getCode_id(){
+		return  code_id;
 	}
 	/**
 	* 内容ID
-	*@param  codeId
+	*@param  code_id
 	*/
-	public void setCodeId(Integer codeId ){
-		this.codeId = codeId;
+	public void setCode_id(Integer code_id ){
+		this.code_id = code_id;
 	}
 	
 	/**
 	* 模块ID
 	*@return 
 	*/
-	public Integer getWebId(){
-		return  webId;
+	public Integer getWeb_id(){
+		return  web_id;
 	}
 	/**
 	* 模块ID
-	*@param  webId
+	*@param  web_id
 	*/
-	public void setWebId(Integer webId ){
-		this.webId = webId;
+	public void setWeb_id(Integer web_id ){
+		this.web_id = web_id;
 	}
 	
 	/**
 	* 内容数据
 	*@return 
 	*/
-	public String getCodeInfo(){
-		return  codeInfo;
+	public String getCode_info(){
+		return  code_info;
 	}
 	/**
 	* 内容数据
-	*@param  codeInfo
+	*@param  code_info
 	*/
-	public void setCodeInfo(String codeInfo ){
-		this.codeInfo = codeInfo;
+	public void setCode_info(String code_info ){
+		this.code_info = code_info;
 	}
 	
 	/**
 	* 数据类型:array,html,json
 	*@return 
 	*/
-	public String getCodeType(){
-		return  codeType;
+	public String getCode_type(){
+		return  code_type;
 	}
 	/**
 	* 数据类型:array,html,json
-	*@param  codeType
+	*@param  code_type
 	*/
-	public void setCodeType(String codeType ){
-		this.codeType = codeType;
+	public void setCode_type(String code_type ){
+		this.code_type = code_type;
 	}
 	
 	/**
 	* 页面名称
 	*@return 
 	*/
-	public String getShowName(){
-		return  showName;
+	public String getShow_name(){
+		return  show_name;
 	}
 	/**
 	* 页面名称
-	*@param  showName
+	*@param  show_name
 	*/
-	public void setShowName(String showName ){
-		this.showName = showName;
+	public void setShow_name(String show_name ){
+		this.show_name = show_name;
 	}
 	
 	/**
 	* 变量名称
 	*@return 
 	*/
-	public String getVarName(){
-		return  varName;
+	public String getVar_name(){
+		return  var_name;
 	}
 	/**
 	* 变量名称
-	*@param  varName
+	*@param  var_name
 	*/
-	public void setVarName(String varName ){
-		this.varName = varName;
+	public void setVar_name(String var_name ){
+		this.var_name = var_name;
 	}
 	
 

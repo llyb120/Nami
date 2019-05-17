@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.beeasy.easyshop.filter.auth;
 import com.beeasy.easyshop.model.RaMember;
 import com.beeasy.easyshop.model.RaSeller;
+import com.beeasy.easyshop.model.*;
+import com.beeasy.web.core.Cookie;
 import com.beeasy.web.core.Flow;
 import com.beeasy.web.core.R;
 
@@ -20,27 +22,30 @@ public class user {
     }
 
     public R login(
-        JSONObject query
+        JSONObject query,
+        Cookie cookie
     ) {
         return Flow.of(query)
             .as(RaMember.class)
-            .on(RaMember::getMemberName, notempty, "用户名不能为空")
-            .on(RaMember::getMemberPasswd, notempty, "密码不能为空")
+            .on(RaMember::getMember_name, notempty, "用户名不能为空")
+            .on(RaMember::getMember_passwd, notempty, "密码不能为空")
             .set(md5)
             .find()
             .on(notnull, "用户名密码错误")
             .assign(m -> {
                 return sqlManager.lambdaQuery(RaSeller.class)
-                    .andEq(RaSeller::getMemberId, m.getMemberId())
+                    .andEq(RaSeller::getMember_id, m.getMember_id())
                     .single();
             })
             .as(RaSeller.class)
-            .on(RaSeller::getSellerId, notnull, "该用户不是商家")
+            .on(RaSeller::getSeller_id, notnull, "该用户不是商家")
             .flip()
             .ok(obj -> {
-                String str = String.format("%s|%s|%s|%s|%d", obj.getString("memberId") , obj.getString("sellerId"), obj.getString("storeId"), obj.getString("sellerName"), System.currentTimeMillis() + 24 * 3600000);
+                String str = String.format("%s|%s|%s|%s|%d", obj.getString("member_id") , obj.getString("seller_id"), obj.getString("store_id"), obj.getString("seller_name"), System.currentTimeMillis() + 24 * 3600000);
+                var token = auth.createToken(str);
+                cookie.set("token", token);
                 return obj(
-                    "token", auth.createToken(str),
+                    "token", token,
                     "info", str
                 );
             });

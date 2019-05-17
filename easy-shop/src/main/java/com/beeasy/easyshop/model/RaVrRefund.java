@@ -7,91 +7,113 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_vr_refund")
 public class RaVrRefund   {
 	
+	// alias
+	public static final String ALIAS_refund_id = "refund_id";
+	public static final String ALIAS_add_time = "add_time";
+	public static final String ALIAS_admin_state = "admin_state";
+	public static final String ALIAS_admin_time = "admin_time";
+	public static final String ALIAS_buyer_id = "buyer_id";
+	public static final String ALIAS_commis_rate = "commis_rate";
+	public static final String ALIAS_goods_id = "goods_id";
+	public static final String ALIAS_goods_num = "goods_num";
+	public static final String ALIAS_order_id = "order_id";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_admin_message = "admin_message";
+	public static final String ALIAS_buyer_message = "buyer_message";
+	public static final String ALIAS_buyer_name = "buyer_name";
+	public static final String ALIAS_code_sn = "code_sn";
+	public static final String ALIAS_goods_image = "goods_image";
+	public static final String ALIAS_goods_name = "goods_name";
+	public static final String ALIAS_order_sn = "order_sn";
+	public static final String ALIAS_refund_amount = "refund_amount";
+	public static final String ALIAS_refund_sn = "refund_sn";
+	public static final String ALIAS_store_name = "store_name";
+	
 	/*
 	记录ID
 	*/
-	private Integer refundId ;
+	private Integer refund_id ;
 	/*
 	添加时间
 	*/
-	private Integer addTime ;
+	private Integer add_time ;
 	/*
 	退款状态:1为待审核,2为同意,3为不同意,默认为1
 	*/
-	private Integer adminState ;
+	private Integer admin_state ;
 	/*
 	管理员处理时间,默认为0
 	*/
-	private Integer adminTime ;
+	private Integer admin_time ;
 	/*
 	买家ID
 	*/
-	private Integer buyerId ;
+	private Integer buyer_id ;
 	/*
 	佣金比例
 	*/
-	private Integer commisRate ;
+	private Integer commis_rate ;
 	/*
 	商品ID
 	*/
-	private Integer goodsId ;
+	private Integer goods_id ;
 	/*
 	退款商品数量
 	*/
-	private Integer goodsNum ;
+	private Integer goods_num ;
 	/*
 	虚拟订单ID
 	*/
-	private Integer orderId ;
+	private Integer order_id ;
 	/*
 	店铺ID
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	管理员备注
 	*/
-	private String adminMessage ;
+	private String admin_message ;
 	/*
 	申请原因
 	*/
-	private String buyerMessage ;
+	private String buyer_message ;
 	/*
 	买家会员名
 	*/
-	private String buyerName ;
+	private String buyer_name ;
 	/*
 	兑换码编号
 	*/
-	private String codeSn ;
+	private String code_sn ;
 	/*
 	商品图片
 	*/
-	private String goodsImage ;
+	private String goods_image ;
 	/*
 	商品名称
 	*/
-	private String goodsName ;
+	private String goods_name ;
 	/*
 	虚拟订单编号
 	*/
-	private String orderSn ;
+	private String order_sn ;
 	/*
 	退款金额
 	*/
-	private BigDecimal refundAmount ;
+	private BigDecimal refund_amount ;
 	/*
 	申请编号
 	*/
-	private String refundSn ;
+	private String refund_sn ;
 	/*
 	店铺名称
 	*/
-	private String storeName ;
+	private String store_name ;
 	
 	public RaVrRefund() {
 	}
@@ -100,300 +122,300 @@ public class RaVrRefund   {
 	* 记录ID
 	*@return 
 	*/
-	public Integer getRefundId(){
-		return  refundId;
+	public Integer getRefund_id(){
+		return  refund_id;
 	}
 	/**
 	* 记录ID
-	*@param  refundId
+	*@param  refund_id
 	*/
-	public void setRefundId(Integer refundId ){
-		this.refundId = refundId;
+	public void setRefund_id(Integer refund_id ){
+		this.refund_id = refund_id;
 	}
 	
 	/**
 	* 添加时间
 	*@return 
 	*/
-	public Integer getAddTime(){
-		return  addTime;
+	public Integer getAdd_time(){
+		return  add_time;
 	}
 	/**
 	* 添加时间
-	*@param  addTime
+	*@param  add_time
 	*/
-	public void setAddTime(Integer addTime ){
-		this.addTime = addTime;
+	public void setAdd_time(Integer add_time ){
+		this.add_time = add_time;
 	}
 	
 	/**
 	* 退款状态:1为待审核,2为同意,3为不同意,默认为1
 	*@return 
 	*/
-	public Integer getAdminState(){
-		return  adminState;
+	public Integer getAdmin_state(){
+		return  admin_state;
 	}
 	/**
 	* 退款状态:1为待审核,2为同意,3为不同意,默认为1
-	*@param  adminState
+	*@param  admin_state
 	*/
-	public void setAdminState(Integer adminState ){
-		this.adminState = adminState;
+	public void setAdmin_state(Integer admin_state ){
+		this.admin_state = admin_state;
 	}
 	
 	/**
 	* 管理员处理时间,默认为0
 	*@return 
 	*/
-	public Integer getAdminTime(){
-		return  adminTime;
+	public Integer getAdmin_time(){
+		return  admin_time;
 	}
 	/**
 	* 管理员处理时间,默认为0
-	*@param  adminTime
+	*@param  admin_time
 	*/
-	public void setAdminTime(Integer adminTime ){
-		this.adminTime = adminTime;
+	public void setAdmin_time(Integer admin_time ){
+		this.admin_time = admin_time;
 	}
 	
 	/**
 	* 买家ID
 	*@return 
 	*/
-	public Integer getBuyerId(){
-		return  buyerId;
+	public Integer getBuyer_id(){
+		return  buyer_id;
 	}
 	/**
 	* 买家ID
-	*@param  buyerId
+	*@param  buyer_id
 	*/
-	public void setBuyerId(Integer buyerId ){
-		this.buyerId = buyerId;
+	public void setBuyer_id(Integer buyer_id ){
+		this.buyer_id = buyer_id;
 	}
 	
 	/**
 	* 佣金比例
 	*@return 
 	*/
-	public Integer getCommisRate(){
-		return  commisRate;
+	public Integer getCommis_rate(){
+		return  commis_rate;
 	}
 	/**
 	* 佣金比例
-	*@param  commisRate
+	*@param  commis_rate
 	*/
-	public void setCommisRate(Integer commisRate ){
-		this.commisRate = commisRate;
+	public void setCommis_rate(Integer commis_rate ){
+		this.commis_rate = commis_rate;
 	}
 	
 	/**
 	* 商品ID
 	*@return 
 	*/
-	public Integer getGoodsId(){
-		return  goodsId;
+	public Integer getGoods_id(){
+		return  goods_id;
 	}
 	/**
 	* 商品ID
-	*@param  goodsId
+	*@param  goods_id
 	*/
-	public void setGoodsId(Integer goodsId ){
-		this.goodsId = goodsId;
+	public void setGoods_id(Integer goods_id ){
+		this.goods_id = goods_id;
 	}
 	
 	/**
 	* 退款商品数量
 	*@return 
 	*/
-	public Integer getGoodsNum(){
-		return  goodsNum;
+	public Integer getGoods_num(){
+		return  goods_num;
 	}
 	/**
 	* 退款商品数量
-	*@param  goodsNum
+	*@param  goods_num
 	*/
-	public void setGoodsNum(Integer goodsNum ){
-		this.goodsNum = goodsNum;
+	public void setGoods_num(Integer goods_num ){
+		this.goods_num = goods_num;
 	}
 	
 	/**
 	* 虚拟订单ID
 	*@return 
 	*/
-	public Integer getOrderId(){
-		return  orderId;
+	public Integer getOrder_id(){
+		return  order_id;
 	}
 	/**
 	* 虚拟订单ID
-	*@param  orderId
+	*@param  order_id
 	*/
-	public void setOrderId(Integer orderId ){
-		this.orderId = orderId;
+	public void setOrder_id(Integer order_id ){
+		this.order_id = order_id;
 	}
 	
 	/**
 	* 店铺ID
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺ID
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 管理员备注
 	*@return 
 	*/
-	public String getAdminMessage(){
-		return  adminMessage;
+	public String getAdmin_message(){
+		return  admin_message;
 	}
 	/**
 	* 管理员备注
-	*@param  adminMessage
+	*@param  admin_message
 	*/
-	public void setAdminMessage(String adminMessage ){
-		this.adminMessage = adminMessage;
+	public void setAdmin_message(String admin_message ){
+		this.admin_message = admin_message;
 	}
 	
 	/**
 	* 申请原因
 	*@return 
 	*/
-	public String getBuyerMessage(){
-		return  buyerMessage;
+	public String getBuyer_message(){
+		return  buyer_message;
 	}
 	/**
 	* 申请原因
-	*@param  buyerMessage
+	*@param  buyer_message
 	*/
-	public void setBuyerMessage(String buyerMessage ){
-		this.buyerMessage = buyerMessage;
+	public void setBuyer_message(String buyer_message ){
+		this.buyer_message = buyer_message;
 	}
 	
 	/**
 	* 买家会员名
 	*@return 
 	*/
-	public String getBuyerName(){
-		return  buyerName;
+	public String getBuyer_name(){
+		return  buyer_name;
 	}
 	/**
 	* 买家会员名
-	*@param  buyerName
+	*@param  buyer_name
 	*/
-	public void setBuyerName(String buyerName ){
-		this.buyerName = buyerName;
+	public void setBuyer_name(String buyer_name ){
+		this.buyer_name = buyer_name;
 	}
 	
 	/**
 	* 兑换码编号
 	*@return 
 	*/
-	public String getCodeSn(){
-		return  codeSn;
+	public String getCode_sn(){
+		return  code_sn;
 	}
 	/**
 	* 兑换码编号
-	*@param  codeSn
+	*@param  code_sn
 	*/
-	public void setCodeSn(String codeSn ){
-		this.codeSn = codeSn;
+	public void setCode_sn(String code_sn ){
+		this.code_sn = code_sn;
 	}
 	
 	/**
 	* 商品图片
 	*@return 
 	*/
-	public String getGoodsImage(){
-		return  goodsImage;
+	public String getGoods_image(){
+		return  goods_image;
 	}
 	/**
 	* 商品图片
-	*@param  goodsImage
+	*@param  goods_image
 	*/
-	public void setGoodsImage(String goodsImage ){
-		this.goodsImage = goodsImage;
+	public void setGoods_image(String goods_image ){
+		this.goods_image = goods_image;
 	}
 	
 	/**
 	* 商品名称
 	*@return 
 	*/
-	public String getGoodsName(){
-		return  goodsName;
+	public String getGoods_name(){
+		return  goods_name;
 	}
 	/**
 	* 商品名称
-	*@param  goodsName
+	*@param  goods_name
 	*/
-	public void setGoodsName(String goodsName ){
-		this.goodsName = goodsName;
+	public void setGoods_name(String goods_name ){
+		this.goods_name = goods_name;
 	}
 	
 	/**
 	* 虚拟订单编号
 	*@return 
 	*/
-	public String getOrderSn(){
-		return  orderSn;
+	public String getOrder_sn(){
+		return  order_sn;
 	}
 	/**
 	* 虚拟订单编号
-	*@param  orderSn
+	*@param  order_sn
 	*/
-	public void setOrderSn(String orderSn ){
-		this.orderSn = orderSn;
+	public void setOrder_sn(String order_sn ){
+		this.order_sn = order_sn;
 	}
 	
 	/**
 	* 退款金额
 	*@return 
 	*/
-	public BigDecimal getRefundAmount(){
-		return  refundAmount;
+	public BigDecimal getRefund_amount(){
+		return  refund_amount;
 	}
 	/**
 	* 退款金额
-	*@param  refundAmount
+	*@param  refund_amount
 	*/
-	public void setRefundAmount(BigDecimal refundAmount ){
-		this.refundAmount = refundAmount;
+	public void setRefund_amount(BigDecimal refund_amount ){
+		this.refund_amount = refund_amount;
 	}
 	
 	/**
 	* 申请编号
 	*@return 
 	*/
-	public String getRefundSn(){
-		return  refundSn;
+	public String getRefund_sn(){
+		return  refund_sn;
 	}
 	/**
 	* 申请编号
-	*@param  refundSn
+	*@param  refund_sn
 	*/
-	public void setRefundSn(String refundSn ){
-		this.refundSn = refundSn;
+	public void setRefund_sn(String refund_sn ){
+		this.refund_sn = refund_sn;
 	}
 	
 	/**
 	* 店铺名称
 	*@return 
 	*/
-	public String getStoreName(){
-		return  storeName;
+	public String getStore_name(){
+		return  store_name;
 	}
 	/**
 	* 店铺名称
-	*@param  storeName
+	*@param  store_name
 	*/
-	public void setStoreName(String storeName ){
-		this.storeName = storeName;
+	public void setStore_name(String store_name ){
+		this.store_name = store_name;
 	}
 	
 

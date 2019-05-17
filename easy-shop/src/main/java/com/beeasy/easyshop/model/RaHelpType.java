@@ -7,35 +7,43 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_help_type")
 public class RaHelpType   {
 	
+	// alias
+	public static final String ALIAS_type_id = "type_id";
+	public static final String ALIAS_help_show = "help_show";
+	public static final String ALIAS_page_show = "page_show";
+	public static final String ALIAS_type_sort = "type_sort";
+	public static final String ALIAS_help_code = "help_code";
+	public static final String ALIAS_type_name = "type_name";
+	
 	/*
 	类型ID
 	*/
-	private Integer typeId ;
+	private Integer type_id ;
 	/*
 	是否显示,0为否,1为是,默认为1
 	*/
-	private Integer helpShow ;
+	private Integer help_show ;
 	/*
 	页面类型:1为店铺,2为会员,默认为1
 	*/
-	private Integer pageShow ;
+	private Integer page_show ;
 	/*
 	排序
 	*/
-	private Integer typeSort ;
+	private Integer type_sort ;
 	/*
 	调用编号(auto的可删除)
 	*/
-	private String helpCode ;
+	private String help_code ;
 	/*
 	类型名称
 	*/
-	private String typeName ;
+	private String type_name ;
 	
 	public RaHelpType() {
 	}
@@ -44,90 +52,90 @@ public class RaHelpType   {
 	* 类型ID
 	*@return 
 	*/
-	public Integer getTypeId(){
-		return  typeId;
+	public Integer getType_id(){
+		return  type_id;
 	}
 	/**
 	* 类型ID
-	*@param  typeId
+	*@param  type_id
 	*/
-	public void setTypeId(Integer typeId ){
-		this.typeId = typeId;
+	public void setType_id(Integer type_id ){
+		this.type_id = type_id;
 	}
 	
 	/**
 	* 是否显示,0为否,1为是,默认为1
 	*@return 
 	*/
-	public Integer getHelpShow(){
-		return  helpShow;
+	public Integer getHelp_show(){
+		return  help_show;
 	}
 	/**
 	* 是否显示,0为否,1为是,默认为1
-	*@param  helpShow
+	*@param  help_show
 	*/
-	public void setHelpShow(Integer helpShow ){
-		this.helpShow = helpShow;
+	public void setHelp_show(Integer help_show ){
+		this.help_show = help_show;
 	}
 	
 	/**
 	* 页面类型:1为店铺,2为会员,默认为1
 	*@return 
 	*/
-	public Integer getPageShow(){
-		return  pageShow;
+	public Integer getPage_show(){
+		return  page_show;
 	}
 	/**
 	* 页面类型:1为店铺,2为会员,默认为1
-	*@param  pageShow
+	*@param  page_show
 	*/
-	public void setPageShow(Integer pageShow ){
-		this.pageShow = pageShow;
+	public void setPage_show(Integer page_show ){
+		this.page_show = page_show;
 	}
 	
 	/**
 	* 排序
 	*@return 
 	*/
-	public Integer getTypeSort(){
-		return  typeSort;
+	public Integer getType_sort(){
+		return  type_sort;
 	}
 	/**
 	* 排序
-	*@param  typeSort
+	*@param  type_sort
 	*/
-	public void setTypeSort(Integer typeSort ){
-		this.typeSort = typeSort;
+	public void setType_sort(Integer type_sort ){
+		this.type_sort = type_sort;
 	}
 	
 	/**
 	* 调用编号(auto的可删除)
 	*@return 
 	*/
-	public String getHelpCode(){
-		return  helpCode;
+	public String getHelp_code(){
+		return  help_code;
 	}
 	/**
 	* 调用编号(auto的可删除)
-	*@param  helpCode
+	*@param  help_code
 	*/
-	public void setHelpCode(String helpCode ){
-		this.helpCode = helpCode;
+	public void setHelp_code(String help_code ){
+		this.help_code = help_code;
 	}
 	
 	/**
 	* 类型名称
 	*@return 
 	*/
-	public String getTypeName(){
-		return  typeName;
+	public String getType_name(){
+		return  type_name;
 	}
 	/**
 	* 类型名称
-	*@param  typeName
+	*@param  type_name
 	*/
-	public void setTypeName(String typeName ){
-		this.typeName = typeName;
+	public void setType_name(String type_name ){
+		this.type_name = type_name;
 	}
 	
 

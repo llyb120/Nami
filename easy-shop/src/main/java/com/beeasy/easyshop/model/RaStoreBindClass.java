@@ -7,28 +7,37 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_bind_class")
 public class RaStoreBindClass   {
+	
+	// alias
+	public static final String ALIAS_bid = "bid";
+	public static final String ALIAS_class_1 = "class_1";
+	public static final String ALIAS_class_2 = "class_2";
+	public static final String ALIAS_class_3 = "class_3";
+	public static final String ALIAS_commis_rate = "commis_rate";
+	public static final String ALIAS_state = "state";
+	public static final String ALIAS_store_id = "store_id";
 	
 	private Integer bid ;
 	/*
 	一级分类
 	*/
-	private Integer class1 ;
+	private Integer class_1 ;
 	/*
 	二级分类
 	*/
-	private Integer class2 ;
+	private Integer class_2 ;
 	/*
 	三级分类
 	*/
-	private Integer class3 ;
+	private Integer class_3 ;
 	/*
 	佣金比例
 	*/
-	private Integer commisRate ;
+	private Integer commis_rate ;
 	/*
 	状态0审核中1已审核 2平台自营店铺
 	*/
@@ -36,7 +45,7 @@ public class RaStoreBindClass   {
 	/*
 	店铺ID
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	
 	public RaStoreBindClass() {
 	}
@@ -52,60 +61,60 @@ public class RaStoreBindClass   {
 	* 一级分类
 	*@return 
 	*/
-	public Integer getClass1(){
-		return  class1;
+	public Integer getClass_1(){
+		return  class_1;
 	}
 	/**
 	* 一级分类
-	*@param  class1
+	*@param  class_1
 	*/
-	public void setClass1(Integer class1 ){
-		this.class1 = class1;
+	public void setClass_1(Integer class_1 ){
+		this.class_1 = class_1;
 	}
 	
 	/**
 	* 二级分类
 	*@return 
 	*/
-	public Integer getClass2(){
-		return  class2;
+	public Integer getClass_2(){
+		return  class_2;
 	}
 	/**
 	* 二级分类
-	*@param  class2
+	*@param  class_2
 	*/
-	public void setClass2(Integer class2 ){
-		this.class2 = class2;
+	public void setClass_2(Integer class_2 ){
+		this.class_2 = class_2;
 	}
 	
 	/**
 	* 三级分类
 	*@return 
 	*/
-	public Integer getClass3(){
-		return  class3;
+	public Integer getClass_3(){
+		return  class_3;
 	}
 	/**
 	* 三级分类
-	*@param  class3
+	*@param  class_3
 	*/
-	public void setClass3(Integer class3 ){
-		this.class3 = class3;
+	public void setClass_3(Integer class_3 ){
+		this.class_3 = class_3;
 	}
 	
 	/**
 	* 佣金比例
 	*@return 
 	*/
-	public Integer getCommisRate(){
-		return  commisRate;
+	public Integer getCommis_rate(){
+		return  commis_rate;
 	}
 	/**
 	* 佣金比例
-	*@param  commisRate
+	*@param  commis_rate
 	*/
-	public void setCommisRate(Integer commisRate ){
-		this.commisRate = commisRate;
+	public void setCommis_rate(Integer commis_rate ){
+		this.commis_rate = commis_rate;
 	}
 	
 	/**
@@ -127,15 +136,15 @@ public class RaStoreBindClass   {
 	* 店铺ID
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺ID
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 

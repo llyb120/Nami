@@ -7,75 +7,93 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_circle_inform")
 public class RaCircleInform   {
 	
+	// alias
+	public static final String ALIAS_inform_id = "inform_id";
+	public static final String ALIAS_circle_id = "circle_id";
+	public static final String ALIAS_inform_opexp = "inform_opexp";
+	public static final String ALIAS_inform_opid = "inform_opid";
+	public static final String ALIAS_inform_state = "inform_state";
+	public static final String ALIAS_inform_type = "inform_type";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_reply_id = "reply_id";
+	public static final String ALIAS_theme_id = "theme_id";
+	public static final String ALIAS_circle_name = "circle_name";
+	public static final String ALIAS_inform_content = "inform_content";
+	public static final String ALIAS_inform_opname = "inform_opname";
+	public static final String ALIAS_inform_opresult = "inform_opresult";
+	public static final String ALIAS_inform_time = "inform_time";
+	public static final String ALIAS_member_name = "member_name";
+	public static final String ALIAS_theme_name = "theme_name";
+	
 	/*
 	举报id
 	*/
-	private Integer informId ;
+	private Integer inform_id ;
 	/*
 	圈子id
 	*/
-	private Integer circleId ;
+	private Integer circle_id ;
 	/*
 	操作经验
 	*/
-	private Integer informOpexp ;
+	private Integer inform_opexp ;
 	/*
 	操作人id
 	*/
-	private Integer informOpid ;
+	private Integer inform_opid ;
 	/*
 	状态 0未处理、1已处理
 	*/
-	private Integer informState ;
+	private Integer inform_state ;
 	/*
 	类型 0话题、1回复
 	*/
-	private Integer informType ;
+	private Integer inform_type ;
 	/*
 	会员id
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	回复id
 	*/
-	private Integer replyId ;
+	private Integer reply_id ;
 	/*
 	话题id
 	*/
-	private Integer themeId ;
+	private Integer theme_id ;
 	/*
 	圈子名称
 	*/
-	private String circleName ;
+	private String circle_name ;
 	/*
 	举报内容
 	*/
-	private String informContent ;
+	private String inform_content ;
 	/*
 	操作人名称
 	*/
-	private String informOpname ;
+	private String inform_opname ;
 	/*
 	处理结果
 	*/
-	private String informOpresult ;
+	private String inform_opresult ;
 	/*
 	举报时间
 	*/
-	private String informTime ;
+	private String inform_time ;
 	/*
 	会员名称
 	*/
-	private String memberName ;
+	private String member_name ;
 	/*
 	主题名称
 	*/
-	private String themeName ;
+	private String theme_name ;
 	
 	public RaCircleInform() {
 	}
@@ -84,240 +102,240 @@ public class RaCircleInform   {
 	* 举报id
 	*@return 
 	*/
-	public Integer getInformId(){
-		return  informId;
+	public Integer getInform_id(){
+		return  inform_id;
 	}
 	/**
 	* 举报id
-	*@param  informId
+	*@param  inform_id
 	*/
-	public void setInformId(Integer informId ){
-		this.informId = informId;
+	public void setInform_id(Integer inform_id ){
+		this.inform_id = inform_id;
 	}
 	
 	/**
 	* 圈子id
 	*@return 
 	*/
-	public Integer getCircleId(){
-		return  circleId;
+	public Integer getCircle_id(){
+		return  circle_id;
 	}
 	/**
 	* 圈子id
-	*@param  circleId
+	*@param  circle_id
 	*/
-	public void setCircleId(Integer circleId ){
-		this.circleId = circleId;
+	public void setCircle_id(Integer circle_id ){
+		this.circle_id = circle_id;
 	}
 	
 	/**
 	* 操作经验
 	*@return 
 	*/
-	public Integer getInformOpexp(){
-		return  informOpexp;
+	public Integer getInform_opexp(){
+		return  inform_opexp;
 	}
 	/**
 	* 操作经验
-	*@param  informOpexp
+	*@param  inform_opexp
 	*/
-	public void setInformOpexp(Integer informOpexp ){
-		this.informOpexp = informOpexp;
+	public void setInform_opexp(Integer inform_opexp ){
+		this.inform_opexp = inform_opexp;
 	}
 	
 	/**
 	* 操作人id
 	*@return 
 	*/
-	public Integer getInformOpid(){
-		return  informOpid;
+	public Integer getInform_opid(){
+		return  inform_opid;
 	}
 	/**
 	* 操作人id
-	*@param  informOpid
+	*@param  inform_opid
 	*/
-	public void setInformOpid(Integer informOpid ){
-		this.informOpid = informOpid;
+	public void setInform_opid(Integer inform_opid ){
+		this.inform_opid = inform_opid;
 	}
 	
 	/**
 	* 状态 0未处理、1已处理
 	*@return 
 	*/
-	public Integer getInformState(){
-		return  informState;
+	public Integer getInform_state(){
+		return  inform_state;
 	}
 	/**
 	* 状态 0未处理、1已处理
-	*@param  informState
+	*@param  inform_state
 	*/
-	public void setInformState(Integer informState ){
-		this.informState = informState;
+	public void setInform_state(Integer inform_state ){
+		this.inform_state = inform_state;
 	}
 	
 	/**
 	* 类型 0话题、1回复
 	*@return 
 	*/
-	public Integer getInformType(){
-		return  informType;
+	public Integer getInform_type(){
+		return  inform_type;
 	}
 	/**
 	* 类型 0话题、1回复
-	*@param  informType
+	*@param  inform_type
 	*/
-	public void setInformType(Integer informType ){
-		this.informType = informType;
+	public void setInform_type(Integer inform_type ){
+		this.inform_type = inform_type;
 	}
 	
 	/**
 	* 会员id
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 会员id
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 回复id
 	*@return 
 	*/
-	public Integer getReplyId(){
-		return  replyId;
+	public Integer getReply_id(){
+		return  reply_id;
 	}
 	/**
 	* 回复id
-	*@param  replyId
+	*@param  reply_id
 	*/
-	public void setReplyId(Integer replyId ){
-		this.replyId = replyId;
+	public void setReply_id(Integer reply_id ){
+		this.reply_id = reply_id;
 	}
 	
 	/**
 	* 话题id
 	*@return 
 	*/
-	public Integer getThemeId(){
-		return  themeId;
+	public Integer getTheme_id(){
+		return  theme_id;
 	}
 	/**
 	* 话题id
-	*@param  themeId
+	*@param  theme_id
 	*/
-	public void setThemeId(Integer themeId ){
-		this.themeId = themeId;
+	public void setTheme_id(Integer theme_id ){
+		this.theme_id = theme_id;
 	}
 	
 	/**
 	* 圈子名称
 	*@return 
 	*/
-	public String getCircleName(){
-		return  circleName;
+	public String getCircle_name(){
+		return  circle_name;
 	}
 	/**
 	* 圈子名称
-	*@param  circleName
+	*@param  circle_name
 	*/
-	public void setCircleName(String circleName ){
-		this.circleName = circleName;
+	public void setCircle_name(String circle_name ){
+		this.circle_name = circle_name;
 	}
 	
 	/**
 	* 举报内容
 	*@return 
 	*/
-	public String getInformContent(){
-		return  informContent;
+	public String getInform_content(){
+		return  inform_content;
 	}
 	/**
 	* 举报内容
-	*@param  informContent
+	*@param  inform_content
 	*/
-	public void setInformContent(String informContent ){
-		this.informContent = informContent;
+	public void setInform_content(String inform_content ){
+		this.inform_content = inform_content;
 	}
 	
 	/**
 	* 操作人名称
 	*@return 
 	*/
-	public String getInformOpname(){
-		return  informOpname;
+	public String getInform_opname(){
+		return  inform_opname;
 	}
 	/**
 	* 操作人名称
-	*@param  informOpname
+	*@param  inform_opname
 	*/
-	public void setInformOpname(String informOpname ){
-		this.informOpname = informOpname;
+	public void setInform_opname(String inform_opname ){
+		this.inform_opname = inform_opname;
 	}
 	
 	/**
 	* 处理结果
 	*@return 
 	*/
-	public String getInformOpresult(){
-		return  informOpresult;
+	public String getInform_opresult(){
+		return  inform_opresult;
 	}
 	/**
 	* 处理结果
-	*@param  informOpresult
+	*@param  inform_opresult
 	*/
-	public void setInformOpresult(String informOpresult ){
-		this.informOpresult = informOpresult;
+	public void setInform_opresult(String inform_opresult ){
+		this.inform_opresult = inform_opresult;
 	}
 	
 	/**
 	* 举报时间
 	*@return 
 	*/
-	public String getInformTime(){
-		return  informTime;
+	public String getInform_time(){
+		return  inform_time;
 	}
 	/**
 	* 举报时间
-	*@param  informTime
+	*@param  inform_time
 	*/
-	public void setInformTime(String informTime ){
-		this.informTime = informTime;
+	public void setInform_time(String inform_time ){
+		this.inform_time = inform_time;
 	}
 	
 	/**
 	* 会员名称
 	*@return 
 	*/
-	public String getMemberName(){
-		return  memberName;
+	public String getMember_name(){
+		return  member_name;
 	}
 	/**
 	* 会员名称
-	*@param  memberName
+	*@param  member_name
 	*/
-	public void setMemberName(String memberName ){
-		this.memberName = memberName;
+	public void setMember_name(String member_name ){
+		this.member_name = member_name;
 	}
 	
 	/**
 	* 主题名称
 	*@return 
 	*/
-	public String getThemeName(){
-		return  themeName;
+	public String getTheme_name(){
+		return  theme_name;
 	}
 	/**
 	* 主题名称
-	*@param  themeName
+	*@param  theme_name
 	*/
-	public void setThemeName(String themeName ){
-		this.themeName = themeName;
+	public void setTheme_name(String theme_name ){
+		this.theme_name = theme_name;
 	}
 	
 

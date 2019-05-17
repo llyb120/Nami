@@ -7,19 +7,23 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_mb_special")
 public class RaMbSpecial   {
 	
+	// alias
+	public static final String ALIAS_special_id = "special_id";
+	public static final String ALIAS_special_desc = "special_desc";
+	
 	/*
 	专题编号
 	*/
-	private Integer specialId ;
+	private Integer special_id ;
 	/*
 	专题描述
 	*/
-	private String specialDesc ;
+	private String special_desc ;
 	
 	public RaMbSpecial() {
 	}
@@ -28,30 +32,30 @@ public class RaMbSpecial   {
 	* 专题编号
 	*@return 
 	*/
-	public Integer getSpecialId(){
-		return  specialId;
+	public Integer getSpecial_id(){
+		return  special_id;
 	}
 	/**
 	* 专题编号
-	*@param  specialId
+	*@param  special_id
 	*/
-	public void setSpecialId(Integer specialId ){
-		this.specialId = specialId;
+	public void setSpecial_id(Integer special_id ){
+		this.special_id = special_id;
 	}
 	
 	/**
 	* 专题描述
 	*@return 
 	*/
-	public String getSpecialDesc(){
-		return  specialDesc;
+	public String getSpecial_desc(){
+		return  special_desc;
 	}
 	/**
 	* 专题描述
-	*@param  specialDesc
+	*@param  special_desc
 	*/
-	public void setSpecialDesc(String specialDesc ){
-		this.specialDesc = specialDesc;
+	public void setSpecial_desc(String special_desc ){
+		this.special_desc = special_desc;
 	}
 	
 

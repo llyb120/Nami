@@ -7,10 +7,22 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_rechargecard")
 public class RaRechargecard   {
+	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_state = "state";
+	public static final String ALIAS_tscreated = "tscreated";
+	public static final String ALIAS_tsused = "tsused";
+	public static final String ALIAS_admin_name = "admin_name";
+	public static final String ALIAS_batchflag = "batchflag";
+	public static final String ALIAS_denomination = "denomination";
+	public static final String ALIAS_member_name = "member_name";
+	public static final String ALIAS_sn = "sn";
 	
 	/*
 	自增ID
@@ -19,7 +31,7 @@ public class RaRechargecard   {
 	/*
 	使用者会员ID
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	状态 0可用 1已用 2已删
 	*/
@@ -35,7 +47,7 @@ public class RaRechargecard   {
 	/*
 	创建者名称
 	*/
-	private String adminName ;
+	private String admin_name ;
 	/*
 	批次标识
 	*/
@@ -47,7 +59,7 @@ public class RaRechargecard   {
 	/*
 	使用者会员名称
 	*/
-	private String memberName ;
+	private String member_name ;
 	/*
 	卡号
 	*/
@@ -75,15 +87,15 @@ public class RaRechargecard   {
 	* 使用者会员ID
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 使用者会员ID
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
@@ -135,15 +147,15 @@ public class RaRechargecard   {
 	* 创建者名称
 	*@return 
 	*/
-	public String getAdminName(){
-		return  adminName;
+	public String getAdmin_name(){
+		return  admin_name;
 	}
 	/**
 	* 创建者名称
-	*@param  adminName
+	*@param  admin_name
 	*/
-	public void setAdminName(String adminName ){
-		this.adminName = adminName;
+	public void setAdmin_name(String admin_name ){
+		this.admin_name = admin_name;
 	}
 	
 	/**
@@ -180,15 +192,15 @@ public class RaRechargecard   {
 	* 使用者会员名称
 	*@return 
 	*/
-	public String getMemberName(){
-		return  memberName;
+	public String getMember_name(){
+		return  member_name;
 	}
 	/**
 	* 使用者会员名称
-	*@param  memberName
+	*@param  member_name
 	*/
-	public void setMemberName(String memberName ){
-		this.memberName = memberName;
+	public void setMember_name(String member_name ){
+		this.member_name = member_name;
 	}
 	
 	/**

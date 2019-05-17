@@ -7,43 +7,53 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_vr_order_statis")
 public class RaVrOrderStatis   {
 	
+	// alias
+	public static final String ALIAS_os_month = "os_month";
+	public static final String ALIAS_os_create_date = "os_create_date";
+	public static final String ALIAS_os_end_date = "os_end_date";
+	public static final String ALIAS_os_start_date = "os_start_date";
+	public static final String ALIAS_os_year = "os_year";
+	public static final String ALIAS_os_commis_totals = "os_commis_totals";
+	public static final String ALIAS_os_order_totals = "os_order_totals";
+	public static final String ALIAS_os_result_totals = "os_result_totals";
+	
 	/*
 	统计编号(年月)
 	*/
-	private Integer osMonth ;
+	private Integer os_month ;
 	/*
 	创建记录日期
 	*/
-	private Integer osCreateDate ;
+	private Integer os_create_date ;
 	/*
 	结束日期
 	*/
-	private Integer osEndDate ;
+	private Integer os_end_date ;
 	/*
 	开始日期
 	*/
-	private Integer osStartDate ;
+	private Integer os_start_date ;
 	/*
 	年
 	*/
-	private Integer osYear ;
+	private Integer os_year ;
 	/*
 	佣金金额
 	*/
-	private BigDecimal osCommisTotals ;
+	private BigDecimal os_commis_totals ;
 	/*
 	订单金额
 	*/
-	private BigDecimal osOrderTotals ;
+	private BigDecimal os_order_totals ;
 	/*
 	本期应结
 	*/
-	private BigDecimal osResultTotals ;
+	private BigDecimal os_result_totals ;
 	
 	public RaVrOrderStatis() {
 	}
@@ -52,120 +62,120 @@ public class RaVrOrderStatis   {
 	* 统计编号(年月)
 	*@return 
 	*/
-	public Integer getOsMonth(){
-		return  osMonth;
+	public Integer getOs_month(){
+		return  os_month;
 	}
 	/**
 	* 统计编号(年月)
-	*@param  osMonth
+	*@param  os_month
 	*/
-	public void setOsMonth(Integer osMonth ){
-		this.osMonth = osMonth;
+	public void setOs_month(Integer os_month ){
+		this.os_month = os_month;
 	}
 	
 	/**
 	* 创建记录日期
 	*@return 
 	*/
-	public Integer getOsCreateDate(){
-		return  osCreateDate;
+	public Integer getOs_create_date(){
+		return  os_create_date;
 	}
 	/**
 	* 创建记录日期
-	*@param  osCreateDate
+	*@param  os_create_date
 	*/
-	public void setOsCreateDate(Integer osCreateDate ){
-		this.osCreateDate = osCreateDate;
+	public void setOs_create_date(Integer os_create_date ){
+		this.os_create_date = os_create_date;
 	}
 	
 	/**
 	* 结束日期
 	*@return 
 	*/
-	public Integer getOsEndDate(){
-		return  osEndDate;
+	public Integer getOs_end_date(){
+		return  os_end_date;
 	}
 	/**
 	* 结束日期
-	*@param  osEndDate
+	*@param  os_end_date
 	*/
-	public void setOsEndDate(Integer osEndDate ){
-		this.osEndDate = osEndDate;
+	public void setOs_end_date(Integer os_end_date ){
+		this.os_end_date = os_end_date;
 	}
 	
 	/**
 	* 开始日期
 	*@return 
 	*/
-	public Integer getOsStartDate(){
-		return  osStartDate;
+	public Integer getOs_start_date(){
+		return  os_start_date;
 	}
 	/**
 	* 开始日期
-	*@param  osStartDate
+	*@param  os_start_date
 	*/
-	public void setOsStartDate(Integer osStartDate ){
-		this.osStartDate = osStartDate;
+	public void setOs_start_date(Integer os_start_date ){
+		this.os_start_date = os_start_date;
 	}
 	
 	/**
 	* 年
 	*@return 
 	*/
-	public Integer getOsYear(){
-		return  osYear;
+	public Integer getOs_year(){
+		return  os_year;
 	}
 	/**
 	* 年
-	*@param  osYear
+	*@param  os_year
 	*/
-	public void setOsYear(Integer osYear ){
-		this.osYear = osYear;
+	public void setOs_year(Integer os_year ){
+		this.os_year = os_year;
 	}
 	
 	/**
 	* 佣金金额
 	*@return 
 	*/
-	public BigDecimal getOsCommisTotals(){
-		return  osCommisTotals;
+	public BigDecimal getOs_commis_totals(){
+		return  os_commis_totals;
 	}
 	/**
 	* 佣金金额
-	*@param  osCommisTotals
+	*@param  os_commis_totals
 	*/
-	public void setOsCommisTotals(BigDecimal osCommisTotals ){
-		this.osCommisTotals = osCommisTotals;
+	public void setOs_commis_totals(BigDecimal os_commis_totals ){
+		this.os_commis_totals = os_commis_totals;
 	}
 	
 	/**
 	* 订单金额
 	*@return 
 	*/
-	public BigDecimal getOsOrderTotals(){
-		return  osOrderTotals;
+	public BigDecimal getOs_order_totals(){
+		return  os_order_totals;
 	}
 	/**
 	* 订单金额
-	*@param  osOrderTotals
+	*@param  os_order_totals
 	*/
-	public void setOsOrderTotals(BigDecimal osOrderTotals ){
-		this.osOrderTotals = osOrderTotals;
+	public void setOs_order_totals(BigDecimal os_order_totals ){
+		this.os_order_totals = os_order_totals;
 	}
 	
 	/**
 	* 本期应结
 	*@return 
 	*/
-	public BigDecimal getOsResultTotals(){
-		return  osResultTotals;
+	public BigDecimal getOs_result_totals(){
+		return  os_result_totals;
 	}
 	/**
 	* 本期应结
-	*@param  osResultTotals
+	*@param  os_result_totals
 	*/
-	public void setOsResultTotals(BigDecimal osResultTotals ){
-		this.osResultTotals = osResultTotals;
+	public void setOs_result_totals(BigDecimal os_result_totals ){
+		this.os_result_totals = os_result_totals;
 	}
 	
 

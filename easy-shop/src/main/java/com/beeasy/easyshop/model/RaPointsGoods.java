@@ -7,111 +7,138 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_points_goods")
 public class RaPointsGoods   {
 	
+	// alias
+	public static final String ALIAS_pgoods_id = "pgoods_id";
+	public static final String ALIAS_pgoods_add_time = "pgoods_add_time";
+	public static final String ALIAS_pgoods_commend = "pgoods_commend";
+	public static final String ALIAS_pgoods_endtime = "pgoods_endtime";
+	public static final String ALIAS_pgoods_islimit = "pgoods_islimit";
+	public static final String ALIAS_pgoods_islimittime = "pgoods_islimittime";
+	public static final String ALIAS_pgoods_limitmgrade = "pgoods_limitmgrade";
+	public static final String ALIAS_pgoods_limitnum = "pgoods_limitnum";
+	public static final String ALIAS_pgoods_points = "pgoods_points";
+	public static final String ALIAS_pgoods_salenum = "pgoods_salenum";
+	public static final String ALIAS_pgoods_show = "pgoods_show";
+	public static final String ALIAS_pgoods_sort = "pgoods_sort";
+	public static final String ALIAS_pgoods_starttime = "pgoods_starttime";
+	public static final String ALIAS_pgoods_state = "pgoods_state";
+	public static final String ALIAS_pgoods_storage = "pgoods_storage";
+	public static final String ALIAS_pgoods_view = "pgoods_view";
+	public static final String ALIAS_pgoods_body = "pgoods_body";
+	public static final String ALIAS_pgoods_close_reason = "pgoods_close_reason";
+	public static final String ALIAS_pgoods_description = "pgoods_description";
+	public static final String ALIAS_pgoods_image = "pgoods_image";
+	public static final String ALIAS_pgoods_keywords = "pgoods_keywords";
+	public static final String ALIAS_pgoods_name = "pgoods_name";
+	public static final String ALIAS_pgoods_price = "pgoods_price";
+	public static final String ALIAS_pgoods_serial = "pgoods_serial";
+	public static final String ALIAS_pgoods_tag = "pgoods_tag";
+	
 	/*
 	积分礼品索引id
 	*/
-	private Integer pgoodsId ;
+	private Integer pgoods_id ;
 	/*
 	积分礼品添加时间
 	*/
-	private Integer pgoodsAddTime ;
+	private Integer pgoods_add_time ;
 	/*
 	积分礼品推荐
 	*/
-	private Integer pgoodsCommend ;
+	private Integer pgoods_commend ;
 	/*
 	兑换结束时间
 	*/
-	private Integer pgoodsEndtime ;
+	private Integer pgoods_endtime ;
 	/*
 	是否限制每会员兑换数量
 	*/
-	private Integer pgoodsIslimit ;
+	private Integer pgoods_islimit ;
 	/*
 	是否限制兑换时间 0为不限制 1为限制
 	*/
-	private Integer pgoodsIslimittime ;
+	private Integer pgoods_islimittime ;
 	/*
 	限制参与兑换的会员级别
 	*/
-	private Integer pgoodsLimitmgrade ;
+	private Integer pgoods_limitmgrade ;
 	/*
 	每会员限制兑换数量
 	*/
-	private Integer pgoodsLimitnum ;
+	private Integer pgoods_limitnum ;
 	/*
 	积分礼品兑换所需积分
 	*/
-	private Integer pgoodsPoints ;
+	private Integer pgoods_points ;
 	/*
 	积分礼品售出数量
 	*/
-	private Integer pgoodsSalenum ;
+	private Integer pgoods_salenum ;
 	/*
 	积分礼品上架 0表示下架 1表示上架
 	*/
-	private Integer pgoodsShow ;
+	private Integer pgoods_show ;
 	/*
 	礼品排序
 	*/
-	private Integer pgoodsSort ;
+	private Integer pgoods_sort ;
 	/*
 	兑换开始时间
 	*/
-	private Integer pgoodsStarttime ;
+	private Integer pgoods_starttime ;
 	/*
 	积分礼品状态，0开启，1禁售
 	*/
-	private Integer pgoodsState ;
+	private Integer pgoods_state ;
 	/*
 	积分礼品库存数
 	*/
-	private Integer pgoodsStorage ;
+	private Integer pgoods_storage ;
 	/*
 	积分商品浏览次数
 	*/
-	private Integer pgoodsView ;
+	private Integer pgoods_view ;
 	/*
 	积分礼品详细内容
 	*/
-	private String pgoodsBody ;
+	private String pgoods_body ;
 	/*
 	积分礼品禁售原因
 	*/
-	private String pgoodsCloseReason ;
+	private String pgoods_close_reason ;
 	/*
 	积分礼品描述
 	*/
-	private String pgoodsDescription ;
+	private String pgoods_description ;
 	/*
 	积分礼品默认封面图片
 	*/
-	private String pgoodsImage ;
+	private String pgoods_image ;
 	/*
 	积分礼品关键字
 	*/
-	private String pgoodsKeywords ;
+	private String pgoods_keywords ;
 	/*
 	积分礼品名称
 	*/
-	private String pgoodsName ;
+	private String pgoods_name ;
 	/*
 	积分礼品原价
 	*/
-	private BigDecimal pgoodsPrice ;
+	private BigDecimal pgoods_price ;
 	/*
 	积分礼品货号
 	*/
-	private String pgoodsSerial ;
+	private String pgoods_serial ;
 	/*
 	积分礼品标签
 	*/
-	private String pgoodsTag ;
+	private String pgoods_tag ;
 	
 	public RaPointsGoods() {
 	}
@@ -120,375 +147,375 @@ public class RaPointsGoods   {
 	* 积分礼品索引id
 	*@return 
 	*/
-	public Integer getPgoodsId(){
-		return  pgoodsId;
+	public Integer getPgoods_id(){
+		return  pgoods_id;
 	}
 	/**
 	* 积分礼品索引id
-	*@param  pgoodsId
+	*@param  pgoods_id
 	*/
-	public void setPgoodsId(Integer pgoodsId ){
-		this.pgoodsId = pgoodsId;
+	public void setPgoods_id(Integer pgoods_id ){
+		this.pgoods_id = pgoods_id;
 	}
 	
 	/**
 	* 积分礼品添加时间
 	*@return 
 	*/
-	public Integer getPgoodsAddTime(){
-		return  pgoodsAddTime;
+	public Integer getPgoods_add_time(){
+		return  pgoods_add_time;
 	}
 	/**
 	* 积分礼品添加时间
-	*@param  pgoodsAddTime
+	*@param  pgoods_add_time
 	*/
-	public void setPgoodsAddTime(Integer pgoodsAddTime ){
-		this.pgoodsAddTime = pgoodsAddTime;
+	public void setPgoods_add_time(Integer pgoods_add_time ){
+		this.pgoods_add_time = pgoods_add_time;
 	}
 	
 	/**
 	* 积分礼品推荐
 	*@return 
 	*/
-	public Integer getPgoodsCommend(){
-		return  pgoodsCommend;
+	public Integer getPgoods_commend(){
+		return  pgoods_commend;
 	}
 	/**
 	* 积分礼品推荐
-	*@param  pgoodsCommend
+	*@param  pgoods_commend
 	*/
-	public void setPgoodsCommend(Integer pgoodsCommend ){
-		this.pgoodsCommend = pgoodsCommend;
+	public void setPgoods_commend(Integer pgoods_commend ){
+		this.pgoods_commend = pgoods_commend;
 	}
 	
 	/**
 	* 兑换结束时间
 	*@return 
 	*/
-	public Integer getPgoodsEndtime(){
-		return  pgoodsEndtime;
+	public Integer getPgoods_endtime(){
+		return  pgoods_endtime;
 	}
 	/**
 	* 兑换结束时间
-	*@param  pgoodsEndtime
+	*@param  pgoods_endtime
 	*/
-	public void setPgoodsEndtime(Integer pgoodsEndtime ){
-		this.pgoodsEndtime = pgoodsEndtime;
+	public void setPgoods_endtime(Integer pgoods_endtime ){
+		this.pgoods_endtime = pgoods_endtime;
 	}
 	
 	/**
 	* 是否限制每会员兑换数量
 	*@return 
 	*/
-	public Integer getPgoodsIslimit(){
-		return  pgoodsIslimit;
+	public Integer getPgoods_islimit(){
+		return  pgoods_islimit;
 	}
 	/**
 	* 是否限制每会员兑换数量
-	*@param  pgoodsIslimit
+	*@param  pgoods_islimit
 	*/
-	public void setPgoodsIslimit(Integer pgoodsIslimit ){
-		this.pgoodsIslimit = pgoodsIslimit;
+	public void setPgoods_islimit(Integer pgoods_islimit ){
+		this.pgoods_islimit = pgoods_islimit;
 	}
 	
 	/**
 	* 是否限制兑换时间 0为不限制 1为限制
 	*@return 
 	*/
-	public Integer getPgoodsIslimittime(){
-		return  pgoodsIslimittime;
+	public Integer getPgoods_islimittime(){
+		return  pgoods_islimittime;
 	}
 	/**
 	* 是否限制兑换时间 0为不限制 1为限制
-	*@param  pgoodsIslimittime
+	*@param  pgoods_islimittime
 	*/
-	public void setPgoodsIslimittime(Integer pgoodsIslimittime ){
-		this.pgoodsIslimittime = pgoodsIslimittime;
+	public void setPgoods_islimittime(Integer pgoods_islimittime ){
+		this.pgoods_islimittime = pgoods_islimittime;
 	}
 	
 	/**
 	* 限制参与兑换的会员级别
 	*@return 
 	*/
-	public Integer getPgoodsLimitmgrade(){
-		return  pgoodsLimitmgrade;
+	public Integer getPgoods_limitmgrade(){
+		return  pgoods_limitmgrade;
 	}
 	/**
 	* 限制参与兑换的会员级别
-	*@param  pgoodsLimitmgrade
+	*@param  pgoods_limitmgrade
 	*/
-	public void setPgoodsLimitmgrade(Integer pgoodsLimitmgrade ){
-		this.pgoodsLimitmgrade = pgoodsLimitmgrade;
+	public void setPgoods_limitmgrade(Integer pgoods_limitmgrade ){
+		this.pgoods_limitmgrade = pgoods_limitmgrade;
 	}
 	
 	/**
 	* 每会员限制兑换数量
 	*@return 
 	*/
-	public Integer getPgoodsLimitnum(){
-		return  pgoodsLimitnum;
+	public Integer getPgoods_limitnum(){
+		return  pgoods_limitnum;
 	}
 	/**
 	* 每会员限制兑换数量
-	*@param  pgoodsLimitnum
+	*@param  pgoods_limitnum
 	*/
-	public void setPgoodsLimitnum(Integer pgoodsLimitnum ){
-		this.pgoodsLimitnum = pgoodsLimitnum;
+	public void setPgoods_limitnum(Integer pgoods_limitnum ){
+		this.pgoods_limitnum = pgoods_limitnum;
 	}
 	
 	/**
 	* 积分礼品兑换所需积分
 	*@return 
 	*/
-	public Integer getPgoodsPoints(){
-		return  pgoodsPoints;
+	public Integer getPgoods_points(){
+		return  pgoods_points;
 	}
 	/**
 	* 积分礼品兑换所需积分
-	*@param  pgoodsPoints
+	*@param  pgoods_points
 	*/
-	public void setPgoodsPoints(Integer pgoodsPoints ){
-		this.pgoodsPoints = pgoodsPoints;
+	public void setPgoods_points(Integer pgoods_points ){
+		this.pgoods_points = pgoods_points;
 	}
 	
 	/**
 	* 积分礼品售出数量
 	*@return 
 	*/
-	public Integer getPgoodsSalenum(){
-		return  pgoodsSalenum;
+	public Integer getPgoods_salenum(){
+		return  pgoods_salenum;
 	}
 	/**
 	* 积分礼品售出数量
-	*@param  pgoodsSalenum
+	*@param  pgoods_salenum
 	*/
-	public void setPgoodsSalenum(Integer pgoodsSalenum ){
-		this.pgoodsSalenum = pgoodsSalenum;
+	public void setPgoods_salenum(Integer pgoods_salenum ){
+		this.pgoods_salenum = pgoods_salenum;
 	}
 	
 	/**
 	* 积分礼品上架 0表示下架 1表示上架
 	*@return 
 	*/
-	public Integer getPgoodsShow(){
-		return  pgoodsShow;
+	public Integer getPgoods_show(){
+		return  pgoods_show;
 	}
 	/**
 	* 积分礼品上架 0表示下架 1表示上架
-	*@param  pgoodsShow
+	*@param  pgoods_show
 	*/
-	public void setPgoodsShow(Integer pgoodsShow ){
-		this.pgoodsShow = pgoodsShow;
+	public void setPgoods_show(Integer pgoods_show ){
+		this.pgoods_show = pgoods_show;
 	}
 	
 	/**
 	* 礼品排序
 	*@return 
 	*/
-	public Integer getPgoodsSort(){
-		return  pgoodsSort;
+	public Integer getPgoods_sort(){
+		return  pgoods_sort;
 	}
 	/**
 	* 礼品排序
-	*@param  pgoodsSort
+	*@param  pgoods_sort
 	*/
-	public void setPgoodsSort(Integer pgoodsSort ){
-		this.pgoodsSort = pgoodsSort;
+	public void setPgoods_sort(Integer pgoods_sort ){
+		this.pgoods_sort = pgoods_sort;
 	}
 	
 	/**
 	* 兑换开始时间
 	*@return 
 	*/
-	public Integer getPgoodsStarttime(){
-		return  pgoodsStarttime;
+	public Integer getPgoods_starttime(){
+		return  pgoods_starttime;
 	}
 	/**
 	* 兑换开始时间
-	*@param  pgoodsStarttime
+	*@param  pgoods_starttime
 	*/
-	public void setPgoodsStarttime(Integer pgoodsStarttime ){
-		this.pgoodsStarttime = pgoodsStarttime;
+	public void setPgoods_starttime(Integer pgoods_starttime ){
+		this.pgoods_starttime = pgoods_starttime;
 	}
 	
 	/**
 	* 积分礼品状态，0开启，1禁售
 	*@return 
 	*/
-	public Integer getPgoodsState(){
-		return  pgoodsState;
+	public Integer getPgoods_state(){
+		return  pgoods_state;
 	}
 	/**
 	* 积分礼品状态，0开启，1禁售
-	*@param  pgoodsState
+	*@param  pgoods_state
 	*/
-	public void setPgoodsState(Integer pgoodsState ){
-		this.pgoodsState = pgoodsState;
+	public void setPgoods_state(Integer pgoods_state ){
+		this.pgoods_state = pgoods_state;
 	}
 	
 	/**
 	* 积分礼品库存数
 	*@return 
 	*/
-	public Integer getPgoodsStorage(){
-		return  pgoodsStorage;
+	public Integer getPgoods_storage(){
+		return  pgoods_storage;
 	}
 	/**
 	* 积分礼品库存数
-	*@param  pgoodsStorage
+	*@param  pgoods_storage
 	*/
-	public void setPgoodsStorage(Integer pgoodsStorage ){
-		this.pgoodsStorage = pgoodsStorage;
+	public void setPgoods_storage(Integer pgoods_storage ){
+		this.pgoods_storage = pgoods_storage;
 	}
 	
 	/**
 	* 积分商品浏览次数
 	*@return 
 	*/
-	public Integer getPgoodsView(){
-		return  pgoodsView;
+	public Integer getPgoods_view(){
+		return  pgoods_view;
 	}
 	/**
 	* 积分商品浏览次数
-	*@param  pgoodsView
+	*@param  pgoods_view
 	*/
-	public void setPgoodsView(Integer pgoodsView ){
-		this.pgoodsView = pgoodsView;
+	public void setPgoods_view(Integer pgoods_view ){
+		this.pgoods_view = pgoods_view;
 	}
 	
 	/**
 	* 积分礼品详细内容
 	*@return 
 	*/
-	public String getPgoodsBody(){
-		return  pgoodsBody;
+	public String getPgoods_body(){
+		return  pgoods_body;
 	}
 	/**
 	* 积分礼品详细内容
-	*@param  pgoodsBody
+	*@param  pgoods_body
 	*/
-	public void setPgoodsBody(String pgoodsBody ){
-		this.pgoodsBody = pgoodsBody;
+	public void setPgoods_body(String pgoods_body ){
+		this.pgoods_body = pgoods_body;
 	}
 	
 	/**
 	* 积分礼品禁售原因
 	*@return 
 	*/
-	public String getPgoodsCloseReason(){
-		return  pgoodsCloseReason;
+	public String getPgoods_close_reason(){
+		return  pgoods_close_reason;
 	}
 	/**
 	* 积分礼品禁售原因
-	*@param  pgoodsCloseReason
+	*@param  pgoods_close_reason
 	*/
-	public void setPgoodsCloseReason(String pgoodsCloseReason ){
-		this.pgoodsCloseReason = pgoodsCloseReason;
+	public void setPgoods_close_reason(String pgoods_close_reason ){
+		this.pgoods_close_reason = pgoods_close_reason;
 	}
 	
 	/**
 	* 积分礼品描述
 	*@return 
 	*/
-	public String getPgoodsDescription(){
-		return  pgoodsDescription;
+	public String getPgoods_description(){
+		return  pgoods_description;
 	}
 	/**
 	* 积分礼品描述
-	*@param  pgoodsDescription
+	*@param  pgoods_description
 	*/
-	public void setPgoodsDescription(String pgoodsDescription ){
-		this.pgoodsDescription = pgoodsDescription;
+	public void setPgoods_description(String pgoods_description ){
+		this.pgoods_description = pgoods_description;
 	}
 	
 	/**
 	* 积分礼品默认封面图片
 	*@return 
 	*/
-	public String getPgoodsImage(){
-		return  pgoodsImage;
+	public String getPgoods_image(){
+		return  pgoods_image;
 	}
 	/**
 	* 积分礼品默认封面图片
-	*@param  pgoodsImage
+	*@param  pgoods_image
 	*/
-	public void setPgoodsImage(String pgoodsImage ){
-		this.pgoodsImage = pgoodsImage;
+	public void setPgoods_image(String pgoods_image ){
+		this.pgoods_image = pgoods_image;
 	}
 	
 	/**
 	* 积分礼品关键字
 	*@return 
 	*/
-	public String getPgoodsKeywords(){
-		return  pgoodsKeywords;
+	public String getPgoods_keywords(){
+		return  pgoods_keywords;
 	}
 	/**
 	* 积分礼品关键字
-	*@param  pgoodsKeywords
+	*@param  pgoods_keywords
 	*/
-	public void setPgoodsKeywords(String pgoodsKeywords ){
-		this.pgoodsKeywords = pgoodsKeywords;
+	public void setPgoods_keywords(String pgoods_keywords ){
+		this.pgoods_keywords = pgoods_keywords;
 	}
 	
 	/**
 	* 积分礼品名称
 	*@return 
 	*/
-	public String getPgoodsName(){
-		return  pgoodsName;
+	public String getPgoods_name(){
+		return  pgoods_name;
 	}
 	/**
 	* 积分礼品名称
-	*@param  pgoodsName
+	*@param  pgoods_name
 	*/
-	public void setPgoodsName(String pgoodsName ){
-		this.pgoodsName = pgoodsName;
+	public void setPgoods_name(String pgoods_name ){
+		this.pgoods_name = pgoods_name;
 	}
 	
 	/**
 	* 积分礼品原价
 	*@return 
 	*/
-	public BigDecimal getPgoodsPrice(){
-		return  pgoodsPrice;
+	public BigDecimal getPgoods_price(){
+		return  pgoods_price;
 	}
 	/**
 	* 积分礼品原价
-	*@param  pgoodsPrice
+	*@param  pgoods_price
 	*/
-	public void setPgoodsPrice(BigDecimal pgoodsPrice ){
-		this.pgoodsPrice = pgoodsPrice;
+	public void setPgoods_price(BigDecimal pgoods_price ){
+		this.pgoods_price = pgoods_price;
 	}
 	
 	/**
 	* 积分礼品货号
 	*@return 
 	*/
-	public String getPgoodsSerial(){
-		return  pgoodsSerial;
+	public String getPgoods_serial(){
+		return  pgoods_serial;
 	}
 	/**
 	* 积分礼品货号
-	*@param  pgoodsSerial
+	*@param  pgoods_serial
 	*/
-	public void setPgoodsSerial(String pgoodsSerial ){
-		this.pgoodsSerial = pgoodsSerial;
+	public void setPgoods_serial(String pgoods_serial ){
+		this.pgoods_serial = pgoods_serial;
 	}
 	
 	/**
 	* 积分礼品标签
 	*@return 
 	*/
-	public String getPgoodsTag(){
-		return  pgoodsTag;
+	public String getPgoods_tag(){
+		return  pgoods_tag;
 	}
 	/**
 	* 积分礼品标签
-	*@param  pgoodsTag
+	*@param  pgoods_tag
 	*/
-	public void setPgoodsTag(String pgoodsTag ){
-		this.pgoodsTag = pgoodsTag;
+	public void setPgoods_tag(String pgoods_tag ){
+		this.pgoods_tag = pgoods_tag;
 	}
 	
 

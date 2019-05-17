@@ -7,15 +7,21 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_mail_cron")
 public class RaMailCron   {
 	
+	// alias
+	public static final String ALIAS_mail_id = "mail_id";
+	public static final String ALIAS_contnet = "contnet";
+	public static final String ALIAS_mail = "mail";
+	public static final String ALIAS_subject = "subject";
+	
 	/*
 	消息任务计划id
 	*/
-	private Integer mailId ;
+	private Integer mail_id ;
 	/*
 	邮件内容
 	*/
@@ -36,15 +42,15 @@ public class RaMailCron   {
 	* 消息任务计划id
 	*@return 
 	*/
-	public Integer getMailId(){
-		return  mailId;
+	public Integer getMail_id(){
+		return  mail_id;
 	}
 	/**
 	* 消息任务计划id
-	*@param  mailId
+	*@param  mail_id
 	*/
-	public void setMailId(Integer mailId ){
-		this.mailId = mailId;
+	public void setMail_id(Integer mail_id ){
+		this.mail_id = mail_id;
 	}
 	
 	/**

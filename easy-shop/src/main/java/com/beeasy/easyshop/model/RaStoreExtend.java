@@ -7,15 +7,21 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_extend")
 public class RaStoreExtend   {
 	
+	// alias
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_express = "express";
+	public static final String ALIAS_orderpricerange = "orderpricerange";
+	public static final String ALIAS_pricerange = "pricerange";
+	
 	/*
 	店铺ID
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	快递公司ID的组合
 	*/
@@ -36,15 +42,15 @@ public class RaStoreExtend   {
 	* 店铺ID
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺ID
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**

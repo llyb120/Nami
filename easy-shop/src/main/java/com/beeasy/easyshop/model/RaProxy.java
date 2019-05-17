@@ -7,68 +7,79 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_proxy")
 public class RaProxy   {
 	
-	private Integer memberId ;
+	// alias
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_is_buyer = "is_buyer";
+	public static final String ALIAS_is_guest = "is_guest";
+	public static final String ALIAS_is_special = "is_special";
+	public static final String ALIAS_parent_id = "parent_id";
+	public static final String ALIAS_infomation = "infomation";
+	public static final String ALIAS_mobile = "mobile";
+	public static final String ALIAS_price_formula = "price_formula";
+	public static final String ALIAS_time = "time";
+	
+	private Integer member_id ;
 	/*
 	是否是一般会员，一般会员无法发展下线
 	*/
-	private Integer isBuyer ;
-	private Integer isGuest ;
-	private Integer isSpecial ;
-	private Integer parentId ;
+	private Integer is_buyer ;
+	private Integer is_guest ;
+	private Integer is_special ;
+	private Integer parent_id ;
 	private String infomation ;
 	private String mobile ;
-	private String priceFormula ;
+	private String price_formula ;
 	private String time ;
 	
 	public RaProxy() {
 	}
 	
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 是否是一般会员，一般会员无法发展下线
 	*@return 
 	*/
-	public Integer getIsBuyer(){
-		return  isBuyer;
+	public Integer getIs_buyer(){
+		return  is_buyer;
 	}
 	/**
 	* 是否是一般会员，一般会员无法发展下线
-	*@param  isBuyer
+	*@param  is_buyer
 	*/
-	public void setIsBuyer(Integer isBuyer ){
-		this.isBuyer = isBuyer;
+	public void setIs_buyer(Integer is_buyer ){
+		this.is_buyer = is_buyer;
 	}
 	
-	public Integer getIsGuest(){
-		return  isGuest;
+	public Integer getIs_guest(){
+		return  is_guest;
 	}
-	public void setIsGuest(Integer isGuest ){
-		this.isGuest = isGuest;
-	}
-	
-	public Integer getIsSpecial(){
-		return  isSpecial;
-	}
-	public void setIsSpecial(Integer isSpecial ){
-		this.isSpecial = isSpecial;
+	public void setIs_guest(Integer is_guest ){
+		this.is_guest = is_guest;
 	}
 	
-	public Integer getParentId(){
-		return  parentId;
+	public Integer getIs_special(){
+		return  is_special;
 	}
-	public void setParentId(Integer parentId ){
-		this.parentId = parentId;
+	public void setIs_special(Integer is_special ){
+		this.is_special = is_special;
+	}
+	
+	public Integer getParent_id(){
+		return  parent_id;
+	}
+	public void setParent_id(Integer parent_id ){
+		this.parent_id = parent_id;
 	}
 	
 	public String getInfomation(){
@@ -85,11 +96,11 @@ public class RaProxy   {
 		this.mobile = mobile;
 	}
 	
-	public String getPriceFormula(){
-		return  priceFormula;
+	public String getPrice_formula(){
+		return  price_formula;
 	}
-	public void setPriceFormula(String priceFormula ){
-		this.priceFormula = priceFormula;
+	public void setPrice_formula(String price_formula ){
+		this.price_formula = price_formula;
 	}
 	
 	public String getTime(){

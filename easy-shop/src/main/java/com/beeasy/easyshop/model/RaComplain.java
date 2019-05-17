@@ -7,115 +7,143 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_complain")
 public class RaComplain   {
 	
+	// alias
+	public static final String ALIAS_complain_id = "complain_id";
+	public static final String ALIAS_accused_id = "accused_id";
+	public static final String ALIAS_accuser_id = "accuser_id";
+	public static final String ALIAS_appeal_datetime = "appeal_datetime";
+	public static final String ALIAS_complain_active = "complain_active";
+	public static final String ALIAS_complain_datetime = "complain_datetime";
+	public static final String ALIAS_complain_handle_datetime = "complain_handle_datetime";
+	public static final String ALIAS_complain_handle_member_id = "complain_handle_member_id";
+	public static final String ALIAS_complain_state = "complain_state";
+	public static final String ALIAS_complain_subject_id = "complain_subject_id";
+	public static final String ALIAS_final_handle_datetime = "final_handle_datetime";
+	public static final String ALIAS_final_handle_member_id = "final_handle_member_id";
+	public static final String ALIAS_order_goods_id = "order_goods_id";
+	public static final String ALIAS_order_id = "order_id";
+	public static final String ALIAS_accused_name = "accused_name";
+	public static final String ALIAS_accuser_name = "accuser_name";
+	public static final String ALIAS_appeal_message = "appeal_message";
+	public static final String ALIAS_appeal_pic1 = "appeal_pic1";
+	public static final String ALIAS_appeal_pic2 = "appeal_pic2";
+	public static final String ALIAS_appeal_pic3 = "appeal_pic3";
+	public static final String ALIAS_complain_content = "complain_content";
+	public static final String ALIAS_complain_pic1 = "complain_pic1";
+	public static final String ALIAS_complain_pic2 = "complain_pic2";
+	public static final String ALIAS_complain_pic3 = "complain_pic3";
+	public static final String ALIAS_complain_subject_content = "complain_subject_content";
+	public static final String ALIAS_final_handle_message = "final_handle_message";
+	
 	/*
 	投诉id
 	*/
-	private Integer complainId ;
+	private Integer complain_id ;
 	/*
 	被告id
 	*/
-	private Integer accusedId ;
+	private Integer accused_id ;
 	/*
 	原告id
 	*/
-	private Integer accuserId ;
+	private Integer accuser_id ;
 	/*
 	申诉时间
 	*/
-	private Integer appealDatetime ;
+	private Integer appeal_datetime ;
 	/*
 	投诉是否通过平台审批(1未通过/2通过)
 	*/
-	private Integer complainActive ;
+	private Integer complain_active ;
 	/*
 	投诉时间
 	*/
-	private Integer complainDatetime ;
+	private Integer complain_datetime ;
 	/*
 	投诉处理时间
 	*/
-	private Integer complainHandleDatetime ;
+	private Integer complain_handle_datetime ;
 	/*
 	投诉处理人id
 	*/
-	private Integer complainHandleMemberId ;
+	private Integer complain_handle_member_id ;
 	/*
 	投诉状态(10-新投诉/20-投诉通过转给被投诉人/30-被投诉人已申诉/40-提交仲裁/99-已关闭)
 	*/
-	private Integer complainState ;
+	private Integer complain_state ;
 	/*
 	投诉主题id
 	*/
-	private Integer complainSubjectId ;
+	private Integer complain_subject_id ;
 	/*
 	最终处理时间
 	*/
-	private Integer finalHandleDatetime ;
+	private Integer final_handle_datetime ;
 	/*
 	最终处理人id
 	*/
-	private Integer finalHandleMemberId ;
+	private Integer final_handle_member_id ;
 	/*
 	订单商品ID
 	*/
-	private Integer orderGoodsId ;
+	private Integer order_goods_id ;
 	/*
 	订单id
 	*/
-	private Integer orderId ;
+	private Integer order_id ;
 	/*
 	被告名称
 	*/
-	private String accusedName ;
+	private String accused_name ;
 	/*
 	原告名称
 	*/
-	private String accuserName ;
+	private String accuser_name ;
 	/*
 	申诉内容
 	*/
-	private String appealMessage ;
+	private String appeal_message ;
 	/*
 	申诉图片1
 	*/
-	private String appealPic1 ;
+	private String appeal_pic1 ;
 	/*
 	申诉图片2
 	*/
-	private String appealPic2 ;
+	private String appeal_pic2 ;
 	/*
 	申诉图片3
 	*/
-	private String appealPic3 ;
+	private String appeal_pic3 ;
 	/*
 	投诉内容
 	*/
-	private String complainContent ;
+	private String complain_content ;
 	/*
 	投诉图片1
 	*/
-	private String complainPic1 ;
+	private String complain_pic1 ;
 	/*
 	投诉图片2
 	*/
-	private String complainPic2 ;
+	private String complain_pic2 ;
 	/*
 	投诉图片3
 	*/
-	private String complainPic3 ;
+	private String complain_pic3 ;
 	/*
 	投诉主题
 	*/
-	private String complainSubjectContent ;
+	private String complain_subject_content ;
 	/*
 	最终处理意见
 	*/
-	private String finalHandleMessage ;
+	private String final_handle_message ;
 	
 	public RaComplain() {
 	}
@@ -124,390 +152,390 @@ public class RaComplain   {
 	* 投诉id
 	*@return 
 	*/
-	public Integer getComplainId(){
-		return  complainId;
+	public Integer getComplain_id(){
+		return  complain_id;
 	}
 	/**
 	* 投诉id
-	*@param  complainId
+	*@param  complain_id
 	*/
-	public void setComplainId(Integer complainId ){
-		this.complainId = complainId;
+	public void setComplain_id(Integer complain_id ){
+		this.complain_id = complain_id;
 	}
 	
 	/**
 	* 被告id
 	*@return 
 	*/
-	public Integer getAccusedId(){
-		return  accusedId;
+	public Integer getAccused_id(){
+		return  accused_id;
 	}
 	/**
 	* 被告id
-	*@param  accusedId
+	*@param  accused_id
 	*/
-	public void setAccusedId(Integer accusedId ){
-		this.accusedId = accusedId;
+	public void setAccused_id(Integer accused_id ){
+		this.accused_id = accused_id;
 	}
 	
 	/**
 	* 原告id
 	*@return 
 	*/
-	public Integer getAccuserId(){
-		return  accuserId;
+	public Integer getAccuser_id(){
+		return  accuser_id;
 	}
 	/**
 	* 原告id
-	*@param  accuserId
+	*@param  accuser_id
 	*/
-	public void setAccuserId(Integer accuserId ){
-		this.accuserId = accuserId;
+	public void setAccuser_id(Integer accuser_id ){
+		this.accuser_id = accuser_id;
 	}
 	
 	/**
 	* 申诉时间
 	*@return 
 	*/
-	public Integer getAppealDatetime(){
-		return  appealDatetime;
+	public Integer getAppeal_datetime(){
+		return  appeal_datetime;
 	}
 	/**
 	* 申诉时间
-	*@param  appealDatetime
+	*@param  appeal_datetime
 	*/
-	public void setAppealDatetime(Integer appealDatetime ){
-		this.appealDatetime = appealDatetime;
+	public void setAppeal_datetime(Integer appeal_datetime ){
+		this.appeal_datetime = appeal_datetime;
 	}
 	
 	/**
 	* 投诉是否通过平台审批(1未通过/2通过)
 	*@return 
 	*/
-	public Integer getComplainActive(){
-		return  complainActive;
+	public Integer getComplain_active(){
+		return  complain_active;
 	}
 	/**
 	* 投诉是否通过平台审批(1未通过/2通过)
-	*@param  complainActive
+	*@param  complain_active
 	*/
-	public void setComplainActive(Integer complainActive ){
-		this.complainActive = complainActive;
+	public void setComplain_active(Integer complain_active ){
+		this.complain_active = complain_active;
 	}
 	
 	/**
 	* 投诉时间
 	*@return 
 	*/
-	public Integer getComplainDatetime(){
-		return  complainDatetime;
+	public Integer getComplain_datetime(){
+		return  complain_datetime;
 	}
 	/**
 	* 投诉时间
-	*@param  complainDatetime
+	*@param  complain_datetime
 	*/
-	public void setComplainDatetime(Integer complainDatetime ){
-		this.complainDatetime = complainDatetime;
+	public void setComplain_datetime(Integer complain_datetime ){
+		this.complain_datetime = complain_datetime;
 	}
 	
 	/**
 	* 投诉处理时间
 	*@return 
 	*/
-	public Integer getComplainHandleDatetime(){
-		return  complainHandleDatetime;
+	public Integer getComplain_handle_datetime(){
+		return  complain_handle_datetime;
 	}
 	/**
 	* 投诉处理时间
-	*@param  complainHandleDatetime
+	*@param  complain_handle_datetime
 	*/
-	public void setComplainHandleDatetime(Integer complainHandleDatetime ){
-		this.complainHandleDatetime = complainHandleDatetime;
+	public void setComplain_handle_datetime(Integer complain_handle_datetime ){
+		this.complain_handle_datetime = complain_handle_datetime;
 	}
 	
 	/**
 	* 投诉处理人id
 	*@return 
 	*/
-	public Integer getComplainHandleMemberId(){
-		return  complainHandleMemberId;
+	public Integer getComplain_handle_member_id(){
+		return  complain_handle_member_id;
 	}
 	/**
 	* 投诉处理人id
-	*@param  complainHandleMemberId
+	*@param  complain_handle_member_id
 	*/
-	public void setComplainHandleMemberId(Integer complainHandleMemberId ){
-		this.complainHandleMemberId = complainHandleMemberId;
+	public void setComplain_handle_member_id(Integer complain_handle_member_id ){
+		this.complain_handle_member_id = complain_handle_member_id;
 	}
 	
 	/**
 	* 投诉状态(10-新投诉/20-投诉通过转给被投诉人/30-被投诉人已申诉/40-提交仲裁/99-已关闭)
 	*@return 
 	*/
-	public Integer getComplainState(){
-		return  complainState;
+	public Integer getComplain_state(){
+		return  complain_state;
 	}
 	/**
 	* 投诉状态(10-新投诉/20-投诉通过转给被投诉人/30-被投诉人已申诉/40-提交仲裁/99-已关闭)
-	*@param  complainState
+	*@param  complain_state
 	*/
-	public void setComplainState(Integer complainState ){
-		this.complainState = complainState;
+	public void setComplain_state(Integer complain_state ){
+		this.complain_state = complain_state;
 	}
 	
 	/**
 	* 投诉主题id
 	*@return 
 	*/
-	public Integer getComplainSubjectId(){
-		return  complainSubjectId;
+	public Integer getComplain_subject_id(){
+		return  complain_subject_id;
 	}
 	/**
 	* 投诉主题id
-	*@param  complainSubjectId
+	*@param  complain_subject_id
 	*/
-	public void setComplainSubjectId(Integer complainSubjectId ){
-		this.complainSubjectId = complainSubjectId;
+	public void setComplain_subject_id(Integer complain_subject_id ){
+		this.complain_subject_id = complain_subject_id;
 	}
 	
 	/**
 	* 最终处理时间
 	*@return 
 	*/
-	public Integer getFinalHandleDatetime(){
-		return  finalHandleDatetime;
+	public Integer getFinal_handle_datetime(){
+		return  final_handle_datetime;
 	}
 	/**
 	* 最终处理时间
-	*@param  finalHandleDatetime
+	*@param  final_handle_datetime
 	*/
-	public void setFinalHandleDatetime(Integer finalHandleDatetime ){
-		this.finalHandleDatetime = finalHandleDatetime;
+	public void setFinal_handle_datetime(Integer final_handle_datetime ){
+		this.final_handle_datetime = final_handle_datetime;
 	}
 	
 	/**
 	* 最终处理人id
 	*@return 
 	*/
-	public Integer getFinalHandleMemberId(){
-		return  finalHandleMemberId;
+	public Integer getFinal_handle_member_id(){
+		return  final_handle_member_id;
 	}
 	/**
 	* 最终处理人id
-	*@param  finalHandleMemberId
+	*@param  final_handle_member_id
 	*/
-	public void setFinalHandleMemberId(Integer finalHandleMemberId ){
-		this.finalHandleMemberId = finalHandleMemberId;
+	public void setFinal_handle_member_id(Integer final_handle_member_id ){
+		this.final_handle_member_id = final_handle_member_id;
 	}
 	
 	/**
 	* 订单商品ID
 	*@return 
 	*/
-	public Integer getOrderGoodsId(){
-		return  orderGoodsId;
+	public Integer getOrder_goods_id(){
+		return  order_goods_id;
 	}
 	/**
 	* 订单商品ID
-	*@param  orderGoodsId
+	*@param  order_goods_id
 	*/
-	public void setOrderGoodsId(Integer orderGoodsId ){
-		this.orderGoodsId = orderGoodsId;
+	public void setOrder_goods_id(Integer order_goods_id ){
+		this.order_goods_id = order_goods_id;
 	}
 	
 	/**
 	* 订单id
 	*@return 
 	*/
-	public Integer getOrderId(){
-		return  orderId;
+	public Integer getOrder_id(){
+		return  order_id;
 	}
 	/**
 	* 订单id
-	*@param  orderId
+	*@param  order_id
 	*/
-	public void setOrderId(Integer orderId ){
-		this.orderId = orderId;
+	public void setOrder_id(Integer order_id ){
+		this.order_id = order_id;
 	}
 	
 	/**
 	* 被告名称
 	*@return 
 	*/
-	public String getAccusedName(){
-		return  accusedName;
+	public String getAccused_name(){
+		return  accused_name;
 	}
 	/**
 	* 被告名称
-	*@param  accusedName
+	*@param  accused_name
 	*/
-	public void setAccusedName(String accusedName ){
-		this.accusedName = accusedName;
+	public void setAccused_name(String accused_name ){
+		this.accused_name = accused_name;
 	}
 	
 	/**
 	* 原告名称
 	*@return 
 	*/
-	public String getAccuserName(){
-		return  accuserName;
+	public String getAccuser_name(){
+		return  accuser_name;
 	}
 	/**
 	* 原告名称
-	*@param  accuserName
+	*@param  accuser_name
 	*/
-	public void setAccuserName(String accuserName ){
-		this.accuserName = accuserName;
+	public void setAccuser_name(String accuser_name ){
+		this.accuser_name = accuser_name;
 	}
 	
 	/**
 	* 申诉内容
 	*@return 
 	*/
-	public String getAppealMessage(){
-		return  appealMessage;
+	public String getAppeal_message(){
+		return  appeal_message;
 	}
 	/**
 	* 申诉内容
-	*@param  appealMessage
+	*@param  appeal_message
 	*/
-	public void setAppealMessage(String appealMessage ){
-		this.appealMessage = appealMessage;
+	public void setAppeal_message(String appeal_message ){
+		this.appeal_message = appeal_message;
 	}
 	
 	/**
 	* 申诉图片1
 	*@return 
 	*/
-	public String getAppealPic1(){
-		return  appealPic1;
+	public String getAppeal_pic1(){
+		return  appeal_pic1;
 	}
 	/**
 	* 申诉图片1
-	*@param  appealPic1
+	*@param  appeal_pic1
 	*/
-	public void setAppealPic1(String appealPic1 ){
-		this.appealPic1 = appealPic1;
+	public void setAppeal_pic1(String appeal_pic1 ){
+		this.appeal_pic1 = appeal_pic1;
 	}
 	
 	/**
 	* 申诉图片2
 	*@return 
 	*/
-	public String getAppealPic2(){
-		return  appealPic2;
+	public String getAppeal_pic2(){
+		return  appeal_pic2;
 	}
 	/**
 	* 申诉图片2
-	*@param  appealPic2
+	*@param  appeal_pic2
 	*/
-	public void setAppealPic2(String appealPic2 ){
-		this.appealPic2 = appealPic2;
+	public void setAppeal_pic2(String appeal_pic2 ){
+		this.appeal_pic2 = appeal_pic2;
 	}
 	
 	/**
 	* 申诉图片3
 	*@return 
 	*/
-	public String getAppealPic3(){
-		return  appealPic3;
+	public String getAppeal_pic3(){
+		return  appeal_pic3;
 	}
 	/**
 	* 申诉图片3
-	*@param  appealPic3
+	*@param  appeal_pic3
 	*/
-	public void setAppealPic3(String appealPic3 ){
-		this.appealPic3 = appealPic3;
+	public void setAppeal_pic3(String appeal_pic3 ){
+		this.appeal_pic3 = appeal_pic3;
 	}
 	
 	/**
 	* 投诉内容
 	*@return 
 	*/
-	public String getComplainContent(){
-		return  complainContent;
+	public String getComplain_content(){
+		return  complain_content;
 	}
 	/**
 	* 投诉内容
-	*@param  complainContent
+	*@param  complain_content
 	*/
-	public void setComplainContent(String complainContent ){
-		this.complainContent = complainContent;
+	public void setComplain_content(String complain_content ){
+		this.complain_content = complain_content;
 	}
 	
 	/**
 	* 投诉图片1
 	*@return 
 	*/
-	public String getComplainPic1(){
-		return  complainPic1;
+	public String getComplain_pic1(){
+		return  complain_pic1;
 	}
 	/**
 	* 投诉图片1
-	*@param  complainPic1
+	*@param  complain_pic1
 	*/
-	public void setComplainPic1(String complainPic1 ){
-		this.complainPic1 = complainPic1;
+	public void setComplain_pic1(String complain_pic1 ){
+		this.complain_pic1 = complain_pic1;
 	}
 	
 	/**
 	* 投诉图片2
 	*@return 
 	*/
-	public String getComplainPic2(){
-		return  complainPic2;
+	public String getComplain_pic2(){
+		return  complain_pic2;
 	}
 	/**
 	* 投诉图片2
-	*@param  complainPic2
+	*@param  complain_pic2
 	*/
-	public void setComplainPic2(String complainPic2 ){
-		this.complainPic2 = complainPic2;
+	public void setComplain_pic2(String complain_pic2 ){
+		this.complain_pic2 = complain_pic2;
 	}
 	
 	/**
 	* 投诉图片3
 	*@return 
 	*/
-	public String getComplainPic3(){
-		return  complainPic3;
+	public String getComplain_pic3(){
+		return  complain_pic3;
 	}
 	/**
 	* 投诉图片3
-	*@param  complainPic3
+	*@param  complain_pic3
 	*/
-	public void setComplainPic3(String complainPic3 ){
-		this.complainPic3 = complainPic3;
+	public void setComplain_pic3(String complain_pic3 ){
+		this.complain_pic3 = complain_pic3;
 	}
 	
 	/**
 	* 投诉主题
 	*@return 
 	*/
-	public String getComplainSubjectContent(){
-		return  complainSubjectContent;
+	public String getComplain_subject_content(){
+		return  complain_subject_content;
 	}
 	/**
 	* 投诉主题
-	*@param  complainSubjectContent
+	*@param  complain_subject_content
 	*/
-	public void setComplainSubjectContent(String complainSubjectContent ){
-		this.complainSubjectContent = complainSubjectContent;
+	public void setComplain_subject_content(String complain_subject_content ){
+		this.complain_subject_content = complain_subject_content;
 	}
 	
 	/**
 	* 最终处理意见
 	*@return 
 	*/
-	public String getFinalHandleMessage(){
-		return  finalHandleMessage;
+	public String getFinal_handle_message(){
+		return  final_handle_message;
 	}
 	/**
 	* 最终处理意见
-	*@param  finalHandleMessage
+	*@param  final_handle_message
 	*/
-	public void setFinalHandleMessage(String finalHandleMessage ){
-		this.finalHandleMessage = finalHandleMessage;
+	public void setFinal_handle_message(String final_handle_message ){
+		this.final_handle_message = final_handle_message;
 	}
 	
 

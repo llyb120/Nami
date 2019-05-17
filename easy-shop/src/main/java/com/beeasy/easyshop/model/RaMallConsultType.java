@@ -7,27 +7,33 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_mall_consult_type")
 public class RaMallConsultType   {
 	
+	// alias
+	public static final String ALIAS_mct_id = "mct_id";
+	public static final String ALIAS_mct_sort = "mct_sort";
+	public static final String ALIAS_mct_introduce = "mct_introduce";
+	public static final String ALIAS_mct_name = "mct_name";
+	
 	/*
 	平台客服咨询类型id
 	*/
-	private Integer mctId ;
+	private Integer mct_id ;
 	/*
 	咨询类型排序
 	*/
-	private Integer mctSort ;
+	private Integer mct_sort ;
 	/*
 	平台客服咨询类型备注
 	*/
-	private String mctIntroduce ;
+	private String mct_introduce ;
 	/*
 	咨询类型名称
 	*/
-	private String mctName ;
+	private String mct_name ;
 	
 	public RaMallConsultType() {
 	}
@@ -36,60 +42,60 @@ public class RaMallConsultType   {
 	* 平台客服咨询类型id
 	*@return 
 	*/
-	public Integer getMctId(){
-		return  mctId;
+	public Integer getMct_id(){
+		return  mct_id;
 	}
 	/**
 	* 平台客服咨询类型id
-	*@param  mctId
+	*@param  mct_id
 	*/
-	public void setMctId(Integer mctId ){
-		this.mctId = mctId;
+	public void setMct_id(Integer mct_id ){
+		this.mct_id = mct_id;
 	}
 	
 	/**
 	* 咨询类型排序
 	*@return 
 	*/
-	public Integer getMctSort(){
-		return  mctSort;
+	public Integer getMct_sort(){
+		return  mct_sort;
 	}
 	/**
 	* 咨询类型排序
-	*@param  mctSort
+	*@param  mct_sort
 	*/
-	public void setMctSort(Integer mctSort ){
-		this.mctSort = mctSort;
+	public void setMct_sort(Integer mct_sort ){
+		this.mct_sort = mct_sort;
 	}
 	
 	/**
 	* 平台客服咨询类型备注
 	*@return 
 	*/
-	public String getMctIntroduce(){
-		return  mctIntroduce;
+	public String getMct_introduce(){
+		return  mct_introduce;
 	}
 	/**
 	* 平台客服咨询类型备注
-	*@param  mctIntroduce
+	*@param  mct_introduce
 	*/
-	public void setMctIntroduce(String mctIntroduce ){
-		this.mctIntroduce = mctIntroduce;
+	public void setMct_introduce(String mct_introduce ){
+		this.mct_introduce = mct_introduce;
 	}
 	
 	/**
 	* 咨询类型名称
 	*@return 
 	*/
-	public String getMctName(){
-		return  mctName;
+	public String getMct_name(){
+		return  mct_name;
 	}
 	/**
 	* 咨询类型名称
-	*@param  mctName
+	*@param  mct_name
 	*/
-	public void setMctName(String mctName ){
-		this.mctName = mctName;
+	public void setMct_name(String mct_name ){
+		this.mct_name = mct_name;
 	}
 	
 

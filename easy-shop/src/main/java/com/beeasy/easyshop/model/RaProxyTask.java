@@ -7,16 +7,23 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_proxy_task")
 public class RaProxyTask   {
 	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_end_time = "end_time";
+	public static final String ALIAS_money = "money";
+	public static final String ALIAS_start_time = "start_time";
+	
 	private Integer id ;
-	private Integer memberId ;
-	private String endTime ;
+	private Integer member_id ;
+	private String end_time ;
 	private BigDecimal money ;
-	private String startTime ;
+	private String start_time ;
 	
 	public RaProxyTask() {
 	}
@@ -28,18 +35,18 @@ public class RaProxyTask   {
 		this.id = id;
 	}
 	
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
-	public String getEndTime(){
-		return  endTime;
+	public String getEnd_time(){
+		return  end_time;
 	}
-	public void setEndTime(String endTime ){
-		this.endTime = endTime;
+	public void setEnd_time(String end_time ){
+		this.end_time = end_time;
 	}
 	
 	public BigDecimal getMoney(){
@@ -49,11 +56,11 @@ public class RaProxyTask   {
 		this.money = money;
 	}
 	
-	public String getStartTime(){
-		return  startTime;
+	public String getStart_time(){
+		return  start_time;
 	}
-	public void setStartTime(String startTime ){
-		this.startTime = startTime;
+	public void setStart_time(String start_time ){
+		this.start_time = start_time;
 	}
 	
 

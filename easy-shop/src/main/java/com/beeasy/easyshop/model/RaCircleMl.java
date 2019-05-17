@@ -7,83 +7,103 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_circle_ml")
 public class RaCircleMl   {
 	
+	// alias
+	public static final String ALIAS_circle_id = "circle_id";
+	public static final String ALIAS_mlref_id = "mlref_id";
+	public static final String ALIAS_ml_1 = "ml_1";
+	public static final String ALIAS_ml_10 = "ml_10";
+	public static final String ALIAS_ml_11 = "ml_11";
+	public static final String ALIAS_ml_12 = "ml_12";
+	public static final String ALIAS_ml_13 = "ml_13";
+	public static final String ALIAS_ml_14 = "ml_14";
+	public static final String ALIAS_ml_15 = "ml_15";
+	public static final String ALIAS_ml_16 = "ml_16";
+	public static final String ALIAS_ml_2 = "ml_2";
+	public static final String ALIAS_ml_3 = "ml_3";
+	public static final String ALIAS_ml_4 = "ml_4";
+	public static final String ALIAS_ml_5 = "ml_5";
+	public static final String ALIAS_ml_6 = "ml_6";
+	public static final String ALIAS_ml_7 = "ml_7";
+	public static final String ALIAS_ml_8 = "ml_8";
+	public static final String ALIAS_ml_9 = "ml_9";
+	
 	/*
 	圈子id
 	*/
-	private Integer circleId ;
+	private Integer circle_id ;
 	/*
 	参考头衔id 0为默认 null为自定义
 	*/
-	private Integer mlrefId ;
+	private Integer mlref_id ;
 	/*
 	1级头衔名称
 	*/
-	private String ml1 ;
+	private String ml_1 ;
 	/*
 	10级头衔名称
 	*/
-	private String ml10 ;
+	private String ml_10 ;
 	/*
 	11级头衔名称
 	*/
-	private String ml11 ;
+	private String ml_11 ;
 	/*
 	12级头衔名称
 	*/
-	private String ml12 ;
+	private String ml_12 ;
 	/*
 	13级头衔名称
 	*/
-	private String ml13 ;
+	private String ml_13 ;
 	/*
 	14级头衔名称
 	*/
-	private String ml14 ;
+	private String ml_14 ;
 	/*
 	15级头衔名称
 	*/
-	private String ml15 ;
+	private String ml_15 ;
 	/*
 	16级头衔名称
 	*/
-	private String ml16 ;
+	private String ml_16 ;
 	/*
 	2级头衔名称
 	*/
-	private String ml2 ;
+	private String ml_2 ;
 	/*
 	3级头衔名称
 	*/
-	private String ml3 ;
+	private String ml_3 ;
 	/*
 	4级头衔名称
 	*/
-	private String ml4 ;
+	private String ml_4 ;
 	/*
 	5级头衔名称
 	*/
-	private String ml5 ;
+	private String ml_5 ;
 	/*
 	6级头衔名称
 	*/
-	private String ml6 ;
+	private String ml_6 ;
 	/*
 	7级头衔名称
 	*/
-	private String ml7 ;
+	private String ml_7 ;
 	/*
 	8级头衔名称
 	*/
-	private String ml8 ;
+	private String ml_8 ;
 	/*
 	9级头衔名称
 	*/
-	private String ml9 ;
+	private String ml_9 ;
 	
 	public RaCircleMl() {
 	}
@@ -92,270 +112,270 @@ public class RaCircleMl   {
 	* 圈子id
 	*@return 
 	*/
-	public Integer getCircleId(){
-		return  circleId;
+	public Integer getCircle_id(){
+		return  circle_id;
 	}
 	/**
 	* 圈子id
-	*@param  circleId
+	*@param  circle_id
 	*/
-	public void setCircleId(Integer circleId ){
-		this.circleId = circleId;
+	public void setCircle_id(Integer circle_id ){
+		this.circle_id = circle_id;
 	}
 	
 	/**
 	* 参考头衔id 0为默认 null为自定义
 	*@return 
 	*/
-	public Integer getMlrefId(){
-		return  mlrefId;
+	public Integer getMlref_id(){
+		return  mlref_id;
 	}
 	/**
 	* 参考头衔id 0为默认 null为自定义
-	*@param  mlrefId
+	*@param  mlref_id
 	*/
-	public void setMlrefId(Integer mlrefId ){
-		this.mlrefId = mlrefId;
+	public void setMlref_id(Integer mlref_id ){
+		this.mlref_id = mlref_id;
 	}
 	
 	/**
 	* 1级头衔名称
 	*@return 
 	*/
-	public String getMl1(){
-		return  ml1;
+	public String getMl_1(){
+		return  ml_1;
 	}
 	/**
 	* 1级头衔名称
-	*@param  ml1
+	*@param  ml_1
 	*/
-	public void setMl1(String ml1 ){
-		this.ml1 = ml1;
+	public void setMl_1(String ml_1 ){
+		this.ml_1 = ml_1;
 	}
 	
 	/**
 	* 10级头衔名称
 	*@return 
 	*/
-	public String getMl10(){
-		return  ml10;
+	public String getMl_10(){
+		return  ml_10;
 	}
 	/**
 	* 10级头衔名称
-	*@param  ml10
+	*@param  ml_10
 	*/
-	public void setMl10(String ml10 ){
-		this.ml10 = ml10;
+	public void setMl_10(String ml_10 ){
+		this.ml_10 = ml_10;
 	}
 	
 	/**
 	* 11级头衔名称
 	*@return 
 	*/
-	public String getMl11(){
-		return  ml11;
+	public String getMl_11(){
+		return  ml_11;
 	}
 	/**
 	* 11级头衔名称
-	*@param  ml11
+	*@param  ml_11
 	*/
-	public void setMl11(String ml11 ){
-		this.ml11 = ml11;
+	public void setMl_11(String ml_11 ){
+		this.ml_11 = ml_11;
 	}
 	
 	/**
 	* 12级头衔名称
 	*@return 
 	*/
-	public String getMl12(){
-		return  ml12;
+	public String getMl_12(){
+		return  ml_12;
 	}
 	/**
 	* 12级头衔名称
-	*@param  ml12
+	*@param  ml_12
 	*/
-	public void setMl12(String ml12 ){
-		this.ml12 = ml12;
+	public void setMl_12(String ml_12 ){
+		this.ml_12 = ml_12;
 	}
 	
 	/**
 	* 13级头衔名称
 	*@return 
 	*/
-	public String getMl13(){
-		return  ml13;
+	public String getMl_13(){
+		return  ml_13;
 	}
 	/**
 	* 13级头衔名称
-	*@param  ml13
+	*@param  ml_13
 	*/
-	public void setMl13(String ml13 ){
-		this.ml13 = ml13;
+	public void setMl_13(String ml_13 ){
+		this.ml_13 = ml_13;
 	}
 	
 	/**
 	* 14级头衔名称
 	*@return 
 	*/
-	public String getMl14(){
-		return  ml14;
+	public String getMl_14(){
+		return  ml_14;
 	}
 	/**
 	* 14级头衔名称
-	*@param  ml14
+	*@param  ml_14
 	*/
-	public void setMl14(String ml14 ){
-		this.ml14 = ml14;
+	public void setMl_14(String ml_14 ){
+		this.ml_14 = ml_14;
 	}
 	
 	/**
 	* 15级头衔名称
 	*@return 
 	*/
-	public String getMl15(){
-		return  ml15;
+	public String getMl_15(){
+		return  ml_15;
 	}
 	/**
 	* 15级头衔名称
-	*@param  ml15
+	*@param  ml_15
 	*/
-	public void setMl15(String ml15 ){
-		this.ml15 = ml15;
+	public void setMl_15(String ml_15 ){
+		this.ml_15 = ml_15;
 	}
 	
 	/**
 	* 16级头衔名称
 	*@return 
 	*/
-	public String getMl16(){
-		return  ml16;
+	public String getMl_16(){
+		return  ml_16;
 	}
 	/**
 	* 16级头衔名称
-	*@param  ml16
+	*@param  ml_16
 	*/
-	public void setMl16(String ml16 ){
-		this.ml16 = ml16;
+	public void setMl_16(String ml_16 ){
+		this.ml_16 = ml_16;
 	}
 	
 	/**
 	* 2级头衔名称
 	*@return 
 	*/
-	public String getMl2(){
-		return  ml2;
+	public String getMl_2(){
+		return  ml_2;
 	}
 	/**
 	* 2级头衔名称
-	*@param  ml2
+	*@param  ml_2
 	*/
-	public void setMl2(String ml2 ){
-		this.ml2 = ml2;
+	public void setMl_2(String ml_2 ){
+		this.ml_2 = ml_2;
 	}
 	
 	/**
 	* 3级头衔名称
 	*@return 
 	*/
-	public String getMl3(){
-		return  ml3;
+	public String getMl_3(){
+		return  ml_3;
 	}
 	/**
 	* 3级头衔名称
-	*@param  ml3
+	*@param  ml_3
 	*/
-	public void setMl3(String ml3 ){
-		this.ml3 = ml3;
+	public void setMl_3(String ml_3 ){
+		this.ml_3 = ml_3;
 	}
 	
 	/**
 	* 4级头衔名称
 	*@return 
 	*/
-	public String getMl4(){
-		return  ml4;
+	public String getMl_4(){
+		return  ml_4;
 	}
 	/**
 	* 4级头衔名称
-	*@param  ml4
+	*@param  ml_4
 	*/
-	public void setMl4(String ml4 ){
-		this.ml4 = ml4;
+	public void setMl_4(String ml_4 ){
+		this.ml_4 = ml_4;
 	}
 	
 	/**
 	* 5级头衔名称
 	*@return 
 	*/
-	public String getMl5(){
-		return  ml5;
+	public String getMl_5(){
+		return  ml_5;
 	}
 	/**
 	* 5级头衔名称
-	*@param  ml5
+	*@param  ml_5
 	*/
-	public void setMl5(String ml5 ){
-		this.ml5 = ml5;
+	public void setMl_5(String ml_5 ){
+		this.ml_5 = ml_5;
 	}
 	
 	/**
 	* 6级头衔名称
 	*@return 
 	*/
-	public String getMl6(){
-		return  ml6;
+	public String getMl_6(){
+		return  ml_6;
 	}
 	/**
 	* 6级头衔名称
-	*@param  ml6
+	*@param  ml_6
 	*/
-	public void setMl6(String ml6 ){
-		this.ml6 = ml6;
+	public void setMl_6(String ml_6 ){
+		this.ml_6 = ml_6;
 	}
 	
 	/**
 	* 7级头衔名称
 	*@return 
 	*/
-	public String getMl7(){
-		return  ml7;
+	public String getMl_7(){
+		return  ml_7;
 	}
 	/**
 	* 7级头衔名称
-	*@param  ml7
+	*@param  ml_7
 	*/
-	public void setMl7(String ml7 ){
-		this.ml7 = ml7;
+	public void setMl_7(String ml_7 ){
+		this.ml_7 = ml_7;
 	}
 	
 	/**
 	* 8级头衔名称
 	*@return 
 	*/
-	public String getMl8(){
-		return  ml8;
+	public String getMl_8(){
+		return  ml_8;
 	}
 	/**
 	* 8级头衔名称
-	*@param  ml8
+	*@param  ml_8
 	*/
-	public void setMl8(String ml8 ){
-		this.ml8 = ml8;
+	public void setMl_8(String ml_8 ){
+		this.ml_8 = ml_8;
 	}
 	
 	/**
 	* 9级头衔名称
 	*@return 
 	*/
-	public String getMl9(){
-		return  ml9;
+	public String getMl_9(){
+		return  ml_9;
 	}
 	/**
 	* 9级头衔名称
-	*@param  ml9
+	*@param  ml_9
 	*/
-	public void setMl9(String ml9 ){
-		this.ml9 = ml9;
+	public void setMl_9(String ml_9 ){
+		this.ml_9 = ml_9;
 	}
 	
 

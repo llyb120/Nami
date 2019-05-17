@@ -7,31 +7,38 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_inform_subject")
 public class RaInformSubject   {
 	
+	// alias
+	public static final String ALIAS_inform_subject_id = "inform_subject_id";
+	public static final String ALIAS_inform_subject_state = "inform_subject_state";
+	public static final String ALIAS_inform_subject_type_id = "inform_subject_type_id";
+	public static final String ALIAS_inform_subject_content = "inform_subject_content";
+	public static final String ALIAS_inform_subject_type_name = "inform_subject_type_name";
+	
 	/*
 	举报主题id
 	*/
-	private Integer informSubjectId ;
+	private Integer inform_subject_id ;
 	/*
 	举报主题状态(1可用/2失效)
 	*/
-	private Integer informSubjectState ;
+	private Integer inform_subject_state ;
 	/*
 	举报类型id
 	*/
-	private Integer informSubjectTypeId ;
+	private Integer inform_subject_type_id ;
 	/*
 	举报主题内容
 	*/
-	private String informSubjectContent ;
+	private String inform_subject_content ;
 	/*
 	举报类型名称 
 	*/
-	private String informSubjectTypeName ;
+	private String inform_subject_type_name ;
 	
 	public RaInformSubject() {
 	}
@@ -40,75 +47,75 @@ public class RaInformSubject   {
 	* 举报主题id
 	*@return 
 	*/
-	public Integer getInformSubjectId(){
-		return  informSubjectId;
+	public Integer getInform_subject_id(){
+		return  inform_subject_id;
 	}
 	/**
 	* 举报主题id
-	*@param  informSubjectId
+	*@param  inform_subject_id
 	*/
-	public void setInformSubjectId(Integer informSubjectId ){
-		this.informSubjectId = informSubjectId;
+	public void setInform_subject_id(Integer inform_subject_id ){
+		this.inform_subject_id = inform_subject_id;
 	}
 	
 	/**
 	* 举报主题状态(1可用/2失效)
 	*@return 
 	*/
-	public Integer getInformSubjectState(){
-		return  informSubjectState;
+	public Integer getInform_subject_state(){
+		return  inform_subject_state;
 	}
 	/**
 	* 举报主题状态(1可用/2失效)
-	*@param  informSubjectState
+	*@param  inform_subject_state
 	*/
-	public void setInformSubjectState(Integer informSubjectState ){
-		this.informSubjectState = informSubjectState;
+	public void setInform_subject_state(Integer inform_subject_state ){
+		this.inform_subject_state = inform_subject_state;
 	}
 	
 	/**
 	* 举报类型id
 	*@return 
 	*/
-	public Integer getInformSubjectTypeId(){
-		return  informSubjectTypeId;
+	public Integer getInform_subject_type_id(){
+		return  inform_subject_type_id;
 	}
 	/**
 	* 举报类型id
-	*@param  informSubjectTypeId
+	*@param  inform_subject_type_id
 	*/
-	public void setInformSubjectTypeId(Integer informSubjectTypeId ){
-		this.informSubjectTypeId = informSubjectTypeId;
+	public void setInform_subject_type_id(Integer inform_subject_type_id ){
+		this.inform_subject_type_id = inform_subject_type_id;
 	}
 	
 	/**
 	* 举报主题内容
 	*@return 
 	*/
-	public String getInformSubjectContent(){
-		return  informSubjectContent;
+	public String getInform_subject_content(){
+		return  inform_subject_content;
 	}
 	/**
 	* 举报主题内容
-	*@param  informSubjectContent
+	*@param  inform_subject_content
 	*/
-	public void setInformSubjectContent(String informSubjectContent ){
-		this.informSubjectContent = informSubjectContent;
+	public void setInform_subject_content(String inform_subject_content ){
+		this.inform_subject_content = inform_subject_content;
 	}
 	
 	/**
 	* 举报类型名称 
 	*@return 
 	*/
-	public String getInformSubjectTypeName(){
-		return  informSubjectTypeName;
+	public String getInform_subject_type_name(){
+		return  inform_subject_type_name;
 	}
 	/**
 	* 举报类型名称 
-	*@param  informSubjectTypeName
+	*@param  inform_subject_type_name
 	*/
-	public void setInformSubjectTypeName(String informSubjectTypeName ){
-		this.informSubjectTypeName = informSubjectTypeName;
+	public void setInform_subject_type_name(String inform_subject_type_name ){
+		this.inform_subject_type_name = inform_subject_type_name;
 	}
 	
 

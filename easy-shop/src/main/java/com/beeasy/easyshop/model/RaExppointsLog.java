@@ -7,39 +7,48 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_exppoints_log")
 public class RaExppointsLog   {
 	
+	// alias
+	public static final String ALIAS_exp_id = "exp_id";
+	public static final String ALIAS_exp_addtime = "exp_addtime";
+	public static final String ALIAS_exp_memberid = "exp_memberid";
+	public static final String ALIAS_exp_points = "exp_points";
+	public static final String ALIAS_exp_desc = "exp_desc";
+	public static final String ALIAS_exp_membername = "exp_membername";
+	public static final String ALIAS_exp_stage = "exp_stage";
+	
 	/*
 	经验值日志编号
 	*/
-	private Integer expId ;
+	private Integer exp_id ;
 	/*
 	添加时间
 	*/
-	private Integer expAddtime ;
+	private Integer exp_addtime ;
 	/*
 	会员编号
 	*/
-	private Integer expMemberid ;
+	private Integer exp_memberid ;
 	/*
 	经验值负数表示扣除
 	*/
-	private Integer expPoints ;
+	private Integer exp_points ;
 	/*
 	操作描述
 	*/
-	private String expDesc ;
+	private String exp_desc ;
 	/*
 	会员名称
 	*/
-	private String expMembername ;
+	private String exp_membername ;
 	/*
 	操作阶段
 	*/
-	private String expStage ;
+	private String exp_stage ;
 	
 	public RaExppointsLog() {
 	}
@@ -48,105 +57,105 @@ public class RaExppointsLog   {
 	* 经验值日志编号
 	*@return 
 	*/
-	public Integer getExpId(){
-		return  expId;
+	public Integer getExp_id(){
+		return  exp_id;
 	}
 	/**
 	* 经验值日志编号
-	*@param  expId
+	*@param  exp_id
 	*/
-	public void setExpId(Integer expId ){
-		this.expId = expId;
+	public void setExp_id(Integer exp_id ){
+		this.exp_id = exp_id;
 	}
 	
 	/**
 	* 添加时间
 	*@return 
 	*/
-	public Integer getExpAddtime(){
-		return  expAddtime;
+	public Integer getExp_addtime(){
+		return  exp_addtime;
 	}
 	/**
 	* 添加时间
-	*@param  expAddtime
+	*@param  exp_addtime
 	*/
-	public void setExpAddtime(Integer expAddtime ){
-		this.expAddtime = expAddtime;
+	public void setExp_addtime(Integer exp_addtime ){
+		this.exp_addtime = exp_addtime;
 	}
 	
 	/**
 	* 会员编号
 	*@return 
 	*/
-	public Integer getExpMemberid(){
-		return  expMemberid;
+	public Integer getExp_memberid(){
+		return  exp_memberid;
 	}
 	/**
 	* 会员编号
-	*@param  expMemberid
+	*@param  exp_memberid
 	*/
-	public void setExpMemberid(Integer expMemberid ){
-		this.expMemberid = expMemberid;
+	public void setExp_memberid(Integer exp_memberid ){
+		this.exp_memberid = exp_memberid;
 	}
 	
 	/**
 	* 经验值负数表示扣除
 	*@return 
 	*/
-	public Integer getExpPoints(){
-		return  expPoints;
+	public Integer getExp_points(){
+		return  exp_points;
 	}
 	/**
 	* 经验值负数表示扣除
-	*@param  expPoints
+	*@param  exp_points
 	*/
-	public void setExpPoints(Integer expPoints ){
-		this.expPoints = expPoints;
+	public void setExp_points(Integer exp_points ){
+		this.exp_points = exp_points;
 	}
 	
 	/**
 	* 操作描述
 	*@return 
 	*/
-	public String getExpDesc(){
-		return  expDesc;
+	public String getExp_desc(){
+		return  exp_desc;
 	}
 	/**
 	* 操作描述
-	*@param  expDesc
+	*@param  exp_desc
 	*/
-	public void setExpDesc(String expDesc ){
-		this.expDesc = expDesc;
+	public void setExp_desc(String exp_desc ){
+		this.exp_desc = exp_desc;
 	}
 	
 	/**
 	* 会员名称
 	*@return 
 	*/
-	public String getExpMembername(){
-		return  expMembername;
+	public String getExp_membername(){
+		return  exp_membername;
 	}
 	/**
 	* 会员名称
-	*@param  expMembername
+	*@param  exp_membername
 	*/
-	public void setExpMembername(String expMembername ){
-		this.expMembername = expMembername;
+	public void setExp_membername(String exp_membername ){
+		this.exp_membername = exp_membername;
 	}
 	
 	/**
 	* 操作阶段
 	*@return 
 	*/
-	public String getExpStage(){
-		return  expStage;
+	public String getExp_stage(){
+		return  exp_stage;
 	}
 	/**
 	* 操作阶段
-	*@param  expStage
+	*@param  exp_stage
 	*/
-	public void setExpStage(String expStage ){
-		this.expStage = expStage;
+	public void setExp_stage(String exp_stage ){
+		this.exp_stage = exp_stage;
 	}
 	
 

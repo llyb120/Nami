@@ -7,52 +7,65 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_cart")
 public class RaCart   {
 	
+	// alias
+	public static final String ALIAS_cart_id = "cart_id";
+	public static final String ALIAS_bl_id = "bl_id";
+	public static final String ALIAS_buyer_id = "buyer_id";
+	public static final String ALIAS_checked = "checked";
+	public static final String ALIAS_goods_id = "goods_id";
+	public static final String ALIAS_goods_num = "goods_num";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_goods_image = "goods_image";
+	public static final String ALIAS_goods_name = "goods_name";
+	public static final String ALIAS_goods_price = "goods_price";
+	public static final String ALIAS_store_name = "store_name";
+	
 	/*
 	购物车id
 	*/
-	private Integer cartId ;
+	private Integer cart_id ;
 	/*
 	组合套装ID
 	*/
-	private Integer blId ;
+	private Integer bl_id ;
 	/*
 	买家id
 	*/
-	private Integer buyerId ;
+	private Integer buyer_id ;
 	private Integer checked ;
 	/*
 	商品id
 	*/
-	private Integer goodsId ;
+	private Integer goods_id ;
 	/*
 	购买商品数量
 	*/
-	private Integer goodsNum ;
+	private Integer goods_num ;
 	/*
 	店铺id
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	商品图片
 	*/
-	private String goodsImage ;
+	private String goods_image ;
 	/*
 	商品名称
 	*/
-	private String goodsName ;
+	private String goods_name ;
 	/*
 	商品价格
 	*/
-	private BigDecimal goodsPrice ;
+	private BigDecimal goods_price ;
 	/*
 	店铺名称
 	*/
-	private String storeName ;
+	private String store_name ;
 	
 	public RaCart() {
 	}
@@ -61,45 +74,45 @@ public class RaCart   {
 	* 购物车id
 	*@return 
 	*/
-	public Integer getCartId(){
-		return  cartId;
+	public Integer getCart_id(){
+		return  cart_id;
 	}
 	/**
 	* 购物车id
-	*@param  cartId
+	*@param  cart_id
 	*/
-	public void setCartId(Integer cartId ){
-		this.cartId = cartId;
+	public void setCart_id(Integer cart_id ){
+		this.cart_id = cart_id;
 	}
 	
 	/**
 	* 组合套装ID
 	*@return 
 	*/
-	public Integer getBlId(){
-		return  blId;
+	public Integer getBl_id(){
+		return  bl_id;
 	}
 	/**
 	* 组合套装ID
-	*@param  blId
+	*@param  bl_id
 	*/
-	public void setBlId(Integer blId ){
-		this.blId = blId;
+	public void setBl_id(Integer bl_id ){
+		this.bl_id = bl_id;
 	}
 	
 	/**
 	* 买家id
 	*@return 
 	*/
-	public Integer getBuyerId(){
-		return  buyerId;
+	public Integer getBuyer_id(){
+		return  buyer_id;
 	}
 	/**
 	* 买家id
-	*@param  buyerId
+	*@param  buyer_id
 	*/
-	public void setBuyerId(Integer buyerId ){
-		this.buyerId = buyerId;
+	public void setBuyer_id(Integer buyer_id ){
+		this.buyer_id = buyer_id;
 	}
 	
 	public Integer getChecked(){
@@ -113,105 +126,105 @@ public class RaCart   {
 	* 商品id
 	*@return 
 	*/
-	public Integer getGoodsId(){
-		return  goodsId;
+	public Integer getGoods_id(){
+		return  goods_id;
 	}
 	/**
 	* 商品id
-	*@param  goodsId
+	*@param  goods_id
 	*/
-	public void setGoodsId(Integer goodsId ){
-		this.goodsId = goodsId;
+	public void setGoods_id(Integer goods_id ){
+		this.goods_id = goods_id;
 	}
 	
 	/**
 	* 购买商品数量
 	*@return 
 	*/
-	public Integer getGoodsNum(){
-		return  goodsNum;
+	public Integer getGoods_num(){
+		return  goods_num;
 	}
 	/**
 	* 购买商品数量
-	*@param  goodsNum
+	*@param  goods_num
 	*/
-	public void setGoodsNum(Integer goodsNum ){
-		this.goodsNum = goodsNum;
+	public void setGoods_num(Integer goods_num ){
+		this.goods_num = goods_num;
 	}
 	
 	/**
 	* 店铺id
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺id
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 商品图片
 	*@return 
 	*/
-	public String getGoodsImage(){
-		return  goodsImage;
+	public String getGoods_image(){
+		return  goods_image;
 	}
 	/**
 	* 商品图片
-	*@param  goodsImage
+	*@param  goods_image
 	*/
-	public void setGoodsImage(String goodsImage ){
-		this.goodsImage = goodsImage;
+	public void setGoods_image(String goods_image ){
+		this.goods_image = goods_image;
 	}
 	
 	/**
 	* 商品名称
 	*@return 
 	*/
-	public String getGoodsName(){
-		return  goodsName;
+	public String getGoods_name(){
+		return  goods_name;
 	}
 	/**
 	* 商品名称
-	*@param  goodsName
+	*@param  goods_name
 	*/
-	public void setGoodsName(String goodsName ){
-		this.goodsName = goodsName;
+	public void setGoods_name(String goods_name ){
+		this.goods_name = goods_name;
 	}
 	
 	/**
 	* 商品价格
 	*@return 
 	*/
-	public BigDecimal getGoodsPrice(){
-		return  goodsPrice;
+	public BigDecimal getGoods_price(){
+		return  goods_price;
 	}
 	/**
 	* 商品价格
-	*@param  goodsPrice
+	*@param  goods_price
 	*/
-	public void setGoodsPrice(BigDecimal goodsPrice ){
-		this.goodsPrice = goodsPrice;
+	public void setGoods_price(BigDecimal goods_price ){
+		this.goods_price = goods_price;
 	}
 	
 	/**
 	* 店铺名称
 	*@return 
 	*/
-	public String getStoreName(){
-		return  storeName;
+	public String getStore_name(){
+		return  store_name;
 	}
 	/**
 	* 店铺名称
-	*@param  storeName
+	*@param  store_name
 	*/
-	public void setStoreName(String storeName ){
-		this.storeName = storeName;
+	public void setStore_name(String store_name ){
+		this.store_name = store_name;
 	}
 	
 

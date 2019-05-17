@@ -7,7 +7,7 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-05-16
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_album_class")
 public class RaAlbumClass   {
@@ -26,39 +26,39 @@ public class RaAlbumClass   {
 	/*
 	相册id
 	*/
-	private Integer aclassId ;
+	private Integer aclass_id ;
 	/*
 	排序
 	*/
-	private Integer aclassSort ;
+	private Integer aclass_sort ;
 	/*
 	是否为默认相册,1代表默认
 	*/
-	private Integer isDefault ;
+	private Integer is_default ;
 	/*
 	所属店铺id
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	图片上传时间
 	*/
-	private Integer uploadTime ;
+	private Integer upload_time ;
 	/*
 	相册封面
 	*/
-	private String aclassCover ;
+	private String aclass_cover ;
 	/*
 	相册描述
 	*/
-	private String aclassDes ;
+	private String aclass_des ;
 	/*
 	相册名称
 	*/
-	private String aclassName ;
+	private String aclass_name ;
 	/*
 	修复后的封面路径
 	*/
-	private String nConver ;
+	private String n_conver ;
 	
 	public RaAlbumClass() {
 	}
@@ -67,135 +67,135 @@ public class RaAlbumClass   {
 	* 相册id
 	*@return 
 	*/
-	public Integer getAclassId(){
-		return  aclassId;
+	public Integer getAclass_id(){
+		return  aclass_id;
 	}
 	/**
 	* 相册id
-	*@param  aclassId
+	*@param  aclass_id
 	*/
-	public void setAclassId(Integer aclassId ){
-		this.aclassId = aclassId;
+	public void setAclass_id(Integer aclass_id ){
+		this.aclass_id = aclass_id;
 	}
 	
 	/**
 	* 排序
 	*@return 
 	*/
-	public Integer getAclassSort(){
-		return  aclassSort;
+	public Integer getAclass_sort(){
+		return  aclass_sort;
 	}
 	/**
 	* 排序
-	*@param  aclassSort
+	*@param  aclass_sort
 	*/
-	public void setAclassSort(Integer aclassSort ){
-		this.aclassSort = aclassSort;
+	public void setAclass_sort(Integer aclass_sort ){
+		this.aclass_sort = aclass_sort;
 	}
 	
 	/**
 	* 是否为默认相册,1代表默认
 	*@return 
 	*/
-	public Integer getIsDefault(){
-		return  isDefault;
+	public Integer getIs_default(){
+		return  is_default;
 	}
 	/**
 	* 是否为默认相册,1代表默认
-	*@param  isDefault
+	*@param  is_default
 	*/
-	public void setIsDefault(Integer isDefault ){
-		this.isDefault = isDefault;
+	public void setIs_default(Integer is_default ){
+		this.is_default = is_default;
 	}
 	
 	/**
 	* 所属店铺id
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 所属店铺id
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 图片上传时间
 	*@return 
 	*/
-	public Integer getUploadTime(){
-		return  uploadTime;
+	public Integer getUpload_time(){
+		return  upload_time;
 	}
 	/**
 	* 图片上传时间
-	*@param  uploadTime
+	*@param  upload_time
 	*/
-	public void setUploadTime(Integer uploadTime ){
-		this.uploadTime = uploadTime;
+	public void setUpload_time(Integer upload_time ){
+		this.upload_time = upload_time;
 	}
 	
 	/**
 	* 相册封面
 	*@return 
 	*/
-	public String getAclassCover(){
-		return  aclassCover;
+	public String getAclass_cover(){
+		return  aclass_cover;
 	}
 	/**
 	* 相册封面
-	*@param  aclassCover
+	*@param  aclass_cover
 	*/
-	public void setAclassCover(String aclassCover ){
-		this.aclassCover = aclassCover;
+	public void setAclass_cover(String aclass_cover ){
+		this.aclass_cover = aclass_cover;
 	}
 	
 	/**
 	* 相册描述
 	*@return 
 	*/
-	public String getAclassDes(){
-		return  aclassDes;
+	public String getAclass_des(){
+		return  aclass_des;
 	}
 	/**
 	* 相册描述
-	*@param  aclassDes
+	*@param  aclass_des
 	*/
-	public void setAclassDes(String aclassDes ){
-		this.aclassDes = aclassDes;
+	public void setAclass_des(String aclass_des ){
+		this.aclass_des = aclass_des;
 	}
 	
 	/**
 	* 相册名称
 	*@return 
 	*/
-	public String getAclassName(){
-		return  aclassName;
+	public String getAclass_name(){
+		return  aclass_name;
 	}
 	/**
 	* 相册名称
-	*@param  aclassName
+	*@param  aclass_name
 	*/
-	public void setAclassName(String aclassName ){
-		this.aclassName = aclassName;
+	public void setAclass_name(String aclass_name ){
+		this.aclass_name = aclass_name;
 	}
 	
 	/**
 	* 修复后的封面路径
 	*@return 
 	*/
-	public String getnConver(){
-		return  nConver;
+	public String getN_conver(){
+		return  n_conver;
 	}
 	/**
 	* 修复后的封面路径
-	*@param  nConver
+	*@param  n_conver
 	*/
-	public void setnConver(String nConver ){
-		this.nConver = nConver;
+	public void setN_conver(String n_conver ){
+		this.n_conver = n_conver;
 	}
 	
 

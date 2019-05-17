@@ -7,36 +7,45 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_area_copy")
 public class RaAreaCopy   {
 	
+	// alias
+	public static final String ALIAS_area_id = "area_id";
+	public static final String ALIAS_area_deep = "area_deep";
+	public static final String ALIAS_area_parent_id = "area_parent_id";
+	public static final String ALIAS_area_sort = "area_sort";
+	public static final String ALIAS_area_code = "area_code";
+	public static final String ALIAS_area_name = "area_name";
+	public static final String ALIAS_area_region = "area_region";
+	
 	/*
 	索引ID
 	*/
-	private Integer areaId ;
+	private Integer area_id ;
 	/*
 	地区深度，从1开始
 	*/
-	private Integer areaDeep ;
+	private Integer area_deep ;
 	/*
 	地区父ID
 	*/
-	private Integer areaParentId ;
+	private Integer area_parent_id ;
 	/*
 	排序
 	*/
-	private Integer areaSort ;
-	private String areaCode ;
+	private Integer area_sort ;
+	private String area_code ;
 	/*
 	地区名称
 	*/
-	private String areaName ;
+	private String area_name ;
 	/*
 	大区名称
 	*/
-	private String areaRegion ;
+	private String area_region ;
 	
 	public RaAreaCopy() {
 	}
@@ -45,97 +54,97 @@ public class RaAreaCopy   {
 	* 索引ID
 	*@return 
 	*/
-	public Integer getAreaId(){
-		return  areaId;
+	public Integer getArea_id(){
+		return  area_id;
 	}
 	/**
 	* 索引ID
-	*@param  areaId
+	*@param  area_id
 	*/
-	public void setAreaId(Integer areaId ){
-		this.areaId = areaId;
+	public void setArea_id(Integer area_id ){
+		this.area_id = area_id;
 	}
 	
 	/**
 	* 地区深度，从1开始
 	*@return 
 	*/
-	public Integer getAreaDeep(){
-		return  areaDeep;
+	public Integer getArea_deep(){
+		return  area_deep;
 	}
 	/**
 	* 地区深度，从1开始
-	*@param  areaDeep
+	*@param  area_deep
 	*/
-	public void setAreaDeep(Integer areaDeep ){
-		this.areaDeep = areaDeep;
+	public void setArea_deep(Integer area_deep ){
+		this.area_deep = area_deep;
 	}
 	
 	/**
 	* 地区父ID
 	*@return 
 	*/
-	public Integer getAreaParentId(){
-		return  areaParentId;
+	public Integer getArea_parent_id(){
+		return  area_parent_id;
 	}
 	/**
 	* 地区父ID
-	*@param  areaParentId
+	*@param  area_parent_id
 	*/
-	public void setAreaParentId(Integer areaParentId ){
-		this.areaParentId = areaParentId;
+	public void setArea_parent_id(Integer area_parent_id ){
+		this.area_parent_id = area_parent_id;
 	}
 	
 	/**
 	* 排序
 	*@return 
 	*/
-	public Integer getAreaSort(){
-		return  areaSort;
+	public Integer getArea_sort(){
+		return  area_sort;
 	}
 	/**
 	* 排序
-	*@param  areaSort
+	*@param  area_sort
 	*/
-	public void setAreaSort(Integer areaSort ){
-		this.areaSort = areaSort;
+	public void setArea_sort(Integer area_sort ){
+		this.area_sort = area_sort;
 	}
 	
-	public String getAreaCode(){
-		return  areaCode;
+	public String getArea_code(){
+		return  area_code;
 	}
-	public void setAreaCode(String areaCode ){
-		this.areaCode = areaCode;
+	public void setArea_code(String area_code ){
+		this.area_code = area_code;
 	}
 	
 	/**
 	* 地区名称
 	*@return 
 	*/
-	public String getAreaName(){
-		return  areaName;
+	public String getArea_name(){
+		return  area_name;
 	}
 	/**
 	* 地区名称
-	*@param  areaName
+	*@param  area_name
 	*/
-	public void setAreaName(String areaName ){
-		this.areaName = areaName;
+	public void setArea_name(String area_name ){
+		this.area_name = area_name;
 	}
 	
 	/**
 	* 大区名称
 	*@return 
 	*/
-	public String getAreaRegion(){
-		return  areaRegion;
+	public String getArea_region(){
+		return  area_region;
 	}
 	/**
 	* 大区名称
-	*@param  areaRegion
+	*@param  area_region
 	*/
-	public void setAreaRegion(String areaRegion ){
-		this.areaRegion = areaRegion;
+	public void setArea_region(String area_region ){
+		this.area_region = area_region;
 	}
 	
 

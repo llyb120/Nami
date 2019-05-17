@@ -17,13 +17,13 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 import java.nio.charset.Charset;
 import  static com.beeasy.web.core.Config.config;
 
-public class Megami {
+public class Nami {
 
 //    public static ChakraCore chakraCore;
 
-    public static void start(String configPath){
+    public static void start(String configPath, Listener listener){
         Config.init(configPath);
-        DBService.start(true);
+        DBService.start(true, listener);
 
 //        Chakra.start();
 
@@ -68,13 +68,19 @@ public class Megami {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
         }
-
     }
 
-    public static void start() {
+    public static void start(String config){
+        start(config, null);
+    }
+
+    public static void start(){
         start("config.json");
     }
 
+    public static abstract class Listener{
+        public void onDBServiceBooted(){}
+    }
 
 //    public static void registerController(String prefix, String packageName){
 //        HttpServerHandler.ctrls.put(prefix, packageName);

@@ -7,43 +7,76 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_groupbuy")
 public class RaGroupbuy   {
 	
+	// alias
+	public static final String ALIAS_groupbuy_id = "groupbuy_id";
+	public static final String ALIAS_buy_quantity = "buy_quantity";
+	public static final String ALIAS_buyer_count = "buyer_count";
+	public static final String ALIAS_class_id = "class_id";
+	public static final String ALIAS_end_time = "end_time";
+	public static final String ALIAS_goods_commonid = "goods_commonid";
+	public static final String ALIAS_goods_id = "goods_id";
+	public static final String ALIAS_is_vr = "is_vr";
+	public static final String ALIAS_recommended = "recommended";
+	public static final String ALIAS_s_class_id = "s_class_id";
+	public static final String ALIAS_start_time = "start_time";
+	public static final String ALIAS_state = "state";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_upper_limit = "upper_limit";
+	public static final String ALIAS_views = "views";
+	public static final String ALIAS_virtual_quantity = "virtual_quantity";
+	public static final String ALIAS_vr_area_id = "vr_area_id";
+	public static final String ALIAS_vr_city_id = "vr_city_id";
+	public static final String ALIAS_vr_class_id = "vr_class_id";
+	public static final String ALIAS_vr_mall_id = "vr_mall_id";
+	public static final String ALIAS_vr_s_class_id = "vr_s_class_id";
+	public static final String ALIAS_goods_name = "goods_name";
+	public static final String ALIAS_goods_price = "goods_price";
+	public static final String ALIAS_groupbuy_image = "groupbuy_image";
+	public static final String ALIAS_groupbuy_image1 = "groupbuy_image1";
+	public static final String ALIAS_groupbuy_intro = "groupbuy_intro";
+	public static final String ALIAS_groupbuy_name = "groupbuy_name";
+	public static final String ALIAS_groupbuy_price = "groupbuy_price";
+	public static final String ALIAS_groupbuy_rebate = "groupbuy_rebate";
+	public static final String ALIAS_remark = "remark";
+	public static final String ALIAS_store_name = "store_name";
+	
 	/*
 	团购ID
 	*/
-	private Integer groupbuyId ;
+	private Integer groupbuy_id ;
 	/*
 	购买数量
 	*/
-	private Integer buyQuantity ;
+	private Integer buy_quantity ;
 	/*
 	已购买人数
 	*/
-	private Integer buyerCount ;
+	private Integer buyer_count ;
 	/*
 	团购类别编号
 	*/
-	private Integer classId ;
+	private Integer class_id ;
 	/*
 	结束时间
 	*/
-	private Integer endTime ;
+	private Integer end_time ;
 	/*
 	商品公共表ID
 	*/
-	private Integer goodsCommonid ;
+	private Integer goods_commonid ;
 	/*
 	商品ID
 	*/
-	private Integer goodsId ;
+	private Integer goods_id ;
 	/*
 	是否虚拟团购 1是0否
 	*/
-	private Integer isVr ;
+	private Integer is_vr ;
 	/*
 	是否推荐 0.未推荐 1.已推荐
 	*/
@@ -51,11 +84,11 @@ public class RaGroupbuy   {
 	/*
 	团购2级分类id
 	*/
-	private Integer sClassId ;
+	private Integer s_class_id ;
 	/*
 	开始时间
 	*/
-	private Integer startTime ;
+	private Integer start_time ;
 	/*
 	团购状态 10-审核中 20-正常 30-审核失败 31-管理员关闭 32-已结束
 	*/
@@ -63,11 +96,11 @@ public class RaGroupbuy   {
 	/*
 	店铺ID
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	购买上限
 	*/
-	private Integer upperLimit ;
+	private Integer upper_limit ;
 	/*
 	查看次数
 	*/
@@ -75,59 +108,59 @@ public class RaGroupbuy   {
 	/*
 	虚拟购买数量
 	*/
-	private Integer virtualQuantity ;
+	private Integer virtual_quantity ;
 	/*
 	虚拟团购区域id
 	*/
-	private Integer vrAreaId ;
+	private Integer vr_area_id ;
 	/*
 	虚拟团购城市id
 	*/
-	private Integer vrCityId ;
+	private Integer vr_city_id ;
 	/*
 	虚拟团购大分类id
 	*/
-	private Integer vrClassId ;
+	private Integer vr_class_id ;
 	/*
 	虚拟团购商区id
 	*/
-	private Integer vrMallId ;
+	private Integer vr_mall_id ;
 	/*
 	虚拟团购小分类id
 	*/
-	private Integer vrSClassId ;
+	private Integer vr_s_class_id ;
 	/*
 	商品名称
 	*/
-	private String goodsName ;
+	private String goods_name ;
 	/*
 	商品原价
 	*/
-	private BigDecimal goodsPrice ;
+	private BigDecimal goods_price ;
 	/*
 	团购图片
 	*/
-	private String groupbuyImage ;
+	private String groupbuy_image ;
 	/*
 	团购图片1
 	*/
-	private String groupbuyImage1 ;
+	private String groupbuy_image1 ;
 	/*
 	本团介绍
 	*/
-	private String groupbuyIntro ;
+	private String groupbuy_intro ;
 	/*
 	活动名称
 	*/
-	private String groupbuyName ;
+	private String groupbuy_name ;
 	/*
 	团购价格
 	*/
-	private BigDecimal groupbuyPrice ;
+	private BigDecimal groupbuy_price ;
 	/*
 	折扣
 	*/
-	private BigDecimal groupbuyRebate ;
+	private BigDecimal groupbuy_rebate ;
 	/*
 	备注
 	*/
@@ -135,7 +168,7 @@ public class RaGroupbuy   {
 	/*
 	店铺名称
 	*/
-	private String storeName ;
+	private String store_name ;
 	
 	public RaGroupbuy() {
 	}
@@ -144,120 +177,120 @@ public class RaGroupbuy   {
 	* 团购ID
 	*@return 
 	*/
-	public Integer getGroupbuyId(){
-		return  groupbuyId;
+	public Integer getGroupbuy_id(){
+		return  groupbuy_id;
 	}
 	/**
 	* 团购ID
-	*@param  groupbuyId
+	*@param  groupbuy_id
 	*/
-	public void setGroupbuyId(Integer groupbuyId ){
-		this.groupbuyId = groupbuyId;
+	public void setGroupbuy_id(Integer groupbuy_id ){
+		this.groupbuy_id = groupbuy_id;
 	}
 	
 	/**
 	* 购买数量
 	*@return 
 	*/
-	public Integer getBuyQuantity(){
-		return  buyQuantity;
+	public Integer getBuy_quantity(){
+		return  buy_quantity;
 	}
 	/**
 	* 购买数量
-	*@param  buyQuantity
+	*@param  buy_quantity
 	*/
-	public void setBuyQuantity(Integer buyQuantity ){
-		this.buyQuantity = buyQuantity;
+	public void setBuy_quantity(Integer buy_quantity ){
+		this.buy_quantity = buy_quantity;
 	}
 	
 	/**
 	* 已购买人数
 	*@return 
 	*/
-	public Integer getBuyerCount(){
-		return  buyerCount;
+	public Integer getBuyer_count(){
+		return  buyer_count;
 	}
 	/**
 	* 已购买人数
-	*@param  buyerCount
+	*@param  buyer_count
 	*/
-	public void setBuyerCount(Integer buyerCount ){
-		this.buyerCount = buyerCount;
+	public void setBuyer_count(Integer buyer_count ){
+		this.buyer_count = buyer_count;
 	}
 	
 	/**
 	* 团购类别编号
 	*@return 
 	*/
-	public Integer getClassId(){
-		return  classId;
+	public Integer getClass_id(){
+		return  class_id;
 	}
 	/**
 	* 团购类别编号
-	*@param  classId
+	*@param  class_id
 	*/
-	public void setClassId(Integer classId ){
-		this.classId = classId;
+	public void setClass_id(Integer class_id ){
+		this.class_id = class_id;
 	}
 	
 	/**
 	* 结束时间
 	*@return 
 	*/
-	public Integer getEndTime(){
-		return  endTime;
+	public Integer getEnd_time(){
+		return  end_time;
 	}
 	/**
 	* 结束时间
-	*@param  endTime
+	*@param  end_time
 	*/
-	public void setEndTime(Integer endTime ){
-		this.endTime = endTime;
+	public void setEnd_time(Integer end_time ){
+		this.end_time = end_time;
 	}
 	
 	/**
 	* 商品公共表ID
 	*@return 
 	*/
-	public Integer getGoodsCommonid(){
-		return  goodsCommonid;
+	public Integer getGoods_commonid(){
+		return  goods_commonid;
 	}
 	/**
 	* 商品公共表ID
-	*@param  goodsCommonid
+	*@param  goods_commonid
 	*/
-	public void setGoodsCommonid(Integer goodsCommonid ){
-		this.goodsCommonid = goodsCommonid;
+	public void setGoods_commonid(Integer goods_commonid ){
+		this.goods_commonid = goods_commonid;
 	}
 	
 	/**
 	* 商品ID
 	*@return 
 	*/
-	public Integer getGoodsId(){
-		return  goodsId;
+	public Integer getGoods_id(){
+		return  goods_id;
 	}
 	/**
 	* 商品ID
-	*@param  goodsId
+	*@param  goods_id
 	*/
-	public void setGoodsId(Integer goodsId ){
-		this.goodsId = goodsId;
+	public void setGoods_id(Integer goods_id ){
+		this.goods_id = goods_id;
 	}
 	
 	/**
 	* 是否虚拟团购 1是0否
 	*@return 
 	*/
-	public Integer getIsVr(){
-		return  isVr;
+	public Integer getIs_vr(){
+		return  is_vr;
 	}
 	/**
 	* 是否虚拟团购 1是0否
-	*@param  isVr
+	*@param  is_vr
 	*/
-	public void setIsVr(Integer isVr ){
-		this.isVr = isVr;
+	public void setIs_vr(Integer is_vr ){
+		this.is_vr = is_vr;
 	}
 	
 	/**
@@ -279,30 +312,30 @@ public class RaGroupbuy   {
 	* 团购2级分类id
 	*@return 
 	*/
-	public Integer getsClassId(){
-		return  sClassId;
+	public Integer getS_class_id(){
+		return  s_class_id;
 	}
 	/**
 	* 团购2级分类id
-	*@param  sClassId
+	*@param  s_class_id
 	*/
-	public void setsClassId(Integer sClassId ){
-		this.sClassId = sClassId;
+	public void setS_class_id(Integer s_class_id ){
+		this.s_class_id = s_class_id;
 	}
 	
 	/**
 	* 开始时间
 	*@return 
 	*/
-	public Integer getStartTime(){
-		return  startTime;
+	public Integer getStart_time(){
+		return  start_time;
 	}
 	/**
 	* 开始时间
-	*@param  startTime
+	*@param  start_time
 	*/
-	public void setStartTime(Integer startTime ){
-		this.startTime = startTime;
+	public void setStart_time(Integer start_time ){
+		this.start_time = start_time;
 	}
 	
 	/**
@@ -324,30 +357,30 @@ public class RaGroupbuy   {
 	* 店铺ID
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺ID
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 购买上限
 	*@return 
 	*/
-	public Integer getUpperLimit(){
-		return  upperLimit;
+	public Integer getUpper_limit(){
+		return  upper_limit;
 	}
 	/**
 	* 购买上限
-	*@param  upperLimit
+	*@param  upper_limit
 	*/
-	public void setUpperLimit(Integer upperLimit ){
-		this.upperLimit = upperLimit;
+	public void setUpper_limit(Integer upper_limit ){
+		this.upper_limit = upper_limit;
 	}
 	
 	/**
@@ -369,210 +402,210 @@ public class RaGroupbuy   {
 	* 虚拟购买数量
 	*@return 
 	*/
-	public Integer getVirtualQuantity(){
-		return  virtualQuantity;
+	public Integer getVirtual_quantity(){
+		return  virtual_quantity;
 	}
 	/**
 	* 虚拟购买数量
-	*@param  virtualQuantity
+	*@param  virtual_quantity
 	*/
-	public void setVirtualQuantity(Integer virtualQuantity ){
-		this.virtualQuantity = virtualQuantity;
+	public void setVirtual_quantity(Integer virtual_quantity ){
+		this.virtual_quantity = virtual_quantity;
 	}
 	
 	/**
 	* 虚拟团购区域id
 	*@return 
 	*/
-	public Integer getVrAreaId(){
-		return  vrAreaId;
+	public Integer getVr_area_id(){
+		return  vr_area_id;
 	}
 	/**
 	* 虚拟团购区域id
-	*@param  vrAreaId
+	*@param  vr_area_id
 	*/
-	public void setVrAreaId(Integer vrAreaId ){
-		this.vrAreaId = vrAreaId;
+	public void setVr_area_id(Integer vr_area_id ){
+		this.vr_area_id = vr_area_id;
 	}
 	
 	/**
 	* 虚拟团购城市id
 	*@return 
 	*/
-	public Integer getVrCityId(){
-		return  vrCityId;
+	public Integer getVr_city_id(){
+		return  vr_city_id;
 	}
 	/**
 	* 虚拟团购城市id
-	*@param  vrCityId
+	*@param  vr_city_id
 	*/
-	public void setVrCityId(Integer vrCityId ){
-		this.vrCityId = vrCityId;
+	public void setVr_city_id(Integer vr_city_id ){
+		this.vr_city_id = vr_city_id;
 	}
 	
 	/**
 	* 虚拟团购大分类id
 	*@return 
 	*/
-	public Integer getVrClassId(){
-		return  vrClassId;
+	public Integer getVr_class_id(){
+		return  vr_class_id;
 	}
 	/**
 	* 虚拟团购大分类id
-	*@param  vrClassId
+	*@param  vr_class_id
 	*/
-	public void setVrClassId(Integer vrClassId ){
-		this.vrClassId = vrClassId;
+	public void setVr_class_id(Integer vr_class_id ){
+		this.vr_class_id = vr_class_id;
 	}
 	
 	/**
 	* 虚拟团购商区id
 	*@return 
 	*/
-	public Integer getVrMallId(){
-		return  vrMallId;
+	public Integer getVr_mall_id(){
+		return  vr_mall_id;
 	}
 	/**
 	* 虚拟团购商区id
-	*@param  vrMallId
+	*@param  vr_mall_id
 	*/
-	public void setVrMallId(Integer vrMallId ){
-		this.vrMallId = vrMallId;
+	public void setVr_mall_id(Integer vr_mall_id ){
+		this.vr_mall_id = vr_mall_id;
 	}
 	
 	/**
 	* 虚拟团购小分类id
 	*@return 
 	*/
-	public Integer getVrSClassId(){
-		return  vrSClassId;
+	public Integer getVr_s_class_id(){
+		return  vr_s_class_id;
 	}
 	/**
 	* 虚拟团购小分类id
-	*@param  vrSClassId
+	*@param  vr_s_class_id
 	*/
-	public void setVrSClassId(Integer vrSClassId ){
-		this.vrSClassId = vrSClassId;
+	public void setVr_s_class_id(Integer vr_s_class_id ){
+		this.vr_s_class_id = vr_s_class_id;
 	}
 	
 	/**
 	* 商品名称
 	*@return 
 	*/
-	public String getGoodsName(){
-		return  goodsName;
+	public String getGoods_name(){
+		return  goods_name;
 	}
 	/**
 	* 商品名称
-	*@param  goodsName
+	*@param  goods_name
 	*/
-	public void setGoodsName(String goodsName ){
-		this.goodsName = goodsName;
+	public void setGoods_name(String goods_name ){
+		this.goods_name = goods_name;
 	}
 	
 	/**
 	* 商品原价
 	*@return 
 	*/
-	public BigDecimal getGoodsPrice(){
-		return  goodsPrice;
+	public BigDecimal getGoods_price(){
+		return  goods_price;
 	}
 	/**
 	* 商品原价
-	*@param  goodsPrice
+	*@param  goods_price
 	*/
-	public void setGoodsPrice(BigDecimal goodsPrice ){
-		this.goodsPrice = goodsPrice;
+	public void setGoods_price(BigDecimal goods_price ){
+		this.goods_price = goods_price;
 	}
 	
 	/**
 	* 团购图片
 	*@return 
 	*/
-	public String getGroupbuyImage(){
-		return  groupbuyImage;
+	public String getGroupbuy_image(){
+		return  groupbuy_image;
 	}
 	/**
 	* 团购图片
-	*@param  groupbuyImage
+	*@param  groupbuy_image
 	*/
-	public void setGroupbuyImage(String groupbuyImage ){
-		this.groupbuyImage = groupbuyImage;
+	public void setGroupbuy_image(String groupbuy_image ){
+		this.groupbuy_image = groupbuy_image;
 	}
 	
 	/**
 	* 团购图片1
 	*@return 
 	*/
-	public String getGroupbuyImage1(){
-		return  groupbuyImage1;
+	public String getGroupbuy_image1(){
+		return  groupbuy_image1;
 	}
 	/**
 	* 团购图片1
-	*@param  groupbuyImage1
+	*@param  groupbuy_image1
 	*/
-	public void setGroupbuyImage1(String groupbuyImage1 ){
-		this.groupbuyImage1 = groupbuyImage1;
+	public void setGroupbuy_image1(String groupbuy_image1 ){
+		this.groupbuy_image1 = groupbuy_image1;
 	}
 	
 	/**
 	* 本团介绍
 	*@return 
 	*/
-	public String getGroupbuyIntro(){
-		return  groupbuyIntro;
+	public String getGroupbuy_intro(){
+		return  groupbuy_intro;
 	}
 	/**
 	* 本团介绍
-	*@param  groupbuyIntro
+	*@param  groupbuy_intro
 	*/
-	public void setGroupbuyIntro(String groupbuyIntro ){
-		this.groupbuyIntro = groupbuyIntro;
+	public void setGroupbuy_intro(String groupbuy_intro ){
+		this.groupbuy_intro = groupbuy_intro;
 	}
 	
 	/**
 	* 活动名称
 	*@return 
 	*/
-	public String getGroupbuyName(){
-		return  groupbuyName;
+	public String getGroupbuy_name(){
+		return  groupbuy_name;
 	}
 	/**
 	* 活动名称
-	*@param  groupbuyName
+	*@param  groupbuy_name
 	*/
-	public void setGroupbuyName(String groupbuyName ){
-		this.groupbuyName = groupbuyName;
+	public void setGroupbuy_name(String groupbuy_name ){
+		this.groupbuy_name = groupbuy_name;
 	}
 	
 	/**
 	* 团购价格
 	*@return 
 	*/
-	public BigDecimal getGroupbuyPrice(){
-		return  groupbuyPrice;
+	public BigDecimal getGroupbuy_price(){
+		return  groupbuy_price;
 	}
 	/**
 	* 团购价格
-	*@param  groupbuyPrice
+	*@param  groupbuy_price
 	*/
-	public void setGroupbuyPrice(BigDecimal groupbuyPrice ){
-		this.groupbuyPrice = groupbuyPrice;
+	public void setGroupbuy_price(BigDecimal groupbuy_price ){
+		this.groupbuy_price = groupbuy_price;
 	}
 	
 	/**
 	* 折扣
 	*@return 
 	*/
-	public BigDecimal getGroupbuyRebate(){
-		return  groupbuyRebate;
+	public BigDecimal getGroupbuy_rebate(){
+		return  groupbuy_rebate;
 	}
 	/**
 	* 折扣
-	*@param  groupbuyRebate
+	*@param  groupbuy_rebate
 	*/
-	public void setGroupbuyRebate(BigDecimal groupbuyRebate ){
-		this.groupbuyRebate = groupbuyRebate;
+	public void setGroupbuy_rebate(BigDecimal groupbuy_rebate ){
+		this.groupbuy_rebate = groupbuy_rebate;
 	}
 	
 	/**
@@ -594,15 +627,15 @@ public class RaGroupbuy   {
 	* 店铺名称
 	*@return 
 	*/
-	public String getStoreName(){
-		return  storeName;
+	public String getStore_name(){
+		return  store_name;
 	}
 	/**
 	* 店铺名称
-	*@param  storeName
+	*@param  store_name
 	*/
-	public void setStoreName(String storeName ){
-		this.storeName = storeName;
+	public void setStore_name(String store_name ){
+		this.store_name = store_name;
 	}
 	
 

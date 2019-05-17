@@ -7,35 +7,43 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_circle_thclass")
 public class RaCircleThclass   {
 	
+	// alias
+	public static final String ALIAS_thclass_id = "thclass_id";
+	public static final String ALIAS_circle_id = "circle_id";
+	public static final String ALIAS_is_moderator = "is_moderator";
+	public static final String ALIAS_thclass_sort = "thclass_sort";
+	public static final String ALIAS_thclass_status = "thclass_status";
+	public static final String ALIAS_thclass_name = "thclass_name";
+	
 	/*
 	主题分类id
 	*/
-	private Integer thclassId ;
+	private Integer thclass_id ;
 	/*
 	所属圈子id
 	*/
-	private Integer circleId ;
+	private Integer circle_id ;
 	/*
 	管理专属 1是，0否
 	*/
-	private Integer isModerator ;
+	private Integer is_moderator ;
 	/*
 	分类排序
 	*/
-	private Integer thclassSort ;
+	private Integer thclass_sort ;
 	/*
 	主题状态 1开启，0关闭
 	*/
-	private Integer thclassStatus ;
+	private Integer thclass_status ;
 	/*
 	主题名称
 	*/
-	private String thclassName ;
+	private String thclass_name ;
 	
 	public RaCircleThclass() {
 	}
@@ -44,90 +52,90 @@ public class RaCircleThclass   {
 	* 主题分类id
 	*@return 
 	*/
-	public Integer getThclassId(){
-		return  thclassId;
+	public Integer getThclass_id(){
+		return  thclass_id;
 	}
 	/**
 	* 主题分类id
-	*@param  thclassId
+	*@param  thclass_id
 	*/
-	public void setThclassId(Integer thclassId ){
-		this.thclassId = thclassId;
+	public void setThclass_id(Integer thclass_id ){
+		this.thclass_id = thclass_id;
 	}
 	
 	/**
 	* 所属圈子id
 	*@return 
 	*/
-	public Integer getCircleId(){
-		return  circleId;
+	public Integer getCircle_id(){
+		return  circle_id;
 	}
 	/**
 	* 所属圈子id
-	*@param  circleId
+	*@param  circle_id
 	*/
-	public void setCircleId(Integer circleId ){
-		this.circleId = circleId;
+	public void setCircle_id(Integer circle_id ){
+		this.circle_id = circle_id;
 	}
 	
 	/**
 	* 管理专属 1是，0否
 	*@return 
 	*/
-	public Integer getIsModerator(){
-		return  isModerator;
+	public Integer getIs_moderator(){
+		return  is_moderator;
 	}
 	/**
 	* 管理专属 1是，0否
-	*@param  isModerator
+	*@param  is_moderator
 	*/
-	public void setIsModerator(Integer isModerator ){
-		this.isModerator = isModerator;
+	public void setIs_moderator(Integer is_moderator ){
+		this.is_moderator = is_moderator;
 	}
 	
 	/**
 	* 分类排序
 	*@return 
 	*/
-	public Integer getThclassSort(){
-		return  thclassSort;
+	public Integer getThclass_sort(){
+		return  thclass_sort;
 	}
 	/**
 	* 分类排序
-	*@param  thclassSort
+	*@param  thclass_sort
 	*/
-	public void setThclassSort(Integer thclassSort ){
-		this.thclassSort = thclassSort;
+	public void setThclass_sort(Integer thclass_sort ){
+		this.thclass_sort = thclass_sort;
 	}
 	
 	/**
 	* 主题状态 1开启，0关闭
 	*@return 
 	*/
-	public Integer getThclassStatus(){
-		return  thclassStatus;
+	public Integer getThclass_status(){
+		return  thclass_status;
 	}
 	/**
 	* 主题状态 1开启，0关闭
-	*@param  thclassStatus
+	*@param  thclass_status
 	*/
-	public void setThclassStatus(Integer thclassStatus ){
-		this.thclassStatus = thclassStatus;
+	public void setThclass_status(Integer thclass_status ){
+		this.thclass_status = thclass_status;
 	}
 	
 	/**
 	* 主题名称
 	*@return 
 	*/
-	public String getThclassName(){
-		return  thclassName;
+	public String getThclass_name(){
+		return  thclass_name;
 	}
 	/**
 	* 主题名称
-	*@param  thclassName
+	*@param  thclass_name
 	*/
-	public void setThclassName(String thclassName ){
-		this.thclassName = thclassName;
+	public void setThclass_name(String thclass_name ){
+		this.thclass_name = thclass_name;
 	}
 	
 

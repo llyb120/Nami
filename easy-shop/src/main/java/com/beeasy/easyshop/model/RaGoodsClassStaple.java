@@ -7,15 +7,25 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_goods_class_staple")
 public class RaGoodsClassStaple   {
 	
+	// alias
+	public static final String ALIAS_staple_id = "staple_id";
+	public static final String ALIAS_counter = "counter";
+	public static final String ALIAS_gc_id_1 = "gc_id_1";
+	public static final String ALIAS_gc_id_2 = "gc_id_2";
+	public static final String ALIAS_gc_id_3 = "gc_id_3";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_type_id = "type_id";
+	public static final String ALIAS_staple_name = "staple_name";
+	
 	/*
 	常用分类id
 	*/
-	private Integer stapleId ;
+	private Integer staple_id ;
 	/*
 	计数器
 	*/
@@ -23,27 +33,27 @@ public class RaGoodsClassStaple   {
 	/*
 	一级分类id
 	*/
-	private Integer gcId1 ;
+	private Integer gc_id_1 ;
 	/*
 	二级商品分类
 	*/
-	private Integer gcId2 ;
+	private Integer gc_id_2 ;
 	/*
 	三级商品分类
 	*/
-	private Integer gcId3 ;
+	private Integer gc_id_3 ;
 	/*
 	会员id
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	类型id
 	*/
-	private Integer typeId ;
+	private Integer type_id ;
 	/*
 	常用分类名称
 	*/
-	private String stapleName ;
+	private String staple_name ;
 	
 	public RaGoodsClassStaple() {
 	}
@@ -52,15 +62,15 @@ public class RaGoodsClassStaple   {
 	* 常用分类id
 	*@return 
 	*/
-	public Integer getStapleId(){
-		return  stapleId;
+	public Integer getStaple_id(){
+		return  staple_id;
 	}
 	/**
 	* 常用分类id
-	*@param  stapleId
+	*@param  staple_id
 	*/
-	public void setStapleId(Integer stapleId ){
-		this.stapleId = stapleId;
+	public void setStaple_id(Integer staple_id ){
+		this.staple_id = staple_id;
 	}
 	
 	/**
@@ -82,90 +92,90 @@ public class RaGoodsClassStaple   {
 	* 一级分类id
 	*@return 
 	*/
-	public Integer getGcId1(){
-		return  gcId1;
+	public Integer getGc_id_1(){
+		return  gc_id_1;
 	}
 	/**
 	* 一级分类id
-	*@param  gcId1
+	*@param  gc_id_1
 	*/
-	public void setGcId1(Integer gcId1 ){
-		this.gcId1 = gcId1;
+	public void setGc_id_1(Integer gc_id_1 ){
+		this.gc_id_1 = gc_id_1;
 	}
 	
 	/**
 	* 二级商品分类
 	*@return 
 	*/
-	public Integer getGcId2(){
-		return  gcId2;
+	public Integer getGc_id_2(){
+		return  gc_id_2;
 	}
 	/**
 	* 二级商品分类
-	*@param  gcId2
+	*@param  gc_id_2
 	*/
-	public void setGcId2(Integer gcId2 ){
-		this.gcId2 = gcId2;
+	public void setGc_id_2(Integer gc_id_2 ){
+		this.gc_id_2 = gc_id_2;
 	}
 	
 	/**
 	* 三级商品分类
 	*@return 
 	*/
-	public Integer getGcId3(){
-		return  gcId3;
+	public Integer getGc_id_3(){
+		return  gc_id_3;
 	}
 	/**
 	* 三级商品分类
-	*@param  gcId3
+	*@param  gc_id_3
 	*/
-	public void setGcId3(Integer gcId3 ){
-		this.gcId3 = gcId3;
+	public void setGc_id_3(Integer gc_id_3 ){
+		this.gc_id_3 = gc_id_3;
 	}
 	
 	/**
 	* 会员id
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 会员id
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 类型id
 	*@return 
 	*/
-	public Integer getTypeId(){
-		return  typeId;
+	public Integer getType_id(){
+		return  type_id;
 	}
 	/**
 	* 类型id
-	*@param  typeId
+	*@param  type_id
 	*/
-	public void setTypeId(Integer typeId ){
-		this.typeId = typeId;
+	public void setType_id(Integer type_id ){
+		this.type_id = type_id;
 	}
 	
 	/**
 	* 常用分类名称
 	*@return 
 	*/
-	public String getStapleName(){
-		return  stapleName;
+	public String getStaple_name(){
+		return  staple_name;
 	}
 	/**
 	* 常用分类名称
-	*@param  stapleName
+	*@param  staple_name
 	*/
-	public void setStapleName(String stapleName ){
-		this.stapleName = stapleName;
+	public void setStaple_name(String staple_name ){
+		this.staple_name = staple_name;
 	}
 	
 

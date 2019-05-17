@@ -7,35 +7,43 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_decoration")
 public class RaStoreDecoration   {
 	
+	// alias
+	public static final String ALIAS_decoration_id = "decoration_id";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_decoration_banner = "decoration_banner";
+	public static final String ALIAS_decoration_name = "decoration_name";
+	public static final String ALIAS_decoration_nav = "decoration_nav";
+	public static final String ALIAS_decoration_setting = "decoration_setting";
+	
 	/*
 	装修编号
 	*/
-	private Integer decorationId ;
+	private Integer decoration_id ;
 	/*
 	店铺编号
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	装修头部banner
 	*/
-	private String decorationBanner ;
+	private String decoration_banner ;
 	/*
 	装修名称
 	*/
-	private String decorationName ;
+	private String decoration_name ;
 	/*
 	装修导航
 	*/
-	private String decorationNav ;
+	private String decoration_nav ;
 	/*
 	装修整体设置(背景、边距等)
 	*/
-	private String decorationSetting ;
+	private String decoration_setting ;
 	
 	public RaStoreDecoration() {
 	}
@@ -44,90 +52,90 @@ public class RaStoreDecoration   {
 	* 装修编号
 	*@return 
 	*/
-	public Integer getDecorationId(){
-		return  decorationId;
+	public Integer getDecoration_id(){
+		return  decoration_id;
 	}
 	/**
 	* 装修编号
-	*@param  decorationId
+	*@param  decoration_id
 	*/
-	public void setDecorationId(Integer decorationId ){
-		this.decorationId = decorationId;
+	public void setDecoration_id(Integer decoration_id ){
+		this.decoration_id = decoration_id;
 	}
 	
 	/**
 	* 店铺编号
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺编号
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 装修头部banner
 	*@return 
 	*/
-	public String getDecorationBanner(){
-		return  decorationBanner;
+	public String getDecoration_banner(){
+		return  decoration_banner;
 	}
 	/**
 	* 装修头部banner
-	*@param  decorationBanner
+	*@param  decoration_banner
 	*/
-	public void setDecorationBanner(String decorationBanner ){
-		this.decorationBanner = decorationBanner;
+	public void setDecoration_banner(String decoration_banner ){
+		this.decoration_banner = decoration_banner;
 	}
 	
 	/**
 	* 装修名称
 	*@return 
 	*/
-	public String getDecorationName(){
-		return  decorationName;
+	public String getDecoration_name(){
+		return  decoration_name;
 	}
 	/**
 	* 装修名称
-	*@param  decorationName
+	*@param  decoration_name
 	*/
-	public void setDecorationName(String decorationName ){
-		this.decorationName = decorationName;
+	public void setDecoration_name(String decoration_name ){
+		this.decoration_name = decoration_name;
 	}
 	
 	/**
 	* 装修导航
 	*@return 
 	*/
-	public String getDecorationNav(){
-		return  decorationNav;
+	public String getDecoration_nav(){
+		return  decoration_nav;
 	}
 	/**
 	* 装修导航
-	*@param  decorationNav
+	*@param  decoration_nav
 	*/
-	public void setDecorationNav(String decorationNav ){
-		this.decorationNav = decorationNav;
+	public void setDecoration_nav(String decoration_nav ){
+		this.decoration_nav = decoration_nav;
 	}
 	
 	/**
 	* 装修整体设置(背景、边距等)
 	*@return 
 	*/
-	public String getDecorationSetting(){
-		return  decorationSetting;
+	public String getDecoration_setting(){
+		return  decoration_setting;
 	}
 	/**
 	* 装修整体设置(背景、边距等)
-	*@param  decorationSetting
+	*@param  decoration_setting
 	*/
-	public void setDecorationSetting(String decorationSetting ){
-		this.decorationSetting = decorationSetting;
+	public void setDecoration_setting(String decoration_setting ){
+		this.decoration_setting = decoration_setting;
 	}
 	
 

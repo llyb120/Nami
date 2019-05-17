@@ -7,7 +7,7 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-05-15
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_cost")
 public class RaStoreCost   {
@@ -24,31 +24,31 @@ public class RaStoreCost   {
 	/*
 	费用编号
 	*/
-	private Integer costId ;
+	private Integer cost_id ;
 	/*
 	价格
 	*/
-	private Integer costPrice ;
+	private Integer cost_price ;
 	/*
 	卖家编号
 	*/
-	private Integer costSellerId ;
+	private Integer cost_seller_id ;
 	/*
 	费用状态(0-未结算 1-已结算)
 	*/
-	private Integer costState ;
+	private Integer cost_state ;
 	/*
 	店铺编号
 	*/
-	private Integer costStoreId ;
+	private Integer cost_store_id ;
 	/*
 	费用发生时间
 	*/
-	private Integer costTime ;
+	private Integer cost_time ;
 	/*
 	费用备注
 	*/
-	private String costRemark ;
+	private String cost_remark ;
 	
 	public RaStoreCost() {
 	}
@@ -57,105 +57,105 @@ public class RaStoreCost   {
 	* 费用编号
 	*@return 
 	*/
-	public Integer getCostId(){
-		return  costId;
+	public Integer getCost_id(){
+		return  cost_id;
 	}
 	/**
 	* 费用编号
-	*@param  costId
+	*@param  cost_id
 	*/
-	public void setCostId(Integer costId ){
-		this.costId = costId;
+	public void setCost_id(Integer cost_id ){
+		this.cost_id = cost_id;
 	}
 	
 	/**
 	* 价格
 	*@return 
 	*/
-	public Integer getCostPrice(){
-		return  costPrice;
+	public Integer getCost_price(){
+		return  cost_price;
 	}
 	/**
 	* 价格
-	*@param  costPrice
+	*@param  cost_price
 	*/
-	public void setCostPrice(Integer costPrice ){
-		this.costPrice = costPrice;
+	public void setCost_price(Integer cost_price ){
+		this.cost_price = cost_price;
 	}
 	
 	/**
 	* 卖家编号
 	*@return 
 	*/
-	public Integer getCostSellerId(){
-		return  costSellerId;
+	public Integer getCost_seller_id(){
+		return  cost_seller_id;
 	}
 	/**
 	* 卖家编号
-	*@param  costSellerId
+	*@param  cost_seller_id
 	*/
-	public void setCostSellerId(Integer costSellerId ){
-		this.costSellerId = costSellerId;
+	public void setCost_seller_id(Integer cost_seller_id ){
+		this.cost_seller_id = cost_seller_id;
 	}
 	
 	/**
 	* 费用状态(0-未结算 1-已结算)
 	*@return 
 	*/
-	public Integer getCostState(){
-		return  costState;
+	public Integer getCost_state(){
+		return  cost_state;
 	}
 	/**
 	* 费用状态(0-未结算 1-已结算)
-	*@param  costState
+	*@param  cost_state
 	*/
-	public void setCostState(Integer costState ){
-		this.costState = costState;
+	public void setCost_state(Integer cost_state ){
+		this.cost_state = cost_state;
 	}
 	
 	/**
 	* 店铺编号
 	*@return 
 	*/
-	public Integer getCostStoreId(){
-		return  costStoreId;
+	public Integer getCost_store_id(){
+		return  cost_store_id;
 	}
 	/**
 	* 店铺编号
-	*@param  costStoreId
+	*@param  cost_store_id
 	*/
-	public void setCostStoreId(Integer costStoreId ){
-		this.costStoreId = costStoreId;
+	public void setCost_store_id(Integer cost_store_id ){
+		this.cost_store_id = cost_store_id;
 	}
 	
 	/**
 	* 费用发生时间
 	*@return 
 	*/
-	public Integer getCostTime(){
-		return  costTime;
+	public Integer getCost_time(){
+		return  cost_time;
 	}
 	/**
 	* 费用发生时间
-	*@param  costTime
+	*@param  cost_time
 	*/
-	public void setCostTime(Integer costTime ){
-		this.costTime = costTime;
+	public void setCost_time(Integer cost_time ){
+		this.cost_time = cost_time;
 	}
 	
 	/**
 	* 费用备注
 	*@return 
 	*/
-	public String getCostRemark(){
-		return  costRemark;
+	public String getCost_remark(){
+		return  cost_remark;
 	}
 	/**
 	* 费用备注
-	*@param  costRemark
+	*@param  cost_remark
 	*/
-	public void setCostRemark(String costRemark ){
-		this.costRemark = costRemark;
+	public void setCost_remark(String cost_remark ){
+		this.cost_remark = cost_remark;
 	}
 	
 

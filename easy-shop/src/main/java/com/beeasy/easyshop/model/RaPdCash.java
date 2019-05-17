@@ -7,59 +7,73 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_pd_cash")
 public class RaPdCash   {
 	
+	// alias
+	public static final String ALIAS_pdc_id = "pdc_id";
+	public static final String ALIAS_pdc_add_time = "pdc_add_time";
+	public static final String ALIAS_pdc_member_id = "pdc_member_id";
+	public static final String ALIAS_pdc_payment_time = "pdc_payment_time";
+	public static final String ALIAS_pdc_amount = "pdc_amount";
+	public static final String ALIAS_pdc_bank_name = "pdc_bank_name";
+	public static final String ALIAS_pdc_bank_no = "pdc_bank_no";
+	public static final String ALIAS_pdc_bank_user = "pdc_bank_user";
+	public static final String ALIAS_pdc_member_name = "pdc_member_name";
+	public static final String ALIAS_pdc_payment_admin = "pdc_payment_admin";
+	public static final String ALIAS_pdc_payment_state = "pdc_payment_state";
+	public static final String ALIAS_pdc_sn = "pdc_sn";
+	
 	/*
 	自增编号
 	*/
-	private Integer pdcId ;
+	private Integer pdc_id ;
 	/*
 	添加时间
 	*/
-	private Integer pdcAddTime ;
+	private Integer pdc_add_time ;
 	/*
 	会员编号
 	*/
-	private Integer pdcMemberId ;
+	private Integer pdc_member_id ;
 	/*
 	付款时间
 	*/
-	private Integer pdcPaymentTime ;
+	private Integer pdc_payment_time ;
 	/*
 	金额
 	*/
-	private BigDecimal pdcAmount ;
+	private BigDecimal pdc_amount ;
 	/*
 	收款银行
 	*/
-	private String pdcBankName ;
+	private String pdc_bank_name ;
 	/*
 	收款账号
 	*/
-	private String pdcBankNo ;
+	private String pdc_bank_no ;
 	/*
 	开户人姓名
 	*/
-	private String pdcBankUser ;
+	private String pdc_bank_user ;
 	/*
 	会员名称
 	*/
-	private String pdcMemberName ;
+	private String pdc_member_name ;
 	/*
 	支付管理员
 	*/
-	private String pdcPaymentAdmin ;
+	private String pdc_payment_admin ;
 	/*
 	提现支付状态 0默认1支付完成
 	*/
-	private String pdcPaymentState ;
+	private String pdc_payment_state ;
 	/*
 	记录唯一标示
 	*/
-	private Long pdcSn ;
+	private Long pdc_sn ;
 	
 	public RaPdCash() {
 	}
@@ -68,180 +82,180 @@ public class RaPdCash   {
 	* 自增编号
 	*@return 
 	*/
-	public Integer getPdcId(){
-		return  pdcId;
+	public Integer getPdc_id(){
+		return  pdc_id;
 	}
 	/**
 	* 自增编号
-	*@param  pdcId
+	*@param  pdc_id
 	*/
-	public void setPdcId(Integer pdcId ){
-		this.pdcId = pdcId;
+	public void setPdc_id(Integer pdc_id ){
+		this.pdc_id = pdc_id;
 	}
 	
 	/**
 	* 添加时间
 	*@return 
 	*/
-	public Integer getPdcAddTime(){
-		return  pdcAddTime;
+	public Integer getPdc_add_time(){
+		return  pdc_add_time;
 	}
 	/**
 	* 添加时间
-	*@param  pdcAddTime
+	*@param  pdc_add_time
 	*/
-	public void setPdcAddTime(Integer pdcAddTime ){
-		this.pdcAddTime = pdcAddTime;
+	public void setPdc_add_time(Integer pdc_add_time ){
+		this.pdc_add_time = pdc_add_time;
 	}
 	
 	/**
 	* 会员编号
 	*@return 
 	*/
-	public Integer getPdcMemberId(){
-		return  pdcMemberId;
+	public Integer getPdc_member_id(){
+		return  pdc_member_id;
 	}
 	/**
 	* 会员编号
-	*@param  pdcMemberId
+	*@param  pdc_member_id
 	*/
-	public void setPdcMemberId(Integer pdcMemberId ){
-		this.pdcMemberId = pdcMemberId;
+	public void setPdc_member_id(Integer pdc_member_id ){
+		this.pdc_member_id = pdc_member_id;
 	}
 	
 	/**
 	* 付款时间
 	*@return 
 	*/
-	public Integer getPdcPaymentTime(){
-		return  pdcPaymentTime;
+	public Integer getPdc_payment_time(){
+		return  pdc_payment_time;
 	}
 	/**
 	* 付款时间
-	*@param  pdcPaymentTime
+	*@param  pdc_payment_time
 	*/
-	public void setPdcPaymentTime(Integer pdcPaymentTime ){
-		this.pdcPaymentTime = pdcPaymentTime;
+	public void setPdc_payment_time(Integer pdc_payment_time ){
+		this.pdc_payment_time = pdc_payment_time;
 	}
 	
 	/**
 	* 金额
 	*@return 
 	*/
-	public BigDecimal getPdcAmount(){
-		return  pdcAmount;
+	public BigDecimal getPdc_amount(){
+		return  pdc_amount;
 	}
 	/**
 	* 金额
-	*@param  pdcAmount
+	*@param  pdc_amount
 	*/
-	public void setPdcAmount(BigDecimal pdcAmount ){
-		this.pdcAmount = pdcAmount;
+	public void setPdc_amount(BigDecimal pdc_amount ){
+		this.pdc_amount = pdc_amount;
 	}
 	
 	/**
 	* 收款银行
 	*@return 
 	*/
-	public String getPdcBankName(){
-		return  pdcBankName;
+	public String getPdc_bank_name(){
+		return  pdc_bank_name;
 	}
 	/**
 	* 收款银行
-	*@param  pdcBankName
+	*@param  pdc_bank_name
 	*/
-	public void setPdcBankName(String pdcBankName ){
-		this.pdcBankName = pdcBankName;
+	public void setPdc_bank_name(String pdc_bank_name ){
+		this.pdc_bank_name = pdc_bank_name;
 	}
 	
 	/**
 	* 收款账号
 	*@return 
 	*/
-	public String getPdcBankNo(){
-		return  pdcBankNo;
+	public String getPdc_bank_no(){
+		return  pdc_bank_no;
 	}
 	/**
 	* 收款账号
-	*@param  pdcBankNo
+	*@param  pdc_bank_no
 	*/
-	public void setPdcBankNo(String pdcBankNo ){
-		this.pdcBankNo = pdcBankNo;
+	public void setPdc_bank_no(String pdc_bank_no ){
+		this.pdc_bank_no = pdc_bank_no;
 	}
 	
 	/**
 	* 开户人姓名
 	*@return 
 	*/
-	public String getPdcBankUser(){
-		return  pdcBankUser;
+	public String getPdc_bank_user(){
+		return  pdc_bank_user;
 	}
 	/**
 	* 开户人姓名
-	*@param  pdcBankUser
+	*@param  pdc_bank_user
 	*/
-	public void setPdcBankUser(String pdcBankUser ){
-		this.pdcBankUser = pdcBankUser;
+	public void setPdc_bank_user(String pdc_bank_user ){
+		this.pdc_bank_user = pdc_bank_user;
 	}
 	
 	/**
 	* 会员名称
 	*@return 
 	*/
-	public String getPdcMemberName(){
-		return  pdcMemberName;
+	public String getPdc_member_name(){
+		return  pdc_member_name;
 	}
 	/**
 	* 会员名称
-	*@param  pdcMemberName
+	*@param  pdc_member_name
 	*/
-	public void setPdcMemberName(String pdcMemberName ){
-		this.pdcMemberName = pdcMemberName;
+	public void setPdc_member_name(String pdc_member_name ){
+		this.pdc_member_name = pdc_member_name;
 	}
 	
 	/**
 	* 支付管理员
 	*@return 
 	*/
-	public String getPdcPaymentAdmin(){
-		return  pdcPaymentAdmin;
+	public String getPdc_payment_admin(){
+		return  pdc_payment_admin;
 	}
 	/**
 	* 支付管理员
-	*@param  pdcPaymentAdmin
+	*@param  pdc_payment_admin
 	*/
-	public void setPdcPaymentAdmin(String pdcPaymentAdmin ){
-		this.pdcPaymentAdmin = pdcPaymentAdmin;
+	public void setPdc_payment_admin(String pdc_payment_admin ){
+		this.pdc_payment_admin = pdc_payment_admin;
 	}
 	
 	/**
 	* 提现支付状态 0默认1支付完成
 	*@return 
 	*/
-	public String getPdcPaymentState(){
-		return  pdcPaymentState;
+	public String getPdc_payment_state(){
+		return  pdc_payment_state;
 	}
 	/**
 	* 提现支付状态 0默认1支付完成
-	*@param  pdcPaymentState
+	*@param  pdc_payment_state
 	*/
-	public void setPdcPaymentState(String pdcPaymentState ){
-		this.pdcPaymentState = pdcPaymentState;
+	public void setPdc_payment_state(String pdc_payment_state ){
+		this.pdc_payment_state = pdc_payment_state;
 	}
 	
 	/**
 	* 记录唯一标示
 	*@return 
 	*/
-	public Long getPdcSn(){
-		return  pdcSn;
+	public Long getPdc_sn(){
+		return  pdc_sn;
 	}
 	/**
 	* 记录唯一标示
-	*@param  pdcSn
+	*@param  pdc_sn
 	*/
-	public void setPdcSn(Long pdcSn ){
-		this.pdcSn = pdcSn;
+	public void setPdc_sn(Long pdc_sn ){
+		this.pdc_sn = pdc_sn;
 	}
 	
 

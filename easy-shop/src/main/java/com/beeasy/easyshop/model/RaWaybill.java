@@ -7,53 +7,67 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_waybill")
 public class RaWaybill   {
 	
+	// alias
+	public static final String ALIAS_waybill_id = "waybill_id";
+	public static final String ALIAS_express_id = "express_id";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_waybill_height = "waybill_height";
+	public static final String ALIAS_waybill_left = "waybill_left";
+	public static final String ALIAS_waybill_top = "waybill_top";
+	public static final String ALIAS_waybill_usable = "waybill_usable";
+	public static final String ALIAS_waybill_width = "waybill_width";
+	public static final String ALIAS_express_name = "express_name";
+	public static final String ALIAS_waybill_data = "waybill_data";
+	public static final String ALIAS_waybill_image = "waybill_image";
+	public static final String ALIAS_waybill_name = "waybill_name";
+	
 	/*
 	编号
 	*/
-	private Integer waybillId ;
+	private Integer waybill_id ;
 	/*
 	快递公司编号
 	*/
-	private Integer expressId ;
+	private Integer express_id ;
 	/*
 	店铺编号(0-代表系统模板)
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	高度
 	*/
-	private Integer waybillHeight ;
+	private Integer waybill_height ;
 	/*
 	左偏移量
 	*/
-	private Integer waybillLeft ;
+	private Integer waybill_left ;
 	/*
 	上偏移量
 	*/
-	private Integer waybillTop ;
+	private Integer waybill_top ;
 	/*
 	是否可用
 	*/
-	private Integer waybillUsable ;
+	private Integer waybill_usable ;
 	/*
 	宽度
 	*/
-	private Integer waybillWidth ;
+	private Integer waybill_width ;
 	/*
 	快递公司名称
 	*/
-	private String expressName ;
+	private String express_name ;
 	/*
 	打印位置数据
 	*/
-	private String waybillData ;
-	private String waybillImage ;
-	private String waybillName ;
+	private String waybill_data ;
+	private String waybill_image ;
+	private String waybill_name ;
 	
 	public RaWaybill() {
 	}
@@ -62,164 +76,164 @@ public class RaWaybill   {
 	* 编号
 	*@return 
 	*/
-	public Integer getWaybillId(){
-		return  waybillId;
+	public Integer getWaybill_id(){
+		return  waybill_id;
 	}
 	/**
 	* 编号
-	*@param  waybillId
+	*@param  waybill_id
 	*/
-	public void setWaybillId(Integer waybillId ){
-		this.waybillId = waybillId;
+	public void setWaybill_id(Integer waybill_id ){
+		this.waybill_id = waybill_id;
 	}
 	
 	/**
 	* 快递公司编号
 	*@return 
 	*/
-	public Integer getExpressId(){
-		return  expressId;
+	public Integer getExpress_id(){
+		return  express_id;
 	}
 	/**
 	* 快递公司编号
-	*@param  expressId
+	*@param  express_id
 	*/
-	public void setExpressId(Integer expressId ){
-		this.expressId = expressId;
+	public void setExpress_id(Integer express_id ){
+		this.express_id = express_id;
 	}
 	
 	/**
 	* 店铺编号(0-代表系统模板)
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺编号(0-代表系统模板)
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 高度
 	*@return 
 	*/
-	public Integer getWaybillHeight(){
-		return  waybillHeight;
+	public Integer getWaybill_height(){
+		return  waybill_height;
 	}
 	/**
 	* 高度
-	*@param  waybillHeight
+	*@param  waybill_height
 	*/
-	public void setWaybillHeight(Integer waybillHeight ){
-		this.waybillHeight = waybillHeight;
+	public void setWaybill_height(Integer waybill_height ){
+		this.waybill_height = waybill_height;
 	}
 	
 	/**
 	* 左偏移量
 	*@return 
 	*/
-	public Integer getWaybillLeft(){
-		return  waybillLeft;
+	public Integer getWaybill_left(){
+		return  waybill_left;
 	}
 	/**
 	* 左偏移量
-	*@param  waybillLeft
+	*@param  waybill_left
 	*/
-	public void setWaybillLeft(Integer waybillLeft ){
-		this.waybillLeft = waybillLeft;
+	public void setWaybill_left(Integer waybill_left ){
+		this.waybill_left = waybill_left;
 	}
 	
 	/**
 	* 上偏移量
 	*@return 
 	*/
-	public Integer getWaybillTop(){
-		return  waybillTop;
+	public Integer getWaybill_top(){
+		return  waybill_top;
 	}
 	/**
 	* 上偏移量
-	*@param  waybillTop
+	*@param  waybill_top
 	*/
-	public void setWaybillTop(Integer waybillTop ){
-		this.waybillTop = waybillTop;
+	public void setWaybill_top(Integer waybill_top ){
+		this.waybill_top = waybill_top;
 	}
 	
 	/**
 	* 是否可用
 	*@return 
 	*/
-	public Integer getWaybillUsable(){
-		return  waybillUsable;
+	public Integer getWaybill_usable(){
+		return  waybill_usable;
 	}
 	/**
 	* 是否可用
-	*@param  waybillUsable
+	*@param  waybill_usable
 	*/
-	public void setWaybillUsable(Integer waybillUsable ){
-		this.waybillUsable = waybillUsable;
+	public void setWaybill_usable(Integer waybill_usable ){
+		this.waybill_usable = waybill_usable;
 	}
 	
 	/**
 	* 宽度
 	*@return 
 	*/
-	public Integer getWaybillWidth(){
-		return  waybillWidth;
+	public Integer getWaybill_width(){
+		return  waybill_width;
 	}
 	/**
 	* 宽度
-	*@param  waybillWidth
+	*@param  waybill_width
 	*/
-	public void setWaybillWidth(Integer waybillWidth ){
-		this.waybillWidth = waybillWidth;
+	public void setWaybill_width(Integer waybill_width ){
+		this.waybill_width = waybill_width;
 	}
 	
 	/**
 	* 快递公司名称
 	*@return 
 	*/
-	public String getExpressName(){
-		return  expressName;
+	public String getExpress_name(){
+		return  express_name;
 	}
 	/**
 	* 快递公司名称
-	*@param  expressName
+	*@param  express_name
 	*/
-	public void setExpressName(String expressName ){
-		this.expressName = expressName;
+	public void setExpress_name(String express_name ){
+		this.express_name = express_name;
 	}
 	
 	/**
 	* 打印位置数据
 	*@return 
 	*/
-	public String getWaybillData(){
-		return  waybillData;
+	public String getWaybill_data(){
+		return  waybill_data;
 	}
 	/**
 	* 打印位置数据
-	*@param  waybillData
+	*@param  waybill_data
 	*/
-	public void setWaybillData(String waybillData ){
-		this.waybillData = waybillData;
+	public void setWaybill_data(String waybill_data ){
+		this.waybill_data = waybill_data;
 	}
 	
-	public String getWaybillImage(){
-		return  waybillImage;
+	public String getWaybill_image(){
+		return  waybill_image;
 	}
-	public void setWaybillImage(String waybillImage ){
-		this.waybillImage = waybillImage;
+	public void setWaybill_image(String waybill_image ){
+		this.waybill_image = waybill_image;
 	}
 	
-	public String getWaybillName(){
-		return  waybillName;
+	public String getWaybill_name(){
+		return  waybill_name;
 	}
-	public void setWaybillName(String waybillName ){
-		this.waybillName = waybillName;
+	public void setWaybill_name(String waybill_name ){
+		this.waybill_name = waybill_name;
 	}
 	
 

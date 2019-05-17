@@ -7,15 +7,24 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_p_mansong_rule")
 public class RaPMansongRule   {
 	
+	// alias
+	public static final String ALIAS_rule_id = "rule_id";
+	public static final String ALIAS_discount = "discount";
+	public static final String ALIAS_goods_id = "goods_id";
+	public static final String ALIAS_mansong_id = "mansong_id";
+	public static final String ALIAS_price = "price";
+	public static final String ALIAS_voucher_t_id = "voucher_t_id";
+	public static final String ALIAS_mansong_goods_name = "mansong_goods_name";
+	
 	/*
 	规则编号
 	*/
-	private Integer ruleId ;
+	private Integer rule_id ;
 	/*
 	减现金优惠金额
 	*/
@@ -23,20 +32,20 @@ public class RaPMansongRule   {
 	/*
 	商品编号
 	*/
-	private Integer goodsId ;
+	private Integer goods_id ;
 	/*
 	活动编号
 	*/
-	private Integer mansongId ;
+	private Integer mansong_id ;
 	/*
 	级别价格
 	*/
 	private Integer price ;
-	private Integer voucherTId ;
+	private Integer voucher_t_id ;
 	/*
 	礼品名称
 	*/
-	private String mansongGoodsName ;
+	private String mansong_goods_name ;
 	
 	public RaPMansongRule() {
 	}
@@ -45,15 +54,15 @@ public class RaPMansongRule   {
 	* 规则编号
 	*@return 
 	*/
-	public Integer getRuleId(){
-		return  ruleId;
+	public Integer getRule_id(){
+		return  rule_id;
 	}
 	/**
 	* 规则编号
-	*@param  ruleId
+	*@param  rule_id
 	*/
-	public void setRuleId(Integer ruleId ){
-		this.ruleId = ruleId;
+	public void setRule_id(Integer rule_id ){
+		this.rule_id = rule_id;
 	}
 	
 	/**
@@ -75,30 +84,30 @@ public class RaPMansongRule   {
 	* 商品编号
 	*@return 
 	*/
-	public Integer getGoodsId(){
-		return  goodsId;
+	public Integer getGoods_id(){
+		return  goods_id;
 	}
 	/**
 	* 商品编号
-	*@param  goodsId
+	*@param  goods_id
 	*/
-	public void setGoodsId(Integer goodsId ){
-		this.goodsId = goodsId;
+	public void setGoods_id(Integer goods_id ){
+		this.goods_id = goods_id;
 	}
 	
 	/**
 	* 活动编号
 	*@return 
 	*/
-	public Integer getMansongId(){
-		return  mansongId;
+	public Integer getMansong_id(){
+		return  mansong_id;
 	}
 	/**
 	* 活动编号
-	*@param  mansongId
+	*@param  mansong_id
 	*/
-	public void setMansongId(Integer mansongId ){
-		this.mansongId = mansongId;
+	public void setMansong_id(Integer mansong_id ){
+		this.mansong_id = mansong_id;
 	}
 	
 	/**
@@ -116,26 +125,26 @@ public class RaPMansongRule   {
 		this.price = price;
 	}
 	
-	public Integer getVoucherTId(){
-		return  voucherTId;
+	public Integer getVoucher_t_id(){
+		return  voucher_t_id;
 	}
-	public void setVoucherTId(Integer voucherTId ){
-		this.voucherTId = voucherTId;
+	public void setVoucher_t_id(Integer voucher_t_id ){
+		this.voucher_t_id = voucher_t_id;
 	}
 	
 	/**
 	* 礼品名称
 	*@return 
 	*/
-	public String getMansongGoodsName(){
-		return  mansongGoodsName;
+	public String getMansong_goods_name(){
+		return  mansong_goods_name;
 	}
 	/**
 	* 礼品名称
-	*@param  mansongGoodsName
+	*@param  mansong_goods_name
 	*/
-	public void setMansongGoodsName(String mansongGoodsName ){
-		this.mansongGoodsName = mansongGoodsName;
+	public void setMansong_goods_name(String mansong_goods_name ){
+		this.mansong_goods_name = mansong_goods_name;
 	}
 	
 

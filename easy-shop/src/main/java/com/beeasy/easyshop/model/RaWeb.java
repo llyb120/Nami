@@ -7,43 +7,53 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_web")
 public class RaWeb   {
 	
+	// alias
+	public static final String ALIAS_web_id = "web_id";
+	public static final String ALIAS_update_time = "update_time";
+	public static final String ALIAS_web_show = "web_show";
+	public static final String ALIAS_web_sort = "web_sort";
+	public static final String ALIAS_style_name = "style_name";
+	public static final String ALIAS_web_html = "web_html";
+	public static final String ALIAS_web_name = "web_name";
+	public static final String ALIAS_web_page = "web_page";
+	
 	/*
 	模块ID
 	*/
-	private Integer webId ;
+	private Integer web_id ;
 	/*
 	更新时间
 	*/
-	private Integer updateTime ;
+	private Integer update_time ;
 	/*
 	是否显示，0为否，1为是，默认为1
 	*/
-	private Integer webShow ;
+	private Integer web_show ;
 	/*
 	排序
 	*/
-	private Integer webSort ;
+	private Integer web_sort ;
 	/*
 	风格名称
 	*/
-	private String styleName ;
+	private String style_name ;
 	/*
 	模块html代码
 	*/
-	private String webHtml ;
+	private String web_html ;
 	/*
 	模块名称
 	*/
-	private String webName ;
+	private String web_name ;
 	/*
 	所在页面(暂时只有index)
 	*/
-	private String webPage ;
+	private String web_page ;
 	
 	public RaWeb() {
 	}
@@ -52,120 +62,120 @@ public class RaWeb   {
 	* 模块ID
 	*@return 
 	*/
-	public Integer getWebId(){
-		return  webId;
+	public Integer getWeb_id(){
+		return  web_id;
 	}
 	/**
 	* 模块ID
-	*@param  webId
+	*@param  web_id
 	*/
-	public void setWebId(Integer webId ){
-		this.webId = webId;
+	public void setWeb_id(Integer web_id ){
+		this.web_id = web_id;
 	}
 	
 	/**
 	* 更新时间
 	*@return 
 	*/
-	public Integer getUpdateTime(){
-		return  updateTime;
+	public Integer getUpdate_time(){
+		return  update_time;
 	}
 	/**
 	* 更新时间
-	*@param  updateTime
+	*@param  update_time
 	*/
-	public void setUpdateTime(Integer updateTime ){
-		this.updateTime = updateTime;
+	public void setUpdate_time(Integer update_time ){
+		this.update_time = update_time;
 	}
 	
 	/**
 	* 是否显示，0为否，1为是，默认为1
 	*@return 
 	*/
-	public Integer getWebShow(){
-		return  webShow;
+	public Integer getWeb_show(){
+		return  web_show;
 	}
 	/**
 	* 是否显示，0为否，1为是，默认为1
-	*@param  webShow
+	*@param  web_show
 	*/
-	public void setWebShow(Integer webShow ){
-		this.webShow = webShow;
+	public void setWeb_show(Integer web_show ){
+		this.web_show = web_show;
 	}
 	
 	/**
 	* 排序
 	*@return 
 	*/
-	public Integer getWebSort(){
-		return  webSort;
+	public Integer getWeb_sort(){
+		return  web_sort;
 	}
 	/**
 	* 排序
-	*@param  webSort
+	*@param  web_sort
 	*/
-	public void setWebSort(Integer webSort ){
-		this.webSort = webSort;
+	public void setWeb_sort(Integer web_sort ){
+		this.web_sort = web_sort;
 	}
 	
 	/**
 	* 风格名称
 	*@return 
 	*/
-	public String getStyleName(){
-		return  styleName;
+	public String getStyle_name(){
+		return  style_name;
 	}
 	/**
 	* 风格名称
-	*@param  styleName
+	*@param  style_name
 	*/
-	public void setStyleName(String styleName ){
-		this.styleName = styleName;
+	public void setStyle_name(String style_name ){
+		this.style_name = style_name;
 	}
 	
 	/**
 	* 模块html代码
 	*@return 
 	*/
-	public String getWebHtml(){
-		return  webHtml;
+	public String getWeb_html(){
+		return  web_html;
 	}
 	/**
 	* 模块html代码
-	*@param  webHtml
+	*@param  web_html
 	*/
-	public void setWebHtml(String webHtml ){
-		this.webHtml = webHtml;
+	public void setWeb_html(String web_html ){
+		this.web_html = web_html;
 	}
 	
 	/**
 	* 模块名称
 	*@return 
 	*/
-	public String getWebName(){
-		return  webName;
+	public String getWeb_name(){
+		return  web_name;
 	}
 	/**
 	* 模块名称
-	*@param  webName
+	*@param  web_name
 	*/
-	public void setWebName(String webName ){
-		this.webName = webName;
+	public void setWeb_name(String web_name ){
+		this.web_name = web_name;
 	}
 	
 	/**
 	* 所在页面(暂时只有index)
 	*@return 
 	*/
-	public String getWebPage(){
-		return  webPage;
+	public String getWeb_page(){
+		return  web_page;
 	}
 	/**
 	* 所在页面(暂时只有index)
-	*@param  webPage
+	*@param  web_page
 	*/
-	public void setWebPage(String webPage ){
-		this.webPage = webPage;
+	public void setWeb_page(String web_page ){
+		this.web_page = web_page;
 	}
 	
 

@@ -7,14 +7,19 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_wechat_another_access_token")
 public class RaWechatAnotherAccessToken   {
 	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_access_token = "access_token";
+	public static final String ALIAS_expr_time = "expr_time";
+	
 	private Integer id ;
-	private String accessToken ;
-	private String exprTime ;
+	private String access_token ;
+	private String expr_time ;
 	
 	public RaWechatAnotherAccessToken() {
 	}
@@ -26,18 +31,18 @@ public class RaWechatAnotherAccessToken   {
 		this.id = id;
 	}
 	
-	public String getAccessToken(){
-		return  accessToken;
+	public String getAccess_token(){
+		return  access_token;
 	}
-	public void setAccessToken(String accessToken ){
-		this.accessToken = accessToken;
+	public void setAccess_token(String access_token ){
+		this.access_token = access_token;
 	}
 	
-	public String getExprTime(){
-		return  exprTime;
+	public String getExpr_time(){
+		return  expr_time;
 	}
-	public void setExprTime(String exprTime ){
-		this.exprTime = exprTime;
+	public void setExpr_time(String expr_time ){
+		this.expr_time = expr_time;
 	}
 	
 

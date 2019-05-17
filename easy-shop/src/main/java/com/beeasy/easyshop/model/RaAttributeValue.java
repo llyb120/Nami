@@ -7,31 +7,38 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_attribute_value")
 public class RaAttributeValue   {
 	
+	// alias
+	public static final String ALIAS_attr_value_id = "attr_value_id";
+	public static final String ALIAS_attr_id = "attr_id";
+	public static final String ALIAS_attr_value_sort = "attr_value_sort";
+	public static final String ALIAS_type_id = "type_id";
+	public static final String ALIAS_attr_value_name = "attr_value_name";
+	
 	/*
 	属性值id
 	*/
-	private Integer attrValueId ;
+	private Integer attr_value_id ;
 	/*
 	所属属性id
 	*/
-	private Integer attrId ;
+	private Integer attr_id ;
 	/*
 	属性值排序
 	*/
-	private Integer attrValueSort ;
+	private Integer attr_value_sort ;
 	/*
 	类型id
 	*/
-	private Integer typeId ;
+	private Integer type_id ;
 	/*
 	属性值名称
 	*/
-	private String attrValueName ;
+	private String attr_value_name ;
 	
 	public RaAttributeValue() {
 	}
@@ -40,75 +47,75 @@ public class RaAttributeValue   {
 	* 属性值id
 	*@return 
 	*/
-	public Integer getAttrValueId(){
-		return  attrValueId;
+	public Integer getAttr_value_id(){
+		return  attr_value_id;
 	}
 	/**
 	* 属性值id
-	*@param  attrValueId
+	*@param  attr_value_id
 	*/
-	public void setAttrValueId(Integer attrValueId ){
-		this.attrValueId = attrValueId;
+	public void setAttr_value_id(Integer attr_value_id ){
+		this.attr_value_id = attr_value_id;
 	}
 	
 	/**
 	* 所属属性id
 	*@return 
 	*/
-	public Integer getAttrId(){
-		return  attrId;
+	public Integer getAttr_id(){
+		return  attr_id;
 	}
 	/**
 	* 所属属性id
-	*@param  attrId
+	*@param  attr_id
 	*/
-	public void setAttrId(Integer attrId ){
-		this.attrId = attrId;
+	public void setAttr_id(Integer attr_id ){
+		this.attr_id = attr_id;
 	}
 	
 	/**
 	* 属性值排序
 	*@return 
 	*/
-	public Integer getAttrValueSort(){
-		return  attrValueSort;
+	public Integer getAttr_value_sort(){
+		return  attr_value_sort;
 	}
 	/**
 	* 属性值排序
-	*@param  attrValueSort
+	*@param  attr_value_sort
 	*/
-	public void setAttrValueSort(Integer attrValueSort ){
-		this.attrValueSort = attrValueSort;
+	public void setAttr_value_sort(Integer attr_value_sort ){
+		this.attr_value_sort = attr_value_sort;
 	}
 	
 	/**
 	* 类型id
 	*@return 
 	*/
-	public Integer getTypeId(){
-		return  typeId;
+	public Integer getType_id(){
+		return  type_id;
 	}
 	/**
 	* 类型id
-	*@param  typeId
+	*@param  type_id
 	*/
-	public void setTypeId(Integer typeId ){
-		this.typeId = typeId;
+	public void setType_id(Integer type_id ){
+		this.type_id = type_id;
 	}
 	
 	/**
 	* 属性值名称
 	*@return 
 	*/
-	public String getAttrValueName(){
-		return  attrValueName;
+	public String getAttr_value_name(){
+		return  attr_value_name;
 	}
 	/**
 	* 属性值名称
-	*@param  attrValueName
+	*@param  attr_value_name
 	*/
-	public void setAttrValueName(String attrValueName ){
-		this.attrValueName = attrValueName;
+	public void setAttr_value_name(String attr_value_name ){
+		this.attr_value_name = attr_value_name;
 	}
 	
 

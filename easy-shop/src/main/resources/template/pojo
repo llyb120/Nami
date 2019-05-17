@@ -1,0 +1,50 @@
+package ${package};
+${imports}
+${implSerializable?"import java.io.Serializable;"}
+/*
+* ${comment}
+* gen by beetlsql ${date(),"yyyy-MM-dd"}
+*/
+@Table(name="${catalog}.${table}")
+public class ${className} ${!isEmpty(ext)?"extends "+ext} ${implSerializable?"implements Serializable"} {
+
+	// alias
+	<%for(attr in attrs){%>
+	public static final String ALIAS_${attr.colName} = "${attr.colName}";
+	<%}%>
+
+	<%for(attr in attrs){
+			if(!isEmpty(attr.comment)){%>
+	/*
+	${attr.comment}
+	*/
+	<%		}%>
+	private ${attr.type} ${attr.name} ;
+	<%}%>
+
+	public ${className}() {
+	}
+
+	<%for(attr in attrs){
+	if(!isEmpty(attr.comment)){%>
+	/**
+	* ${attr.comment}
+	*@return
+	*/
+	<%}%>
+	public ${attr.type} get${attr.methodName}(){
+		return  ${attr.name};
+	}
+	<%if(!isEmpty(attr.comment)){%>
+	/**
+	* ${attr.comment}
+	*@param  ${attr.name}
+	*/
+	<%}%>
+	public void set${attr.methodName}(${attr.type} ${attr.name} ){
+		this.${attr.name} = ${attr.name};
+	}
+
+	<%}%>
+
+}

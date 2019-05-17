@@ -7,10 +7,17 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_transport")
 public class RaTransport   {
+	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_send_tpl_id = "send_tpl_id";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_update_time = "update_time";
+	public static final String ALIAS_title = "title";
 	
 	/*
 	运费模板ID
@@ -19,15 +26,15 @@ public class RaTransport   {
 	/*
 	发货地区模板ID
 	*/
-	private Integer sendTplId ;
+	private Integer send_tpl_id ;
 	/*
 	店铺ID
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	最后更新时间
 	*/
-	private Integer updateTime ;
+	private Integer update_time ;
 	/*
 	运费模板名称
 	*/
@@ -55,45 +62,45 @@ public class RaTransport   {
 	* 发货地区模板ID
 	*@return 
 	*/
-	public Integer getSendTplId(){
-		return  sendTplId;
+	public Integer getSend_tpl_id(){
+		return  send_tpl_id;
 	}
 	/**
 	* 发货地区模板ID
-	*@param  sendTplId
+	*@param  send_tpl_id
 	*/
-	public void setSendTplId(Integer sendTplId ){
-		this.sendTplId = sendTplId;
+	public void setSend_tpl_id(Integer send_tpl_id ){
+		this.send_tpl_id = send_tpl_id;
 	}
 	
 	/**
 	* 店铺ID
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺ID
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 最后更新时间
 	*@return 
 	*/
-	public Integer getUpdateTime(){
-		return  updateTime;
+	public Integer getUpdate_time(){
+		return  update_time;
 	}
 	/**
 	* 最后更新时间
-	*@param  updateTime
+	*@param  update_time
 	*/
-	public void setUpdateTime(Integer updateTime ){
-		this.updateTime = updateTime;
+	public void setUpdate_time(Integer update_time ){
+		this.update_time = update_time;
 	}
 	
 	/**

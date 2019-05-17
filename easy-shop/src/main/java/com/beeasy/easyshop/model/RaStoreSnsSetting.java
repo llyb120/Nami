@@ -7,63 +7,78 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_sns_setting")
 public class RaStoreSnsSetting   {
 	
+	// alias
+	public static final String ALIAS_sauto_storeid = "sauto_storeid";
+	public static final String ALIAS_sauto_bundling = "sauto_bundling";
+	public static final String ALIAS_sauto_coupon = "sauto_coupon";
+	public static final String ALIAS_sauto_groupbuy = "sauto_groupbuy";
+	public static final String ALIAS_sauto_mansong = "sauto_mansong";
+	public static final String ALIAS_sauto_new = "sauto_new";
+	public static final String ALIAS_sauto_xianshi = "sauto_xianshi";
+	public static final String ALIAS_sauto_bundlingtitle = "sauto_bundlingtitle";
+	public static final String ALIAS_sauto_coupontitle = "sauto_coupontitle";
+	public static final String ALIAS_sauto_groupbuytitle = "sauto_groupbuytitle";
+	public static final String ALIAS_sauto_mansongtitle = "sauto_mansongtitle";
+	public static final String ALIAS_sauto_newtitle = "sauto_newtitle";
+	public static final String ALIAS_sauto_xianshititle = "sauto_xianshititle";
+	
 	/*
 	店铺id
 	*/
-	private Integer sautoStoreid ;
+	private Integer sauto_storeid ;
 	/*
 	组合销售,0为关闭/1为开启
 	*/
-	private Integer sautoBundling ;
+	private Integer sauto_bundling ;
 	/*
 	优惠券,0为关闭/1为开启
 	*/
-	private Integer sautoCoupon ;
+	private Integer sauto_coupon ;
 	/*
 	团购,0为关闭/1为开启
 	*/
-	private Integer sautoGroupbuy ;
+	private Integer sauto_groupbuy ;
 	/*
 	满即送,0为关闭/1为开启
 	*/
-	private Integer sautoMansong ;
+	private Integer sauto_mansong ;
 	/*
 	新品,0为关闭/1为开启
 	*/
-	private Integer sautoNew ;
+	private Integer sauto_new ;
 	/*
 	限时折扣,0为关闭/1为开启
 	*/
-	private Integer sautoXianshi ;
+	private Integer sauto_xianshi ;
 	/*
 	组合销售内容
 	*/
-	private String sautoBundlingtitle ;
+	private String sauto_bundlingtitle ;
 	/*
 	优惠券内容
 	*/
-	private String sautoCoupontitle ;
+	private String sauto_coupontitle ;
 	/*
 	团购内容
 	*/
-	private String sautoGroupbuytitle ;
+	private String sauto_groupbuytitle ;
 	/*
 	满即送内容
 	*/
-	private String sautoMansongtitle ;
+	private String sauto_mansongtitle ;
 	/*
 	新品内容
 	*/
-	private String sautoNewtitle ;
+	private String sauto_newtitle ;
 	/*
 	限时折扣内容
 	*/
-	private String sautoXianshititle ;
+	private String sauto_xianshititle ;
 	
 	public RaStoreSnsSetting() {
 	}
@@ -72,195 +87,195 @@ public class RaStoreSnsSetting   {
 	* 店铺id
 	*@return 
 	*/
-	public Integer getSautoStoreid(){
-		return  sautoStoreid;
+	public Integer getSauto_storeid(){
+		return  sauto_storeid;
 	}
 	/**
 	* 店铺id
-	*@param  sautoStoreid
+	*@param  sauto_storeid
 	*/
-	public void setSautoStoreid(Integer sautoStoreid ){
-		this.sautoStoreid = sautoStoreid;
+	public void setSauto_storeid(Integer sauto_storeid ){
+		this.sauto_storeid = sauto_storeid;
 	}
 	
 	/**
 	* 组合销售,0为关闭/1为开启
 	*@return 
 	*/
-	public Integer getSautoBundling(){
-		return  sautoBundling;
+	public Integer getSauto_bundling(){
+		return  sauto_bundling;
 	}
 	/**
 	* 组合销售,0为关闭/1为开启
-	*@param  sautoBundling
+	*@param  sauto_bundling
 	*/
-	public void setSautoBundling(Integer sautoBundling ){
-		this.sautoBundling = sautoBundling;
+	public void setSauto_bundling(Integer sauto_bundling ){
+		this.sauto_bundling = sauto_bundling;
 	}
 	
 	/**
 	* 优惠券,0为关闭/1为开启
 	*@return 
 	*/
-	public Integer getSautoCoupon(){
-		return  sautoCoupon;
+	public Integer getSauto_coupon(){
+		return  sauto_coupon;
 	}
 	/**
 	* 优惠券,0为关闭/1为开启
-	*@param  sautoCoupon
+	*@param  sauto_coupon
 	*/
-	public void setSautoCoupon(Integer sautoCoupon ){
-		this.sautoCoupon = sautoCoupon;
+	public void setSauto_coupon(Integer sauto_coupon ){
+		this.sauto_coupon = sauto_coupon;
 	}
 	
 	/**
 	* 团购,0为关闭/1为开启
 	*@return 
 	*/
-	public Integer getSautoGroupbuy(){
-		return  sautoGroupbuy;
+	public Integer getSauto_groupbuy(){
+		return  sauto_groupbuy;
 	}
 	/**
 	* 团购,0为关闭/1为开启
-	*@param  sautoGroupbuy
+	*@param  sauto_groupbuy
 	*/
-	public void setSautoGroupbuy(Integer sautoGroupbuy ){
-		this.sautoGroupbuy = sautoGroupbuy;
+	public void setSauto_groupbuy(Integer sauto_groupbuy ){
+		this.sauto_groupbuy = sauto_groupbuy;
 	}
 	
 	/**
 	* 满即送,0为关闭/1为开启
 	*@return 
 	*/
-	public Integer getSautoMansong(){
-		return  sautoMansong;
+	public Integer getSauto_mansong(){
+		return  sauto_mansong;
 	}
 	/**
 	* 满即送,0为关闭/1为开启
-	*@param  sautoMansong
+	*@param  sauto_mansong
 	*/
-	public void setSautoMansong(Integer sautoMansong ){
-		this.sautoMansong = sautoMansong;
+	public void setSauto_mansong(Integer sauto_mansong ){
+		this.sauto_mansong = sauto_mansong;
 	}
 	
 	/**
 	* 新品,0为关闭/1为开启
 	*@return 
 	*/
-	public Integer getSautoNew(){
-		return  sautoNew;
+	public Integer getSauto_new(){
+		return  sauto_new;
 	}
 	/**
 	* 新品,0为关闭/1为开启
-	*@param  sautoNew
+	*@param  sauto_new
 	*/
-	public void setSautoNew(Integer sautoNew ){
-		this.sautoNew = sautoNew;
+	public void setSauto_new(Integer sauto_new ){
+		this.sauto_new = sauto_new;
 	}
 	
 	/**
 	* 限时折扣,0为关闭/1为开启
 	*@return 
 	*/
-	public Integer getSautoXianshi(){
-		return  sautoXianshi;
+	public Integer getSauto_xianshi(){
+		return  sauto_xianshi;
 	}
 	/**
 	* 限时折扣,0为关闭/1为开启
-	*@param  sautoXianshi
+	*@param  sauto_xianshi
 	*/
-	public void setSautoXianshi(Integer sautoXianshi ){
-		this.sautoXianshi = sautoXianshi;
+	public void setSauto_xianshi(Integer sauto_xianshi ){
+		this.sauto_xianshi = sauto_xianshi;
 	}
 	
 	/**
 	* 组合销售内容
 	*@return 
 	*/
-	public String getSautoBundlingtitle(){
-		return  sautoBundlingtitle;
+	public String getSauto_bundlingtitle(){
+		return  sauto_bundlingtitle;
 	}
 	/**
 	* 组合销售内容
-	*@param  sautoBundlingtitle
+	*@param  sauto_bundlingtitle
 	*/
-	public void setSautoBundlingtitle(String sautoBundlingtitle ){
-		this.sautoBundlingtitle = sautoBundlingtitle;
+	public void setSauto_bundlingtitle(String sauto_bundlingtitle ){
+		this.sauto_bundlingtitle = sauto_bundlingtitle;
 	}
 	
 	/**
 	* 优惠券内容
 	*@return 
 	*/
-	public String getSautoCoupontitle(){
-		return  sautoCoupontitle;
+	public String getSauto_coupontitle(){
+		return  sauto_coupontitle;
 	}
 	/**
 	* 优惠券内容
-	*@param  sautoCoupontitle
+	*@param  sauto_coupontitle
 	*/
-	public void setSautoCoupontitle(String sautoCoupontitle ){
-		this.sautoCoupontitle = sautoCoupontitle;
+	public void setSauto_coupontitle(String sauto_coupontitle ){
+		this.sauto_coupontitle = sauto_coupontitle;
 	}
 	
 	/**
 	* 团购内容
 	*@return 
 	*/
-	public String getSautoGroupbuytitle(){
-		return  sautoGroupbuytitle;
+	public String getSauto_groupbuytitle(){
+		return  sauto_groupbuytitle;
 	}
 	/**
 	* 团购内容
-	*@param  sautoGroupbuytitle
+	*@param  sauto_groupbuytitle
 	*/
-	public void setSautoGroupbuytitle(String sautoGroupbuytitle ){
-		this.sautoGroupbuytitle = sautoGroupbuytitle;
+	public void setSauto_groupbuytitle(String sauto_groupbuytitle ){
+		this.sauto_groupbuytitle = sauto_groupbuytitle;
 	}
 	
 	/**
 	* 满即送内容
 	*@return 
 	*/
-	public String getSautoMansongtitle(){
-		return  sautoMansongtitle;
+	public String getSauto_mansongtitle(){
+		return  sauto_mansongtitle;
 	}
 	/**
 	* 满即送内容
-	*@param  sautoMansongtitle
+	*@param  sauto_mansongtitle
 	*/
-	public void setSautoMansongtitle(String sautoMansongtitle ){
-		this.sautoMansongtitle = sautoMansongtitle;
+	public void setSauto_mansongtitle(String sauto_mansongtitle ){
+		this.sauto_mansongtitle = sauto_mansongtitle;
 	}
 	
 	/**
 	* 新品内容
 	*@return 
 	*/
-	public String getSautoNewtitle(){
-		return  sautoNewtitle;
+	public String getSauto_newtitle(){
+		return  sauto_newtitle;
 	}
 	/**
 	* 新品内容
-	*@param  sautoNewtitle
+	*@param  sauto_newtitle
 	*/
-	public void setSautoNewtitle(String sautoNewtitle ){
-		this.sautoNewtitle = sautoNewtitle;
+	public void setSauto_newtitle(String sauto_newtitle ){
+		this.sauto_newtitle = sauto_newtitle;
 	}
 	
 	/**
 	* 限时折扣内容
 	*@return 
 	*/
-	public String getSautoXianshititle(){
-		return  sautoXianshititle;
+	public String getSauto_xianshititle(){
+		return  sauto_xianshititle;
 	}
 	/**
 	* 限时折扣内容
-	*@param  sautoXianshititle
+	*@param  sauto_xianshititle
 	*/
-	public void setSautoXianshititle(String sautoXianshititle ){
-		this.sautoXianshititle = sautoXianshititle;
+	public void setSauto_xianshititle(String sauto_xianshititle ){
+		this.sauto_xianshititle = sauto_xianshititle;
 	}
 	
 

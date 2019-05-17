@@ -7,10 +7,18 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_hangzhou_order")
 public class RaHangzhouOrder   {
+	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_code = "code";
+	public static final String ALIAS_companyCode = "companyCode";
+	public static final String ALIAS_status = "status";
+	public static final String ALIAS_time = "time";
+	public static final String ALIAS_totalAmount = "totalAmount";
 	
 	private Integer id ;
 	private Integer code ;

@@ -7,39 +7,48 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_points_cart")
 public class RaPointsCart   {
 	
+	// alias
+	public static final String ALIAS_pcart_id = "pcart_id";
+	public static final String ALIAS_pgoods_choosenum = "pgoods_choosenum";
+	public static final String ALIAS_pgoods_id = "pgoods_id";
+	public static final String ALIAS_pgoods_points = "pgoods_points";
+	public static final String ALIAS_pmember_id = "pmember_id";
+	public static final String ALIAS_pgoods_image = "pgoods_image";
+	public static final String ALIAS_pgoods_name = "pgoods_name";
+	
 	/*
 	自增ID
 	*/
-	private Integer pcartId ;
+	private Integer pcart_id ;
 	/*
 	选择积分礼品数量
 	*/
-	private Integer pgoodsChoosenum ;
+	private Integer pgoods_choosenum ;
 	/*
 	积分礼品序号
 	*/
-	private Integer pgoodsId ;
+	private Integer pgoods_id ;
 	/*
 	积分礼品兑换积分
 	*/
-	private Integer pgoodsPoints ;
+	private Integer pgoods_points ;
 	/*
 	会员编号
 	*/
-	private Integer pmemberId ;
+	private Integer pmember_id ;
 	/*
 	积分礼品图片
 	*/
-	private String pgoodsImage ;
+	private String pgoods_image ;
 	/*
 	积分礼品名称
 	*/
-	private String pgoodsName ;
+	private String pgoods_name ;
 	
 	public RaPointsCart() {
 	}
@@ -48,105 +57,105 @@ public class RaPointsCart   {
 	* 自增ID
 	*@return 
 	*/
-	public Integer getPcartId(){
-		return  pcartId;
+	public Integer getPcart_id(){
+		return  pcart_id;
 	}
 	/**
 	* 自增ID
-	*@param  pcartId
+	*@param  pcart_id
 	*/
-	public void setPcartId(Integer pcartId ){
-		this.pcartId = pcartId;
+	public void setPcart_id(Integer pcart_id ){
+		this.pcart_id = pcart_id;
 	}
 	
 	/**
 	* 选择积分礼品数量
 	*@return 
 	*/
-	public Integer getPgoodsChoosenum(){
-		return  pgoodsChoosenum;
+	public Integer getPgoods_choosenum(){
+		return  pgoods_choosenum;
 	}
 	/**
 	* 选择积分礼品数量
-	*@param  pgoodsChoosenum
+	*@param  pgoods_choosenum
 	*/
-	public void setPgoodsChoosenum(Integer pgoodsChoosenum ){
-		this.pgoodsChoosenum = pgoodsChoosenum;
+	public void setPgoods_choosenum(Integer pgoods_choosenum ){
+		this.pgoods_choosenum = pgoods_choosenum;
 	}
 	
 	/**
 	* 积分礼品序号
 	*@return 
 	*/
-	public Integer getPgoodsId(){
-		return  pgoodsId;
+	public Integer getPgoods_id(){
+		return  pgoods_id;
 	}
 	/**
 	* 积分礼品序号
-	*@param  pgoodsId
+	*@param  pgoods_id
 	*/
-	public void setPgoodsId(Integer pgoodsId ){
-		this.pgoodsId = pgoodsId;
+	public void setPgoods_id(Integer pgoods_id ){
+		this.pgoods_id = pgoods_id;
 	}
 	
 	/**
 	* 积分礼品兑换积分
 	*@return 
 	*/
-	public Integer getPgoodsPoints(){
-		return  pgoodsPoints;
+	public Integer getPgoods_points(){
+		return  pgoods_points;
 	}
 	/**
 	* 积分礼品兑换积分
-	*@param  pgoodsPoints
+	*@param  pgoods_points
 	*/
-	public void setPgoodsPoints(Integer pgoodsPoints ){
-		this.pgoodsPoints = pgoodsPoints;
+	public void setPgoods_points(Integer pgoods_points ){
+		this.pgoods_points = pgoods_points;
 	}
 	
 	/**
 	* 会员编号
 	*@return 
 	*/
-	public Integer getPmemberId(){
-		return  pmemberId;
+	public Integer getPmember_id(){
+		return  pmember_id;
 	}
 	/**
 	* 会员编号
-	*@param  pmemberId
+	*@param  pmember_id
 	*/
-	public void setPmemberId(Integer pmemberId ){
-		this.pmemberId = pmemberId;
+	public void setPmember_id(Integer pmember_id ){
+		this.pmember_id = pmember_id;
 	}
 	
 	/**
 	* 积分礼品图片
 	*@return 
 	*/
-	public String getPgoodsImage(){
-		return  pgoodsImage;
+	public String getPgoods_image(){
+		return  pgoods_image;
 	}
 	/**
 	* 积分礼品图片
-	*@param  pgoodsImage
+	*@param  pgoods_image
 	*/
-	public void setPgoodsImage(String pgoodsImage ){
-		this.pgoodsImage = pgoodsImage;
+	public void setPgoods_image(String pgoods_image ){
+		this.pgoods_image = pgoods_image;
 	}
 	
 	/**
 	* 积分礼品名称
 	*@return 
 	*/
-	public String getPgoodsName(){
-		return  pgoodsName;
+	public String getPgoods_name(){
+		return  pgoods_name;
 	}
 	/**
 	* 积分礼品名称
-	*@param  pgoodsName
+	*@param  pgoods_name
 	*/
-	public void setPgoodsName(String pgoodsName ){
-		this.pgoodsName = pgoodsName;
+	public void setPgoods_name(String pgoods_name ){
+		this.pgoods_name = pgoods_name;
 	}
 	
 

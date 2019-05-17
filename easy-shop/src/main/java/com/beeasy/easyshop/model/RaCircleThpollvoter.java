@@ -7,31 +7,38 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_circle_thpollvoter")
 public class RaCircleThpollvoter   {
 	
+	// alias
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_theme_id = "theme_id";
+	public static final String ALIAS_member_name = "member_name";
+	public static final String ALIAS_pollvo_options = "pollvo_options";
+	public static final String ALIAS_pollvo_time = "pollvo_time";
+	
 	/*
 	成员id
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	话题id
 	*/
-	private Integer themeId ;
+	private Integer theme_id ;
 	/*
 	成员名称
 	*/
-	private String memberName ;
+	private String member_name ;
 	/*
 	投票选项
 	*/
-	private String pollvoOptions ;
+	private String pollvo_options ;
 	/*
 	投票选项
 	*/
-	private String pollvoTime ;
+	private String pollvo_time ;
 	
 	public RaCircleThpollvoter() {
 	}
@@ -40,75 +47,75 @@ public class RaCircleThpollvoter   {
 	* 成员id
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 成员id
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 话题id
 	*@return 
 	*/
-	public Integer getThemeId(){
-		return  themeId;
+	public Integer getTheme_id(){
+		return  theme_id;
 	}
 	/**
 	* 话题id
-	*@param  themeId
+	*@param  theme_id
 	*/
-	public void setThemeId(Integer themeId ){
-		this.themeId = themeId;
+	public void setTheme_id(Integer theme_id ){
+		this.theme_id = theme_id;
 	}
 	
 	/**
 	* 成员名称
 	*@return 
 	*/
-	public String getMemberName(){
-		return  memberName;
+	public String getMember_name(){
+		return  member_name;
 	}
 	/**
 	* 成员名称
-	*@param  memberName
+	*@param  member_name
 	*/
-	public void setMemberName(String memberName ){
-		this.memberName = memberName;
+	public void setMember_name(String member_name ){
+		this.member_name = member_name;
 	}
 	
 	/**
 	* 投票选项
 	*@return 
 	*/
-	public String getPollvoOptions(){
-		return  pollvoOptions;
+	public String getPollvo_options(){
+		return  pollvo_options;
 	}
 	/**
 	* 投票选项
-	*@param  pollvoOptions
+	*@param  pollvo_options
 	*/
-	public void setPollvoOptions(String pollvoOptions ){
-		this.pollvoOptions = pollvoOptions;
+	public void setPollvo_options(String pollvo_options ){
+		this.pollvo_options = pollvo_options;
 	}
 	
 	/**
 	* 投票选项
 	*@return 
 	*/
-	public String getPollvoTime(){
-		return  pollvoTime;
+	public String getPollvo_time(){
+		return  pollvo_time;
 	}
 	/**
 	* 投票选项
-	*@param  pollvoTime
+	*@param  pollvo_time
 	*/
-	public void setPollvoTime(String pollvoTime ){
-		this.pollvoTime = pollvoTime;
+	public void setPollvo_time(String pollvo_time ){
+		this.pollvo_time = pollvo_time;
 	}
 	
 

@@ -7,31 +7,38 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_circle_mapply")
 public class RaCircleMapply   {
 	
+	// alias
+	public static final String ALIAS_mapply_id = "mapply_id";
+	public static final String ALIAS_circle_id = "circle_id";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_mapply_reason = "mapply_reason";
+	public static final String ALIAS_mapply_time = "mapply_time";
+	
 	/*
 	申请id
 	*/
-	private Integer mapplyId ;
+	private Integer mapply_id ;
 	/*
 	圈子id
 	*/
-	private Integer circleId ;
+	private Integer circle_id ;
 	/*
 	成员id
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	申请理由
 	*/
-	private String mapplyReason ;
+	private String mapply_reason ;
 	/*
 	申请时间
 	*/
-	private String mapplyTime ;
+	private String mapply_time ;
 	
 	public RaCircleMapply() {
 	}
@@ -40,75 +47,75 @@ public class RaCircleMapply   {
 	* 申请id
 	*@return 
 	*/
-	public Integer getMapplyId(){
-		return  mapplyId;
+	public Integer getMapply_id(){
+		return  mapply_id;
 	}
 	/**
 	* 申请id
-	*@param  mapplyId
+	*@param  mapply_id
 	*/
-	public void setMapplyId(Integer mapplyId ){
-		this.mapplyId = mapplyId;
+	public void setMapply_id(Integer mapply_id ){
+		this.mapply_id = mapply_id;
 	}
 	
 	/**
 	* 圈子id
 	*@return 
 	*/
-	public Integer getCircleId(){
-		return  circleId;
+	public Integer getCircle_id(){
+		return  circle_id;
 	}
 	/**
 	* 圈子id
-	*@param  circleId
+	*@param  circle_id
 	*/
-	public void setCircleId(Integer circleId ){
-		this.circleId = circleId;
+	public void setCircle_id(Integer circle_id ){
+		this.circle_id = circle_id;
 	}
 	
 	/**
 	* 成员id
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 成员id
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 申请理由
 	*@return 
 	*/
-	public String getMapplyReason(){
-		return  mapplyReason;
+	public String getMapply_reason(){
+		return  mapply_reason;
 	}
 	/**
 	* 申请理由
-	*@param  mapplyReason
+	*@param  mapply_reason
 	*/
-	public void setMapplyReason(String mapplyReason ){
-		this.mapplyReason = mapplyReason;
+	public void setMapply_reason(String mapply_reason ){
+		this.mapply_reason = mapply_reason;
 	}
 	
 	/**
 	* 申请时间
 	*@return 
 	*/
-	public String getMapplyTime(){
-		return  mapplyTime;
+	public String getMapply_time(){
+		return  mapply_time;
 	}
 	/**
 	* 申请时间
-	*@param  mapplyTime
+	*@param  mapply_time
 	*/
-	public void setMapplyTime(String mapplyTime ){
-		this.mapplyTime = mapplyTime;
+	public void setMapply_time(String mapply_time ){
+		this.mapply_time = mapply_time;
 	}
 	
 

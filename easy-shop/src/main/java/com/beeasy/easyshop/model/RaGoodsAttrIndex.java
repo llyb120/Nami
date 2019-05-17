@@ -7,35 +7,43 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_goods_attr_index")
 public class RaGoodsAttrIndex   {
 	
+	// alias
+	public static final String ALIAS_attr_value_id = "attr_value_id";
+	public static final String ALIAS_gc_id = "gc_id";
+	public static final String ALIAS_goods_id = "goods_id";
+	public static final String ALIAS_attr_id = "attr_id";
+	public static final String ALIAS_goods_commonid = "goods_commonid";
+	public static final String ALIAS_type_id = "type_id";
+	
 	/*
 	属性值id
 	*/
-	private Integer attrValueId ;
+	private Integer attr_value_id ;
 	/*
 	商品分类id
 	*/
-	private Integer gcId ;
+	private Integer gc_id ;
 	/*
 	商品id
 	*/
-	private Integer goodsId ;
+	private Integer goods_id ;
 	/*
 	属性id
 	*/
-	private Integer attrId ;
+	private Integer attr_id ;
 	/*
 	商品公共表id
 	*/
-	private Integer goodsCommonid ;
+	private Integer goods_commonid ;
 	/*
 	类型id
 	*/
-	private Integer typeId ;
+	private Integer type_id ;
 	
 	public RaGoodsAttrIndex() {
 	}
@@ -44,90 +52,90 @@ public class RaGoodsAttrIndex   {
 	* 属性值id
 	*@return 
 	*/
-	public Integer getAttrValueId(){
-		return  attrValueId;
+	public Integer getAttr_value_id(){
+		return  attr_value_id;
 	}
 	/**
 	* 属性值id
-	*@param  attrValueId
+	*@param  attr_value_id
 	*/
-	public void setAttrValueId(Integer attrValueId ){
-		this.attrValueId = attrValueId;
+	public void setAttr_value_id(Integer attr_value_id ){
+		this.attr_value_id = attr_value_id;
 	}
 	
 	/**
 	* 商品分类id
 	*@return 
 	*/
-	public Integer getGcId(){
-		return  gcId;
+	public Integer getGc_id(){
+		return  gc_id;
 	}
 	/**
 	* 商品分类id
-	*@param  gcId
+	*@param  gc_id
 	*/
-	public void setGcId(Integer gcId ){
-		this.gcId = gcId;
+	public void setGc_id(Integer gc_id ){
+		this.gc_id = gc_id;
 	}
 	
 	/**
 	* 商品id
 	*@return 
 	*/
-	public Integer getGoodsId(){
-		return  goodsId;
+	public Integer getGoods_id(){
+		return  goods_id;
 	}
 	/**
 	* 商品id
-	*@param  goodsId
+	*@param  goods_id
 	*/
-	public void setGoodsId(Integer goodsId ){
-		this.goodsId = goodsId;
+	public void setGoods_id(Integer goods_id ){
+		this.goods_id = goods_id;
 	}
 	
 	/**
 	* 属性id
 	*@return 
 	*/
-	public Integer getAttrId(){
-		return  attrId;
+	public Integer getAttr_id(){
+		return  attr_id;
 	}
 	/**
 	* 属性id
-	*@param  attrId
+	*@param  attr_id
 	*/
-	public void setAttrId(Integer attrId ){
-		this.attrId = attrId;
+	public void setAttr_id(Integer attr_id ){
+		this.attr_id = attr_id;
 	}
 	
 	/**
 	* 商品公共表id
 	*@return 
 	*/
-	public Integer getGoodsCommonid(){
-		return  goodsCommonid;
+	public Integer getGoods_commonid(){
+		return  goods_commonid;
 	}
 	/**
 	* 商品公共表id
-	*@param  goodsCommonid
+	*@param  goods_commonid
 	*/
-	public void setGoodsCommonid(Integer goodsCommonid ){
-		this.goodsCommonid = goodsCommonid;
+	public void setGoods_commonid(Integer goods_commonid ){
+		this.goods_commonid = goods_commonid;
 	}
 	
 	/**
 	* 类型id
 	*@return 
 	*/
-	public Integer getTypeId(){
-		return  typeId;
+	public Integer getType_id(){
+		return  type_id;
 	}
 	/**
 	* 类型id
-	*@param  typeId
+	*@param  type_id
 	*/
-	public void setTypeId(Integer typeId ){
-		this.typeId = typeId;
+	public void setType_id(Integer type_id ){
+		this.type_id = type_id;
 	}
 	
 

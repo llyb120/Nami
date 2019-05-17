@@ -7,43 +7,53 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_help")
 public class RaHelp   {
 	
+	// alias
+	public static final String ALIAS_help_id = "help_id";
+	public static final String ALIAS_help_sort = "help_sort";
+	public static final String ALIAS_page_show = "page_show";
+	public static final String ALIAS_type_id = "type_id";
+	public static final String ALIAS_update_time = "update_time";
+	public static final String ALIAS_help_info = "help_info";
+	public static final String ALIAS_help_title = "help_title";
+	public static final String ALIAS_help_url = "help_url";
+	
 	/*
 	帮助ID
 	*/
-	private Integer helpId ;
+	private Integer help_id ;
 	/*
 	排序
 	*/
-	private Integer helpSort ;
+	private Integer help_sort ;
 	/*
 	页面类型:1为店铺,2为会员,默认为1
 	*/
-	private Integer pageShow ;
+	private Integer page_show ;
 	/*
 	帮助类型
 	*/
-	private Integer typeId ;
+	private Integer type_id ;
 	/*
 	更新时间
 	*/
-	private Integer updateTime ;
+	private Integer update_time ;
 	/*
 	帮助内容
 	*/
-	private String helpInfo ;
+	private String help_info ;
 	/*
 	标题
 	*/
-	private String helpTitle ;
+	private String help_title ;
 	/*
 	跳转链接
 	*/
-	private String helpUrl ;
+	private String help_url ;
 	
 	public RaHelp() {
 	}
@@ -52,120 +62,120 @@ public class RaHelp   {
 	* 帮助ID
 	*@return 
 	*/
-	public Integer getHelpId(){
-		return  helpId;
+	public Integer getHelp_id(){
+		return  help_id;
 	}
 	/**
 	* 帮助ID
-	*@param  helpId
+	*@param  help_id
 	*/
-	public void setHelpId(Integer helpId ){
-		this.helpId = helpId;
+	public void setHelp_id(Integer help_id ){
+		this.help_id = help_id;
 	}
 	
 	/**
 	* 排序
 	*@return 
 	*/
-	public Integer getHelpSort(){
-		return  helpSort;
+	public Integer getHelp_sort(){
+		return  help_sort;
 	}
 	/**
 	* 排序
-	*@param  helpSort
+	*@param  help_sort
 	*/
-	public void setHelpSort(Integer helpSort ){
-		this.helpSort = helpSort;
+	public void setHelp_sort(Integer help_sort ){
+		this.help_sort = help_sort;
 	}
 	
 	/**
 	* 页面类型:1为店铺,2为会员,默认为1
 	*@return 
 	*/
-	public Integer getPageShow(){
-		return  pageShow;
+	public Integer getPage_show(){
+		return  page_show;
 	}
 	/**
 	* 页面类型:1为店铺,2为会员,默认为1
-	*@param  pageShow
+	*@param  page_show
 	*/
-	public void setPageShow(Integer pageShow ){
-		this.pageShow = pageShow;
+	public void setPage_show(Integer page_show ){
+		this.page_show = page_show;
 	}
 	
 	/**
 	* 帮助类型
 	*@return 
 	*/
-	public Integer getTypeId(){
-		return  typeId;
+	public Integer getType_id(){
+		return  type_id;
 	}
 	/**
 	* 帮助类型
-	*@param  typeId
+	*@param  type_id
 	*/
-	public void setTypeId(Integer typeId ){
-		this.typeId = typeId;
+	public void setType_id(Integer type_id ){
+		this.type_id = type_id;
 	}
 	
 	/**
 	* 更新时间
 	*@return 
 	*/
-	public Integer getUpdateTime(){
-		return  updateTime;
+	public Integer getUpdate_time(){
+		return  update_time;
 	}
 	/**
 	* 更新时间
-	*@param  updateTime
+	*@param  update_time
 	*/
-	public void setUpdateTime(Integer updateTime ){
-		this.updateTime = updateTime;
+	public void setUpdate_time(Integer update_time ){
+		this.update_time = update_time;
 	}
 	
 	/**
 	* 帮助内容
 	*@return 
 	*/
-	public String getHelpInfo(){
-		return  helpInfo;
+	public String getHelp_info(){
+		return  help_info;
 	}
 	/**
 	* 帮助内容
-	*@param  helpInfo
+	*@param  help_info
 	*/
-	public void setHelpInfo(String helpInfo ){
-		this.helpInfo = helpInfo;
+	public void setHelp_info(String help_info ){
+		this.help_info = help_info;
 	}
 	
 	/**
 	* 标题
 	*@return 
 	*/
-	public String getHelpTitle(){
-		return  helpTitle;
+	public String getHelp_title(){
+		return  help_title;
 	}
 	/**
 	* 标题
-	*@param  helpTitle
+	*@param  help_title
 	*/
-	public void setHelpTitle(String helpTitle ){
-		this.helpTitle = helpTitle;
+	public void setHelp_title(String help_title ){
+		this.help_title = help_title;
 	}
 	
 	/**
 	* 跳转链接
 	*@return 
 	*/
-	public String getHelpUrl(){
-		return  helpUrl;
+	public String getHelp_url(){
+		return  help_url;
 	}
 	/**
 	* 跳转链接
-	*@param  helpUrl
+	*@param  help_url
 	*/
-	public void setHelpUrl(String helpUrl ){
-		this.helpUrl = helpUrl;
+	public void setHelp_url(String help_url ){
+		this.help_url = help_url;
 	}
 	
 

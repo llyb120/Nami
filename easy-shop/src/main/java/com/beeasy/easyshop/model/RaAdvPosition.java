@@ -7,59 +7,73 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_adv_position")
 public class RaAdvPosition   {
 	
+	// alias
+	public static final String ALIAS_ap_id = "ap_id";
+	public static final String ALIAS_adv_num = "adv_num";
+	public static final String ALIAS_ap_class = "ap_class";
+	public static final String ALIAS_ap_display = "ap_display";
+	public static final String ALIAS_ap_height = "ap_height";
+	public static final String ALIAS_ap_price = "ap_price";
+	public static final String ALIAS_ap_width = "ap_width";
+	public static final String ALIAS_click_num = "click_num";
+	public static final String ALIAS_is_use = "is_use";
+	public static final String ALIAS_ap_intro = "ap_intro";
+	public static final String ALIAS_ap_name = "ap_name";
+	public static final String ALIAS_default_content = "default_content";
+	
 	/*
 	广告位置id
 	*/
-	private Integer apId ;
+	private Integer ap_id ;
 	/*
 	拥有的广告数
 	*/
-	private Integer advNum ;
+	private Integer adv_num ;
 	/*
 	广告类别：0图片1文字2幻灯3Flash
 	*/
-	private Integer apClass ;
+	private Integer ap_class ;
 	/*
 	广告展示方式：0幻灯片1多广告展示2单广告展示
 	*/
-	private Integer apDisplay ;
+	private Integer ap_display ;
 	/*
 	广告位高度
 	*/
-	private Integer apHeight ;
+	private Integer ap_height ;
 	/*
 	广告位单价
 	*/
-	private Integer apPrice ;
+	private Integer ap_price ;
 	/*
 	广告位宽度
 	*/
-	private Integer apWidth ;
+	private Integer ap_width ;
 	/*
 	广告位点击率
 	*/
-	private Integer clickNum ;
+	private Integer click_num ;
 	/*
 	广告位是否启用：0不启用1启用
 	*/
-	private Integer isUse ;
+	private Integer is_use ;
 	/*
 	广告位简介
 	*/
-	private String apIntro ;
+	private String ap_intro ;
 	/*
 	广告位置名
 	*/
-	private String apName ;
+	private String ap_name ;
 	/*
 	广告位默认内容
 	*/
-	private String defaultContent ;
+	private String default_content ;
 	
 	public RaAdvPosition() {
 	}
@@ -68,180 +82,180 @@ public class RaAdvPosition   {
 	* 广告位置id
 	*@return 
 	*/
-	public Integer getApId(){
-		return  apId;
+	public Integer getAp_id(){
+		return  ap_id;
 	}
 	/**
 	* 广告位置id
-	*@param  apId
+	*@param  ap_id
 	*/
-	public void setApId(Integer apId ){
-		this.apId = apId;
+	public void setAp_id(Integer ap_id ){
+		this.ap_id = ap_id;
 	}
 	
 	/**
 	* 拥有的广告数
 	*@return 
 	*/
-	public Integer getAdvNum(){
-		return  advNum;
+	public Integer getAdv_num(){
+		return  adv_num;
 	}
 	/**
 	* 拥有的广告数
-	*@param  advNum
+	*@param  adv_num
 	*/
-	public void setAdvNum(Integer advNum ){
-		this.advNum = advNum;
+	public void setAdv_num(Integer adv_num ){
+		this.adv_num = adv_num;
 	}
 	
 	/**
 	* 广告类别：0图片1文字2幻灯3Flash
 	*@return 
 	*/
-	public Integer getApClass(){
-		return  apClass;
+	public Integer getAp_class(){
+		return  ap_class;
 	}
 	/**
 	* 广告类别：0图片1文字2幻灯3Flash
-	*@param  apClass
+	*@param  ap_class
 	*/
-	public void setApClass(Integer apClass ){
-		this.apClass = apClass;
+	public void setAp_class(Integer ap_class ){
+		this.ap_class = ap_class;
 	}
 	
 	/**
 	* 广告展示方式：0幻灯片1多广告展示2单广告展示
 	*@return 
 	*/
-	public Integer getApDisplay(){
-		return  apDisplay;
+	public Integer getAp_display(){
+		return  ap_display;
 	}
 	/**
 	* 广告展示方式：0幻灯片1多广告展示2单广告展示
-	*@param  apDisplay
+	*@param  ap_display
 	*/
-	public void setApDisplay(Integer apDisplay ){
-		this.apDisplay = apDisplay;
+	public void setAp_display(Integer ap_display ){
+		this.ap_display = ap_display;
 	}
 	
 	/**
 	* 广告位高度
 	*@return 
 	*/
-	public Integer getApHeight(){
-		return  apHeight;
+	public Integer getAp_height(){
+		return  ap_height;
 	}
 	/**
 	* 广告位高度
-	*@param  apHeight
+	*@param  ap_height
 	*/
-	public void setApHeight(Integer apHeight ){
-		this.apHeight = apHeight;
+	public void setAp_height(Integer ap_height ){
+		this.ap_height = ap_height;
 	}
 	
 	/**
 	* 广告位单价
 	*@return 
 	*/
-	public Integer getApPrice(){
-		return  apPrice;
+	public Integer getAp_price(){
+		return  ap_price;
 	}
 	/**
 	* 广告位单价
-	*@param  apPrice
+	*@param  ap_price
 	*/
-	public void setApPrice(Integer apPrice ){
-		this.apPrice = apPrice;
+	public void setAp_price(Integer ap_price ){
+		this.ap_price = ap_price;
 	}
 	
 	/**
 	* 广告位宽度
 	*@return 
 	*/
-	public Integer getApWidth(){
-		return  apWidth;
+	public Integer getAp_width(){
+		return  ap_width;
 	}
 	/**
 	* 广告位宽度
-	*@param  apWidth
+	*@param  ap_width
 	*/
-	public void setApWidth(Integer apWidth ){
-		this.apWidth = apWidth;
+	public void setAp_width(Integer ap_width ){
+		this.ap_width = ap_width;
 	}
 	
 	/**
 	* 广告位点击率
 	*@return 
 	*/
-	public Integer getClickNum(){
-		return  clickNum;
+	public Integer getClick_num(){
+		return  click_num;
 	}
 	/**
 	* 广告位点击率
-	*@param  clickNum
+	*@param  click_num
 	*/
-	public void setClickNum(Integer clickNum ){
-		this.clickNum = clickNum;
+	public void setClick_num(Integer click_num ){
+		this.click_num = click_num;
 	}
 	
 	/**
 	* 广告位是否启用：0不启用1启用
 	*@return 
 	*/
-	public Integer getIsUse(){
-		return  isUse;
+	public Integer getIs_use(){
+		return  is_use;
 	}
 	/**
 	* 广告位是否启用：0不启用1启用
-	*@param  isUse
+	*@param  is_use
 	*/
-	public void setIsUse(Integer isUse ){
-		this.isUse = isUse;
+	public void setIs_use(Integer is_use ){
+		this.is_use = is_use;
 	}
 	
 	/**
 	* 广告位简介
 	*@return 
 	*/
-	public String getApIntro(){
-		return  apIntro;
+	public String getAp_intro(){
+		return  ap_intro;
 	}
 	/**
 	* 广告位简介
-	*@param  apIntro
+	*@param  ap_intro
 	*/
-	public void setApIntro(String apIntro ){
-		this.apIntro = apIntro;
+	public void setAp_intro(String ap_intro ){
+		this.ap_intro = ap_intro;
 	}
 	
 	/**
 	* 广告位置名
 	*@return 
 	*/
-	public String getApName(){
-		return  apName;
+	public String getAp_name(){
+		return  ap_name;
 	}
 	/**
 	* 广告位置名
-	*@param  apName
+	*@param  ap_name
 	*/
-	public void setApName(String apName ){
-		this.apName = apName;
+	public void setAp_name(String ap_name ){
+		this.ap_name = ap_name;
 	}
 	
 	/**
 	* 广告位默认内容
 	*@return 
 	*/
-	public String getDefaultContent(){
-		return  defaultContent;
+	public String getDefault_content(){
+		return  default_content;
 	}
 	/**
 	* 广告位默认内容
-	*@param  defaultContent
+	*@param  default_content
 	*/
-	public void setDefaultContent(String defaultContent ){
-		this.defaultContent = defaultContent;
+	public void setDefault_content(String default_content ){
+		this.default_content = default_content;
 	}
 	
 

@@ -7,12 +7,18 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_rec_position")
 public class RaRecPosition   {
 	
-	private Integer recId ;
+	// alias
+	public static final String ALIAS_rec_id = "rec_id";
+	public static final String ALIAS_content = "content";
+	public static final String ALIAS_pic_type = "pic_type";
+	public static final String ALIAS_title = "title";
+	
+	private Integer rec_id ;
 	/*
 	序列化推荐位内容
 	*/
@@ -20,7 +26,7 @@ public class RaRecPosition   {
 	/*
 	0文字1本地图片2远程
 	*/
-	private String picType ;
+	private String pic_type ;
 	/*
 	标题
 	*/
@@ -29,11 +35,11 @@ public class RaRecPosition   {
 	public RaRecPosition() {
 	}
 	
-	public Integer getRecId(){
-		return  recId;
+	public Integer getRec_id(){
+		return  rec_id;
 	}
-	public void setRecId(Integer recId ){
-		this.recId = recId;
+	public void setRec_id(Integer rec_id ){
+		this.rec_id = rec_id;
 	}
 	
 	/**
@@ -55,15 +61,15 @@ public class RaRecPosition   {
 	* 0文字1本地图片2远程
 	*@return 
 	*/
-	public String getPicType(){
-		return  picType;
+	public String getPic_type(){
+		return  pic_type;
 	}
 	/**
 	* 0文字1本地图片2远程
-	*@param  picType
+	*@param  pic_type
 	*/
-	public void setPicType(String picType ){
-		this.picType = picType;
+	public void setPic_type(String pic_type ){
+		this.pic_type = pic_type;
 	}
 	
 	/**

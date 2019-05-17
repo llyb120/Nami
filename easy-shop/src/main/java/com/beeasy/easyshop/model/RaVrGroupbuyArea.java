@@ -7,23 +7,34 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_vr_groupbuy_area")
 public class RaVrGroupbuyArea   {
 	
+	// alias
+	public static final String ALIAS_area_id = "area_id";
+	public static final String ALIAS_add_time = "add_time";
+	public static final String ALIAS_hot_city = "hot_city";
+	public static final String ALIAS_number = "number";
+	public static final String ALIAS_parent_area_id = "parent_area_id";
+	public static final String ALIAS_area_name = "area_name";
+	public static final String ALIAS_area_number = "area_number";
+	public static final String ALIAS_first_letter = "first_letter";
+	public static final String ALIAS_post = "post";
+	
 	/*
 	区域id
 	*/
-	private Integer areaId ;
+	private Integer area_id ;
 	/*
 	添加时间
 	*/
-	private Integer addTime ;
+	private Integer add_time ;
 	/*
 	0.否 1.是
 	*/
-	private Integer hotCity ;
+	private Integer hot_city ;
 	/*
 	数量
 	*/
@@ -31,19 +42,19 @@ public class RaVrGroupbuyArea   {
 	/*
 	域区id
 	*/
-	private Integer parentAreaId ;
+	private Integer parent_area_id ;
 	/*
 	域区名称
 	*/
-	private String areaName ;
+	private String area_name ;
 	/*
 	区号
 	*/
-	private String areaNumber ;
+	private String area_number ;
 	/*
 	首字母
 	*/
-	private String firstLetter ;
+	private String first_letter ;
 	/*
 	邮编
 	*/
@@ -56,45 +67,45 @@ public class RaVrGroupbuyArea   {
 	* 区域id
 	*@return 
 	*/
-	public Integer getAreaId(){
-		return  areaId;
+	public Integer getArea_id(){
+		return  area_id;
 	}
 	/**
 	* 区域id
-	*@param  areaId
+	*@param  area_id
 	*/
-	public void setAreaId(Integer areaId ){
-		this.areaId = areaId;
+	public void setArea_id(Integer area_id ){
+		this.area_id = area_id;
 	}
 	
 	/**
 	* 添加时间
 	*@return 
 	*/
-	public Integer getAddTime(){
-		return  addTime;
+	public Integer getAdd_time(){
+		return  add_time;
 	}
 	/**
 	* 添加时间
-	*@param  addTime
+	*@param  add_time
 	*/
-	public void setAddTime(Integer addTime ){
-		this.addTime = addTime;
+	public void setAdd_time(Integer add_time ){
+		this.add_time = add_time;
 	}
 	
 	/**
 	* 0.否 1.是
 	*@return 
 	*/
-	public Integer getHotCity(){
-		return  hotCity;
+	public Integer getHot_city(){
+		return  hot_city;
 	}
 	/**
 	* 0.否 1.是
-	*@param  hotCity
+	*@param  hot_city
 	*/
-	public void setHotCity(Integer hotCity ){
-		this.hotCity = hotCity;
+	public void setHot_city(Integer hot_city ){
+		this.hot_city = hot_city;
 	}
 	
 	/**
@@ -116,60 +127,60 @@ public class RaVrGroupbuyArea   {
 	* 域区id
 	*@return 
 	*/
-	public Integer getParentAreaId(){
-		return  parentAreaId;
+	public Integer getParent_area_id(){
+		return  parent_area_id;
 	}
 	/**
 	* 域区id
-	*@param  parentAreaId
+	*@param  parent_area_id
 	*/
-	public void setParentAreaId(Integer parentAreaId ){
-		this.parentAreaId = parentAreaId;
+	public void setParent_area_id(Integer parent_area_id ){
+		this.parent_area_id = parent_area_id;
 	}
 	
 	/**
 	* 域区名称
 	*@return 
 	*/
-	public String getAreaName(){
-		return  areaName;
+	public String getArea_name(){
+		return  area_name;
 	}
 	/**
 	* 域区名称
-	*@param  areaName
+	*@param  area_name
 	*/
-	public void setAreaName(String areaName ){
-		this.areaName = areaName;
+	public void setArea_name(String area_name ){
+		this.area_name = area_name;
 	}
 	
 	/**
 	* 区号
 	*@return 
 	*/
-	public String getAreaNumber(){
-		return  areaNumber;
+	public String getArea_number(){
+		return  area_number;
 	}
 	/**
 	* 区号
-	*@param  areaNumber
+	*@param  area_number
 	*/
-	public void setAreaNumber(String areaNumber ){
-		this.areaNumber = areaNumber;
+	public void setArea_number(String area_number ){
+		this.area_number = area_number;
 	}
 	
 	/**
 	* 首字母
 	*@return 
 	*/
-	public String getFirstLetter(){
-		return  firstLetter;
+	public String getFirst_letter(){
+		return  first_letter;
 	}
 	/**
 	* 首字母
-	*@param  firstLetter
+	*@param  first_letter
 	*/
-	public void setFirstLetter(String firstLetter ){
-		this.firstLetter = firstLetter;
+	public void setFirst_letter(String first_letter ){
+		this.first_letter = first_letter;
 	}
 	
 	/**

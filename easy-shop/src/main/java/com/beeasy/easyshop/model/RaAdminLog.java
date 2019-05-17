@@ -7,16 +7,25 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_admin_log")
 public class RaAdminLog   {
+	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_admin_id = "admin_id";
+	public static final String ALIAS_createtime = "createtime";
+	public static final String ALIAS_admin_name = "admin_name";
+	public static final String ALIAS_content = "content";
+	public static final String ALIAS_ip = "ip";
+	public static final String ALIAS_url = "url";
 	
 	private Integer id ;
 	/*
 	管理员ID
 	*/
-	private Integer adminId ;
+	private Integer admin_id ;
 	/*
 	发生时间
 	*/
@@ -24,7 +33,7 @@ public class RaAdminLog   {
 	/*
 	管理员
 	*/
-	private String adminName ;
+	private String admin_name ;
 	/*
 	操作内容
 	*/
@@ -52,15 +61,15 @@ public class RaAdminLog   {
 	* 管理员ID
 	*@return 
 	*/
-	public Integer getAdminId(){
-		return  adminId;
+	public Integer getAdmin_id(){
+		return  admin_id;
 	}
 	/**
 	* 管理员ID
-	*@param  adminId
+	*@param  admin_id
 	*/
-	public void setAdminId(Integer adminId ){
-		this.adminId = adminId;
+	public void setAdmin_id(Integer admin_id ){
+		this.admin_id = admin_id;
 	}
 	
 	/**
@@ -82,15 +91,15 @@ public class RaAdminLog   {
 	* 管理员
 	*@return 
 	*/
-	public String getAdminName(){
-		return  adminName;
+	public String getAdmin_name(){
+		return  admin_name;
 	}
 	/**
 	* 管理员
-	*@param  adminName
+	*@param  admin_name
 	*/
-	public void setAdminName(String adminName ){
-		this.adminName = adminName;
+	public void setAdmin_name(String admin_name ){
+		this.admin_name = admin_name;
 	}
 	
 	/**

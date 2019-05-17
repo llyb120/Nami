@@ -7,188 +7,241 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_member")
 public class RaMember   {
 	
+	// alias
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_allow_push = "allow_push";
+	public static final String ALIAS_inform_allow = "inform_allow";
+	public static final String ALIAS_is_allowtalk = "is_allowtalk";
+	public static final String ALIAS_is_buy = "is_buy";
+	public static final String ALIAS_is_whole = "is_whole";
+	public static final String ALIAS_member_areaid = "member_areaid";
+	public static final String ALIAS_member_cityid = "member_cityid";
+	public static final String ALIAS_member_email_bind = "member_email_bind";
+	public static final String ALIAS_member_exppoints = "member_exppoints";
+	public static final String ALIAS_member_login_num = "member_login_num";
+	public static final String ALIAS_member_mobile_bind = "member_mobile_bind";
+	public static final String ALIAS_member_points = "member_points";
+	public static final String ALIAS_member_provinceid = "member_provinceid";
+	public static final String ALIAS_member_sex = "member_sex";
+	public static final String ALIAS_member_snsvisitnum = "member_snsvisitnum";
+	public static final String ALIAS_member_state = "member_state";
+	public static final String ALIAS_proxy_id = "proxy_id";
+	public static final String ALIAS_available_predeposit = "available_predeposit";
+	public static final String ALIAS_available_rc_balance = "available_rc_balance";
+	public static final String ALIAS_fpic = "fpic";
+	public static final String ALIAS_freeze_predeposit = "freeze_predeposit";
+	public static final String ALIAS_freeze_rc_balance = "freeze_rc_balance";
+	public static final String ALIAS_idcard = "idcard";
+	public static final String ALIAS_member_areainfo = "member_areainfo";
+	public static final String ALIAS_member_avatar = "member_avatar";
+	public static final String ALIAS_member_email = "member_email";
+	public static final String ALIAS_member_login_ip = "member_login_ip";
+	public static final String ALIAS_member_login_time = "member_login_time";
+	public static final String ALIAS_member_mobile = "member_mobile";
+	public static final String ALIAS_member_name = "member_name";
+	public static final String ALIAS_member_old_login_ip = "member_old_login_ip";
+	public static final String ALIAS_member_old_login_time = "member_old_login_time";
+	public static final String ALIAS_member_passwd = "member_passwd";
+	public static final String ALIAS_member_paypwd = "member_paypwd";
+	public static final String ALIAS_member_privacy = "member_privacy";
+	public static final String ALIAS_member_qq = "member_qq";
+	public static final String ALIAS_member_qqinfo = "member_qqinfo";
+	public static final String ALIAS_member_qqopenid = "member_qqopenid";
+	public static final String ALIAS_member_quicklink = "member_quicklink";
+	public static final String ALIAS_member_sinainfo = "member_sinainfo";
+	public static final String ALIAS_member_sinaopenid = "member_sinaopenid";
+	public static final String ALIAS_member_time = "member_time";
+	public static final String ALIAS_member_truename = "member_truename";
+	public static final String ALIAS_member_ww = "member_ww";
+	public static final String ALIAS_mini_wechat_openid = "mini_wechat_openid";
+	public static final String ALIAS_nickname = "nickname";
+	public static final String ALIAS_storeDress = "storeDress";
+	public static final String ALIAS_wechat_openid = "wechat_openid";
+	public static final String ALIAS_zpic = "zpic";
+	public static final String ALIAS_member_birthday = "member_birthday";
+	
 	/*
 	会员id
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	是否允许转单
 	*/
-	private Integer allowPush ;
+	private Integer allow_push ;
 	/*
 	是否允许举报(1可以/2不可以)
 	*/
-	private Integer informAllow ;
+	private Integer inform_allow ;
 	/*
 	会员是否有咨询和发送站内信的权限 1为开启 0为关闭
 	*/
-	private Integer isAllowtalk ;
+	private Integer is_allowtalk ;
 	/*
 	会员是否有购买权限 1为开启 0为关闭
 	*/
-	private Integer isBuy ;
-	private Integer isWhole ;
+	private Integer is_buy ;
+	private Integer is_whole ;
 	/*
 	地区ID
 	*/
-	private Integer memberAreaid ;
+	private Integer member_areaid ;
 	/*
 	城市ID
 	*/
-	private Integer memberCityid ;
+	private Integer member_cityid ;
 	/*
 	0未绑定1已绑定
 	*/
-	private Integer memberEmailBind ;
+	private Integer member_email_bind ;
 	/*
 	会员经验值
 	*/
-	private Integer memberExppoints ;
+	private Integer member_exppoints ;
 	/*
 	登录次数
 	*/
-	private Integer memberLoginNum ;
+	private Integer member_login_num ;
 	/*
 	0未绑定1已绑定
 	*/
-	private Integer memberMobileBind ;
+	private Integer member_mobile_bind ;
 	/*
 	会员积分
 	*/
-	private Integer memberPoints ;
+	private Integer member_points ;
 	/*
 	省份ID
 	*/
-	private Integer memberProvinceid ;
+	private Integer member_provinceid ;
 	/*
 	会员性别
 	*/
-	private Integer memberSex ;
+	private Integer member_sex ;
 	/*
 	sns空间访问次数
 	*/
-	private Integer memberSnsvisitnum ;
+	private Integer member_snsvisitnum ;
 	/*
 	会员的开启状态 1为开启 0为关闭
 	*/
-	private Integer memberState ;
-	private Integer proxyId ;
+	private Integer member_state ;
+	private Integer proxy_id ;
 	/*
 	预存款可用金额
 	*/
-	private BigDecimal availablePredeposit ;
+	private BigDecimal available_predeposit ;
 	/*
 	可用充值卡余额
 	*/
-	private BigDecimal availableRcBalance ;
+	private BigDecimal available_rc_balance ;
 	private String fpic ;
 	/*
 	预存款冻结金额
 	*/
-	private BigDecimal freezePredeposit ;
+	private BigDecimal freeze_predeposit ;
 	/*
 	冻结充值卡余额
 	*/
-	private BigDecimal freezeRcBalance ;
+	private BigDecimal freeze_rc_balance ;
 	private String idcard ;
 	/*
 	地区内容
 	*/
-	private String memberAreainfo ;
+	private String member_areainfo ;
 	/*
 	会员头像
 	*/
-	private String memberAvatar ;
+	private String member_avatar ;
 	/*
 	会员邮箱
 	*/
-	private String memberEmail ;
+	private String member_email ;
 	/*
 	当前登录ip
 	*/
-	private String memberLoginIp ;
+	private String member_login_ip ;
 	/*
 	当前登录时间
 	*/
-	private String memberLoginTime ;
+	private String member_login_time ;
 	/*
 	手机号
 	*/
-	private String memberMobile ;
+	private String member_mobile ;
 	/*
 	会员名称
 	*/
-	private String memberName ;
+	private String member_name ;
 	/*
 	上次登录ip
 	*/
-	private String memberOldLoginIp ;
+	private String member_old_login_ip ;
 	/*
 	上次登录时间
 	*/
-	private String memberOldLoginTime ;
+	private String member_old_login_time ;
 	/*
 	会员密码
 	*/
-	private String memberPasswd ;
+	private String member_passwd ;
 	/*
 	支付密码
 	*/
-	private String memberPaypwd ;
+	private String member_paypwd ;
 	/*
 	隐私设定
 	*/
-	private String memberPrivacy ;
+	private String member_privacy ;
 	/*
 	qq
 	*/
-	private String memberQq ;
+	private String member_qq ;
 	/*
 	qq账号相关信息
 	*/
-	private String memberQqinfo ;
+	private String member_qqinfo ;
 	/*
 	qq互联id
 	*/
-	private String memberQqopenid ;
+	private String member_qqopenid ;
 	/*
 	会员常用操作
 	*/
-	private String memberQuicklink ;
+	private String member_quicklink ;
 	/*
 	新浪账号相关信息序列化值
 	*/
-	private String memberSinainfo ;
+	private String member_sinainfo ;
 	/*
 	新浪微博登录id
 	*/
-	private String memberSinaopenid ;
+	private String member_sinaopenid ;
 	/*
 	会员注册时间
 	*/
-	private String memberTime ;
+	private String member_time ;
 	/*
 	真实姓名
 	*/
-	private String memberTruename ;
+	private String member_truename ;
 	/*
 	阿里旺旺
 	*/
-	private String memberWw ;
-	private String miniWechatOpenid ;
+	private String member_ww ;
+	private String mini_wechat_openid ;
 	private String nickname ;
 	private String storedress ;
-	private String wechatOpenid ;
+	private String wechat_openid ;
 	private String zpic ;
 	/*
 	生日
 	*/
-	private Date memberBirthday ;
+	private Date member_birthday ;
 	
 	public RaMember() {
 	}
@@ -197,284 +250,284 @@ public class RaMember   {
 	* 会员id
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 会员id
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 是否允许转单
 	*@return 
 	*/
-	public Integer getAllowPush(){
-		return  allowPush;
+	public Integer getAllow_push(){
+		return  allow_push;
 	}
 	/**
 	* 是否允许转单
-	*@param  allowPush
+	*@param  allow_push
 	*/
-	public void setAllowPush(Integer allowPush ){
-		this.allowPush = allowPush;
+	public void setAllow_push(Integer allow_push ){
+		this.allow_push = allow_push;
 	}
 	
 	/**
 	* 是否允许举报(1可以/2不可以)
 	*@return 
 	*/
-	public Integer getInformAllow(){
-		return  informAllow;
+	public Integer getInform_allow(){
+		return  inform_allow;
 	}
 	/**
 	* 是否允许举报(1可以/2不可以)
-	*@param  informAllow
+	*@param  inform_allow
 	*/
-	public void setInformAllow(Integer informAllow ){
-		this.informAllow = informAllow;
+	public void setInform_allow(Integer inform_allow ){
+		this.inform_allow = inform_allow;
 	}
 	
 	/**
 	* 会员是否有咨询和发送站内信的权限 1为开启 0为关闭
 	*@return 
 	*/
-	public Integer getIsAllowtalk(){
-		return  isAllowtalk;
+	public Integer getIs_allowtalk(){
+		return  is_allowtalk;
 	}
 	/**
 	* 会员是否有咨询和发送站内信的权限 1为开启 0为关闭
-	*@param  isAllowtalk
+	*@param  is_allowtalk
 	*/
-	public void setIsAllowtalk(Integer isAllowtalk ){
-		this.isAllowtalk = isAllowtalk;
+	public void setIs_allowtalk(Integer is_allowtalk ){
+		this.is_allowtalk = is_allowtalk;
 	}
 	
 	/**
 	* 会员是否有购买权限 1为开启 0为关闭
 	*@return 
 	*/
-	public Integer getIsBuy(){
-		return  isBuy;
+	public Integer getIs_buy(){
+		return  is_buy;
 	}
 	/**
 	* 会员是否有购买权限 1为开启 0为关闭
-	*@param  isBuy
+	*@param  is_buy
 	*/
-	public void setIsBuy(Integer isBuy ){
-		this.isBuy = isBuy;
+	public void setIs_buy(Integer is_buy ){
+		this.is_buy = is_buy;
 	}
 	
-	public Integer getIsWhole(){
-		return  isWhole;
+	public Integer getIs_whole(){
+		return  is_whole;
 	}
-	public void setIsWhole(Integer isWhole ){
-		this.isWhole = isWhole;
+	public void setIs_whole(Integer is_whole ){
+		this.is_whole = is_whole;
 	}
 	
 	/**
 	* 地区ID
 	*@return 
 	*/
-	public Integer getMemberAreaid(){
-		return  memberAreaid;
+	public Integer getMember_areaid(){
+		return  member_areaid;
 	}
 	/**
 	* 地区ID
-	*@param  memberAreaid
+	*@param  member_areaid
 	*/
-	public void setMemberAreaid(Integer memberAreaid ){
-		this.memberAreaid = memberAreaid;
+	public void setMember_areaid(Integer member_areaid ){
+		this.member_areaid = member_areaid;
 	}
 	
 	/**
 	* 城市ID
 	*@return 
 	*/
-	public Integer getMemberCityid(){
-		return  memberCityid;
+	public Integer getMember_cityid(){
+		return  member_cityid;
 	}
 	/**
 	* 城市ID
-	*@param  memberCityid
+	*@param  member_cityid
 	*/
-	public void setMemberCityid(Integer memberCityid ){
-		this.memberCityid = memberCityid;
+	public void setMember_cityid(Integer member_cityid ){
+		this.member_cityid = member_cityid;
 	}
 	
 	/**
 	* 0未绑定1已绑定
 	*@return 
 	*/
-	public Integer getMemberEmailBind(){
-		return  memberEmailBind;
+	public Integer getMember_email_bind(){
+		return  member_email_bind;
 	}
 	/**
 	* 0未绑定1已绑定
-	*@param  memberEmailBind
+	*@param  member_email_bind
 	*/
-	public void setMemberEmailBind(Integer memberEmailBind ){
-		this.memberEmailBind = memberEmailBind;
+	public void setMember_email_bind(Integer member_email_bind ){
+		this.member_email_bind = member_email_bind;
 	}
 	
 	/**
 	* 会员经验值
 	*@return 
 	*/
-	public Integer getMemberExppoints(){
-		return  memberExppoints;
+	public Integer getMember_exppoints(){
+		return  member_exppoints;
 	}
 	/**
 	* 会员经验值
-	*@param  memberExppoints
+	*@param  member_exppoints
 	*/
-	public void setMemberExppoints(Integer memberExppoints ){
-		this.memberExppoints = memberExppoints;
+	public void setMember_exppoints(Integer member_exppoints ){
+		this.member_exppoints = member_exppoints;
 	}
 	
 	/**
 	* 登录次数
 	*@return 
 	*/
-	public Integer getMemberLoginNum(){
-		return  memberLoginNum;
+	public Integer getMember_login_num(){
+		return  member_login_num;
 	}
 	/**
 	* 登录次数
-	*@param  memberLoginNum
+	*@param  member_login_num
 	*/
-	public void setMemberLoginNum(Integer memberLoginNum ){
-		this.memberLoginNum = memberLoginNum;
+	public void setMember_login_num(Integer member_login_num ){
+		this.member_login_num = member_login_num;
 	}
 	
 	/**
 	* 0未绑定1已绑定
 	*@return 
 	*/
-	public Integer getMemberMobileBind(){
-		return  memberMobileBind;
+	public Integer getMember_mobile_bind(){
+		return  member_mobile_bind;
 	}
 	/**
 	* 0未绑定1已绑定
-	*@param  memberMobileBind
+	*@param  member_mobile_bind
 	*/
-	public void setMemberMobileBind(Integer memberMobileBind ){
-		this.memberMobileBind = memberMobileBind;
+	public void setMember_mobile_bind(Integer member_mobile_bind ){
+		this.member_mobile_bind = member_mobile_bind;
 	}
 	
 	/**
 	* 会员积分
 	*@return 
 	*/
-	public Integer getMemberPoints(){
-		return  memberPoints;
+	public Integer getMember_points(){
+		return  member_points;
 	}
 	/**
 	* 会员积分
-	*@param  memberPoints
+	*@param  member_points
 	*/
-	public void setMemberPoints(Integer memberPoints ){
-		this.memberPoints = memberPoints;
+	public void setMember_points(Integer member_points ){
+		this.member_points = member_points;
 	}
 	
 	/**
 	* 省份ID
 	*@return 
 	*/
-	public Integer getMemberProvinceid(){
-		return  memberProvinceid;
+	public Integer getMember_provinceid(){
+		return  member_provinceid;
 	}
 	/**
 	* 省份ID
-	*@param  memberProvinceid
+	*@param  member_provinceid
 	*/
-	public void setMemberProvinceid(Integer memberProvinceid ){
-		this.memberProvinceid = memberProvinceid;
+	public void setMember_provinceid(Integer member_provinceid ){
+		this.member_provinceid = member_provinceid;
 	}
 	
 	/**
 	* 会员性别
 	*@return 
 	*/
-	public Integer getMemberSex(){
-		return  memberSex;
+	public Integer getMember_sex(){
+		return  member_sex;
 	}
 	/**
 	* 会员性别
-	*@param  memberSex
+	*@param  member_sex
 	*/
-	public void setMemberSex(Integer memberSex ){
-		this.memberSex = memberSex;
+	public void setMember_sex(Integer member_sex ){
+		this.member_sex = member_sex;
 	}
 	
 	/**
 	* sns空间访问次数
 	*@return 
 	*/
-	public Integer getMemberSnsvisitnum(){
-		return  memberSnsvisitnum;
+	public Integer getMember_snsvisitnum(){
+		return  member_snsvisitnum;
 	}
 	/**
 	* sns空间访问次数
-	*@param  memberSnsvisitnum
+	*@param  member_snsvisitnum
 	*/
-	public void setMemberSnsvisitnum(Integer memberSnsvisitnum ){
-		this.memberSnsvisitnum = memberSnsvisitnum;
+	public void setMember_snsvisitnum(Integer member_snsvisitnum ){
+		this.member_snsvisitnum = member_snsvisitnum;
 	}
 	
 	/**
 	* 会员的开启状态 1为开启 0为关闭
 	*@return 
 	*/
-	public Integer getMemberState(){
-		return  memberState;
+	public Integer getMember_state(){
+		return  member_state;
 	}
 	/**
 	* 会员的开启状态 1为开启 0为关闭
-	*@param  memberState
+	*@param  member_state
 	*/
-	public void setMemberState(Integer memberState ){
-		this.memberState = memberState;
+	public void setMember_state(Integer member_state ){
+		this.member_state = member_state;
 	}
 	
-	public Integer getProxyId(){
-		return  proxyId;
+	public Integer getProxy_id(){
+		return  proxy_id;
 	}
-	public void setProxyId(Integer proxyId ){
-		this.proxyId = proxyId;
+	public void setProxy_id(Integer proxy_id ){
+		this.proxy_id = proxy_id;
 	}
 	
 	/**
 	* 预存款可用金额
 	*@return 
 	*/
-	public BigDecimal getAvailablePredeposit(){
-		return  availablePredeposit;
+	public BigDecimal getAvailable_predeposit(){
+		return  available_predeposit;
 	}
 	/**
 	* 预存款可用金额
-	*@param  availablePredeposit
+	*@param  available_predeposit
 	*/
-	public void setAvailablePredeposit(BigDecimal availablePredeposit ){
-		this.availablePredeposit = availablePredeposit;
+	public void setAvailable_predeposit(BigDecimal available_predeposit ){
+		this.available_predeposit = available_predeposit;
 	}
 	
 	/**
 	* 可用充值卡余额
 	*@return 
 	*/
-	public BigDecimal getAvailableRcBalance(){
-		return  availableRcBalance;
+	public BigDecimal getAvailable_rc_balance(){
+		return  available_rc_balance;
 	}
 	/**
 	* 可用充值卡余额
-	*@param  availableRcBalance
+	*@param  available_rc_balance
 	*/
-	public void setAvailableRcBalance(BigDecimal availableRcBalance ){
-		this.availableRcBalance = availableRcBalance;
+	public void setAvailable_rc_balance(BigDecimal available_rc_balance ){
+		this.available_rc_balance = available_rc_balance;
 	}
 	
 	public String getFpic(){
@@ -488,30 +541,30 @@ public class RaMember   {
 	* 预存款冻结金额
 	*@return 
 	*/
-	public BigDecimal getFreezePredeposit(){
-		return  freezePredeposit;
+	public BigDecimal getFreeze_predeposit(){
+		return  freeze_predeposit;
 	}
 	/**
 	* 预存款冻结金额
-	*@param  freezePredeposit
+	*@param  freeze_predeposit
 	*/
-	public void setFreezePredeposit(BigDecimal freezePredeposit ){
-		this.freezePredeposit = freezePredeposit;
+	public void setFreeze_predeposit(BigDecimal freeze_predeposit ){
+		this.freeze_predeposit = freeze_predeposit;
 	}
 	
 	/**
 	* 冻结充值卡余额
 	*@return 
 	*/
-	public BigDecimal getFreezeRcBalance(){
-		return  freezeRcBalance;
+	public BigDecimal getFreeze_rc_balance(){
+		return  freeze_rc_balance;
 	}
 	/**
 	* 冻结充值卡余额
-	*@param  freezeRcBalance
+	*@param  freeze_rc_balance
 	*/
-	public void setFreezeRcBalance(BigDecimal freezeRcBalance ){
-		this.freezeRcBalance = freezeRcBalance;
+	public void setFreeze_rc_balance(BigDecimal freeze_rc_balance ){
+		this.freeze_rc_balance = freeze_rc_balance;
 	}
 	
 	public String getIdcard(){
@@ -525,322 +578,322 @@ public class RaMember   {
 	* 地区内容
 	*@return 
 	*/
-	public String getMemberAreainfo(){
-		return  memberAreainfo;
+	public String getMember_areainfo(){
+		return  member_areainfo;
 	}
 	/**
 	* 地区内容
-	*@param  memberAreainfo
+	*@param  member_areainfo
 	*/
-	public void setMemberAreainfo(String memberAreainfo ){
-		this.memberAreainfo = memberAreainfo;
+	public void setMember_areainfo(String member_areainfo ){
+		this.member_areainfo = member_areainfo;
 	}
 	
 	/**
 	* 会员头像
 	*@return 
 	*/
-	public String getMemberAvatar(){
-		return  memberAvatar;
+	public String getMember_avatar(){
+		return  member_avatar;
 	}
 	/**
 	* 会员头像
-	*@param  memberAvatar
+	*@param  member_avatar
 	*/
-	public void setMemberAvatar(String memberAvatar ){
-		this.memberAvatar = memberAvatar;
+	public void setMember_avatar(String member_avatar ){
+		this.member_avatar = member_avatar;
 	}
 	
 	/**
 	* 会员邮箱
 	*@return 
 	*/
-	public String getMemberEmail(){
-		return  memberEmail;
+	public String getMember_email(){
+		return  member_email;
 	}
 	/**
 	* 会员邮箱
-	*@param  memberEmail
+	*@param  member_email
 	*/
-	public void setMemberEmail(String memberEmail ){
-		this.memberEmail = memberEmail;
+	public void setMember_email(String member_email ){
+		this.member_email = member_email;
 	}
 	
 	/**
 	* 当前登录ip
 	*@return 
 	*/
-	public String getMemberLoginIp(){
-		return  memberLoginIp;
+	public String getMember_login_ip(){
+		return  member_login_ip;
 	}
 	/**
 	* 当前登录ip
-	*@param  memberLoginIp
+	*@param  member_login_ip
 	*/
-	public void setMemberLoginIp(String memberLoginIp ){
-		this.memberLoginIp = memberLoginIp;
+	public void setMember_login_ip(String member_login_ip ){
+		this.member_login_ip = member_login_ip;
 	}
 	
 	/**
 	* 当前登录时间
 	*@return 
 	*/
-	public String getMemberLoginTime(){
-		return  memberLoginTime;
+	public String getMember_login_time(){
+		return  member_login_time;
 	}
 	/**
 	* 当前登录时间
-	*@param  memberLoginTime
+	*@param  member_login_time
 	*/
-	public void setMemberLoginTime(String memberLoginTime ){
-		this.memberLoginTime = memberLoginTime;
+	public void setMember_login_time(String member_login_time ){
+		this.member_login_time = member_login_time;
 	}
 	
 	/**
 	* 手机号
 	*@return 
 	*/
-	public String getMemberMobile(){
-		return  memberMobile;
+	public String getMember_mobile(){
+		return  member_mobile;
 	}
 	/**
 	* 手机号
-	*@param  memberMobile
+	*@param  member_mobile
 	*/
-	public void setMemberMobile(String memberMobile ){
-		this.memberMobile = memberMobile;
+	public void setMember_mobile(String member_mobile ){
+		this.member_mobile = member_mobile;
 	}
 	
 	/**
 	* 会员名称
 	*@return 
 	*/
-	public String getMemberName(){
-		return  memberName;
+	public String getMember_name(){
+		return  member_name;
 	}
 	/**
 	* 会员名称
-	*@param  memberName
+	*@param  member_name
 	*/
-	public void setMemberName(String memberName ){
-		this.memberName = memberName;
+	public void setMember_name(String member_name ){
+		this.member_name = member_name;
 	}
 	
 	/**
 	* 上次登录ip
 	*@return 
 	*/
-	public String getMemberOldLoginIp(){
-		return  memberOldLoginIp;
+	public String getMember_old_login_ip(){
+		return  member_old_login_ip;
 	}
 	/**
 	* 上次登录ip
-	*@param  memberOldLoginIp
+	*@param  member_old_login_ip
 	*/
-	public void setMemberOldLoginIp(String memberOldLoginIp ){
-		this.memberOldLoginIp = memberOldLoginIp;
+	public void setMember_old_login_ip(String member_old_login_ip ){
+		this.member_old_login_ip = member_old_login_ip;
 	}
 	
 	/**
 	* 上次登录时间
 	*@return 
 	*/
-	public String getMemberOldLoginTime(){
-		return  memberOldLoginTime;
+	public String getMember_old_login_time(){
+		return  member_old_login_time;
 	}
 	/**
 	* 上次登录时间
-	*@param  memberOldLoginTime
+	*@param  member_old_login_time
 	*/
-	public void setMemberOldLoginTime(String memberOldLoginTime ){
-		this.memberOldLoginTime = memberOldLoginTime;
+	public void setMember_old_login_time(String member_old_login_time ){
+		this.member_old_login_time = member_old_login_time;
 	}
 	
 	/**
 	* 会员密码
 	*@return 
 	*/
-	public String getMemberPasswd(){
-		return  memberPasswd;
+	public String getMember_passwd(){
+		return  member_passwd;
 	}
 	/**
 	* 会员密码
-	*@param  memberPasswd
+	*@param  member_passwd
 	*/
-	public void setMemberPasswd(String memberPasswd ){
-		this.memberPasswd = memberPasswd;
+	public void setMember_passwd(String member_passwd ){
+		this.member_passwd = member_passwd;
 	}
 	
 	/**
 	* 支付密码
 	*@return 
 	*/
-	public String getMemberPaypwd(){
-		return  memberPaypwd;
+	public String getMember_paypwd(){
+		return  member_paypwd;
 	}
 	/**
 	* 支付密码
-	*@param  memberPaypwd
+	*@param  member_paypwd
 	*/
-	public void setMemberPaypwd(String memberPaypwd ){
-		this.memberPaypwd = memberPaypwd;
+	public void setMember_paypwd(String member_paypwd ){
+		this.member_paypwd = member_paypwd;
 	}
 	
 	/**
 	* 隐私设定
 	*@return 
 	*/
-	public String getMemberPrivacy(){
-		return  memberPrivacy;
+	public String getMember_privacy(){
+		return  member_privacy;
 	}
 	/**
 	* 隐私设定
-	*@param  memberPrivacy
+	*@param  member_privacy
 	*/
-	public void setMemberPrivacy(String memberPrivacy ){
-		this.memberPrivacy = memberPrivacy;
+	public void setMember_privacy(String member_privacy ){
+		this.member_privacy = member_privacy;
 	}
 	
 	/**
 	* qq
 	*@return 
 	*/
-	public String getMemberQq(){
-		return  memberQq;
+	public String getMember_qq(){
+		return  member_qq;
 	}
 	/**
 	* qq
-	*@param  memberQq
+	*@param  member_qq
 	*/
-	public void setMemberQq(String memberQq ){
-		this.memberQq = memberQq;
+	public void setMember_qq(String member_qq ){
+		this.member_qq = member_qq;
 	}
 	
 	/**
 	* qq账号相关信息
 	*@return 
 	*/
-	public String getMemberQqinfo(){
-		return  memberQqinfo;
+	public String getMember_qqinfo(){
+		return  member_qqinfo;
 	}
 	/**
 	* qq账号相关信息
-	*@param  memberQqinfo
+	*@param  member_qqinfo
 	*/
-	public void setMemberQqinfo(String memberQqinfo ){
-		this.memberQqinfo = memberQqinfo;
+	public void setMember_qqinfo(String member_qqinfo ){
+		this.member_qqinfo = member_qqinfo;
 	}
 	
 	/**
 	* qq互联id
 	*@return 
 	*/
-	public String getMemberQqopenid(){
-		return  memberQqopenid;
+	public String getMember_qqopenid(){
+		return  member_qqopenid;
 	}
 	/**
 	* qq互联id
-	*@param  memberQqopenid
+	*@param  member_qqopenid
 	*/
-	public void setMemberQqopenid(String memberQqopenid ){
-		this.memberQqopenid = memberQqopenid;
+	public void setMember_qqopenid(String member_qqopenid ){
+		this.member_qqopenid = member_qqopenid;
 	}
 	
 	/**
 	* 会员常用操作
 	*@return 
 	*/
-	public String getMemberQuicklink(){
-		return  memberQuicklink;
+	public String getMember_quicklink(){
+		return  member_quicklink;
 	}
 	/**
 	* 会员常用操作
-	*@param  memberQuicklink
+	*@param  member_quicklink
 	*/
-	public void setMemberQuicklink(String memberQuicklink ){
-		this.memberQuicklink = memberQuicklink;
+	public void setMember_quicklink(String member_quicklink ){
+		this.member_quicklink = member_quicklink;
 	}
 	
 	/**
 	* 新浪账号相关信息序列化值
 	*@return 
 	*/
-	public String getMemberSinainfo(){
-		return  memberSinainfo;
+	public String getMember_sinainfo(){
+		return  member_sinainfo;
 	}
 	/**
 	* 新浪账号相关信息序列化值
-	*@param  memberSinainfo
+	*@param  member_sinainfo
 	*/
-	public void setMemberSinainfo(String memberSinainfo ){
-		this.memberSinainfo = memberSinainfo;
+	public void setMember_sinainfo(String member_sinainfo ){
+		this.member_sinainfo = member_sinainfo;
 	}
 	
 	/**
 	* 新浪微博登录id
 	*@return 
 	*/
-	public String getMemberSinaopenid(){
-		return  memberSinaopenid;
+	public String getMember_sinaopenid(){
+		return  member_sinaopenid;
 	}
 	/**
 	* 新浪微博登录id
-	*@param  memberSinaopenid
+	*@param  member_sinaopenid
 	*/
-	public void setMemberSinaopenid(String memberSinaopenid ){
-		this.memberSinaopenid = memberSinaopenid;
+	public void setMember_sinaopenid(String member_sinaopenid ){
+		this.member_sinaopenid = member_sinaopenid;
 	}
 	
 	/**
 	* 会员注册时间
 	*@return 
 	*/
-	public String getMemberTime(){
-		return  memberTime;
+	public String getMember_time(){
+		return  member_time;
 	}
 	/**
 	* 会员注册时间
-	*@param  memberTime
+	*@param  member_time
 	*/
-	public void setMemberTime(String memberTime ){
-		this.memberTime = memberTime;
+	public void setMember_time(String member_time ){
+		this.member_time = member_time;
 	}
 	
 	/**
 	* 真实姓名
 	*@return 
 	*/
-	public String getMemberTruename(){
-		return  memberTruename;
+	public String getMember_truename(){
+		return  member_truename;
 	}
 	/**
 	* 真实姓名
-	*@param  memberTruename
+	*@param  member_truename
 	*/
-	public void setMemberTruename(String memberTruename ){
-		this.memberTruename = memberTruename;
+	public void setMember_truename(String member_truename ){
+		this.member_truename = member_truename;
 	}
 	
 	/**
 	* 阿里旺旺
 	*@return 
 	*/
-	public String getMemberWw(){
-		return  memberWw;
+	public String getMember_ww(){
+		return  member_ww;
 	}
 	/**
 	* 阿里旺旺
-	*@param  memberWw
+	*@param  member_ww
 	*/
-	public void setMemberWw(String memberWw ){
-		this.memberWw = memberWw;
+	public void setMember_ww(String member_ww ){
+		this.member_ww = member_ww;
 	}
 	
-	public String getMiniWechatOpenid(){
-		return  miniWechatOpenid;
+	public String getMini_wechat_openid(){
+		return  mini_wechat_openid;
 	}
-	public void setMiniWechatOpenid(String miniWechatOpenid ){
-		this.miniWechatOpenid = miniWechatOpenid;
+	public void setMini_wechat_openid(String mini_wechat_openid ){
+		this.mini_wechat_openid = mini_wechat_openid;
 	}
 	
 	public String getNickname(){
@@ -857,11 +910,11 @@ public class RaMember   {
 		this.storedress = storedress;
 	}
 	
-	public String getWechatOpenid(){
-		return  wechatOpenid;
+	public String getWechat_openid(){
+		return  wechat_openid;
 	}
-	public void setWechatOpenid(String wechatOpenid ){
-		this.wechatOpenid = wechatOpenid;
+	public void setWechat_openid(String wechat_openid ){
+		this.wechat_openid = wechat_openid;
 	}
 	
 	public String getZpic(){
@@ -875,15 +928,15 @@ public class RaMember   {
 	* 生日
 	*@return 
 	*/
-	public Date getMemberBirthday(){
-		return  memberBirthday;
+	public Date getMember_birthday(){
+		return  member_birthday;
 	}
 	/**
 	* 生日
-	*@param  memberBirthday
+	*@param  member_birthday
 	*/
-	public void setMemberBirthday(Date memberBirthday ){
-		this.memberBirthday = memberBirthday;
+	public void setMember_birthday(Date member_birthday ){
+		this.member_birthday = member_birthday;
 	}
 	
 

@@ -7,79 +7,98 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_order_bill")
 public class RaOrderBill   {
 	
+	// alias
+	public static final String ALIAS_ob_no = "ob_no";
+	public static final String ALIAS_ob_create_date = "ob_create_date";
+	public static final String ALIAS_ob_end_date = "ob_end_date";
+	public static final String ALIAS_ob_pay_date = "ob_pay_date";
+	public static final String ALIAS_ob_start_date = "ob_start_date";
+	public static final String ALIAS_ob_store_id = "ob_store_id";
+	public static final String ALIAS_os_month = "os_month";
+	public static final String ALIAS_ob_commis_return_totals = "ob_commis_return_totals";
+	public static final String ALIAS_ob_commis_totals = "ob_commis_totals";
+	public static final String ALIAS_ob_order_return_totals = "ob_order_return_totals";
+	public static final String ALIAS_ob_order_totals = "ob_order_totals";
+	public static final String ALIAS_ob_pay_content = "ob_pay_content";
+	public static final String ALIAS_ob_result_totals = "ob_result_totals";
+	public static final String ALIAS_ob_shipping_totals = "ob_shipping_totals";
+	public static final String ALIAS_ob_state = "ob_state";
+	public static final String ALIAS_ob_store_cost_totals = "ob_store_cost_totals";
+	public static final String ALIAS_ob_store_name = "ob_store_name";
+	
 	/*
 	结算单编号(年月店铺ID)
 	*/
-	private Integer obNo ;
+	private Integer ob_no ;
 	/*
 	生成结算单日期
 	*/
-	private Integer obCreateDate ;
+	private Integer ob_create_date ;
 	/*
 	结束日期
 	*/
-	private Integer obEndDate ;
+	private Integer ob_end_date ;
 	/*
 	付款日期
 	*/
-	private Integer obPayDate ;
+	private Integer ob_pay_date ;
 	/*
 	开始日期
 	*/
-	private Integer obStartDate ;
+	private Integer ob_start_date ;
 	/*
 	店铺ID
 	*/
-	private Integer obStoreId ;
+	private Integer ob_store_id ;
 	/*
 	结算单年月份
 	*/
-	private Integer osMonth ;
+	private Integer os_month ;
 	/*
 	退还佣金
 	*/
-	private BigDecimal obCommisReturnTotals ;
+	private BigDecimal ob_commis_return_totals ;
 	/*
 	佣金金额
 	*/
-	private BigDecimal obCommisTotals ;
+	private BigDecimal ob_commis_totals ;
 	/*
 	退单金额
 	*/
-	private BigDecimal obOrderReturnTotals ;
+	private BigDecimal ob_order_return_totals ;
 	/*
 	订单金额
 	*/
-	private BigDecimal obOrderTotals ;
+	private BigDecimal ob_order_totals ;
 	/*
 	支付备注
 	*/
-	private String obPayContent ;
+	private String ob_pay_content ;
 	/*
 	应结金额
 	*/
-	private BigDecimal obResultTotals ;
+	private BigDecimal ob_result_totals ;
 	/*
 	运费
 	*/
-	private BigDecimal obShippingTotals ;
+	private BigDecimal ob_shipping_totals ;
 	/*
 	1默认2店家已确认3平台已审核4结算完成
 	*/
-	private String obState ;
+	private String ob_state ;
 	/*
 	店铺促销活动费用
 	*/
-	private BigDecimal obStoreCostTotals ;
+	private BigDecimal ob_store_cost_totals ;
 	/*
 	店铺名
 	*/
-	private String obStoreName ;
+	private String ob_store_name ;
 	
 	public RaOrderBill() {
 	}
@@ -88,255 +107,255 @@ public class RaOrderBill   {
 	* 结算单编号(年月店铺ID)
 	*@return 
 	*/
-	public Integer getObNo(){
-		return  obNo;
+	public Integer getOb_no(){
+		return  ob_no;
 	}
 	/**
 	* 结算单编号(年月店铺ID)
-	*@param  obNo
+	*@param  ob_no
 	*/
-	public void setObNo(Integer obNo ){
-		this.obNo = obNo;
+	public void setOb_no(Integer ob_no ){
+		this.ob_no = ob_no;
 	}
 	
 	/**
 	* 生成结算单日期
 	*@return 
 	*/
-	public Integer getObCreateDate(){
-		return  obCreateDate;
+	public Integer getOb_create_date(){
+		return  ob_create_date;
 	}
 	/**
 	* 生成结算单日期
-	*@param  obCreateDate
+	*@param  ob_create_date
 	*/
-	public void setObCreateDate(Integer obCreateDate ){
-		this.obCreateDate = obCreateDate;
+	public void setOb_create_date(Integer ob_create_date ){
+		this.ob_create_date = ob_create_date;
 	}
 	
 	/**
 	* 结束日期
 	*@return 
 	*/
-	public Integer getObEndDate(){
-		return  obEndDate;
+	public Integer getOb_end_date(){
+		return  ob_end_date;
 	}
 	/**
 	* 结束日期
-	*@param  obEndDate
+	*@param  ob_end_date
 	*/
-	public void setObEndDate(Integer obEndDate ){
-		this.obEndDate = obEndDate;
+	public void setOb_end_date(Integer ob_end_date ){
+		this.ob_end_date = ob_end_date;
 	}
 	
 	/**
 	* 付款日期
 	*@return 
 	*/
-	public Integer getObPayDate(){
-		return  obPayDate;
+	public Integer getOb_pay_date(){
+		return  ob_pay_date;
 	}
 	/**
 	* 付款日期
-	*@param  obPayDate
+	*@param  ob_pay_date
 	*/
-	public void setObPayDate(Integer obPayDate ){
-		this.obPayDate = obPayDate;
+	public void setOb_pay_date(Integer ob_pay_date ){
+		this.ob_pay_date = ob_pay_date;
 	}
 	
 	/**
 	* 开始日期
 	*@return 
 	*/
-	public Integer getObStartDate(){
-		return  obStartDate;
+	public Integer getOb_start_date(){
+		return  ob_start_date;
 	}
 	/**
 	* 开始日期
-	*@param  obStartDate
+	*@param  ob_start_date
 	*/
-	public void setObStartDate(Integer obStartDate ){
-		this.obStartDate = obStartDate;
+	public void setOb_start_date(Integer ob_start_date ){
+		this.ob_start_date = ob_start_date;
 	}
 	
 	/**
 	* 店铺ID
 	*@return 
 	*/
-	public Integer getObStoreId(){
-		return  obStoreId;
+	public Integer getOb_store_id(){
+		return  ob_store_id;
 	}
 	/**
 	* 店铺ID
-	*@param  obStoreId
+	*@param  ob_store_id
 	*/
-	public void setObStoreId(Integer obStoreId ){
-		this.obStoreId = obStoreId;
+	public void setOb_store_id(Integer ob_store_id ){
+		this.ob_store_id = ob_store_id;
 	}
 	
 	/**
 	* 结算单年月份
 	*@return 
 	*/
-	public Integer getOsMonth(){
-		return  osMonth;
+	public Integer getOs_month(){
+		return  os_month;
 	}
 	/**
 	* 结算单年月份
-	*@param  osMonth
+	*@param  os_month
 	*/
-	public void setOsMonth(Integer osMonth ){
-		this.osMonth = osMonth;
+	public void setOs_month(Integer os_month ){
+		this.os_month = os_month;
 	}
 	
 	/**
 	* 退还佣金
 	*@return 
 	*/
-	public BigDecimal getObCommisReturnTotals(){
-		return  obCommisReturnTotals;
+	public BigDecimal getOb_commis_return_totals(){
+		return  ob_commis_return_totals;
 	}
 	/**
 	* 退还佣金
-	*@param  obCommisReturnTotals
+	*@param  ob_commis_return_totals
 	*/
-	public void setObCommisReturnTotals(BigDecimal obCommisReturnTotals ){
-		this.obCommisReturnTotals = obCommisReturnTotals;
+	public void setOb_commis_return_totals(BigDecimal ob_commis_return_totals ){
+		this.ob_commis_return_totals = ob_commis_return_totals;
 	}
 	
 	/**
 	* 佣金金额
 	*@return 
 	*/
-	public BigDecimal getObCommisTotals(){
-		return  obCommisTotals;
+	public BigDecimal getOb_commis_totals(){
+		return  ob_commis_totals;
 	}
 	/**
 	* 佣金金额
-	*@param  obCommisTotals
+	*@param  ob_commis_totals
 	*/
-	public void setObCommisTotals(BigDecimal obCommisTotals ){
-		this.obCommisTotals = obCommisTotals;
+	public void setOb_commis_totals(BigDecimal ob_commis_totals ){
+		this.ob_commis_totals = ob_commis_totals;
 	}
 	
 	/**
 	* 退单金额
 	*@return 
 	*/
-	public BigDecimal getObOrderReturnTotals(){
-		return  obOrderReturnTotals;
+	public BigDecimal getOb_order_return_totals(){
+		return  ob_order_return_totals;
 	}
 	/**
 	* 退单金额
-	*@param  obOrderReturnTotals
+	*@param  ob_order_return_totals
 	*/
-	public void setObOrderReturnTotals(BigDecimal obOrderReturnTotals ){
-		this.obOrderReturnTotals = obOrderReturnTotals;
+	public void setOb_order_return_totals(BigDecimal ob_order_return_totals ){
+		this.ob_order_return_totals = ob_order_return_totals;
 	}
 	
 	/**
 	* 订单金额
 	*@return 
 	*/
-	public BigDecimal getObOrderTotals(){
-		return  obOrderTotals;
+	public BigDecimal getOb_order_totals(){
+		return  ob_order_totals;
 	}
 	/**
 	* 订单金额
-	*@param  obOrderTotals
+	*@param  ob_order_totals
 	*/
-	public void setObOrderTotals(BigDecimal obOrderTotals ){
-		this.obOrderTotals = obOrderTotals;
+	public void setOb_order_totals(BigDecimal ob_order_totals ){
+		this.ob_order_totals = ob_order_totals;
 	}
 	
 	/**
 	* 支付备注
 	*@return 
 	*/
-	public String getObPayContent(){
-		return  obPayContent;
+	public String getOb_pay_content(){
+		return  ob_pay_content;
 	}
 	/**
 	* 支付备注
-	*@param  obPayContent
+	*@param  ob_pay_content
 	*/
-	public void setObPayContent(String obPayContent ){
-		this.obPayContent = obPayContent;
+	public void setOb_pay_content(String ob_pay_content ){
+		this.ob_pay_content = ob_pay_content;
 	}
 	
 	/**
 	* 应结金额
 	*@return 
 	*/
-	public BigDecimal getObResultTotals(){
-		return  obResultTotals;
+	public BigDecimal getOb_result_totals(){
+		return  ob_result_totals;
 	}
 	/**
 	* 应结金额
-	*@param  obResultTotals
+	*@param  ob_result_totals
 	*/
-	public void setObResultTotals(BigDecimal obResultTotals ){
-		this.obResultTotals = obResultTotals;
+	public void setOb_result_totals(BigDecimal ob_result_totals ){
+		this.ob_result_totals = ob_result_totals;
 	}
 	
 	/**
 	* 运费
 	*@return 
 	*/
-	public BigDecimal getObShippingTotals(){
-		return  obShippingTotals;
+	public BigDecimal getOb_shipping_totals(){
+		return  ob_shipping_totals;
 	}
 	/**
 	* 运费
-	*@param  obShippingTotals
+	*@param  ob_shipping_totals
 	*/
-	public void setObShippingTotals(BigDecimal obShippingTotals ){
-		this.obShippingTotals = obShippingTotals;
+	public void setOb_shipping_totals(BigDecimal ob_shipping_totals ){
+		this.ob_shipping_totals = ob_shipping_totals;
 	}
 	
 	/**
 	* 1默认2店家已确认3平台已审核4结算完成
 	*@return 
 	*/
-	public String getObState(){
-		return  obState;
+	public String getOb_state(){
+		return  ob_state;
 	}
 	/**
 	* 1默认2店家已确认3平台已审核4结算完成
-	*@param  obState
+	*@param  ob_state
 	*/
-	public void setObState(String obState ){
-		this.obState = obState;
+	public void setOb_state(String ob_state ){
+		this.ob_state = ob_state;
 	}
 	
 	/**
 	* 店铺促销活动费用
 	*@return 
 	*/
-	public BigDecimal getObStoreCostTotals(){
-		return  obStoreCostTotals;
+	public BigDecimal getOb_store_cost_totals(){
+		return  ob_store_cost_totals;
 	}
 	/**
 	* 店铺促销活动费用
-	*@param  obStoreCostTotals
+	*@param  ob_store_cost_totals
 	*/
-	public void setObStoreCostTotals(BigDecimal obStoreCostTotals ){
-		this.obStoreCostTotals = obStoreCostTotals;
+	public void setOb_store_cost_totals(BigDecimal ob_store_cost_totals ){
+		this.ob_store_cost_totals = ob_store_cost_totals;
 	}
 	
 	/**
 	* 店铺名
 	*@return 
 	*/
-	public String getObStoreName(){
-		return  obStoreName;
+	public String getOb_store_name(){
+		return  ob_store_name;
 	}
 	/**
 	* 店铺名
-	*@param  obStoreName
+	*@param  ob_store_name
 	*/
-	public void setObStoreName(String obStoreName ){
-		this.obStoreName = obStoreName;
+	public void setOb_store_name(String ob_store_name ){
+		this.ob_store_name = ob_store_name;
 	}
 	
 

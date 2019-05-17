@@ -7,13 +7,21 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_tgb_ads")
 public class RaTgbAds   {
 	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_recommand = "recommand";
+	public static final String ALIAS_time = "time";
+	public static final String ALIAS_content = "content";
+	public static final String ALIAS_name = "name";
+	
 	private Integer id ;
-	private Integer memberId ;
+	private Integer member_id ;
 	private Integer recommand ;
 	private Integer time ;
 	private String content ;
@@ -29,11 +37,11 @@ public class RaTgbAds   {
 		this.id = id;
 	}
 	
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	public Integer getRecommand(){

@@ -7,39 +7,48 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_admin")
 public class RaAdmin   {
 	
+	// alias
+	public static final String ALIAS_admin_id = "admin_id";
+	public static final String ALIAS_admin_gid = "admin_gid";
+	public static final String ALIAS_admin_is_super = "admin_is_super";
+	public static final String ALIAS_admin_login_num = "admin_login_num";
+	public static final String ALIAS_admin_login_time = "admin_login_time";
+	public static final String ALIAS_admin_name = "admin_name";
+	public static final String ALIAS_admin_password = "admin_password";
+	
 	/*
 	管理员ID
 	*/
-	private Integer adminId ;
+	private Integer admin_id ;
 	/*
 	权限组ID
 	*/
-	private Integer adminGid ;
+	private Integer admin_gid ;
 	/*
 	是否超级管理员
 	*/
-	private Integer adminIsSuper ;
+	private Integer admin_is_super ;
 	/*
 	登录次数
 	*/
-	private Integer adminLoginNum ;
+	private Integer admin_login_num ;
 	/*
 	登录时间
 	*/
-	private Integer adminLoginTime ;
+	private Integer admin_login_time ;
 	/*
 	管理员名称
 	*/
-	private String adminName ;
+	private String admin_name ;
 	/*
 	管理员密码
 	*/
-	private String adminPassword ;
+	private String admin_password ;
 	
 	public RaAdmin() {
 	}
@@ -48,105 +57,105 @@ public class RaAdmin   {
 	* 管理员ID
 	*@return 
 	*/
-	public Integer getAdminId(){
-		return  adminId;
+	public Integer getAdmin_id(){
+		return  admin_id;
 	}
 	/**
 	* 管理员ID
-	*@param  adminId
+	*@param  admin_id
 	*/
-	public void setAdminId(Integer adminId ){
-		this.adminId = adminId;
+	public void setAdmin_id(Integer admin_id ){
+		this.admin_id = admin_id;
 	}
 	
 	/**
 	* 权限组ID
 	*@return 
 	*/
-	public Integer getAdminGid(){
-		return  adminGid;
+	public Integer getAdmin_gid(){
+		return  admin_gid;
 	}
 	/**
 	* 权限组ID
-	*@param  adminGid
+	*@param  admin_gid
 	*/
-	public void setAdminGid(Integer adminGid ){
-		this.adminGid = adminGid;
+	public void setAdmin_gid(Integer admin_gid ){
+		this.admin_gid = admin_gid;
 	}
 	
 	/**
 	* 是否超级管理员
 	*@return 
 	*/
-	public Integer getAdminIsSuper(){
-		return  adminIsSuper;
+	public Integer getAdmin_is_super(){
+		return  admin_is_super;
 	}
 	/**
 	* 是否超级管理员
-	*@param  adminIsSuper
+	*@param  admin_is_super
 	*/
-	public void setAdminIsSuper(Integer adminIsSuper ){
-		this.adminIsSuper = adminIsSuper;
+	public void setAdmin_is_super(Integer admin_is_super ){
+		this.admin_is_super = admin_is_super;
 	}
 	
 	/**
 	* 登录次数
 	*@return 
 	*/
-	public Integer getAdminLoginNum(){
-		return  adminLoginNum;
+	public Integer getAdmin_login_num(){
+		return  admin_login_num;
 	}
 	/**
 	* 登录次数
-	*@param  adminLoginNum
+	*@param  admin_login_num
 	*/
-	public void setAdminLoginNum(Integer adminLoginNum ){
-		this.adminLoginNum = adminLoginNum;
+	public void setAdmin_login_num(Integer admin_login_num ){
+		this.admin_login_num = admin_login_num;
 	}
 	
 	/**
 	* 登录时间
 	*@return 
 	*/
-	public Integer getAdminLoginTime(){
-		return  adminLoginTime;
+	public Integer getAdmin_login_time(){
+		return  admin_login_time;
 	}
 	/**
 	* 登录时间
-	*@param  adminLoginTime
+	*@param  admin_login_time
 	*/
-	public void setAdminLoginTime(Integer adminLoginTime ){
-		this.adminLoginTime = adminLoginTime;
+	public void setAdmin_login_time(Integer admin_login_time ){
+		this.admin_login_time = admin_login_time;
 	}
 	
 	/**
 	* 管理员名称
 	*@return 
 	*/
-	public String getAdminName(){
-		return  adminName;
+	public String getAdmin_name(){
+		return  admin_name;
 	}
 	/**
 	* 管理员名称
-	*@param  adminName
+	*@param  admin_name
 	*/
-	public void setAdminName(String adminName ){
-		this.adminName = adminName;
+	public void setAdmin_name(String admin_name ){
+		this.admin_name = admin_name;
 	}
 	
 	/**
 	* 管理员密码
 	*@return 
 	*/
-	public String getAdminPassword(){
-		return  adminPassword;
+	public String getAdmin_password(){
+		return  admin_password;
 	}
 	/**
 	* 管理员密码
-	*@param  adminPassword
+	*@param  admin_password
 	*/
-	public void setAdminPassword(String adminPassword ){
-		this.adminPassword = adminPassword;
+	public void setAdmin_password(String admin_password ){
+		this.admin_password = admin_password;
 	}
 	
 

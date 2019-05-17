@@ -7,31 +7,38 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_type")
 public class RaType   {
 	
+	// alias
+	public static final String ALIAS_type_id = "type_id";
+	public static final String ALIAS_class_id = "class_id";
+	public static final String ALIAS_type_sort = "type_sort";
+	public static final String ALIAS_class_name = "class_name";
+	public static final String ALIAS_type_name = "type_name";
+	
 	/*
 	类型id
 	*/
-	private Integer typeId ;
+	private Integer type_id ;
 	/*
 	所属分类id
 	*/
-	private Integer classId ;
+	private Integer class_id ;
 	/*
 	排序
 	*/
-	private Integer typeSort ;
+	private Integer type_sort ;
 	/*
 	所属分类名称
 	*/
-	private String className ;
+	private String class_name ;
 	/*
 	类型名称
 	*/
-	private String typeName ;
+	private String type_name ;
 	
 	public RaType() {
 	}
@@ -40,75 +47,75 @@ public class RaType   {
 	* 类型id
 	*@return 
 	*/
-	public Integer getTypeId(){
-		return  typeId;
+	public Integer getType_id(){
+		return  type_id;
 	}
 	/**
 	* 类型id
-	*@param  typeId
+	*@param  type_id
 	*/
-	public void setTypeId(Integer typeId ){
-		this.typeId = typeId;
+	public void setType_id(Integer type_id ){
+		this.type_id = type_id;
 	}
 	
 	/**
 	* 所属分类id
 	*@return 
 	*/
-	public Integer getClassId(){
-		return  classId;
+	public Integer getClass_id(){
+		return  class_id;
 	}
 	/**
 	* 所属分类id
-	*@param  classId
+	*@param  class_id
 	*/
-	public void setClassId(Integer classId ){
-		this.classId = classId;
+	public void setClass_id(Integer class_id ){
+		this.class_id = class_id;
 	}
 	
 	/**
 	* 排序
 	*@return 
 	*/
-	public Integer getTypeSort(){
-		return  typeSort;
+	public Integer getType_sort(){
+		return  type_sort;
 	}
 	/**
 	* 排序
-	*@param  typeSort
+	*@param  type_sort
 	*/
-	public void setTypeSort(Integer typeSort ){
-		this.typeSort = typeSort;
+	public void setType_sort(Integer type_sort ){
+		this.type_sort = type_sort;
 	}
 	
 	/**
 	* 所属分类名称
 	*@return 
 	*/
-	public String getClassName(){
-		return  className;
+	public String getClass_name(){
+		return  class_name;
 	}
 	/**
 	* 所属分类名称
-	*@param  className
+	*@param  class_name
 	*/
-	public void setClassName(String className ){
-		this.className = className;
+	public void setClass_name(String class_name ){
+		this.class_name = class_name;
 	}
 	
 	/**
 	* 类型名称
 	*@return 
 	*/
-	public String getTypeName(){
-		return  typeName;
+	public String getType_name(){
+		return  type_name;
 	}
 	/**
 	* 类型名称
-	*@param  typeName
+	*@param  type_name
 	*/
-	public void setTypeName(String typeName ){
-		this.typeName = typeName;
+	public void setType_name(String type_name ){
+		this.type_name = type_name;
 	}
 	
 

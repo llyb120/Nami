@@ -1,6 +1,8 @@
 package com.beeasy.easyshop;
 
-import com.beeasy.web.core.Megami;
+import com.beeasy.web.core.DBService;
+import com.beeasy.web.core.Nami;
+import org.beetl.sql.core.NameConversion;
 
 public class App {
 
@@ -89,8 +91,7 @@ public class App {
         }).start();
 
         //注册控制器
-        Megami.start();
-
+        Nami.start();
 
     }
 

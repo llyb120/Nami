@@ -7,35 +7,51 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_address")
 public class RaAddress   {
 	
+	// alias
+	public static final String ALIAS_address_id = "address_id";
+	public static final String ALIAS_area_id = "area_id";
+	public static final String ALIAS_city_id = "city_id";
+	public static final String ALIAS_dlyp_id = "dlyp_id";
+	public static final String ALIAS_is_default = "is_default";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_address = "address";
+	public static final String ALIAS_area_info = "area_info";
+	public static final String ALIAS_idcard = "idcard";
+	public static final String ALIAS_idtype = "idtype";
+	public static final String ALIAS_mob_phone = "mob_phone";
+	public static final String ALIAS_tel_phone = "tel_phone";
+	public static final String ALIAS_true_name = "true_name";
+	public static final String ALIAS_zip = "zip";
+	
 	/*
 	地址ID
 	*/
-	private Integer addressId ;
+	private Integer address_id ;
 	/*
 	地区ID
 	*/
-	private Integer areaId ;
+	private Integer area_id ;
 	/*
 	市级ID
 	*/
-	private Integer cityId ;
+	private Integer city_id ;
 	/*
 	自提点ID
 	*/
-	private Integer dlypId ;
+	private Integer dlyp_id ;
 	/*
 	1默认收货地址
 	*/
-	private Integer isDefault ;
+	private Integer is_default ;
 	/*
 	会员ID
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	地址
 	*/
@@ -43,21 +59,21 @@ public class RaAddress   {
 	/*
 	地区内容
 	*/
-	private String areaInfo ;
+	private String area_info ;
 	private String idcard ;
 	private String idtype ;
 	/*
 	手机电话
 	*/
-	private String mobPhone ;
+	private String mob_phone ;
 	/*
 	座机电话
 	*/
-	private String telPhone ;
+	private String tel_phone ;
 	/*
 	会员姓名
 	*/
-	private String trueName ;
+	private String true_name ;
 	private String zip ;
 	
 	public RaAddress() {
@@ -67,90 +83,90 @@ public class RaAddress   {
 	* 地址ID
 	*@return 
 	*/
-	public Integer getAddressId(){
-		return  addressId;
+	public Integer getAddress_id(){
+		return  address_id;
 	}
 	/**
 	* 地址ID
-	*@param  addressId
+	*@param  address_id
 	*/
-	public void setAddressId(Integer addressId ){
-		this.addressId = addressId;
+	public void setAddress_id(Integer address_id ){
+		this.address_id = address_id;
 	}
 	
 	/**
 	* 地区ID
 	*@return 
 	*/
-	public Integer getAreaId(){
-		return  areaId;
+	public Integer getArea_id(){
+		return  area_id;
 	}
 	/**
 	* 地区ID
-	*@param  areaId
+	*@param  area_id
 	*/
-	public void setAreaId(Integer areaId ){
-		this.areaId = areaId;
+	public void setArea_id(Integer area_id ){
+		this.area_id = area_id;
 	}
 	
 	/**
 	* 市级ID
 	*@return 
 	*/
-	public Integer getCityId(){
-		return  cityId;
+	public Integer getCity_id(){
+		return  city_id;
 	}
 	/**
 	* 市级ID
-	*@param  cityId
+	*@param  city_id
 	*/
-	public void setCityId(Integer cityId ){
-		this.cityId = cityId;
+	public void setCity_id(Integer city_id ){
+		this.city_id = city_id;
 	}
 	
 	/**
 	* 自提点ID
 	*@return 
 	*/
-	public Integer getDlypId(){
-		return  dlypId;
+	public Integer getDlyp_id(){
+		return  dlyp_id;
 	}
 	/**
 	* 自提点ID
-	*@param  dlypId
+	*@param  dlyp_id
 	*/
-	public void setDlypId(Integer dlypId ){
-		this.dlypId = dlypId;
+	public void setDlyp_id(Integer dlyp_id ){
+		this.dlyp_id = dlyp_id;
 	}
 	
 	/**
 	* 1默认收货地址
 	*@return 
 	*/
-	public Integer getIsDefault(){
-		return  isDefault;
+	public Integer getIs_default(){
+		return  is_default;
 	}
 	/**
 	* 1默认收货地址
-	*@param  isDefault
+	*@param  is_default
 	*/
-	public void setIsDefault(Integer isDefault ){
-		this.isDefault = isDefault;
+	public void setIs_default(Integer is_default ){
+		this.is_default = is_default;
 	}
 	
 	/**
 	* 会员ID
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 会员ID
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
@@ -172,15 +188,15 @@ public class RaAddress   {
 	* 地区内容
 	*@return 
 	*/
-	public String getAreaInfo(){
-		return  areaInfo;
+	public String getArea_info(){
+		return  area_info;
 	}
 	/**
 	* 地区内容
-	*@param  areaInfo
+	*@param  area_info
 	*/
-	public void setAreaInfo(String areaInfo ){
-		this.areaInfo = areaInfo;
+	public void setArea_info(String area_info ){
+		this.area_info = area_info;
 	}
 	
 	public String getIdcard(){
@@ -201,45 +217,45 @@ public class RaAddress   {
 	* 手机电话
 	*@return 
 	*/
-	public String getMobPhone(){
-		return  mobPhone;
+	public String getMob_phone(){
+		return  mob_phone;
 	}
 	/**
 	* 手机电话
-	*@param  mobPhone
+	*@param  mob_phone
 	*/
-	public void setMobPhone(String mobPhone ){
-		this.mobPhone = mobPhone;
+	public void setMob_phone(String mob_phone ){
+		this.mob_phone = mob_phone;
 	}
 	
 	/**
 	* 座机电话
 	*@return 
 	*/
-	public String getTelPhone(){
-		return  telPhone;
+	public String getTel_phone(){
+		return  tel_phone;
 	}
 	/**
 	* 座机电话
-	*@param  telPhone
+	*@param  tel_phone
 	*/
-	public void setTelPhone(String telPhone ){
-		this.telPhone = telPhone;
+	public void setTel_phone(String tel_phone ){
+		this.tel_phone = tel_phone;
 	}
 	
 	/**
 	* 会员姓名
 	*@return 
 	*/
-	public String getTrueName(){
-		return  trueName;
+	public String getTrue_name(){
+		return  true_name;
 	}
 	/**
 	* 会员姓名
-	*@param  trueName
+	*@param  true_name
 	*/
-	public void setTrueName(String trueName ){
-		this.trueName = trueName;
+	public void setTrue_name(String true_name ){
+		this.true_name = true_name;
 	}
 	
 	public String getZip(){

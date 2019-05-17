@@ -7,27 +7,33 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_consult_type")
 public class RaConsultType   {
 	
+	// alias
+	public static final String ALIAS_ct_id = "ct_id";
+	public static final String ALIAS_ct_sort = "ct_sort";
+	public static final String ALIAS_ct_introduce = "ct_introduce";
+	public static final String ALIAS_ct_name = "ct_name";
+	
 	/*
 	咨询类型id
 	*/
-	private Integer ctId ;
+	private Integer ct_id ;
 	/*
 	咨询类型排序
 	*/
-	private Integer ctSort ;
+	private Integer ct_sort ;
 	/*
 	咨询类型详细介绍
 	*/
-	private String ctIntroduce ;
+	private String ct_introduce ;
 	/*
 	咨询类型名称
 	*/
-	private String ctName ;
+	private String ct_name ;
 	
 	public RaConsultType() {
 	}
@@ -36,60 +42,60 @@ public class RaConsultType   {
 	* 咨询类型id
 	*@return 
 	*/
-	public Integer getCtId(){
-		return  ctId;
+	public Integer getCt_id(){
+		return  ct_id;
 	}
 	/**
 	* 咨询类型id
-	*@param  ctId
+	*@param  ct_id
 	*/
-	public void setCtId(Integer ctId ){
-		this.ctId = ctId;
+	public void setCt_id(Integer ct_id ){
+		this.ct_id = ct_id;
 	}
 	
 	/**
 	* 咨询类型排序
 	*@return 
 	*/
-	public Integer getCtSort(){
-		return  ctSort;
+	public Integer getCt_sort(){
+		return  ct_sort;
 	}
 	/**
 	* 咨询类型排序
-	*@param  ctSort
+	*@param  ct_sort
 	*/
-	public void setCtSort(Integer ctSort ){
-		this.ctSort = ctSort;
+	public void setCt_sort(Integer ct_sort ){
+		this.ct_sort = ct_sort;
 	}
 	
 	/**
 	* 咨询类型详细介绍
 	*@return 
 	*/
-	public String getCtIntroduce(){
-		return  ctIntroduce;
+	public String getCt_introduce(){
+		return  ct_introduce;
 	}
 	/**
 	* 咨询类型详细介绍
-	*@param  ctIntroduce
+	*@param  ct_introduce
 	*/
-	public void setCtIntroduce(String ctIntroduce ){
-		this.ctIntroduce = ctIntroduce;
+	public void setCt_introduce(String ct_introduce ){
+		this.ct_introduce = ct_introduce;
 	}
 	
 	/**
 	* 咨询类型名称
 	*@return 
 	*/
-	public String getCtName(){
-		return  ctName;
+	public String getCt_name(){
+		return  ct_name;
 	}
 	/**
 	* 咨询类型名称
-	*@param  ctName
+	*@param  ct_name
 	*/
-	public void setCtName(String ctName ){
-		this.ctName = ctName;
+	public void setCt_name(String ct_name ){
+		this.ct_name = ct_name;
 	}
 	
 

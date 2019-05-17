@@ -7,43 +7,53 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_decoration_block")
 public class RaStoreDecorationBlock   {
 	
+	// alias
+	public static final String ALIAS_block_id = "block_id";
+	public static final String ALIAS_block_full_width = "block_full_width";
+	public static final String ALIAS_block_sort = "block_sort";
+	public static final String ALIAS_decoration_id = "decoration_id";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_block_content = "block_content";
+	public static final String ALIAS_block_layout = "block_layout";
+	public static final String ALIAS_block_module_type = "block_module_type";
+	
 	/*
 	装修块编号
 	*/
-	private Integer blockId ;
+	private Integer block_id ;
 	/*
 	是否100%宽度(0-否 1-是)
 	*/
-	private Integer blockFullWidth ;
+	private Integer block_full_width ;
 	/*
 	块排序
 	*/
-	private Integer blockSort ;
+	private Integer block_sort ;
 	/*
 	装修编号
 	*/
-	private Integer decorationId ;
+	private Integer decoration_id ;
 	/*
 	店铺编号
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	块内容
 	*/
-	private String blockContent ;
+	private String block_content ;
 	/*
 	块布局
 	*/
-	private String blockLayout ;
+	private String block_layout ;
 	/*
 	装修块模块类型
 	*/
-	private String blockModuleType ;
+	private String block_module_type ;
 	
 	public RaStoreDecorationBlock() {
 	}
@@ -52,120 +62,120 @@ public class RaStoreDecorationBlock   {
 	* 装修块编号
 	*@return 
 	*/
-	public Integer getBlockId(){
-		return  blockId;
+	public Integer getBlock_id(){
+		return  block_id;
 	}
 	/**
 	* 装修块编号
-	*@param  blockId
+	*@param  block_id
 	*/
-	public void setBlockId(Integer blockId ){
-		this.blockId = blockId;
+	public void setBlock_id(Integer block_id ){
+		this.block_id = block_id;
 	}
 	
 	/**
 	* 是否100%宽度(0-否 1-是)
 	*@return 
 	*/
-	public Integer getBlockFullWidth(){
-		return  blockFullWidth;
+	public Integer getBlock_full_width(){
+		return  block_full_width;
 	}
 	/**
 	* 是否100%宽度(0-否 1-是)
-	*@param  blockFullWidth
+	*@param  block_full_width
 	*/
-	public void setBlockFullWidth(Integer blockFullWidth ){
-		this.blockFullWidth = blockFullWidth;
+	public void setBlock_full_width(Integer block_full_width ){
+		this.block_full_width = block_full_width;
 	}
 	
 	/**
 	* 块排序
 	*@return 
 	*/
-	public Integer getBlockSort(){
-		return  blockSort;
+	public Integer getBlock_sort(){
+		return  block_sort;
 	}
 	/**
 	* 块排序
-	*@param  blockSort
+	*@param  block_sort
 	*/
-	public void setBlockSort(Integer blockSort ){
-		this.blockSort = blockSort;
+	public void setBlock_sort(Integer block_sort ){
+		this.block_sort = block_sort;
 	}
 	
 	/**
 	* 装修编号
 	*@return 
 	*/
-	public Integer getDecorationId(){
-		return  decorationId;
+	public Integer getDecoration_id(){
+		return  decoration_id;
 	}
 	/**
 	* 装修编号
-	*@param  decorationId
+	*@param  decoration_id
 	*/
-	public void setDecorationId(Integer decorationId ){
-		this.decorationId = decorationId;
+	public void setDecoration_id(Integer decoration_id ){
+		this.decoration_id = decoration_id;
 	}
 	
 	/**
 	* 店铺编号
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺编号
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 块内容
 	*@return 
 	*/
-	public String getBlockContent(){
-		return  blockContent;
+	public String getBlock_content(){
+		return  block_content;
 	}
 	/**
 	* 块内容
-	*@param  blockContent
+	*@param  block_content
 	*/
-	public void setBlockContent(String blockContent ){
-		this.blockContent = blockContent;
+	public void setBlock_content(String block_content ){
+		this.block_content = block_content;
 	}
 	
 	/**
 	* 块布局
 	*@return 
 	*/
-	public String getBlockLayout(){
-		return  blockLayout;
+	public String getBlock_layout(){
+		return  block_layout;
 	}
 	/**
 	* 块布局
-	*@param  blockLayout
+	*@param  block_layout
 	*/
-	public void setBlockLayout(String blockLayout ){
-		this.blockLayout = blockLayout;
+	public void setBlock_layout(String block_layout ){
+		this.block_layout = block_layout;
 	}
 	
 	/**
 	* 装修块模块类型
 	*@return 
 	*/
-	public String getBlockModuleType(){
-		return  blockModuleType;
+	public String getBlock_module_type(){
+		return  block_module_type;
 	}
 	/**
 	* 装修块模块类型
-	*@param  blockModuleType
+	*@param  block_module_type
 	*/
-	public void setBlockModuleType(String blockModuleType ){
-		this.blockModuleType = blockModuleType;
+	public void setBlock_module_type(String block_module_type ){
+		this.block_module_type = block_module_type;
 	}
 	
 

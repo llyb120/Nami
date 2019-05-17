@@ -7,31 +7,49 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_p_xianshi_goods")
 public class RaPXianshiGoods   {
 	
+	// alias
+	public static final String ALIAS_xianshi_goods_id = "xianshi_goods_id";
+	public static final String ALIAS_end_time = "end_time";
+	public static final String ALIAS_goods_id = "goods_id";
+	public static final String ALIAS_lower_limit = "lower_limit";
+	public static final String ALIAS_start_time = "start_time";
+	public static final String ALIAS_state = "state";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_xianshi_id = "xianshi_id";
+	public static final String ALIAS_xianshi_recommend = "xianshi_recommend";
+	public static final String ALIAS_goods_image = "goods_image";
+	public static final String ALIAS_goods_name = "goods_name";
+	public static final String ALIAS_goods_price = "goods_price";
+	public static final String ALIAS_xianshi_explain = "xianshi_explain";
+	public static final String ALIAS_xianshi_name = "xianshi_name";
+	public static final String ALIAS_xianshi_price = "xianshi_price";
+	public static final String ALIAS_xianshi_title = "xianshi_title";
+	
 	/*
 	限时折扣商品表
 	*/
-	private Integer xianshiGoodsId ;
+	private Integer xianshi_goods_id ;
 	/*
 	结束时间
 	*/
-	private Integer endTime ;
+	private Integer end_time ;
 	/*
 	商品编号
 	*/
-	private Integer goodsId ;
+	private Integer goods_id ;
 	/*
 	购买下限，0为不限制
 	*/
-	private Integer lowerLimit ;
+	private Integer lower_limit ;
 	/*
 	开始时间
 	*/
-	private Integer startTime ;
+	private Integer start_time ;
 	/*
 	状态，0-取消 1-正常
 	*/
@@ -39,43 +57,43 @@ public class RaPXianshiGoods   {
 	/*
 	店铺编号
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	限时活动编号
 	*/
-	private Integer xianshiId ;
+	private Integer xianshi_id ;
 	/*
 	推荐标志 0-未推荐 1-已推荐
 	*/
-	private Integer xianshiRecommend ;
+	private Integer xianshi_recommend ;
 	/*
 	商品图片
 	*/
-	private String goodsImage ;
+	private String goods_image ;
 	/*
 	商品名称
 	*/
-	private String goodsName ;
+	private String goods_name ;
 	/*
 	店铺价格
 	*/
-	private BigDecimal goodsPrice ;
+	private BigDecimal goods_price ;
 	/*
 	活动说明
 	*/
-	private String xianshiExplain ;
+	private String xianshi_explain ;
 	/*
 	活动名称
 	*/
-	private String xianshiName ;
+	private String xianshi_name ;
 	/*
 	限时折扣价格
 	*/
-	private BigDecimal xianshiPrice ;
+	private BigDecimal xianshi_price ;
 	/*
 	活动标题
 	*/
-	private String xianshiTitle ;
+	private String xianshi_title ;
 	
 	public RaPXianshiGoods() {
 	}
@@ -84,75 +102,75 @@ public class RaPXianshiGoods   {
 	* 限时折扣商品表
 	*@return 
 	*/
-	public Integer getXianshiGoodsId(){
-		return  xianshiGoodsId;
+	public Integer getXianshi_goods_id(){
+		return  xianshi_goods_id;
 	}
 	/**
 	* 限时折扣商品表
-	*@param  xianshiGoodsId
+	*@param  xianshi_goods_id
 	*/
-	public void setXianshiGoodsId(Integer xianshiGoodsId ){
-		this.xianshiGoodsId = xianshiGoodsId;
+	public void setXianshi_goods_id(Integer xianshi_goods_id ){
+		this.xianshi_goods_id = xianshi_goods_id;
 	}
 	
 	/**
 	* 结束时间
 	*@return 
 	*/
-	public Integer getEndTime(){
-		return  endTime;
+	public Integer getEnd_time(){
+		return  end_time;
 	}
 	/**
 	* 结束时间
-	*@param  endTime
+	*@param  end_time
 	*/
-	public void setEndTime(Integer endTime ){
-		this.endTime = endTime;
+	public void setEnd_time(Integer end_time ){
+		this.end_time = end_time;
 	}
 	
 	/**
 	* 商品编号
 	*@return 
 	*/
-	public Integer getGoodsId(){
-		return  goodsId;
+	public Integer getGoods_id(){
+		return  goods_id;
 	}
 	/**
 	* 商品编号
-	*@param  goodsId
+	*@param  goods_id
 	*/
-	public void setGoodsId(Integer goodsId ){
-		this.goodsId = goodsId;
+	public void setGoods_id(Integer goods_id ){
+		this.goods_id = goods_id;
 	}
 	
 	/**
 	* 购买下限，0为不限制
 	*@return 
 	*/
-	public Integer getLowerLimit(){
-		return  lowerLimit;
+	public Integer getLower_limit(){
+		return  lower_limit;
 	}
 	/**
 	* 购买下限，0为不限制
-	*@param  lowerLimit
+	*@param  lower_limit
 	*/
-	public void setLowerLimit(Integer lowerLimit ){
-		this.lowerLimit = lowerLimit;
+	public void setLower_limit(Integer lower_limit ){
+		this.lower_limit = lower_limit;
 	}
 	
 	/**
 	* 开始时间
 	*@return 
 	*/
-	public Integer getStartTime(){
-		return  startTime;
+	public Integer getStart_time(){
+		return  start_time;
 	}
 	/**
 	* 开始时间
-	*@param  startTime
+	*@param  start_time
 	*/
-	public void setStartTime(Integer startTime ){
-		this.startTime = startTime;
+	public void setStart_time(Integer start_time ){
+		this.start_time = start_time;
 	}
 	
 	/**
@@ -174,150 +192,150 @@ public class RaPXianshiGoods   {
 	* 店铺编号
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺编号
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 限时活动编号
 	*@return 
 	*/
-	public Integer getXianshiId(){
-		return  xianshiId;
+	public Integer getXianshi_id(){
+		return  xianshi_id;
 	}
 	/**
 	* 限时活动编号
-	*@param  xianshiId
+	*@param  xianshi_id
 	*/
-	public void setXianshiId(Integer xianshiId ){
-		this.xianshiId = xianshiId;
+	public void setXianshi_id(Integer xianshi_id ){
+		this.xianshi_id = xianshi_id;
 	}
 	
 	/**
 	* 推荐标志 0-未推荐 1-已推荐
 	*@return 
 	*/
-	public Integer getXianshiRecommend(){
-		return  xianshiRecommend;
+	public Integer getXianshi_recommend(){
+		return  xianshi_recommend;
 	}
 	/**
 	* 推荐标志 0-未推荐 1-已推荐
-	*@param  xianshiRecommend
+	*@param  xianshi_recommend
 	*/
-	public void setXianshiRecommend(Integer xianshiRecommend ){
-		this.xianshiRecommend = xianshiRecommend;
+	public void setXianshi_recommend(Integer xianshi_recommend ){
+		this.xianshi_recommend = xianshi_recommend;
 	}
 	
 	/**
 	* 商品图片
 	*@return 
 	*/
-	public String getGoodsImage(){
-		return  goodsImage;
+	public String getGoods_image(){
+		return  goods_image;
 	}
 	/**
 	* 商品图片
-	*@param  goodsImage
+	*@param  goods_image
 	*/
-	public void setGoodsImage(String goodsImage ){
-		this.goodsImage = goodsImage;
+	public void setGoods_image(String goods_image ){
+		this.goods_image = goods_image;
 	}
 	
 	/**
 	* 商品名称
 	*@return 
 	*/
-	public String getGoodsName(){
-		return  goodsName;
+	public String getGoods_name(){
+		return  goods_name;
 	}
 	/**
 	* 商品名称
-	*@param  goodsName
+	*@param  goods_name
 	*/
-	public void setGoodsName(String goodsName ){
-		this.goodsName = goodsName;
+	public void setGoods_name(String goods_name ){
+		this.goods_name = goods_name;
 	}
 	
 	/**
 	* 店铺价格
 	*@return 
 	*/
-	public BigDecimal getGoodsPrice(){
-		return  goodsPrice;
+	public BigDecimal getGoods_price(){
+		return  goods_price;
 	}
 	/**
 	* 店铺价格
-	*@param  goodsPrice
+	*@param  goods_price
 	*/
-	public void setGoodsPrice(BigDecimal goodsPrice ){
-		this.goodsPrice = goodsPrice;
+	public void setGoods_price(BigDecimal goods_price ){
+		this.goods_price = goods_price;
 	}
 	
 	/**
 	* 活动说明
 	*@return 
 	*/
-	public String getXianshiExplain(){
-		return  xianshiExplain;
+	public String getXianshi_explain(){
+		return  xianshi_explain;
 	}
 	/**
 	* 活动说明
-	*@param  xianshiExplain
+	*@param  xianshi_explain
 	*/
-	public void setXianshiExplain(String xianshiExplain ){
-		this.xianshiExplain = xianshiExplain;
+	public void setXianshi_explain(String xianshi_explain ){
+		this.xianshi_explain = xianshi_explain;
 	}
 	
 	/**
 	* 活动名称
 	*@return 
 	*/
-	public String getXianshiName(){
-		return  xianshiName;
+	public String getXianshi_name(){
+		return  xianshi_name;
 	}
 	/**
 	* 活动名称
-	*@param  xianshiName
+	*@param  xianshi_name
 	*/
-	public void setXianshiName(String xianshiName ){
-		this.xianshiName = xianshiName;
+	public void setXianshi_name(String xianshi_name ){
+		this.xianshi_name = xianshi_name;
 	}
 	
 	/**
 	* 限时折扣价格
 	*@return 
 	*/
-	public BigDecimal getXianshiPrice(){
-		return  xianshiPrice;
+	public BigDecimal getXianshi_price(){
+		return  xianshi_price;
 	}
 	/**
 	* 限时折扣价格
-	*@param  xianshiPrice
+	*@param  xianshi_price
 	*/
-	public void setXianshiPrice(BigDecimal xianshiPrice ){
-		this.xianshiPrice = xianshiPrice;
+	public void setXianshi_price(BigDecimal xianshi_price ){
+		this.xianshi_price = xianshi_price;
 	}
 	
 	/**
 	* 活动标题
 	*@return 
 	*/
-	public String getXianshiTitle(){
-		return  xianshiTitle;
+	public String getXianshi_title(){
+		return  xianshi_title;
 	}
 	/**
 	* 活动标题
-	*@param  xianshiTitle
+	*@param  xianshi_title
 	*/
-	public void setXianshiTitle(String xianshiTitle ){
-		this.xianshiTitle = xianshiTitle;
+	public void setXianshi_title(String xianshi_title ){
+		this.xianshi_title = xianshi_title;
 	}
 	
 

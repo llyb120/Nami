@@ -7,12 +7,51 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_custom_shenzhen_goods")
 public class RaCustomShenzhenGoods   {
 	
-	private Integer goodsCommonid ;
+	// alias
+	public static final String ALIAS_goods_commonid = "goods_commonid";
+	public static final String ALIAS_AttachmentList = "AttachmentList";
+	public static final String ALIAS_ImageList = "ImageList";
+	public static final String ALIAS_beianhao = "beianhao";
+	public static final String ALIAS_brand = "brand";
+	public static final String ALIAS_certification = "certification";
+	public static final String ALIAS_ciqGmodel = "ciqGmodel";
+	public static final String ALIAS_ciqGno = "ciqGno";
+	public static final String ALIAS_codeTs = "codeTs";
+	public static final String ALIAS_currency = "currency";
+	public static final String ALIAS_element = "element";
+	public static final String ALIAS_enterprisesCountry = "enterprisesCountry";
+	public static final String ALIAS_enterprisesName = "enterprisesName";
+	public static final String ALIAS_flight_number = "flight_number";
+	public static final String ALIAS_foodEnterpriseNumber = "foodEnterpriseNumber";
+	public static final String ALIAS_gcode = "gcode";
+	public static final String ALIAS_giftFlag = "giftFlag";
+	public static final String ALIAS_gmodel = "gmodel";
+	public static final String ALIAS_gno = "gno";
+	public static final String ALIAS_hCount = "hCount";
+	public static final String ALIAS_hCount2 = "hCount2";
+	public static final String ALIAS_hUnit = "hUnit";
+	public static final String ALIAS_hUnit2 = "hUnit2";
+	public static final String ALIAS_inspectionFlag = "inspectionFlag";
+	public static final String ALIAS_originCountry = "originCountry";
+	public static final String ALIAS_pick_number = "pick_number";
+	public static final String ALIAS_postTaxCode = "postTaxCode";
+	public static final String ALIAS_shipName = "shipName";
+	public static final String ALIAS_standards = "standards";
+	public static final String ALIAS_supervisionFlag = "supervisionFlag";
+	public static final String ALIAS_supplierCountry = "supplierCountry";
+	public static final String ALIAS_supplierName = "supplierName";
+	public static final String ALIAS_tax_rate = "tax_rate";
+	public static final String ALIAS_trafMode = "trafMode";
+	public static final String ALIAS_tran_type_code = "tran_type_code";
+	public static final String ALIAS_unit = "unit";
+	public static final String ALIAS_warningFlag = "warningFlag";
+	
+	private Integer goods_commonid ;
 	private String attachmentlist ;
 	private String imagelist ;
 	/*
@@ -28,7 +67,7 @@ public class RaCustomShenzhenGoods   {
 	private String element ;
 	private String enterprisescountry ;
 	private String enterprisesname ;
-	private String flightNumber ;
+	private String flight_number ;
 	private String foodenterprisenumber ;
 	private String gcode ;
 	private String giftflag ;
@@ -40,27 +79,27 @@ public class RaCustomShenzhenGoods   {
 	private String hunit2 ;
 	private String inspectionflag ;
 	private String origincountry ;
-	private String pickNumber ;
+	private String pick_number ;
 	private String posttaxcode ;
 	private String shipname ;
 	private String standards ;
 	private String supervisionflag ;
 	private String suppliercountry ;
 	private String suppliername ;
-	private String taxRate ;
+	private String tax_rate ;
 	private String trafmode ;
-	private String tranTypeCode ;
+	private String tran_type_code ;
 	private String unit ;
 	private String warningflag ;
 	
 	public RaCustomShenzhenGoods() {
 	}
 	
-	public Integer getGoodsCommonid(){
-		return  goodsCommonid;
+	public Integer getGoods_commonid(){
+		return  goods_commonid;
 	}
-	public void setGoodsCommonid(Integer goodsCommonid ){
-		this.goodsCommonid = goodsCommonid;
+	public void setGoods_commonid(Integer goods_commonid ){
+		this.goods_commonid = goods_commonid;
 	}
 	
 	public String getAttachmentlist(){
@@ -155,11 +194,11 @@ public class RaCustomShenzhenGoods   {
 		this.enterprisesname = enterprisesname;
 	}
 	
-	public String getFlightNumber(){
-		return  flightNumber;
+	public String getFlight_number(){
+		return  flight_number;
 	}
-	public void setFlightNumber(String flightNumber ){
-		this.flightNumber = flightNumber;
+	public void setFlight_number(String flight_number ){
+		this.flight_number = flight_number;
 	}
 	
 	public String getFoodenterprisenumber(){
@@ -239,11 +278,11 @@ public class RaCustomShenzhenGoods   {
 		this.origincountry = origincountry;
 	}
 	
-	public String getPickNumber(){
-		return  pickNumber;
+	public String getPick_number(){
+		return  pick_number;
 	}
-	public void setPickNumber(String pickNumber ){
-		this.pickNumber = pickNumber;
+	public void setPick_number(String pick_number ){
+		this.pick_number = pick_number;
 	}
 	
 	public String getPosttaxcode(){
@@ -288,11 +327,11 @@ public class RaCustomShenzhenGoods   {
 		this.suppliername = suppliername;
 	}
 	
-	public String getTaxRate(){
-		return  taxRate;
+	public String getTax_rate(){
+		return  tax_rate;
 	}
-	public void setTaxRate(String taxRate ){
-		this.taxRate = taxRate;
+	public void setTax_rate(String tax_rate ){
+		this.tax_rate = tax_rate;
 	}
 	
 	public String getTrafmode(){
@@ -302,11 +341,11 @@ public class RaCustomShenzhenGoods   {
 		this.trafmode = trafmode;
 	}
 	
-	public String getTranTypeCode(){
-		return  tranTypeCode;
+	public String getTran_type_code(){
+		return  tran_type_code;
 	}
-	public void setTranTypeCode(String tranTypeCode ){
-		this.tranTypeCode = tranTypeCode;
+	public void setTran_type_code(String tran_type_code ){
+		this.tran_type_code = tran_type_code;
 	}
 	
 	public String getUnit(){

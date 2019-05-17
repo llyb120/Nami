@@ -7,47 +7,58 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_waybill")
 public class RaStoreWaybill   {
 	
+	// alias
+	public static final String ALIAS_store_waybill_id = "store_waybill_id";
+	public static final String ALIAS_express_id = "express_id";
+	public static final String ALIAS_is_default = "is_default";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_store_waybill_left = "store_waybill_left";
+	public static final String ALIAS_store_waybill_top = "store_waybill_top";
+	public static final String ALIAS_waybill_id = "waybill_id";
+	public static final String ALIAS_store_waybill_data = "store_waybill_data";
+	public static final String ALIAS_waybill_name = "waybill_name";
+	
 	/*
 	店铺运单模板编号
 	*/
-	private Integer storeWaybillId ;
+	private Integer store_waybill_id ;
 	/*
 	物流公司编号
 	*/
-	private Integer expressId ;
+	private Integer express_id ;
 	/*
 	是否默认模板
 	*/
-	private Integer isDefault ;
+	private Integer is_default ;
 	/*
 	店铺编号
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	店铺运单左偏移
 	*/
-	private Integer storeWaybillLeft ;
+	private Integer store_waybill_left ;
 	/*
 	店铺运单上偏移
 	*/
-	private Integer storeWaybillTop ;
+	private Integer store_waybill_top ;
 	/*
 	运单模板编号
 	*/
-	private Integer waybillId ;
+	private Integer waybill_id ;
 	/*
 	店铺自定义设置
 	*/
-	private String storeWaybillData ;
+	private String store_waybill_data ;
 	/*
 	运单模板名称
 	*/
-	private String waybillName ;
+	private String waybill_name ;
 	
 	public RaStoreWaybill() {
 	}
@@ -56,135 +67,135 @@ public class RaStoreWaybill   {
 	* 店铺运单模板编号
 	*@return 
 	*/
-	public Integer getStoreWaybillId(){
-		return  storeWaybillId;
+	public Integer getStore_waybill_id(){
+		return  store_waybill_id;
 	}
 	/**
 	* 店铺运单模板编号
-	*@param  storeWaybillId
+	*@param  store_waybill_id
 	*/
-	public void setStoreWaybillId(Integer storeWaybillId ){
-		this.storeWaybillId = storeWaybillId;
+	public void setStore_waybill_id(Integer store_waybill_id ){
+		this.store_waybill_id = store_waybill_id;
 	}
 	
 	/**
 	* 物流公司编号
 	*@return 
 	*/
-	public Integer getExpressId(){
-		return  expressId;
+	public Integer getExpress_id(){
+		return  express_id;
 	}
 	/**
 	* 物流公司编号
-	*@param  expressId
+	*@param  express_id
 	*/
-	public void setExpressId(Integer expressId ){
-		this.expressId = expressId;
+	public void setExpress_id(Integer express_id ){
+		this.express_id = express_id;
 	}
 	
 	/**
 	* 是否默认模板
 	*@return 
 	*/
-	public Integer getIsDefault(){
-		return  isDefault;
+	public Integer getIs_default(){
+		return  is_default;
 	}
 	/**
 	* 是否默认模板
-	*@param  isDefault
+	*@param  is_default
 	*/
-	public void setIsDefault(Integer isDefault ){
-		this.isDefault = isDefault;
+	public void setIs_default(Integer is_default ){
+		this.is_default = is_default;
 	}
 	
 	/**
 	* 店铺编号
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺编号
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 店铺运单左偏移
 	*@return 
 	*/
-	public Integer getStoreWaybillLeft(){
-		return  storeWaybillLeft;
+	public Integer getStore_waybill_left(){
+		return  store_waybill_left;
 	}
 	/**
 	* 店铺运单左偏移
-	*@param  storeWaybillLeft
+	*@param  store_waybill_left
 	*/
-	public void setStoreWaybillLeft(Integer storeWaybillLeft ){
-		this.storeWaybillLeft = storeWaybillLeft;
+	public void setStore_waybill_left(Integer store_waybill_left ){
+		this.store_waybill_left = store_waybill_left;
 	}
 	
 	/**
 	* 店铺运单上偏移
 	*@return 
 	*/
-	public Integer getStoreWaybillTop(){
-		return  storeWaybillTop;
+	public Integer getStore_waybill_top(){
+		return  store_waybill_top;
 	}
 	/**
 	* 店铺运单上偏移
-	*@param  storeWaybillTop
+	*@param  store_waybill_top
 	*/
-	public void setStoreWaybillTop(Integer storeWaybillTop ){
-		this.storeWaybillTop = storeWaybillTop;
+	public void setStore_waybill_top(Integer store_waybill_top ){
+		this.store_waybill_top = store_waybill_top;
 	}
 	
 	/**
 	* 运单模板编号
 	*@return 
 	*/
-	public Integer getWaybillId(){
-		return  waybillId;
+	public Integer getWaybill_id(){
+		return  waybill_id;
 	}
 	/**
 	* 运单模板编号
-	*@param  waybillId
+	*@param  waybill_id
 	*/
-	public void setWaybillId(Integer waybillId ){
-		this.waybillId = waybillId;
+	public void setWaybill_id(Integer waybill_id ){
+		this.waybill_id = waybill_id;
 	}
 	
 	/**
 	* 店铺自定义设置
 	*@return 
 	*/
-	public String getStoreWaybillData(){
-		return  storeWaybillData;
+	public String getStore_waybill_data(){
+		return  store_waybill_data;
 	}
 	/**
 	* 店铺自定义设置
-	*@param  storeWaybillData
+	*@param  store_waybill_data
 	*/
-	public void setStoreWaybillData(String storeWaybillData ){
-		this.storeWaybillData = storeWaybillData;
+	public void setStore_waybill_data(String store_waybill_data ){
+		this.store_waybill_data = store_waybill_data;
 	}
 	
 	/**
 	* 运单模板名称
 	*@return 
 	*/
-	public String getWaybillName(){
-		return  waybillName;
+	public String getWaybill_name(){
+		return  waybill_name;
 	}
 	/**
 	* 运单模板名称
-	*@param  waybillName
+	*@param  waybill_name
 	*/
-	public void setWaybillName(String waybillName ){
-		this.waybillName = waybillName;
+	public void setWaybill_name(String waybill_name ){
+		this.waybill_name = waybill_name;
 	}
 	
 

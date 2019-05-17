@@ -7,35 +7,43 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_msg")
 public class RaStoreMsg   {
 	
+	// alias
+	public static final String ALIAS_sm_id = "sm_id";
+	public static final String ALIAS_sm_addtime = "sm_addtime";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_sm_content = "sm_content";
+	public static final String ALIAS_sm_readids = "sm_readids";
+	public static final String ALIAS_smt_code = "smt_code";
+	
 	/*
 	店铺消息id
 	*/
-	private Integer smId ;
+	private Integer sm_id ;
 	/*
 	发送时间
 	*/
-	private Integer smAddtime ;
+	private Integer sm_addtime ;
 	/*
 	店铺id
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	消息内容
 	*/
-	private String smContent ;
+	private String sm_content ;
 	/*
 	已读卖家id
 	*/
-	private String smReadids ;
+	private String sm_readids ;
 	/*
 	模板编码
 	*/
-	private String smtCode ;
+	private String smt_code ;
 	
 	public RaStoreMsg() {
 	}
@@ -44,90 +52,90 @@ public class RaStoreMsg   {
 	* 店铺消息id
 	*@return 
 	*/
-	public Integer getSmId(){
-		return  smId;
+	public Integer getSm_id(){
+		return  sm_id;
 	}
 	/**
 	* 店铺消息id
-	*@param  smId
+	*@param  sm_id
 	*/
-	public void setSmId(Integer smId ){
-		this.smId = smId;
+	public void setSm_id(Integer sm_id ){
+		this.sm_id = sm_id;
 	}
 	
 	/**
 	* 发送时间
 	*@return 
 	*/
-	public Integer getSmAddtime(){
-		return  smAddtime;
+	public Integer getSm_addtime(){
+		return  sm_addtime;
 	}
 	/**
 	* 发送时间
-	*@param  smAddtime
+	*@param  sm_addtime
 	*/
-	public void setSmAddtime(Integer smAddtime ){
-		this.smAddtime = smAddtime;
+	public void setSm_addtime(Integer sm_addtime ){
+		this.sm_addtime = sm_addtime;
 	}
 	
 	/**
 	* 店铺id
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺id
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 消息内容
 	*@return 
 	*/
-	public String getSmContent(){
-		return  smContent;
+	public String getSm_content(){
+		return  sm_content;
 	}
 	/**
 	* 消息内容
-	*@param  smContent
+	*@param  sm_content
 	*/
-	public void setSmContent(String smContent ){
-		this.smContent = smContent;
+	public void setSm_content(String sm_content ){
+		this.sm_content = sm_content;
 	}
 	
 	/**
 	* 已读卖家id
 	*@return 
 	*/
-	public String getSmReadids(){
-		return  smReadids;
+	public String getSm_readids(){
+		return  sm_readids;
 	}
 	/**
 	* 已读卖家id
-	*@param  smReadids
+	*@param  sm_readids
 	*/
-	public void setSmReadids(String smReadids ){
-		this.smReadids = smReadids;
+	public void setSm_readids(String sm_readids ){
+		this.sm_readids = sm_readids;
 	}
 	
 	/**
 	* 模板编码
 	*@return 
 	*/
-	public String getSmtCode(){
-		return  smtCode;
+	public String getSmt_code(){
+		return  smt_code;
 	}
 	/**
 	* 模板编码
-	*@param  smtCode
+	*@param  smt_code
 	*/
-	public void setSmtCode(String smtCode ){
-		this.smtCode = smtCode;
+	public void setSmt_code(String smt_code ){
+		this.smt_code = smt_code;
 	}
 	
 

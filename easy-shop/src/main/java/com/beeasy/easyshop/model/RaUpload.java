@@ -7,39 +7,48 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_upload")
 public class RaUpload   {
 	
+	// alias
+	public static final String ALIAS_upload_id = "upload_id";
+	public static final String ALIAS_file_size = "file_size";
+	public static final String ALIAS_item_id = "item_id";
+	public static final String ALIAS_upload_time = "upload_time";
+	public static final String ALIAS_upload_type = "upload_type";
+	public static final String ALIAS_file_name = "file_name";
+	public static final String ALIAS_file_thumb = "file_thumb";
+	
 	/*
 	索引ID
 	*/
-	private Integer uploadId ;
+	private Integer upload_id ;
 	/*
 	文件大小
 	*/
-	private Integer fileSize ;
+	private Integer file_size ;
 	/*
 	信息ID
 	*/
-	private Integer itemId ;
+	private Integer item_id ;
 	/*
 	添加时间
 	*/
-	private Integer uploadTime ;
+	private Integer upload_time ;
 	/*
 	文件类别，0为无，1为文章图片，默认为0，2为帮助内容图片，3为店铺幻灯片，4为系统文章图片，5为积分礼品切换图片，6为积分礼品内容图片
 	*/
-	private Integer uploadType ;
+	private Integer upload_type ;
 	/*
 	文件名
 	*/
-	private String fileName ;
+	private String file_name ;
 	/*
 	缩微图片
 	*/
-	private String fileThumb ;
+	private String file_thumb ;
 	
 	public RaUpload() {
 	}
@@ -48,105 +57,105 @@ public class RaUpload   {
 	* 索引ID
 	*@return 
 	*/
-	public Integer getUploadId(){
-		return  uploadId;
+	public Integer getUpload_id(){
+		return  upload_id;
 	}
 	/**
 	* 索引ID
-	*@param  uploadId
+	*@param  upload_id
 	*/
-	public void setUploadId(Integer uploadId ){
-		this.uploadId = uploadId;
+	public void setUpload_id(Integer upload_id ){
+		this.upload_id = upload_id;
 	}
 	
 	/**
 	* 文件大小
 	*@return 
 	*/
-	public Integer getFileSize(){
-		return  fileSize;
+	public Integer getFile_size(){
+		return  file_size;
 	}
 	/**
 	* 文件大小
-	*@param  fileSize
+	*@param  file_size
 	*/
-	public void setFileSize(Integer fileSize ){
-		this.fileSize = fileSize;
+	public void setFile_size(Integer file_size ){
+		this.file_size = file_size;
 	}
 	
 	/**
 	* 信息ID
 	*@return 
 	*/
-	public Integer getItemId(){
-		return  itemId;
+	public Integer getItem_id(){
+		return  item_id;
 	}
 	/**
 	* 信息ID
-	*@param  itemId
+	*@param  item_id
 	*/
-	public void setItemId(Integer itemId ){
-		this.itemId = itemId;
+	public void setItem_id(Integer item_id ){
+		this.item_id = item_id;
 	}
 	
 	/**
 	* 添加时间
 	*@return 
 	*/
-	public Integer getUploadTime(){
-		return  uploadTime;
+	public Integer getUpload_time(){
+		return  upload_time;
 	}
 	/**
 	* 添加时间
-	*@param  uploadTime
+	*@param  upload_time
 	*/
-	public void setUploadTime(Integer uploadTime ){
-		this.uploadTime = uploadTime;
+	public void setUpload_time(Integer upload_time ){
+		this.upload_time = upload_time;
 	}
 	
 	/**
 	* 文件类别，0为无，1为文章图片，默认为0，2为帮助内容图片，3为店铺幻灯片，4为系统文章图片，5为积分礼品切换图片，6为积分礼品内容图片
 	*@return 
 	*/
-	public Integer getUploadType(){
-		return  uploadType;
+	public Integer getUpload_type(){
+		return  upload_type;
 	}
 	/**
 	* 文件类别，0为无，1为文章图片，默认为0，2为帮助内容图片，3为店铺幻灯片，4为系统文章图片，5为积分礼品切换图片，6为积分礼品内容图片
-	*@param  uploadType
+	*@param  upload_type
 	*/
-	public void setUploadType(Integer uploadType ){
-		this.uploadType = uploadType;
+	public void setUpload_type(Integer upload_type ){
+		this.upload_type = upload_type;
 	}
 	
 	/**
 	* 文件名
 	*@return 
 	*/
-	public String getFileName(){
-		return  fileName;
+	public String getFile_name(){
+		return  file_name;
 	}
 	/**
 	* 文件名
-	*@param  fileName
+	*@param  file_name
 	*/
-	public void setFileName(String fileName ){
-		this.fileName = fileName;
+	public void setFile_name(String file_name ){
+		this.file_name = file_name;
 	}
 	
 	/**
 	* 缩微图片
 	*@return 
 	*/
-	public String getFileThumb(){
-		return  fileThumb;
+	public String getFile_thumb(){
+		return  file_thumb;
 	}
 	/**
 	* 缩微图片
-	*@param  fileThumb
+	*@param  file_thumb
 	*/
-	public void setFileThumb(String fileThumb ){
-		this.fileThumb = fileThumb;
+	public void setFile_thumb(String file_thumb ){
+		this.file_thumb = file_thumb;
 	}
 	
 

@@ -7,19 +7,26 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_groupbuy_class")
 public class RaGroupbuyClass   {
 	
+	// alias
+	public static final String ALIAS_class_id = "class_id";
+	public static final String ALIAS_class_parent_id = "class_parent_id";
+	public static final String ALIAS_deep = "deep";
+	public static final String ALIAS_sort = "sort";
+	public static final String ALIAS_class_name = "class_name";
+	
 	/*
 	类别编号
 	*/
-	private Integer classId ;
+	private Integer class_id ;
 	/*
 	父类别编号
 	*/
-	private Integer classParentId ;
+	private Integer class_parent_id ;
 	/*
 	深度
 	*/
@@ -31,7 +38,7 @@ public class RaGroupbuyClass   {
 	/*
 	类别名称
 	*/
-	private String className ;
+	private String class_name ;
 	
 	public RaGroupbuyClass() {
 	}
@@ -40,30 +47,30 @@ public class RaGroupbuyClass   {
 	* 类别编号
 	*@return 
 	*/
-	public Integer getClassId(){
-		return  classId;
+	public Integer getClass_id(){
+		return  class_id;
 	}
 	/**
 	* 类别编号
-	*@param  classId
+	*@param  class_id
 	*/
-	public void setClassId(Integer classId ){
-		this.classId = classId;
+	public void setClass_id(Integer class_id ){
+		this.class_id = class_id;
 	}
 	
 	/**
 	* 父类别编号
 	*@return 
 	*/
-	public Integer getClassParentId(){
-		return  classParentId;
+	public Integer getClass_parent_id(){
+		return  class_parent_id;
 	}
 	/**
 	* 父类别编号
-	*@param  classParentId
+	*@param  class_parent_id
 	*/
-	public void setClassParentId(Integer classParentId ){
-		this.classParentId = classParentId;
+	public void setClass_parent_id(Integer class_parent_id ){
+		this.class_parent_id = class_parent_id;
 	}
 	
 	/**
@@ -100,15 +107,15 @@ public class RaGroupbuyClass   {
 	* 类别名称
 	*@return 
 	*/
-	public String getClassName(){
-		return  className;
+	public String getClass_name(){
+		return  class_name;
 	}
 	/**
 	* 类别名称
-	*@param  className
+	*@param  class_name
 	*/
-	public void setClassName(String className ){
-		this.className = className;
+	public void setClass_name(String class_name ){
+		this.class_name = class_name;
 	}
 	
 

@@ -17,6 +17,7 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.security.SecureRandom;
+import java.sql.Struct;
 import java.util.Base64;
 
 import static com.beeasy.web.core.DBService.dataSource;
@@ -37,7 +38,7 @@ public class auth {
         aes = new SymmetricCrypto(SymmetricAlgorithm.AES, salt);
     }
 
-    public Object around(AopInvoke invoke, JSONObject headers, FullHttpRequest request) throws Exception {
+    public Object around(AopInvoke invoke, Cookie cookie, JSONObject headers, FullHttpRequest request) throws Exception {
         String path = request.uri();
         if(path.startsWith("/user/login")){
             return invoke.call();
@@ -45,7 +46,10 @@ public class auth {
         //检查权限
         var token = headers.getString("token");
         if (StrUtil.isEmpty(token)) {
-            return R.fail("请登录");
+            token = cookie.get("token");
+            if(StrUtil.isEmpty(token)){
+                return R.fail("请登录");
+            }
         }
         try{
             String str = aes.decryptStr(token);

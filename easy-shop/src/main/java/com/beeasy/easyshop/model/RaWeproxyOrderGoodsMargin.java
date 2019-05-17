@@ -7,18 +7,28 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_weproxy_order_goods_margin")
 public class RaWeproxyOrderGoodsMargin   {
 	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_goods_id = "goods_id";
+	public static final String ALIAS_level = "level";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_order_id = "order_id";
+	public static final String ALIAS_rec_id = "rec_id";
+	public static final String ALIAS_goods_price = "goods_price";
+	public static final String ALIAS_margin = "margin";
+	
 	private Integer id ;
-	private Integer goodsId ;
+	private Integer goods_id ;
 	private Integer level ;
-	private Integer memberId ;
-	private Integer orderId ;
-	private Integer recId ;
-	private BigDecimal goodsPrice ;
+	private Integer member_id ;
+	private Integer order_id ;
+	private Integer rec_id ;
+	private BigDecimal goods_price ;
 	private BigDecimal margin ;
 	
 	public RaWeproxyOrderGoodsMargin() {
@@ -31,11 +41,11 @@ public class RaWeproxyOrderGoodsMargin   {
 		this.id = id;
 	}
 	
-	public Integer getGoodsId(){
-		return  goodsId;
+	public Integer getGoods_id(){
+		return  goods_id;
 	}
-	public void setGoodsId(Integer goodsId ){
-		this.goodsId = goodsId;
+	public void setGoods_id(Integer goods_id ){
+		this.goods_id = goods_id;
 	}
 	
 	public Integer getLevel(){
@@ -45,32 +55,32 @@ public class RaWeproxyOrderGoodsMargin   {
 		this.level = level;
 	}
 	
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
-	}
-	
-	public Integer getOrderId(){
-		return  orderId;
-	}
-	public void setOrderId(Integer orderId ){
-		this.orderId = orderId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
-	public Integer getRecId(){
-		return  recId;
+	public Integer getOrder_id(){
+		return  order_id;
 	}
-	public void setRecId(Integer recId ){
-		this.recId = recId;
+	public void setOrder_id(Integer order_id ){
+		this.order_id = order_id;
 	}
 	
-	public BigDecimal getGoodsPrice(){
-		return  goodsPrice;
+	public Integer getRec_id(){
+		return  rec_id;
 	}
-	public void setGoodsPrice(BigDecimal goodsPrice ){
-		this.goodsPrice = goodsPrice;
+	public void setRec_id(Integer rec_id ){
+		this.rec_id = rec_id;
+	}
+	
+	public BigDecimal getGoods_price(){
+		return  goods_price;
+	}
+	public void setGoods_price(BigDecimal goods_price ){
+		this.goods_price = goods_price;
 	}
 	
 	public BigDecimal getMargin(){

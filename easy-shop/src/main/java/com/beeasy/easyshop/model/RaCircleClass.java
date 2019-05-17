@@ -7,35 +7,43 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_circle_class")
 public class RaCircleClass   {
 	
+	// alias
+	public static final String ALIAS_class_id = "class_id";
+	public static final String ALIAS_class_sort = "class_sort";
+	public static final String ALIAS_class_status = "class_status";
+	public static final String ALIAS_is_recommend = "is_recommend";
+	public static final String ALIAS_class_addtime = "class_addtime";
+	public static final String ALIAS_class_name = "class_name";
+	
 	/*
 	圈子分类id
 	*/
-	private Integer classId ;
+	private Integer class_id ;
 	/*
 	圈子分类排序
 	*/
-	private Integer classSort ;
+	private Integer class_sort ;
 	/*
 	圈子分类状态 0不显示，1显示
 	*/
-	private Integer classStatus ;
+	private Integer class_status ;
 	/*
 	是否推荐 0未推荐，1已推荐
 	*/
-	private Integer isRecommend ;
+	private Integer is_recommend ;
 	/*
 	圈子分类创建时间
 	*/
-	private String classAddtime ;
+	private String class_addtime ;
 	/*
 	圈子分类名称
 	*/
-	private String className ;
+	private String class_name ;
 	
 	public RaCircleClass() {
 	}
@@ -44,90 +52,90 @@ public class RaCircleClass   {
 	* 圈子分类id
 	*@return 
 	*/
-	public Integer getClassId(){
-		return  classId;
+	public Integer getClass_id(){
+		return  class_id;
 	}
 	/**
 	* 圈子分类id
-	*@param  classId
+	*@param  class_id
 	*/
-	public void setClassId(Integer classId ){
-		this.classId = classId;
+	public void setClass_id(Integer class_id ){
+		this.class_id = class_id;
 	}
 	
 	/**
 	* 圈子分类排序
 	*@return 
 	*/
-	public Integer getClassSort(){
-		return  classSort;
+	public Integer getClass_sort(){
+		return  class_sort;
 	}
 	/**
 	* 圈子分类排序
-	*@param  classSort
+	*@param  class_sort
 	*/
-	public void setClassSort(Integer classSort ){
-		this.classSort = classSort;
+	public void setClass_sort(Integer class_sort ){
+		this.class_sort = class_sort;
 	}
 	
 	/**
 	* 圈子分类状态 0不显示，1显示
 	*@return 
 	*/
-	public Integer getClassStatus(){
-		return  classStatus;
+	public Integer getClass_status(){
+		return  class_status;
 	}
 	/**
 	* 圈子分类状态 0不显示，1显示
-	*@param  classStatus
+	*@param  class_status
 	*/
-	public void setClassStatus(Integer classStatus ){
-		this.classStatus = classStatus;
+	public void setClass_status(Integer class_status ){
+		this.class_status = class_status;
 	}
 	
 	/**
 	* 是否推荐 0未推荐，1已推荐
 	*@return 
 	*/
-	public Integer getIsRecommend(){
-		return  isRecommend;
+	public Integer getIs_recommend(){
+		return  is_recommend;
 	}
 	/**
 	* 是否推荐 0未推荐，1已推荐
-	*@param  isRecommend
+	*@param  is_recommend
 	*/
-	public void setIsRecommend(Integer isRecommend ){
-		this.isRecommend = isRecommend;
+	public void setIs_recommend(Integer is_recommend ){
+		this.is_recommend = is_recommend;
 	}
 	
 	/**
 	* 圈子分类创建时间
 	*@return 
 	*/
-	public String getClassAddtime(){
-		return  classAddtime;
+	public String getClass_addtime(){
+		return  class_addtime;
 	}
 	/**
 	* 圈子分类创建时间
-	*@param  classAddtime
+	*@param  class_addtime
 	*/
-	public void setClassAddtime(String classAddtime ){
-		this.classAddtime = classAddtime;
+	public void setClass_addtime(String class_addtime ){
+		this.class_addtime = class_addtime;
 	}
 	
 	/**
 	* 圈子分类名称
 	*@return 
 	*/
-	public String getClassName(){
-		return  className;
+	public String getClass_name(){
+		return  class_name;
 	}
 	/**
 	* 圈子分类名称
-	*@param  className
+	*@param  class_name
 	*/
-	public void setClassName(String className ){
-		this.className = className;
+	public void setClass_name(String class_name ){
+		this.class_name = class_name;
 	}
 	
 

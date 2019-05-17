@@ -7,31 +7,38 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_spec")
 public class RaSpec   {
 	
+	// alias
+	public static final String ALIAS_sp_id = "sp_id";
+	public static final String ALIAS_class_id = "class_id";
+	public static final String ALIAS_sp_sort = "sp_sort";
+	public static final String ALIAS_class_name = "class_name";
+	public static final String ALIAS_sp_name = "sp_name";
+	
 	/*
 	规格id
 	*/
-	private Integer spId ;
+	private Integer sp_id ;
 	/*
 	所属分类id
 	*/
-	private Integer classId ;
+	private Integer class_id ;
 	/*
 	排序
 	*/
-	private Integer spSort ;
+	private Integer sp_sort ;
 	/*
 	所属分类名称
 	*/
-	private String className ;
+	private String class_name ;
 	/*
 	规格名称
 	*/
-	private String spName ;
+	private String sp_name ;
 	
 	public RaSpec() {
 	}
@@ -40,75 +47,75 @@ public class RaSpec   {
 	* 规格id
 	*@return 
 	*/
-	public Integer getSpId(){
-		return  spId;
+	public Integer getSp_id(){
+		return  sp_id;
 	}
 	/**
 	* 规格id
-	*@param  spId
+	*@param  sp_id
 	*/
-	public void setSpId(Integer spId ){
-		this.spId = spId;
+	public void setSp_id(Integer sp_id ){
+		this.sp_id = sp_id;
 	}
 	
 	/**
 	* 所属分类id
 	*@return 
 	*/
-	public Integer getClassId(){
-		return  classId;
+	public Integer getClass_id(){
+		return  class_id;
 	}
 	/**
 	* 所属分类id
-	*@param  classId
+	*@param  class_id
 	*/
-	public void setClassId(Integer classId ){
-		this.classId = classId;
+	public void setClass_id(Integer class_id ){
+		this.class_id = class_id;
 	}
 	
 	/**
 	* 排序
 	*@return 
 	*/
-	public Integer getSpSort(){
-		return  spSort;
+	public Integer getSp_sort(){
+		return  sp_sort;
 	}
 	/**
 	* 排序
-	*@param  spSort
+	*@param  sp_sort
 	*/
-	public void setSpSort(Integer spSort ){
-		this.spSort = spSort;
+	public void setSp_sort(Integer sp_sort ){
+		this.sp_sort = sp_sort;
 	}
 	
 	/**
 	* 所属分类名称
 	*@return 
 	*/
-	public String getClassName(){
-		return  className;
+	public String getClass_name(){
+		return  class_name;
 	}
 	/**
 	* 所属分类名称
-	*@param  className
+	*@param  class_name
 	*/
-	public void setClassName(String className ){
-		this.className = className;
+	public void setClass_name(String class_name ){
+		this.class_name = class_name;
 	}
 	
 	/**
 	* 规格名称
 	*@return 
 	*/
-	public String getSpName(){
-		return  spName;
+	public String getSp_name(){
+		return  sp_name;
 	}
 	/**
 	* 规格名称
-	*@param  spName
+	*@param  sp_name
 	*/
-	public void setSpName(String spName ){
-		this.spName = spName;
+	public void setSp_name(String sp_name ){
+		this.sp_name = sp_name;
 	}
 	
 

@@ -7,10 +7,15 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_simport_list")
 public class RaSimportList   {
+	
+	// alias
+	public static final String ALIAS_uuid = "uuid";
+	public static final String ALIAS_file = "file";
+	public static final String ALIAS_time = "time";
 	
 	private String uuid ;
 	private String file ;

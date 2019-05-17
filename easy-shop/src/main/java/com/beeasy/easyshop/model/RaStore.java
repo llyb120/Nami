@@ -7,7 +7,7 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-05-15
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store")
 public class RaStore   {
@@ -80,77 +80,77 @@ public class RaStore   {
 	/*
 	店铺索引id
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	自营店是否绑定全部分类 0否1是
 	*/
-	private Integer bindAllGc ;
+	private Integer bind_all_gc ;
 	/*
 	店铺等级
 	*/
-	private Integer gradeId ;
+	private Integer grade_id ;
 	/*
 	是否自营店铺 1是 0否
 	*/
-	private Integer isOwnShop ;
-	private Integer isWhole ;
+	private Integer is_own_shop ;
+	private Integer is_whole ;
 	/*
 	会员id
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	店铺所在省份ID
 	*/
-	private Integer provinceId ;
+	private Integer province_id ;
 	/*
 	店铺分类
 	*/
-	private Integer scId ;
+	private Integer sc_id ;
 	/*
 	店铺收藏数量
 	*/
-	private Integer storeCollect ;
+	private Integer store_collect ;
 	/*
 	店铺信用
 	*/
-	private Integer storeCredit ;
+	private Integer store_credit ;
 	/*
 	店铺装修相册图片数量
 	*/
-	private Integer storeDecorationImageCount ;
+	private Integer store_decoration_image_count ;
 	/*
 	开启店铺装修时，仅显示店铺装修(1-是 0-否
 	*/
-	private Integer storeDecorationOnly ;
+	private Integer store_decoration_only ;
 	/*
 	店铺装修开关(0-关闭 装修编号-开启)
 	*/
-	private Integer storeDecorationSwitch ;
+	private Integer store_decoration_switch ;
 	/*
 	二级域名修改次数
 	*/
-	private Integer storeDomainTimes ;
+	private Integer store_domain_times ;
 	/*
 	推荐，0为否，1为是，默认为0
 	*/
-	private Integer storeRecommend ;
+	private Integer store_recommend ;
 	/*
 	店铺销量
 	*/
-	private Integer storeSales ;
+	private Integer store_sales ;
 	/*
 	店铺排序
 	*/
-	private Integer storeSort ;
+	private Integer store_sort ;
 	/*
 	店铺状态，0关闭，1开启，2审核中
 	*/
-	private Integer storeState ;
+	private Integer store_state ;
 	private Integer useietapi ;
 	/*
 	地区内容，冗余数据
 	*/
-	private String areaInfo ;
+	private String area_info ;
 	/*
 	装修数据
 	*/
@@ -161,159 +161,159 @@ public class RaStore   {
 	/*
 	商家地址
 	*/
-	private String liveStoreAddress ;
+	private String live_store_address ;
 	/*
 	公交线路
 	*/
-	private String liveStoreBus ;
+	private String live_store_bus ;
 	/*
 	商铺名称
 	*/
-	private String liveStoreName ;
+	private String live_store_name ;
 	/*
 	商铺电话
 	*/
-	private String liveStoreTel ;
+	private String live_store_tel ;
 	/*
 	会员名称
 	*/
-	private String memberName ;
+	private String member_name ;
 	/*
 	新店铺头像
 	*/
-	private String nAvatar ;
+	private String n_avatar ;
 	/*
 	新店铺条幅
 	*/
-	private String nBanner ;
+	private String n_banner ;
 	/*
 	新店铺logo
 	*/
-	private String nLogo ;
+	private String n_logo ;
 	/*
 	店主卖家用户名
 	*/
-	private String sellerName ;
+	private String seller_name ;
 	/*
 	详细地区
 	*/
-	private String storeAddress ;
+	private String store_address ;
 	/*
 	售后客服
 	*/
-	private String storeAftersales ;
+	private String store_aftersales ;
 	/*
 	店铺头像
 	*/
-	private String storeAvatar ;
+	private String store_avatar ;
 	/*
 	店铺横幅
 	*/
-	private String storeBanner ;
+	private String store_banner ;
 	/*
 	店铺关闭原因
 	*/
-	private String storeCloseInfo ;
+	private String store_close_info ;
 	/*
 	店铺公司名称
 	*/
-	private String storeCompanyName ;
+	private String store_company_name ;
 	/*
 	发货速度分数
 	*/
-	private BigDecimal storeDeliverycredit ;
+	private BigDecimal store_deliverycredit ;
 	/*
 	描述相符度分数
 	*/
-	private BigDecimal storeDesccredit ;
+	private BigDecimal store_desccredit ;
 	/*
 	店铺seo描述
 	*/
-	private String storeDescription ;
+	private String store_description ;
 	/*
 	店铺二级域名
 	*/
-	private String storeDomain ;
+	private String store_domain ;
 	/*
 	店铺关闭时间
 	*/
-	private String storeEndTime ;
+	private String store_end_time ;
 	/*
 	超出该金额免运费，大于0才表示该值有效
 	*/
-	private BigDecimal storeFreePrice ;
+	private BigDecimal store_free_price ;
 	/*
 	店铺seo关键字
 	*/
-	private String storeKeywords ;
+	private String store_keywords ;
 	/*
 	店铺logo
 	*/
-	private String storeLabel ;
+	private String store_label ;
 	/*
 	店铺名称
 	*/
-	private String storeName ;
+	private String store_name ;
 	/*
 	商家电话
 	*/
-	private String storePhone ;
+	private String store_phone ;
 	/*
 	售前客服
 	*/
-	private String storePresales ;
+	private String store_presales ;
 	/*
 	打印订单页面下方说明文字
 	*/
-	private String storePrintdesc ;
+	private String store_printdesc ;
 	/*
 	QQ
 	*/
-	private String storeQq ;
+	private String store_qq ;
 	/*
 	服务态度分数
 	*/
-	private BigDecimal storeServicecredit ;
+	private BigDecimal store_servicecredit ;
 	/*
 	店铺幻灯片
 	*/
-	private String storeSlide ;
+	private String store_slide ;
 	/*
 	店铺幻灯片链接
 	*/
-	private String storeSlideUrl ;
+	private String store_slide_url ;
 	/*
 	店铺印章
 	*/
-	private String storeStamp ;
+	private String store_stamp ;
 	/*
 	店铺当前主题
 	*/
-	private String storeTheme ;
+	private String store_theme ;
 	/*
 	店铺时间
 	*/
-	private String storeTime ;
+	private String store_time ;
 	/*
 	商家兑换码前缀
 	*/
-	private String storeVrcodePrefix ;
+	private String store_vrcode_prefix ;
 	/*
 	工作时间
 	*/
-	private String storeWorkingtime ;
+	private String store_workingtime ;
 	/*
 	阿里旺旺
 	*/
-	private String storeWw ;
+	private String store_ww ;
 	/*
 	邮政编码
 	*/
-	private String storeZip ;
+	private String store_zip ;
 	/*
 	主营商品
 	*/
-	private String storeZy ;
+	private String store_zy ;
 	
 	public RaStore() {
 	}
@@ -322,262 +322,262 @@ public class RaStore   {
 	* 店铺索引id
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺索引id
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 自营店是否绑定全部分类 0否1是
 	*@return 
 	*/
-	public Integer getBindAllGc(){
-		return  bindAllGc;
+	public Integer getBind_all_gc(){
+		return  bind_all_gc;
 	}
 	/**
 	* 自营店是否绑定全部分类 0否1是
-	*@param  bindAllGc
+	*@param  bind_all_gc
 	*/
-	public void setBindAllGc(Integer bindAllGc ){
-		this.bindAllGc = bindAllGc;
+	public void setBind_all_gc(Integer bind_all_gc ){
+		this.bind_all_gc = bind_all_gc;
 	}
 	
 	/**
 	* 店铺等级
 	*@return 
 	*/
-	public Integer getGradeId(){
-		return  gradeId;
+	public Integer getGrade_id(){
+		return  grade_id;
 	}
 	/**
 	* 店铺等级
-	*@param  gradeId
+	*@param  grade_id
 	*/
-	public void setGradeId(Integer gradeId ){
-		this.gradeId = gradeId;
+	public void setGrade_id(Integer grade_id ){
+		this.grade_id = grade_id;
 	}
 	
 	/**
 	* 是否自营店铺 1是 0否
 	*@return 
 	*/
-	public Integer getIsOwnShop(){
-		return  isOwnShop;
+	public Integer getIs_own_shop(){
+		return  is_own_shop;
 	}
 	/**
 	* 是否自营店铺 1是 0否
-	*@param  isOwnShop
+	*@param  is_own_shop
 	*/
-	public void setIsOwnShop(Integer isOwnShop ){
-		this.isOwnShop = isOwnShop;
+	public void setIs_own_shop(Integer is_own_shop ){
+		this.is_own_shop = is_own_shop;
 	}
 	
-	public Integer getIsWhole(){
-		return  isWhole;
+	public Integer getIs_whole(){
+		return  is_whole;
 	}
-	public void setIsWhole(Integer isWhole ){
-		this.isWhole = isWhole;
+	public void setIs_whole(Integer is_whole ){
+		this.is_whole = is_whole;
 	}
 	
 	/**
 	* 会员id
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 会员id
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 店铺所在省份ID
 	*@return 
 	*/
-	public Integer getProvinceId(){
-		return  provinceId;
+	public Integer getProvince_id(){
+		return  province_id;
 	}
 	/**
 	* 店铺所在省份ID
-	*@param  provinceId
+	*@param  province_id
 	*/
-	public void setProvinceId(Integer provinceId ){
-		this.provinceId = provinceId;
+	public void setProvince_id(Integer province_id ){
+		this.province_id = province_id;
 	}
 	
 	/**
 	* 店铺分类
 	*@return 
 	*/
-	public Integer getScId(){
-		return  scId;
+	public Integer getSc_id(){
+		return  sc_id;
 	}
 	/**
 	* 店铺分类
-	*@param  scId
+	*@param  sc_id
 	*/
-	public void setScId(Integer scId ){
-		this.scId = scId;
+	public void setSc_id(Integer sc_id ){
+		this.sc_id = sc_id;
 	}
 	
 	/**
 	* 店铺收藏数量
 	*@return 
 	*/
-	public Integer getStoreCollect(){
-		return  storeCollect;
+	public Integer getStore_collect(){
+		return  store_collect;
 	}
 	/**
 	* 店铺收藏数量
-	*@param  storeCollect
+	*@param  store_collect
 	*/
-	public void setStoreCollect(Integer storeCollect ){
-		this.storeCollect = storeCollect;
+	public void setStore_collect(Integer store_collect ){
+		this.store_collect = store_collect;
 	}
 	
 	/**
 	* 店铺信用
 	*@return 
 	*/
-	public Integer getStoreCredit(){
-		return  storeCredit;
+	public Integer getStore_credit(){
+		return  store_credit;
 	}
 	/**
 	* 店铺信用
-	*@param  storeCredit
+	*@param  store_credit
 	*/
-	public void setStoreCredit(Integer storeCredit ){
-		this.storeCredit = storeCredit;
+	public void setStore_credit(Integer store_credit ){
+		this.store_credit = store_credit;
 	}
 	
 	/**
 	* 店铺装修相册图片数量
 	*@return 
 	*/
-	public Integer getStoreDecorationImageCount(){
-		return  storeDecorationImageCount;
+	public Integer getStore_decoration_image_count(){
+		return  store_decoration_image_count;
 	}
 	/**
 	* 店铺装修相册图片数量
-	*@param  storeDecorationImageCount
+	*@param  store_decoration_image_count
 	*/
-	public void setStoreDecorationImageCount(Integer storeDecorationImageCount ){
-		this.storeDecorationImageCount = storeDecorationImageCount;
+	public void setStore_decoration_image_count(Integer store_decoration_image_count ){
+		this.store_decoration_image_count = store_decoration_image_count;
 	}
 	
 	/**
 	* 开启店铺装修时，仅显示店铺装修(1-是 0-否
 	*@return 
 	*/
-	public Integer getStoreDecorationOnly(){
-		return  storeDecorationOnly;
+	public Integer getStore_decoration_only(){
+		return  store_decoration_only;
 	}
 	/**
 	* 开启店铺装修时，仅显示店铺装修(1-是 0-否
-	*@param  storeDecorationOnly
+	*@param  store_decoration_only
 	*/
-	public void setStoreDecorationOnly(Integer storeDecorationOnly ){
-		this.storeDecorationOnly = storeDecorationOnly;
+	public void setStore_decoration_only(Integer store_decoration_only ){
+		this.store_decoration_only = store_decoration_only;
 	}
 	
 	/**
 	* 店铺装修开关(0-关闭 装修编号-开启)
 	*@return 
 	*/
-	public Integer getStoreDecorationSwitch(){
-		return  storeDecorationSwitch;
+	public Integer getStore_decoration_switch(){
+		return  store_decoration_switch;
 	}
 	/**
 	* 店铺装修开关(0-关闭 装修编号-开启)
-	*@param  storeDecorationSwitch
+	*@param  store_decoration_switch
 	*/
-	public void setStoreDecorationSwitch(Integer storeDecorationSwitch ){
-		this.storeDecorationSwitch = storeDecorationSwitch;
+	public void setStore_decoration_switch(Integer store_decoration_switch ){
+		this.store_decoration_switch = store_decoration_switch;
 	}
 	
 	/**
 	* 二级域名修改次数
 	*@return 
 	*/
-	public Integer getStoreDomainTimes(){
-		return  storeDomainTimes;
+	public Integer getStore_domain_times(){
+		return  store_domain_times;
 	}
 	/**
 	* 二级域名修改次数
-	*@param  storeDomainTimes
+	*@param  store_domain_times
 	*/
-	public void setStoreDomainTimes(Integer storeDomainTimes ){
-		this.storeDomainTimes = storeDomainTimes;
+	public void setStore_domain_times(Integer store_domain_times ){
+		this.store_domain_times = store_domain_times;
 	}
 	
 	/**
 	* 推荐，0为否，1为是，默认为0
 	*@return 
 	*/
-	public Integer getStoreRecommend(){
-		return  storeRecommend;
+	public Integer getStore_recommend(){
+		return  store_recommend;
 	}
 	/**
 	* 推荐，0为否，1为是，默认为0
-	*@param  storeRecommend
+	*@param  store_recommend
 	*/
-	public void setStoreRecommend(Integer storeRecommend ){
-		this.storeRecommend = storeRecommend;
+	public void setStore_recommend(Integer store_recommend ){
+		this.store_recommend = store_recommend;
 	}
 	
 	/**
 	* 店铺销量
 	*@return 
 	*/
-	public Integer getStoreSales(){
-		return  storeSales;
+	public Integer getStore_sales(){
+		return  store_sales;
 	}
 	/**
 	* 店铺销量
-	*@param  storeSales
+	*@param  store_sales
 	*/
-	public void setStoreSales(Integer storeSales ){
-		this.storeSales = storeSales;
+	public void setStore_sales(Integer store_sales ){
+		this.store_sales = store_sales;
 	}
 	
 	/**
 	* 店铺排序
 	*@return 
 	*/
-	public Integer getStoreSort(){
-		return  storeSort;
+	public Integer getStore_sort(){
+		return  store_sort;
 	}
 	/**
 	* 店铺排序
-	*@param  storeSort
+	*@param  store_sort
 	*/
-	public void setStoreSort(Integer storeSort ){
-		this.storeSort = storeSort;
+	public void setStore_sort(Integer store_sort ){
+		this.store_sort = store_sort;
 	}
 	
 	/**
 	* 店铺状态，0关闭，1开启，2审核中
 	*@return 
 	*/
-	public Integer getStoreState(){
-		return  storeState;
+	public Integer getStore_state(){
+		return  store_state;
 	}
 	/**
 	* 店铺状态，0关闭，1开启，2审核中
-	*@param  storeState
+	*@param  store_state
 	*/
-	public void setStoreState(Integer storeState ){
-		this.storeState = storeState;
+	public void setStore_state(Integer store_state ){
+		this.store_state = store_state;
 	}
 	
 	public Integer getUseietapi(){
@@ -591,15 +591,15 @@ public class RaStore   {
 	* 地区内容，冗余数据
 	*@return 
 	*/
-	public String getAreaInfo(){
-		return  areaInfo;
+	public String getArea_info(){
+		return  area_info;
 	}
 	/**
 	* 地区内容，冗余数据
-	*@param  areaInfo
+	*@param  area_info
 	*/
-	public void setAreaInfo(String areaInfo ){
-		this.areaInfo = areaInfo;
+	public void setArea_info(String area_info ){
+		this.area_info = area_info;
 	}
 	
 	/**
@@ -642,585 +642,585 @@ public class RaStore   {
 	* 商家地址
 	*@return 
 	*/
-	public String getLiveStoreAddress(){
-		return  liveStoreAddress;
+	public String getLive_store_address(){
+		return  live_store_address;
 	}
 	/**
 	* 商家地址
-	*@param  liveStoreAddress
+	*@param  live_store_address
 	*/
-	public void setLiveStoreAddress(String liveStoreAddress ){
-		this.liveStoreAddress = liveStoreAddress;
+	public void setLive_store_address(String live_store_address ){
+		this.live_store_address = live_store_address;
 	}
 	
 	/**
 	* 公交线路
 	*@return 
 	*/
-	public String getLiveStoreBus(){
-		return  liveStoreBus;
+	public String getLive_store_bus(){
+		return  live_store_bus;
 	}
 	/**
 	* 公交线路
-	*@param  liveStoreBus
+	*@param  live_store_bus
 	*/
-	public void setLiveStoreBus(String liveStoreBus ){
-		this.liveStoreBus = liveStoreBus;
+	public void setLive_store_bus(String live_store_bus ){
+		this.live_store_bus = live_store_bus;
 	}
 	
 	/**
 	* 商铺名称
 	*@return 
 	*/
-	public String getLiveStoreName(){
-		return  liveStoreName;
+	public String getLive_store_name(){
+		return  live_store_name;
 	}
 	/**
 	* 商铺名称
-	*@param  liveStoreName
+	*@param  live_store_name
 	*/
-	public void setLiveStoreName(String liveStoreName ){
-		this.liveStoreName = liveStoreName;
+	public void setLive_store_name(String live_store_name ){
+		this.live_store_name = live_store_name;
 	}
 	
 	/**
 	* 商铺电话
 	*@return 
 	*/
-	public String getLiveStoreTel(){
-		return  liveStoreTel;
+	public String getLive_store_tel(){
+		return  live_store_tel;
 	}
 	/**
 	* 商铺电话
-	*@param  liveStoreTel
+	*@param  live_store_tel
 	*/
-	public void setLiveStoreTel(String liveStoreTel ){
-		this.liveStoreTel = liveStoreTel;
+	public void setLive_store_tel(String live_store_tel ){
+		this.live_store_tel = live_store_tel;
 	}
 	
 	/**
 	* 会员名称
 	*@return 
 	*/
-	public String getMemberName(){
-		return  memberName;
+	public String getMember_name(){
+		return  member_name;
 	}
 	/**
 	* 会员名称
-	*@param  memberName
+	*@param  member_name
 	*/
-	public void setMemberName(String memberName ){
-		this.memberName = memberName;
+	public void setMember_name(String member_name ){
+		this.member_name = member_name;
 	}
 	
 	/**
 	* 新店铺头像
 	*@return 
 	*/
-	public String getnAvatar(){
-		return  nAvatar;
+	public String getN_avatar(){
+		return  n_avatar;
 	}
 	/**
 	* 新店铺头像
-	*@param  nAvatar
+	*@param  n_avatar
 	*/
-	public void setnAvatar(String nAvatar ){
-		this.nAvatar = nAvatar;
+	public void setN_avatar(String n_avatar ){
+		this.n_avatar = n_avatar;
 	}
 	
 	/**
 	* 新店铺条幅
 	*@return 
 	*/
-	public String getnBanner(){
-		return  nBanner;
+	public String getN_banner(){
+		return  n_banner;
 	}
 	/**
 	* 新店铺条幅
-	*@param  nBanner
+	*@param  n_banner
 	*/
-	public void setnBanner(String nBanner ){
-		this.nBanner = nBanner;
+	public void setN_banner(String n_banner ){
+		this.n_banner = n_banner;
 	}
 	
 	/**
 	* 新店铺logo
 	*@return 
 	*/
-	public String getnLogo(){
-		return  nLogo;
+	public String getN_logo(){
+		return  n_logo;
 	}
 	/**
 	* 新店铺logo
-	*@param  nLogo
+	*@param  n_logo
 	*/
-	public void setnLogo(String nLogo ){
-		this.nLogo = nLogo;
+	public void setN_logo(String n_logo ){
+		this.n_logo = n_logo;
 	}
 	
 	/**
 	* 店主卖家用户名
 	*@return 
 	*/
-	public String getSellerName(){
-		return  sellerName;
+	public String getSeller_name(){
+		return  seller_name;
 	}
 	/**
 	* 店主卖家用户名
-	*@param  sellerName
+	*@param  seller_name
 	*/
-	public void setSellerName(String sellerName ){
-		this.sellerName = sellerName;
+	public void setSeller_name(String seller_name ){
+		this.seller_name = seller_name;
 	}
 	
 	/**
 	* 详细地区
 	*@return 
 	*/
-	public String getStoreAddress(){
-		return  storeAddress;
+	public String getStore_address(){
+		return  store_address;
 	}
 	/**
 	* 详细地区
-	*@param  storeAddress
+	*@param  store_address
 	*/
-	public void setStoreAddress(String storeAddress ){
-		this.storeAddress = storeAddress;
+	public void setStore_address(String store_address ){
+		this.store_address = store_address;
 	}
 	
 	/**
 	* 售后客服
 	*@return 
 	*/
-	public String getStoreAftersales(){
-		return  storeAftersales;
+	public String getStore_aftersales(){
+		return  store_aftersales;
 	}
 	/**
 	* 售后客服
-	*@param  storeAftersales
+	*@param  store_aftersales
 	*/
-	public void setStoreAftersales(String storeAftersales ){
-		this.storeAftersales = storeAftersales;
+	public void setStore_aftersales(String store_aftersales ){
+		this.store_aftersales = store_aftersales;
 	}
 	
 	/**
 	* 店铺头像
 	*@return 
 	*/
-	public String getStoreAvatar(){
-		return  storeAvatar;
+	public String getStore_avatar(){
+		return  store_avatar;
 	}
 	/**
 	* 店铺头像
-	*@param  storeAvatar
+	*@param  store_avatar
 	*/
-	public void setStoreAvatar(String storeAvatar ){
-		this.storeAvatar = storeAvatar;
+	public void setStore_avatar(String store_avatar ){
+		this.store_avatar = store_avatar;
 	}
 	
 	/**
 	* 店铺横幅
 	*@return 
 	*/
-	public String getStoreBanner(){
-		return  storeBanner;
+	public String getStore_banner(){
+		return  store_banner;
 	}
 	/**
 	* 店铺横幅
-	*@param  storeBanner
+	*@param  store_banner
 	*/
-	public void setStoreBanner(String storeBanner ){
-		this.storeBanner = storeBanner;
+	public void setStore_banner(String store_banner ){
+		this.store_banner = store_banner;
 	}
 	
 	/**
 	* 店铺关闭原因
 	*@return 
 	*/
-	public String getStoreCloseInfo(){
-		return  storeCloseInfo;
+	public String getStore_close_info(){
+		return  store_close_info;
 	}
 	/**
 	* 店铺关闭原因
-	*@param  storeCloseInfo
+	*@param  store_close_info
 	*/
-	public void setStoreCloseInfo(String storeCloseInfo ){
-		this.storeCloseInfo = storeCloseInfo;
+	public void setStore_close_info(String store_close_info ){
+		this.store_close_info = store_close_info;
 	}
 	
 	/**
 	* 店铺公司名称
 	*@return 
 	*/
-	public String getStoreCompanyName(){
-		return  storeCompanyName;
+	public String getStore_company_name(){
+		return  store_company_name;
 	}
 	/**
 	* 店铺公司名称
-	*@param  storeCompanyName
+	*@param  store_company_name
 	*/
-	public void setStoreCompanyName(String storeCompanyName ){
-		this.storeCompanyName = storeCompanyName;
+	public void setStore_company_name(String store_company_name ){
+		this.store_company_name = store_company_name;
 	}
 	
 	/**
 	* 发货速度分数
 	*@return 
 	*/
-	public BigDecimal getStoreDeliverycredit(){
-		return  storeDeliverycredit;
+	public BigDecimal getStore_deliverycredit(){
+		return  store_deliverycredit;
 	}
 	/**
 	* 发货速度分数
-	*@param  storeDeliverycredit
+	*@param  store_deliverycredit
 	*/
-	public void setStoreDeliverycredit(BigDecimal storeDeliverycredit ){
-		this.storeDeliverycredit = storeDeliverycredit;
+	public void setStore_deliverycredit(BigDecimal store_deliverycredit ){
+		this.store_deliverycredit = store_deliverycredit;
 	}
 	
 	/**
 	* 描述相符度分数
 	*@return 
 	*/
-	public BigDecimal getStoreDesccredit(){
-		return  storeDesccredit;
+	public BigDecimal getStore_desccredit(){
+		return  store_desccredit;
 	}
 	/**
 	* 描述相符度分数
-	*@param  storeDesccredit
+	*@param  store_desccredit
 	*/
-	public void setStoreDesccredit(BigDecimal storeDesccredit ){
-		this.storeDesccredit = storeDesccredit;
+	public void setStore_desccredit(BigDecimal store_desccredit ){
+		this.store_desccredit = store_desccredit;
 	}
 	
 	/**
 	* 店铺seo描述
 	*@return 
 	*/
-	public String getStoreDescription(){
-		return  storeDescription;
+	public String getStore_description(){
+		return  store_description;
 	}
 	/**
 	* 店铺seo描述
-	*@param  storeDescription
+	*@param  store_description
 	*/
-	public void setStoreDescription(String storeDescription ){
-		this.storeDescription = storeDescription;
+	public void setStore_description(String store_description ){
+		this.store_description = store_description;
 	}
 	
 	/**
 	* 店铺二级域名
 	*@return 
 	*/
-	public String getStoreDomain(){
-		return  storeDomain;
+	public String getStore_domain(){
+		return  store_domain;
 	}
 	/**
 	* 店铺二级域名
-	*@param  storeDomain
+	*@param  store_domain
 	*/
-	public void setStoreDomain(String storeDomain ){
-		this.storeDomain = storeDomain;
+	public void setStore_domain(String store_domain ){
+		this.store_domain = store_domain;
 	}
 	
 	/**
 	* 店铺关闭时间
 	*@return 
 	*/
-	public String getStoreEndTime(){
-		return  storeEndTime;
+	public String getStore_end_time(){
+		return  store_end_time;
 	}
 	/**
 	* 店铺关闭时间
-	*@param  storeEndTime
+	*@param  store_end_time
 	*/
-	public void setStoreEndTime(String storeEndTime ){
-		this.storeEndTime = storeEndTime;
+	public void setStore_end_time(String store_end_time ){
+		this.store_end_time = store_end_time;
 	}
 	
 	/**
 	* 超出该金额免运费，大于0才表示该值有效
 	*@return 
 	*/
-	public BigDecimal getStoreFreePrice(){
-		return  storeFreePrice;
+	public BigDecimal getStore_free_price(){
+		return  store_free_price;
 	}
 	/**
 	* 超出该金额免运费，大于0才表示该值有效
-	*@param  storeFreePrice
+	*@param  store_free_price
 	*/
-	public void setStoreFreePrice(BigDecimal storeFreePrice ){
-		this.storeFreePrice = storeFreePrice;
+	public void setStore_free_price(BigDecimal store_free_price ){
+		this.store_free_price = store_free_price;
 	}
 	
 	/**
 	* 店铺seo关键字
 	*@return 
 	*/
-	public String getStoreKeywords(){
-		return  storeKeywords;
+	public String getStore_keywords(){
+		return  store_keywords;
 	}
 	/**
 	* 店铺seo关键字
-	*@param  storeKeywords
+	*@param  store_keywords
 	*/
-	public void setStoreKeywords(String storeKeywords ){
-		this.storeKeywords = storeKeywords;
+	public void setStore_keywords(String store_keywords ){
+		this.store_keywords = store_keywords;
 	}
 	
 	/**
 	* 店铺logo
 	*@return 
 	*/
-	public String getStoreLabel(){
-		return  storeLabel;
+	public String getStore_label(){
+		return  store_label;
 	}
 	/**
 	* 店铺logo
-	*@param  storeLabel
+	*@param  store_label
 	*/
-	public void setStoreLabel(String storeLabel ){
-		this.storeLabel = storeLabel;
+	public void setStore_label(String store_label ){
+		this.store_label = store_label;
 	}
 	
 	/**
 	* 店铺名称
 	*@return 
 	*/
-	public String getStoreName(){
-		return  storeName;
+	public String getStore_name(){
+		return  store_name;
 	}
 	/**
 	* 店铺名称
-	*@param  storeName
+	*@param  store_name
 	*/
-	public void setStoreName(String storeName ){
-		this.storeName = storeName;
+	public void setStore_name(String store_name ){
+		this.store_name = store_name;
 	}
 	
 	/**
 	* 商家电话
 	*@return 
 	*/
-	public String getStorePhone(){
-		return  storePhone;
+	public String getStore_phone(){
+		return  store_phone;
 	}
 	/**
 	* 商家电话
-	*@param  storePhone
+	*@param  store_phone
 	*/
-	public void setStorePhone(String storePhone ){
-		this.storePhone = storePhone;
+	public void setStore_phone(String store_phone ){
+		this.store_phone = store_phone;
 	}
 	
 	/**
 	* 售前客服
 	*@return 
 	*/
-	public String getStorePresales(){
-		return  storePresales;
+	public String getStore_presales(){
+		return  store_presales;
 	}
 	/**
 	* 售前客服
-	*@param  storePresales
+	*@param  store_presales
 	*/
-	public void setStorePresales(String storePresales ){
-		this.storePresales = storePresales;
+	public void setStore_presales(String store_presales ){
+		this.store_presales = store_presales;
 	}
 	
 	/**
 	* 打印订单页面下方说明文字
 	*@return 
 	*/
-	public String getStorePrintdesc(){
-		return  storePrintdesc;
+	public String getStore_printdesc(){
+		return  store_printdesc;
 	}
 	/**
 	* 打印订单页面下方说明文字
-	*@param  storePrintdesc
+	*@param  store_printdesc
 	*/
-	public void setStorePrintdesc(String storePrintdesc ){
-		this.storePrintdesc = storePrintdesc;
+	public void setStore_printdesc(String store_printdesc ){
+		this.store_printdesc = store_printdesc;
 	}
 	
 	/**
 	* QQ
 	*@return 
 	*/
-	public String getStoreQq(){
-		return  storeQq;
+	public String getStore_qq(){
+		return  store_qq;
 	}
 	/**
 	* QQ
-	*@param  storeQq
+	*@param  store_qq
 	*/
-	public void setStoreQq(String storeQq ){
-		this.storeQq = storeQq;
+	public void setStore_qq(String store_qq ){
+		this.store_qq = store_qq;
 	}
 	
 	/**
 	* 服务态度分数
 	*@return 
 	*/
-	public BigDecimal getStoreServicecredit(){
-		return  storeServicecredit;
+	public BigDecimal getStore_servicecredit(){
+		return  store_servicecredit;
 	}
 	/**
 	* 服务态度分数
-	*@param  storeServicecredit
+	*@param  store_servicecredit
 	*/
-	public void setStoreServicecredit(BigDecimal storeServicecredit ){
-		this.storeServicecredit = storeServicecredit;
+	public void setStore_servicecredit(BigDecimal store_servicecredit ){
+		this.store_servicecredit = store_servicecredit;
 	}
 	
 	/**
 	* 店铺幻灯片
 	*@return 
 	*/
-	public String getStoreSlide(){
-		return  storeSlide;
+	public String getStore_slide(){
+		return  store_slide;
 	}
 	/**
 	* 店铺幻灯片
-	*@param  storeSlide
+	*@param  store_slide
 	*/
-	public void setStoreSlide(String storeSlide ){
-		this.storeSlide = storeSlide;
+	public void setStore_slide(String store_slide ){
+		this.store_slide = store_slide;
 	}
 	
 	/**
 	* 店铺幻灯片链接
 	*@return 
 	*/
-	public String getStoreSlideUrl(){
-		return  storeSlideUrl;
+	public String getStore_slide_url(){
+		return  store_slide_url;
 	}
 	/**
 	* 店铺幻灯片链接
-	*@param  storeSlideUrl
+	*@param  store_slide_url
 	*/
-	public void setStoreSlideUrl(String storeSlideUrl ){
-		this.storeSlideUrl = storeSlideUrl;
+	public void setStore_slide_url(String store_slide_url ){
+		this.store_slide_url = store_slide_url;
 	}
 	
 	/**
 	* 店铺印章
 	*@return 
 	*/
-	public String getStoreStamp(){
-		return  storeStamp;
+	public String getStore_stamp(){
+		return  store_stamp;
 	}
 	/**
 	* 店铺印章
-	*@param  storeStamp
+	*@param  store_stamp
 	*/
-	public void setStoreStamp(String storeStamp ){
-		this.storeStamp = storeStamp;
+	public void setStore_stamp(String store_stamp ){
+		this.store_stamp = store_stamp;
 	}
 	
 	/**
 	* 店铺当前主题
 	*@return 
 	*/
-	public String getStoreTheme(){
-		return  storeTheme;
+	public String getStore_theme(){
+		return  store_theme;
 	}
 	/**
 	* 店铺当前主题
-	*@param  storeTheme
+	*@param  store_theme
 	*/
-	public void setStoreTheme(String storeTheme ){
-		this.storeTheme = storeTheme;
+	public void setStore_theme(String store_theme ){
+		this.store_theme = store_theme;
 	}
 	
 	/**
 	* 店铺时间
 	*@return 
 	*/
-	public String getStoreTime(){
-		return  storeTime;
+	public String getStore_time(){
+		return  store_time;
 	}
 	/**
 	* 店铺时间
-	*@param  storeTime
+	*@param  store_time
 	*/
-	public void setStoreTime(String storeTime ){
-		this.storeTime = storeTime;
+	public void setStore_time(String store_time ){
+		this.store_time = store_time;
 	}
 	
 	/**
 	* 商家兑换码前缀
 	*@return 
 	*/
-	public String getStoreVrcodePrefix(){
-		return  storeVrcodePrefix;
+	public String getStore_vrcode_prefix(){
+		return  store_vrcode_prefix;
 	}
 	/**
 	* 商家兑换码前缀
-	*@param  storeVrcodePrefix
+	*@param  store_vrcode_prefix
 	*/
-	public void setStoreVrcodePrefix(String storeVrcodePrefix ){
-		this.storeVrcodePrefix = storeVrcodePrefix;
+	public void setStore_vrcode_prefix(String store_vrcode_prefix ){
+		this.store_vrcode_prefix = store_vrcode_prefix;
 	}
 	
 	/**
 	* 工作时间
 	*@return 
 	*/
-	public String getStoreWorkingtime(){
-		return  storeWorkingtime;
+	public String getStore_workingtime(){
+		return  store_workingtime;
 	}
 	/**
 	* 工作时间
-	*@param  storeWorkingtime
+	*@param  store_workingtime
 	*/
-	public void setStoreWorkingtime(String storeWorkingtime ){
-		this.storeWorkingtime = storeWorkingtime;
+	public void setStore_workingtime(String store_workingtime ){
+		this.store_workingtime = store_workingtime;
 	}
 	
 	/**
 	* 阿里旺旺
 	*@return 
 	*/
-	public String getStoreWw(){
-		return  storeWw;
+	public String getStore_ww(){
+		return  store_ww;
 	}
 	/**
 	* 阿里旺旺
-	*@param  storeWw
+	*@param  store_ww
 	*/
-	public void setStoreWw(String storeWw ){
-		this.storeWw = storeWw;
+	public void setStore_ww(String store_ww ){
+		this.store_ww = store_ww;
 	}
 	
 	/**
 	* 邮政编码
 	*@return 
 	*/
-	public String getStoreZip(){
-		return  storeZip;
+	public String getStore_zip(){
+		return  store_zip;
 	}
 	/**
 	* 邮政编码
-	*@param  storeZip
+	*@param  store_zip
 	*/
-	public void setStoreZip(String storeZip ){
-		this.storeZip = storeZip;
+	public void setStore_zip(String store_zip ){
+		this.store_zip = store_zip;
 	}
 	
 	/**
 	* 主营商品
 	*@return 
 	*/
-	public String getStoreZy(){
-		return  storeZy;
+	public String getStore_zy(){
+		return  store_zy;
 	}
 	/**
 	* 主营商品
-	*@param  storeZy
+	*@param  store_zy
 	*/
-	public void setStoreZy(String storeZy ){
-		this.storeZy = storeZy;
+	public void setStore_zy(String store_zy ){
+		this.store_zy = store_zy;
 	}
 	
 

@@ -7,35 +7,43 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_sns_membertag")
 public class RaSnsMembertag   {
 	
+	// alias
+	public static final String ALIAS_mtag_id = "mtag_id";
+	public static final String ALIAS_mtag_recommend = "mtag_recommend";
+	public static final String ALIAS_mtag_sort = "mtag_sort";
+	public static final String ALIAS_mtag_desc = "mtag_desc";
+	public static final String ALIAS_mtag_img = "mtag_img";
+	public static final String ALIAS_mtag_name = "mtag_name";
+	
 	/*
 	会员标签id
 	*/
-	private Integer mtagId ;
+	private Integer mtag_id ;
 	/*
 	标签推荐 0未推荐（默认），1为已推荐
 	*/
-	private Integer mtagRecommend ;
+	private Integer mtag_recommend ;
 	/*
 	会员标签排序
 	*/
-	private Integer mtagSort ;
+	private Integer mtag_sort ;
 	/*
 	标签描述
 	*/
-	private String mtagDesc ;
+	private String mtag_desc ;
 	/*
 	标签图片
 	*/
-	private String mtagImg ;
+	private String mtag_img ;
 	/*
 	会员标签名称
 	*/
-	private String mtagName ;
+	private String mtag_name ;
 	
 	public RaSnsMembertag() {
 	}
@@ -44,90 +52,90 @@ public class RaSnsMembertag   {
 	* 会员标签id
 	*@return 
 	*/
-	public Integer getMtagId(){
-		return  mtagId;
+	public Integer getMtag_id(){
+		return  mtag_id;
 	}
 	/**
 	* 会员标签id
-	*@param  mtagId
+	*@param  mtag_id
 	*/
-	public void setMtagId(Integer mtagId ){
-		this.mtagId = mtagId;
+	public void setMtag_id(Integer mtag_id ){
+		this.mtag_id = mtag_id;
 	}
 	
 	/**
 	* 标签推荐 0未推荐（默认），1为已推荐
 	*@return 
 	*/
-	public Integer getMtagRecommend(){
-		return  mtagRecommend;
+	public Integer getMtag_recommend(){
+		return  mtag_recommend;
 	}
 	/**
 	* 标签推荐 0未推荐（默认），1为已推荐
-	*@param  mtagRecommend
+	*@param  mtag_recommend
 	*/
-	public void setMtagRecommend(Integer mtagRecommend ){
-		this.mtagRecommend = mtagRecommend;
+	public void setMtag_recommend(Integer mtag_recommend ){
+		this.mtag_recommend = mtag_recommend;
 	}
 	
 	/**
 	* 会员标签排序
 	*@return 
 	*/
-	public Integer getMtagSort(){
-		return  mtagSort;
+	public Integer getMtag_sort(){
+		return  mtag_sort;
 	}
 	/**
 	* 会员标签排序
-	*@param  mtagSort
+	*@param  mtag_sort
 	*/
-	public void setMtagSort(Integer mtagSort ){
-		this.mtagSort = mtagSort;
+	public void setMtag_sort(Integer mtag_sort ){
+		this.mtag_sort = mtag_sort;
 	}
 	
 	/**
 	* 标签描述
 	*@return 
 	*/
-	public String getMtagDesc(){
-		return  mtagDesc;
+	public String getMtag_desc(){
+		return  mtag_desc;
 	}
 	/**
 	* 标签描述
-	*@param  mtagDesc
+	*@param  mtag_desc
 	*/
-	public void setMtagDesc(String mtagDesc ){
-		this.mtagDesc = mtagDesc;
+	public void setMtag_desc(String mtag_desc ){
+		this.mtag_desc = mtag_desc;
 	}
 	
 	/**
 	* 标签图片
 	*@return 
 	*/
-	public String getMtagImg(){
-		return  mtagImg;
+	public String getMtag_img(){
+		return  mtag_img;
 	}
 	/**
 	* 标签图片
-	*@param  mtagImg
+	*@param  mtag_img
 	*/
-	public void setMtagImg(String mtagImg ){
-		this.mtagImg = mtagImg;
+	public void setMtag_img(String mtag_img ){
+		this.mtag_img = mtag_img;
 	}
 	
 	/**
 	* 会员标签名称
 	*@return 
 	*/
-	public String getMtagName(){
-		return  mtagName;
+	public String getMtag_name(){
+		return  mtag_name;
 	}
 	/**
 	* 会员标签名称
-	*@param  mtagName
+	*@param  mtag_name
 	*/
-	public void setMtagName(String mtagName ){
-		this.mtagName = mtagName;
+	public void setMtag_name(String mtag_name ){
+		this.mtag_name = mtag_name;
 	}
 	
 

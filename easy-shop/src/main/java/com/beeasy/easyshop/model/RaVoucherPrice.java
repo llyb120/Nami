@@ -7,7 +7,7 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-05-15
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_voucher_price")
 public class RaVoucherPrice   {
@@ -21,19 +21,19 @@ public class RaVoucherPrice   {
 	/*
 	代金券面值编号
 	*/
-	private Integer voucherPriceId ;
+	private Integer voucher_price_id ;
 	/*
 	代金劵默认的兑换所需积分可以为0
 	*/
-	private Integer voucherDefaultpoints ;
+	private Integer voucher_defaultpoints ;
 	/*
 	代金券面值
 	*/
-	private Integer voucherPrice ;
+	private Integer voucher_price ;
 	/*
 	代金券描述
 	*/
-	private String voucherPriceDescribe ;
+	private String voucher_price_describe ;
 	
 	public RaVoucherPrice() {
 	}
@@ -42,60 +42,60 @@ public class RaVoucherPrice   {
 	* 代金券面值编号
 	*@return 
 	*/
-	public Integer getVoucherPriceId(){
-		return  voucherPriceId;
+	public Integer getVoucher_price_id(){
+		return  voucher_price_id;
 	}
 	/**
 	* 代金券面值编号
-	*@param  voucherPriceId
+	*@param  voucher_price_id
 	*/
-	public void setVoucherPriceId(Integer voucherPriceId ){
-		this.voucherPriceId = voucherPriceId;
+	public void setVoucher_price_id(Integer voucher_price_id ){
+		this.voucher_price_id = voucher_price_id;
 	}
 	
 	/**
 	* 代金劵默认的兑换所需积分可以为0
 	*@return 
 	*/
-	public Integer getVoucherDefaultpoints(){
-		return  voucherDefaultpoints;
+	public Integer getVoucher_defaultpoints(){
+		return  voucher_defaultpoints;
 	}
 	/**
 	* 代金劵默认的兑换所需积分可以为0
-	*@param  voucherDefaultpoints
+	*@param  voucher_defaultpoints
 	*/
-	public void setVoucherDefaultpoints(Integer voucherDefaultpoints ){
-		this.voucherDefaultpoints = voucherDefaultpoints;
+	public void setVoucher_defaultpoints(Integer voucher_defaultpoints ){
+		this.voucher_defaultpoints = voucher_defaultpoints;
 	}
 	
 	/**
 	* 代金券面值
 	*@return 
 	*/
-	public Integer getVoucherPrice(){
-		return  voucherPrice;
+	public Integer getVoucher_price(){
+		return  voucher_price;
 	}
 	/**
 	* 代金券面值
-	*@param  voucherPrice
+	*@param  voucher_price
 	*/
-	public void setVoucherPrice(Integer voucherPrice ){
-		this.voucherPrice = voucherPrice;
+	public void setVoucher_price(Integer voucher_price ){
+		this.voucher_price = voucher_price;
 	}
 	
 	/**
 	* 代金券描述
 	*@return 
 	*/
-	public String getVoucherPriceDescribe(){
-		return  voucherPriceDescribe;
+	public String getVoucher_price_describe(){
+		return  voucher_price_describe;
 	}
 	/**
 	* 代金券描述
-	*@param  voucherPriceDescribe
+	*@param  voucher_price_describe
 	*/
-	public void setVoucherPriceDescribe(String voucherPriceDescribe ){
-		this.voucherPriceDescribe = voucherPriceDescribe;
+	public void setVoucher_price_describe(String voucher_price_describe ){
+		this.voucher_price_describe = voucher_price_describe;
 	}
 	
 

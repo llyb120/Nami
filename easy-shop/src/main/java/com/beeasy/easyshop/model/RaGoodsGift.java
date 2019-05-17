@@ -7,39 +7,48 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_goods_gift")
 public class RaGoodsGift   {
 	
+	// alias
+	public static final String ALIAS_gift_id = "gift_id";
+	public static final String ALIAS_gift_amount = "gift_amount";
+	public static final String ALIAS_gift_goodsid = "gift_goodsid";
+	public static final String ALIAS_goods_commonid = "goods_commonid";
+	public static final String ALIAS_goods_id = "goods_id";
+	public static final String ALIAS_gift_goodsimage = "gift_goodsimage";
+	public static final String ALIAS_gift_goodsname = "gift_goodsname";
+	
 	/*
 	赠品id 
 	*/
-	private Integer giftId ;
+	private Integer gift_id ;
 	/*
 	赠品数量
 	*/
-	private Integer giftAmount ;
+	private Integer gift_amount ;
 	/*
 	赠品商品id 
 	*/
-	private Integer giftGoodsid ;
+	private Integer gift_goodsid ;
 	/*
 	主商品公共id
 	*/
-	private Integer goodsCommonid ;
+	private Integer goods_commonid ;
 	/*
 	主商品id
 	*/
-	private Integer goodsId ;
+	private Integer goods_id ;
 	/*
 	主商品图片
 	*/
-	private String giftGoodsimage ;
+	private String gift_goodsimage ;
 	/*
 	主商品名称
 	*/
-	private String giftGoodsname ;
+	private String gift_goodsname ;
 	
 	public RaGoodsGift() {
 	}
@@ -48,105 +57,105 @@ public class RaGoodsGift   {
 	* 赠品id 
 	*@return 
 	*/
-	public Integer getGiftId(){
-		return  giftId;
+	public Integer getGift_id(){
+		return  gift_id;
 	}
 	/**
 	* 赠品id 
-	*@param  giftId
+	*@param  gift_id
 	*/
-	public void setGiftId(Integer giftId ){
-		this.giftId = giftId;
+	public void setGift_id(Integer gift_id ){
+		this.gift_id = gift_id;
 	}
 	
 	/**
 	* 赠品数量
 	*@return 
 	*/
-	public Integer getGiftAmount(){
-		return  giftAmount;
+	public Integer getGift_amount(){
+		return  gift_amount;
 	}
 	/**
 	* 赠品数量
-	*@param  giftAmount
+	*@param  gift_amount
 	*/
-	public void setGiftAmount(Integer giftAmount ){
-		this.giftAmount = giftAmount;
+	public void setGift_amount(Integer gift_amount ){
+		this.gift_amount = gift_amount;
 	}
 	
 	/**
 	* 赠品商品id 
 	*@return 
 	*/
-	public Integer getGiftGoodsid(){
-		return  giftGoodsid;
+	public Integer getGift_goodsid(){
+		return  gift_goodsid;
 	}
 	/**
 	* 赠品商品id 
-	*@param  giftGoodsid
+	*@param  gift_goodsid
 	*/
-	public void setGiftGoodsid(Integer giftGoodsid ){
-		this.giftGoodsid = giftGoodsid;
+	public void setGift_goodsid(Integer gift_goodsid ){
+		this.gift_goodsid = gift_goodsid;
 	}
 	
 	/**
 	* 主商品公共id
 	*@return 
 	*/
-	public Integer getGoodsCommonid(){
-		return  goodsCommonid;
+	public Integer getGoods_commonid(){
+		return  goods_commonid;
 	}
 	/**
 	* 主商品公共id
-	*@param  goodsCommonid
+	*@param  goods_commonid
 	*/
-	public void setGoodsCommonid(Integer goodsCommonid ){
-		this.goodsCommonid = goodsCommonid;
+	public void setGoods_commonid(Integer goods_commonid ){
+		this.goods_commonid = goods_commonid;
 	}
 	
 	/**
 	* 主商品id
 	*@return 
 	*/
-	public Integer getGoodsId(){
-		return  goodsId;
+	public Integer getGoods_id(){
+		return  goods_id;
 	}
 	/**
 	* 主商品id
-	*@param  goodsId
+	*@param  goods_id
 	*/
-	public void setGoodsId(Integer goodsId ){
-		this.goodsId = goodsId;
+	public void setGoods_id(Integer goods_id ){
+		this.goods_id = goods_id;
 	}
 	
 	/**
 	* 主商品图片
 	*@return 
 	*/
-	public String getGiftGoodsimage(){
-		return  giftGoodsimage;
+	public String getGift_goodsimage(){
+		return  gift_goodsimage;
 	}
 	/**
 	* 主商品图片
-	*@param  giftGoodsimage
+	*@param  gift_goodsimage
 	*/
-	public void setGiftGoodsimage(String giftGoodsimage ){
-		this.giftGoodsimage = giftGoodsimage;
+	public void setGift_goodsimage(String gift_goodsimage ){
+		this.gift_goodsimage = gift_goodsimage;
 	}
 	
 	/**
 	* 主商品名称
 	*@return 
 	*/
-	public String getGiftGoodsname(){
-		return  giftGoodsname;
+	public String getGift_goodsname(){
+		return  gift_goodsname;
 	}
 	/**
 	* 主商品名称
-	*@param  giftGoodsname
+	*@param  gift_goodsname
 	*/
-	public void setGiftGoodsname(String giftGoodsname ){
-		this.giftGoodsname = giftGoodsname;
+	public void setGift_goodsname(String gift_goodsname ){
+		this.gift_goodsname = gift_goodsname;
 	}
 	
 

@@ -7,136 +7,209 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_joinin")
 public class RaStoreJoinin   {
 	
+	// alias
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_company_employee_count = "company_employee_count";
+	public static final String ALIAS_company_province_id = "company_province_id";
+	public static final String ALIAS_company_registered_capital = "company_registered_capital";
+	public static final String ALIAS_is_settlement_account = "is_settlement_account";
+	public static final String ALIAS_is_whole = "is_whole";
+	public static final String ALIAS_joinin_year = "joinin_year";
+	public static final String ALIAS_jp_alt_merchant_type = "jp_alt_merchant_type";
+	public static final String ALIAS_jp_bank_account_type = "jp_bank_account_type";
+	public static final String ALIAS_jp_risk_day = "jp_risk_day";
+	public static final String ALIAS_jp_sett_date_type = "jp_sett_date_type";
+	public static final String ALIAS_jp_sett_mode = "jp_sett_mode";
+	public static final String ALIAS_sc_bail = "sc_bail";
+	public static final String ALIAS_sc_id = "sc_id";
+	public static final String ALIAS_sg_id = "sg_id";
+	public static final String ALIAS_bank_account_name = "bank_account_name";
+	public static final String ALIAS_bank_account_number = "bank_account_number";
+	public static final String ALIAS_bank_address = "bank_address";
+	public static final String ALIAS_bank_code = "bank_code";
+	public static final String ALIAS_bank_licence_electronic = "bank_licence_electronic";
+	public static final String ALIAS_bank_name = "bank_name";
+	public static final String ALIAS_business_licence_address = "business_licence_address";
+	public static final String ALIAS_business_licence_number = "business_licence_number";
+	public static final String ALIAS_business_licence_number_electronic = "business_licence_number_electronic";
+	public static final String ALIAS_business_sphere = "business_sphere";
+	public static final String ALIAS_company_address = "company_address";
+	public static final String ALIAS_company_address_detail = "company_address_detail";
+	public static final String ALIAS_company_name = "company_name";
+	public static final String ALIAS_company_phone = "company_phone";
+	public static final String ALIAS_contacts_email = "contacts_email";
+	public static final String ALIAS_contacts_name = "contacts_name";
+	public static final String ALIAS_contacts_phone = "contacts_phone";
+	public static final String ALIAS_ebcCode = "ebcCode";
+	public static final String ALIAS_ebcName = "ebcName";
+	public static final String ALIAS_general_taxpayer = "general_taxpayer";
+	public static final String ALIAS_joinin_message = "joinin_message";
+	public static final String ALIAS_joinin_state = "joinin_state";
+	public static final String ALIAS_jp_alt_mch_name = "jp_alt_mch_name";
+	public static final String ALIAS_jp_alt_mch_no = "jp_alt_mch_no";
+	public static final String ALIAS_jp_bank_account_name = "jp_bank_account_name";
+	public static final String ALIAS_jp_bank_account_no = "jp_bank_account_no";
+	public static final String ALIAS_jp_busi_contact_mobile_no = "jp_busi_contact_mobile_no";
+	public static final String ALIAS_jp_busi_contact_name = "jp_busi_contact_name";
+	public static final String ALIAS_jp_id_card_no = "jp_id_card_no";
+	public static final String ALIAS_jp_legal_person = "jp_legal_person";
+	public static final String ALIAS_jp_login_name = "jp_login_name";
+	public static final String ALIAS_jp_phone_no = "jp_phone_no";
+	public static final String ALIAS_member_name = "member_name";
+	public static final String ALIAS_organization_code = "organization_code";
+	public static final String ALIAS_organization_code_electronic = "organization_code_electronic";
+	public static final String ALIAS_paying_amount = "paying_amount";
+	public static final String ALIAS_paying_money_certificate = "paying_money_certificate";
+	public static final String ALIAS_paying_money_certificate_explain = "paying_money_certificate_explain";
+	public static final String ALIAS_sc_name = "sc_name";
+	public static final String ALIAS_seller_name = "seller_name";
+	public static final String ALIAS_settlement_bank_account_name = "settlement_bank_account_name";
+	public static final String ALIAS_settlement_bank_account_number = "settlement_bank_account_number";
+	public static final String ALIAS_settlement_bank_address = "settlement_bank_address";
+	public static final String ALIAS_settlement_bank_code = "settlement_bank_code";
+	public static final String ALIAS_settlement_bank_name = "settlement_bank_name";
+	public static final String ALIAS_sg_info = "sg_info";
+	public static final String ALIAS_sg_name = "sg_name";
+	public static final String ALIAS_store_class_commis_rates = "store_class_commis_rates";
+	public static final String ALIAS_store_class_ids = "store_class_ids";
+	public static final String ALIAS_store_class_names = "store_class_names";
+	public static final String ALIAS_store_name = "store_name";
+	public static final String ALIAS_tax_registration_certificate = "tax_registration_certificate";
+	public static final String ALIAS_tax_registration_certificate_electronic = "tax_registration_certificate_electronic";
+	public static final String ALIAS_taxpayer_id = "taxpayer_id";
+	public static final String ALIAS_business_licence_end = "business_licence_end";
+	public static final String ALIAS_business_licence_start = "business_licence_start";
+	
 	/*
 	用户编号
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	员工总数
 	*/
-	private Integer companyEmployeeCount ;
+	private Integer company_employee_count ;
 	/*
 	所在地省ID
 	*/
-	private Integer companyProvinceId ;
+	private Integer company_province_id ;
 	/*
 	注册资金
 	*/
-	private Integer companyRegisteredCapital ;
+	private Integer company_registered_capital ;
 	/*
 	开户行账号是否为结算账号 1-开户行就是结算账号 2-独立的计算账号
 	*/
-	private Integer isSettlementAccount ;
-	private Integer isWhole ;
+	private Integer is_settlement_account ;
+	private Integer is_whole ;
 	/*
 	开店时长(年)
 	*/
-	private Integer joininYear ;
+	private Integer joinin_year ;
 	/*
 	分账方商户类型10:个人，11：个体工商户，12：企业
 	*/
-	private Integer jpAltMerchantType ;
+	private Integer jp_alt_merchant_type ;
 	/*
 	账户类型值为：1 借记卡，4 对公账户
 	*/
-	private Integer jpBankAccountType ;
+	private Integer jp_bank_account_type ;
 	/*
 	结算周期
 	*/
-	private Integer jpRiskDay ;
+	private Integer jp_risk_day ;
 	/*
 	结算周期类型，值为：1 工作日，2 自然日，3 月结日
 	*/
-	private Integer jpSettDateType ;
+	private Integer jp_sett_date_type ;
 	/*
 	值为： 1 由汇聚自动结算;2 由商户平台手工结算（结算接口）
 	*/
-	private Integer jpSettMode ;
+	private Integer jp_sett_mode ;
 	/*
 	店铺分类保证金
 	*/
-	private Integer scBail ;
+	private Integer sc_bail ;
 	/*
 	店铺分类编号
 	*/
-	private Integer scId ;
+	private Integer sc_id ;
 	/*
 	店铺等级编号
 	*/
-	private Integer sgId ;
+	private Integer sg_id ;
 	/*
 	银行开户名
 	*/
-	private String bankAccountName ;
+	private String bank_account_name ;
 	/*
 	公司银行账号
 	*/
-	private String bankAccountNumber ;
+	private String bank_account_number ;
 	/*
 	开户银行所在地
 	*/
-	private String bankAddress ;
+	private String bank_address ;
 	/*
 	支行联行号
 	*/
-	private String bankCode ;
+	private String bank_code ;
 	/*
 	开户银行许可证电子版
 	*/
-	private String bankLicenceElectronic ;
+	private String bank_licence_electronic ;
 	/*
 	开户银行支行名称
 	*/
-	private String bankName ;
+	private String bank_name ;
 	/*
 	营业执所在地
 	*/
-	private String businessLicenceAddress ;
+	private String business_licence_address ;
 	/*
 	营业执照号
 	*/
-	private String businessLicenceNumber ;
+	private String business_licence_number ;
 	/*
 	营业执照电子版
 	*/
-	private String businessLicenceNumberElectronic ;
+	private String business_licence_number_electronic ;
 	/*
 	法定经营范围
 	*/
-	private String businessSphere ;
+	private String business_sphere ;
 	/*
 	公司地址
 	*/
-	private String companyAddress ;
+	private String company_address ;
 	/*
 	公司详细地址
 	*/
-	private String companyAddressDetail ;
+	private String company_address_detail ;
 	/*
 	公司名称
 	*/
-	private String companyName ;
+	private String company_name ;
 	/*
 	公司电话
 	*/
-	private String companyPhone ;
+	private String company_phone ;
 	/*
 	联系人邮箱
 	*/
-	private String contactsEmail ;
+	private String contacts_email ;
 	/*
 	联系人姓名
 	*/
-	private String contactsName ;
+	private String contacts_name ;
 	/*
 	联系人电话
 	*/
-	private String contactsPhone ;
+	private String contacts_phone ;
 	/*
 	海关备案号
 	*/
@@ -148,151 +221,151 @@ public class RaStoreJoinin   {
 	/*
 	一般纳税人证明
 	*/
-	private String generalTaxpayer ;
+	private String general_taxpayer ;
 	/*
 	管理员审核信息
 	*/
-	private String joininMessage ;
+	private String joinin_message ;
 	/*
 	申请状态 10-已提交申请 11-缴费完成  20-审核成功 30-审核失败 31-缴费审核失败 40-审核通过开店
 	*/
-	private String joininState ;
+	private String joinin_state ;
 	/*
 	分账方名称
 	*/
-	private String jpAltMchName ;
+	private String jp_alt_mch_name ;
 	/*
 	分账账号商家号
 	*/
-	private String jpAltMchNo ;
+	private String jp_alt_mch_no ;
 	/*
 	银行账户名称 分账方结算银行账户名称
 	*/
-	private String jpBankAccountName ;
+	private String jp_bank_account_name ;
 	/*
 	银行账号 分账方结算银行账号
 	*/
-	private String jpBankAccountNo ;
+	private String jp_bank_account_no ;
 	/*
 	业务联系人手机
 	*/
-	private String jpBusiContactMobileNo ;
+	private String jp_busi_contact_mobile_no ;
 	/*
 	业务联系人姓名
 	*/
-	private String jpBusiContactName ;
+	private String jp_busi_contact_name ;
 	/*
 	身份证号
 	*/
-	private String jpIdCardNo ;
+	private String jp_id_card_no ;
 	/*
 	法人姓名
 	*/
-	private String jpLegalPerson ;
+	private String jp_legal_person ;
 	/*
 	分账方登录名，即邮箱
 	*/
-	private String jpLoginName ;
+	private String jp_login_name ;
 	/*
 	法人的手机号
 	*/
-	private String jpPhoneNo ;
+	private String jp_phone_no ;
 	/*
 	店主用户名
 	*/
-	private String memberName ;
+	private String member_name ;
 	/*
 	组织机构代码
 	*/
-	private String organizationCode ;
+	private String organization_code ;
 	/*
 	组织机构代码电子版
 	*/
-	private String organizationCodeElectronic ;
+	private String organization_code_electronic ;
 	/*
 	付款金额
 	*/
-	private BigDecimal payingAmount ;
+	private BigDecimal paying_amount ;
 	/*
 	付款凭证
 	*/
-	private String payingMoneyCertificate ;
+	private String paying_money_certificate ;
 	/*
 	付款凭证说明
 	*/
-	private String payingMoneyCertificateExplain ;
+	private String paying_money_certificate_explain ;
 	/*
 	店铺分类名称
 	*/
-	private String scName ;
+	private String sc_name ;
 	/*
 	卖家帐号
 	*/
-	private String sellerName ;
+	private String seller_name ;
 	/*
 	结算银行开户名
 	*/
-	private String settlementBankAccountName ;
+	private String settlement_bank_account_name ;
 	/*
 	结算公司银行账号
 	*/
-	private String settlementBankAccountNumber ;
+	private String settlement_bank_account_number ;
 	/*
 	结算开户银行所在地
 	*/
-	private String settlementBankAddress ;
+	private String settlement_bank_address ;
 	/*
 	结算支行联行号
 	*/
-	private String settlementBankCode ;
+	private String settlement_bank_code ;
 	/*
 	结算开户银行支行名称
 	*/
-	private String settlementBankName ;
+	private String settlement_bank_name ;
 	/*
 	店铺等级下的收费等信息
 	*/
-	private String sgInfo ;
+	private String sg_info ;
 	/*
 	店铺等级名称
 	*/
-	private String sgName ;
+	private String sg_name ;
 	/*
 	分类佣金比例
 	*/
-	private String storeClassCommisRates ;
+	private String store_class_commis_rates ;
 	/*
 	店铺分类编号集合
 	*/
-	private String storeClassIds ;
+	private String store_class_ids ;
 	/*
 	店铺分类名称集合
 	*/
-	private String storeClassNames ;
+	private String store_class_names ;
 	/*
 	店铺名称
 	*/
-	private String storeName ;
+	private String store_name ;
 	/*
 	税务登记证号
 	*/
-	private String taxRegistrationCertificate ;
+	private String tax_registration_certificate ;
 	/*
 	税务登记证号电子版
 	*/
-	private String taxRegistrationCertificateElectronic ;
+	private String tax_registration_certificate_electronic ;
 	/*
 	纳税人识别号
 	*/
-	private String taxpayerId ;
+	private String taxpayer_id ;
 	/*
 	营业执照有效期结束
 	*/
-	private Date businessLicenceEnd ;
+	private Date business_licence_end ;
 	/*
 	营业执照有效期开始
 	*/
-	private Date businessLicenceStart ;
+	private Date business_licence_start ;
 	
 	public RaStoreJoinin() {
 	}
@@ -301,472 +374,472 @@ public class RaStoreJoinin   {
 	* 用户编号
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 用户编号
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 员工总数
 	*@return 
 	*/
-	public Integer getCompanyEmployeeCount(){
-		return  companyEmployeeCount;
+	public Integer getCompany_employee_count(){
+		return  company_employee_count;
 	}
 	/**
 	* 员工总数
-	*@param  companyEmployeeCount
+	*@param  company_employee_count
 	*/
-	public void setCompanyEmployeeCount(Integer companyEmployeeCount ){
-		this.companyEmployeeCount = companyEmployeeCount;
+	public void setCompany_employee_count(Integer company_employee_count ){
+		this.company_employee_count = company_employee_count;
 	}
 	
 	/**
 	* 所在地省ID
 	*@return 
 	*/
-	public Integer getCompanyProvinceId(){
-		return  companyProvinceId;
+	public Integer getCompany_province_id(){
+		return  company_province_id;
 	}
 	/**
 	* 所在地省ID
-	*@param  companyProvinceId
+	*@param  company_province_id
 	*/
-	public void setCompanyProvinceId(Integer companyProvinceId ){
-		this.companyProvinceId = companyProvinceId;
+	public void setCompany_province_id(Integer company_province_id ){
+		this.company_province_id = company_province_id;
 	}
 	
 	/**
 	* 注册资金
 	*@return 
 	*/
-	public Integer getCompanyRegisteredCapital(){
-		return  companyRegisteredCapital;
+	public Integer getCompany_registered_capital(){
+		return  company_registered_capital;
 	}
 	/**
 	* 注册资金
-	*@param  companyRegisteredCapital
+	*@param  company_registered_capital
 	*/
-	public void setCompanyRegisteredCapital(Integer companyRegisteredCapital ){
-		this.companyRegisteredCapital = companyRegisteredCapital;
+	public void setCompany_registered_capital(Integer company_registered_capital ){
+		this.company_registered_capital = company_registered_capital;
 	}
 	
 	/**
 	* 开户行账号是否为结算账号 1-开户行就是结算账号 2-独立的计算账号
 	*@return 
 	*/
-	public Integer getIsSettlementAccount(){
-		return  isSettlementAccount;
+	public Integer getIs_settlement_account(){
+		return  is_settlement_account;
 	}
 	/**
 	* 开户行账号是否为结算账号 1-开户行就是结算账号 2-独立的计算账号
-	*@param  isSettlementAccount
+	*@param  is_settlement_account
 	*/
-	public void setIsSettlementAccount(Integer isSettlementAccount ){
-		this.isSettlementAccount = isSettlementAccount;
+	public void setIs_settlement_account(Integer is_settlement_account ){
+		this.is_settlement_account = is_settlement_account;
 	}
 	
-	public Integer getIsWhole(){
-		return  isWhole;
+	public Integer getIs_whole(){
+		return  is_whole;
 	}
-	public void setIsWhole(Integer isWhole ){
-		this.isWhole = isWhole;
+	public void setIs_whole(Integer is_whole ){
+		this.is_whole = is_whole;
 	}
 	
 	/**
 	* 开店时长(年)
 	*@return 
 	*/
-	public Integer getJoininYear(){
-		return  joininYear;
+	public Integer getJoinin_year(){
+		return  joinin_year;
 	}
 	/**
 	* 开店时长(年)
-	*@param  joininYear
+	*@param  joinin_year
 	*/
-	public void setJoininYear(Integer joininYear ){
-		this.joininYear = joininYear;
+	public void setJoinin_year(Integer joinin_year ){
+		this.joinin_year = joinin_year;
 	}
 	
 	/**
 	* 分账方商户类型10:个人，11：个体工商户，12：企业
 	*@return 
 	*/
-	public Integer getJpAltMerchantType(){
-		return  jpAltMerchantType;
+	public Integer getJp_alt_merchant_type(){
+		return  jp_alt_merchant_type;
 	}
 	/**
 	* 分账方商户类型10:个人，11：个体工商户，12：企业
-	*@param  jpAltMerchantType
+	*@param  jp_alt_merchant_type
 	*/
-	public void setJpAltMerchantType(Integer jpAltMerchantType ){
-		this.jpAltMerchantType = jpAltMerchantType;
+	public void setJp_alt_merchant_type(Integer jp_alt_merchant_type ){
+		this.jp_alt_merchant_type = jp_alt_merchant_type;
 	}
 	
 	/**
 	* 账户类型值为：1 借记卡，4 对公账户
 	*@return 
 	*/
-	public Integer getJpBankAccountType(){
-		return  jpBankAccountType;
+	public Integer getJp_bank_account_type(){
+		return  jp_bank_account_type;
 	}
 	/**
 	* 账户类型值为：1 借记卡，4 对公账户
-	*@param  jpBankAccountType
+	*@param  jp_bank_account_type
 	*/
-	public void setJpBankAccountType(Integer jpBankAccountType ){
-		this.jpBankAccountType = jpBankAccountType;
+	public void setJp_bank_account_type(Integer jp_bank_account_type ){
+		this.jp_bank_account_type = jp_bank_account_type;
 	}
 	
 	/**
 	* 结算周期
 	*@return 
 	*/
-	public Integer getJpRiskDay(){
-		return  jpRiskDay;
+	public Integer getJp_risk_day(){
+		return  jp_risk_day;
 	}
 	/**
 	* 结算周期
-	*@param  jpRiskDay
+	*@param  jp_risk_day
 	*/
-	public void setJpRiskDay(Integer jpRiskDay ){
-		this.jpRiskDay = jpRiskDay;
+	public void setJp_risk_day(Integer jp_risk_day ){
+		this.jp_risk_day = jp_risk_day;
 	}
 	
 	/**
 	* 结算周期类型，值为：1 工作日，2 自然日，3 月结日
 	*@return 
 	*/
-	public Integer getJpSettDateType(){
-		return  jpSettDateType;
+	public Integer getJp_sett_date_type(){
+		return  jp_sett_date_type;
 	}
 	/**
 	* 结算周期类型，值为：1 工作日，2 自然日，3 月结日
-	*@param  jpSettDateType
+	*@param  jp_sett_date_type
 	*/
-	public void setJpSettDateType(Integer jpSettDateType ){
-		this.jpSettDateType = jpSettDateType;
+	public void setJp_sett_date_type(Integer jp_sett_date_type ){
+		this.jp_sett_date_type = jp_sett_date_type;
 	}
 	
 	/**
 	* 值为： 1 由汇聚自动结算;2 由商户平台手工结算（结算接口）
 	*@return 
 	*/
-	public Integer getJpSettMode(){
-		return  jpSettMode;
+	public Integer getJp_sett_mode(){
+		return  jp_sett_mode;
 	}
 	/**
 	* 值为： 1 由汇聚自动结算;2 由商户平台手工结算（结算接口）
-	*@param  jpSettMode
+	*@param  jp_sett_mode
 	*/
-	public void setJpSettMode(Integer jpSettMode ){
-		this.jpSettMode = jpSettMode;
+	public void setJp_sett_mode(Integer jp_sett_mode ){
+		this.jp_sett_mode = jp_sett_mode;
 	}
 	
 	/**
 	* 店铺分类保证金
 	*@return 
 	*/
-	public Integer getScBail(){
-		return  scBail;
+	public Integer getSc_bail(){
+		return  sc_bail;
 	}
 	/**
 	* 店铺分类保证金
-	*@param  scBail
+	*@param  sc_bail
 	*/
-	public void setScBail(Integer scBail ){
-		this.scBail = scBail;
+	public void setSc_bail(Integer sc_bail ){
+		this.sc_bail = sc_bail;
 	}
 	
 	/**
 	* 店铺分类编号
 	*@return 
 	*/
-	public Integer getScId(){
-		return  scId;
+	public Integer getSc_id(){
+		return  sc_id;
 	}
 	/**
 	* 店铺分类编号
-	*@param  scId
+	*@param  sc_id
 	*/
-	public void setScId(Integer scId ){
-		this.scId = scId;
+	public void setSc_id(Integer sc_id ){
+		this.sc_id = sc_id;
 	}
 	
 	/**
 	* 店铺等级编号
 	*@return 
 	*/
-	public Integer getSgId(){
-		return  sgId;
+	public Integer getSg_id(){
+		return  sg_id;
 	}
 	/**
 	* 店铺等级编号
-	*@param  sgId
+	*@param  sg_id
 	*/
-	public void setSgId(Integer sgId ){
-		this.sgId = sgId;
+	public void setSg_id(Integer sg_id ){
+		this.sg_id = sg_id;
 	}
 	
 	/**
 	* 银行开户名
 	*@return 
 	*/
-	public String getBankAccountName(){
-		return  bankAccountName;
+	public String getBank_account_name(){
+		return  bank_account_name;
 	}
 	/**
 	* 银行开户名
-	*@param  bankAccountName
+	*@param  bank_account_name
 	*/
-	public void setBankAccountName(String bankAccountName ){
-		this.bankAccountName = bankAccountName;
+	public void setBank_account_name(String bank_account_name ){
+		this.bank_account_name = bank_account_name;
 	}
 	
 	/**
 	* 公司银行账号
 	*@return 
 	*/
-	public String getBankAccountNumber(){
-		return  bankAccountNumber;
+	public String getBank_account_number(){
+		return  bank_account_number;
 	}
 	/**
 	* 公司银行账号
-	*@param  bankAccountNumber
+	*@param  bank_account_number
 	*/
-	public void setBankAccountNumber(String bankAccountNumber ){
-		this.bankAccountNumber = bankAccountNumber;
+	public void setBank_account_number(String bank_account_number ){
+		this.bank_account_number = bank_account_number;
 	}
 	
 	/**
 	* 开户银行所在地
 	*@return 
 	*/
-	public String getBankAddress(){
-		return  bankAddress;
+	public String getBank_address(){
+		return  bank_address;
 	}
 	/**
 	* 开户银行所在地
-	*@param  bankAddress
+	*@param  bank_address
 	*/
-	public void setBankAddress(String bankAddress ){
-		this.bankAddress = bankAddress;
+	public void setBank_address(String bank_address ){
+		this.bank_address = bank_address;
 	}
 	
 	/**
 	* 支行联行号
 	*@return 
 	*/
-	public String getBankCode(){
-		return  bankCode;
+	public String getBank_code(){
+		return  bank_code;
 	}
 	/**
 	* 支行联行号
-	*@param  bankCode
+	*@param  bank_code
 	*/
-	public void setBankCode(String bankCode ){
-		this.bankCode = bankCode;
+	public void setBank_code(String bank_code ){
+		this.bank_code = bank_code;
 	}
 	
 	/**
 	* 开户银行许可证电子版
 	*@return 
 	*/
-	public String getBankLicenceElectronic(){
-		return  bankLicenceElectronic;
+	public String getBank_licence_electronic(){
+		return  bank_licence_electronic;
 	}
 	/**
 	* 开户银行许可证电子版
-	*@param  bankLicenceElectronic
+	*@param  bank_licence_electronic
 	*/
-	public void setBankLicenceElectronic(String bankLicenceElectronic ){
-		this.bankLicenceElectronic = bankLicenceElectronic;
+	public void setBank_licence_electronic(String bank_licence_electronic ){
+		this.bank_licence_electronic = bank_licence_electronic;
 	}
 	
 	/**
 	* 开户银行支行名称
 	*@return 
 	*/
-	public String getBankName(){
-		return  bankName;
+	public String getBank_name(){
+		return  bank_name;
 	}
 	/**
 	* 开户银行支行名称
-	*@param  bankName
+	*@param  bank_name
 	*/
-	public void setBankName(String bankName ){
-		this.bankName = bankName;
+	public void setBank_name(String bank_name ){
+		this.bank_name = bank_name;
 	}
 	
 	/**
 	* 营业执所在地
 	*@return 
 	*/
-	public String getBusinessLicenceAddress(){
-		return  businessLicenceAddress;
+	public String getBusiness_licence_address(){
+		return  business_licence_address;
 	}
 	/**
 	* 营业执所在地
-	*@param  businessLicenceAddress
+	*@param  business_licence_address
 	*/
-	public void setBusinessLicenceAddress(String businessLicenceAddress ){
-		this.businessLicenceAddress = businessLicenceAddress;
+	public void setBusiness_licence_address(String business_licence_address ){
+		this.business_licence_address = business_licence_address;
 	}
 	
 	/**
 	* 营业执照号
 	*@return 
 	*/
-	public String getBusinessLicenceNumber(){
-		return  businessLicenceNumber;
+	public String getBusiness_licence_number(){
+		return  business_licence_number;
 	}
 	/**
 	* 营业执照号
-	*@param  businessLicenceNumber
+	*@param  business_licence_number
 	*/
-	public void setBusinessLicenceNumber(String businessLicenceNumber ){
-		this.businessLicenceNumber = businessLicenceNumber;
+	public void setBusiness_licence_number(String business_licence_number ){
+		this.business_licence_number = business_licence_number;
 	}
 	
 	/**
 	* 营业执照电子版
 	*@return 
 	*/
-	public String getBusinessLicenceNumberElectronic(){
-		return  businessLicenceNumberElectronic;
+	public String getBusiness_licence_number_electronic(){
+		return  business_licence_number_electronic;
 	}
 	/**
 	* 营业执照电子版
-	*@param  businessLicenceNumberElectronic
+	*@param  business_licence_number_electronic
 	*/
-	public void setBusinessLicenceNumberElectronic(String businessLicenceNumberElectronic ){
-		this.businessLicenceNumberElectronic = businessLicenceNumberElectronic;
+	public void setBusiness_licence_number_electronic(String business_licence_number_electronic ){
+		this.business_licence_number_electronic = business_licence_number_electronic;
 	}
 	
 	/**
 	* 法定经营范围
 	*@return 
 	*/
-	public String getBusinessSphere(){
-		return  businessSphere;
+	public String getBusiness_sphere(){
+		return  business_sphere;
 	}
 	/**
 	* 法定经营范围
-	*@param  businessSphere
+	*@param  business_sphere
 	*/
-	public void setBusinessSphere(String businessSphere ){
-		this.businessSphere = businessSphere;
+	public void setBusiness_sphere(String business_sphere ){
+		this.business_sphere = business_sphere;
 	}
 	
 	/**
 	* 公司地址
 	*@return 
 	*/
-	public String getCompanyAddress(){
-		return  companyAddress;
+	public String getCompany_address(){
+		return  company_address;
 	}
 	/**
 	* 公司地址
-	*@param  companyAddress
+	*@param  company_address
 	*/
-	public void setCompanyAddress(String companyAddress ){
-		this.companyAddress = companyAddress;
+	public void setCompany_address(String company_address ){
+		this.company_address = company_address;
 	}
 	
 	/**
 	* 公司详细地址
 	*@return 
 	*/
-	public String getCompanyAddressDetail(){
-		return  companyAddressDetail;
+	public String getCompany_address_detail(){
+		return  company_address_detail;
 	}
 	/**
 	* 公司详细地址
-	*@param  companyAddressDetail
+	*@param  company_address_detail
 	*/
-	public void setCompanyAddressDetail(String companyAddressDetail ){
-		this.companyAddressDetail = companyAddressDetail;
+	public void setCompany_address_detail(String company_address_detail ){
+		this.company_address_detail = company_address_detail;
 	}
 	
 	/**
 	* 公司名称
 	*@return 
 	*/
-	public String getCompanyName(){
-		return  companyName;
+	public String getCompany_name(){
+		return  company_name;
 	}
 	/**
 	* 公司名称
-	*@param  companyName
+	*@param  company_name
 	*/
-	public void setCompanyName(String companyName ){
-		this.companyName = companyName;
+	public void setCompany_name(String company_name ){
+		this.company_name = company_name;
 	}
 	
 	/**
 	* 公司电话
 	*@return 
 	*/
-	public String getCompanyPhone(){
-		return  companyPhone;
+	public String getCompany_phone(){
+		return  company_phone;
 	}
 	/**
 	* 公司电话
-	*@param  companyPhone
+	*@param  company_phone
 	*/
-	public void setCompanyPhone(String companyPhone ){
-		this.companyPhone = companyPhone;
+	public void setCompany_phone(String company_phone ){
+		this.company_phone = company_phone;
 	}
 	
 	/**
 	* 联系人邮箱
 	*@return 
 	*/
-	public String getContactsEmail(){
-		return  contactsEmail;
+	public String getContacts_email(){
+		return  contacts_email;
 	}
 	/**
 	* 联系人邮箱
-	*@param  contactsEmail
+	*@param  contacts_email
 	*/
-	public void setContactsEmail(String contactsEmail ){
-		this.contactsEmail = contactsEmail;
+	public void setContacts_email(String contacts_email ){
+		this.contacts_email = contacts_email;
 	}
 	
 	/**
 	* 联系人姓名
 	*@return 
 	*/
-	public String getContactsName(){
-		return  contactsName;
+	public String getContacts_name(){
+		return  contacts_name;
 	}
 	/**
 	* 联系人姓名
-	*@param  contactsName
+	*@param  contacts_name
 	*/
-	public void setContactsName(String contactsName ){
-		this.contactsName = contactsName;
+	public void setContacts_name(String contacts_name ){
+		this.contacts_name = contacts_name;
 	}
 	
 	/**
 	* 联系人电话
 	*@return 
 	*/
-	public String getContactsPhone(){
-		return  contactsPhone;
+	public String getContacts_phone(){
+		return  contacts_phone;
 	}
 	/**
 	* 联系人电话
-	*@param  contactsPhone
+	*@param  contacts_phone
 	*/
-	public void setContactsPhone(String contactsPhone ){
-		this.contactsPhone = contactsPhone;
+	public void setContacts_phone(String contacts_phone ){
+		this.contacts_phone = contacts_phone;
 	}
 	
 	/**
@@ -803,555 +876,555 @@ public class RaStoreJoinin   {
 	* 一般纳税人证明
 	*@return 
 	*/
-	public String getGeneralTaxpayer(){
-		return  generalTaxpayer;
+	public String getGeneral_taxpayer(){
+		return  general_taxpayer;
 	}
 	/**
 	* 一般纳税人证明
-	*@param  generalTaxpayer
+	*@param  general_taxpayer
 	*/
-	public void setGeneralTaxpayer(String generalTaxpayer ){
-		this.generalTaxpayer = generalTaxpayer;
+	public void setGeneral_taxpayer(String general_taxpayer ){
+		this.general_taxpayer = general_taxpayer;
 	}
 	
 	/**
 	* 管理员审核信息
 	*@return 
 	*/
-	public String getJoininMessage(){
-		return  joininMessage;
+	public String getJoinin_message(){
+		return  joinin_message;
 	}
 	/**
 	* 管理员审核信息
-	*@param  joininMessage
+	*@param  joinin_message
 	*/
-	public void setJoininMessage(String joininMessage ){
-		this.joininMessage = joininMessage;
+	public void setJoinin_message(String joinin_message ){
+		this.joinin_message = joinin_message;
 	}
 	
 	/**
 	* 申请状态 10-已提交申请 11-缴费完成  20-审核成功 30-审核失败 31-缴费审核失败 40-审核通过开店
 	*@return 
 	*/
-	public String getJoininState(){
-		return  joininState;
+	public String getJoinin_state(){
+		return  joinin_state;
 	}
 	/**
 	* 申请状态 10-已提交申请 11-缴费完成  20-审核成功 30-审核失败 31-缴费审核失败 40-审核通过开店
-	*@param  joininState
+	*@param  joinin_state
 	*/
-	public void setJoininState(String joininState ){
-		this.joininState = joininState;
+	public void setJoinin_state(String joinin_state ){
+		this.joinin_state = joinin_state;
 	}
 	
 	/**
 	* 分账方名称
 	*@return 
 	*/
-	public String getJpAltMchName(){
-		return  jpAltMchName;
+	public String getJp_alt_mch_name(){
+		return  jp_alt_mch_name;
 	}
 	/**
 	* 分账方名称
-	*@param  jpAltMchName
+	*@param  jp_alt_mch_name
 	*/
-	public void setJpAltMchName(String jpAltMchName ){
-		this.jpAltMchName = jpAltMchName;
+	public void setJp_alt_mch_name(String jp_alt_mch_name ){
+		this.jp_alt_mch_name = jp_alt_mch_name;
 	}
 	
 	/**
 	* 分账账号商家号
 	*@return 
 	*/
-	public String getJpAltMchNo(){
-		return  jpAltMchNo;
+	public String getJp_alt_mch_no(){
+		return  jp_alt_mch_no;
 	}
 	/**
 	* 分账账号商家号
-	*@param  jpAltMchNo
+	*@param  jp_alt_mch_no
 	*/
-	public void setJpAltMchNo(String jpAltMchNo ){
-		this.jpAltMchNo = jpAltMchNo;
+	public void setJp_alt_mch_no(String jp_alt_mch_no ){
+		this.jp_alt_mch_no = jp_alt_mch_no;
 	}
 	
 	/**
 	* 银行账户名称 分账方结算银行账户名称
 	*@return 
 	*/
-	public String getJpBankAccountName(){
-		return  jpBankAccountName;
+	public String getJp_bank_account_name(){
+		return  jp_bank_account_name;
 	}
 	/**
 	* 银行账户名称 分账方结算银行账户名称
-	*@param  jpBankAccountName
+	*@param  jp_bank_account_name
 	*/
-	public void setJpBankAccountName(String jpBankAccountName ){
-		this.jpBankAccountName = jpBankAccountName;
+	public void setJp_bank_account_name(String jp_bank_account_name ){
+		this.jp_bank_account_name = jp_bank_account_name;
 	}
 	
 	/**
 	* 银行账号 分账方结算银行账号
 	*@return 
 	*/
-	public String getJpBankAccountNo(){
-		return  jpBankAccountNo;
+	public String getJp_bank_account_no(){
+		return  jp_bank_account_no;
 	}
 	/**
 	* 银行账号 分账方结算银行账号
-	*@param  jpBankAccountNo
+	*@param  jp_bank_account_no
 	*/
-	public void setJpBankAccountNo(String jpBankAccountNo ){
-		this.jpBankAccountNo = jpBankAccountNo;
+	public void setJp_bank_account_no(String jp_bank_account_no ){
+		this.jp_bank_account_no = jp_bank_account_no;
 	}
 	
 	/**
 	* 业务联系人手机
 	*@return 
 	*/
-	public String getJpBusiContactMobileNo(){
-		return  jpBusiContactMobileNo;
+	public String getJp_busi_contact_mobile_no(){
+		return  jp_busi_contact_mobile_no;
 	}
 	/**
 	* 业务联系人手机
-	*@param  jpBusiContactMobileNo
+	*@param  jp_busi_contact_mobile_no
 	*/
-	public void setJpBusiContactMobileNo(String jpBusiContactMobileNo ){
-		this.jpBusiContactMobileNo = jpBusiContactMobileNo;
+	public void setJp_busi_contact_mobile_no(String jp_busi_contact_mobile_no ){
+		this.jp_busi_contact_mobile_no = jp_busi_contact_mobile_no;
 	}
 	
 	/**
 	* 业务联系人姓名
 	*@return 
 	*/
-	public String getJpBusiContactName(){
-		return  jpBusiContactName;
+	public String getJp_busi_contact_name(){
+		return  jp_busi_contact_name;
 	}
 	/**
 	* 业务联系人姓名
-	*@param  jpBusiContactName
+	*@param  jp_busi_contact_name
 	*/
-	public void setJpBusiContactName(String jpBusiContactName ){
-		this.jpBusiContactName = jpBusiContactName;
+	public void setJp_busi_contact_name(String jp_busi_contact_name ){
+		this.jp_busi_contact_name = jp_busi_contact_name;
 	}
 	
 	/**
 	* 身份证号
 	*@return 
 	*/
-	public String getJpIdCardNo(){
-		return  jpIdCardNo;
+	public String getJp_id_card_no(){
+		return  jp_id_card_no;
 	}
 	/**
 	* 身份证号
-	*@param  jpIdCardNo
+	*@param  jp_id_card_no
 	*/
-	public void setJpIdCardNo(String jpIdCardNo ){
-		this.jpIdCardNo = jpIdCardNo;
+	public void setJp_id_card_no(String jp_id_card_no ){
+		this.jp_id_card_no = jp_id_card_no;
 	}
 	
 	/**
 	* 法人姓名
 	*@return 
 	*/
-	public String getJpLegalPerson(){
-		return  jpLegalPerson;
+	public String getJp_legal_person(){
+		return  jp_legal_person;
 	}
 	/**
 	* 法人姓名
-	*@param  jpLegalPerson
+	*@param  jp_legal_person
 	*/
-	public void setJpLegalPerson(String jpLegalPerson ){
-		this.jpLegalPerson = jpLegalPerson;
+	public void setJp_legal_person(String jp_legal_person ){
+		this.jp_legal_person = jp_legal_person;
 	}
 	
 	/**
 	* 分账方登录名，即邮箱
 	*@return 
 	*/
-	public String getJpLoginName(){
-		return  jpLoginName;
+	public String getJp_login_name(){
+		return  jp_login_name;
 	}
 	/**
 	* 分账方登录名，即邮箱
-	*@param  jpLoginName
+	*@param  jp_login_name
 	*/
-	public void setJpLoginName(String jpLoginName ){
-		this.jpLoginName = jpLoginName;
+	public void setJp_login_name(String jp_login_name ){
+		this.jp_login_name = jp_login_name;
 	}
 	
 	/**
 	* 法人的手机号
 	*@return 
 	*/
-	public String getJpPhoneNo(){
-		return  jpPhoneNo;
+	public String getJp_phone_no(){
+		return  jp_phone_no;
 	}
 	/**
 	* 法人的手机号
-	*@param  jpPhoneNo
+	*@param  jp_phone_no
 	*/
-	public void setJpPhoneNo(String jpPhoneNo ){
-		this.jpPhoneNo = jpPhoneNo;
+	public void setJp_phone_no(String jp_phone_no ){
+		this.jp_phone_no = jp_phone_no;
 	}
 	
 	/**
 	* 店主用户名
 	*@return 
 	*/
-	public String getMemberName(){
-		return  memberName;
+	public String getMember_name(){
+		return  member_name;
 	}
 	/**
 	* 店主用户名
-	*@param  memberName
+	*@param  member_name
 	*/
-	public void setMemberName(String memberName ){
-		this.memberName = memberName;
+	public void setMember_name(String member_name ){
+		this.member_name = member_name;
 	}
 	
 	/**
 	* 组织机构代码
 	*@return 
 	*/
-	public String getOrganizationCode(){
-		return  organizationCode;
+	public String getOrganization_code(){
+		return  organization_code;
 	}
 	/**
 	* 组织机构代码
-	*@param  organizationCode
+	*@param  organization_code
 	*/
-	public void setOrganizationCode(String organizationCode ){
-		this.organizationCode = organizationCode;
+	public void setOrganization_code(String organization_code ){
+		this.organization_code = organization_code;
 	}
 	
 	/**
 	* 组织机构代码电子版
 	*@return 
 	*/
-	public String getOrganizationCodeElectronic(){
-		return  organizationCodeElectronic;
+	public String getOrganization_code_electronic(){
+		return  organization_code_electronic;
 	}
 	/**
 	* 组织机构代码电子版
-	*@param  organizationCodeElectronic
+	*@param  organization_code_electronic
 	*/
-	public void setOrganizationCodeElectronic(String organizationCodeElectronic ){
-		this.organizationCodeElectronic = organizationCodeElectronic;
+	public void setOrganization_code_electronic(String organization_code_electronic ){
+		this.organization_code_electronic = organization_code_electronic;
 	}
 	
 	/**
 	* 付款金额
 	*@return 
 	*/
-	public BigDecimal getPayingAmount(){
-		return  payingAmount;
+	public BigDecimal getPaying_amount(){
+		return  paying_amount;
 	}
 	/**
 	* 付款金额
-	*@param  payingAmount
+	*@param  paying_amount
 	*/
-	public void setPayingAmount(BigDecimal payingAmount ){
-		this.payingAmount = payingAmount;
+	public void setPaying_amount(BigDecimal paying_amount ){
+		this.paying_amount = paying_amount;
 	}
 	
 	/**
 	* 付款凭证
 	*@return 
 	*/
-	public String getPayingMoneyCertificate(){
-		return  payingMoneyCertificate;
+	public String getPaying_money_certificate(){
+		return  paying_money_certificate;
 	}
 	/**
 	* 付款凭证
-	*@param  payingMoneyCertificate
+	*@param  paying_money_certificate
 	*/
-	public void setPayingMoneyCertificate(String payingMoneyCertificate ){
-		this.payingMoneyCertificate = payingMoneyCertificate;
+	public void setPaying_money_certificate(String paying_money_certificate ){
+		this.paying_money_certificate = paying_money_certificate;
 	}
 	
 	/**
 	* 付款凭证说明
 	*@return 
 	*/
-	public String getPayingMoneyCertificateExplain(){
-		return  payingMoneyCertificateExplain;
+	public String getPaying_money_certificate_explain(){
+		return  paying_money_certificate_explain;
 	}
 	/**
 	* 付款凭证说明
-	*@param  payingMoneyCertificateExplain
+	*@param  paying_money_certificate_explain
 	*/
-	public void setPayingMoneyCertificateExplain(String payingMoneyCertificateExplain ){
-		this.payingMoneyCertificateExplain = payingMoneyCertificateExplain;
+	public void setPaying_money_certificate_explain(String paying_money_certificate_explain ){
+		this.paying_money_certificate_explain = paying_money_certificate_explain;
 	}
 	
 	/**
 	* 店铺分类名称
 	*@return 
 	*/
-	public String getScName(){
-		return  scName;
+	public String getSc_name(){
+		return  sc_name;
 	}
 	/**
 	* 店铺分类名称
-	*@param  scName
+	*@param  sc_name
 	*/
-	public void setScName(String scName ){
-		this.scName = scName;
+	public void setSc_name(String sc_name ){
+		this.sc_name = sc_name;
 	}
 	
 	/**
 	* 卖家帐号
 	*@return 
 	*/
-	public String getSellerName(){
-		return  sellerName;
+	public String getSeller_name(){
+		return  seller_name;
 	}
 	/**
 	* 卖家帐号
-	*@param  sellerName
+	*@param  seller_name
 	*/
-	public void setSellerName(String sellerName ){
-		this.sellerName = sellerName;
+	public void setSeller_name(String seller_name ){
+		this.seller_name = seller_name;
 	}
 	
 	/**
 	* 结算银行开户名
 	*@return 
 	*/
-	public String getSettlementBankAccountName(){
-		return  settlementBankAccountName;
+	public String getSettlement_bank_account_name(){
+		return  settlement_bank_account_name;
 	}
 	/**
 	* 结算银行开户名
-	*@param  settlementBankAccountName
+	*@param  settlement_bank_account_name
 	*/
-	public void setSettlementBankAccountName(String settlementBankAccountName ){
-		this.settlementBankAccountName = settlementBankAccountName;
+	public void setSettlement_bank_account_name(String settlement_bank_account_name ){
+		this.settlement_bank_account_name = settlement_bank_account_name;
 	}
 	
 	/**
 	* 结算公司银行账号
 	*@return 
 	*/
-	public String getSettlementBankAccountNumber(){
-		return  settlementBankAccountNumber;
+	public String getSettlement_bank_account_number(){
+		return  settlement_bank_account_number;
 	}
 	/**
 	* 结算公司银行账号
-	*@param  settlementBankAccountNumber
+	*@param  settlement_bank_account_number
 	*/
-	public void setSettlementBankAccountNumber(String settlementBankAccountNumber ){
-		this.settlementBankAccountNumber = settlementBankAccountNumber;
+	public void setSettlement_bank_account_number(String settlement_bank_account_number ){
+		this.settlement_bank_account_number = settlement_bank_account_number;
 	}
 	
 	/**
 	* 结算开户银行所在地
 	*@return 
 	*/
-	public String getSettlementBankAddress(){
-		return  settlementBankAddress;
+	public String getSettlement_bank_address(){
+		return  settlement_bank_address;
 	}
 	/**
 	* 结算开户银行所在地
-	*@param  settlementBankAddress
+	*@param  settlement_bank_address
 	*/
-	public void setSettlementBankAddress(String settlementBankAddress ){
-		this.settlementBankAddress = settlementBankAddress;
+	public void setSettlement_bank_address(String settlement_bank_address ){
+		this.settlement_bank_address = settlement_bank_address;
 	}
 	
 	/**
 	* 结算支行联行号
 	*@return 
 	*/
-	public String getSettlementBankCode(){
-		return  settlementBankCode;
+	public String getSettlement_bank_code(){
+		return  settlement_bank_code;
 	}
 	/**
 	* 结算支行联行号
-	*@param  settlementBankCode
+	*@param  settlement_bank_code
 	*/
-	public void setSettlementBankCode(String settlementBankCode ){
-		this.settlementBankCode = settlementBankCode;
+	public void setSettlement_bank_code(String settlement_bank_code ){
+		this.settlement_bank_code = settlement_bank_code;
 	}
 	
 	/**
 	* 结算开户银行支行名称
 	*@return 
 	*/
-	public String getSettlementBankName(){
-		return  settlementBankName;
+	public String getSettlement_bank_name(){
+		return  settlement_bank_name;
 	}
 	/**
 	* 结算开户银行支行名称
-	*@param  settlementBankName
+	*@param  settlement_bank_name
 	*/
-	public void setSettlementBankName(String settlementBankName ){
-		this.settlementBankName = settlementBankName;
+	public void setSettlement_bank_name(String settlement_bank_name ){
+		this.settlement_bank_name = settlement_bank_name;
 	}
 	
 	/**
 	* 店铺等级下的收费等信息
 	*@return 
 	*/
-	public String getSgInfo(){
-		return  sgInfo;
+	public String getSg_info(){
+		return  sg_info;
 	}
 	/**
 	* 店铺等级下的收费等信息
-	*@param  sgInfo
+	*@param  sg_info
 	*/
-	public void setSgInfo(String sgInfo ){
-		this.sgInfo = sgInfo;
+	public void setSg_info(String sg_info ){
+		this.sg_info = sg_info;
 	}
 	
 	/**
 	* 店铺等级名称
 	*@return 
 	*/
-	public String getSgName(){
-		return  sgName;
+	public String getSg_name(){
+		return  sg_name;
 	}
 	/**
 	* 店铺等级名称
-	*@param  sgName
+	*@param  sg_name
 	*/
-	public void setSgName(String sgName ){
-		this.sgName = sgName;
+	public void setSg_name(String sg_name ){
+		this.sg_name = sg_name;
 	}
 	
 	/**
 	* 分类佣金比例
 	*@return 
 	*/
-	public String getStoreClassCommisRates(){
-		return  storeClassCommisRates;
+	public String getStore_class_commis_rates(){
+		return  store_class_commis_rates;
 	}
 	/**
 	* 分类佣金比例
-	*@param  storeClassCommisRates
+	*@param  store_class_commis_rates
 	*/
-	public void setStoreClassCommisRates(String storeClassCommisRates ){
-		this.storeClassCommisRates = storeClassCommisRates;
+	public void setStore_class_commis_rates(String store_class_commis_rates ){
+		this.store_class_commis_rates = store_class_commis_rates;
 	}
 	
 	/**
 	* 店铺分类编号集合
 	*@return 
 	*/
-	public String getStoreClassIds(){
-		return  storeClassIds;
+	public String getStore_class_ids(){
+		return  store_class_ids;
 	}
 	/**
 	* 店铺分类编号集合
-	*@param  storeClassIds
+	*@param  store_class_ids
 	*/
-	public void setStoreClassIds(String storeClassIds ){
-		this.storeClassIds = storeClassIds;
+	public void setStore_class_ids(String store_class_ids ){
+		this.store_class_ids = store_class_ids;
 	}
 	
 	/**
 	* 店铺分类名称集合
 	*@return 
 	*/
-	public String getStoreClassNames(){
-		return  storeClassNames;
+	public String getStore_class_names(){
+		return  store_class_names;
 	}
 	/**
 	* 店铺分类名称集合
-	*@param  storeClassNames
+	*@param  store_class_names
 	*/
-	public void setStoreClassNames(String storeClassNames ){
-		this.storeClassNames = storeClassNames;
+	public void setStore_class_names(String store_class_names ){
+		this.store_class_names = store_class_names;
 	}
 	
 	/**
 	* 店铺名称
 	*@return 
 	*/
-	public String getStoreName(){
-		return  storeName;
+	public String getStore_name(){
+		return  store_name;
 	}
 	/**
 	* 店铺名称
-	*@param  storeName
+	*@param  store_name
 	*/
-	public void setStoreName(String storeName ){
-		this.storeName = storeName;
+	public void setStore_name(String store_name ){
+		this.store_name = store_name;
 	}
 	
 	/**
 	* 税务登记证号
 	*@return 
 	*/
-	public String getTaxRegistrationCertificate(){
-		return  taxRegistrationCertificate;
+	public String getTax_registration_certificate(){
+		return  tax_registration_certificate;
 	}
 	/**
 	* 税务登记证号
-	*@param  taxRegistrationCertificate
+	*@param  tax_registration_certificate
 	*/
-	public void setTaxRegistrationCertificate(String taxRegistrationCertificate ){
-		this.taxRegistrationCertificate = taxRegistrationCertificate;
+	public void setTax_registration_certificate(String tax_registration_certificate ){
+		this.tax_registration_certificate = tax_registration_certificate;
 	}
 	
 	/**
 	* 税务登记证号电子版
 	*@return 
 	*/
-	public String getTaxRegistrationCertificateElectronic(){
-		return  taxRegistrationCertificateElectronic;
+	public String getTax_registration_certificate_electronic(){
+		return  tax_registration_certificate_electronic;
 	}
 	/**
 	* 税务登记证号电子版
-	*@param  taxRegistrationCertificateElectronic
+	*@param  tax_registration_certificate_electronic
 	*/
-	public void setTaxRegistrationCertificateElectronic(String taxRegistrationCertificateElectronic ){
-		this.taxRegistrationCertificateElectronic = taxRegistrationCertificateElectronic;
+	public void setTax_registration_certificate_electronic(String tax_registration_certificate_electronic ){
+		this.tax_registration_certificate_electronic = tax_registration_certificate_electronic;
 	}
 	
 	/**
 	* 纳税人识别号
 	*@return 
 	*/
-	public String getTaxpayerId(){
-		return  taxpayerId;
+	public String getTaxpayer_id(){
+		return  taxpayer_id;
 	}
 	/**
 	* 纳税人识别号
-	*@param  taxpayerId
+	*@param  taxpayer_id
 	*/
-	public void setTaxpayerId(String taxpayerId ){
-		this.taxpayerId = taxpayerId;
+	public void setTaxpayer_id(String taxpayer_id ){
+		this.taxpayer_id = taxpayer_id;
 	}
 	
 	/**
 	* 营业执照有效期结束
 	*@return 
 	*/
-	public Date getBusinessLicenceEnd(){
-		return  businessLicenceEnd;
+	public Date getBusiness_licence_end(){
+		return  business_licence_end;
 	}
 	/**
 	* 营业执照有效期结束
-	*@param  businessLicenceEnd
+	*@param  business_licence_end
 	*/
-	public void setBusinessLicenceEnd(Date businessLicenceEnd ){
-		this.businessLicenceEnd = businessLicenceEnd;
+	public void setBusiness_licence_end(Date business_licence_end ){
+		this.business_licence_end = business_licence_end;
 	}
 	
 	/**
 	* 营业执照有效期开始
 	*@return 
 	*/
-	public Date getBusinessLicenceStart(){
-		return  businessLicenceStart;
+	public Date getBusiness_licence_start(){
+		return  business_licence_start;
 	}
 	/**
 	* 营业执照有效期开始
-	*@param  businessLicenceStart
+	*@param  business_licence_start
 	*/
-	public void setBusinessLicenceStart(Date businessLicenceStart ){
-		this.businessLicenceStart = businessLicenceStart;
+	public void setBusiness_licence_start(Date business_licence_start ){
+		this.business_licence_start = business_licence_start;
 	}
 	
 

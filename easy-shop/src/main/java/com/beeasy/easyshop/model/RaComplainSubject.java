@@ -7,27 +7,33 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_complain_subject")
 public class RaComplainSubject   {
 	
+	// alias
+	public static final String ALIAS_complain_subject_id = "complain_subject_id";
+	public static final String ALIAS_complain_subject_state = "complain_subject_state";
+	public static final String ALIAS_complain_subject_content = "complain_subject_content";
+	public static final String ALIAS_complain_subject_desc = "complain_subject_desc";
+	
 	/*
 	投诉主题id
 	*/
-	private Integer complainSubjectId ;
+	private Integer complain_subject_id ;
 	/*
 	投诉主题状态(1-有效/2-失效)
 	*/
-	private Integer complainSubjectState ;
+	private Integer complain_subject_state ;
 	/*
 	投诉主题
 	*/
-	private String complainSubjectContent ;
+	private String complain_subject_content ;
 	/*
 	投诉主题描述
 	*/
-	private String complainSubjectDesc ;
+	private String complain_subject_desc ;
 	
 	public RaComplainSubject() {
 	}
@@ -36,60 +42,60 @@ public class RaComplainSubject   {
 	* 投诉主题id
 	*@return 
 	*/
-	public Integer getComplainSubjectId(){
-		return  complainSubjectId;
+	public Integer getComplain_subject_id(){
+		return  complain_subject_id;
 	}
 	/**
 	* 投诉主题id
-	*@param  complainSubjectId
+	*@param  complain_subject_id
 	*/
-	public void setComplainSubjectId(Integer complainSubjectId ){
-		this.complainSubjectId = complainSubjectId;
+	public void setComplain_subject_id(Integer complain_subject_id ){
+		this.complain_subject_id = complain_subject_id;
 	}
 	
 	/**
 	* 投诉主题状态(1-有效/2-失效)
 	*@return 
 	*/
-	public Integer getComplainSubjectState(){
-		return  complainSubjectState;
+	public Integer getComplain_subject_state(){
+		return  complain_subject_state;
 	}
 	/**
 	* 投诉主题状态(1-有效/2-失效)
-	*@param  complainSubjectState
+	*@param  complain_subject_state
 	*/
-	public void setComplainSubjectState(Integer complainSubjectState ){
-		this.complainSubjectState = complainSubjectState;
+	public void setComplain_subject_state(Integer complain_subject_state ){
+		this.complain_subject_state = complain_subject_state;
 	}
 	
 	/**
 	* 投诉主题
 	*@return 
 	*/
-	public String getComplainSubjectContent(){
-		return  complainSubjectContent;
+	public String getComplain_subject_content(){
+		return  complain_subject_content;
 	}
 	/**
 	* 投诉主题
-	*@param  complainSubjectContent
+	*@param  complain_subject_content
 	*/
-	public void setComplainSubjectContent(String complainSubjectContent ){
-		this.complainSubjectContent = complainSubjectContent;
+	public void setComplain_subject_content(String complain_subject_content ){
+		this.complain_subject_content = complain_subject_content;
 	}
 	
 	/**
 	* 投诉主题描述
 	*@return 
 	*/
-	public String getComplainSubjectDesc(){
-		return  complainSubjectDesc;
+	public String getComplain_subject_desc(){
+		return  complain_subject_desc;
 	}
 	/**
 	* 投诉主题描述
-	*@param  complainSubjectDesc
+	*@param  complain_subject_desc
 	*/
-	public void setComplainSubjectDesc(String complainSubjectDesc ){
-		this.complainSubjectDesc = complainSubjectDesc;
+	public void setComplain_subject_desc(String complain_subject_desc ){
+		this.complain_subject_desc = complain_subject_desc;
 	}
 	
 

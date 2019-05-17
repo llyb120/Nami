@@ -7,31 +7,38 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_mb_payment")
 public class RaMbPayment   {
 	
+	// alias
+	public static final String ALIAS_payment_id = "payment_id";
+	public static final String ALIAS_payment_code = "payment_code";
+	public static final String ALIAS_payment_config = "payment_config";
+	public static final String ALIAS_payment_name = "payment_name";
+	public static final String ALIAS_payment_state = "payment_state";
+	
 	/*
 	支付索引id
 	*/
-	private Integer paymentId ;
+	private Integer payment_id ;
 	/*
 	支付代码名称
 	*/
-	private String paymentCode ;
+	private String payment_code ;
 	/*
 	支付接口配置信息
 	*/
-	private String paymentConfig ;
+	private String payment_config ;
 	/*
 	支付名称
 	*/
-	private String paymentName ;
+	private String payment_name ;
 	/*
 	接口状态0禁用1启用
 	*/
-	private String paymentState ;
+	private String payment_state ;
 	
 	public RaMbPayment() {
 	}
@@ -40,75 +47,75 @@ public class RaMbPayment   {
 	* 支付索引id
 	*@return 
 	*/
-	public Integer getPaymentId(){
-		return  paymentId;
+	public Integer getPayment_id(){
+		return  payment_id;
 	}
 	/**
 	* 支付索引id
-	*@param  paymentId
+	*@param  payment_id
 	*/
-	public void setPaymentId(Integer paymentId ){
-		this.paymentId = paymentId;
+	public void setPayment_id(Integer payment_id ){
+		this.payment_id = payment_id;
 	}
 	
 	/**
 	* 支付代码名称
 	*@return 
 	*/
-	public String getPaymentCode(){
-		return  paymentCode;
+	public String getPayment_code(){
+		return  payment_code;
 	}
 	/**
 	* 支付代码名称
-	*@param  paymentCode
+	*@param  payment_code
 	*/
-	public void setPaymentCode(String paymentCode ){
-		this.paymentCode = paymentCode;
+	public void setPayment_code(String payment_code ){
+		this.payment_code = payment_code;
 	}
 	
 	/**
 	* 支付接口配置信息
 	*@return 
 	*/
-	public String getPaymentConfig(){
-		return  paymentConfig;
+	public String getPayment_config(){
+		return  payment_config;
 	}
 	/**
 	* 支付接口配置信息
-	*@param  paymentConfig
+	*@param  payment_config
 	*/
-	public void setPaymentConfig(String paymentConfig ){
-		this.paymentConfig = paymentConfig;
+	public void setPayment_config(String payment_config ){
+		this.payment_config = payment_config;
 	}
 	
 	/**
 	* 支付名称
 	*@return 
 	*/
-	public String getPaymentName(){
-		return  paymentName;
+	public String getPayment_name(){
+		return  payment_name;
 	}
 	/**
 	* 支付名称
-	*@param  paymentName
+	*@param  payment_name
 	*/
-	public void setPaymentName(String paymentName ){
-		this.paymentName = paymentName;
+	public void setPayment_name(String payment_name ){
+		this.payment_name = payment_name;
 	}
 	
 	/**
 	* 接口状态0禁用1启用
 	*@return 
 	*/
-	public String getPaymentState(){
-		return  paymentState;
+	public String getPayment_state(){
+		return  payment_state;
 	}
 	/**
 	* 接口状态0禁用1启用
-	*@param  paymentState
+	*@param  payment_state
 	*/
-	public void setPaymentState(String paymentState ){
-		this.paymentState = paymentState;
+	public void setPayment_state(String payment_state ){
+		this.payment_state = payment_state;
 	}
 	
 

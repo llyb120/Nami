@@ -7,25 +7,32 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_wechat_config")
 public class RaWechatConfig   {
 	
-	private Integer memberId ;
+	// alias
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_config = "config";
+	public static final String ALIAS_custom_menu = "custom_menu";
+	public static final String ALIAS_reply = "reply";
+	public static final String ALIAS_source_id = "source_id";
+	
+	private Integer member_id ;
 	private String config ;
-	private String customMenu ;
+	private String custom_menu ;
 	private String reply ;
-	private String sourceId ;
+	private String source_id ;
 	
 	public RaWechatConfig() {
 	}
 	
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	public String getConfig(){
@@ -35,11 +42,11 @@ public class RaWechatConfig   {
 		this.config = config;
 	}
 	
-	public String getCustomMenu(){
-		return  customMenu;
+	public String getCustom_menu(){
+		return  custom_menu;
 	}
-	public void setCustomMenu(String customMenu ){
-		this.customMenu = customMenu;
+	public void setCustom_menu(String custom_menu ){
+		this.custom_menu = custom_menu;
 	}
 	
 	public String getReply(){
@@ -49,11 +56,11 @@ public class RaWechatConfig   {
 		this.reply = reply;
 	}
 	
-	public String getSourceId(){
-		return  sourceId;
+	public String getSource_id(){
+		return  source_id;
 	}
-	public void setSourceId(String sourceId ){
-		this.sourceId = sourceId;
+	public void setSource_id(String source_id ){
+		this.source_id = source_id;
 	}
 	
 

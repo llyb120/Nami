@@ -7,16 +7,26 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_weproxy_order_margin")
 public class RaWeproxyOrderMargin   {
 	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_from_member = "from_member";
+	public static final String ALIAS_level = "level";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_order_id = "order_id";
+	public static final String ALIAS_type = "type";
+	public static final String ALIAS_margin = "margin";
+	public static final String ALIAS_time = "time";
+	
 	private Integer id ;
-	private Integer fromMember ;
+	private Integer from_member ;
 	private Integer level ;
-	private Integer memberId ;
-	private Integer orderId ;
+	private Integer member_id ;
+	private Integer order_id ;
 	private Integer type ;
 	private BigDecimal margin ;
 	private String time ;
@@ -31,11 +41,11 @@ public class RaWeproxyOrderMargin   {
 		this.id = id;
 	}
 	
-	public Integer getFromMember(){
-		return  fromMember;
+	public Integer getFrom_member(){
+		return  from_member;
 	}
-	public void setFromMember(Integer fromMember ){
-		this.fromMember = fromMember;
+	public void setFrom_member(Integer from_member ){
+		this.from_member = from_member;
 	}
 	
 	public Integer getLevel(){
@@ -45,18 +55,18 @@ public class RaWeproxyOrderMargin   {
 		this.level = level;
 	}
 	
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
-	public Integer getOrderId(){
-		return  orderId;
+	public Integer getOrder_id(){
+		return  order_id;
 	}
-	public void setOrderId(Integer orderId ){
-		this.orderId = orderId;
+	public void setOrder_id(Integer order_id ){
+		this.order_id = order_id;
 	}
 	
 	public Integer getType(){

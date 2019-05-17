@@ -7,31 +7,38 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_document")
 public class RaDocument   {
 	
+	// alias
+	public static final String ALIAS_doc_id = "doc_id";
+	public static final String ALIAS_doc_time = "doc_time";
+	public static final String ALIAS_doc_code = "doc_code";
+	public static final String ALIAS_doc_content = "doc_content";
+	public static final String ALIAS_doc_title = "doc_title";
+	
 	/*
 	id
 	*/
-	private Integer docId ;
+	private Integer doc_id ;
 	/*
 	添加时间/修改时间
 	*/
-	private Integer docTime ;
+	private Integer doc_time ;
 	/*
 	调用标识码
 	*/
-	private String docCode ;
+	private String doc_code ;
 	/*
 	内容
 	*/
-	private String docContent ;
+	private String doc_content ;
 	/*
 	标题
 	*/
-	private String docTitle ;
+	private String doc_title ;
 	
 	public RaDocument() {
 	}
@@ -40,75 +47,75 @@ public class RaDocument   {
 	* id
 	*@return 
 	*/
-	public Integer getDocId(){
-		return  docId;
+	public Integer getDoc_id(){
+		return  doc_id;
 	}
 	/**
 	* id
-	*@param  docId
+	*@param  doc_id
 	*/
-	public void setDocId(Integer docId ){
-		this.docId = docId;
+	public void setDoc_id(Integer doc_id ){
+		this.doc_id = doc_id;
 	}
 	
 	/**
 	* 添加时间/修改时间
 	*@return 
 	*/
-	public Integer getDocTime(){
-		return  docTime;
+	public Integer getDoc_time(){
+		return  doc_time;
 	}
 	/**
 	* 添加时间/修改时间
-	*@param  docTime
+	*@param  doc_time
 	*/
-	public void setDocTime(Integer docTime ){
-		this.docTime = docTime;
+	public void setDoc_time(Integer doc_time ){
+		this.doc_time = doc_time;
 	}
 	
 	/**
 	* 调用标识码
 	*@return 
 	*/
-	public String getDocCode(){
-		return  docCode;
+	public String getDoc_code(){
+		return  doc_code;
 	}
 	/**
 	* 调用标识码
-	*@param  docCode
+	*@param  doc_code
 	*/
-	public void setDocCode(String docCode ){
-		this.docCode = docCode;
+	public void setDoc_code(String doc_code ){
+		this.doc_code = doc_code;
 	}
 	
 	/**
 	* 内容
 	*@return 
 	*/
-	public String getDocContent(){
-		return  docContent;
+	public String getDoc_content(){
+		return  doc_content;
 	}
 	/**
 	* 内容
-	*@param  docContent
+	*@param  doc_content
 	*/
-	public void setDocContent(String docContent ){
-		this.docContent = docContent;
+	public void setDoc_content(String doc_content ){
+		this.doc_content = doc_content;
 	}
 	
 	/**
 	* 标题
 	*@return 
 	*/
-	public String getDocTitle(){
-		return  docTitle;
+	public String getDoc_title(){
+		return  doc_title;
 	}
 	/**
 	* 标题
-	*@param  docTitle
+	*@param  doc_title
 	*/
-	public void setDocTitle(String docTitle ){
-		this.docTitle = docTitle;
+	public void setDoc_title(String doc_title ){
+		this.doc_title = doc_title;
 	}
 	
 

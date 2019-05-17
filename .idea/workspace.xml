@@ -1,25 +1,250 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9e1b1465-c62c-440c-9270-01cb592d3669" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Fix.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/element-starter/src/components/install.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/element-starter/src/pages/goods/gallery.pic.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/element-starter/src/pages/goods/gallery.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/element-starter/src/route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="9e1b1465-c62c-440c-9270-01cb592d3669" name="Default Changelist" comment="增加chakracore引擎">
+      <change afterPath="$PROJECT_DIR$/easy-shop/src/main/resources/sql/ra_order.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/easy-shop/src/main/resources/template/pojo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/U.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/U.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/pic.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/pic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/store.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/store.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/user.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/user.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/filter/auth.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/filter/auth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaActivityDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaActivityDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAddress.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAddress.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAdmin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAdminLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAdminLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAdv.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAdv.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAdvPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAdvPosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAdvPositionCopy.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAdvPositionCopy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAlbumClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAlbumClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAlbumPic.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAlbumPic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaArea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAreaCopy.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAreaCopy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAreaCopy1.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAreaCopy1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAreaCopy2.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAreaCopy2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAreaF.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAreaF.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAreaOld.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAreaOld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaArrivalNotice.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaArrivalNotice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaArticle.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaArticle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaArticleClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaArticleClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAttribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAttribute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAttributeValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAttributeValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaBrand.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaBrand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCart.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaChatLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaChatLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaChatMsg.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaChatMsg.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircle.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleAffix.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleAffix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleExplog.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleExplog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleExpmember.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleExpmember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleExptheme.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleExptheme.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleFs.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleFs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleInform.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleInform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleLike.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleLike.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleMapply.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleMapply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleMl.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleMl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleMldefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleMldefault.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleMlref.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleMlref.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleRecycle.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleRecycle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleThclass.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleThclass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleTheme.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleTheme.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleThg.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleThg.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleThpoll.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleThpoll.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleThpolloption.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleThpolloption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleThpollvoter.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleThpollvoter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleThreply.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleThreply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaComplain.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaComplain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaComplainSubject.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaComplainSubject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaComplainTalk.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaComplainTalk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaConsult.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaConsult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaConsultType.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaConsultType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCron.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCron.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCustomHangzhouGoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCustomHangzhouGoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCustomShenzhenGoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCustomShenzhenGoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaDaddress.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaDaddress.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaDeliveryOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaDeliveryOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaDeliveryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaDeliveryPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaDocument.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaDocument.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaEvaluateGoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaEvaluateGoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaEvaluateStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaEvaluateStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaExppointsLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaExppointsLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaExpress.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaExpress.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaFavorites.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaFavorites.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaFlowstat.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaFlowstat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaFlowstat1.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaFlowstat1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaFlowstat2.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaFlowstat2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGadmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGadmin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsAttrIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsAttrIndex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsBrowse.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsBrowse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsClassStaple.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsClassStaple.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsClassTag.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsClassTag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsCombo.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsCombo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsCommon.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsCommon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsFcode.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsFcode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsGift.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsGift.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsImages.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsImages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGroupbuy.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGroupbuy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGroupbuyClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGroupbuyClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGroupbuyPriceRange.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGroupbuyPriceRange.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGroupbuyQuota.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGroupbuyQuota.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaHangzhouGoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaHangzhouGoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaHangzhouOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaHangzhouOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaHangzhouOrderGoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaHangzhouOrderGoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaHangzhouSellOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaHangzhouSellOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaHelp.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaHelp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaHelpType.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaHelpType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaInform.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaInform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaInformSubject.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaInformSubject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaInformSubjectType.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaInformSubjectType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaInvoice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaLock.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaLock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMailCron.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMailCron.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMailMsgTemlates.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMailMsgTemlates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMallConsult.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMallConsult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMallConsultType.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMallConsultType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMbCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMbCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMbFeedback.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMbFeedback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMbPayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMbPayment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMbSpecial.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMbSpecial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMbSpecialItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMbSpecialItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMbUserToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMbUserToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMemberCommon.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMemberCommon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMemberMsgSetting.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMemberMsgSetting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMemberMsgTpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMemberMsgTpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaNavigation.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaNavigation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOffpayArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOffpayArea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOrderBill.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOrderBill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOrderCommon.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOrderCommon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOrderGoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOrderGoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOrderLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOrderLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOrderPay.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOrderPay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOrderStatis.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOrderStatis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOutOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaOutOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPBoothGoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPBoothGoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPBoothQuota.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPBoothQuota.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPBundling.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPBundling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPBundlingGoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPBundlingGoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPBundlingQuota.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPBundlingQuota.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPMansong.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPMansong.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPMansongQuota.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPMansongQuota.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPMansongRule.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPMansongRule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPXianshi.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPXianshi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPXianshiGoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPXianshiGoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPXianshiQuota.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPXianshiQuota.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPayExchangeInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPayExchangeInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPayment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPdCash.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPdCash.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPdLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPdLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPdRecharge.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPdRecharge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPlace.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPlace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPointsCart.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPointsCart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPointsGoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPointsGoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPointsLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPointsLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPointsOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPointsOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPointsOrderaddress.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPointsOrderaddress.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPointsOrdergoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPointsOrdergoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaProxyApply.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaProxyApply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaProxyPre.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaProxyPre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaProxyStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaProxyStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaProxyStoreGoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaProxyStoreGoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaProxyTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaProxyTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaRcbLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaRcbLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaRecPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaRecPosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaRechargecard.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaRechargecard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaRefundReason.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaRefundReason.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaRefundReturn.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaRefundReturn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSeller.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSeller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSellerGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSellerGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSellerLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSellerLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSeo.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSeo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSetting.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSetting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSimportList.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSimportList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsAlbumclass.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsAlbumclass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsAlbumpic.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsAlbumpic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsBinding.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsBinding.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsComment.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsComment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsFriend.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsFriend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsGoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsGoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsMembertag.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsMembertag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsMtagmember.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsMtagmember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsSetting.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsSetting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsSharegoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsSharegoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsSharestore.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsSharestore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsTracelog.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsTracelog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSpec.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSpec.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSpecValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSpecValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStatMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStatMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStatOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStatOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStatOrdergoods.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStatOrdergoods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreBindClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreBindClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreCost.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreCost.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreDecoration.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreDecoration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreDecorationAlbum.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreDecorationAlbum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreDecorationBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreDecorationBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreExtend.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreExtend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreGoodsClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreGoodsClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreGrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreGrade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreJoinin.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreJoinin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreMsg.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreMsg.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreMsgRead.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreMsgRead.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreMsgSetting.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreMsgSetting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreMsgTpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreMsgTpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreNavigation.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreNavigation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStorePlate.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStorePlate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreReopen.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreReopen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreSnsComment.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreSnsComment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreSnsSetting.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreSnsSetting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreSnsTracelog.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreSnsTracelog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreWatermark.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreWatermark.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreWaybill.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaStoreWaybill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaTgbAds.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaTgbAds.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaTonglianCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaTonglianCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaTransport.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaTransport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaTransportExtend.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaTransportExtend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaType.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaTypeBrand.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaTypeBrand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaTypeSpec.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaTypeSpec.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaUpload.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaUpload.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVoucher.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVoucher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVoucherPrice.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVoucherPrice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVoucherQuota.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVoucherQuota.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVoucherTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVoucherTemplate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVrGroupbuyArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVrGroupbuyArea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVrGroupbuyClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVrGroupbuyClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVrOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVrOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVrOrderBill.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVrOrderBill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVrOrderCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVrOrderCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVrOrderStatis.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVrOrderStatis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVrRefund.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaVrRefund.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWaybill.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWaybill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWeGroupbuy.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWeGroupbuy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWeGroupbuying.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWeGroupbuying.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWeb.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWeb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWebCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWebCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWechatAccessToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWechatAccessToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWechatAnotherAccessToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWechatAnotherAccessToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWechatConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWechatConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWeproxyOrderGoodsMargin.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWeproxyOrderGoodsMargin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWeproxyOrderMargin.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaWeproxyOrderMargin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Fix.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Fix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Flow.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Flow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Generate.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Generate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/element-starter" beforeDir="false" afterPath="$PROJECT_DIR$/element-starter" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/element-starter/src/components/b-form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/element-starter/src/components/b-form.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/element-starter/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/element-starter/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/element-starter/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/element-starter/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/element-starter/src/pages/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/element-starter/src/pages/Index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Flow.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Flow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/DBService.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/DBService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Megami.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Nami.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -48,24 +273,104 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/element-starter/src/pages/order/Order.vue">
+        <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/filter/auth.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="1" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
+            <state relative-caret-position="328">
+              <caret line="51" column="12" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="12" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2238#2239#0" expanded="true" />
+                <element signature="e#2284#2285#0" expanded="true" />
+                <element signature="e#2324#2325#0" expanded="true" />
+                <element signature="e#2370#2371#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/store.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="236">
+              <caret line="62" column="25" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/lang/System.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="128">
+              <caret line="214" column="40" selection-start-line="214" selection-start-column="40" selection-end-line="214" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/easy-shop/src/main/resources/sql/raOrder.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor />
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Generate.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="246">
+              <caret line="61" column="33" lean-forward="true" selection-start-line="61" selection-start-column="33" selection-end-line="61" selection-end-column="33" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/io/PrintStream.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="128">
+              <caret line="224" column="11" selection-start-line="224" selection-start-column="11" selection-end-line="224" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/io/ObjectOutputStream.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="128">
+              <caret line="272" column="14" selection-start-line="272" selection-start-column="14" selection-end-line="272" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/easy-shop/src/main/resources/sql/ra_order.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="273">
+                <caret line="11" column="137" lean-forward="true" selection-start-line="11" selection-start-column="137" selection-end-line="11" selection-end-column="137" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/element-starter/src/pages/goods/gallery.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1029">
-              <caret line="30" column="45" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
+            <state relative-caret-position="147">
+              <caret line="8" column="84" selection-start-line="8" selection-start-column="84" selection-end-line="8" selection-end-column="84" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#0;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#1;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#el-button#0;n#el-col#1;n#el-row#0;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
@@ -75,87 +380,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/element-starter/src/pages/goods/gallery.pic.vue">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/element-starter/src/pages/store/Setting.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="10" selection-start-column="10" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/easy-shop/src/main/resources/sql/raAlbumClass.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="168">
-                <caret line="7" selection-start-line="7" selection-end-line="7" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/element-starter/src/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="41" column="28" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/element-starter/src/components/b-form.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="59" column="18" selection-start-line="59" selection-start-column="18" selection-end-line="59" selection-end-column="18" />
-              <folding>
-                <element signature="n#style#0;n#el-alert#0;n#el-form-item#0;n#el-form#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/store.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/easy-shop/target/classes/com/beeasy/easyshop/ctrl/store.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#1029#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/element-starter/src/util.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-42">
-              <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/R.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
-              <folding>
-                <element signature="e#200#201#0" expanded="true" />
-                <element signature="e#230#231#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="462">
+              <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -171,18 +400,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>jsparse</find>
-      <find>jsparsescript</find>
-      <find>log</find>
-      <find>require</find>
-      <find>eval</find>
-      <find>eval(</find>
-      <find>&lt; 1</find>
-      <find>ecj</find>
-      <find>flowfrom</find>
-      <find>storeid</find>
-      <find>订单物流</find>
-      <find>f2</find>
       <find>orderstatu</find>
       <find>orderstate</find>
       <find>n</find>
@@ -201,6 +418,18 @@
       <find>data</find>
       <find>_data</find>
       <find>enter</find>
+      <find>.gen</find>
+      <find>gen(</find>
+      <find>trimCategory</find>
+      <find>SourceGen</find>
+      <find>attrs</find>
+      <find>key</find>
+      <find>getProp</find>
+      <find>getpro</find>
+      <find>andeq</find>
+      <find>getclas</find>
+      <find>b-form</find>
+      <find>aclass</find>
     </findStrings>
     <replaceStrings>
       <replace>f1</replace>
@@ -216,7 +445,7 @@
     </dirStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/element-starter" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/user.java" root0="SKIP_INSPECTION" />
@@ -224,57 +453,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/easy-shop/js/1.js" />
-        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/ChakraCore.java" />
-        <option value="$PROJECT_DIR$/easy-shop/pom.xml" />
-        <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/b.java" />
-        <option value="$PROJECT_DIR$/web-core/pom.xml" />
-        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Compiler.java" />
         <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/a.java" />
-        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/DBService.java" />
         <option value="$PROJECT_DIR$/element-starter/src/App.vue" />
-        <option value="$PROJECT_DIR$/element-starter/src/pages/Home.vue" />
         <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/seller.java" />
         <option value="$PROJECT_DIR$/element-starter/src/components/b-table.vue" />
         <option value="$PROJECT_DIR$/easy-shop/src/main/resources/sql/raOrder.md" />
-        <option value="$PROJECT_DIR$/element-starter/src/components/order-table.vue" />
         <option value="$PROJECT_DIR$/element-starter/src/pages/order/Order.vue" />
-        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Config.java" />
         <option value="C:/tools/nginx-1.15.9/conf/nginx.conf" />
-        <option value="$PROJECT_DIR$/element-starter/src/pages/store/Setting.vue" />
         <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Cookie.java" />
         <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Context.java" />
         <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/HttpServerHandler.java" />
-        <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/user.java" />
         <option value="$PROJECT_DIR$/element-starter/src/util.js" />
-        <option value="$PROJECT_DIR$/element-starter/src/pages/Login.vue" />
         <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/filter/Auth.java" />
-        <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/filter/auth.java" />
         <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/EasyShop.java" />
         <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/MoonKami.java" />
-        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Megami.java" />
         <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Chakra.java" />
-        <option value="$PROJECT_DIR$/easy-shop/config.json" />
-        <option value="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Flow.java" />
         <option value="$PROJECT_DIR$/element-starter/src/pages/order/gallery.vue" />
         <option value="$PROJECT_DIR$/element-starter/src/route.js" />
         <option value="$PROJECT_DIR$/element-starter/src/pages/Index.vue" />
-        <option value="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Generate.java" />
         <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/pic.java" />
         <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/U.java" />
         <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAlbumClass.java" />
-        <option value="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Fix.java" />
         <option value="$PROJECT_DIR$/element-starter/src/components/install.vue" />
         <option value="$PROJECT_DIR$/element-starter/src/components/install.js" />
         <option value="$PROJECT_DIR$/element-starter/src/main.js" />
-        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Flow.java" />
         <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/R.java" />
         <option value="$PROJECT_DIR$/element-starter/src/components/b-form.vue" />
         <option value="$PROJECT_DIR$/element-starter/src/index.html" />
         <option value="$PROJECT_DIR$/easy-shop/src/main/resources/sql/raAlbumClass.md" />
-        <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/store.java" />
         <option value="$PROJECT_DIR$/element-starter/src/pages/goods/gallery.pic.vue" />
+        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Megami.java" />
+        <option value="$PROJECT_DIR$/easy-shop/config.json" />
+        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Config.java" />
+        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Nami.java" />
+        <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/App.java" />
+        <option value="$PROJECT_DIR$/easy-shop/src/main/resources/template/pojo" />
+        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Flow.java" />
+        <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/ra_goods_package.java" />
+        <option value="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Flow.java" />
+        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/DBService.java" />
+        <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsPackage.java" />
+        <option value="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Fix.java" />
+        <option value="$PROJECT_DIR$/element-starter/src/pages/Home.vue" />
+        <option value="$PROJECT_DIR$/element-starter/src/components/order-table.vue" />
+        <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/user.java" />
+        <option value="$PROJECT_DIR$/element-starter/src/pages/Login.vue" />
+        <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/filter/auth.java" />
+        <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/store.java" />
+        <option value="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Generate.java" />
+        <option value="$PROJECT_DIR$/easy-shop/src/main/resources/sql/ra_order.md" />
         <option value="$PROJECT_DIR$/element-starter/src/pages/goods/gallery.vue" />
+        <option value="$PROJECT_DIR$/element-starter/src/pages/store/Setting.vue" />
       </list>
     </option>
   </component>
@@ -329,147 +558,12 @@
               <item name="easyshop" type="462c0819:PsiDirectoryNode" />
               <item name="easy-shop" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="easy-shop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="easy-shop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="easy-shop" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="easy-shop" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="easy-shop" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="easy-shop" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="beeasy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="easy-shop" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="beeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="easy-shop" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="beeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="ctrl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="element-starter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="element-starter" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="element-starter" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="element-starter" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="element-starter" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="goods" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="element-starter" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="order" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="element-starter" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="store" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="web-core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="web-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="web-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
               <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="web-core" type="462c0819:PsiDirectoryNode" />
+              <item name="easy-shop" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -477,18 +571,63 @@
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
               <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="web-core" type="462c0819:PsiDirectoryNode" />
+              <item name="easy-shop" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
+              <item name="easy-shop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="sql" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
+              <item name="element-starter" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: com.ibeetl:beetlsql:2.11.6" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: com.ibeetl:beetlsql:2.11.6" type="70bed36:NamedLibraryElementNode" />
+              <item name="beetlsql-2.11.6.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: com.ibeetl:beetlsql:2.11.6" type="70bed36:NamedLibraryElementNode" />
+              <item name="beetlsql-2.11.6.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="sql" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: com.ibeetl:beetlsql:2.11.6" type="70bed36:NamedLibraryElementNode" />
+              <item name="beetlsql-2.11.6.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="sql" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="web-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: com.ibeetl:beetlsql:2.11.6" type="70bed36:NamedLibraryElementNode" />
+              <item name="beetlsql-2.11.6.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="sql" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="query" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -500,7 +639,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558059493253" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558065101008" />
     <property name="editor.config.ad.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/easy-shop/pom.xml" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -569,22 +708,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Flow.testFlow" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="easy-shop" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.beeasy.easyshop.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.beeasy.easyshop" />
-      <option name="MAIN_CLASS_NAME" value="com.beeasy.easyshop.Flow" />
-      <option name="METHOD_NAME" value="testFlow" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Flow.testlogin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="easy-shop" />
       <extension name="coverage">
@@ -601,7 +724,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Generate.genOne" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Generate.gen" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="easy-shop" />
       <extension name="coverage">
         <pattern>
@@ -611,7 +734,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.beeasy.easyshop" />
       <option name="MAIN_CLASS_NAME" value="com.beeasy.easyshop.Generate" />
-      <option name="METHOD_NAME" value="genOne" />
+      <option name="METHOD_NAME" value="gen" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Generate.genOneSql" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="easy-shop" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beeasy.easyshop.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.beeasy.easyshop" />
+      <option name="MAIN_CLASS_NAME" value="com.beeasy.easyshop.Generate" />
+      <option name="METHOD_NAME" value="genOneSql" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -620,10 +759,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.App" />
-        <item itemvalue="JUnit.Fix.fixGalleryConver" />
-        <item itemvalue="JUnit.Generate.genOne" />
+        <item itemvalue="JUnit.Generate.genOneSql" />
         <item itemvalue="JUnit.Flow.testlogin" />
-        <item itemvalue="JUnit.Flow.testFlow" />
+        <item itemvalue="JUnit.Generate.gen" />
+        <item itemvalue="JUnit.Fix.fixGalleryConver" />
       </list>
     </recent_temporary>
   </component>
@@ -652,7 +791,7 @@
       <workItem from="1557576711200" duration="577000" />
       <workItem from="1557797923134" duration="18593000" />
       <workItem from="1557901585265" duration="12294000" />
-      <workItem from="1557968463413" duration="16883000" />
+      <workItem from="1557968463413" duration="22449000" />
     </task>
     <task id="LOCAL-00001" summary="auto compile">
       <created>1556028534020</created>
@@ -696,46 +835,54 @@
       <option name="project" value="LOCAL" />
       <updated>1557973039535</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="增加chakracore引擎">
+      <created>1558059590178</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1558059590178</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Fix_fixGalleryConver - 2019.05.16 at 11h 56m 17s.xml">
-      <configuration name="Fix.fixGalleryConver" configurationId="JUnit" />
+    <history-entry file="Flow_testlogin - 2019.05.17 at 11h 12m 33s.xml">
+      <configuration name="Flow.testlogin" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Fix_fixGalleryConver - 2019.05.16 at 11h 56m 47s.xml">
-      <configuration name="Fix.fixGalleryConver" configurationId="JUnit" />
+    <history-entry file="Flow_testlogin - 2019.05.17 at 11h 16m 53s.xml">
+      <configuration name="Flow.testlogin" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Generate_genOne - 2019.05.16 at 13h 59m 37s.xml">
-      <configuration name="Generate.genOne" configurationId="JUnit" />
+    <history-entry file="Generate_gen - 2019.05.17 at 11h 22m 58s.xml">
+      <configuration name="Generate.gen" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Generate_genOne - 2019.05.16 at 13h 59m 55s.xml">
-      <configuration name="Generate.genOne" configurationId="JUnit" />
+    <history-entry file="Flow_testlogin - 2019.05.17 at 11h 27m 41s.xml">
+      <configuration name="Flow.testlogin" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Generate_genOne - 2019.05.16 at 14h 00m 39s.xml">
-      <configuration name="Generate.genOne" configurationId="JUnit" />
+    <history-entry file="Flow_testlogin - 2019.05.17 at 11h 28m 08s.xml">
+      <configuration name="Flow.testlogin" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Generate_genOne - 2019.05.16 at 14h 00m 56s.xml">
-      <configuration name="Generate.genOne" configurationId="JUnit" />
+    <history-entry file="Flow_testlogin - 2019.05.17 at 11h 28m 12s.xml">
+      <configuration name="Flow.testlogin" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Fix_fixGalleryConver - 2019.05.16 at 14h 01m 43s.xml">
-      <configuration name="Fix.fixGalleryConver" configurationId="JUnit" />
+    <history-entry file="Flow_testlogin - 2019.05.17 at 11h 28m 34s.xml">
+      <configuration name="Flow.testlogin" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Fix_fixGalleryConver - 2019.05.16 at 14h 03m 03s.xml">
-      <configuration name="Fix.fixGalleryConver" configurationId="JUnit" />
+    <history-entry file="Generate_genOneSql - 2019.05.17 at 11h 40m 07s.xml">
+      <configuration name="Generate.genOneSql" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Fix_fixGalleryConver - 2019.05.16 at 14h 03m 17s.xml">
-      <configuration name="Fix.fixGalleryConver" configurationId="JUnit" />
+    <history-entry file="Generate_genOneSql - 2019.05.17 at 11h 40m 31s.xml">
+      <configuration name="Generate.genOneSql" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Fix_fixGalleryConver - 2019.05.16 at 14h 22m 51s.xml">
-      <configuration name="Fix.fixGalleryConver" configurationId="JUnit" />
+    <history-entry file="Generate_genOneSql - 2019.05.17 at 11h 42m 04s.xml">
+      <configuration name="Generate.genOneSql" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="209481000" />
+    <option name="totallyTimeSpent" value="215047000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24530831" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -747,15 +894,15 @@
       <window_info id="Designer" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.40084985" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.23087819" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.28611898" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49865952" visible="true" weight="0.19971672" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.3286119" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.24929178" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50268096" side_tool="true" weight="0.194051" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49932975" weight="0.24929178" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Messages" order="10" visible="true" weight="0.194051" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49731904" weight="0.194051" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
       <window_info anchor="bottom" id="Version Control" order="12" />
       <window_info anchor="bottom" id="JRebel Executor" order="13" />
@@ -949,37 +1096,37 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/App.java</url>
-          <line>72</line>
+          <line>74</line>
           <properties />
           <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/App.java</url>
-          <line>66</line>
+          <line>68</line>
           <properties />
           <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/App.java</url>
-          <line>33</line>
+          <line>35</line>
           <properties />
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/App.java</url>
-          <line>58</line>
+          <line>60</line>
           <properties />
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/App.java</url>
-          <line>61</line>
+          <line>63</line>
           <properties />
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/App.java</url>
-          <line>24</line>
+          <line>26</line>
           <properties />
           <option name="timeStamp" value="62" />
         </line-breakpoint>
@@ -1025,11 +1172,28 @@
           <properties />
           <option name="timeStamp" value="116" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Generate.java</url>
+          <line>79</line>
+          <properties />
+          <option name="timeStamp" value="122" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Flow.java</url>
+          <line>29</line>
+          <properties />
+          <option name="timeStamp" value="127" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>auth.getStoreId()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>String.format(&quot;http://shopss.beeasy.com.cn/data/upload/shop/store/goods/%d/%s&quot;, raAlbumClass.getStoreId(), raAlbumClass.getAclassCover())</expression-string>
         <language-id>JAVA</language-id>
@@ -1070,305 +1234,328 @@
         <language-id>JAVA</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>byteBuf.readInt()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/lang/ThreadLocal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="160" column="13" selection-start-line="160" selection-start-column="13" selection-end-line="160" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-742">
-          <caret line="102" column="39" selection-start-line="102" selection-start-column="39" selection-end-line="102" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.0.Final/netty-all-4.1.0.Final.jar!/io/netty/handler/codec/http/HttpMessage.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/config.json">
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/ra_p_bundling_goods.java">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/auth.java">
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/ra_admin.java">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/HttpServerHandler.java">
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/ra_points_cart.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaActivityDetail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="387" column="61" selection-start-line="387" selection-start-column="61" selection-end-line="387" selection-end-column="61" />
+        <state relative-caret-position="2641">
+          <caret line="164" column="21" selection-start-line="164" selection-start-column="21" selection-end-line="164" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSeller.java">
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/ra_web.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-122">
-          <caret line="54" column="19" selection-start-line="54" selection-start-column="19" selection-end-line="54" selection-end-column="19" />
+        <state relative-caret-position="168">
+          <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaPointsOrderaddress.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1197">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/resources/template/pojo">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="987">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.47/fastjson-1.2.47.jar!/com/alibaba/fastjson/JSONObject.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="205" column="18" selection-start-line="205" selection-start-column="18" selection-end-line="205" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaProxyApply.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/ra_activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2493">
+          <caret line="10" column="2" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/ra_activity_detail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="146" column="71" selection-start-line="146" selection-start-column="71" selection-end-line="146" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/ra_goods_package.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1869">
+          <caret line="89" column="13" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/AopInvoke.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/ra_seller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="64" column="19" selection-start-line="64" selection-start-column="19" selection-end-line="64" selection-end-column="19" />
           <folding>
-            <element signature="e#702#703#0" expanded="true" />
-            <element signature="e#725#726#0" expanded="true" />
+            <element signature="e#1237#1238#0" expanded="true" />
+            <element signature="e#1261#1262#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/pages/Login.vue">
+    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Flow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="40" column="18" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/seller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-          <folding>
-            <element signature="e#0#172#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Route.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Context.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
+        <state relative-caret-position="120">
+          <caret line="174" column="24" selection-start-line="174" selection-start-column="24" selection-end-line="174" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1484#1485#0" expanded="true" />
+            <element signature="e#1525#1526#0" expanded="true" />
+            <element signature="e#1596#1597#0" expanded="true" />
+            <element signature="e#1652#1653#0" expanded="true" />
+            <element signature="e#4896#4897#0" expanded="true" />
+            <element signature="e#4951#4952#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/ibeetl/beetlsql/2.11.6/beetlsql-2.11.6.jar!/org/beetl/sql/core/query/QueryCondition.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1937">
+          <caret line="137" column="25" selection-start-line="137" selection-start-column="20" selection-end-line="137" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/ibeetl/beetlsql/2.11.6/beetlsql-2.11.6.jar!/org/beetl/sql/core/query/LambdaQuery.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-68">
+          <caret line="204" column="19" selection-start-line="204" selection-start-column="19" selection-end-line="204" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/ra_custom_shenzhen_goods.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-693">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaMbSpecialItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1413">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCircleTheme.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/ra_hangzhou_sell_order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-174">
+          <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/ra_tgb_ads.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/ra_album_pic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/ibeetl/beetlsql/2.11.6/beetlsql-2.11.6.jar!/org/beetl/sql/core/SQLManager.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="1014" column="14" selection-start-line="1014" selection-start-column="14" selection-end-line="1014" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/ibeetl/beetlsql/2.11.6/beetlsql-2.11.6.jar!/org/beetl/sql/ext/gen/SourceGen.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="60" column="48" selection-start-line="60" selection-start-column="48" selection-end-line="60" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/ibeetl/beetlsql/2.11.6/beetlsql-2.11.6.jar!/org/beetl/sql/core/NameConversion.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="16" column="38" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
+          <folding>
+            <element signature="e#369#370#0" expanded="true" />
+            <element signature="e#401#402#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/DBService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="12" column="40" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
+        <state relative-caret-position="288">
+          <caret line="48" column="24" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2029#2030#0" expanded="true" />
+            <element signature="e#2091#2092#0" expanded="true" />
+            <element signature="e#2193#2194#0" expanded="true" />
+            <element signature="e#2255#2256#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAddress.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-819">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaGoodsPackage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="10" column="3" selection-end-line="116" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaCustomGoods.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Fix.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Cookie.java">
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSeller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="53" column="15" selection-start-line="53" selection-start-column="15" selection-end-line="53" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Config.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="66" column="26" selection-start-line="66" selection-start-column="26" selection-end-line="66" selection-end-column="26" />
+        <state relative-caret-position="105">
+          <caret line="109" column="19" selection-start-line="109" selection-start-column="19" selection-end-line="109" selection-end-column="19" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Compiler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="53" column="82" selection-start-line="53" selection-start-column="82" selection-end-line="53" selection-end-column="82" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/lang/System.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="1900" column="23" selection-start-line="1900" selection-start-column="23" selection-end-line="1900" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Chakra.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-310">
-          <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/ChakraCore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="140" column="68" selection-start-line="140" selection-start-column="68" selection-end-line="140" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Megami.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="19" column="18" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="11" column="35" lean-forward="true" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/a.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/user.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/pages/order/gallery.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="9" lean-forward="true" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/route.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
-          <folding>
-            <element signature="e#1#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/U.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="63" column="52" selection-start-line="63" selection-start-column="52" selection-end-line="63" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1905#1906#0" expanded="true" />
+            <element signature="e#1929#1930#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Flow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#736#737#0" expanded="true" />
-            <element signature="e#771#772#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/pic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+        <state relative-caret-position="378">
+          <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Generate.java">
+    <entry file="file://$PROJECT_DIR$/element-starter/src/pages/Index.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+        <state relative-caret-position="105">
+          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaSnsAlbumclass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/element-starter/src/components/b-form.vue">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/element-starter/src/pages/Home.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+        <state relative-caret-position="105">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Fix.java">
+    <entry file="file://$PROJECT_DIR$/element-starter/src/pages/order/Order.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+        <state relative-caret-position="63">
+          <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/element-starter/src/components/order-table.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="16" column="45" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/user.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="27" column="29" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/model/RaAlbumClass.java">
+    <entry file="file://$PROJECT_DIR$/element-starter/src/pages/Login.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="189" column="30" selection-start-line="189" selection-start-column="30" selection-end-line="189" selection-end-column="30" />
+        <state relative-caret-position="231">
+          <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/auth.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/filter/auth.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="51" column="12" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="12" />
           <folding>
-            <element signature="e#1306#1307#0" expanded="true" />
-            <element signature="e#1329#1330#0" expanded="true" />
-            <element signature="e#1410#1411#0" expanded="true" />
-            <element signature="e#1441#1442#0" expanded="true" />
-            <element signature="e#1502#1503#0" expanded="true" />
-            <element signature="e#1527#1528#0" expanded="true" />
-            <element signature="e#1612#1613#0" expanded="true" />
-            <element signature="e#1647#1648#0" expanded="true" />
-            <element signature="e#1718#1719#0" expanded="true" />
-            <element signature="e#1742#1743#0" expanded="true" />
-            <element signature="e#1835#1836#0" expanded="true" />
-            <element signature="e#1868#1869#0" expanded="true" />
-            <element signature="e#1930#1931#0" expanded="true" />
-            <element signature="e#1952#1953#0" expanded="true" />
-            <element signature="e#2032#2033#0" expanded="true" />
-            <element signature="e#2061#2062#0" expanded="true" />
-            <element signature="e#2126#2127#0" expanded="true" />
-            <element signature="e#2151#2152#0" expanded="true" />
-            <element signature="e#2240#2241#0" expanded="true" />
-            <element signature="e#2275#2276#0" expanded="true" />
-            <element signature="e#2338#2339#0" expanded="true" />
-            <element signature="e#2364#2365#0" expanded="true" />
-            <element signature="e#2453#2454#0" expanded="true" />
-            <element signature="e#2490#2491#0" expanded="true" />
-            <element signature="e#2551#2552#0" expanded="true" />
-            <element signature="e#2575#2576#0" expanded="true" />
-            <element signature="e#2658#2659#0" expanded="true" />
-            <element signature="e#2691#2692#0" expanded="true" />
-            <element signature="e#2753#2754#0" expanded="true" />
-            <element signature="e#2778#2779#0" expanded="true" />
-            <element signature="e#2864#2865#0" expanded="true" />
-            <element signature="e#2899#2900#0" expanded="true" />
-            <element signature="e#2962#2963#0" expanded="true" />
-            <element signature="e#2984#2985#0" expanded="true" />
-            <element signature="e#3065#3066#0" expanded="true" />
-            <element signature="e#3094#3095#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2238#2239#0" expanded="true" />
+            <element signature="e#2284#2285#0" expanded="true" />
+            <element signature="e#2324#2325#0" expanded="true" />
+            <element signature="e#2370#2371#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/resources/sql/raEvaluateStore.md">
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/resources/sql/raOrder.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor />
@@ -1376,166 +1563,78 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/ibeetl/beetlsql/2.11.6/beetlsql-2.11.6.jar!/org/beetl/sql/core/SQLManager.class">
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/store.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1093">
-          <caret line="77" column="33" selection-start-line="77" selection-start-column="33" selection-end-line="77" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/App.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-105" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#264#292#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/components/install.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/pages/Index.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="45" column="25" lean-forward="true" selection-start-line="45" selection-start-column="25" selection-end-line="45" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/components/b-table.vue">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Flow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="158" column="46" selection-start-line="158" selection-start-column="46" selection-end-line="158" selection-end-column="46" />
+        <state relative-caret-position="236">
+          <caret line="62" column="25" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1484#1485#0" expanded="true" />
-            <element signature="e#1525#1526#0" expanded="true" />
-            <element signature="e#1596#1597#0" expanded="true" />
-            <element signature="e#1652#1653#0" expanded="true" />
-            <element signature="e#4900#4901#0" expanded="true" />
-            <element signature="e#4941#4942#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/filter/auth.java">
+    <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/io/ObjectOutputStream.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="75" column="4" selection-start-line="75" selection-start-column="4" selection-end-line="75" selection-end-column="4" />
+        <state relative-caret-position="128">
+          <caret line="272" column="14" selection-start-line="272" selection-start-column="14" selection-end-line="272" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/lang/System.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="214" column="40" selection-start-line="214" selection-start-column="40" selection-end-line="214" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/io/PrintStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="224" column="11" selection-start-line="224" selection-start-column="11" selection-end-line="224" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Generate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="61" column="33" lean-forward="true" selection-start-line="61" selection-start-column="33" selection-end-line="61" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2253#2254#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/R.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
-          <folding>
-            <element signature="e#200#201#0" expanded="true" />
-            <element signature="e#230#231#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/components/b-form.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="59" column="18" selection-start-line="59" selection-start-column="18" selection-end-line="59" selection-end-column="18" />
-          <folding>
-            <element signature="n#style#0;n#el-alert#0;n#el-form-item#0;n#el-form#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/util.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-42">
-          <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="41" column="28" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/resources/sql/raAlbumClass.md">
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/resources/sql/ra_order.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="168">
-            <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <first_editor relative-caret-position="273">
+            <caret line="11" column="137" lean-forward="true" selection-start-line="11" selection-start-column="137" selection-end-line="11" selection-end-column="137" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/target/classes/com/beeasy/easyshop/ctrl/store.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#1029#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/store.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/pages/goods/gallery.pic.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="10" selection-start-column="10" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/pages/order/Order.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/element-starter/src/pages/goods/gallery.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1029">
-          <caret line="30" column="45" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
+        <state relative-caret-position="147">
+          <caret line="8" column="84" selection-start-line="8" selection-start-column="84" selection-end-line="8" selection-end-column="84" />
           <folding>
             <element signature="n#style#0;n#div#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#1;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#el-button#0;n#el-col#1;n#el-row#0;n#div#0;n#el-card#0;n#el-col#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#b-form#0;n#el-dialog#0;n#el-row#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/element-starter/src/pages/store/Setting.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
         </state>
       </provider>
     </entry>

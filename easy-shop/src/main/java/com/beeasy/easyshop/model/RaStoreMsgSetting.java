@@ -7,39 +7,48 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_msg_setting")
 public class RaStoreMsgSetting   {
 	
+	// alias
+	public static final String ALIAS_smt_code = "smt_code";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_sms_mail_switch = "sms_mail_switch";
+	public static final String ALIAS_sms_message_switch = "sms_message_switch";
+	public static final String ALIAS_sms_short_switch = "sms_short_switch";
+	public static final String ALIAS_sms_mail_number = "sms_mail_number";
+	public static final String ALIAS_sms_short_number = "sms_short_number";
+	
 	/*
 	模板编码
 	*/
-	private String smtCode ;
+	private String smt_code ;
 	/*
 	店铺id
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	邮件接收开关，0关闭，1开启
 	*/
-	private Integer smsMailSwitch ;
+	private Integer sms_mail_switch ;
 	/*
 	站内信接收开关，0关闭，1开启
 	*/
-	private Integer smsMessageSwitch ;
+	private Integer sms_message_switch ;
 	/*
 	短消息接收开关，0关闭，1开启
 	*/
-	private Integer smsShortSwitch ;
+	private Integer sms_short_switch ;
 	/*
 	邮箱号码
 	*/
-	private String smsMailNumber ;
+	private String sms_mail_number ;
 	/*
 	手机号码
 	*/
-	private String smsShortNumber ;
+	private String sms_short_number ;
 	
 	public RaStoreMsgSetting() {
 	}
@@ -48,105 +57,105 @@ public class RaStoreMsgSetting   {
 	* 模板编码
 	*@return 
 	*/
-	public String getSmtCode(){
-		return  smtCode;
+	public String getSmt_code(){
+		return  smt_code;
 	}
 	/**
 	* 模板编码
-	*@param  smtCode
+	*@param  smt_code
 	*/
-	public void setSmtCode(String smtCode ){
-		this.smtCode = smtCode;
+	public void setSmt_code(String smt_code ){
+		this.smt_code = smt_code;
 	}
 	
 	/**
 	* 店铺id
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺id
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 邮件接收开关，0关闭，1开启
 	*@return 
 	*/
-	public Integer getSmsMailSwitch(){
-		return  smsMailSwitch;
+	public Integer getSms_mail_switch(){
+		return  sms_mail_switch;
 	}
 	/**
 	* 邮件接收开关，0关闭，1开启
-	*@param  smsMailSwitch
+	*@param  sms_mail_switch
 	*/
-	public void setSmsMailSwitch(Integer smsMailSwitch ){
-		this.smsMailSwitch = smsMailSwitch;
+	public void setSms_mail_switch(Integer sms_mail_switch ){
+		this.sms_mail_switch = sms_mail_switch;
 	}
 	
 	/**
 	* 站内信接收开关，0关闭，1开启
 	*@return 
 	*/
-	public Integer getSmsMessageSwitch(){
-		return  smsMessageSwitch;
+	public Integer getSms_message_switch(){
+		return  sms_message_switch;
 	}
 	/**
 	* 站内信接收开关，0关闭，1开启
-	*@param  smsMessageSwitch
+	*@param  sms_message_switch
 	*/
-	public void setSmsMessageSwitch(Integer smsMessageSwitch ){
-		this.smsMessageSwitch = smsMessageSwitch;
+	public void setSms_message_switch(Integer sms_message_switch ){
+		this.sms_message_switch = sms_message_switch;
 	}
 	
 	/**
 	* 短消息接收开关，0关闭，1开启
 	*@return 
 	*/
-	public Integer getSmsShortSwitch(){
-		return  smsShortSwitch;
+	public Integer getSms_short_switch(){
+		return  sms_short_switch;
 	}
 	/**
 	* 短消息接收开关，0关闭，1开启
-	*@param  smsShortSwitch
+	*@param  sms_short_switch
 	*/
-	public void setSmsShortSwitch(Integer smsShortSwitch ){
-		this.smsShortSwitch = smsShortSwitch;
+	public void setSms_short_switch(Integer sms_short_switch ){
+		this.sms_short_switch = sms_short_switch;
 	}
 	
 	/**
 	* 邮箱号码
 	*@return 
 	*/
-	public String getSmsMailNumber(){
-		return  smsMailNumber;
+	public String getSms_mail_number(){
+		return  sms_mail_number;
 	}
 	/**
 	* 邮箱号码
-	*@param  smsMailNumber
+	*@param  sms_mail_number
 	*/
-	public void setSmsMailNumber(String smsMailNumber ){
-		this.smsMailNumber = smsMailNumber;
+	public void setSms_mail_number(String sms_mail_number ){
+		this.sms_mail_number = sms_mail_number;
 	}
 	
 	/**
 	* 手机号码
 	*@return 
 	*/
-	public String getSmsShortNumber(){
-		return  smsShortNumber;
+	public String getSms_short_number(){
+		return  sms_short_number;
 	}
 	/**
 	* 手机号码
-	*@param  smsShortNumber
+	*@param  sms_short_number
 	*/
-	public void setSmsShortNumber(String smsShortNumber ){
-		this.smsShortNumber = smsShortNumber;
+	public void setSms_short_number(String sms_short_number ){
+		this.sms_short_number = sms_short_number;
 	}
 	
 

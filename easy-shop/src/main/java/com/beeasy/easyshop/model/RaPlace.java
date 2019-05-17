@@ -7,13 +7,20 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_place")
 public class RaPlace   {
 	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_ad_word = "ad_word";
+	public static final String ALIAS_adv = "adv";
+	public static final String ALIAS_name = "name";
+	public static final String ALIAS_time = "time";
+	
 	private Integer id ;
-	private String adWord ;
+	private String ad_word ;
 	private String adv ;
 	private String name ;
 	private String time ;
@@ -28,11 +35,11 @@ public class RaPlace   {
 		this.id = id;
 	}
 	
-	public String getAdWord(){
-		return  adWord;
+	public String getAd_word(){
+		return  ad_word;
 	}
-	public void setAdWord(String adWord ){
-		this.adWord = adWord;
+	public void setAd_word(String ad_word ){
+		this.ad_word = ad_word;
 	}
 	
 	public String getAdv(){

@@ -7,209 +7,268 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_goods")
 public class RaGoods   {
 	
+	// alias
+	public static final String ALIAS_goods_id = "goods_id";
+	public static final String ALIAS_areaid_1 = "areaid_1";
+	public static final String ALIAS_areaid_2 = "areaid_2";
+	public static final String ALIAS_brand_id = "brand_id";
+	public static final String ALIAS_color_id = "color_id";
+	public static final String ALIAS_evaluation_count = "evaluation_count";
+	public static final String ALIAS_evaluation_good_star = "evaluation_good_star";
+	public static final String ALIAS_gc_id = "gc_id";
+	public static final String ALIAS_gc_id_1 = "gc_id_1";
+	public static final String ALIAS_gc_id_2 = "gc_id_2";
+	public static final String ALIAS_gc_id_3 = "gc_id_3";
+	public static final String ALIAS_goods_addtime = "goods_addtime";
+	public static final String ALIAS_goods_click = "goods_click";
+	public static final String ALIAS_goods_collect = "goods_collect";
+	public static final String ALIAS_goods_commend = "goods_commend";
+	public static final String ALIAS_goods_commonid = "goods_commonid";
+	public static final String ALIAS_goods_edittime = "goods_edittime";
+	public static final String ALIAS_goods_promotion_type = "goods_promotion_type";
+	public static final String ALIAS_goods_salenum = "goods_salenum";
+	public static final String ALIAS_goods_state = "goods_state";
+	public static final String ALIAS_goods_storage = "goods_storage";
+	public static final String ALIAS_goods_storage_alarm = "goods_storage_alarm";
+	public static final String ALIAS_goods_vat = "goods_vat";
+	public static final String ALIAS_goods_verify = "goods_verify";
+	public static final String ALIAS_have_gift = "have_gift";
+	public static final String ALIAS_is_appoint = "is_appoint";
+	public static final String ALIAS_is_fcode = "is_fcode";
+	public static final String ALIAS_is_own_shop = "is_own_shop";
+	public static final String ALIAS_is_presell = "is_presell";
+	public static final String ALIAS_is_virtual = "is_virtual";
+	public static final String ALIAS_is_whole = "is_whole";
+	public static final String ALIAS_open_tax = "open_tax";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_transport_id = "transport_id";
+	public static final String ALIAS_virtual_indate = "virtual_indate";
+	public static final String ALIAS_virtual_invalid_refund = "virtual_invalid_refund";
+	public static final String ALIAS_virtual_limit = "virtual_limit";
+	public static final String ALIAS_whole_min = "whole_min";
+	public static final String ALIAS_gextends = "gextends";
+	public static final String ALIAS_goods_freight = "goods_freight";
+	public static final String ALIAS_goods_image = "goods_image";
+	public static final String ALIAS_goods_jingle = "goods_jingle";
+	public static final String ALIAS_goods_marketprice = "goods_marketprice";
+	public static final String ALIAS_goods_name = "goods_name";
+	public static final String ALIAS_goods_price = "goods_price";
+	public static final String ALIAS_goods_promotion_price = "goods_promotion_price";
+	public static final String ALIAS_goods_serial = "goods_serial";
+	public static final String ALIAS_goods_spec = "goods_spec";
+	public static final String ALIAS_goods_stcids = "goods_stcids";
+	public static final String ALIAS_link_goods = "link_goods";
+	public static final String ALIAS_proxy_factor = "proxy_factor";
+	public static final String ALIAS_proxy_gold_formula = "proxy_gold_formula";
+	public static final String ALIAS_sharp = "sharp";
+	public static final String ALIAS_spec_name = "spec_name";
+	public static final String ALIAS_store_name = "store_name";
+	public static final String ALIAS_tax = "tax";
+	public static final String ALIAS_whole_price = "whole_price";
+	
 	/*
 	商品id(SKU)
 	*/
-	private Integer goodsId ;
+	private Integer goods_id ;
 	/*
 	一级地区id
 	*/
-	private Integer areaid1 ;
+	private Integer areaid_1 ;
 	/*
 	二级地区id
 	*/
-	private Integer areaid2 ;
+	private Integer areaid_2 ;
 	/*
 	品牌id
 	*/
-	private Integer brandId ;
+	private Integer brand_id ;
 	/*
 	颜色规格id
 	*/
-	private Integer colorId ;
+	private Integer color_id ;
 	/*
 	评价数
 	*/
-	private Integer evaluationCount ;
+	private Integer evaluation_count ;
 	/*
 	好评星级
 	*/
-	private Integer evaluationGoodStar ;
+	private Integer evaluation_good_star ;
 	/*
 	商品分类id
 	*/
-	private Integer gcId ;
+	private Integer gc_id ;
 	/*
 	一级分类id
 	*/
-	private Integer gcId1 ;
+	private Integer gc_id_1 ;
 	/*
 	二级分类id
 	*/
-	private Integer gcId2 ;
+	private Integer gc_id_2 ;
 	/*
 	三级分类id
 	*/
-	private Integer gcId3 ;
+	private Integer gc_id_3 ;
 	/*
 	商品添加时间
 	*/
-	private Integer goodsAddtime ;
+	private Integer goods_addtime ;
 	/*
 	商品点击数量
 	*/
-	private Integer goodsClick ;
+	private Integer goods_click ;
 	/*
 	收藏数量
 	*/
-	private Integer goodsCollect ;
+	private Integer goods_collect ;
 	/*
 	商品推荐 1是，0否 默认0
 	*/
-	private Integer goodsCommend ;
+	private Integer goods_commend ;
 	/*
 	商品公共表id
 	*/
-	private Integer goodsCommonid ;
+	private Integer goods_commonid ;
 	/*
 	商品编辑时间
 	*/
-	private Integer goodsEdittime ;
+	private Integer goods_edittime ;
 	/*
 	促销类型 0无促销，1团购，2限时折扣
 	*/
-	private Integer goodsPromotionType ;
+	private Integer goods_promotion_type ;
 	/*
 	销售数量
 	*/
-	private Integer goodsSalenum ;
+	private Integer goods_salenum ;
 	/*
 	商品状态 0下架，1正常，10违规（禁售）
 	*/
-	private Integer goodsState ;
+	private Integer goods_state ;
 	/*
 	商品库存
 	*/
-	private Integer goodsStorage ;
+	private Integer goods_storage ;
 	/*
 	库存报警值
 	*/
-	private Integer goodsStorageAlarm ;
+	private Integer goods_storage_alarm ;
 	/*
 	是否开具增值税发票 1是，0否
 	*/
-	private Integer goodsVat ;
+	private Integer goods_vat ;
 	/*
 	商品审核 1通过，0未通过，10审核中
 	*/
-	private Integer goodsVerify ;
+	private Integer goods_verify ;
 	/*
 	是否拥有赠品
 	*/
-	private Integer haveGift ;
+	private Integer have_gift ;
 	/*
 	是否是预约商品 1是，0否
 	*/
-	private Integer isAppoint ;
+	private Integer is_appoint ;
 	/*
 	是否为F码商品 1是，0否
 	*/
-	private Integer isFcode ;
+	private Integer is_fcode ;
 	/*
 	是否为平台自营
 	*/
-	private Integer isOwnShop ;
+	private Integer is_own_shop ;
 	/*
 	是否是预售商品 1是，0否
 	*/
-	private Integer isPresell ;
+	private Integer is_presell ;
 	/*
 	是否为虚拟商品 1是，0否
 	*/
-	private Integer isVirtual ;
-	private Integer isWhole ;
-	private Integer openTax ;
+	private Integer is_virtual ;
+	private Integer is_whole ;
+	private Integer open_tax ;
 	/*
 	店铺id
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	运费模板id
 	*/
-	private Integer transportId ;
+	private Integer transport_id ;
 	/*
 	虚拟商品有效期
 	*/
-	private Integer virtualIndate ;
+	private Integer virtual_indate ;
 	/*
 	是否允许过期退款， 1是，0否
 	*/
-	private Integer virtualInvalidRefund ;
+	private Integer virtual_invalid_refund ;
 	/*
 	虚拟商品购买上限
 	*/
-	private Integer virtualLimit ;
+	private Integer virtual_limit ;
 	/*
 	起批量
 	*/
-	private Integer wholeMin ;
+	private Integer whole_min ;
 	private String gextends ;
 	/*
 	运费 0为免运费
 	*/
-	private BigDecimal goodsFreight ;
+	private BigDecimal goods_freight ;
 	/*
 	商品主图
 	*/
-	private String goodsImage ;
+	private String goods_image ;
 	/*
 	商品广告词
 	*/
-	private String goodsJingle ;
+	private String goods_jingle ;
 	/*
 	市场价
 	*/
-	private BigDecimal goodsMarketprice ;
+	private BigDecimal goods_marketprice ;
 	/*
 	商品名称（+规格名称）
 	*/
-	private String goodsName ;
+	private String goods_name ;
 	/*
 	商品价格
 	*/
-	private BigDecimal goodsPrice ;
+	private BigDecimal goods_price ;
 	/*
 	商品促销价格
 	*/
-	private BigDecimal goodsPromotionPrice ;
+	private BigDecimal goods_promotion_price ;
 	/*
 	商家编号
 	*/
-	private String goodsSerial ;
+	private String goods_serial ;
 	/*
 	商品规格序列化
 	*/
-	private String goodsSpec ;
+	private String goods_spec ;
 	/*
 	店铺分类id 首尾用,隔开
 	*/
-	private String goodsStcids ;
-	private String linkGoods ;
-	private String proxyFactor ;
-	private String proxyGoldFormula ;
+	private String goods_stcids ;
+	private String link_goods ;
+	private String proxy_factor ;
+	private String proxy_gold_formula ;
 	private String sharp ;
-	private String specName ;
+	private String spec_name ;
 	/*
 	店铺名称
 	*/
-	private String storeName ;
+	private String store_name ;
 	private BigDecimal tax ;
-	private Long wholePrice ;
+	private Long whole_price ;
 	
 	public RaGoods() {
 	}
@@ -218,554 +277,554 @@ public class RaGoods   {
 	* 商品id(SKU)
 	*@return 
 	*/
-	public Integer getGoodsId(){
-		return  goodsId;
+	public Integer getGoods_id(){
+		return  goods_id;
 	}
 	/**
 	* 商品id(SKU)
-	*@param  goodsId
+	*@param  goods_id
 	*/
-	public void setGoodsId(Integer goodsId ){
-		this.goodsId = goodsId;
+	public void setGoods_id(Integer goods_id ){
+		this.goods_id = goods_id;
 	}
 	
 	/**
 	* 一级地区id
 	*@return 
 	*/
-	public Integer getAreaid1(){
-		return  areaid1;
+	public Integer getAreaid_1(){
+		return  areaid_1;
 	}
 	/**
 	* 一级地区id
-	*@param  areaid1
+	*@param  areaid_1
 	*/
-	public void setAreaid1(Integer areaid1 ){
-		this.areaid1 = areaid1;
+	public void setAreaid_1(Integer areaid_1 ){
+		this.areaid_1 = areaid_1;
 	}
 	
 	/**
 	* 二级地区id
 	*@return 
 	*/
-	public Integer getAreaid2(){
-		return  areaid2;
+	public Integer getAreaid_2(){
+		return  areaid_2;
 	}
 	/**
 	* 二级地区id
-	*@param  areaid2
+	*@param  areaid_2
 	*/
-	public void setAreaid2(Integer areaid2 ){
-		this.areaid2 = areaid2;
+	public void setAreaid_2(Integer areaid_2 ){
+		this.areaid_2 = areaid_2;
 	}
 	
 	/**
 	* 品牌id
 	*@return 
 	*/
-	public Integer getBrandId(){
-		return  brandId;
+	public Integer getBrand_id(){
+		return  brand_id;
 	}
 	/**
 	* 品牌id
-	*@param  brandId
+	*@param  brand_id
 	*/
-	public void setBrandId(Integer brandId ){
-		this.brandId = brandId;
+	public void setBrand_id(Integer brand_id ){
+		this.brand_id = brand_id;
 	}
 	
 	/**
 	* 颜色规格id
 	*@return 
 	*/
-	public Integer getColorId(){
-		return  colorId;
+	public Integer getColor_id(){
+		return  color_id;
 	}
 	/**
 	* 颜色规格id
-	*@param  colorId
+	*@param  color_id
 	*/
-	public void setColorId(Integer colorId ){
-		this.colorId = colorId;
+	public void setColor_id(Integer color_id ){
+		this.color_id = color_id;
 	}
 	
 	/**
 	* 评价数
 	*@return 
 	*/
-	public Integer getEvaluationCount(){
-		return  evaluationCount;
+	public Integer getEvaluation_count(){
+		return  evaluation_count;
 	}
 	/**
 	* 评价数
-	*@param  evaluationCount
+	*@param  evaluation_count
 	*/
-	public void setEvaluationCount(Integer evaluationCount ){
-		this.evaluationCount = evaluationCount;
+	public void setEvaluation_count(Integer evaluation_count ){
+		this.evaluation_count = evaluation_count;
 	}
 	
 	/**
 	* 好评星级
 	*@return 
 	*/
-	public Integer getEvaluationGoodStar(){
-		return  evaluationGoodStar;
+	public Integer getEvaluation_good_star(){
+		return  evaluation_good_star;
 	}
 	/**
 	* 好评星级
-	*@param  evaluationGoodStar
+	*@param  evaluation_good_star
 	*/
-	public void setEvaluationGoodStar(Integer evaluationGoodStar ){
-		this.evaluationGoodStar = evaluationGoodStar;
+	public void setEvaluation_good_star(Integer evaluation_good_star ){
+		this.evaluation_good_star = evaluation_good_star;
 	}
 	
 	/**
 	* 商品分类id
 	*@return 
 	*/
-	public Integer getGcId(){
-		return  gcId;
+	public Integer getGc_id(){
+		return  gc_id;
 	}
 	/**
 	* 商品分类id
-	*@param  gcId
+	*@param  gc_id
 	*/
-	public void setGcId(Integer gcId ){
-		this.gcId = gcId;
+	public void setGc_id(Integer gc_id ){
+		this.gc_id = gc_id;
 	}
 	
 	/**
 	* 一级分类id
 	*@return 
 	*/
-	public Integer getGcId1(){
-		return  gcId1;
+	public Integer getGc_id_1(){
+		return  gc_id_1;
 	}
 	/**
 	* 一级分类id
-	*@param  gcId1
+	*@param  gc_id_1
 	*/
-	public void setGcId1(Integer gcId1 ){
-		this.gcId1 = gcId1;
+	public void setGc_id_1(Integer gc_id_1 ){
+		this.gc_id_1 = gc_id_1;
 	}
 	
 	/**
 	* 二级分类id
 	*@return 
 	*/
-	public Integer getGcId2(){
-		return  gcId2;
+	public Integer getGc_id_2(){
+		return  gc_id_2;
 	}
 	/**
 	* 二级分类id
-	*@param  gcId2
+	*@param  gc_id_2
 	*/
-	public void setGcId2(Integer gcId2 ){
-		this.gcId2 = gcId2;
+	public void setGc_id_2(Integer gc_id_2 ){
+		this.gc_id_2 = gc_id_2;
 	}
 	
 	/**
 	* 三级分类id
 	*@return 
 	*/
-	public Integer getGcId3(){
-		return  gcId3;
+	public Integer getGc_id_3(){
+		return  gc_id_3;
 	}
 	/**
 	* 三级分类id
-	*@param  gcId3
+	*@param  gc_id_3
 	*/
-	public void setGcId3(Integer gcId3 ){
-		this.gcId3 = gcId3;
+	public void setGc_id_3(Integer gc_id_3 ){
+		this.gc_id_3 = gc_id_3;
 	}
 	
 	/**
 	* 商品添加时间
 	*@return 
 	*/
-	public Integer getGoodsAddtime(){
-		return  goodsAddtime;
+	public Integer getGoods_addtime(){
+		return  goods_addtime;
 	}
 	/**
 	* 商品添加时间
-	*@param  goodsAddtime
+	*@param  goods_addtime
 	*/
-	public void setGoodsAddtime(Integer goodsAddtime ){
-		this.goodsAddtime = goodsAddtime;
+	public void setGoods_addtime(Integer goods_addtime ){
+		this.goods_addtime = goods_addtime;
 	}
 	
 	/**
 	* 商品点击数量
 	*@return 
 	*/
-	public Integer getGoodsClick(){
-		return  goodsClick;
+	public Integer getGoods_click(){
+		return  goods_click;
 	}
 	/**
 	* 商品点击数量
-	*@param  goodsClick
+	*@param  goods_click
 	*/
-	public void setGoodsClick(Integer goodsClick ){
-		this.goodsClick = goodsClick;
+	public void setGoods_click(Integer goods_click ){
+		this.goods_click = goods_click;
 	}
 	
 	/**
 	* 收藏数量
 	*@return 
 	*/
-	public Integer getGoodsCollect(){
-		return  goodsCollect;
+	public Integer getGoods_collect(){
+		return  goods_collect;
 	}
 	/**
 	* 收藏数量
-	*@param  goodsCollect
+	*@param  goods_collect
 	*/
-	public void setGoodsCollect(Integer goodsCollect ){
-		this.goodsCollect = goodsCollect;
+	public void setGoods_collect(Integer goods_collect ){
+		this.goods_collect = goods_collect;
 	}
 	
 	/**
 	* 商品推荐 1是，0否 默认0
 	*@return 
 	*/
-	public Integer getGoodsCommend(){
-		return  goodsCommend;
+	public Integer getGoods_commend(){
+		return  goods_commend;
 	}
 	/**
 	* 商品推荐 1是，0否 默认0
-	*@param  goodsCommend
+	*@param  goods_commend
 	*/
-	public void setGoodsCommend(Integer goodsCommend ){
-		this.goodsCommend = goodsCommend;
+	public void setGoods_commend(Integer goods_commend ){
+		this.goods_commend = goods_commend;
 	}
 	
 	/**
 	* 商品公共表id
 	*@return 
 	*/
-	public Integer getGoodsCommonid(){
-		return  goodsCommonid;
+	public Integer getGoods_commonid(){
+		return  goods_commonid;
 	}
 	/**
 	* 商品公共表id
-	*@param  goodsCommonid
+	*@param  goods_commonid
 	*/
-	public void setGoodsCommonid(Integer goodsCommonid ){
-		this.goodsCommonid = goodsCommonid;
+	public void setGoods_commonid(Integer goods_commonid ){
+		this.goods_commonid = goods_commonid;
 	}
 	
 	/**
 	* 商品编辑时间
 	*@return 
 	*/
-	public Integer getGoodsEdittime(){
-		return  goodsEdittime;
+	public Integer getGoods_edittime(){
+		return  goods_edittime;
 	}
 	/**
 	* 商品编辑时间
-	*@param  goodsEdittime
+	*@param  goods_edittime
 	*/
-	public void setGoodsEdittime(Integer goodsEdittime ){
-		this.goodsEdittime = goodsEdittime;
+	public void setGoods_edittime(Integer goods_edittime ){
+		this.goods_edittime = goods_edittime;
 	}
 	
 	/**
 	* 促销类型 0无促销，1团购，2限时折扣
 	*@return 
 	*/
-	public Integer getGoodsPromotionType(){
-		return  goodsPromotionType;
+	public Integer getGoods_promotion_type(){
+		return  goods_promotion_type;
 	}
 	/**
 	* 促销类型 0无促销，1团购，2限时折扣
-	*@param  goodsPromotionType
+	*@param  goods_promotion_type
 	*/
-	public void setGoodsPromotionType(Integer goodsPromotionType ){
-		this.goodsPromotionType = goodsPromotionType;
+	public void setGoods_promotion_type(Integer goods_promotion_type ){
+		this.goods_promotion_type = goods_promotion_type;
 	}
 	
 	/**
 	* 销售数量
 	*@return 
 	*/
-	public Integer getGoodsSalenum(){
-		return  goodsSalenum;
+	public Integer getGoods_salenum(){
+		return  goods_salenum;
 	}
 	/**
 	* 销售数量
-	*@param  goodsSalenum
+	*@param  goods_salenum
 	*/
-	public void setGoodsSalenum(Integer goodsSalenum ){
-		this.goodsSalenum = goodsSalenum;
+	public void setGoods_salenum(Integer goods_salenum ){
+		this.goods_salenum = goods_salenum;
 	}
 	
 	/**
 	* 商品状态 0下架，1正常，10违规（禁售）
 	*@return 
 	*/
-	public Integer getGoodsState(){
-		return  goodsState;
+	public Integer getGoods_state(){
+		return  goods_state;
 	}
 	/**
 	* 商品状态 0下架，1正常，10违规（禁售）
-	*@param  goodsState
+	*@param  goods_state
 	*/
-	public void setGoodsState(Integer goodsState ){
-		this.goodsState = goodsState;
+	public void setGoods_state(Integer goods_state ){
+		this.goods_state = goods_state;
 	}
 	
 	/**
 	* 商品库存
 	*@return 
 	*/
-	public Integer getGoodsStorage(){
-		return  goodsStorage;
+	public Integer getGoods_storage(){
+		return  goods_storage;
 	}
 	/**
 	* 商品库存
-	*@param  goodsStorage
+	*@param  goods_storage
 	*/
-	public void setGoodsStorage(Integer goodsStorage ){
-		this.goodsStorage = goodsStorage;
+	public void setGoods_storage(Integer goods_storage ){
+		this.goods_storage = goods_storage;
 	}
 	
 	/**
 	* 库存报警值
 	*@return 
 	*/
-	public Integer getGoodsStorageAlarm(){
-		return  goodsStorageAlarm;
+	public Integer getGoods_storage_alarm(){
+		return  goods_storage_alarm;
 	}
 	/**
 	* 库存报警值
-	*@param  goodsStorageAlarm
+	*@param  goods_storage_alarm
 	*/
-	public void setGoodsStorageAlarm(Integer goodsStorageAlarm ){
-		this.goodsStorageAlarm = goodsStorageAlarm;
+	public void setGoods_storage_alarm(Integer goods_storage_alarm ){
+		this.goods_storage_alarm = goods_storage_alarm;
 	}
 	
 	/**
 	* 是否开具增值税发票 1是，0否
 	*@return 
 	*/
-	public Integer getGoodsVat(){
-		return  goodsVat;
+	public Integer getGoods_vat(){
+		return  goods_vat;
 	}
 	/**
 	* 是否开具增值税发票 1是，0否
-	*@param  goodsVat
+	*@param  goods_vat
 	*/
-	public void setGoodsVat(Integer goodsVat ){
-		this.goodsVat = goodsVat;
+	public void setGoods_vat(Integer goods_vat ){
+		this.goods_vat = goods_vat;
 	}
 	
 	/**
 	* 商品审核 1通过，0未通过，10审核中
 	*@return 
 	*/
-	public Integer getGoodsVerify(){
-		return  goodsVerify;
+	public Integer getGoods_verify(){
+		return  goods_verify;
 	}
 	/**
 	* 商品审核 1通过，0未通过，10审核中
-	*@param  goodsVerify
+	*@param  goods_verify
 	*/
-	public void setGoodsVerify(Integer goodsVerify ){
-		this.goodsVerify = goodsVerify;
+	public void setGoods_verify(Integer goods_verify ){
+		this.goods_verify = goods_verify;
 	}
 	
 	/**
 	* 是否拥有赠品
 	*@return 
 	*/
-	public Integer getHaveGift(){
-		return  haveGift;
+	public Integer getHave_gift(){
+		return  have_gift;
 	}
 	/**
 	* 是否拥有赠品
-	*@param  haveGift
+	*@param  have_gift
 	*/
-	public void setHaveGift(Integer haveGift ){
-		this.haveGift = haveGift;
+	public void setHave_gift(Integer have_gift ){
+		this.have_gift = have_gift;
 	}
 	
 	/**
 	* 是否是预约商品 1是，0否
 	*@return 
 	*/
-	public Integer getIsAppoint(){
-		return  isAppoint;
+	public Integer getIs_appoint(){
+		return  is_appoint;
 	}
 	/**
 	* 是否是预约商品 1是，0否
-	*@param  isAppoint
+	*@param  is_appoint
 	*/
-	public void setIsAppoint(Integer isAppoint ){
-		this.isAppoint = isAppoint;
+	public void setIs_appoint(Integer is_appoint ){
+		this.is_appoint = is_appoint;
 	}
 	
 	/**
 	* 是否为F码商品 1是，0否
 	*@return 
 	*/
-	public Integer getIsFcode(){
-		return  isFcode;
+	public Integer getIs_fcode(){
+		return  is_fcode;
 	}
 	/**
 	* 是否为F码商品 1是，0否
-	*@param  isFcode
+	*@param  is_fcode
 	*/
-	public void setIsFcode(Integer isFcode ){
-		this.isFcode = isFcode;
+	public void setIs_fcode(Integer is_fcode ){
+		this.is_fcode = is_fcode;
 	}
 	
 	/**
 	* 是否为平台自营
 	*@return 
 	*/
-	public Integer getIsOwnShop(){
-		return  isOwnShop;
+	public Integer getIs_own_shop(){
+		return  is_own_shop;
 	}
 	/**
 	* 是否为平台自营
-	*@param  isOwnShop
+	*@param  is_own_shop
 	*/
-	public void setIsOwnShop(Integer isOwnShop ){
-		this.isOwnShop = isOwnShop;
+	public void setIs_own_shop(Integer is_own_shop ){
+		this.is_own_shop = is_own_shop;
 	}
 	
 	/**
 	* 是否是预售商品 1是，0否
 	*@return 
 	*/
-	public Integer getIsPresell(){
-		return  isPresell;
+	public Integer getIs_presell(){
+		return  is_presell;
 	}
 	/**
 	* 是否是预售商品 1是，0否
-	*@param  isPresell
+	*@param  is_presell
 	*/
-	public void setIsPresell(Integer isPresell ){
-		this.isPresell = isPresell;
+	public void setIs_presell(Integer is_presell ){
+		this.is_presell = is_presell;
 	}
 	
 	/**
 	* 是否为虚拟商品 1是，0否
 	*@return 
 	*/
-	public Integer getIsVirtual(){
-		return  isVirtual;
+	public Integer getIs_virtual(){
+		return  is_virtual;
 	}
 	/**
 	* 是否为虚拟商品 1是，0否
-	*@param  isVirtual
+	*@param  is_virtual
 	*/
-	public void setIsVirtual(Integer isVirtual ){
-		this.isVirtual = isVirtual;
+	public void setIs_virtual(Integer is_virtual ){
+		this.is_virtual = is_virtual;
 	}
 	
-	public Integer getIsWhole(){
-		return  isWhole;
+	public Integer getIs_whole(){
+		return  is_whole;
 	}
-	public void setIsWhole(Integer isWhole ){
-		this.isWhole = isWhole;
+	public void setIs_whole(Integer is_whole ){
+		this.is_whole = is_whole;
 	}
 	
-	public Integer getOpenTax(){
-		return  openTax;
+	public Integer getOpen_tax(){
+		return  open_tax;
 	}
-	public void setOpenTax(Integer openTax ){
-		this.openTax = openTax;
+	public void setOpen_tax(Integer open_tax ){
+		this.open_tax = open_tax;
 	}
 	
 	/**
 	* 店铺id
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺id
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 运费模板id
 	*@return 
 	*/
-	public Integer getTransportId(){
-		return  transportId;
+	public Integer getTransport_id(){
+		return  transport_id;
 	}
 	/**
 	* 运费模板id
-	*@param  transportId
+	*@param  transport_id
 	*/
-	public void setTransportId(Integer transportId ){
-		this.transportId = transportId;
+	public void setTransport_id(Integer transport_id ){
+		this.transport_id = transport_id;
 	}
 	
 	/**
 	* 虚拟商品有效期
 	*@return 
 	*/
-	public Integer getVirtualIndate(){
-		return  virtualIndate;
+	public Integer getVirtual_indate(){
+		return  virtual_indate;
 	}
 	/**
 	* 虚拟商品有效期
-	*@param  virtualIndate
+	*@param  virtual_indate
 	*/
-	public void setVirtualIndate(Integer virtualIndate ){
-		this.virtualIndate = virtualIndate;
+	public void setVirtual_indate(Integer virtual_indate ){
+		this.virtual_indate = virtual_indate;
 	}
 	
 	/**
 	* 是否允许过期退款， 1是，0否
 	*@return 
 	*/
-	public Integer getVirtualInvalidRefund(){
-		return  virtualInvalidRefund;
+	public Integer getVirtual_invalid_refund(){
+		return  virtual_invalid_refund;
 	}
 	/**
 	* 是否允许过期退款， 1是，0否
-	*@param  virtualInvalidRefund
+	*@param  virtual_invalid_refund
 	*/
-	public void setVirtualInvalidRefund(Integer virtualInvalidRefund ){
-		this.virtualInvalidRefund = virtualInvalidRefund;
+	public void setVirtual_invalid_refund(Integer virtual_invalid_refund ){
+		this.virtual_invalid_refund = virtual_invalid_refund;
 	}
 	
 	/**
 	* 虚拟商品购买上限
 	*@return 
 	*/
-	public Integer getVirtualLimit(){
-		return  virtualLimit;
+	public Integer getVirtual_limit(){
+		return  virtual_limit;
 	}
 	/**
 	* 虚拟商品购买上限
-	*@param  virtualLimit
+	*@param  virtual_limit
 	*/
-	public void setVirtualLimit(Integer virtualLimit ){
-		this.virtualLimit = virtualLimit;
+	public void setVirtual_limit(Integer virtual_limit ){
+		this.virtual_limit = virtual_limit;
 	}
 	
 	/**
 	* 起批量
 	*@return 
 	*/
-	public Integer getWholeMin(){
-		return  wholeMin;
+	public Integer getWhole_min(){
+		return  whole_min;
 	}
 	/**
 	* 起批量
-	*@param  wholeMin
+	*@param  whole_min
 	*/
-	public void setWholeMin(Integer wholeMin ){
-		this.wholeMin = wholeMin;
+	public void setWhole_min(Integer whole_min ){
+		this.whole_min = whole_min;
 	}
 	
 	public String getGextends(){
@@ -779,171 +838,171 @@ public class RaGoods   {
 	* 运费 0为免运费
 	*@return 
 	*/
-	public BigDecimal getGoodsFreight(){
-		return  goodsFreight;
+	public BigDecimal getGoods_freight(){
+		return  goods_freight;
 	}
 	/**
 	* 运费 0为免运费
-	*@param  goodsFreight
+	*@param  goods_freight
 	*/
-	public void setGoodsFreight(BigDecimal goodsFreight ){
-		this.goodsFreight = goodsFreight;
+	public void setGoods_freight(BigDecimal goods_freight ){
+		this.goods_freight = goods_freight;
 	}
 	
 	/**
 	* 商品主图
 	*@return 
 	*/
-	public String getGoodsImage(){
-		return  goodsImage;
+	public String getGoods_image(){
+		return  goods_image;
 	}
 	/**
 	* 商品主图
-	*@param  goodsImage
+	*@param  goods_image
 	*/
-	public void setGoodsImage(String goodsImage ){
-		this.goodsImage = goodsImage;
+	public void setGoods_image(String goods_image ){
+		this.goods_image = goods_image;
 	}
 	
 	/**
 	* 商品广告词
 	*@return 
 	*/
-	public String getGoodsJingle(){
-		return  goodsJingle;
+	public String getGoods_jingle(){
+		return  goods_jingle;
 	}
 	/**
 	* 商品广告词
-	*@param  goodsJingle
+	*@param  goods_jingle
 	*/
-	public void setGoodsJingle(String goodsJingle ){
-		this.goodsJingle = goodsJingle;
+	public void setGoods_jingle(String goods_jingle ){
+		this.goods_jingle = goods_jingle;
 	}
 	
 	/**
 	* 市场价
 	*@return 
 	*/
-	public BigDecimal getGoodsMarketprice(){
-		return  goodsMarketprice;
+	public BigDecimal getGoods_marketprice(){
+		return  goods_marketprice;
 	}
 	/**
 	* 市场价
-	*@param  goodsMarketprice
+	*@param  goods_marketprice
 	*/
-	public void setGoodsMarketprice(BigDecimal goodsMarketprice ){
-		this.goodsMarketprice = goodsMarketprice;
+	public void setGoods_marketprice(BigDecimal goods_marketprice ){
+		this.goods_marketprice = goods_marketprice;
 	}
 	
 	/**
 	* 商品名称（+规格名称）
 	*@return 
 	*/
-	public String getGoodsName(){
-		return  goodsName;
+	public String getGoods_name(){
+		return  goods_name;
 	}
 	/**
 	* 商品名称（+规格名称）
-	*@param  goodsName
+	*@param  goods_name
 	*/
-	public void setGoodsName(String goodsName ){
-		this.goodsName = goodsName;
+	public void setGoods_name(String goods_name ){
+		this.goods_name = goods_name;
 	}
 	
 	/**
 	* 商品价格
 	*@return 
 	*/
-	public BigDecimal getGoodsPrice(){
-		return  goodsPrice;
+	public BigDecimal getGoods_price(){
+		return  goods_price;
 	}
 	/**
 	* 商品价格
-	*@param  goodsPrice
+	*@param  goods_price
 	*/
-	public void setGoodsPrice(BigDecimal goodsPrice ){
-		this.goodsPrice = goodsPrice;
+	public void setGoods_price(BigDecimal goods_price ){
+		this.goods_price = goods_price;
 	}
 	
 	/**
 	* 商品促销价格
 	*@return 
 	*/
-	public BigDecimal getGoodsPromotionPrice(){
-		return  goodsPromotionPrice;
+	public BigDecimal getGoods_promotion_price(){
+		return  goods_promotion_price;
 	}
 	/**
 	* 商品促销价格
-	*@param  goodsPromotionPrice
+	*@param  goods_promotion_price
 	*/
-	public void setGoodsPromotionPrice(BigDecimal goodsPromotionPrice ){
-		this.goodsPromotionPrice = goodsPromotionPrice;
+	public void setGoods_promotion_price(BigDecimal goods_promotion_price ){
+		this.goods_promotion_price = goods_promotion_price;
 	}
 	
 	/**
 	* 商家编号
 	*@return 
 	*/
-	public String getGoodsSerial(){
-		return  goodsSerial;
+	public String getGoods_serial(){
+		return  goods_serial;
 	}
 	/**
 	* 商家编号
-	*@param  goodsSerial
+	*@param  goods_serial
 	*/
-	public void setGoodsSerial(String goodsSerial ){
-		this.goodsSerial = goodsSerial;
+	public void setGoods_serial(String goods_serial ){
+		this.goods_serial = goods_serial;
 	}
 	
 	/**
 	* 商品规格序列化
 	*@return 
 	*/
-	public String getGoodsSpec(){
-		return  goodsSpec;
+	public String getGoods_spec(){
+		return  goods_spec;
 	}
 	/**
 	* 商品规格序列化
-	*@param  goodsSpec
+	*@param  goods_spec
 	*/
-	public void setGoodsSpec(String goodsSpec ){
-		this.goodsSpec = goodsSpec;
+	public void setGoods_spec(String goods_spec ){
+		this.goods_spec = goods_spec;
 	}
 	
 	/**
 	* 店铺分类id 首尾用,隔开
 	*@return 
 	*/
-	public String getGoodsStcids(){
-		return  goodsStcids;
+	public String getGoods_stcids(){
+		return  goods_stcids;
 	}
 	/**
 	* 店铺分类id 首尾用,隔开
-	*@param  goodsStcids
+	*@param  goods_stcids
 	*/
-	public void setGoodsStcids(String goodsStcids ){
-		this.goodsStcids = goodsStcids;
+	public void setGoods_stcids(String goods_stcids ){
+		this.goods_stcids = goods_stcids;
 	}
 	
-	public String getLinkGoods(){
-		return  linkGoods;
+	public String getLink_goods(){
+		return  link_goods;
 	}
-	public void setLinkGoods(String linkGoods ){
-		this.linkGoods = linkGoods;
-	}
-	
-	public String getProxyFactor(){
-		return  proxyFactor;
-	}
-	public void setProxyFactor(String proxyFactor ){
-		this.proxyFactor = proxyFactor;
+	public void setLink_goods(String link_goods ){
+		this.link_goods = link_goods;
 	}
 	
-	public String getProxyGoldFormula(){
-		return  proxyGoldFormula;
+	public String getProxy_factor(){
+		return  proxy_factor;
 	}
-	public void setProxyGoldFormula(String proxyGoldFormula ){
-		this.proxyGoldFormula = proxyGoldFormula;
+	public void setProxy_factor(String proxy_factor ){
+		this.proxy_factor = proxy_factor;
+	}
+	
+	public String getProxy_gold_formula(){
+		return  proxy_gold_formula;
+	}
+	public void setProxy_gold_formula(String proxy_gold_formula ){
+		this.proxy_gold_formula = proxy_gold_formula;
 	}
 	
 	public String getSharp(){
@@ -953,26 +1012,26 @@ public class RaGoods   {
 		this.sharp = sharp;
 	}
 	
-	public String getSpecName(){
-		return  specName;
+	public String getSpec_name(){
+		return  spec_name;
 	}
-	public void setSpecName(String specName ){
-		this.specName = specName;
+	public void setSpec_name(String spec_name ){
+		this.spec_name = spec_name;
 	}
 	
 	/**
 	* 店铺名称
 	*@return 
 	*/
-	public String getStoreName(){
-		return  storeName;
+	public String getStore_name(){
+		return  store_name;
 	}
 	/**
 	* 店铺名称
-	*@param  storeName
+	*@param  store_name
 	*/
-	public void setStoreName(String storeName ){
-		this.storeName = storeName;
+	public void setStore_name(String store_name ){
+		this.store_name = store_name;
 	}
 	
 	public BigDecimal getTax(){
@@ -982,11 +1041,11 @@ public class RaGoods   {
 		this.tax = tax;
 	}
 	
-	public Long getWholePrice(){
-		return  wholePrice;
+	public Long getWhole_price(){
+		return  whole_price;
 	}
-	public void setWholePrice(Long wholePrice ){
-		this.wholePrice = wholePrice;
+	public void setWhole_price(Long whole_price ){
+		this.whole_price = whole_price;
 	}
 	
 

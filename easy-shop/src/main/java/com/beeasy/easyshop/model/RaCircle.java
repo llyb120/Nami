@@ -7,111 +7,138 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_circle")
 public class RaCircle   {
 	
+	// alias
+	public static final String ALIAS_circle_id = "circle_id";
+	public static final String ALIAS_circle_gcount = "circle_gcount";
+	public static final String ALIAS_circle_joinaudit = "circle_joinaudit";
+	public static final String ALIAS_circle_masterid = "circle_masterid";
+	public static final String ALIAS_circle_mcount = "circle_mcount";
+	public static final String ALIAS_circle_status = "circle_status";
+	public static final String ALIAS_circle_thcount = "circle_thcount";
+	public static final String ALIAS_class_id = "class_id";
+	public static final String ALIAS_is_hot = "is_hot";
+	public static final String ALIAS_is_recommend = "is_recommend";
+	public static final String ALIAS_mapply_ml = "mapply_ml";
+	public static final String ALIAS_mapply_open = "mapply_open";
+	public static final String ALIAS_new_informcount = "new_informcount";
+	public static final String ALIAS_new_mapplycount = "new_mapplycount";
+	public static final String ALIAS_new_verifycount = "new_verifycount";
+	public static final String ALIAS_circle_addtime = "circle_addtime";
+	public static final String ALIAS_circle_desc = "circle_desc";
+	public static final String ALIAS_circle_img = "circle_img";
+	public static final String ALIAS_circle_mastername = "circle_mastername";
+	public static final String ALIAS_circle_name = "circle_name";
+	public static final String ALIAS_circle_notice = "circle_notice";
+	public static final String ALIAS_circle_noticetime = "circle_noticetime";
+	public static final String ALIAS_circle_pursuereason = "circle_pursuereason";
+	public static final String ALIAS_circle_statusinfo = "circle_statusinfo";
+	public static final String ALIAS_circle_tag = "circle_tag";
+	
 	/*
 	圈子id
 	*/
-	private Integer circleId ;
+	private Integer circle_id ;
 	/*
 	圈子商品数
 	*/
-	private Integer circleGcount ;
+	private Integer circle_gcount ;
 	/*
 	加入圈子时候需要审核，0不需要，1需要
 	*/
-	private Integer circleJoinaudit ;
+	private Integer circle_joinaudit ;
 	/*
 	圈主id
 	*/
-	private Integer circleMasterid ;
+	private Integer circle_masterid ;
 	/*
 	圈子成员数
 	*/
-	private Integer circleMcount ;
+	private Integer circle_mcount ;
 	/*
 	圈子状态，0关闭，1开启，2审核中，3审核失败
 	*/
-	private Integer circleStatus ;
+	private Integer circle_status ;
 	/*
 	圈子主题数
 	*/
-	private Integer circleThcount ;
+	private Integer circle_thcount ;
 	/*
 	圈子分类
 	*/
-	private Integer classId ;
+	private Integer class_id ;
 	/*
 	是否为热门圈子 1是 0否
 	*/
-	private Integer isHot ;
+	private Integer is_hot ;
 	/*
 	是否推荐 0未推荐，1已推荐
 	*/
-	private Integer isRecommend ;
+	private Integer is_recommend ;
 	/*
 	成员级别
 	*/
-	private Integer mapplyMl ;
+	private Integer mapply_ml ;
 	/*
 	申请管理是否开启 0关闭，1开启
 	*/
-	private Integer mapplyOpen ;
+	private Integer mapply_open ;
 	/*
 	等待处理举报数
 	*/
-	private Integer newInformcount ;
+	private Integer new_informcount ;
 	/*
 	管理申请数量
 	*/
-	private Integer newMapplycount ;
+	private Integer new_mapplycount ;
 	/*
 	等待审核成员数
 	*/
-	private Integer newVerifycount ;
+	private Integer new_verifycount ;
 	/*
 	圈子创建时间
 	*/
-	private String circleAddtime ;
+	private String circle_addtime ;
 	/*
 	圈子描述
 	*/
-	private String circleDesc ;
+	private String circle_desc ;
 	/*
 	圈子图片
 	*/
-	private String circleImg ;
+	private String circle_img ;
 	/*
 	圈主名称
 	*/
-	private String circleMastername ;
+	private String circle_mastername ;
 	/*
 	圈子名称
 	*/
-	private String circleName ;
+	private String circle_name ;
 	/*
 	圈子公告
 	*/
-	private String circleNotice ;
+	private String circle_notice ;
 	/*
 	圈子公告更新时间
 	*/
-	private String circleNoticetime ;
+	private String circle_noticetime ;
 	/*
 	圈子申请理由
 	*/
-	private String circlePursuereason ;
+	private String circle_pursuereason ;
 	/*
 	关闭或审核失败原因
 	*/
-	private String circleStatusinfo ;
+	private String circle_statusinfo ;
 	/*
 	圈子标签
 	*/
-	private String circleTag ;
+	private String circle_tag ;
 	
 	public RaCircle() {
 	}
@@ -120,375 +147,375 @@ public class RaCircle   {
 	* 圈子id
 	*@return 
 	*/
-	public Integer getCircleId(){
-		return  circleId;
+	public Integer getCircle_id(){
+		return  circle_id;
 	}
 	/**
 	* 圈子id
-	*@param  circleId
+	*@param  circle_id
 	*/
-	public void setCircleId(Integer circleId ){
-		this.circleId = circleId;
+	public void setCircle_id(Integer circle_id ){
+		this.circle_id = circle_id;
 	}
 	
 	/**
 	* 圈子商品数
 	*@return 
 	*/
-	public Integer getCircleGcount(){
-		return  circleGcount;
+	public Integer getCircle_gcount(){
+		return  circle_gcount;
 	}
 	/**
 	* 圈子商品数
-	*@param  circleGcount
+	*@param  circle_gcount
 	*/
-	public void setCircleGcount(Integer circleGcount ){
-		this.circleGcount = circleGcount;
+	public void setCircle_gcount(Integer circle_gcount ){
+		this.circle_gcount = circle_gcount;
 	}
 	
 	/**
 	* 加入圈子时候需要审核，0不需要，1需要
 	*@return 
 	*/
-	public Integer getCircleJoinaudit(){
-		return  circleJoinaudit;
+	public Integer getCircle_joinaudit(){
+		return  circle_joinaudit;
 	}
 	/**
 	* 加入圈子时候需要审核，0不需要，1需要
-	*@param  circleJoinaudit
+	*@param  circle_joinaudit
 	*/
-	public void setCircleJoinaudit(Integer circleJoinaudit ){
-		this.circleJoinaudit = circleJoinaudit;
+	public void setCircle_joinaudit(Integer circle_joinaudit ){
+		this.circle_joinaudit = circle_joinaudit;
 	}
 	
 	/**
 	* 圈主id
 	*@return 
 	*/
-	public Integer getCircleMasterid(){
-		return  circleMasterid;
+	public Integer getCircle_masterid(){
+		return  circle_masterid;
 	}
 	/**
 	* 圈主id
-	*@param  circleMasterid
+	*@param  circle_masterid
 	*/
-	public void setCircleMasterid(Integer circleMasterid ){
-		this.circleMasterid = circleMasterid;
+	public void setCircle_masterid(Integer circle_masterid ){
+		this.circle_masterid = circle_masterid;
 	}
 	
 	/**
 	* 圈子成员数
 	*@return 
 	*/
-	public Integer getCircleMcount(){
-		return  circleMcount;
+	public Integer getCircle_mcount(){
+		return  circle_mcount;
 	}
 	/**
 	* 圈子成员数
-	*@param  circleMcount
+	*@param  circle_mcount
 	*/
-	public void setCircleMcount(Integer circleMcount ){
-		this.circleMcount = circleMcount;
+	public void setCircle_mcount(Integer circle_mcount ){
+		this.circle_mcount = circle_mcount;
 	}
 	
 	/**
 	* 圈子状态，0关闭，1开启，2审核中，3审核失败
 	*@return 
 	*/
-	public Integer getCircleStatus(){
-		return  circleStatus;
+	public Integer getCircle_status(){
+		return  circle_status;
 	}
 	/**
 	* 圈子状态，0关闭，1开启，2审核中，3审核失败
-	*@param  circleStatus
+	*@param  circle_status
 	*/
-	public void setCircleStatus(Integer circleStatus ){
-		this.circleStatus = circleStatus;
+	public void setCircle_status(Integer circle_status ){
+		this.circle_status = circle_status;
 	}
 	
 	/**
 	* 圈子主题数
 	*@return 
 	*/
-	public Integer getCircleThcount(){
-		return  circleThcount;
+	public Integer getCircle_thcount(){
+		return  circle_thcount;
 	}
 	/**
 	* 圈子主题数
-	*@param  circleThcount
+	*@param  circle_thcount
 	*/
-	public void setCircleThcount(Integer circleThcount ){
-		this.circleThcount = circleThcount;
+	public void setCircle_thcount(Integer circle_thcount ){
+		this.circle_thcount = circle_thcount;
 	}
 	
 	/**
 	* 圈子分类
 	*@return 
 	*/
-	public Integer getClassId(){
-		return  classId;
+	public Integer getClass_id(){
+		return  class_id;
 	}
 	/**
 	* 圈子分类
-	*@param  classId
+	*@param  class_id
 	*/
-	public void setClassId(Integer classId ){
-		this.classId = classId;
+	public void setClass_id(Integer class_id ){
+		this.class_id = class_id;
 	}
 	
 	/**
 	* 是否为热门圈子 1是 0否
 	*@return 
 	*/
-	public Integer getIsHot(){
-		return  isHot;
+	public Integer getIs_hot(){
+		return  is_hot;
 	}
 	/**
 	* 是否为热门圈子 1是 0否
-	*@param  isHot
+	*@param  is_hot
 	*/
-	public void setIsHot(Integer isHot ){
-		this.isHot = isHot;
+	public void setIs_hot(Integer is_hot ){
+		this.is_hot = is_hot;
 	}
 	
 	/**
 	* 是否推荐 0未推荐，1已推荐
 	*@return 
 	*/
-	public Integer getIsRecommend(){
-		return  isRecommend;
+	public Integer getIs_recommend(){
+		return  is_recommend;
 	}
 	/**
 	* 是否推荐 0未推荐，1已推荐
-	*@param  isRecommend
+	*@param  is_recommend
 	*/
-	public void setIsRecommend(Integer isRecommend ){
-		this.isRecommend = isRecommend;
+	public void setIs_recommend(Integer is_recommend ){
+		this.is_recommend = is_recommend;
 	}
 	
 	/**
 	* 成员级别
 	*@return 
 	*/
-	public Integer getMapplyMl(){
-		return  mapplyMl;
+	public Integer getMapply_ml(){
+		return  mapply_ml;
 	}
 	/**
 	* 成员级别
-	*@param  mapplyMl
+	*@param  mapply_ml
 	*/
-	public void setMapplyMl(Integer mapplyMl ){
-		this.mapplyMl = mapplyMl;
+	public void setMapply_ml(Integer mapply_ml ){
+		this.mapply_ml = mapply_ml;
 	}
 	
 	/**
 	* 申请管理是否开启 0关闭，1开启
 	*@return 
 	*/
-	public Integer getMapplyOpen(){
-		return  mapplyOpen;
+	public Integer getMapply_open(){
+		return  mapply_open;
 	}
 	/**
 	* 申请管理是否开启 0关闭，1开启
-	*@param  mapplyOpen
+	*@param  mapply_open
 	*/
-	public void setMapplyOpen(Integer mapplyOpen ){
-		this.mapplyOpen = mapplyOpen;
+	public void setMapply_open(Integer mapply_open ){
+		this.mapply_open = mapply_open;
 	}
 	
 	/**
 	* 等待处理举报数
 	*@return 
 	*/
-	public Integer getNewInformcount(){
-		return  newInformcount;
+	public Integer getNew_informcount(){
+		return  new_informcount;
 	}
 	/**
 	* 等待处理举报数
-	*@param  newInformcount
+	*@param  new_informcount
 	*/
-	public void setNewInformcount(Integer newInformcount ){
-		this.newInformcount = newInformcount;
+	public void setNew_informcount(Integer new_informcount ){
+		this.new_informcount = new_informcount;
 	}
 	
 	/**
 	* 管理申请数量
 	*@return 
 	*/
-	public Integer getNewMapplycount(){
-		return  newMapplycount;
+	public Integer getNew_mapplycount(){
+		return  new_mapplycount;
 	}
 	/**
 	* 管理申请数量
-	*@param  newMapplycount
+	*@param  new_mapplycount
 	*/
-	public void setNewMapplycount(Integer newMapplycount ){
-		this.newMapplycount = newMapplycount;
+	public void setNew_mapplycount(Integer new_mapplycount ){
+		this.new_mapplycount = new_mapplycount;
 	}
 	
 	/**
 	* 等待审核成员数
 	*@return 
 	*/
-	public Integer getNewVerifycount(){
-		return  newVerifycount;
+	public Integer getNew_verifycount(){
+		return  new_verifycount;
 	}
 	/**
 	* 等待审核成员数
-	*@param  newVerifycount
+	*@param  new_verifycount
 	*/
-	public void setNewVerifycount(Integer newVerifycount ){
-		this.newVerifycount = newVerifycount;
+	public void setNew_verifycount(Integer new_verifycount ){
+		this.new_verifycount = new_verifycount;
 	}
 	
 	/**
 	* 圈子创建时间
 	*@return 
 	*/
-	public String getCircleAddtime(){
-		return  circleAddtime;
+	public String getCircle_addtime(){
+		return  circle_addtime;
 	}
 	/**
 	* 圈子创建时间
-	*@param  circleAddtime
+	*@param  circle_addtime
 	*/
-	public void setCircleAddtime(String circleAddtime ){
-		this.circleAddtime = circleAddtime;
+	public void setCircle_addtime(String circle_addtime ){
+		this.circle_addtime = circle_addtime;
 	}
 	
 	/**
 	* 圈子描述
 	*@return 
 	*/
-	public String getCircleDesc(){
-		return  circleDesc;
+	public String getCircle_desc(){
+		return  circle_desc;
 	}
 	/**
 	* 圈子描述
-	*@param  circleDesc
+	*@param  circle_desc
 	*/
-	public void setCircleDesc(String circleDesc ){
-		this.circleDesc = circleDesc;
+	public void setCircle_desc(String circle_desc ){
+		this.circle_desc = circle_desc;
 	}
 	
 	/**
 	* 圈子图片
 	*@return 
 	*/
-	public String getCircleImg(){
-		return  circleImg;
+	public String getCircle_img(){
+		return  circle_img;
 	}
 	/**
 	* 圈子图片
-	*@param  circleImg
+	*@param  circle_img
 	*/
-	public void setCircleImg(String circleImg ){
-		this.circleImg = circleImg;
+	public void setCircle_img(String circle_img ){
+		this.circle_img = circle_img;
 	}
 	
 	/**
 	* 圈主名称
 	*@return 
 	*/
-	public String getCircleMastername(){
-		return  circleMastername;
+	public String getCircle_mastername(){
+		return  circle_mastername;
 	}
 	/**
 	* 圈主名称
-	*@param  circleMastername
+	*@param  circle_mastername
 	*/
-	public void setCircleMastername(String circleMastername ){
-		this.circleMastername = circleMastername;
+	public void setCircle_mastername(String circle_mastername ){
+		this.circle_mastername = circle_mastername;
 	}
 	
 	/**
 	* 圈子名称
 	*@return 
 	*/
-	public String getCircleName(){
-		return  circleName;
+	public String getCircle_name(){
+		return  circle_name;
 	}
 	/**
 	* 圈子名称
-	*@param  circleName
+	*@param  circle_name
 	*/
-	public void setCircleName(String circleName ){
-		this.circleName = circleName;
+	public void setCircle_name(String circle_name ){
+		this.circle_name = circle_name;
 	}
 	
 	/**
 	* 圈子公告
 	*@return 
 	*/
-	public String getCircleNotice(){
-		return  circleNotice;
+	public String getCircle_notice(){
+		return  circle_notice;
 	}
 	/**
 	* 圈子公告
-	*@param  circleNotice
+	*@param  circle_notice
 	*/
-	public void setCircleNotice(String circleNotice ){
-		this.circleNotice = circleNotice;
+	public void setCircle_notice(String circle_notice ){
+		this.circle_notice = circle_notice;
 	}
 	
 	/**
 	* 圈子公告更新时间
 	*@return 
 	*/
-	public String getCircleNoticetime(){
-		return  circleNoticetime;
+	public String getCircle_noticetime(){
+		return  circle_noticetime;
 	}
 	/**
 	* 圈子公告更新时间
-	*@param  circleNoticetime
+	*@param  circle_noticetime
 	*/
-	public void setCircleNoticetime(String circleNoticetime ){
-		this.circleNoticetime = circleNoticetime;
+	public void setCircle_noticetime(String circle_noticetime ){
+		this.circle_noticetime = circle_noticetime;
 	}
 	
 	/**
 	* 圈子申请理由
 	*@return 
 	*/
-	public String getCirclePursuereason(){
-		return  circlePursuereason;
+	public String getCircle_pursuereason(){
+		return  circle_pursuereason;
 	}
 	/**
 	* 圈子申请理由
-	*@param  circlePursuereason
+	*@param  circle_pursuereason
 	*/
-	public void setCirclePursuereason(String circlePursuereason ){
-		this.circlePursuereason = circlePursuereason;
+	public void setCircle_pursuereason(String circle_pursuereason ){
+		this.circle_pursuereason = circle_pursuereason;
 	}
 	
 	/**
 	* 关闭或审核失败原因
 	*@return 
 	*/
-	public String getCircleStatusinfo(){
-		return  circleStatusinfo;
+	public String getCircle_statusinfo(){
+		return  circle_statusinfo;
 	}
 	/**
 	* 关闭或审核失败原因
-	*@param  circleStatusinfo
+	*@param  circle_statusinfo
 	*/
-	public void setCircleStatusinfo(String circleStatusinfo ){
-		this.circleStatusinfo = circleStatusinfo;
+	public void setCircle_statusinfo(String circle_statusinfo ){
+		this.circle_statusinfo = circle_statusinfo;
 	}
 	
 	/**
 	* 圈子标签
 	*@return 
 	*/
-	public String getCircleTag(){
-		return  circleTag;
+	public String getCircle_tag(){
+		return  circle_tag;
 	}
 	/**
 	* 圈子标签
-	*@param  circleTag
+	*@param  circle_tag
 	*/
-	public void setCircleTag(String circleTag ){
-		this.circleTag = circleTag;
+	public void setCircle_tag(String circle_tag ){
+		this.circle_tag = circle_tag;
 	}
 	
 

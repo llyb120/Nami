@@ -7,31 +7,42 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_p_mansong_quota")
 public class RaPMansongQuota   {
 	
+	// alias
+	public static final String ALIAS_quota_id = "quota_id";
+	public static final String ALIAS_apply_id = "apply_id";
+	public static final String ALIAS_end_time = "end_time";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_start_time = "start_time";
+	public static final String ALIAS_state = "state";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_member_name = "member_name";
+	public static final String ALIAS_store_name = "store_name";
+	
 	/*
 	满就送套餐编号
 	*/
-	private Integer quotaId ;
+	private Integer quota_id ;
 	/*
 	申请编号
 	*/
-	private Integer applyId ;
+	private Integer apply_id ;
 	/*
 	结束时间
 	*/
-	private Integer endTime ;
+	private Integer end_time ;
 	/*
 	用户编号
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	开始时间
 	*/
-	private Integer startTime ;
+	private Integer start_time ;
 	/*
 	配额状态(1-可用/2-取消/3-结束)
 	*/
@@ -39,15 +50,15 @@ public class RaPMansongQuota   {
 	/*
 	店铺编号
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	用户名
 	*/
-	private String memberName ;
+	private String member_name ;
 	/*
 	店铺名称
 	*/
-	private String storeName ;
+	private String store_name ;
 	
 	public RaPMansongQuota() {
 	}
@@ -56,75 +67,75 @@ public class RaPMansongQuota   {
 	* 满就送套餐编号
 	*@return 
 	*/
-	public Integer getQuotaId(){
-		return  quotaId;
+	public Integer getQuota_id(){
+		return  quota_id;
 	}
 	/**
 	* 满就送套餐编号
-	*@param  quotaId
+	*@param  quota_id
 	*/
-	public void setQuotaId(Integer quotaId ){
-		this.quotaId = quotaId;
+	public void setQuota_id(Integer quota_id ){
+		this.quota_id = quota_id;
 	}
 	
 	/**
 	* 申请编号
 	*@return 
 	*/
-	public Integer getApplyId(){
-		return  applyId;
+	public Integer getApply_id(){
+		return  apply_id;
 	}
 	/**
 	* 申请编号
-	*@param  applyId
+	*@param  apply_id
 	*/
-	public void setApplyId(Integer applyId ){
-		this.applyId = applyId;
+	public void setApply_id(Integer apply_id ){
+		this.apply_id = apply_id;
 	}
 	
 	/**
 	* 结束时间
 	*@return 
 	*/
-	public Integer getEndTime(){
-		return  endTime;
+	public Integer getEnd_time(){
+		return  end_time;
 	}
 	/**
 	* 结束时间
-	*@param  endTime
+	*@param  end_time
 	*/
-	public void setEndTime(Integer endTime ){
-		this.endTime = endTime;
+	public void setEnd_time(Integer end_time ){
+		this.end_time = end_time;
 	}
 	
 	/**
 	* 用户编号
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 用户编号
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 开始时间
 	*@return 
 	*/
-	public Integer getStartTime(){
-		return  startTime;
+	public Integer getStart_time(){
+		return  start_time;
 	}
 	/**
 	* 开始时间
-	*@param  startTime
+	*@param  start_time
 	*/
-	public void setStartTime(Integer startTime ){
-		this.startTime = startTime;
+	public void setStart_time(Integer start_time ){
+		this.start_time = start_time;
 	}
 	
 	/**
@@ -146,45 +157,45 @@ public class RaPMansongQuota   {
 	* 店铺编号
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺编号
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 用户名
 	*@return 
 	*/
-	public String getMemberName(){
-		return  memberName;
+	public String getMember_name(){
+		return  member_name;
 	}
 	/**
 	* 用户名
-	*@param  memberName
+	*@param  member_name
 	*/
-	public void setMemberName(String memberName ){
-		this.memberName = memberName;
+	public void setMember_name(String member_name ){
+		this.member_name = member_name;
 	}
 	
 	/**
 	* 店铺名称
 	*@return 
 	*/
-	public String getStoreName(){
-		return  storeName;
+	public String getStore_name(){
+		return  store_name;
 	}
 	/**
 	* 店铺名称
-	*@param  storeName
+	*@param  store_name
 	*/
-	public void setStoreName(String storeName ){
-		this.storeName = storeName;
+	public void setStore_name(String store_name ){
+		this.store_name = store_name;
 	}
 	
 

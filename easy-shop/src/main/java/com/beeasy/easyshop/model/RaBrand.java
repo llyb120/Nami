@@ -7,57 +7,72 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_brand")
 public class RaBrand   {
 	
+	// alias
+	public static final String ALIAS_brand_id = "brand_id";
+	public static final String ALIAS_brand_apply = "brand_apply";
+	public static final String ALIAS_brand_recommend = "brand_recommend";
+	public static final String ALIAS_brand_sort = "brand_sort";
+	public static final String ALIAS_class_id = "class_id";
+	public static final String ALIAS_from_place = "from_place";
+	public static final String ALIAS_show_type = "show_type";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_big_pic = "big_pic";
+	public static final String ALIAS_brand_class = "brand_class";
+	public static final String ALIAS_brand_initial = "brand_initial";
+	public static final String ALIAS_brand_name = "brand_name";
+	public static final String ALIAS_brand_pic = "brand_pic";
+	
 	/*
 	索引ID
 	*/
-	private Integer brandId ;
+	private Integer brand_id ;
 	/*
 	品牌申请，0为申请中，1为通过，默认为1，申请功能是会员使用，系统后台默认为1
 	*/
-	private Integer brandApply ;
+	private Integer brand_apply ;
 	/*
 	推荐，0为否，1为是，默认为0
 	*/
-	private Integer brandRecommend ;
+	private Integer brand_recommend ;
 	/*
 	排序
 	*/
-	private Integer brandSort ;
+	private Integer brand_sort ;
 	/*
 	所属分类id
 	*/
-	private Integer classId ;
-	private Integer fromPlace ;
+	private Integer class_id ;
+	private Integer from_place ;
 	/*
 	品牌展示类型 0表示图片 1表示文字 
 	*/
-	private Integer showType ;
+	private Integer show_type ;
 	/*
 	店铺ID
 	*/
-	private Integer storeId ;
-	private String bigPic ;
+	private Integer store_id ;
+	private String big_pic ;
 	/*
 	类别名称
 	*/
-	private String brandClass ;
+	private String brand_class ;
 	/*
 	品牌首字母
 	*/
-	private String brandInitial ;
+	private String brand_initial ;
 	/*
 	品牌名称
 	*/
-	private String brandName ;
+	private String brand_name ;
 	/*
 	图片
 	*/
-	private String brandPic ;
+	private String brand_pic ;
 	
 	public RaBrand() {
 	}
@@ -66,179 +81,179 @@ public class RaBrand   {
 	* 索引ID
 	*@return 
 	*/
-	public Integer getBrandId(){
-		return  brandId;
+	public Integer getBrand_id(){
+		return  brand_id;
 	}
 	/**
 	* 索引ID
-	*@param  brandId
+	*@param  brand_id
 	*/
-	public void setBrandId(Integer brandId ){
-		this.brandId = brandId;
+	public void setBrand_id(Integer brand_id ){
+		this.brand_id = brand_id;
 	}
 	
 	/**
 	* 品牌申请，0为申请中，1为通过，默认为1，申请功能是会员使用，系统后台默认为1
 	*@return 
 	*/
-	public Integer getBrandApply(){
-		return  brandApply;
+	public Integer getBrand_apply(){
+		return  brand_apply;
 	}
 	/**
 	* 品牌申请，0为申请中，1为通过，默认为1，申请功能是会员使用，系统后台默认为1
-	*@param  brandApply
+	*@param  brand_apply
 	*/
-	public void setBrandApply(Integer brandApply ){
-		this.brandApply = brandApply;
+	public void setBrand_apply(Integer brand_apply ){
+		this.brand_apply = brand_apply;
 	}
 	
 	/**
 	* 推荐，0为否，1为是，默认为0
 	*@return 
 	*/
-	public Integer getBrandRecommend(){
-		return  brandRecommend;
+	public Integer getBrand_recommend(){
+		return  brand_recommend;
 	}
 	/**
 	* 推荐，0为否，1为是，默认为0
-	*@param  brandRecommend
+	*@param  brand_recommend
 	*/
-	public void setBrandRecommend(Integer brandRecommend ){
-		this.brandRecommend = brandRecommend;
+	public void setBrand_recommend(Integer brand_recommend ){
+		this.brand_recommend = brand_recommend;
 	}
 	
 	/**
 	* 排序
 	*@return 
 	*/
-	public Integer getBrandSort(){
-		return  brandSort;
+	public Integer getBrand_sort(){
+		return  brand_sort;
 	}
 	/**
 	* 排序
-	*@param  brandSort
+	*@param  brand_sort
 	*/
-	public void setBrandSort(Integer brandSort ){
-		this.brandSort = brandSort;
+	public void setBrand_sort(Integer brand_sort ){
+		this.brand_sort = brand_sort;
 	}
 	
 	/**
 	* 所属分类id
 	*@return 
 	*/
-	public Integer getClassId(){
-		return  classId;
+	public Integer getClass_id(){
+		return  class_id;
 	}
 	/**
 	* 所属分类id
-	*@param  classId
+	*@param  class_id
 	*/
-	public void setClassId(Integer classId ){
-		this.classId = classId;
+	public void setClass_id(Integer class_id ){
+		this.class_id = class_id;
 	}
 	
-	public Integer getFromPlace(){
-		return  fromPlace;
+	public Integer getFrom_place(){
+		return  from_place;
 	}
-	public void setFromPlace(Integer fromPlace ){
-		this.fromPlace = fromPlace;
+	public void setFrom_place(Integer from_place ){
+		this.from_place = from_place;
 	}
 	
 	/**
 	* 品牌展示类型 0表示图片 1表示文字 
 	*@return 
 	*/
-	public Integer getShowType(){
-		return  showType;
+	public Integer getShow_type(){
+		return  show_type;
 	}
 	/**
 	* 品牌展示类型 0表示图片 1表示文字 
-	*@param  showType
+	*@param  show_type
 	*/
-	public void setShowType(Integer showType ){
-		this.showType = showType;
+	public void setShow_type(Integer show_type ){
+		this.show_type = show_type;
 	}
 	
 	/**
 	* 店铺ID
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺ID
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
-	public String getBigPic(){
-		return  bigPic;
+	public String getBig_pic(){
+		return  big_pic;
 	}
-	public void setBigPic(String bigPic ){
-		this.bigPic = bigPic;
+	public void setBig_pic(String big_pic ){
+		this.big_pic = big_pic;
 	}
 	
 	/**
 	* 类别名称
 	*@return 
 	*/
-	public String getBrandClass(){
-		return  brandClass;
+	public String getBrand_class(){
+		return  brand_class;
 	}
 	/**
 	* 类别名称
-	*@param  brandClass
+	*@param  brand_class
 	*/
-	public void setBrandClass(String brandClass ){
-		this.brandClass = brandClass;
+	public void setBrand_class(String brand_class ){
+		this.brand_class = brand_class;
 	}
 	
 	/**
 	* 品牌首字母
 	*@return 
 	*/
-	public String getBrandInitial(){
-		return  brandInitial;
+	public String getBrand_initial(){
+		return  brand_initial;
 	}
 	/**
 	* 品牌首字母
-	*@param  brandInitial
+	*@param  brand_initial
 	*/
-	public void setBrandInitial(String brandInitial ){
-		this.brandInitial = brandInitial;
+	public void setBrand_initial(String brand_initial ){
+		this.brand_initial = brand_initial;
 	}
 	
 	/**
 	* 品牌名称
 	*@return 
 	*/
-	public String getBrandName(){
-		return  brandName;
+	public String getBrand_name(){
+		return  brand_name;
 	}
 	/**
 	* 品牌名称
-	*@param  brandName
+	*@param  brand_name
 	*/
-	public void setBrandName(String brandName ){
-		this.brandName = brandName;
+	public void setBrand_name(String brand_name ){
+		this.brand_name = brand_name;
 	}
 	
 	/**
 	* 图片
 	*@return 
 	*/
-	public String getBrandPic(){
-		return  brandPic;
+	public String getBrand_pic(){
+		return  brand_pic;
 	}
 	/**
 	* 图片
-	*@param  brandPic
+	*@param  brand_pic
 	*/
-	public void setBrandPic(String brandPic ){
-		this.brandPic = brandPic;
+	public void setBrand_pic(String brand_pic ){
+		this.brand_pic = brand_pic;
 	}
 	
 

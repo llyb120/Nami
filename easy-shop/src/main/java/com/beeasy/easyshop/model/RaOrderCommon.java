@@ -7,95 +7,121 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_order_common")
 public class RaOrderCommon   {
 	
+	// alias
+	public static final String ALIAS_order_id = "order_id";
+	public static final String ALIAS_daddress_id = "daddress_id";
+	public static final String ALIAS_evalseller_time = "evalseller_time";
+	public static final String ALIAS_evaluation_time = "evaluation_time";
+	public static final String ALIAS_order_pointscount = "order_pointscount";
+	public static final String ALIAS_reciver_area_id = "reciver_area_id";
+	public static final String ALIAS_reciver_city_id = "reciver_city_id";
+	public static final String ALIAS_reciver_province_id = "reciver_province_id";
+	public static final String ALIAS_shipping_express_id = "shipping_express_id";
+	public static final String ALIAS_shipping_time = "shipping_time";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_voucher_price = "voucher_price";
+	public static final String ALIAS_address = "address";
+	public static final String ALIAS_deliver_explain = "deliver_explain";
+	public static final String ALIAS_dlyo_pickup_code = "dlyo_pickup_code";
+	public static final String ALIAS_evalseller_state = "evalseller_state";
+	public static final String ALIAS_idcard = "idcard";
+	public static final String ALIAS_invoice_info = "invoice_info";
+	public static final String ALIAS_order_message = "order_message";
+	public static final String ALIAS_phone = "phone";
+	public static final String ALIAS_promotion_info = "promotion_info";
+	public static final String ALIAS_reciver_info = "reciver_info";
+	public static final String ALIAS_reciver_name = "reciver_name";
+	public static final String ALIAS_voucher_code = "voucher_code";
+	
 	/*
 	订单索引id
 	*/
-	private Integer orderId ;
+	private Integer order_id ;
 	/*
 	发货地址ID
 	*/
-	private Integer daddressId ;
+	private Integer daddress_id ;
 	/*
 	卖家评价买家的时间
 	*/
-	private Integer evalsellerTime ;
+	private Integer evalseller_time ;
 	/*
 	评价时间
 	*/
-	private Integer evaluationTime ;
+	private Integer evaluation_time ;
 	/*
 	订单赠送积分
 	*/
-	private Integer orderPointscount ;
-	private Integer reciverAreaId ;
+	private Integer order_pointscount ;
+	private Integer reciver_area_id ;
 	/*
 	收货人市级ID
 	*/
-	private Integer reciverCityId ;
+	private Integer reciver_city_id ;
 	/*
 	收货人省级ID
 	*/
-	private Integer reciverProvinceId ;
+	private Integer reciver_province_id ;
 	/*
 	配送公司ID
 	*/
-	private Integer shippingExpressId ;
+	private Integer shipping_express_id ;
 	/*
 	配送时间
 	*/
-	private Integer shippingTime ;
+	private Integer shipping_time ;
 	/*
 	店铺ID
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	代金券面额
 	*/
-	private Integer voucherPrice ;
+	private Integer voucher_price ;
 	private String address ;
 	/*
 	发货备注
 	*/
-	private String deliverExplain ;
+	private String deliver_explain ;
 	/*
 	提货码
 	*/
-	private String dlyoPickupCode ;
+	private String dlyo_pickup_code ;
 	/*
 	卖家是否已评价买家
 	*/
-	private String evalsellerState ;
+	private String evalseller_state ;
 	private String idcard ;
 	/*
 	发票信息
 	*/
-	private String invoiceInfo ;
+	private String invoice_info ;
 	/*
 	订单留言
 	*/
-	private String orderMessage ;
+	private String order_message ;
 	private String phone ;
 	/*
 	促销信息备注
 	*/
-	private String promotionInfo ;
+	private String promotion_info ;
 	/*
 	收货人其它信息
 	*/
-	private String reciverInfo ;
+	private String reciver_info ;
 	/*
 	收货人姓名
 	*/
-	private String reciverName ;
+	private String reciver_name ;
 	/*
 	代金券编码
 	*/
-	private String voucherCode ;
+	private String voucher_code ;
 	
 	public RaOrderCommon() {
 	}
@@ -104,172 +130,172 @@ public class RaOrderCommon   {
 	* 订单索引id
 	*@return 
 	*/
-	public Integer getOrderId(){
-		return  orderId;
+	public Integer getOrder_id(){
+		return  order_id;
 	}
 	/**
 	* 订单索引id
-	*@param  orderId
+	*@param  order_id
 	*/
-	public void setOrderId(Integer orderId ){
-		this.orderId = orderId;
+	public void setOrder_id(Integer order_id ){
+		this.order_id = order_id;
 	}
 	
 	/**
 	* 发货地址ID
 	*@return 
 	*/
-	public Integer getDaddressId(){
-		return  daddressId;
+	public Integer getDaddress_id(){
+		return  daddress_id;
 	}
 	/**
 	* 发货地址ID
-	*@param  daddressId
+	*@param  daddress_id
 	*/
-	public void setDaddressId(Integer daddressId ){
-		this.daddressId = daddressId;
+	public void setDaddress_id(Integer daddress_id ){
+		this.daddress_id = daddress_id;
 	}
 	
 	/**
 	* 卖家评价买家的时间
 	*@return 
 	*/
-	public Integer getEvalsellerTime(){
-		return  evalsellerTime;
+	public Integer getEvalseller_time(){
+		return  evalseller_time;
 	}
 	/**
 	* 卖家评价买家的时间
-	*@param  evalsellerTime
+	*@param  evalseller_time
 	*/
-	public void setEvalsellerTime(Integer evalsellerTime ){
-		this.evalsellerTime = evalsellerTime;
+	public void setEvalseller_time(Integer evalseller_time ){
+		this.evalseller_time = evalseller_time;
 	}
 	
 	/**
 	* 评价时间
 	*@return 
 	*/
-	public Integer getEvaluationTime(){
-		return  evaluationTime;
+	public Integer getEvaluation_time(){
+		return  evaluation_time;
 	}
 	/**
 	* 评价时间
-	*@param  evaluationTime
+	*@param  evaluation_time
 	*/
-	public void setEvaluationTime(Integer evaluationTime ){
-		this.evaluationTime = evaluationTime;
+	public void setEvaluation_time(Integer evaluation_time ){
+		this.evaluation_time = evaluation_time;
 	}
 	
 	/**
 	* 订单赠送积分
 	*@return 
 	*/
-	public Integer getOrderPointscount(){
-		return  orderPointscount;
+	public Integer getOrder_pointscount(){
+		return  order_pointscount;
 	}
 	/**
 	* 订单赠送积分
-	*@param  orderPointscount
+	*@param  order_pointscount
 	*/
-	public void setOrderPointscount(Integer orderPointscount ){
-		this.orderPointscount = orderPointscount;
+	public void setOrder_pointscount(Integer order_pointscount ){
+		this.order_pointscount = order_pointscount;
 	}
 	
-	public Integer getReciverAreaId(){
-		return  reciverAreaId;
+	public Integer getReciver_area_id(){
+		return  reciver_area_id;
 	}
-	public void setReciverAreaId(Integer reciverAreaId ){
-		this.reciverAreaId = reciverAreaId;
+	public void setReciver_area_id(Integer reciver_area_id ){
+		this.reciver_area_id = reciver_area_id;
 	}
 	
 	/**
 	* 收货人市级ID
 	*@return 
 	*/
-	public Integer getReciverCityId(){
-		return  reciverCityId;
+	public Integer getReciver_city_id(){
+		return  reciver_city_id;
 	}
 	/**
 	* 收货人市级ID
-	*@param  reciverCityId
+	*@param  reciver_city_id
 	*/
-	public void setReciverCityId(Integer reciverCityId ){
-		this.reciverCityId = reciverCityId;
+	public void setReciver_city_id(Integer reciver_city_id ){
+		this.reciver_city_id = reciver_city_id;
 	}
 	
 	/**
 	* 收货人省级ID
 	*@return 
 	*/
-	public Integer getReciverProvinceId(){
-		return  reciverProvinceId;
+	public Integer getReciver_province_id(){
+		return  reciver_province_id;
 	}
 	/**
 	* 收货人省级ID
-	*@param  reciverProvinceId
+	*@param  reciver_province_id
 	*/
-	public void setReciverProvinceId(Integer reciverProvinceId ){
-		this.reciverProvinceId = reciverProvinceId;
+	public void setReciver_province_id(Integer reciver_province_id ){
+		this.reciver_province_id = reciver_province_id;
 	}
 	
 	/**
 	* 配送公司ID
 	*@return 
 	*/
-	public Integer getShippingExpressId(){
-		return  shippingExpressId;
+	public Integer getShipping_express_id(){
+		return  shipping_express_id;
 	}
 	/**
 	* 配送公司ID
-	*@param  shippingExpressId
+	*@param  shipping_express_id
 	*/
-	public void setShippingExpressId(Integer shippingExpressId ){
-		this.shippingExpressId = shippingExpressId;
+	public void setShipping_express_id(Integer shipping_express_id ){
+		this.shipping_express_id = shipping_express_id;
 	}
 	
 	/**
 	* 配送时间
 	*@return 
 	*/
-	public Integer getShippingTime(){
-		return  shippingTime;
+	public Integer getShipping_time(){
+		return  shipping_time;
 	}
 	/**
 	* 配送时间
-	*@param  shippingTime
+	*@param  shipping_time
 	*/
-	public void setShippingTime(Integer shippingTime ){
-		this.shippingTime = shippingTime;
+	public void setShipping_time(Integer shipping_time ){
+		this.shipping_time = shipping_time;
 	}
 	
 	/**
 	* 店铺ID
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺ID
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 代金券面额
 	*@return 
 	*/
-	public Integer getVoucherPrice(){
-		return  voucherPrice;
+	public Integer getVoucher_price(){
+		return  voucher_price;
 	}
 	/**
 	* 代金券面额
-	*@param  voucherPrice
+	*@param  voucher_price
 	*/
-	public void setVoucherPrice(Integer voucherPrice ){
-		this.voucherPrice = voucherPrice;
+	public void setVoucher_price(Integer voucher_price ){
+		this.voucher_price = voucher_price;
 	}
 	
 	public String getAddress(){
@@ -283,45 +309,45 @@ public class RaOrderCommon   {
 	* 发货备注
 	*@return 
 	*/
-	public String getDeliverExplain(){
-		return  deliverExplain;
+	public String getDeliver_explain(){
+		return  deliver_explain;
 	}
 	/**
 	* 发货备注
-	*@param  deliverExplain
+	*@param  deliver_explain
 	*/
-	public void setDeliverExplain(String deliverExplain ){
-		this.deliverExplain = deliverExplain;
+	public void setDeliver_explain(String deliver_explain ){
+		this.deliver_explain = deliver_explain;
 	}
 	
 	/**
 	* 提货码
 	*@return 
 	*/
-	public String getDlyoPickupCode(){
-		return  dlyoPickupCode;
+	public String getDlyo_pickup_code(){
+		return  dlyo_pickup_code;
 	}
 	/**
 	* 提货码
-	*@param  dlyoPickupCode
+	*@param  dlyo_pickup_code
 	*/
-	public void setDlyoPickupCode(String dlyoPickupCode ){
-		this.dlyoPickupCode = dlyoPickupCode;
+	public void setDlyo_pickup_code(String dlyo_pickup_code ){
+		this.dlyo_pickup_code = dlyo_pickup_code;
 	}
 	
 	/**
 	* 卖家是否已评价买家
 	*@return 
 	*/
-	public String getEvalsellerState(){
-		return  evalsellerState;
+	public String getEvalseller_state(){
+		return  evalseller_state;
 	}
 	/**
 	* 卖家是否已评价买家
-	*@param  evalsellerState
+	*@param  evalseller_state
 	*/
-	public void setEvalsellerState(String evalsellerState ){
-		this.evalsellerState = evalsellerState;
+	public void setEvalseller_state(String evalseller_state ){
+		this.evalseller_state = evalseller_state;
 	}
 	
 	public String getIdcard(){
@@ -335,30 +361,30 @@ public class RaOrderCommon   {
 	* 发票信息
 	*@return 
 	*/
-	public String getInvoiceInfo(){
-		return  invoiceInfo;
+	public String getInvoice_info(){
+		return  invoice_info;
 	}
 	/**
 	* 发票信息
-	*@param  invoiceInfo
+	*@param  invoice_info
 	*/
-	public void setInvoiceInfo(String invoiceInfo ){
-		this.invoiceInfo = invoiceInfo;
+	public void setInvoice_info(String invoice_info ){
+		this.invoice_info = invoice_info;
 	}
 	
 	/**
 	* 订单留言
 	*@return 
 	*/
-	public String getOrderMessage(){
-		return  orderMessage;
+	public String getOrder_message(){
+		return  order_message;
 	}
 	/**
 	* 订单留言
-	*@param  orderMessage
+	*@param  order_message
 	*/
-	public void setOrderMessage(String orderMessage ){
-		this.orderMessage = orderMessage;
+	public void setOrder_message(String order_message ){
+		this.order_message = order_message;
 	}
 	
 	public String getPhone(){
@@ -372,60 +398,60 @@ public class RaOrderCommon   {
 	* 促销信息备注
 	*@return 
 	*/
-	public String getPromotionInfo(){
-		return  promotionInfo;
+	public String getPromotion_info(){
+		return  promotion_info;
 	}
 	/**
 	* 促销信息备注
-	*@param  promotionInfo
+	*@param  promotion_info
 	*/
-	public void setPromotionInfo(String promotionInfo ){
-		this.promotionInfo = promotionInfo;
+	public void setPromotion_info(String promotion_info ){
+		this.promotion_info = promotion_info;
 	}
 	
 	/**
 	* 收货人其它信息
 	*@return 
 	*/
-	public String getReciverInfo(){
-		return  reciverInfo;
+	public String getReciver_info(){
+		return  reciver_info;
 	}
 	/**
 	* 收货人其它信息
-	*@param  reciverInfo
+	*@param  reciver_info
 	*/
-	public void setReciverInfo(String reciverInfo ){
-		this.reciverInfo = reciverInfo;
+	public void setReciver_info(String reciver_info ){
+		this.reciver_info = reciver_info;
 	}
 	
 	/**
 	* 收货人姓名
 	*@return 
 	*/
-	public String getReciverName(){
-		return  reciverName;
+	public String getReciver_name(){
+		return  reciver_name;
 	}
 	/**
 	* 收货人姓名
-	*@param  reciverName
+	*@param  reciver_name
 	*/
-	public void setReciverName(String reciverName ){
-		this.reciverName = reciverName;
+	public void setReciver_name(String reciver_name ){
+		this.reciver_name = reciver_name;
 	}
 	
 	/**
 	* 代金券编码
 	*@return 
 	*/
-	public String getVoucherCode(){
-		return  voucherCode;
+	public String getVoucher_code(){
+		return  voucher_code;
 	}
 	/**
 	* 代金券编码
-	*@param  voucherCode
+	*@param  voucher_code
 	*/
-	public void setVoucherCode(String voucherCode ){
-		this.voucherCode = voucherCode;
+	public void setVoucher_code(String voucher_code ){
+		this.voucher_code = voucher_code;
 	}
 	
 

@@ -7,55 +7,68 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_grade")
 public class RaStoreGrade   {
 	
+	// alias
+	public static final String ALIAS_sg_id = "sg_id";
+	public static final String ALIAS_sg_album_limit = "sg_album_limit";
+	public static final String ALIAS_sg_goods_limit = "sg_goods_limit";
+	public static final String ALIAS_sg_sort = "sg_sort";
+	public static final String ALIAS_sg_space_limit = "sg_space_limit";
+	public static final String ALIAS_sg_template_number = "sg_template_number";
+	public static final String ALIAS_sg_description = "sg_description";
+	public static final String ALIAS_sg_function = "sg_function";
+	public static final String ALIAS_sg_name = "sg_name";
+	public static final String ALIAS_sg_price = "sg_price";
+	public static final String ALIAS_sg_template = "sg_template";
+	
 	/*
 	索引ID
 	*/
-	private Integer sgId ;
+	private Integer sg_id ;
 	/*
 	允许上传图片数量
 	*/
-	private Integer sgAlbumLimit ;
+	private Integer sg_album_limit ;
 	/*
 	允许发布的商品数量
 	*/
-	private Integer sgGoodsLimit ;
+	private Integer sg_goods_limit ;
 	/*
 	级别，数目越大级别越高
 	*/
-	private Integer sgSort ;
+	private Integer sg_sort ;
 	/*
 	上传空间大小，单位MB
 	*/
-	private Integer sgSpaceLimit ;
+	private Integer sg_space_limit ;
 	/*
 	选择店铺模板套数
 	*/
-	private Integer sgTemplateNumber ;
+	private Integer sg_template_number ;
 	/*
 	申请说明
 	*/
-	private String sgDescription ;
+	private String sg_description ;
 	/*
 	附加功能
 	*/
-	private String sgFunction ;
+	private String sg_function ;
 	/*
 	等级名称
 	*/
-	private String sgName ;
+	private String sg_name ;
 	/*
 	开店费用(元/年)
 	*/
-	private BigDecimal sgPrice ;
+	private BigDecimal sg_price ;
 	/*
 	模板内容
 	*/
-	private String sgTemplate ;
+	private String sg_template ;
 	
 	public RaStoreGrade() {
 	}
@@ -64,165 +77,165 @@ public class RaStoreGrade   {
 	* 索引ID
 	*@return 
 	*/
-	public Integer getSgId(){
-		return  sgId;
+	public Integer getSg_id(){
+		return  sg_id;
 	}
 	/**
 	* 索引ID
-	*@param  sgId
+	*@param  sg_id
 	*/
-	public void setSgId(Integer sgId ){
-		this.sgId = sgId;
+	public void setSg_id(Integer sg_id ){
+		this.sg_id = sg_id;
 	}
 	
 	/**
 	* 允许上传图片数量
 	*@return 
 	*/
-	public Integer getSgAlbumLimit(){
-		return  sgAlbumLimit;
+	public Integer getSg_album_limit(){
+		return  sg_album_limit;
 	}
 	/**
 	* 允许上传图片数量
-	*@param  sgAlbumLimit
+	*@param  sg_album_limit
 	*/
-	public void setSgAlbumLimit(Integer sgAlbumLimit ){
-		this.sgAlbumLimit = sgAlbumLimit;
+	public void setSg_album_limit(Integer sg_album_limit ){
+		this.sg_album_limit = sg_album_limit;
 	}
 	
 	/**
 	* 允许发布的商品数量
 	*@return 
 	*/
-	public Integer getSgGoodsLimit(){
-		return  sgGoodsLimit;
+	public Integer getSg_goods_limit(){
+		return  sg_goods_limit;
 	}
 	/**
 	* 允许发布的商品数量
-	*@param  sgGoodsLimit
+	*@param  sg_goods_limit
 	*/
-	public void setSgGoodsLimit(Integer sgGoodsLimit ){
-		this.sgGoodsLimit = sgGoodsLimit;
+	public void setSg_goods_limit(Integer sg_goods_limit ){
+		this.sg_goods_limit = sg_goods_limit;
 	}
 	
 	/**
 	* 级别，数目越大级别越高
 	*@return 
 	*/
-	public Integer getSgSort(){
-		return  sgSort;
+	public Integer getSg_sort(){
+		return  sg_sort;
 	}
 	/**
 	* 级别，数目越大级别越高
-	*@param  sgSort
+	*@param  sg_sort
 	*/
-	public void setSgSort(Integer sgSort ){
-		this.sgSort = sgSort;
+	public void setSg_sort(Integer sg_sort ){
+		this.sg_sort = sg_sort;
 	}
 	
 	/**
 	* 上传空间大小，单位MB
 	*@return 
 	*/
-	public Integer getSgSpaceLimit(){
-		return  sgSpaceLimit;
+	public Integer getSg_space_limit(){
+		return  sg_space_limit;
 	}
 	/**
 	* 上传空间大小，单位MB
-	*@param  sgSpaceLimit
+	*@param  sg_space_limit
 	*/
-	public void setSgSpaceLimit(Integer sgSpaceLimit ){
-		this.sgSpaceLimit = sgSpaceLimit;
+	public void setSg_space_limit(Integer sg_space_limit ){
+		this.sg_space_limit = sg_space_limit;
 	}
 	
 	/**
 	* 选择店铺模板套数
 	*@return 
 	*/
-	public Integer getSgTemplateNumber(){
-		return  sgTemplateNumber;
+	public Integer getSg_template_number(){
+		return  sg_template_number;
 	}
 	/**
 	* 选择店铺模板套数
-	*@param  sgTemplateNumber
+	*@param  sg_template_number
 	*/
-	public void setSgTemplateNumber(Integer sgTemplateNumber ){
-		this.sgTemplateNumber = sgTemplateNumber;
+	public void setSg_template_number(Integer sg_template_number ){
+		this.sg_template_number = sg_template_number;
 	}
 	
 	/**
 	* 申请说明
 	*@return 
 	*/
-	public String getSgDescription(){
-		return  sgDescription;
+	public String getSg_description(){
+		return  sg_description;
 	}
 	/**
 	* 申请说明
-	*@param  sgDescription
+	*@param  sg_description
 	*/
-	public void setSgDescription(String sgDescription ){
-		this.sgDescription = sgDescription;
+	public void setSg_description(String sg_description ){
+		this.sg_description = sg_description;
 	}
 	
 	/**
 	* 附加功能
 	*@return 
 	*/
-	public String getSgFunction(){
-		return  sgFunction;
+	public String getSg_function(){
+		return  sg_function;
 	}
 	/**
 	* 附加功能
-	*@param  sgFunction
+	*@param  sg_function
 	*/
-	public void setSgFunction(String sgFunction ){
-		this.sgFunction = sgFunction;
+	public void setSg_function(String sg_function ){
+		this.sg_function = sg_function;
 	}
 	
 	/**
 	* 等级名称
 	*@return 
 	*/
-	public String getSgName(){
-		return  sgName;
+	public String getSg_name(){
+		return  sg_name;
 	}
 	/**
 	* 等级名称
-	*@param  sgName
+	*@param  sg_name
 	*/
-	public void setSgName(String sgName ){
-		this.sgName = sgName;
+	public void setSg_name(String sg_name ){
+		this.sg_name = sg_name;
 	}
 	
 	/**
 	* 开店费用(元/年)
 	*@return 
 	*/
-	public BigDecimal getSgPrice(){
-		return  sgPrice;
+	public BigDecimal getSg_price(){
+		return  sg_price;
 	}
 	/**
 	* 开店费用(元/年)
-	*@param  sgPrice
+	*@param  sg_price
 	*/
-	public void setSgPrice(BigDecimal sgPrice ){
-		this.sgPrice = sgPrice;
+	public void setSg_price(BigDecimal sg_price ){
+		this.sg_price = sg_price;
 	}
 	
 	/**
 	* 模板内容
 	*@return 
 	*/
-	public String getSgTemplate(){
-		return  sgTemplate;
+	public String getSg_template(){
+		return  sg_template;
 	}
 	/**
 	* 模板内容
-	*@param  sgTemplate
+	*@param  sg_template
 	*/
-	public void setSgTemplate(String sgTemplate ){
-		this.sgTemplate = sgTemplate;
+	public void setSg_template(String sg_template ){
+		this.sg_template = sg_template;
 	}
 	
 

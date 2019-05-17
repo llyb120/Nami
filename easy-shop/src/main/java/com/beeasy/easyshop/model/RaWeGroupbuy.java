@@ -7,30 +7,45 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_we_groupbuy")
 public class RaWeGroupbuy   {
 	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_goods_id = "goods_id";
+	public static final String ALIAS_max_person = "max_person";
+	public static final String ALIAS_min_count = "min_count";
+	public static final String ALIAS_status = "status";
+	public static final String ALIAS_stock = "stock";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_activity_name = "activity_name";
+	public static final String ALIAS_brokerage = "brokerage";
+	public static final String ALIAS_content = "content";
+	public static final String ALIAS_end_time = "end_time";
+	public static final String ALIAS_price = "price";
+	public static final String ALIAS_start_time = "start_time";
+	
 	private Integer id ;
-	private Integer goodsId ;
-	private Integer maxPerson ;
-	private Integer minCount ;
+	private Integer goods_id ;
+	private Integer max_person ;
+	private Integer min_count ;
 	private Integer status ;
 	/*
 	促销商品可供应的总数量
 	*/
 	private Integer stock ;
-	private Integer storeId ;
-	private String activityName ;
+	private Integer store_id ;
+	private String activity_name ;
 	/*
 	佣金比例
 	*/
 	private BigDecimal brokerage ;
 	private String content ;
-	private String endTime ;
+	private String end_time ;
 	private BigDecimal price ;
-	private String startTime ;
+	private String start_time ;
 	
 	public RaWeGroupbuy() {
 	}
@@ -42,25 +57,25 @@ public class RaWeGroupbuy   {
 		this.id = id;
 	}
 	
-	public Integer getGoodsId(){
-		return  goodsId;
+	public Integer getGoods_id(){
+		return  goods_id;
 	}
-	public void setGoodsId(Integer goodsId ){
-		this.goodsId = goodsId;
-	}
-	
-	public Integer getMaxPerson(){
-		return  maxPerson;
-	}
-	public void setMaxPerson(Integer maxPerson ){
-		this.maxPerson = maxPerson;
+	public void setGoods_id(Integer goods_id ){
+		this.goods_id = goods_id;
 	}
 	
-	public Integer getMinCount(){
-		return  minCount;
+	public Integer getMax_person(){
+		return  max_person;
 	}
-	public void setMinCount(Integer minCount ){
-		this.minCount = minCount;
+	public void setMax_person(Integer max_person ){
+		this.max_person = max_person;
+	}
+	
+	public Integer getMin_count(){
+		return  min_count;
+	}
+	public void setMin_count(Integer min_count ){
+		this.min_count = min_count;
 	}
 	
 	public Integer getStatus(){
@@ -85,18 +100,18 @@ public class RaWeGroupbuy   {
 		this.stock = stock;
 	}
 	
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
-	public String getActivityName(){
-		return  activityName;
+	public String getActivity_name(){
+		return  activity_name;
 	}
-	public void setActivityName(String activityName ){
-		this.activityName = activityName;
+	public void setActivity_name(String activity_name ){
+		this.activity_name = activity_name;
 	}
 	
 	/**
@@ -121,11 +136,11 @@ public class RaWeGroupbuy   {
 		this.content = content;
 	}
 	
-	public String getEndTime(){
-		return  endTime;
+	public String getEnd_time(){
+		return  end_time;
 	}
-	public void setEndTime(String endTime ){
-		this.endTime = endTime;
+	public void setEnd_time(String end_time ){
+		this.end_time = end_time;
 	}
 	
 	public BigDecimal getPrice(){
@@ -135,11 +150,11 @@ public class RaWeGroupbuy   {
 		this.price = price;
 	}
 	
-	public String getStartTime(){
-		return  startTime;
+	public String getStart_time(){
+		return  start_time;
 	}
-	public void setStartTime(String startTime ){
-		this.startTime = startTime;
+	public void setStart_time(String start_time ){
+		this.start_time = start_time;
 	}
 	
 

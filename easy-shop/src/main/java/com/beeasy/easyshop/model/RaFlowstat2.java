@@ -7,10 +7,17 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_flowstat_2")
 public class RaFlowstat2   {
+	
+	// alias
+	public static final String ALIAS_clicknum = "clicknum";
+	public static final String ALIAS_goods_id = "goods_id";
+	public static final String ALIAS_stattime = "stattime";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_type = "type";
 	
 	/*
 	访问量
@@ -19,7 +26,7 @@ public class RaFlowstat2   {
 	/*
 	商品ID
 	*/
-	private Integer goodsId ;
+	private Integer goods_id ;
 	/*
 	访问日期
 	*/
@@ -27,7 +34,7 @@ public class RaFlowstat2   {
 	/*
 	店铺ID
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	类型
 	*/
@@ -55,15 +62,15 @@ public class RaFlowstat2   {
 	* 商品ID
 	*@return 
 	*/
-	public Integer getGoodsId(){
-		return  goodsId;
+	public Integer getGoods_id(){
+		return  goods_id;
 	}
 	/**
 	* 商品ID
-	*@param  goodsId
+	*@param  goods_id
 	*/
-	public void setGoodsId(Integer goodsId ){
-		this.goodsId = goodsId;
+	public void setGoods_id(Integer goods_id ){
+		this.goods_id = goods_id;
 	}
 	
 	/**
@@ -85,15 +92,15 @@ public class RaFlowstat2   {
 	* 店铺ID
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺ID
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**

@@ -31,14 +31,14 @@ public class Fix {
         List<RaAlbumClass> list =sqlManager.lambdaQuery(RaAlbumClass.class)
             .select();
         for (RaAlbumClass raAlbumClass : list) {
-            var pic = raAlbumClass.getAclassCover();
+            var pic = raAlbumClass.getAclass_cover();
 //            DateUtil.format(new Date())
             var name = U.fixFileName(pic);
             if(StrUtil.isEmpty(pic)) continue;
             File target = new File(config.uploadDir, name);
             try{
-                HttpUtil.downloadFile(String.format("http://shopss.beeasy.com.cn/data/upload/shop/store/goods/%d/%s", raAlbumClass.getStoreId(), raAlbumClass.getAclassCover()), target);
-                raAlbumClass.setnConver(name);
+                HttpUtil.downloadFile(String.format("http://shopss.beeasy.com.cn/data/upload/shop/store/goods/%d/%s", raAlbumClass.getStore_id(), raAlbumClass.getAclass_cover()), target);
+                raAlbumClass.setN_conver(name);
                 sqlManager.updateById(raAlbumClass);
             }
             catch (Exception e){

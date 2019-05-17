@@ -7,19 +7,24 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_sns_mtagmember")
 public class RaSnsMtagmember   {
 	
+	// alias
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_mtag_id = "mtag_id";
+	public static final String ALIAS_recommend = "recommend";
+	
 	/*
 	会员id
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	会员标签表id
 	*/
-	private Integer mtagId ;
+	private Integer mtag_id ;
 	/*
 	推荐，默认为0
 	*/
@@ -32,30 +37,30 @@ public class RaSnsMtagmember   {
 	* 会员id
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 会员id
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 会员标签表id
 	*@return 
 	*/
-	public Integer getMtagId(){
-		return  mtagId;
+	public Integer getMtag_id(){
+		return  mtag_id;
 	}
 	/**
 	* 会员标签表id
-	*@param  mtagId
+	*@param  mtag_id
 	*/
-	public void setMtagId(Integer mtagId ){
-		this.mtagId = mtagId;
+	public void setMtag_id(Integer mtag_id ){
+		this.mtag_id = mtag_id;
 	}
 	
 	/**

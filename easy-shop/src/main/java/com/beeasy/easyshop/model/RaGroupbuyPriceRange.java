@@ -7,27 +7,33 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_groupbuy_price_range")
 public class RaGroupbuyPriceRange   {
 	
+	// alias
+	public static final String ALIAS_range_id = "range_id";
+	public static final String ALIAS_range_end = "range_end";
+	public static final String ALIAS_range_start = "range_start";
+	public static final String ALIAS_range_name = "range_name";
+	
 	/*
 	价格区间编号
 	*/
-	private Integer rangeId ;
+	private Integer range_id ;
 	/*
 	区间上限
 	*/
-	private Integer rangeEnd ;
+	private Integer range_end ;
 	/*
 	区间下限
 	*/
-	private Integer rangeStart ;
+	private Integer range_start ;
 	/*
 	区间名称
 	*/
-	private String rangeName ;
+	private String range_name ;
 	
 	public RaGroupbuyPriceRange() {
 	}
@@ -36,60 +42,60 @@ public class RaGroupbuyPriceRange   {
 	* 价格区间编号
 	*@return 
 	*/
-	public Integer getRangeId(){
-		return  rangeId;
+	public Integer getRange_id(){
+		return  range_id;
 	}
 	/**
 	* 价格区间编号
-	*@param  rangeId
+	*@param  range_id
 	*/
-	public void setRangeId(Integer rangeId ){
-		this.rangeId = rangeId;
+	public void setRange_id(Integer range_id ){
+		this.range_id = range_id;
 	}
 	
 	/**
 	* 区间上限
 	*@return 
 	*/
-	public Integer getRangeEnd(){
-		return  rangeEnd;
+	public Integer getRange_end(){
+		return  range_end;
 	}
 	/**
 	* 区间上限
-	*@param  rangeEnd
+	*@param  range_end
 	*/
-	public void setRangeEnd(Integer rangeEnd ){
-		this.rangeEnd = rangeEnd;
+	public void setRange_end(Integer range_end ){
+		this.range_end = range_end;
 	}
 	
 	/**
 	* 区间下限
 	*@return 
 	*/
-	public Integer getRangeStart(){
-		return  rangeStart;
+	public Integer getRange_start(){
+		return  range_start;
 	}
 	/**
 	* 区间下限
-	*@param  rangeStart
+	*@param  range_start
 	*/
-	public void setRangeStart(Integer rangeStart ){
-		this.rangeStart = rangeStart;
+	public void setRange_start(Integer range_start ){
+		this.range_start = range_start;
 	}
 	
 	/**
 	* 区间名称
 	*@return 
 	*/
-	public String getRangeName(){
-		return  rangeName;
+	public String getRange_name(){
+		return  range_name;
 	}
 	/**
 	* 区间名称
-	*@param  rangeName
+	*@param  range_name
 	*/
-	public void setRangeName(String rangeName ){
-		this.rangeName = rangeName;
+	public void setRange_name(String range_name ){
+		this.range_name = range_name;
 	}
 	
 

@@ -28,20 +28,20 @@ public class store {
         //只接受以下属性的更新
         Flow.of(RaStore.class, body)
             .hold(
-                RaStore::getStoreQq,
-                RaStore::getStoreZy,
-                RaStore::getStoreWw,
-                RaStore::getStorePhone,
-                RaStore::getStoreKeywords,
-                RaStore::getStoreDescription,
-                RaStore::getnLogo,
-                RaStore::getnAvatar,
-                RaStore::getnBanner
+                RaStore::getStore_qq,
+                RaStore::getStore_zy,
+                RaStore::getStore_ww,
+                RaStore::getStore_phone,
+                RaStore::getStore_keywords,
+                RaStore::getStore_description,
+                RaStore::getN_logo,
+                RaStore::getN_avatar,
+                RaStore::getN_banner
             );
         // TODO: 2019/5/16 参数必须校验
         //只能更新我自己的店铺
         sqlManager.lambdaQuery(RaStore.class)
-            .andEq(RaStore::getStoreId, auth.getStoreId())
+            .andEq(RaStore::getStore_id, auth.getStoreId())
             .updateSelective(body);
         return R.ok(true);
     }
@@ -49,21 +49,20 @@ public class store {
 
     public R orderlist(JSONObject query) {
         //只查我店铺的订单
-        query.put("storeId", auth.getStoreId());
-        var pq = U.pageQuery("raOrder.店铺订单查询", JSONObject.class, query);
+        query.put("store_id", auth.getStoreId());
+        var pq = U.pageQuery("ra_order.page", JSONObject.class, query);
         if (pq.getTotalRow() > 0) {
-
             //查询订单相关的商品
             var map = new JSONObject();
             for (JSONObject object : pq.getList()) {
-                map.put(object.getString("orderId"), object);
+                map.put(object.getString("order_id"), object);
                 object.put("goods", new JSONArray());
             }
             var ogs = sqlManager.lambdaQuery(RaOrderGoods.class)
-                .andIn(RaOrderGoods::getOrderId, map.keySet())
+                .andIn(RaOrderGoods::getOrder_id, map.keySet())
                 .select();
             for (RaOrderGoods og : ogs) {
-                map.getJSONObject(og.getOrderId() + "").getJSONArray("goods").add(og);
+                map.getJSONObject(og.getOrder_id() + "").getJSONArray("goods").add(og);
             }
         }
         return R.ok(pq);
@@ -89,20 +88,20 @@ public class store {
     public R addgallery(JSONObject body){
         var item = Flow.of(RaAlbumClass.class, body)
             .hold(
-                RaAlbumClass::getAclassSort,
-                RaAlbumClass::getAclassId,
-                RaAlbumClass::getAclassName,
-                RaAlbumClass::getAclassDes
+                RaAlbumClass::getAclass_sort,
+                RaAlbumClass::getAclass_id,
+                RaAlbumClass::getAclass_name,
+                RaAlbumClass::getAclass_des
             )
-            .on(RaAlbumClass::getAclassName, Flow.ValidateType.notempty, "相册名不能为空")
+            .on(RaAlbumClass::getAclass_name, Flow.ValidateType.notempty, "相册名不能为空")
             .cast();
-        if(item.getAclassId() != null){
+        if(item.getAclass_id() != null){
             sqlManager.lambdaQuery(RaAlbumClass.class)
-                .andEq(RaAlbumClass::getStoreId, auth.getStoreId())
-                .andEq(RaAlbumClass::getAclassId, item.getAclassId())
+                .andEq(RaAlbumClass::getStore_id, auth.getStoreId())
+                .andEq(RaAlbumClass::getAclass_id, item.getAclass_id())
                 .updateSelective(item);
         } else {
-            item.setStoreId(Integer.parseInt(auth.getStoreId()));
+            item.setStore_id(Integer.parseInt(auth.getStoreId()));
             sqlManager.insert(item);
         }
 
@@ -117,8 +116,8 @@ public class store {
     public R delgallery(String id){
         //只能删除自己的
         sqlManager.lambdaQuery(RaAlbumClass.class)
-            .andEq(RaAlbumClass::getStoreId, auth.getStoreId())
-            .andEq(RaAlbumClass::getAclassId, id)
+            .andEq(RaAlbumClass::getStore_id, auth.getStoreId())
+            .andEq(RaAlbumClass::getAclass_id, id)
             .delete();
         return R.ok();
     }

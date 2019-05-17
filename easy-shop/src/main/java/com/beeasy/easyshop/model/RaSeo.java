@@ -7,10 +7,17 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_seo")
 public class RaSeo   {
+	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_description = "description";
+	public static final String ALIAS_keywords = "keywords";
+	public static final String ALIAS_title = "title";
+	public static final String ALIAS_type = "type";
 	
 	/*
 	主键

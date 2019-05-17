@@ -7,47 +7,58 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_p_bundling_quota")
 public class RaPBundlingQuota   {
 	
+	// alias
+	public static final String ALIAS_bl_quota_id = "bl_quota_id";
+	public static final String ALIAS_bl_quota_month = "bl_quota_month";
+	public static final String ALIAS_bl_state = "bl_state";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_bl_quota_endtime = "bl_quota_endtime";
+	public static final String ALIAS_bl_quota_starttime = "bl_quota_starttime";
+	public static final String ALIAS_member_name = "member_name";
+	public static final String ALIAS_store_name = "store_name";
+	
 	/*
 	套餐ID
 	*/
-	private Integer blQuotaId ;
+	private Integer bl_quota_id ;
 	/*
 	购买数量（单位月）
 	*/
-	private Integer blQuotaMonth ;
+	private Integer bl_quota_month ;
 	/*
 	套餐状态：0关闭，1开启。默认为 1
 	*/
-	private Integer blState ;
+	private Integer bl_state ;
 	/*
 	会员id
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	店铺id
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	套餐结束时间
 	*/
-	private String blQuotaEndtime ;
+	private String bl_quota_endtime ;
 	/*
 	套餐开始时间
 	*/
-	private String blQuotaStarttime ;
+	private String bl_quota_starttime ;
 	/*
 	会员名称
 	*/
-	private String memberName ;
+	private String member_name ;
 	/*
 	店铺名称
 	*/
-	private String storeName ;
+	private String store_name ;
 	
 	public RaPBundlingQuota() {
 	}
@@ -56,135 +67,135 @@ public class RaPBundlingQuota   {
 	* 套餐ID
 	*@return 
 	*/
-	public Integer getBlQuotaId(){
-		return  blQuotaId;
+	public Integer getBl_quota_id(){
+		return  bl_quota_id;
 	}
 	/**
 	* 套餐ID
-	*@param  blQuotaId
+	*@param  bl_quota_id
 	*/
-	public void setBlQuotaId(Integer blQuotaId ){
-		this.blQuotaId = blQuotaId;
+	public void setBl_quota_id(Integer bl_quota_id ){
+		this.bl_quota_id = bl_quota_id;
 	}
 	
 	/**
 	* 购买数量（单位月）
 	*@return 
 	*/
-	public Integer getBlQuotaMonth(){
-		return  blQuotaMonth;
+	public Integer getBl_quota_month(){
+		return  bl_quota_month;
 	}
 	/**
 	* 购买数量（单位月）
-	*@param  blQuotaMonth
+	*@param  bl_quota_month
 	*/
-	public void setBlQuotaMonth(Integer blQuotaMonth ){
-		this.blQuotaMonth = blQuotaMonth;
+	public void setBl_quota_month(Integer bl_quota_month ){
+		this.bl_quota_month = bl_quota_month;
 	}
 	
 	/**
 	* 套餐状态：0关闭，1开启。默认为 1
 	*@return 
 	*/
-	public Integer getBlState(){
-		return  blState;
+	public Integer getBl_state(){
+		return  bl_state;
 	}
 	/**
 	* 套餐状态：0关闭，1开启。默认为 1
-	*@param  blState
+	*@param  bl_state
 	*/
-	public void setBlState(Integer blState ){
-		this.blState = blState;
+	public void setBl_state(Integer bl_state ){
+		this.bl_state = bl_state;
 	}
 	
 	/**
 	* 会员id
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 会员id
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 店铺id
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺id
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 套餐结束时间
 	*@return 
 	*/
-	public String getBlQuotaEndtime(){
-		return  blQuotaEndtime;
+	public String getBl_quota_endtime(){
+		return  bl_quota_endtime;
 	}
 	/**
 	* 套餐结束时间
-	*@param  blQuotaEndtime
+	*@param  bl_quota_endtime
 	*/
-	public void setBlQuotaEndtime(String blQuotaEndtime ){
-		this.blQuotaEndtime = blQuotaEndtime;
+	public void setBl_quota_endtime(String bl_quota_endtime ){
+		this.bl_quota_endtime = bl_quota_endtime;
 	}
 	
 	/**
 	* 套餐开始时间
 	*@return 
 	*/
-	public String getBlQuotaStarttime(){
-		return  blQuotaStarttime;
+	public String getBl_quota_starttime(){
+		return  bl_quota_starttime;
 	}
 	/**
 	* 套餐开始时间
-	*@param  blQuotaStarttime
+	*@param  bl_quota_starttime
 	*/
-	public void setBlQuotaStarttime(String blQuotaStarttime ){
-		this.blQuotaStarttime = blQuotaStarttime;
+	public void setBl_quota_starttime(String bl_quota_starttime ){
+		this.bl_quota_starttime = bl_quota_starttime;
 	}
 	
 	/**
 	* 会员名称
 	*@return 
 	*/
-	public String getMemberName(){
-		return  memberName;
+	public String getMember_name(){
+		return  member_name;
 	}
 	/**
 	* 会员名称
-	*@param  memberName
+	*@param  member_name
 	*/
-	public void setMemberName(String memberName ){
-		this.memberName = memberName;
+	public void setMember_name(String member_name ){
+		this.member_name = member_name;
 	}
 	
 	/**
 	* 店铺名称
 	*@return 
 	*/
-	public String getStoreName(){
-		return  storeName;
+	public String getStore_name(){
+		return  store_name;
 	}
 	/**
 	* 店铺名称
-	*@param  storeName
+	*@param  store_name
 	*/
-	public void setStoreName(String storeName ){
-		this.storeName = storeName;
+	public void setStore_name(String store_name ){
+		this.store_name = store_name;
 	}
 	
 

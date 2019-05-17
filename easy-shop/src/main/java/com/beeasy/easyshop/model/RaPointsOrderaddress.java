@@ -7,47 +7,58 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_points_orderaddress")
 public class RaPointsOrderaddress   {
 	
+	// alias
+	public static final String ALIAS_point_oaid = "point_oaid";
+	public static final String ALIAS_point_areaid = "point_areaid";
+	public static final String ALIAS_point_orderid = "point_orderid";
+	public static final String ALIAS_point_address = "point_address";
+	public static final String ALIAS_point_areainfo = "point_areainfo";
+	public static final String ALIAS_point_mobphone = "point_mobphone";
+	public static final String ALIAS_point_telphone = "point_telphone";
+	public static final String ALIAS_point_truename = "point_truename";
+	public static final String ALIAS_point_zipcode = "point_zipcode";
+	
 	/*
 	自增id
 	*/
-	private Integer pointOaid ;
+	private Integer point_oaid ;
 	/*
 	地区id
 	*/
-	private Integer pointAreaid ;
+	private Integer point_areaid ;
 	/*
 	订单id
 	*/
-	private Integer pointOrderid ;
+	private Integer point_orderid ;
 	/*
 	详细地址
 	*/
-	private String pointAddress ;
+	private String point_address ;
 	/*
 	地区内容
 	*/
-	private String pointAreainfo ;
+	private String point_areainfo ;
 	/*
 	手机号码
 	*/
-	private String pointMobphone ;
+	private String point_mobphone ;
 	/*
 	电话号码
 	*/
-	private String pointTelphone ;
+	private String point_telphone ;
 	/*
 	收货人姓名
 	*/
-	private String pointTruename ;
+	private String point_truename ;
 	/*
 	邮政编码
 	*/
-	private String pointZipcode ;
+	private String point_zipcode ;
 	
 	public RaPointsOrderaddress() {
 	}
@@ -56,135 +67,135 @@ public class RaPointsOrderaddress   {
 	* 自增id
 	*@return 
 	*/
-	public Integer getPointOaid(){
-		return  pointOaid;
+	public Integer getPoint_oaid(){
+		return  point_oaid;
 	}
 	/**
 	* 自增id
-	*@param  pointOaid
+	*@param  point_oaid
 	*/
-	public void setPointOaid(Integer pointOaid ){
-		this.pointOaid = pointOaid;
+	public void setPoint_oaid(Integer point_oaid ){
+		this.point_oaid = point_oaid;
 	}
 	
 	/**
 	* 地区id
 	*@return 
 	*/
-	public Integer getPointAreaid(){
-		return  pointAreaid;
+	public Integer getPoint_areaid(){
+		return  point_areaid;
 	}
 	/**
 	* 地区id
-	*@param  pointAreaid
+	*@param  point_areaid
 	*/
-	public void setPointAreaid(Integer pointAreaid ){
-		this.pointAreaid = pointAreaid;
+	public void setPoint_areaid(Integer point_areaid ){
+		this.point_areaid = point_areaid;
 	}
 	
 	/**
 	* 订单id
 	*@return 
 	*/
-	public Integer getPointOrderid(){
-		return  pointOrderid;
+	public Integer getPoint_orderid(){
+		return  point_orderid;
 	}
 	/**
 	* 订单id
-	*@param  pointOrderid
+	*@param  point_orderid
 	*/
-	public void setPointOrderid(Integer pointOrderid ){
-		this.pointOrderid = pointOrderid;
+	public void setPoint_orderid(Integer point_orderid ){
+		this.point_orderid = point_orderid;
 	}
 	
 	/**
 	* 详细地址
 	*@return 
 	*/
-	public String getPointAddress(){
-		return  pointAddress;
+	public String getPoint_address(){
+		return  point_address;
 	}
 	/**
 	* 详细地址
-	*@param  pointAddress
+	*@param  point_address
 	*/
-	public void setPointAddress(String pointAddress ){
-		this.pointAddress = pointAddress;
+	public void setPoint_address(String point_address ){
+		this.point_address = point_address;
 	}
 	
 	/**
 	* 地区内容
 	*@return 
 	*/
-	public String getPointAreainfo(){
-		return  pointAreainfo;
+	public String getPoint_areainfo(){
+		return  point_areainfo;
 	}
 	/**
 	* 地区内容
-	*@param  pointAreainfo
+	*@param  point_areainfo
 	*/
-	public void setPointAreainfo(String pointAreainfo ){
-		this.pointAreainfo = pointAreainfo;
+	public void setPoint_areainfo(String point_areainfo ){
+		this.point_areainfo = point_areainfo;
 	}
 	
 	/**
 	* 手机号码
 	*@return 
 	*/
-	public String getPointMobphone(){
-		return  pointMobphone;
+	public String getPoint_mobphone(){
+		return  point_mobphone;
 	}
 	/**
 	* 手机号码
-	*@param  pointMobphone
+	*@param  point_mobphone
 	*/
-	public void setPointMobphone(String pointMobphone ){
-		this.pointMobphone = pointMobphone;
+	public void setPoint_mobphone(String point_mobphone ){
+		this.point_mobphone = point_mobphone;
 	}
 	
 	/**
 	* 电话号码
 	*@return 
 	*/
-	public String getPointTelphone(){
-		return  pointTelphone;
+	public String getPoint_telphone(){
+		return  point_telphone;
 	}
 	/**
 	* 电话号码
-	*@param  pointTelphone
+	*@param  point_telphone
 	*/
-	public void setPointTelphone(String pointTelphone ){
-		this.pointTelphone = pointTelphone;
+	public void setPoint_telphone(String point_telphone ){
+		this.point_telphone = point_telphone;
 	}
 	
 	/**
 	* 收货人姓名
 	*@return 
 	*/
-	public String getPointTruename(){
-		return  pointTruename;
+	public String getPoint_truename(){
+		return  point_truename;
 	}
 	/**
 	* 收货人姓名
-	*@param  pointTruename
+	*@param  point_truename
 	*/
-	public void setPointTruename(String pointTruename ){
-		this.pointTruename = pointTruename;
+	public void setPoint_truename(String point_truename ){
+		this.point_truename = point_truename;
 	}
 	
 	/**
 	* 邮政编码
 	*@return 
 	*/
-	public String getPointZipcode(){
-		return  pointZipcode;
+	public String getPoint_zipcode(){
+		return  point_zipcode;
 	}
 	/**
 	* 邮政编码
-	*@param  pointZipcode
+	*@param  point_zipcode
 	*/
-	public void setPointZipcode(String pointZipcode ){
-		this.pointZipcode = pointZipcode;
+	public void setPoint_zipcode(String point_zipcode ){
+		this.point_zipcode = point_zipcode;
 	}
 	
 

@@ -7,31 +7,46 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_adv")
 public class RaAdv   {
 	
+	// alias
+	public static final String ALIAS_adv_id = "adv_id";
+	public static final String ALIAS_adv_end_date = "adv_end_date";
+	public static final String ALIAS_adv_start_date = "adv_start_date";
+	public static final String ALIAS_ap_id = "ap_id";
+	public static final String ALIAS_click_num = "click_num";
+	public static final String ALIAS_goldpay = "goldpay";
+	public static final String ALIAS_is_allow = "is_allow";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_slide_sort = "slide_sort";
+	public static final String ALIAS_adv_content = "adv_content";
+	public static final String ALIAS_adv_title = "adv_title";
+	public static final String ALIAS_buy_style = "buy_style";
+	public static final String ALIAS_member_name = "member_name";
+	
 	/*
 	广告自增标识编号
 	*/
-	private Integer advId ;
+	private Integer adv_id ;
 	/*
 	广告结束时间
 	*/
-	private Integer advEndDate ;
+	private Integer adv_end_date ;
 	/*
 	广告开始时间
 	*/
-	private Integer advStartDate ;
+	private Integer adv_start_date ;
 	/*
 	广告位id
 	*/
-	private Integer apId ;
+	private Integer ap_id ;
 	/*
 	广告点击率
 	*/
-	private Integer clickNum ;
+	private Integer click_num ;
 	/*
 	购买所支付的金币
 	*/
@@ -39,31 +54,31 @@ public class RaAdv   {
 	/*
 	会员购买的广告是否通过审核0未审核1审核已通过2审核未通过
 	*/
-	private Integer isAllow ;
+	private Integer is_allow ;
 	/*
 	会员ID
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	幻灯片排序
 	*/
-	private Integer slideSort ;
+	private Integer slide_sort ;
 	/*
 	广告内容
 	*/
-	private String advContent ;
+	private String adv_content ;
 	/*
 	广告内容描述
 	*/
-	private String advTitle ;
+	private String adv_title ;
 	/*
 	购买方式
 	*/
-	private String buyStyle ;
+	private String buy_style ;
 	/*
 	会员用户名
 	*/
-	private String memberName ;
+	private String member_name ;
 	
 	public RaAdv() {
 	}
@@ -72,75 +87,75 @@ public class RaAdv   {
 	* 广告自增标识编号
 	*@return 
 	*/
-	public Integer getAdvId(){
-		return  advId;
+	public Integer getAdv_id(){
+		return  adv_id;
 	}
 	/**
 	* 广告自增标识编号
-	*@param  advId
+	*@param  adv_id
 	*/
-	public void setAdvId(Integer advId ){
-		this.advId = advId;
+	public void setAdv_id(Integer adv_id ){
+		this.adv_id = adv_id;
 	}
 	
 	/**
 	* 广告结束时间
 	*@return 
 	*/
-	public Integer getAdvEndDate(){
-		return  advEndDate;
+	public Integer getAdv_end_date(){
+		return  adv_end_date;
 	}
 	/**
 	* 广告结束时间
-	*@param  advEndDate
+	*@param  adv_end_date
 	*/
-	public void setAdvEndDate(Integer advEndDate ){
-		this.advEndDate = advEndDate;
+	public void setAdv_end_date(Integer adv_end_date ){
+		this.adv_end_date = adv_end_date;
 	}
 	
 	/**
 	* 广告开始时间
 	*@return 
 	*/
-	public Integer getAdvStartDate(){
-		return  advStartDate;
+	public Integer getAdv_start_date(){
+		return  adv_start_date;
 	}
 	/**
 	* 广告开始时间
-	*@param  advStartDate
+	*@param  adv_start_date
 	*/
-	public void setAdvStartDate(Integer advStartDate ){
-		this.advStartDate = advStartDate;
+	public void setAdv_start_date(Integer adv_start_date ){
+		this.adv_start_date = adv_start_date;
 	}
 	
 	/**
 	* 广告位id
 	*@return 
 	*/
-	public Integer getApId(){
-		return  apId;
+	public Integer getAp_id(){
+		return  ap_id;
 	}
 	/**
 	* 广告位id
-	*@param  apId
+	*@param  ap_id
 	*/
-	public void setApId(Integer apId ){
-		this.apId = apId;
+	public void setAp_id(Integer ap_id ){
+		this.ap_id = ap_id;
 	}
 	
 	/**
 	* 广告点击率
 	*@return 
 	*/
-	public Integer getClickNum(){
-		return  clickNum;
+	public Integer getClick_num(){
+		return  click_num;
 	}
 	/**
 	* 广告点击率
-	*@param  clickNum
+	*@param  click_num
 	*/
-	public void setClickNum(Integer clickNum ){
-		this.clickNum = clickNum;
+	public void setClick_num(Integer click_num ){
+		this.click_num = click_num;
 	}
 	
 	/**
@@ -162,105 +177,105 @@ public class RaAdv   {
 	* 会员购买的广告是否通过审核0未审核1审核已通过2审核未通过
 	*@return 
 	*/
-	public Integer getIsAllow(){
-		return  isAllow;
+	public Integer getIs_allow(){
+		return  is_allow;
 	}
 	/**
 	* 会员购买的广告是否通过审核0未审核1审核已通过2审核未通过
-	*@param  isAllow
+	*@param  is_allow
 	*/
-	public void setIsAllow(Integer isAllow ){
-		this.isAllow = isAllow;
+	public void setIs_allow(Integer is_allow ){
+		this.is_allow = is_allow;
 	}
 	
 	/**
 	* 会员ID
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 会员ID
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 幻灯片排序
 	*@return 
 	*/
-	public Integer getSlideSort(){
-		return  slideSort;
+	public Integer getSlide_sort(){
+		return  slide_sort;
 	}
 	/**
 	* 幻灯片排序
-	*@param  slideSort
+	*@param  slide_sort
 	*/
-	public void setSlideSort(Integer slideSort ){
-		this.slideSort = slideSort;
+	public void setSlide_sort(Integer slide_sort ){
+		this.slide_sort = slide_sort;
 	}
 	
 	/**
 	* 广告内容
 	*@return 
 	*/
-	public String getAdvContent(){
-		return  advContent;
+	public String getAdv_content(){
+		return  adv_content;
 	}
 	/**
 	* 广告内容
-	*@param  advContent
+	*@param  adv_content
 	*/
-	public void setAdvContent(String advContent ){
-		this.advContent = advContent;
+	public void setAdv_content(String adv_content ){
+		this.adv_content = adv_content;
 	}
 	
 	/**
 	* 广告内容描述
 	*@return 
 	*/
-	public String getAdvTitle(){
-		return  advTitle;
+	public String getAdv_title(){
+		return  adv_title;
 	}
 	/**
 	* 广告内容描述
-	*@param  advTitle
+	*@param  adv_title
 	*/
-	public void setAdvTitle(String advTitle ){
-		this.advTitle = advTitle;
+	public void setAdv_title(String adv_title ){
+		this.adv_title = adv_title;
 	}
 	
 	/**
 	* 购买方式
 	*@return 
 	*/
-	public String getBuyStyle(){
-		return  buyStyle;
+	public String getBuy_style(){
+		return  buy_style;
 	}
 	/**
 	* 购买方式
-	*@param  buyStyle
+	*@param  buy_style
 	*/
-	public void setBuyStyle(String buyStyle ){
-		this.buyStyle = buyStyle;
+	public void setBuy_style(String buy_style ){
+		this.buy_style = buy_style;
 	}
 	
 	/**
 	* 会员用户名
 	*@return 
 	*/
-	public String getMemberName(){
-		return  memberName;
+	public String getMember_name(){
+		return  member_name;
 	}
 	/**
 	* 会员用户名
-	*@param  memberName
+	*@param  member_name
 	*/
-	public void setMemberName(String memberName ){
-		this.memberName = memberName;
+	public void setMember_name(String member_name ){
+		this.member_name = member_name;
 	}
 	
 

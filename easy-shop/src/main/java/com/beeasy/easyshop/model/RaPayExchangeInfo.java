@@ -7,10 +7,30 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_pay_exchange_info")
 public class RaPayExchangeInfo   {
+	
+	// alias
+	public static final String ALIAS_orderNo = "orderNo";
+	public static final String ALIAS_currency = "currency";
+	public static final String ALIAS_ebpCode = "ebpCode";
+	public static final String ALIAS_guid = "guid";
+	public static final String ALIAS_initalRequest = "initalRequest";
+	public static final String ALIAS_initalResponse = "initalResponse";
+	public static final String ALIAS_note = "note";
+	public static final String ALIAS_payCode = "payCode";
+	public static final String ALIAS_payTransactionId = "payTransactionId";
+	public static final String ALIAS_payType = "payType";
+	public static final String ALIAS_recpAccount = "recpAccount";
+	public static final String ALIAS_recpCode = "recpCode";
+	public static final String ALIAS_recpName = "recpName";
+	public static final String ALIAS_serviceTime = "serviceTime";
+	public static final String ALIAS_sessionID = "sessionID";
+	public static final String ALIAS_totalAmount = "totalAmount";
+	public static final String ALIAS_tradingTime = "tradingTime";
+	public static final String ALIAS_verDept = "verDept";
 	
 	private String orderno ;
 	private String currency ;

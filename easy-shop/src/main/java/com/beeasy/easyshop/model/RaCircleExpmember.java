@@ -7,27 +7,33 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_circle_expmember")
 public class RaCircleExpmember   {
 	
+	// alias
+	public static final String ALIAS_circle_id = "circle_id";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_em_exp = "em_exp";
+	public static final String ALIAS_em_time = "em_time";
+	
 	/*
 	圈子id
 	*/
-	private Integer circleId ;
+	private Integer circle_id ;
 	/*
 	成员id
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	获得经验
 	*/
-	private Integer emExp ;
+	private Integer em_exp ;
 	/*
 	获得时间
 	*/
-	private String emTime ;
+	private String em_time ;
 	
 	public RaCircleExpmember() {
 	}
@@ -36,60 +42,60 @@ public class RaCircleExpmember   {
 	* 圈子id
 	*@return 
 	*/
-	public Integer getCircleId(){
-		return  circleId;
+	public Integer getCircle_id(){
+		return  circle_id;
 	}
 	/**
 	* 圈子id
-	*@param  circleId
+	*@param  circle_id
 	*/
-	public void setCircleId(Integer circleId ){
-		this.circleId = circleId;
+	public void setCircle_id(Integer circle_id ){
+		this.circle_id = circle_id;
 	}
 	
 	/**
 	* 成员id
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 成员id
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 获得经验
 	*@return 
 	*/
-	public Integer getEmExp(){
-		return  emExp;
+	public Integer getEm_exp(){
+		return  em_exp;
 	}
 	/**
 	* 获得经验
-	*@param  emExp
+	*@param  em_exp
 	*/
-	public void setEmExp(Integer emExp ){
-		this.emExp = emExp;
+	public void setEm_exp(Integer em_exp ){
+		this.em_exp = em_exp;
 	}
 	
 	/**
 	* 获得时间
 	*@return 
 	*/
-	public String getEmTime(){
-		return  emTime;
+	public String getEm_time(){
+		return  em_time;
 	}
 	/**
 	* 获得时间
-	*@param  emTime
+	*@param  em_time
 	*/
-	public void setEmTime(String emTime ){
-		this.emTime = emTime;
+	public void setEm_time(String em_time ){
+		this.em_time = em_time;
 	}
 	
 

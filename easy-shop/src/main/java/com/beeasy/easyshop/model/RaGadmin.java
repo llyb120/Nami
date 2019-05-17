@@ -7,10 +7,15 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_gadmin")
 public class RaGadmin   {
+	
+	// alias
+	public static final String ALIAS_gid = "gid";
+	public static final String ALIAS_gname = "gname";
+	public static final String ALIAS_limits = "limits";
 	
 	/*
 	自增id

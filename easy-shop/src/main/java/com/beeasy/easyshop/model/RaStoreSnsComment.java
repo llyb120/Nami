@@ -7,43 +7,53 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_sns_comment")
 public class RaStoreSnsComment   {
 	
+	// alias
+	public static final String ALIAS_scomm_id = "scomm_id";
+	public static final String ALIAS_scomm_memberid = "scomm_memberid";
+	public static final String ALIAS_scomm_state = "scomm_state";
+	public static final String ALIAS_strace_id = "strace_id";
+	public static final String ALIAS_scomm_content = "scomm_content";
+	public static final String ALIAS_scomm_memberavatar = "scomm_memberavatar";
+	public static final String ALIAS_scomm_membername = "scomm_membername";
+	public static final String ALIAS_scomm_time = "scomm_time";
+	
 	/*
 	店铺动态评论id
 	*/
-	private Integer scommId ;
+	private Integer scomm_id ;
 	/*
 	会员id
 	*/
-	private Integer scommMemberid ;
+	private Integer scomm_memberid ;
 	/*
 	评论状态 1正常，0屏蔽
 	*/
-	private Integer scommState ;
+	private Integer scomm_state ;
 	/*
 	店铺动态id
 	*/
-	private Integer straceId ;
+	private Integer strace_id ;
 	/*
 	评论内容
 	*/
-	private String scommContent ;
+	private String scomm_content ;
 	/*
 	会员头像
 	*/
-	private String scommMemberavatar ;
+	private String scomm_memberavatar ;
 	/*
 	会员名称
 	*/
-	private String scommMembername ;
+	private String scomm_membername ;
 	/*
 	评论时间
 	*/
-	private String scommTime ;
+	private String scomm_time ;
 	
 	public RaStoreSnsComment() {
 	}
@@ -52,120 +62,120 @@ public class RaStoreSnsComment   {
 	* 店铺动态评论id
 	*@return 
 	*/
-	public Integer getScommId(){
-		return  scommId;
+	public Integer getScomm_id(){
+		return  scomm_id;
 	}
 	/**
 	* 店铺动态评论id
-	*@param  scommId
+	*@param  scomm_id
 	*/
-	public void setScommId(Integer scommId ){
-		this.scommId = scommId;
+	public void setScomm_id(Integer scomm_id ){
+		this.scomm_id = scomm_id;
 	}
 	
 	/**
 	* 会员id
 	*@return 
 	*/
-	public Integer getScommMemberid(){
-		return  scommMemberid;
+	public Integer getScomm_memberid(){
+		return  scomm_memberid;
 	}
 	/**
 	* 会员id
-	*@param  scommMemberid
+	*@param  scomm_memberid
 	*/
-	public void setScommMemberid(Integer scommMemberid ){
-		this.scommMemberid = scommMemberid;
+	public void setScomm_memberid(Integer scomm_memberid ){
+		this.scomm_memberid = scomm_memberid;
 	}
 	
 	/**
 	* 评论状态 1正常，0屏蔽
 	*@return 
 	*/
-	public Integer getScommState(){
-		return  scommState;
+	public Integer getScomm_state(){
+		return  scomm_state;
 	}
 	/**
 	* 评论状态 1正常，0屏蔽
-	*@param  scommState
+	*@param  scomm_state
 	*/
-	public void setScommState(Integer scommState ){
-		this.scommState = scommState;
+	public void setScomm_state(Integer scomm_state ){
+		this.scomm_state = scomm_state;
 	}
 	
 	/**
 	* 店铺动态id
 	*@return 
 	*/
-	public Integer getStraceId(){
-		return  straceId;
+	public Integer getStrace_id(){
+		return  strace_id;
 	}
 	/**
 	* 店铺动态id
-	*@param  straceId
+	*@param  strace_id
 	*/
-	public void setStraceId(Integer straceId ){
-		this.straceId = straceId;
+	public void setStrace_id(Integer strace_id ){
+		this.strace_id = strace_id;
 	}
 	
 	/**
 	* 评论内容
 	*@return 
 	*/
-	public String getScommContent(){
-		return  scommContent;
+	public String getScomm_content(){
+		return  scomm_content;
 	}
 	/**
 	* 评论内容
-	*@param  scommContent
+	*@param  scomm_content
 	*/
-	public void setScommContent(String scommContent ){
-		this.scommContent = scommContent;
+	public void setScomm_content(String scomm_content ){
+		this.scomm_content = scomm_content;
 	}
 	
 	/**
 	* 会员头像
 	*@return 
 	*/
-	public String getScommMemberavatar(){
-		return  scommMemberavatar;
+	public String getScomm_memberavatar(){
+		return  scomm_memberavatar;
 	}
 	/**
 	* 会员头像
-	*@param  scommMemberavatar
+	*@param  scomm_memberavatar
 	*/
-	public void setScommMemberavatar(String scommMemberavatar ){
-		this.scommMemberavatar = scommMemberavatar;
+	public void setScomm_memberavatar(String scomm_memberavatar ){
+		this.scomm_memberavatar = scomm_memberavatar;
 	}
 	
 	/**
 	* 会员名称
 	*@return 
 	*/
-	public String getScommMembername(){
-		return  scommMembername;
+	public String getScomm_membername(){
+		return  scomm_membername;
 	}
 	/**
 	* 会员名称
-	*@param  scommMembername
+	*@param  scomm_membername
 	*/
-	public void setScommMembername(String scommMembername ){
-		this.scommMembername = scommMembername;
+	public void setScomm_membername(String scomm_membername ){
+		this.scomm_membername = scomm_membername;
 	}
 	
 	/**
 	* 评论时间
 	*@return 
 	*/
-	public String getScommTime(){
-		return  scommTime;
+	public String getScomm_time(){
+		return  scomm_time;
 	}
 	/**
 	* 评论时间
-	*@param  scommTime
+	*@param  scomm_time
 	*/
-	public void setScommTime(String scommTime ){
-		this.scommTime = scommTime;
+	public void setScomm_time(String scomm_time ){
+		this.scomm_time = scomm_time;
 	}
 	
 

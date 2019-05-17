@@ -7,75 +7,93 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_voucher")
 public class RaVoucher   {
 	
+	// alias
+	public static final String ALIAS_voucher_id = "voucher_id";
+	public static final String ALIAS_voucher_active_date = "voucher_active_date";
+	public static final String ALIAS_voucher_end_date = "voucher_end_date";
+	public static final String ALIAS_voucher_order_id = "voucher_order_id";
+	public static final String ALIAS_voucher_owner_id = "voucher_owner_id";
+	public static final String ALIAS_voucher_price = "voucher_price";
+	public static final String ALIAS_voucher_start_date = "voucher_start_date";
+	public static final String ALIAS_voucher_state = "voucher_state";
+	public static final String ALIAS_voucher_store_id = "voucher_store_id";
+	public static final String ALIAS_voucher_t_id = "voucher_t_id";
+	public static final String ALIAS_voucher_type = "voucher_type";
+	public static final String ALIAS_voucher_code = "voucher_code";
+	public static final String ALIAS_voucher_desc = "voucher_desc";
+	public static final String ALIAS_voucher_limit = "voucher_limit";
+	public static final String ALIAS_voucher_owner_name = "voucher_owner_name";
+	public static final String ALIAS_voucher_title = "voucher_title";
+	
 	/*
 	代金券编号
 	*/
-	private Integer voucherId ;
+	private Integer voucher_id ;
 	/*
 	代金券发放日期
 	*/
-	private Integer voucherActiveDate ;
+	private Integer voucher_active_date ;
 	/*
 	代金券有效期结束时间
 	*/
-	private Integer voucherEndDate ;
+	private Integer voucher_end_date ;
 	/*
 	使用该代金券的订单编号
 	*/
-	private Integer voucherOrderId ;
+	private Integer voucher_order_id ;
 	/*
 	代金券所有者id
 	*/
-	private Integer voucherOwnerId ;
+	private Integer voucher_owner_id ;
 	/*
 	代金券面额
 	*/
-	private Integer voucherPrice ;
+	private Integer voucher_price ;
 	/*
 	代金券有效期开始时间
 	*/
-	private Integer voucherStartDate ;
+	private Integer voucher_start_date ;
 	/*
 	代金券状态(1-未用,2-已用,3-过期,4-收回)
 	*/
-	private Integer voucherState ;
+	private Integer voucher_state ;
 	/*
 	代金券的店铺id
 	*/
-	private Integer voucherStoreId ;
+	private Integer voucher_store_id ;
 	/*
 	代金券模版编号
 	*/
-	private Integer voucherTId ;
+	private Integer voucher_t_id ;
 	/*
 	代金券类别
 	*/
-	private Integer voucherType ;
+	private Integer voucher_type ;
 	/*
 	代金券编码
 	*/
-	private String voucherCode ;
+	private String voucher_code ;
 	/*
 	代金券描述
 	*/
-	private String voucherDesc ;
+	private String voucher_desc ;
 	/*
 	代金券使用时的订单限额
 	*/
-	private BigDecimal voucherLimit ;
+	private BigDecimal voucher_limit ;
 	/*
 	代金券所有者名称
 	*/
-	private String voucherOwnerName ;
+	private String voucher_owner_name ;
 	/*
 	代金券标题
 	*/
-	private String voucherTitle ;
+	private String voucher_title ;
 	
 	public RaVoucher() {
 	}
@@ -84,240 +102,240 @@ public class RaVoucher   {
 	* 代金券编号
 	*@return 
 	*/
-	public Integer getVoucherId(){
-		return  voucherId;
+	public Integer getVoucher_id(){
+		return  voucher_id;
 	}
 	/**
 	* 代金券编号
-	*@param  voucherId
+	*@param  voucher_id
 	*/
-	public void setVoucherId(Integer voucherId ){
-		this.voucherId = voucherId;
+	public void setVoucher_id(Integer voucher_id ){
+		this.voucher_id = voucher_id;
 	}
 	
 	/**
 	* 代金券发放日期
 	*@return 
 	*/
-	public Integer getVoucherActiveDate(){
-		return  voucherActiveDate;
+	public Integer getVoucher_active_date(){
+		return  voucher_active_date;
 	}
 	/**
 	* 代金券发放日期
-	*@param  voucherActiveDate
+	*@param  voucher_active_date
 	*/
-	public void setVoucherActiveDate(Integer voucherActiveDate ){
-		this.voucherActiveDate = voucherActiveDate;
+	public void setVoucher_active_date(Integer voucher_active_date ){
+		this.voucher_active_date = voucher_active_date;
 	}
 	
 	/**
 	* 代金券有效期结束时间
 	*@return 
 	*/
-	public Integer getVoucherEndDate(){
-		return  voucherEndDate;
+	public Integer getVoucher_end_date(){
+		return  voucher_end_date;
 	}
 	/**
 	* 代金券有效期结束时间
-	*@param  voucherEndDate
+	*@param  voucher_end_date
 	*/
-	public void setVoucherEndDate(Integer voucherEndDate ){
-		this.voucherEndDate = voucherEndDate;
+	public void setVoucher_end_date(Integer voucher_end_date ){
+		this.voucher_end_date = voucher_end_date;
 	}
 	
 	/**
 	* 使用该代金券的订单编号
 	*@return 
 	*/
-	public Integer getVoucherOrderId(){
-		return  voucherOrderId;
+	public Integer getVoucher_order_id(){
+		return  voucher_order_id;
 	}
 	/**
 	* 使用该代金券的订单编号
-	*@param  voucherOrderId
+	*@param  voucher_order_id
 	*/
-	public void setVoucherOrderId(Integer voucherOrderId ){
-		this.voucherOrderId = voucherOrderId;
+	public void setVoucher_order_id(Integer voucher_order_id ){
+		this.voucher_order_id = voucher_order_id;
 	}
 	
 	/**
 	* 代金券所有者id
 	*@return 
 	*/
-	public Integer getVoucherOwnerId(){
-		return  voucherOwnerId;
+	public Integer getVoucher_owner_id(){
+		return  voucher_owner_id;
 	}
 	/**
 	* 代金券所有者id
-	*@param  voucherOwnerId
+	*@param  voucher_owner_id
 	*/
-	public void setVoucherOwnerId(Integer voucherOwnerId ){
-		this.voucherOwnerId = voucherOwnerId;
+	public void setVoucher_owner_id(Integer voucher_owner_id ){
+		this.voucher_owner_id = voucher_owner_id;
 	}
 	
 	/**
 	* 代金券面额
 	*@return 
 	*/
-	public Integer getVoucherPrice(){
-		return  voucherPrice;
+	public Integer getVoucher_price(){
+		return  voucher_price;
 	}
 	/**
 	* 代金券面额
-	*@param  voucherPrice
+	*@param  voucher_price
 	*/
-	public void setVoucherPrice(Integer voucherPrice ){
-		this.voucherPrice = voucherPrice;
+	public void setVoucher_price(Integer voucher_price ){
+		this.voucher_price = voucher_price;
 	}
 	
 	/**
 	* 代金券有效期开始时间
 	*@return 
 	*/
-	public Integer getVoucherStartDate(){
-		return  voucherStartDate;
+	public Integer getVoucher_start_date(){
+		return  voucher_start_date;
 	}
 	/**
 	* 代金券有效期开始时间
-	*@param  voucherStartDate
+	*@param  voucher_start_date
 	*/
-	public void setVoucherStartDate(Integer voucherStartDate ){
-		this.voucherStartDate = voucherStartDate;
+	public void setVoucher_start_date(Integer voucher_start_date ){
+		this.voucher_start_date = voucher_start_date;
 	}
 	
 	/**
 	* 代金券状态(1-未用,2-已用,3-过期,4-收回)
 	*@return 
 	*/
-	public Integer getVoucherState(){
-		return  voucherState;
+	public Integer getVoucher_state(){
+		return  voucher_state;
 	}
 	/**
 	* 代金券状态(1-未用,2-已用,3-过期,4-收回)
-	*@param  voucherState
+	*@param  voucher_state
 	*/
-	public void setVoucherState(Integer voucherState ){
-		this.voucherState = voucherState;
+	public void setVoucher_state(Integer voucher_state ){
+		this.voucher_state = voucher_state;
 	}
 	
 	/**
 	* 代金券的店铺id
 	*@return 
 	*/
-	public Integer getVoucherStoreId(){
-		return  voucherStoreId;
+	public Integer getVoucher_store_id(){
+		return  voucher_store_id;
 	}
 	/**
 	* 代金券的店铺id
-	*@param  voucherStoreId
+	*@param  voucher_store_id
 	*/
-	public void setVoucherStoreId(Integer voucherStoreId ){
-		this.voucherStoreId = voucherStoreId;
+	public void setVoucher_store_id(Integer voucher_store_id ){
+		this.voucher_store_id = voucher_store_id;
 	}
 	
 	/**
 	* 代金券模版编号
 	*@return 
 	*/
-	public Integer getVoucherTId(){
-		return  voucherTId;
+	public Integer getVoucher_t_id(){
+		return  voucher_t_id;
 	}
 	/**
 	* 代金券模版编号
-	*@param  voucherTId
+	*@param  voucher_t_id
 	*/
-	public void setVoucherTId(Integer voucherTId ){
-		this.voucherTId = voucherTId;
+	public void setVoucher_t_id(Integer voucher_t_id ){
+		this.voucher_t_id = voucher_t_id;
 	}
 	
 	/**
 	* 代金券类别
 	*@return 
 	*/
-	public Integer getVoucherType(){
-		return  voucherType;
+	public Integer getVoucher_type(){
+		return  voucher_type;
 	}
 	/**
 	* 代金券类别
-	*@param  voucherType
+	*@param  voucher_type
 	*/
-	public void setVoucherType(Integer voucherType ){
-		this.voucherType = voucherType;
+	public void setVoucher_type(Integer voucher_type ){
+		this.voucher_type = voucher_type;
 	}
 	
 	/**
 	* 代金券编码
 	*@return 
 	*/
-	public String getVoucherCode(){
-		return  voucherCode;
+	public String getVoucher_code(){
+		return  voucher_code;
 	}
 	/**
 	* 代金券编码
-	*@param  voucherCode
+	*@param  voucher_code
 	*/
-	public void setVoucherCode(String voucherCode ){
-		this.voucherCode = voucherCode;
+	public void setVoucher_code(String voucher_code ){
+		this.voucher_code = voucher_code;
 	}
 	
 	/**
 	* 代金券描述
 	*@return 
 	*/
-	public String getVoucherDesc(){
-		return  voucherDesc;
+	public String getVoucher_desc(){
+		return  voucher_desc;
 	}
 	/**
 	* 代金券描述
-	*@param  voucherDesc
+	*@param  voucher_desc
 	*/
-	public void setVoucherDesc(String voucherDesc ){
-		this.voucherDesc = voucherDesc;
+	public void setVoucher_desc(String voucher_desc ){
+		this.voucher_desc = voucher_desc;
 	}
 	
 	/**
 	* 代金券使用时的订单限额
 	*@return 
 	*/
-	public BigDecimal getVoucherLimit(){
-		return  voucherLimit;
+	public BigDecimal getVoucher_limit(){
+		return  voucher_limit;
 	}
 	/**
 	* 代金券使用时的订单限额
-	*@param  voucherLimit
+	*@param  voucher_limit
 	*/
-	public void setVoucherLimit(BigDecimal voucherLimit ){
-		this.voucherLimit = voucherLimit;
+	public void setVoucher_limit(BigDecimal voucher_limit ){
+		this.voucher_limit = voucher_limit;
 	}
 	
 	/**
 	* 代金券所有者名称
 	*@return 
 	*/
-	public String getVoucherOwnerName(){
-		return  voucherOwnerName;
+	public String getVoucher_owner_name(){
+		return  voucher_owner_name;
 	}
 	/**
 	* 代金券所有者名称
-	*@param  voucherOwnerName
+	*@param  voucher_owner_name
 	*/
-	public void setVoucherOwnerName(String voucherOwnerName ){
-		this.voucherOwnerName = voucherOwnerName;
+	public void setVoucher_owner_name(String voucher_owner_name ){
+		this.voucher_owner_name = voucher_owner_name;
 	}
 	
 	/**
 	* 代金券标题
 	*@return 
 	*/
-	public String getVoucherTitle(){
-		return  voucherTitle;
+	public String getVoucher_title(){
+		return  voucher_title;
 	}
 	/**
 	* 代金券标题
-	*@param  voucherTitle
+	*@param  voucher_title
 	*/
-	public void setVoucherTitle(String voucherTitle ){
-		this.voucherTitle = voucherTitle;
+	public void setVoucher_title(String voucher_title ){
+		this.voucher_title = voucher_title;
 	}
 	
 

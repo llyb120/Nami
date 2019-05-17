@@ -7,12 +7,28 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_custom_hangzhou_goods")
 public class RaCustomHangzhouGoods   {
 	
-	private Integer goodsCommonid ;
+	// alias
+	public static final String ALIAS_goods_commonid = "goods_commonid";
+	public static final String ALIAS_HScode = "HScode";
+	public static final String ALIAS_brandId = "brandId";
+	public static final String ALIAS_brandName = "brandName";
+	public static final String ALIAS_codeTs = "codeTs";
+	public static final String ALIAS_commodityArtNo = "commodityArtNo";
+	public static final String ALIAS_commodityBarcode = "commodityBarcode";
+	public static final String ALIAS_commodityMadeTime = "commodityMadeTime";
+	public static final String ALIAS_commoditySpec = "commoditySpec";
+	public static final String ALIAS_remark = "remark";
+	public static final String ALIAS_tradeCountryCode = "tradeCountryCode";
+	public static final String ALIAS_tradeCountryName = "tradeCountryName";
+	public static final String ALIAS_unit = "unit";
+	public static final String ALIAS_weight = "weight";
+	
+	private Integer goods_commonid ;
 	private String hscode ;
 	private String brandid ;
 	private String brandname ;
@@ -30,11 +46,11 @@ public class RaCustomHangzhouGoods   {
 	public RaCustomHangzhouGoods() {
 	}
 	
-	public Integer getGoodsCommonid(){
-		return  goodsCommonid;
+	public Integer getGoods_commonid(){
+		return  goods_commonid;
 	}
-	public void setGoodsCommonid(Integer goodsCommonid ){
-		this.goodsCommonid = goodsCommonid;
+	public void setGoods_commonid(Integer goods_commonid ){
+		this.goods_commonid = goods_commonid;
 	}
 	
 	public String getHscode(){

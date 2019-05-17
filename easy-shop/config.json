@@ -5,7 +5,8 @@
             "url": "jdbc:mysql://47.96.98.198:3306/yoehi?useUnicode=true&characterEncoding=utf8&useSSL=false",
             "driver": "com.mysql.jdbc.Driver",
             "username": "root",
-            "password": "1q2w3e4r"
+            "password": "1q2w3e4r",
+            "style": "_"
         }
     },
     "hotswap": [

@@ -7,63 +7,78 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_watermark")
 public class RaStoreWatermark   {
 	
+	// alias
+	public static final String ALIAS_wm_id = "wm_id";
+	public static final String ALIAS_jpeg_quality = "jpeg_quality";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_wm_image_pos = "wm_image_pos";
+	public static final String ALIAS_wm_image_transition = "wm_image_transition";
+	public static final String ALIAS_wm_is_open = "wm_is_open";
+	public static final String ALIAS_wm_text_angle = "wm_text_angle";
+	public static final String ALIAS_wm_text_pos = "wm_text_pos";
+	public static final String ALIAS_wm_text_size = "wm_text_size";
+	public static final String ALIAS_wm_image_name = "wm_image_name";
+	public static final String ALIAS_wm_text = "wm_text";
+	public static final String ALIAS_wm_text_color = "wm_text_color";
+	public static final String ALIAS_wm_text_font = "wm_text_font";
+	
 	/*
 	水印id
 	*/
-	private Integer wmId ;
+	private Integer wm_id ;
 	/*
 	jpeg图片质量
 	*/
-	private Integer jpegQuality ;
+	private Integer jpeg_quality ;
 	/*
 	店铺id
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	水印图片放置的位置
 	*/
-	private Integer wmImagePos ;
+	private Integer wm_image_pos ;
 	/*
 	水印图片与原图片的融合度 
 	*/
-	private Integer wmImageTransition ;
+	private Integer wm_image_transition ;
 	/*
 	水印是否开启 0关闭 1开启
 	*/
-	private Integer wmIsOpen ;
+	private Integer wm_is_open ;
 	/*
 	水印文字角度
 	*/
-	private Integer wmTextAngle ;
+	private Integer wm_text_angle ;
 	/*
 	水印文字放置位置
 	*/
-	private Integer wmTextPos ;
+	private Integer wm_text_pos ;
 	/*
 	水印文字大小
 	*/
-	private Integer wmTextSize ;
+	private Integer wm_text_size ;
 	/*
 	水印图片的路径以及文件名
 	*/
-	private String wmImageName ;
+	private String wm_image_name ;
 	/*
 	水印文字
 	*/
-	private String wmText ;
+	private String wm_text ;
 	/*
 	水印字体的颜色值
 	*/
-	private String wmTextColor ;
+	private String wm_text_color ;
 	/*
 	水印文字的字体
 	*/
-	private String wmTextFont ;
+	private String wm_text_font ;
 	
 	public RaStoreWatermark() {
 	}
@@ -72,195 +87,195 @@ public class RaStoreWatermark   {
 	* 水印id
 	*@return 
 	*/
-	public Integer getWmId(){
-		return  wmId;
+	public Integer getWm_id(){
+		return  wm_id;
 	}
 	/**
 	* 水印id
-	*@param  wmId
+	*@param  wm_id
 	*/
-	public void setWmId(Integer wmId ){
-		this.wmId = wmId;
+	public void setWm_id(Integer wm_id ){
+		this.wm_id = wm_id;
 	}
 	
 	/**
 	* jpeg图片质量
 	*@return 
 	*/
-	public Integer getJpegQuality(){
-		return  jpegQuality;
+	public Integer getJpeg_quality(){
+		return  jpeg_quality;
 	}
 	/**
 	* jpeg图片质量
-	*@param  jpegQuality
+	*@param  jpeg_quality
 	*/
-	public void setJpegQuality(Integer jpegQuality ){
-		this.jpegQuality = jpegQuality;
+	public void setJpeg_quality(Integer jpeg_quality ){
+		this.jpeg_quality = jpeg_quality;
 	}
 	
 	/**
 	* 店铺id
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺id
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 水印图片放置的位置
 	*@return 
 	*/
-	public Integer getWmImagePos(){
-		return  wmImagePos;
+	public Integer getWm_image_pos(){
+		return  wm_image_pos;
 	}
 	/**
 	* 水印图片放置的位置
-	*@param  wmImagePos
+	*@param  wm_image_pos
 	*/
-	public void setWmImagePos(Integer wmImagePos ){
-		this.wmImagePos = wmImagePos;
+	public void setWm_image_pos(Integer wm_image_pos ){
+		this.wm_image_pos = wm_image_pos;
 	}
 	
 	/**
 	* 水印图片与原图片的融合度 
 	*@return 
 	*/
-	public Integer getWmImageTransition(){
-		return  wmImageTransition;
+	public Integer getWm_image_transition(){
+		return  wm_image_transition;
 	}
 	/**
 	* 水印图片与原图片的融合度 
-	*@param  wmImageTransition
+	*@param  wm_image_transition
 	*/
-	public void setWmImageTransition(Integer wmImageTransition ){
-		this.wmImageTransition = wmImageTransition;
+	public void setWm_image_transition(Integer wm_image_transition ){
+		this.wm_image_transition = wm_image_transition;
 	}
 	
 	/**
 	* 水印是否开启 0关闭 1开启
 	*@return 
 	*/
-	public Integer getWmIsOpen(){
-		return  wmIsOpen;
+	public Integer getWm_is_open(){
+		return  wm_is_open;
 	}
 	/**
 	* 水印是否开启 0关闭 1开启
-	*@param  wmIsOpen
+	*@param  wm_is_open
 	*/
-	public void setWmIsOpen(Integer wmIsOpen ){
-		this.wmIsOpen = wmIsOpen;
+	public void setWm_is_open(Integer wm_is_open ){
+		this.wm_is_open = wm_is_open;
 	}
 	
 	/**
 	* 水印文字角度
 	*@return 
 	*/
-	public Integer getWmTextAngle(){
-		return  wmTextAngle;
+	public Integer getWm_text_angle(){
+		return  wm_text_angle;
 	}
 	/**
 	* 水印文字角度
-	*@param  wmTextAngle
+	*@param  wm_text_angle
 	*/
-	public void setWmTextAngle(Integer wmTextAngle ){
-		this.wmTextAngle = wmTextAngle;
+	public void setWm_text_angle(Integer wm_text_angle ){
+		this.wm_text_angle = wm_text_angle;
 	}
 	
 	/**
 	* 水印文字放置位置
 	*@return 
 	*/
-	public Integer getWmTextPos(){
-		return  wmTextPos;
+	public Integer getWm_text_pos(){
+		return  wm_text_pos;
 	}
 	/**
 	* 水印文字放置位置
-	*@param  wmTextPos
+	*@param  wm_text_pos
 	*/
-	public void setWmTextPos(Integer wmTextPos ){
-		this.wmTextPos = wmTextPos;
+	public void setWm_text_pos(Integer wm_text_pos ){
+		this.wm_text_pos = wm_text_pos;
 	}
 	
 	/**
 	* 水印文字大小
 	*@return 
 	*/
-	public Integer getWmTextSize(){
-		return  wmTextSize;
+	public Integer getWm_text_size(){
+		return  wm_text_size;
 	}
 	/**
 	* 水印文字大小
-	*@param  wmTextSize
+	*@param  wm_text_size
 	*/
-	public void setWmTextSize(Integer wmTextSize ){
-		this.wmTextSize = wmTextSize;
+	public void setWm_text_size(Integer wm_text_size ){
+		this.wm_text_size = wm_text_size;
 	}
 	
 	/**
 	* 水印图片的路径以及文件名
 	*@return 
 	*/
-	public String getWmImageName(){
-		return  wmImageName;
+	public String getWm_image_name(){
+		return  wm_image_name;
 	}
 	/**
 	* 水印图片的路径以及文件名
-	*@param  wmImageName
+	*@param  wm_image_name
 	*/
-	public void setWmImageName(String wmImageName ){
-		this.wmImageName = wmImageName;
+	public void setWm_image_name(String wm_image_name ){
+		this.wm_image_name = wm_image_name;
 	}
 	
 	/**
 	* 水印文字
 	*@return 
 	*/
-	public String getWmText(){
-		return  wmText;
+	public String getWm_text(){
+		return  wm_text;
 	}
 	/**
 	* 水印文字
-	*@param  wmText
+	*@param  wm_text
 	*/
-	public void setWmText(String wmText ){
-		this.wmText = wmText;
+	public void setWm_text(String wm_text ){
+		this.wm_text = wm_text;
 	}
 	
 	/**
 	* 水印字体的颜色值
 	*@return 
 	*/
-	public String getWmTextColor(){
-		return  wmTextColor;
+	public String getWm_text_color(){
+		return  wm_text_color;
 	}
 	/**
 	* 水印字体的颜色值
-	*@param  wmTextColor
+	*@param  wm_text_color
 	*/
-	public void setWmTextColor(String wmTextColor ){
-		this.wmTextColor = wmTextColor;
+	public void setWm_text_color(String wm_text_color ){
+		this.wm_text_color = wm_text_color;
 	}
 	
 	/**
 	* 水印文字的字体
 	*@return 
 	*/
-	public String getWmTextFont(){
-		return  wmTextFont;
+	public String getWm_text_font(){
+		return  wm_text_font;
 	}
 	/**
 	* 水印文字的字体
-	*@param  wmTextFont
+	*@param  wm_text_font
 	*/
-	public void setWmTextFont(String wmTextFont ){
-		this.wmTextFont = wmTextFont;
+	public void setWm_text_font(String wm_text_font ){
+		this.wm_text_font = wm_text_font;
 	}
 	
 

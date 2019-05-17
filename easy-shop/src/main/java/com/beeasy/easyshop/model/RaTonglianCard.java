@@ -7,16 +7,23 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_tonglian_card")
 public class RaTonglianCard   {
+	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_balance = "balance";
+	public static final String ALIAS_idcard = "idcard";
+	public static final String ALIAS_name = "name";
+	public static final String ALIAS_tonglian_card = "tonglian_card";
 	
 	private Integer id ;
 	private BigDecimal balance ;
 	private String idcard ;
 	private String name ;
-	private String tonglianCard ;
+	private String tonglian_card ;
 	
 	public RaTonglianCard() {
 	}
@@ -49,11 +56,11 @@ public class RaTonglianCard   {
 		this.name = name;
 	}
 	
-	public String getTonglianCard(){
-		return  tonglianCard;
+	public String getTonglian_card(){
+		return  tonglian_card;
 	}
-	public void setTonglianCard(String tonglianCard ){
-		this.tonglianCard = tonglianCard;
+	public void setTonglian_card(String tonglian_card ){
+		this.tonglian_card = tonglian_card;
 	}
 	
 

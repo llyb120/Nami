@@ -7,10 +7,23 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_transport_extend")
 public class RaTransportExtend   {
+	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_snum = "snum";
+	public static final String ALIAS_transport_id = "transport_id";
+	public static final String ALIAS_xnum = "xnum";
+	public static final String ALIAS_area_id = "area_id";
+	public static final String ALIAS_area_name = "area_name";
+	public static final String ALIAS_is_default = "is_default";
+	public static final String ALIAS_sprice = "sprice";
+	public static final String ALIAS_top_area_id = "top_area_id";
+	public static final String ALIAS_transport_title = "transport_title";
+	public static final String ALIAS_xprice = "xprice";
 	
 	/*
 	运费模板扩展ID
@@ -23,7 +36,7 @@ public class RaTransportExtend   {
 	/*
 	运费模板ID
 	*/
-	private Integer transportId ;
+	private Integer transport_id ;
 	/*
 	续件数量
 	*/
@@ -31,15 +44,15 @@ public class RaTransportExtend   {
 	/*
 	市级地区ID组成的串，以，隔开，两端也有，
 	*/
-	private String areaId ;
+	private String area_id ;
 	/*
 	地区name组成的串，以，隔开
 	*/
-	private String areaName ;
+	private String area_name ;
 	/*
 	是否默认运费1是2否
 	*/
-	private String isDefault ;
+	private String is_default ;
 	/*
 	首件运费
 	*/
@@ -47,11 +60,11 @@ public class RaTransportExtend   {
 	/*
 	省级地区ID组成的串，以，隔开，两端也有，
 	*/
-	private String topAreaId ;
+	private String top_area_id ;
 	/*
 	运费模板
 	*/
-	private String transportTitle ;
+	private String transport_title ;
 	/*
 	续件运费
 	*/
@@ -94,15 +107,15 @@ public class RaTransportExtend   {
 	* 运费模板ID
 	*@return 
 	*/
-	public Integer getTransportId(){
-		return  transportId;
+	public Integer getTransport_id(){
+		return  transport_id;
 	}
 	/**
 	* 运费模板ID
-	*@param  transportId
+	*@param  transport_id
 	*/
-	public void setTransportId(Integer transportId ){
-		this.transportId = transportId;
+	public void setTransport_id(Integer transport_id ){
+		this.transport_id = transport_id;
 	}
 	
 	/**
@@ -124,45 +137,45 @@ public class RaTransportExtend   {
 	* 市级地区ID组成的串，以，隔开，两端也有，
 	*@return 
 	*/
-	public String getAreaId(){
-		return  areaId;
+	public String getArea_id(){
+		return  area_id;
 	}
 	/**
 	* 市级地区ID组成的串，以，隔开，两端也有，
-	*@param  areaId
+	*@param  area_id
 	*/
-	public void setAreaId(String areaId ){
-		this.areaId = areaId;
+	public void setArea_id(String area_id ){
+		this.area_id = area_id;
 	}
 	
 	/**
 	* 地区name组成的串，以，隔开
 	*@return 
 	*/
-	public String getAreaName(){
-		return  areaName;
+	public String getArea_name(){
+		return  area_name;
 	}
 	/**
 	* 地区name组成的串，以，隔开
-	*@param  areaName
+	*@param  area_name
 	*/
-	public void setAreaName(String areaName ){
-		this.areaName = areaName;
+	public void setArea_name(String area_name ){
+		this.area_name = area_name;
 	}
 	
 	/**
 	* 是否默认运费1是2否
 	*@return 
 	*/
-	public String getIsDefault(){
-		return  isDefault;
+	public String getIs_default(){
+		return  is_default;
 	}
 	/**
 	* 是否默认运费1是2否
-	*@param  isDefault
+	*@param  is_default
 	*/
-	public void setIsDefault(String isDefault ){
-		this.isDefault = isDefault;
+	public void setIs_default(String is_default ){
+		this.is_default = is_default;
 	}
 	
 	/**
@@ -184,30 +197,30 @@ public class RaTransportExtend   {
 	* 省级地区ID组成的串，以，隔开，两端也有，
 	*@return 
 	*/
-	public String getTopAreaId(){
-		return  topAreaId;
+	public String getTop_area_id(){
+		return  top_area_id;
 	}
 	/**
 	* 省级地区ID组成的串，以，隔开，两端也有，
-	*@param  topAreaId
+	*@param  top_area_id
 	*/
-	public void setTopAreaId(String topAreaId ){
-		this.topAreaId = topAreaId;
+	public void setTop_area_id(String top_area_id ){
+		this.top_area_id = top_area_id;
 	}
 	
 	/**
 	* 运费模板
 	*@return 
 	*/
-	public String getTransportTitle(){
-		return  transportTitle;
+	public String getTransport_title(){
+		return  transport_title;
 	}
 	/**
 	* 运费模板
-	*@param  transportTitle
+	*@param  transport_title
 	*/
-	public void setTransportTitle(String transportTitle ){
-		this.transportTitle = transportTitle;
+	public void setTransport_title(String transport_title ){
+		this.transport_title = transport_title;
 	}
 	
 	/**

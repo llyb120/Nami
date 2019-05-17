@@ -7,15 +7,21 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_refund_reason")
 public class RaRefundReason   {
 	
+	// alias
+	public static final String ALIAS_reason_id = "reason_id";
+	public static final String ALIAS_sort = "sort";
+	public static final String ALIAS_update_time = "update_time";
+	public static final String ALIAS_reason_info = "reason_info";
+	
 	/*
 	原因ID
 	*/
-	private Integer reasonId ;
+	private Integer reason_id ;
 	/*
 	排序
 	*/
@@ -23,11 +29,11 @@ public class RaRefundReason   {
 	/*
 	更新时间
 	*/
-	private Integer updateTime ;
+	private Integer update_time ;
 	/*
 	原因内容
 	*/
-	private String reasonInfo ;
+	private String reason_info ;
 	
 	public RaRefundReason() {
 	}
@@ -36,15 +42,15 @@ public class RaRefundReason   {
 	* 原因ID
 	*@return 
 	*/
-	public Integer getReasonId(){
-		return  reasonId;
+	public Integer getReason_id(){
+		return  reason_id;
 	}
 	/**
 	* 原因ID
-	*@param  reasonId
+	*@param  reason_id
 	*/
-	public void setReasonId(Integer reasonId ){
-		this.reasonId = reasonId;
+	public void setReason_id(Integer reason_id ){
+		this.reason_id = reason_id;
 	}
 	
 	/**
@@ -66,30 +72,30 @@ public class RaRefundReason   {
 	* 更新时间
 	*@return 
 	*/
-	public Integer getUpdateTime(){
-		return  updateTime;
+	public Integer getUpdate_time(){
+		return  update_time;
 	}
 	/**
 	* 更新时间
-	*@param  updateTime
+	*@param  update_time
 	*/
-	public void setUpdateTime(Integer updateTime ){
-		this.updateTime = updateTime;
+	public void setUpdate_time(Integer update_time ){
+		this.update_time = update_time;
 	}
 	
 	/**
 	* 原因内容
 	*@return 
 	*/
-	public String getReasonInfo(){
-		return  reasonInfo;
+	public String getReason_info(){
+		return  reason_info;
 	}
 	/**
 	* 原因内容
-	*@param  reasonInfo
+	*@param  reason_info
 	*/
-	public void setReasonInfo(String reasonInfo ){
-		this.reasonInfo = reasonInfo;
+	public void setReason_info(String reason_info ){
+		this.reason_info = reason_info;
 	}
 	
 

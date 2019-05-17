@@ -7,43 +7,53 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_goods_class_tag")
 public class RaGoodsClassTag   {
 	
+	// alias
+	public static final String ALIAS_gc_tag_id = "gc_tag_id";
+	public static final String ALIAS_gc_id = "gc_id";
+	public static final String ALIAS_gc_id_1 = "gc_id_1";
+	public static final String ALIAS_gc_id_2 = "gc_id_2";
+	public static final String ALIAS_gc_id_3 = "gc_id_3";
+	public static final String ALIAS_type_id = "type_id";
+	public static final String ALIAS_gc_tag_name = "gc_tag_name";
+	public static final String ALIAS_gc_tag_value = "gc_tag_value";
+	
 	/*
 	TAGid
 	*/
-	private Integer gcTagId ;
+	private Integer gc_tag_id ;
 	/*
 	商品分类id
 	*/
-	private Integer gcId ;
+	private Integer gc_id ;
 	/*
 	一级分类id
 	*/
-	private Integer gcId1 ;
+	private Integer gc_id_1 ;
 	/*
 	二级分类id
 	*/
-	private Integer gcId2 ;
+	private Integer gc_id_2 ;
 	/*
 	三级分类id
 	*/
-	private Integer gcId3 ;
+	private Integer gc_id_3 ;
 	/*
 	类型id
 	*/
-	private Integer typeId ;
+	private Integer type_id ;
 	/*
 	分类TAG名称
 	*/
-	private String gcTagName ;
+	private String gc_tag_name ;
 	/*
 	分类TAG值
 	*/
-	private String gcTagValue ;
+	private String gc_tag_value ;
 	
 	public RaGoodsClassTag() {
 	}
@@ -52,120 +62,120 @@ public class RaGoodsClassTag   {
 	* TAGid
 	*@return 
 	*/
-	public Integer getGcTagId(){
-		return  gcTagId;
+	public Integer getGc_tag_id(){
+		return  gc_tag_id;
 	}
 	/**
 	* TAGid
-	*@param  gcTagId
+	*@param  gc_tag_id
 	*/
-	public void setGcTagId(Integer gcTagId ){
-		this.gcTagId = gcTagId;
+	public void setGc_tag_id(Integer gc_tag_id ){
+		this.gc_tag_id = gc_tag_id;
 	}
 	
 	/**
 	* 商品分类id
 	*@return 
 	*/
-	public Integer getGcId(){
-		return  gcId;
+	public Integer getGc_id(){
+		return  gc_id;
 	}
 	/**
 	* 商品分类id
-	*@param  gcId
+	*@param  gc_id
 	*/
-	public void setGcId(Integer gcId ){
-		this.gcId = gcId;
+	public void setGc_id(Integer gc_id ){
+		this.gc_id = gc_id;
 	}
 	
 	/**
 	* 一级分类id
 	*@return 
 	*/
-	public Integer getGcId1(){
-		return  gcId1;
+	public Integer getGc_id_1(){
+		return  gc_id_1;
 	}
 	/**
 	* 一级分类id
-	*@param  gcId1
+	*@param  gc_id_1
 	*/
-	public void setGcId1(Integer gcId1 ){
-		this.gcId1 = gcId1;
+	public void setGc_id_1(Integer gc_id_1 ){
+		this.gc_id_1 = gc_id_1;
 	}
 	
 	/**
 	* 二级分类id
 	*@return 
 	*/
-	public Integer getGcId2(){
-		return  gcId2;
+	public Integer getGc_id_2(){
+		return  gc_id_2;
 	}
 	/**
 	* 二级分类id
-	*@param  gcId2
+	*@param  gc_id_2
 	*/
-	public void setGcId2(Integer gcId2 ){
-		this.gcId2 = gcId2;
+	public void setGc_id_2(Integer gc_id_2 ){
+		this.gc_id_2 = gc_id_2;
 	}
 	
 	/**
 	* 三级分类id
 	*@return 
 	*/
-	public Integer getGcId3(){
-		return  gcId3;
+	public Integer getGc_id_3(){
+		return  gc_id_3;
 	}
 	/**
 	* 三级分类id
-	*@param  gcId3
+	*@param  gc_id_3
 	*/
-	public void setGcId3(Integer gcId3 ){
-		this.gcId3 = gcId3;
+	public void setGc_id_3(Integer gc_id_3 ){
+		this.gc_id_3 = gc_id_3;
 	}
 	
 	/**
 	* 类型id
 	*@return 
 	*/
-	public Integer getTypeId(){
-		return  typeId;
+	public Integer getType_id(){
+		return  type_id;
 	}
 	/**
 	* 类型id
-	*@param  typeId
+	*@param  type_id
 	*/
-	public void setTypeId(Integer typeId ){
-		this.typeId = typeId;
+	public void setType_id(Integer type_id ){
+		this.type_id = type_id;
 	}
 	
 	/**
 	* 分类TAG名称
 	*@return 
 	*/
-	public String getGcTagName(){
-		return  gcTagName;
+	public String getGc_tag_name(){
+		return  gc_tag_name;
 	}
 	/**
 	* 分类TAG名称
-	*@param  gcTagName
+	*@param  gc_tag_name
 	*/
-	public void setGcTagName(String gcTagName ){
-		this.gcTagName = gcTagName;
+	public void setGc_tag_name(String gc_tag_name ){
+		this.gc_tag_name = gc_tag_name;
 	}
 	
 	/**
 	* 分类TAG值
 	*@return 
 	*/
-	public String getGcTagValue(){
-		return  gcTagValue;
+	public String getGc_tag_value(){
+		return  gc_tag_value;
 	}
 	/**
 	* 分类TAG值
-	*@param  gcTagValue
+	*@param  gc_tag_value
 	*/
-	public void setGcTagValue(String gcTagValue ){
-		this.gcTagValue = gcTagValue;
+	public void setGc_tag_value(String gc_tag_value ){
+		this.gc_tag_value = gc_tag_value;
 	}
 	
 

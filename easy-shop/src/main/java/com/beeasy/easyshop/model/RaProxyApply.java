@@ -7,14 +7,26 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_proxy_apply")
 public class RaProxyApply   {
 	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_proxy_member_id = "proxy_member_id";
+	public static final String ALIAS_contact = "contact";
+	public static final String ALIAS_idcard = "idcard";
+	public static final String ALIAS_msg = "msg";
+	public static final String ALIAS_name = "name";
+	public static final String ALIAS_phone = "phone";
+	public static final String ALIAS_status = "status";
+	public static final String ALIAS_time = "time";
+	
 	private Integer id ;
-	private Integer memberId ;
-	private Integer proxyMemberId ;
+	private Integer member_id ;
+	private Integer proxy_member_id ;
 	private String contact ;
 	private String idcard ;
 	private String msg ;
@@ -33,18 +45,18 @@ public class RaProxyApply   {
 		this.id = id;
 	}
 	
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
-	public Integer getProxyMemberId(){
-		return  proxyMemberId;
+	public Integer getProxy_member_id(){
+		return  proxy_member_id;
 	}
-	public void setProxyMemberId(Integer proxyMemberId ){
-		this.proxyMemberId = proxyMemberId;
+	public void setProxy_member_id(Integer proxy_member_id ){
+		this.proxy_member_id = proxy_member_id;
 	}
 	
 	public String getContact(){

@@ -7,39 +7,48 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_spec_value")
 public class RaSpecValue   {
 	
+	// alias
+	public static final String ALIAS_sp_value_id = "sp_value_id";
+	public static final String ALIAS_gc_id = "gc_id";
+	public static final String ALIAS_sp_id = "sp_id";
+	public static final String ALIAS_sp_value_sort = "sp_value_sort";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_sp_value_color = "sp_value_color";
+	public static final String ALIAS_sp_value_name = "sp_value_name";
+	
 	/*
 	规格值id
 	*/
-	private Integer spValueId ;
+	private Integer sp_value_id ;
 	/*
 	分类id
 	*/
-	private Integer gcId ;
+	private Integer gc_id ;
 	/*
 	所属规格id
 	*/
-	private Integer spId ;
+	private Integer sp_id ;
 	/*
 	排序
 	*/
-	private Integer spValueSort ;
+	private Integer sp_value_sort ;
 	/*
 	店铺id
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	规格颜色
 	*/
-	private String spValueColor ;
+	private String sp_value_color ;
 	/*
 	规格值名称
 	*/
-	private String spValueName ;
+	private String sp_value_name ;
 	
 	public RaSpecValue() {
 	}
@@ -48,105 +57,105 @@ public class RaSpecValue   {
 	* 规格值id
 	*@return 
 	*/
-	public Integer getSpValueId(){
-		return  spValueId;
+	public Integer getSp_value_id(){
+		return  sp_value_id;
 	}
 	/**
 	* 规格值id
-	*@param  spValueId
+	*@param  sp_value_id
 	*/
-	public void setSpValueId(Integer spValueId ){
-		this.spValueId = spValueId;
+	public void setSp_value_id(Integer sp_value_id ){
+		this.sp_value_id = sp_value_id;
 	}
 	
 	/**
 	* 分类id
 	*@return 
 	*/
-	public Integer getGcId(){
-		return  gcId;
+	public Integer getGc_id(){
+		return  gc_id;
 	}
 	/**
 	* 分类id
-	*@param  gcId
+	*@param  gc_id
 	*/
-	public void setGcId(Integer gcId ){
-		this.gcId = gcId;
+	public void setGc_id(Integer gc_id ){
+		this.gc_id = gc_id;
 	}
 	
 	/**
 	* 所属规格id
 	*@return 
 	*/
-	public Integer getSpId(){
-		return  spId;
+	public Integer getSp_id(){
+		return  sp_id;
 	}
 	/**
 	* 所属规格id
-	*@param  spId
+	*@param  sp_id
 	*/
-	public void setSpId(Integer spId ){
-		this.spId = spId;
+	public void setSp_id(Integer sp_id ){
+		this.sp_id = sp_id;
 	}
 	
 	/**
 	* 排序
 	*@return 
 	*/
-	public Integer getSpValueSort(){
-		return  spValueSort;
+	public Integer getSp_value_sort(){
+		return  sp_value_sort;
 	}
 	/**
 	* 排序
-	*@param  spValueSort
+	*@param  sp_value_sort
 	*/
-	public void setSpValueSort(Integer spValueSort ){
-		this.spValueSort = spValueSort;
+	public void setSp_value_sort(Integer sp_value_sort ){
+		this.sp_value_sort = sp_value_sort;
 	}
 	
 	/**
 	* 店铺id
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺id
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 规格颜色
 	*@return 
 	*/
-	public String getSpValueColor(){
-		return  spValueColor;
+	public String getSp_value_color(){
+		return  sp_value_color;
 	}
 	/**
 	* 规格颜色
-	*@param  spValueColor
+	*@param  sp_value_color
 	*/
-	public void setSpValueColor(String spValueColor ){
-		this.spValueColor = spValueColor;
+	public void setSp_value_color(String sp_value_color ){
+		this.sp_value_color = sp_value_color;
 	}
 	
 	/**
 	* 规格值名称
 	*@return 
 	*/
-	public String getSpValueName(){
-		return  spValueName;
+	public String getSp_value_name(){
+		return  sp_value_name;
 	}
 	/**
 	* 规格值名称
-	*@param  spValueName
+	*@param  sp_value_name
 	*/
-	public void setSpValueName(String spValueName ){
-		this.spValueName = spValueName;
+	public void setSp_value_name(String sp_value_name ){
+		this.sp_value_name = sp_value_name;
 	}
 	
 

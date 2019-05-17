@@ -7,27 +7,39 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_daddress")
 public class RaDaddress   {
 	
+	// alias
+	public static final String ALIAS_address_id = "address_id";
+	public static final String ALIAS_area_id = "area_id";
+	public static final String ALIAS_city_id = "city_id";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_address = "address";
+	public static final String ALIAS_area_info = "area_info";
+	public static final String ALIAS_company = "company";
+	public static final String ALIAS_is_default = "is_default";
+	public static final String ALIAS_seller_name = "seller_name";
+	public static final String ALIAS_telphone = "telphone";
+	
 	/*
 	地址ID
 	*/
-	private Integer addressId ;
+	private Integer address_id ;
 	/*
 	地区ID
 	*/
-	private Integer areaId ;
+	private Integer area_id ;
 	/*
 	市级ID
 	*/
-	private Integer cityId ;
+	private Integer city_id ;
 	/*
 	店铺ID
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	地址
 	*/
@@ -35,7 +47,7 @@ public class RaDaddress   {
 	/*
 	省市县
 	*/
-	private String areaInfo ;
+	private String area_info ;
 	/*
 	公司
 	*/
@@ -43,11 +55,11 @@ public class RaDaddress   {
 	/*
 	是否默认1是
 	*/
-	private String isDefault ;
+	private String is_default ;
 	/*
 	联系人
 	*/
-	private String sellerName ;
+	private String seller_name ;
 	/*
 	电话
 	*/
@@ -60,60 +72,60 @@ public class RaDaddress   {
 	* 地址ID
 	*@return 
 	*/
-	public Integer getAddressId(){
-		return  addressId;
+	public Integer getAddress_id(){
+		return  address_id;
 	}
 	/**
 	* 地址ID
-	*@param  addressId
+	*@param  address_id
 	*/
-	public void setAddressId(Integer addressId ){
-		this.addressId = addressId;
+	public void setAddress_id(Integer address_id ){
+		this.address_id = address_id;
 	}
 	
 	/**
 	* 地区ID
 	*@return 
 	*/
-	public Integer getAreaId(){
-		return  areaId;
+	public Integer getArea_id(){
+		return  area_id;
 	}
 	/**
 	* 地区ID
-	*@param  areaId
+	*@param  area_id
 	*/
-	public void setAreaId(Integer areaId ){
-		this.areaId = areaId;
+	public void setArea_id(Integer area_id ){
+		this.area_id = area_id;
 	}
 	
 	/**
 	* 市级ID
 	*@return 
 	*/
-	public Integer getCityId(){
-		return  cityId;
+	public Integer getCity_id(){
+		return  city_id;
 	}
 	/**
 	* 市级ID
-	*@param  cityId
+	*@param  city_id
 	*/
-	public void setCityId(Integer cityId ){
-		this.cityId = cityId;
+	public void setCity_id(Integer city_id ){
+		this.city_id = city_id;
 	}
 	
 	/**
 	* 店铺ID
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺ID
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
@@ -135,15 +147,15 @@ public class RaDaddress   {
 	* 省市县
 	*@return 
 	*/
-	public String getAreaInfo(){
-		return  areaInfo;
+	public String getArea_info(){
+		return  area_info;
 	}
 	/**
 	* 省市县
-	*@param  areaInfo
+	*@param  area_info
 	*/
-	public void setAreaInfo(String areaInfo ){
-		this.areaInfo = areaInfo;
+	public void setArea_info(String area_info ){
+		this.area_info = area_info;
 	}
 	
 	/**
@@ -165,30 +177,30 @@ public class RaDaddress   {
 	* 是否默认1是
 	*@return 
 	*/
-	public String getIsDefault(){
-		return  isDefault;
+	public String getIs_default(){
+		return  is_default;
 	}
 	/**
 	* 是否默认1是
-	*@param  isDefault
+	*@param  is_default
 	*/
-	public void setIsDefault(String isDefault ){
-		this.isDefault = isDefault;
+	public void setIs_default(String is_default ){
+		this.is_default = is_default;
 	}
 	
 	/**
 	* 联系人
 	*@return 
 	*/
-	public String getSellerName(){
-		return  sellerName;
+	public String getSeller_name(){
+		return  seller_name;
 	}
 	/**
 	* 联系人
-	*@param  sellerName
+	*@param  seller_name
 	*/
-	public void setSellerName(String sellerName ){
-		this.sellerName = sellerName;
+	public void setSeller_name(String seller_name ){
+		this.seller_name = seller_name;
 	}
 	
 	/**

@@ -7,35 +7,43 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_mb_special_item")
 public class RaMbSpecialItem   {
 	
+	// alias
+	public static final String ALIAS_item_id = "item_id";
+	public static final String ALIAS_item_sort = "item_sort";
+	public static final String ALIAS_item_usable = "item_usable";
+	public static final String ALIAS_special_id = "special_id";
+	public static final String ALIAS_item_data = "item_data";
+	public static final String ALIAS_item_type = "item_type";
+	
 	/*
 	专题项目编号
 	*/
-	private Integer itemId ;
+	private Integer item_id ;
 	/*
 	项目排序
 	*/
-	private Integer itemSort ;
+	private Integer item_sort ;
 	/*
 	项目是否可用 0-不可用 1-可用
 	*/
-	private Integer itemUsable ;
+	private Integer item_usable ;
 	/*
 	专题编号
 	*/
-	private Integer specialId ;
+	private Integer special_id ;
 	/*
 	项目内容
 	*/
-	private String itemData ;
+	private String item_data ;
 	/*
 	项目类型
 	*/
-	private String itemType ;
+	private String item_type ;
 	
 	public RaMbSpecialItem() {
 	}
@@ -44,90 +52,90 @@ public class RaMbSpecialItem   {
 	* 专题项目编号
 	*@return 
 	*/
-	public Integer getItemId(){
-		return  itemId;
+	public Integer getItem_id(){
+		return  item_id;
 	}
 	/**
 	* 专题项目编号
-	*@param  itemId
+	*@param  item_id
 	*/
-	public void setItemId(Integer itemId ){
-		this.itemId = itemId;
+	public void setItem_id(Integer item_id ){
+		this.item_id = item_id;
 	}
 	
 	/**
 	* 项目排序
 	*@return 
 	*/
-	public Integer getItemSort(){
-		return  itemSort;
+	public Integer getItem_sort(){
+		return  item_sort;
 	}
 	/**
 	* 项目排序
-	*@param  itemSort
+	*@param  item_sort
 	*/
-	public void setItemSort(Integer itemSort ){
-		this.itemSort = itemSort;
+	public void setItem_sort(Integer item_sort ){
+		this.item_sort = item_sort;
 	}
 	
 	/**
 	* 项目是否可用 0-不可用 1-可用
 	*@return 
 	*/
-	public Integer getItemUsable(){
-		return  itemUsable;
+	public Integer getItem_usable(){
+		return  item_usable;
 	}
 	/**
 	* 项目是否可用 0-不可用 1-可用
-	*@param  itemUsable
+	*@param  item_usable
 	*/
-	public void setItemUsable(Integer itemUsable ){
-		this.itemUsable = itemUsable;
+	public void setItem_usable(Integer item_usable ){
+		this.item_usable = item_usable;
 	}
 	
 	/**
 	* 专题编号
 	*@return 
 	*/
-	public Integer getSpecialId(){
-		return  specialId;
+	public Integer getSpecial_id(){
+		return  special_id;
 	}
 	/**
 	* 专题编号
-	*@param  specialId
+	*@param  special_id
 	*/
-	public void setSpecialId(Integer specialId ){
-		this.specialId = specialId;
+	public void setSpecial_id(Integer special_id ){
+		this.special_id = special_id;
 	}
 	
 	/**
 	* 项目内容
 	*@return 
 	*/
-	public String getItemData(){
-		return  itemData;
+	public String getItem_data(){
+		return  item_data;
 	}
 	/**
 	* 项目内容
-	*@param  itemData
+	*@param  item_data
 	*/
-	public void setItemData(String itemData ){
-		this.itemData = itemData;
+	public void setItem_data(String item_data ){
+		this.item_data = item_data;
 	}
 	
 	/**
 	* 项目类型
 	*@return 
 	*/
-	public String getItemType(){
-		return  itemType;
+	public String getItem_type(){
+		return  item_type;
 	}
 	/**
 	* 项目类型
-	*@param  itemType
+	*@param  item_type
 	*/
-	public void setItemType(String itemType ){
-		this.itemType = itemType;
+	public void setItem_type(String item_type ){
+		this.item_type = item_type;
 	}
 	
 

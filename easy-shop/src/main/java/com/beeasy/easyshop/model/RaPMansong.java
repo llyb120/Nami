@@ -7,31 +7,44 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_p_mansong")
 public class RaPMansong   {
 	
+	// alias
+	public static final String ALIAS_mansong_id = "mansong_id";
+	public static final String ALIAS_end_time = "end_time";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_quota_id = "quota_id";
+	public static final String ALIAS_start_time = "start_time";
+	public static final String ALIAS_state = "state";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_mansong_name = "mansong_name";
+	public static final String ALIAS_member_name = "member_name";
+	public static final String ALIAS_remark = "remark";
+	public static final String ALIAS_store_name = "store_name";
+	
 	/*
 	满送活动编号
 	*/
-	private Integer mansongId ;
+	private Integer mansong_id ;
 	/*
 	活动结束时间
 	*/
-	private Integer endTime ;
+	private Integer end_time ;
 	/*
 	用户编号
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	套餐编号
 	*/
-	private Integer quotaId ;
+	private Integer quota_id ;
 	/*
 	活动开始时间
 	*/
-	private Integer startTime ;
+	private Integer start_time ;
 	/*
 	活动状态(1-未发布/2-正常/3-取消/4-失效/5-结束)
 	*/
@@ -39,15 +52,15 @@ public class RaPMansong   {
 	/*
 	店铺编号
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	活动名称
 	*/
-	private String mansongName ;
+	private String mansong_name ;
 	/*
 	用户名
 	*/
-	private String memberName ;
+	private String member_name ;
 	/*
 	备注
 	*/
@@ -55,7 +68,7 @@ public class RaPMansong   {
 	/*
 	店铺名称
 	*/
-	private String storeName ;
+	private String store_name ;
 	
 	public RaPMansong() {
 	}
@@ -64,75 +77,75 @@ public class RaPMansong   {
 	* 满送活动编号
 	*@return 
 	*/
-	public Integer getMansongId(){
-		return  mansongId;
+	public Integer getMansong_id(){
+		return  mansong_id;
 	}
 	/**
 	* 满送活动编号
-	*@param  mansongId
+	*@param  mansong_id
 	*/
-	public void setMansongId(Integer mansongId ){
-		this.mansongId = mansongId;
+	public void setMansong_id(Integer mansong_id ){
+		this.mansong_id = mansong_id;
 	}
 	
 	/**
 	* 活动结束时间
 	*@return 
 	*/
-	public Integer getEndTime(){
-		return  endTime;
+	public Integer getEnd_time(){
+		return  end_time;
 	}
 	/**
 	* 活动结束时间
-	*@param  endTime
+	*@param  end_time
 	*/
-	public void setEndTime(Integer endTime ){
-		this.endTime = endTime;
+	public void setEnd_time(Integer end_time ){
+		this.end_time = end_time;
 	}
 	
 	/**
 	* 用户编号
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 用户编号
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 套餐编号
 	*@return 
 	*/
-	public Integer getQuotaId(){
-		return  quotaId;
+	public Integer getQuota_id(){
+		return  quota_id;
 	}
 	/**
 	* 套餐编号
-	*@param  quotaId
+	*@param  quota_id
 	*/
-	public void setQuotaId(Integer quotaId ){
-		this.quotaId = quotaId;
+	public void setQuota_id(Integer quota_id ){
+		this.quota_id = quota_id;
 	}
 	
 	/**
 	* 活动开始时间
 	*@return 
 	*/
-	public Integer getStartTime(){
-		return  startTime;
+	public Integer getStart_time(){
+		return  start_time;
 	}
 	/**
 	* 活动开始时间
-	*@param  startTime
+	*@param  start_time
 	*/
-	public void setStartTime(Integer startTime ){
-		this.startTime = startTime;
+	public void setStart_time(Integer start_time ){
+		this.start_time = start_time;
 	}
 	
 	/**
@@ -154,45 +167,45 @@ public class RaPMansong   {
 	* 店铺编号
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺编号
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 活动名称
 	*@return 
 	*/
-	public String getMansongName(){
-		return  mansongName;
+	public String getMansong_name(){
+		return  mansong_name;
 	}
 	/**
 	* 活动名称
-	*@param  mansongName
+	*@param  mansong_name
 	*/
-	public void setMansongName(String mansongName ){
-		this.mansongName = mansongName;
+	public void setMansong_name(String mansong_name ){
+		this.mansong_name = mansong_name;
 	}
 	
 	/**
 	* 用户名
 	*@return 
 	*/
-	public String getMemberName(){
-		return  memberName;
+	public String getMember_name(){
+		return  member_name;
 	}
 	/**
 	* 用户名
-	*@param  memberName
+	*@param  member_name
 	*/
-	public void setMemberName(String memberName ){
-		this.memberName = memberName;
+	public void setMember_name(String member_name ){
+		this.member_name = member_name;
 	}
 	
 	/**
@@ -214,15 +227,15 @@ public class RaPMansong   {
 	* 店铺名称
 	*@return 
 	*/
-	public String getStoreName(){
-		return  storeName;
+	public String getStore_name(){
+		return  store_name;
 	}
 	/**
 	* 店铺名称
-	*@param  storeName
+	*@param  store_name
 	*/
-	public void setStoreName(String storeName ){
-		this.storeName = storeName;
+	public void setStore_name(String store_name ){
+		this.store_name = store_name;
 	}
 	
 

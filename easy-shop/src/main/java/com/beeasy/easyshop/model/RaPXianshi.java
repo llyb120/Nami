@@ -7,35 +7,50 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_p_xianshi")
 public class RaPXianshi   {
 	
+	// alias
+	public static final String ALIAS_xianshi_id = "xianshi_id";
+	public static final String ALIAS_end_time = "end_time";
+	public static final String ALIAS_lower_limit = "lower_limit";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_quota_id = "quota_id";
+	public static final String ALIAS_start_time = "start_time";
+	public static final String ALIAS_state = "state";
+	public static final String ALIAS_store_id = "store_id";
+	public static final String ALIAS_member_name = "member_name";
+	public static final String ALIAS_store_name = "store_name";
+	public static final String ALIAS_xianshi_explain = "xianshi_explain";
+	public static final String ALIAS_xianshi_name = "xianshi_name";
+	public static final String ALIAS_xianshi_title = "xianshi_title";
+	
 	/*
 	限时编号
 	*/
-	private Integer xianshiId ;
+	private Integer xianshi_id ;
 	/*
 	活动结束时间
 	*/
-	private Integer endTime ;
+	private Integer end_time ;
 	/*
 	购买下限，1为不限制
 	*/
-	private Integer lowerLimit ;
+	private Integer lower_limit ;
 	/*
 	用户编号
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	套餐编号
 	*/
-	private Integer quotaId ;
+	private Integer quota_id ;
 	/*
 	活动开始时间
 	*/
-	private Integer startTime ;
+	private Integer start_time ;
 	/*
 	状态，0-取消 1-正常
 	*/
@@ -43,27 +58,27 @@ public class RaPXianshi   {
 	/*
 	店铺编号
 	*/
-	private Integer storeId ;
+	private Integer store_id ;
 	/*
 	用户名
 	*/
-	private String memberName ;
+	private String member_name ;
 	/*
 	店铺名称
 	*/
-	private String storeName ;
+	private String store_name ;
 	/*
 	活动说明
 	*/
-	private String xianshiExplain ;
+	private String xianshi_explain ;
 	/*
 	活动名称
 	*/
-	private String xianshiName ;
+	private String xianshi_name ;
 	/*
 	活动标题
 	*/
-	private String xianshiTitle ;
+	private String xianshi_title ;
 	
 	public RaPXianshi() {
 	}
@@ -72,90 +87,90 @@ public class RaPXianshi   {
 	* 限时编号
 	*@return 
 	*/
-	public Integer getXianshiId(){
-		return  xianshiId;
+	public Integer getXianshi_id(){
+		return  xianshi_id;
 	}
 	/**
 	* 限时编号
-	*@param  xianshiId
+	*@param  xianshi_id
 	*/
-	public void setXianshiId(Integer xianshiId ){
-		this.xianshiId = xianshiId;
+	public void setXianshi_id(Integer xianshi_id ){
+		this.xianshi_id = xianshi_id;
 	}
 	
 	/**
 	* 活动结束时间
 	*@return 
 	*/
-	public Integer getEndTime(){
-		return  endTime;
+	public Integer getEnd_time(){
+		return  end_time;
 	}
 	/**
 	* 活动结束时间
-	*@param  endTime
+	*@param  end_time
 	*/
-	public void setEndTime(Integer endTime ){
-		this.endTime = endTime;
+	public void setEnd_time(Integer end_time ){
+		this.end_time = end_time;
 	}
 	
 	/**
 	* 购买下限，1为不限制
 	*@return 
 	*/
-	public Integer getLowerLimit(){
-		return  lowerLimit;
+	public Integer getLower_limit(){
+		return  lower_limit;
 	}
 	/**
 	* 购买下限，1为不限制
-	*@param  lowerLimit
+	*@param  lower_limit
 	*/
-	public void setLowerLimit(Integer lowerLimit ){
-		this.lowerLimit = lowerLimit;
+	public void setLower_limit(Integer lower_limit ){
+		this.lower_limit = lower_limit;
 	}
 	
 	/**
 	* 用户编号
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 用户编号
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 套餐编号
 	*@return 
 	*/
-	public Integer getQuotaId(){
-		return  quotaId;
+	public Integer getQuota_id(){
+		return  quota_id;
 	}
 	/**
 	* 套餐编号
-	*@param  quotaId
+	*@param  quota_id
 	*/
-	public void setQuotaId(Integer quotaId ){
-		this.quotaId = quotaId;
+	public void setQuota_id(Integer quota_id ){
+		this.quota_id = quota_id;
 	}
 	
 	/**
 	* 活动开始时间
 	*@return 
 	*/
-	public Integer getStartTime(){
-		return  startTime;
+	public Integer getStart_time(){
+		return  start_time;
 	}
 	/**
 	* 活动开始时间
-	*@param  startTime
+	*@param  start_time
 	*/
-	public void setStartTime(Integer startTime ){
-		this.startTime = startTime;
+	public void setStart_time(Integer start_time ){
+		this.start_time = start_time;
 	}
 	
 	/**
@@ -177,90 +192,90 @@ public class RaPXianshi   {
 	* 店铺编号
 	*@return 
 	*/
-	public Integer getStoreId(){
-		return  storeId;
+	public Integer getStore_id(){
+		return  store_id;
 	}
 	/**
 	* 店铺编号
-	*@param  storeId
+	*@param  store_id
 	*/
-	public void setStoreId(Integer storeId ){
-		this.storeId = storeId;
+	public void setStore_id(Integer store_id ){
+		this.store_id = store_id;
 	}
 	
 	/**
 	* 用户名
 	*@return 
 	*/
-	public String getMemberName(){
-		return  memberName;
+	public String getMember_name(){
+		return  member_name;
 	}
 	/**
 	* 用户名
-	*@param  memberName
+	*@param  member_name
 	*/
-	public void setMemberName(String memberName ){
-		this.memberName = memberName;
+	public void setMember_name(String member_name ){
+		this.member_name = member_name;
 	}
 	
 	/**
 	* 店铺名称
 	*@return 
 	*/
-	public String getStoreName(){
-		return  storeName;
+	public String getStore_name(){
+		return  store_name;
 	}
 	/**
 	* 店铺名称
-	*@param  storeName
+	*@param  store_name
 	*/
-	public void setStoreName(String storeName ){
-		this.storeName = storeName;
+	public void setStore_name(String store_name ){
+		this.store_name = store_name;
 	}
 	
 	/**
 	* 活动说明
 	*@return 
 	*/
-	public String getXianshiExplain(){
-		return  xianshiExplain;
+	public String getXianshi_explain(){
+		return  xianshi_explain;
 	}
 	/**
 	* 活动说明
-	*@param  xianshiExplain
+	*@param  xianshi_explain
 	*/
-	public void setXianshiExplain(String xianshiExplain ){
-		this.xianshiExplain = xianshiExplain;
+	public void setXianshi_explain(String xianshi_explain ){
+		this.xianshi_explain = xianshi_explain;
 	}
 	
 	/**
 	* 活动名称
 	*@return 
 	*/
-	public String getXianshiName(){
-		return  xianshiName;
+	public String getXianshi_name(){
+		return  xianshi_name;
 	}
 	/**
 	* 活动名称
-	*@param  xianshiName
+	*@param  xianshi_name
 	*/
-	public void setXianshiName(String xianshiName ){
-		this.xianshiName = xianshiName;
+	public void setXianshi_name(String xianshi_name ){
+		this.xianshi_name = xianshi_name;
 	}
 	
 	/**
 	* 活动标题
 	*@return 
 	*/
-	public String getXianshiTitle(){
-		return  xianshiTitle;
+	public String getXianshi_title(){
+		return  xianshi_title;
 	}
 	/**
 	* 活动标题
-	*@param  xianshiTitle
+	*@param  xianshi_title
 	*/
-	public void setXianshiTitle(String xianshiTitle ){
-		this.xianshiTitle = xianshiTitle;
+	public void setXianshi_title(String xianshi_title ){
+		this.xianshi_title = xianshi_title;
 	}
 	
 

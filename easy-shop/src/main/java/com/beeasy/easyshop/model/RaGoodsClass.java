@@ -7,55 +7,68 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_goods_class")
 public class RaGoodsClass   {
 	
+	// alias
+	public static final String ALIAS_gc_id = "gc_id";
+	public static final String ALIAS_gc_parent_id = "gc_parent_id";
+	public static final String ALIAS_gc_sort = "gc_sort";
+	public static final String ALIAS_gc_virtual = "gc_virtual";
+	public static final String ALIAS_type_id = "type_id";
+	public static final String ALIAS_commis_rate = "commis_rate";
+	public static final String ALIAS_gc_description = "gc_description";
+	public static final String ALIAS_gc_keywords = "gc_keywords";
+	public static final String ALIAS_gc_name = "gc_name";
+	public static final String ALIAS_gc_title = "gc_title";
+	public static final String ALIAS_type_name = "type_name";
+	
 	/*
 	索引ID
 	*/
-	private Integer gcId ;
+	private Integer gc_id ;
 	/*
 	父ID
 	*/
-	private Integer gcParentId ;
+	private Integer gc_parent_id ;
 	/*
 	排序
 	*/
-	private Integer gcSort ;
+	private Integer gc_sort ;
 	/*
 	是否允许发布虚拟商品，1是，0否
 	*/
-	private Integer gcVirtual ;
+	private Integer gc_virtual ;
 	/*
 	类型id
 	*/
-	private Integer typeId ;
+	private Integer type_id ;
 	/*
 	佣金比例
 	*/
-	private BigDecimal commisRate ;
+	private BigDecimal commis_rate ;
 	/*
 	描述
 	*/
-	private String gcDescription ;
+	private String gc_description ;
 	/*
 	关键词
 	*/
-	private String gcKeywords ;
+	private String gc_keywords ;
 	/*
 	分类名称
 	*/
-	private String gcName ;
+	private String gc_name ;
 	/*
 	名称
 	*/
-	private String gcTitle ;
+	private String gc_title ;
 	/*
 	类型名称
 	*/
-	private String typeName ;
+	private String type_name ;
 	
 	public RaGoodsClass() {
 	}
@@ -64,165 +77,165 @@ public class RaGoodsClass   {
 	* 索引ID
 	*@return 
 	*/
-	public Integer getGcId(){
-		return  gcId;
+	public Integer getGc_id(){
+		return  gc_id;
 	}
 	/**
 	* 索引ID
-	*@param  gcId
+	*@param  gc_id
 	*/
-	public void setGcId(Integer gcId ){
-		this.gcId = gcId;
+	public void setGc_id(Integer gc_id ){
+		this.gc_id = gc_id;
 	}
 	
 	/**
 	* 父ID
 	*@return 
 	*/
-	public Integer getGcParentId(){
-		return  gcParentId;
+	public Integer getGc_parent_id(){
+		return  gc_parent_id;
 	}
 	/**
 	* 父ID
-	*@param  gcParentId
+	*@param  gc_parent_id
 	*/
-	public void setGcParentId(Integer gcParentId ){
-		this.gcParentId = gcParentId;
+	public void setGc_parent_id(Integer gc_parent_id ){
+		this.gc_parent_id = gc_parent_id;
 	}
 	
 	/**
 	* 排序
 	*@return 
 	*/
-	public Integer getGcSort(){
-		return  gcSort;
+	public Integer getGc_sort(){
+		return  gc_sort;
 	}
 	/**
 	* 排序
-	*@param  gcSort
+	*@param  gc_sort
 	*/
-	public void setGcSort(Integer gcSort ){
-		this.gcSort = gcSort;
+	public void setGc_sort(Integer gc_sort ){
+		this.gc_sort = gc_sort;
 	}
 	
 	/**
 	* 是否允许发布虚拟商品，1是，0否
 	*@return 
 	*/
-	public Integer getGcVirtual(){
-		return  gcVirtual;
+	public Integer getGc_virtual(){
+		return  gc_virtual;
 	}
 	/**
 	* 是否允许发布虚拟商品，1是，0否
-	*@param  gcVirtual
+	*@param  gc_virtual
 	*/
-	public void setGcVirtual(Integer gcVirtual ){
-		this.gcVirtual = gcVirtual;
+	public void setGc_virtual(Integer gc_virtual ){
+		this.gc_virtual = gc_virtual;
 	}
 	
 	/**
 	* 类型id
 	*@return 
 	*/
-	public Integer getTypeId(){
-		return  typeId;
+	public Integer getType_id(){
+		return  type_id;
 	}
 	/**
 	* 类型id
-	*@param  typeId
+	*@param  type_id
 	*/
-	public void setTypeId(Integer typeId ){
-		this.typeId = typeId;
+	public void setType_id(Integer type_id ){
+		this.type_id = type_id;
 	}
 	
 	/**
 	* 佣金比例
 	*@return 
 	*/
-	public BigDecimal getCommisRate(){
-		return  commisRate;
+	public BigDecimal getCommis_rate(){
+		return  commis_rate;
 	}
 	/**
 	* 佣金比例
-	*@param  commisRate
+	*@param  commis_rate
 	*/
-	public void setCommisRate(BigDecimal commisRate ){
-		this.commisRate = commisRate;
+	public void setCommis_rate(BigDecimal commis_rate ){
+		this.commis_rate = commis_rate;
 	}
 	
 	/**
 	* 描述
 	*@return 
 	*/
-	public String getGcDescription(){
-		return  gcDescription;
+	public String getGc_description(){
+		return  gc_description;
 	}
 	/**
 	* 描述
-	*@param  gcDescription
+	*@param  gc_description
 	*/
-	public void setGcDescription(String gcDescription ){
-		this.gcDescription = gcDescription;
+	public void setGc_description(String gc_description ){
+		this.gc_description = gc_description;
 	}
 	
 	/**
 	* 关键词
 	*@return 
 	*/
-	public String getGcKeywords(){
-		return  gcKeywords;
+	public String getGc_keywords(){
+		return  gc_keywords;
 	}
 	/**
 	* 关键词
-	*@param  gcKeywords
+	*@param  gc_keywords
 	*/
-	public void setGcKeywords(String gcKeywords ){
-		this.gcKeywords = gcKeywords;
+	public void setGc_keywords(String gc_keywords ){
+		this.gc_keywords = gc_keywords;
 	}
 	
 	/**
 	* 分类名称
 	*@return 
 	*/
-	public String getGcName(){
-		return  gcName;
+	public String getGc_name(){
+		return  gc_name;
 	}
 	/**
 	* 分类名称
-	*@param  gcName
+	*@param  gc_name
 	*/
-	public void setGcName(String gcName ){
-		this.gcName = gcName;
+	public void setGc_name(String gc_name ){
+		this.gc_name = gc_name;
 	}
 	
 	/**
 	* 名称
 	*@return 
 	*/
-	public String getGcTitle(){
-		return  gcTitle;
+	public String getGc_title(){
+		return  gc_title;
 	}
 	/**
 	* 名称
-	*@param  gcTitle
+	*@param  gc_title
 	*/
-	public void setGcTitle(String gcTitle ){
-		this.gcTitle = gcTitle;
+	public void setGc_title(String gc_title ){
+		this.gc_title = gc_title;
 	}
 	
 	/**
 	* 类型名称
 	*@return 
 	*/
-	public String getTypeName(){
-		return  typeName;
+	public String getType_name(){
+		return  type_name;
 	}
 	/**
 	* 类型名称
-	*@param  typeName
+	*@param  type_name
 	*/
-	public void setTypeName(String typeName ){
-		this.typeName = typeName;
+	public void setType_name(String type_name ){
+		this.type_name = type_name;
 	}
 	
 

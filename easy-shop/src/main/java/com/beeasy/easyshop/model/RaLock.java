@@ -7,10 +7,15 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_lock")
 public class RaLock   {
+	
+	// alias
+	public static final String ALIAS_pid = "pid";
+	public static final String ALIAS_expiretime = "expiretime";
+	public static final String ALIAS_pvalue = "pvalue";
 	
 	/*
 	IP+TYPE

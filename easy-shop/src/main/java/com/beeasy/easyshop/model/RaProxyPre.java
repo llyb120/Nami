@@ -7,13 +7,17 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_proxy_pre")
 public class RaProxyPre   {
 	
+	// alias
+	public static final String ALIAS_openid = "openid";
+	public static final String ALIAS_parent_id = "parent_id";
+	
 	private String openid ;
-	private Integer parentId ;
+	private Integer parent_id ;
 	
 	public RaProxyPre() {
 	}
@@ -25,11 +29,11 @@ public class RaProxyPre   {
 		this.openid = openid;
 	}
 	
-	public Integer getParentId(){
-		return  parentId;
+	public Integer getParent_id(){
+		return  parent_id;
 	}
-	public void setParentId(Integer parentId ){
-		this.parentId = parentId;
+	public void setParent_id(Integer parent_id ){
+		this.parent_id = parent_id;
 	}
 	
 

@@ -7,55 +7,68 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_mall_consult")
 public class RaMallConsult   {
 	
+	// alias
+	public static final String ALIAS_mc_id = "mc_id";
+	public static final String ALIAS_admin_id = "admin_id";
+	public static final String ALIAS_is_reply = "is_reply";
+	public static final String ALIAS_mc_addtime = "mc_addtime";
+	public static final String ALIAS_mc_reply_time = "mc_reply_time";
+	public static final String ALIAS_mct_id = "mct_id";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_admin_name = "admin_name";
+	public static final String ALIAS_mc_content = "mc_content";
+	public static final String ALIAS_mc_reply = "mc_reply";
+	public static final String ALIAS_member_name = "member_name";
+	
 	/*
 	平台客服咨询id
 	*/
-	private Integer mcId ;
+	private Integer mc_id ;
 	/*
 	管理员id
 	*/
-	private Integer adminId ;
+	private Integer admin_id ;
 	/*
 	是否回复，1是，0否，默认0
 	*/
-	private Integer isReply ;
+	private Integer is_reply ;
 	/*
 	咨询时间
 	*/
-	private Integer mcAddtime ;
+	private Integer mc_addtime ;
 	/*
 	回复时间
 	*/
-	private Integer mcReplyTime ;
+	private Integer mc_reply_time ;
 	/*
 	咨询类型id
 	*/
-	private Integer mctId ;
+	private Integer mct_id ;
 	/*
 	会员id
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	/*
 	管理员名称
 	*/
-	private String adminName ;
+	private String admin_name ;
 	/*
 	咨询内容
 	*/
-	private String mcContent ;
+	private String mc_content ;
 	/*
 	回复内容
 	*/
-	private String mcReply ;
+	private String mc_reply ;
 	/*
 	会员名称
 	*/
-	private String memberName ;
+	private String member_name ;
 	
 	public RaMallConsult() {
 	}
@@ -64,165 +77,165 @@ public class RaMallConsult   {
 	* 平台客服咨询id
 	*@return 
 	*/
-	public Integer getMcId(){
-		return  mcId;
+	public Integer getMc_id(){
+		return  mc_id;
 	}
 	/**
 	* 平台客服咨询id
-	*@param  mcId
+	*@param  mc_id
 	*/
-	public void setMcId(Integer mcId ){
-		this.mcId = mcId;
+	public void setMc_id(Integer mc_id ){
+		this.mc_id = mc_id;
 	}
 	
 	/**
 	* 管理员id
 	*@return 
 	*/
-	public Integer getAdminId(){
-		return  adminId;
+	public Integer getAdmin_id(){
+		return  admin_id;
 	}
 	/**
 	* 管理员id
-	*@param  adminId
+	*@param  admin_id
 	*/
-	public void setAdminId(Integer adminId ){
-		this.adminId = adminId;
+	public void setAdmin_id(Integer admin_id ){
+		this.admin_id = admin_id;
 	}
 	
 	/**
 	* 是否回复，1是，0否，默认0
 	*@return 
 	*/
-	public Integer getIsReply(){
-		return  isReply;
+	public Integer getIs_reply(){
+		return  is_reply;
 	}
 	/**
 	* 是否回复，1是，0否，默认0
-	*@param  isReply
+	*@param  is_reply
 	*/
-	public void setIsReply(Integer isReply ){
-		this.isReply = isReply;
+	public void setIs_reply(Integer is_reply ){
+		this.is_reply = is_reply;
 	}
 	
 	/**
 	* 咨询时间
 	*@return 
 	*/
-	public Integer getMcAddtime(){
-		return  mcAddtime;
+	public Integer getMc_addtime(){
+		return  mc_addtime;
 	}
 	/**
 	* 咨询时间
-	*@param  mcAddtime
+	*@param  mc_addtime
 	*/
-	public void setMcAddtime(Integer mcAddtime ){
-		this.mcAddtime = mcAddtime;
+	public void setMc_addtime(Integer mc_addtime ){
+		this.mc_addtime = mc_addtime;
 	}
 	
 	/**
 	* 回复时间
 	*@return 
 	*/
-	public Integer getMcReplyTime(){
-		return  mcReplyTime;
+	public Integer getMc_reply_time(){
+		return  mc_reply_time;
 	}
 	/**
 	* 回复时间
-	*@param  mcReplyTime
+	*@param  mc_reply_time
 	*/
-	public void setMcReplyTime(Integer mcReplyTime ){
-		this.mcReplyTime = mcReplyTime;
+	public void setMc_reply_time(Integer mc_reply_time ){
+		this.mc_reply_time = mc_reply_time;
 	}
 	
 	/**
 	* 咨询类型id
 	*@return 
 	*/
-	public Integer getMctId(){
-		return  mctId;
+	public Integer getMct_id(){
+		return  mct_id;
 	}
 	/**
 	* 咨询类型id
-	*@param  mctId
+	*@param  mct_id
 	*/
-	public void setMctId(Integer mctId ){
-		this.mctId = mctId;
+	public void setMct_id(Integer mct_id ){
+		this.mct_id = mct_id;
 	}
 	
 	/**
 	* 会员id
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 会员id
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	/**
 	* 管理员名称
 	*@return 
 	*/
-	public String getAdminName(){
-		return  adminName;
+	public String getAdmin_name(){
+		return  admin_name;
 	}
 	/**
 	* 管理员名称
-	*@param  adminName
+	*@param  admin_name
 	*/
-	public void setAdminName(String adminName ){
-		this.adminName = adminName;
+	public void setAdmin_name(String admin_name ){
+		this.admin_name = admin_name;
 	}
 	
 	/**
 	* 咨询内容
 	*@return 
 	*/
-	public String getMcContent(){
-		return  mcContent;
+	public String getMc_content(){
+		return  mc_content;
 	}
 	/**
 	* 咨询内容
-	*@param  mcContent
+	*@param  mc_content
 	*/
-	public void setMcContent(String mcContent ){
-		this.mcContent = mcContent;
+	public void setMc_content(String mc_content ){
+		this.mc_content = mc_content;
 	}
 	
 	/**
 	* 回复内容
 	*@return 
 	*/
-	public String getMcReply(){
-		return  mcReply;
+	public String getMc_reply(){
+		return  mc_reply;
 	}
 	/**
 	* 回复内容
-	*@param  mcReply
+	*@param  mc_reply
 	*/
-	public void setMcReply(String mcReply ){
-		this.mcReply = mcReply;
+	public void setMc_reply(String mc_reply ){
+		this.mc_reply = mc_reply;
 	}
 	
 	/**
 	* 会员名称
 	*@return 
 	*/
-	public String getMemberName(){
-		return  memberName;
+	public String getMember_name(){
+		return  member_name;
 	}
 	/**
 	* 会员名称
-	*@param  memberName
+	*@param  member_name
 	*/
-	public void setMemberName(String memberName ){
-		this.memberName = memberName;
+	public void setMember_name(String member_name ){
+		this.member_name = member_name;
 	}
 	
 

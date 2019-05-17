@@ -7,15 +7,29 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_delivery_order")
 public class RaDeliveryOrder   {
 	
+	// alias
+	public static final String ALIAS_order_id = "order_id";
+	public static final String ALIAS_addtime = "addtime";
+	public static final String ALIAS_dlyo_state = "dlyo_state";
+	public static final String ALIAS_dlyp_id = "dlyp_id";
+	public static final String ALIAS_dlyo_pickup_code = "dlyo_pickup_code";
+	public static final String ALIAS_express_code = "express_code";
+	public static final String ALIAS_express_name = "express_name";
+	public static final String ALIAS_order_sn = "order_sn";
+	public static final String ALIAS_reciver_mobphone = "reciver_mobphone";
+	public static final String ALIAS_reciver_name = "reciver_name";
+	public static final String ALIAS_reciver_telphone = "reciver_telphone";
+	public static final String ALIAS_shipping_code = "shipping_code";
+	
 	/*
 	订单ID
 	*/
-	private Integer orderId ;
+	private Integer order_id ;
 	/*
 	订单生成时间
 	*/
@@ -23,43 +37,43 @@ public class RaDeliveryOrder   {
 	/*
 	订单状态 10(默认)未到站，20已到站，30已提取
 	*/
-	private Integer dlyoState ;
+	private Integer dlyo_state ;
 	/*
 	自提点ID
 	*/
-	private Integer dlypId ;
+	private Integer dlyp_id ;
 	/*
 	提货码
 	*/
-	private String dlyoPickupCode ;
+	private String dlyo_pickup_code ;
 	/*
 	快递公司编码
 	*/
-	private String expressCode ;
+	private String express_code ;
 	/*
 	快递公司名称
 	*/
-	private String expressName ;
+	private String express_name ;
 	/*
 	订单号
 	*/
-	private Long orderSn ;
+	private Long order_sn ;
 	/*
 	手机
 	*/
-	private String reciverMobphone ;
+	private String reciver_mobphone ;
 	/*
 	收货人
 	*/
-	private String reciverName ;
+	private String reciver_name ;
 	/*
 	电话
 	*/
-	private String reciverTelphone ;
+	private String reciver_telphone ;
 	/*
 	物流单号
 	*/
-	private String shippingCode ;
+	private String shipping_code ;
 	
 	public RaDeliveryOrder() {
 	}
@@ -68,15 +82,15 @@ public class RaDeliveryOrder   {
 	* 订单ID
 	*@return 
 	*/
-	public Integer getOrderId(){
-		return  orderId;
+	public Integer getOrder_id(){
+		return  order_id;
 	}
 	/**
 	* 订单ID
-	*@param  orderId
+	*@param  order_id
 	*/
-	public void setOrderId(Integer orderId ){
-		this.orderId = orderId;
+	public void setOrder_id(Integer order_id ){
+		this.order_id = order_id;
 	}
 	
 	/**
@@ -98,150 +112,150 @@ public class RaDeliveryOrder   {
 	* 订单状态 10(默认)未到站，20已到站，30已提取
 	*@return 
 	*/
-	public Integer getDlyoState(){
-		return  dlyoState;
+	public Integer getDlyo_state(){
+		return  dlyo_state;
 	}
 	/**
 	* 订单状态 10(默认)未到站，20已到站，30已提取
-	*@param  dlyoState
+	*@param  dlyo_state
 	*/
-	public void setDlyoState(Integer dlyoState ){
-		this.dlyoState = dlyoState;
+	public void setDlyo_state(Integer dlyo_state ){
+		this.dlyo_state = dlyo_state;
 	}
 	
 	/**
 	* 自提点ID
 	*@return 
 	*/
-	public Integer getDlypId(){
-		return  dlypId;
+	public Integer getDlyp_id(){
+		return  dlyp_id;
 	}
 	/**
 	* 自提点ID
-	*@param  dlypId
+	*@param  dlyp_id
 	*/
-	public void setDlypId(Integer dlypId ){
-		this.dlypId = dlypId;
+	public void setDlyp_id(Integer dlyp_id ){
+		this.dlyp_id = dlyp_id;
 	}
 	
 	/**
 	* 提货码
 	*@return 
 	*/
-	public String getDlyoPickupCode(){
-		return  dlyoPickupCode;
+	public String getDlyo_pickup_code(){
+		return  dlyo_pickup_code;
 	}
 	/**
 	* 提货码
-	*@param  dlyoPickupCode
+	*@param  dlyo_pickup_code
 	*/
-	public void setDlyoPickupCode(String dlyoPickupCode ){
-		this.dlyoPickupCode = dlyoPickupCode;
+	public void setDlyo_pickup_code(String dlyo_pickup_code ){
+		this.dlyo_pickup_code = dlyo_pickup_code;
 	}
 	
 	/**
 	* 快递公司编码
 	*@return 
 	*/
-	public String getExpressCode(){
-		return  expressCode;
+	public String getExpress_code(){
+		return  express_code;
 	}
 	/**
 	* 快递公司编码
-	*@param  expressCode
+	*@param  express_code
 	*/
-	public void setExpressCode(String expressCode ){
-		this.expressCode = expressCode;
+	public void setExpress_code(String express_code ){
+		this.express_code = express_code;
 	}
 	
 	/**
 	* 快递公司名称
 	*@return 
 	*/
-	public String getExpressName(){
-		return  expressName;
+	public String getExpress_name(){
+		return  express_name;
 	}
 	/**
 	* 快递公司名称
-	*@param  expressName
+	*@param  express_name
 	*/
-	public void setExpressName(String expressName ){
-		this.expressName = expressName;
+	public void setExpress_name(String express_name ){
+		this.express_name = express_name;
 	}
 	
 	/**
 	* 订单号
 	*@return 
 	*/
-	public Long getOrderSn(){
-		return  orderSn;
+	public Long getOrder_sn(){
+		return  order_sn;
 	}
 	/**
 	* 订单号
-	*@param  orderSn
+	*@param  order_sn
 	*/
-	public void setOrderSn(Long orderSn ){
-		this.orderSn = orderSn;
+	public void setOrder_sn(Long order_sn ){
+		this.order_sn = order_sn;
 	}
 	
 	/**
 	* 手机
 	*@return 
 	*/
-	public String getReciverMobphone(){
-		return  reciverMobphone;
+	public String getReciver_mobphone(){
+		return  reciver_mobphone;
 	}
 	/**
 	* 手机
-	*@param  reciverMobphone
+	*@param  reciver_mobphone
 	*/
-	public void setReciverMobphone(String reciverMobphone ){
-		this.reciverMobphone = reciverMobphone;
+	public void setReciver_mobphone(String reciver_mobphone ){
+		this.reciver_mobphone = reciver_mobphone;
 	}
 	
 	/**
 	* 收货人
 	*@return 
 	*/
-	public String getReciverName(){
-		return  reciverName;
+	public String getReciver_name(){
+		return  reciver_name;
 	}
 	/**
 	* 收货人
-	*@param  reciverName
+	*@param  reciver_name
 	*/
-	public void setReciverName(String reciverName ){
-		this.reciverName = reciverName;
+	public void setReciver_name(String reciver_name ){
+		this.reciver_name = reciver_name;
 	}
 	
 	/**
 	* 电话
 	*@return 
 	*/
-	public String getReciverTelphone(){
-		return  reciverTelphone;
+	public String getReciver_telphone(){
+		return  reciver_telphone;
 	}
 	/**
 	* 电话
-	*@param  reciverTelphone
+	*@param  reciver_telphone
 	*/
-	public void setReciverTelphone(String reciverTelphone ){
-		this.reciverTelphone = reciverTelphone;
+	public void setReciver_telphone(String reciver_telphone ){
+		this.reciver_telphone = reciver_telphone;
 	}
 	
 	/**
 	* 物流单号
 	*@return 
 	*/
-	public String getShippingCode(){
-		return  shippingCode;
+	public String getShipping_code(){
+		return  shipping_code;
 	}
 	/**
 	* 物流单号
-	*@param  shippingCode
+	*@param  shipping_code
 	*/
-	public void setShippingCode(String shippingCode ){
-		this.shippingCode = shippingCode;
+	public void setShipping_code(String shipping_code ){
+		this.shipping_code = shipping_code;
 	}
 	
 

@@ -7,23 +7,28 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_store_msg_read")
 public class RaStoreMsgRead   {
 	
+	// alias
+	public static final String ALIAS_seller_id = "seller_id";
+	public static final String ALIAS_sm_id = "sm_id";
+	public static final String ALIAS_read_time = "read_time";
+	
 	/*
 	卖家id
 	*/
-	private Integer sellerId ;
+	private Integer seller_id ;
 	/*
 	店铺消息id
 	*/
-	private Integer smId ;
+	private Integer sm_id ;
 	/*
 	阅读时间
 	*/
-	private Integer readTime ;
+	private Integer read_time ;
 	
 	public RaStoreMsgRead() {
 	}
@@ -32,45 +37,45 @@ public class RaStoreMsgRead   {
 	* 卖家id
 	*@return 
 	*/
-	public Integer getSellerId(){
-		return  sellerId;
+	public Integer getSeller_id(){
+		return  seller_id;
 	}
 	/**
 	* 卖家id
-	*@param  sellerId
+	*@param  seller_id
 	*/
-	public void setSellerId(Integer sellerId ){
-		this.sellerId = sellerId;
+	public void setSeller_id(Integer seller_id ){
+		this.seller_id = seller_id;
 	}
 	
 	/**
 	* 店铺消息id
 	*@return 
 	*/
-	public Integer getSmId(){
-		return  smId;
+	public Integer getSm_id(){
+		return  sm_id;
 	}
 	/**
 	* 店铺消息id
-	*@param  smId
+	*@param  sm_id
 	*/
-	public void setSmId(Integer smId ){
-		this.smId = smId;
+	public void setSm_id(Integer sm_id ){
+		this.sm_id = sm_id;
 	}
 	
 	/**
 	* 阅读时间
 	*@return 
 	*/
-	public Integer getReadTime(){
-		return  readTime;
+	public Integer getRead_time(){
+		return  read_time;
 	}
 	/**
 	* 阅读时间
-	*@param  readTime
+	*@param  read_time
 	*/
-	public void setReadTime(Integer readTime ){
-		this.readTime = readTime;
+	public void setRead_time(Integer read_time ){
+		this.read_time = read_time;
 	}
 	
 

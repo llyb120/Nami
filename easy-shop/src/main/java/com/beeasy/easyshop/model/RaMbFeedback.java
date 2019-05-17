@@ -7,10 +7,18 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-04-24
+* gen by beetlsql 2019-05-17
 */
 @Table(name="yoehi.ra_mb_feedback")
 public class RaMbFeedback   {
+	
+	// alias
+	public static final String ALIAS_id = "id";
+	public static final String ALIAS_ftime = "ftime";
+	public static final String ALIAS_member_id = "member_id";
+	public static final String ALIAS_content = "content";
+	public static final String ALIAS_member_name = "member_name";
+	public static final String ALIAS_type = "type";
 	
 	private Integer id ;
 	/*
@@ -20,12 +28,12 @@ public class RaMbFeedback   {
 	/*
 	用户编号
 	*/
-	private Integer memberId ;
+	private Integer member_id ;
 	private String content ;
 	/*
 	用户名
 	*/
-	private String memberName ;
+	private String member_name ;
 	/*
 	1来自手机端2来自PC端
 	*/
@@ -60,15 +68,15 @@ public class RaMbFeedback   {
 	* 用户编号
 	*@return 
 	*/
-	public Integer getMemberId(){
-		return  memberId;
+	public Integer getMember_id(){
+		return  member_id;
 	}
 	/**
 	* 用户编号
-	*@param  memberId
+	*@param  member_id
 	*/
-	public void setMemberId(Integer memberId ){
-		this.memberId = memberId;
+	public void setMember_id(Integer member_id ){
+		this.member_id = member_id;
 	}
 	
 	public String getContent(){
@@ -82,15 +90,15 @@ public class RaMbFeedback   {
 	* 用户名
 	*@return 
 	*/
-	public String getMemberName(){
-		return  memberName;
+	public String getMember_name(){
+		return  member_name;
 	}
 	/**
 	* 用户名
-	*@param  memberName
+	*@param  member_name
 	*/
-	public void setMemberName(String memberName ){
-		this.memberName = memberName;
+	public void setMember_name(String member_name ){
+		this.member_name = member_name;
 	}
 	
 	/**
