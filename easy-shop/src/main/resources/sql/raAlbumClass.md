@@ -7,6 +7,13 @@ where g.store_id = #storeId#
 order by g.aclass_sort asc
 
 
+pic_to_default
+===
+update ra_album_pic
+set aclass_id = (
+select aclass_id from ra_album_class where is_default = 1 limit 1
+) where aclass_id = #id#
+
 sample
 ===
 * 注释

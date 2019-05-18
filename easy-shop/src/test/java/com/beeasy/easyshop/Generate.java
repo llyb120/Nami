@@ -56,7 +56,7 @@ public class Generate {
         var bos = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(bos);
         System.setOut(printStream);
-        sqlManager.genSQLTemplateToConsole("ra_order");
+        sqlManager.genSQLTemplateToConsole("ra_album_class");
 
         var bs = bos.toByteArray();
         var str = new String(bs);

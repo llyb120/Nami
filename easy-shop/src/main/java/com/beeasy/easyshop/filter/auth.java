@@ -43,6 +43,7 @@ public class auth {
         if(path.startsWith("/user/login")){
             return invoke.call();
         }
+
         //检查权限
         var token = headers.getString("token");
         if (StrUtil.isEmpty(token)) {

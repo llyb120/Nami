@@ -4,6 +4,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import org.beetl.sql.core.kit.GenKit;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,6 +37,15 @@ public class Config {
             if (config.route != null) {
                 for (String s : config.route) {
                     HttpServerHandler.ctrls.add(new Route(s));
+                }
+            }
+            if (config.compile != null) {
+                if (config.compile.source == null) {
+                    config.compile.source = GenKit.getJavaSRCPath();
+                }
+                if (config.compile.target == null) {
+                    config.compile.target = new File(config.compile.source, "../../../target/classes").getAbsolutePath();
+//                     new File(target, "target/classes").getAbsolutePath();
                 }
             }
             if(StrUtil.isNotEmpty(config.upload)){

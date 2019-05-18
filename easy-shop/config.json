@@ -14,18 +14,16 @@
         "com.beeasy.easyshop.filter"
     ],
     "compile": {
-        "source": "D:\\work\\easyshop\\easy-shop\\src\\main\\java",
-        "target": "D:\\work\\easyshop\\easy-shop\\target\\classes",
         "compiler": "ecj"
     },
     "route": [
         "/:c/:a -> com.beeasy.easyshop.filter.auth -> com.beeasy.easyshop.ctrl"
     ],
     "cors": {
-        "origin": "http://127.0.0.1:8010",
+        "origin": "*",
         "method": "GET,POST,OPTIONS",
         "headers": "X-Requested-With, Authorization, TOKEN, Content-Type",
-        "credentials": "true"
+        "credentials": ""
     },
     "ext": {
         "chakra" : "D:\\work\\easyshop\\easy-shop\\js"

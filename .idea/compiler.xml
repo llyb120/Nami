@@ -11,6 +11,9 @@
       </profile>
     </annotationProcessing>
   </component>
+  <component name="EclipseCompilerSettings">
+    <option name="GENERATE_NO_WARNINGS" value="true" />
+  </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="easy-shop" options="-parameters" />

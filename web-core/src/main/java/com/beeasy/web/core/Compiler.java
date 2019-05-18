@@ -43,14 +43,13 @@ public class Compiler{
     private static byte[] compileWithJavac(String name) throws IOException {
         Iterable it = javaFileManager.getJavaFileObjects(config.compile.source + File.separator + name + ".java");
         //创建编译任务
-        JavaCompiler.CompilationTask  task = javaCompiler.getTask(new StringWriter(), null, null, Arrays.asList("-d", config.compile.target, "-parameters", "-nowarn", "-source", "1.12"), null, it);
+        JavaCompiler.CompilationTask  task = javaCompiler.getTask(new StringWriter(), null, null, Arrays.asList("-d", config.compile.target, "-parameters", "-nowarn", "-source", "11"), null, it);
         //执行编译
         task.call();
         return readClassFile(name);
     }
 
     private static byte[] compileWithEcj(String name) throws IOException {
-
         Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", "11","-d", config.compile.target, config.compile.source+ File.separator+name+".java"});
         return readClassFile(name);
     }

@@ -129,7 +129,6 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 
         if(request.method().equals(HttpMethod.OPTIONS)){
             ctx.writeAndFlush(getResponse(null,200));
-//            ctx.close();
             return;
         }
 

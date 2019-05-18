@@ -8,6 +8,9 @@ import com.beeasy.easyshop.model.*;
 import com.beeasy.web.core.Flow;
 import com.beeasy.web.core.R;
 
+import java.util.Objects;
+
+import static com.beeasy.easyshop.U.obj;
 import static com.beeasy.web.core.DBService.sqlManager;
 
 public class store {
@@ -102,6 +105,7 @@ public class store {
                 .updateSelective(item);
         } else {
             item.setStore_id(Integer.parseInt(auth.getStoreId()));
+            item.setIs_default(0);
             sqlManager.insert(item);
         }
 
@@ -114,11 +118,26 @@ public class store {
      * @return
      */
     public R delgallery(String id){
-        //只能删除自己的
-        sqlManager.lambdaQuery(RaAlbumClass.class)
+        //验证是我的
+        var gallery = sqlManager.unique(RaAlbumClass.class, id);
+        if (!auth.getStoreId().equals(gallery.getStore_id() + "")) {
+            return R.fail();
+        }
+        if(Objects.equals(gallery.getIs_default(), 1)){
+            return R.fail("默认相册无法删除");
+        }
+
+        //该相册下所有的图片都给default
+        var dft = sqlManager.lambdaQuery(RaAlbumClass.class)
             .andEq(RaAlbumClass::getStore_id, auth.getStoreId())
-            .andEq(RaAlbumClass::getAclass_id, id)
-            .delete();
+            .andEq(RaAlbumClass::getIs_default, 1)
+            .single();
+        if (dft != null) {
+            sqlManager.lambdaQuery(RaAlbumPic.class)
+                .andEq(RaAlbumPic::getAclass_id, id)
+                .updateSelective(obj("aclass_id", dft.getAclass_id()));
+        }
+        sqlManager.deleteObject(gallery);
         return R.ok();
     }
 }
