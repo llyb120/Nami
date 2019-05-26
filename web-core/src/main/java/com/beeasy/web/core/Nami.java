@@ -27,11 +27,14 @@ public class Nami {
 
 //        Chakra.start();
 
+        if(config.dev && config.compile.parallel){
+            Compiler.start();
+        }
 
 //        if(StrUtil.isNotEmpty(config.chakra)){
 //            chakraCore = new ChakraCore();
 //            chakraCore.start(true);
-//        }
+////        }
 
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();

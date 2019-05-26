@@ -3,6 +3,7 @@ package com.beeasy.easyshop;
 
 import cn.hutool.core.io.IoUtil;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.util.IOUtils;
 import com.beeasy.web.core.Config;
 import com.beeasy.web.core.DBService;
 import org.beetl.sql.core.SQLReady;
@@ -49,18 +50,20 @@ public class Generate {
 
     @Test
     public void genOne() throws Exception {
-        sqlManager.genPojoCode("ra_album_class", "com.beeasy.easyshop.model");
+        sqlManager.genPojoCode("ra_album_pic", "com.beeasy.easyshop.model");
     }
     @Test
     public void genOneSql() throws Exception {
+        var name = "ra_refund_return";
         var bos = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(bos);
         System.setOut(printStream);
-        sqlManager.genSQLTemplateToConsole("ra_album_class");
+        sqlManager.genSQLTemplateToConsole(name);
 
-        var bs = bos.toByteArray();
-        var str = new String(bs);
-        int d = 1;
+        IoUtil.write(new FileOutputStream("D:\\work\\easyshop\\easy-shop\\src\\main\\resources\\sql\\" + name + ".md"), true, bos.toByteArray());
+//        var bs = bos.toByteArray();
+//        var str = new String(bs);
+//        int d = 1;
 //        sqlManager.genSQLTemplateToConsole("ra_order", "");
     }
 

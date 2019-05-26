@@ -24,7 +24,14 @@ public class a {
         int c,
         int[] d
     ) {
-        var a = 100;
+        var e = 100;
+        var f = 10320220;
+        var a = 102221230;
+        System.out.println("dfdffdddddddddljk;j133");
+        var ccc = 200222;
+        var eee = 2034303243;
+        System.out.println(e);
+        var gggj = a + e;
         List<JSONObject> list = sqlManager.execute(new SQLReady("select count(1) from ra_member "), JSONObject.class);
         return a + "source word " + new b().word;
     }

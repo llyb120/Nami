@@ -3,14 +3,13 @@ package com.beeasy.easyshop;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.beeasy.easyshop.ctrl.user;
 import com.beeasy.web.core.Config;
 import com.beeasy.web.core.DBService;
 import com.beeasy.web.core.R;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static com.beeasy.easyshop.U.*;
+import static com.beeasy.easyshop.util.U.*;
 
 public class Flow {
 
@@ -23,7 +22,7 @@ public class Flow {
     @Test
     public void testlogin(){
 
-        var ret = get("/user/login",obj(
+        var ret = get("/user/login", o(
             "member_name", "myzy",
             "member_passwd", "123456"
         ));

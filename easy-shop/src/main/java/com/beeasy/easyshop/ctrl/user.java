@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.beeasy.easyshop.filter.auth;
 import com.beeasy.easyshop.model.RaMember;
 import com.beeasy.easyshop.model.RaSeller;
-import com.beeasy.easyshop.model.*;
 import com.beeasy.web.core.Cookie;
 import com.beeasy.web.core.Flow;
 import com.beeasy.web.core.R;
@@ -14,7 +13,7 @@ import java.util.function.Function;
 import static com.beeasy.web.core.Flow.ValidateType.*;
 import static com.beeasy.web.core.DBService.sqlManager;
 
-import static com.beeasy.easyshop.U.*;
+import static com.beeasy.easyshop.util.U.*;
 import static com.beeasy.web.core.Flow.ValueType.md5;
 
 public class user {
@@ -44,7 +43,7 @@ public class user {
                 String str = String.format("%s|%s|%s|%s|%d", obj.getString("member_id") , obj.getString("seller_id"), obj.getString("store_id"), obj.getString("seller_name"), System.currentTimeMillis() + 24 * 3600000);
                 var token = auth.createToken(str);
                 cookie.set("token", token);
-                return obj(
+                return o(
                     "token", token,
                     "info", str
                 );

@@ -2,6 +2,7 @@ package com.beeasy.web.core;
 
 import static cn.hutool.core.util.StrUtil.*;
 
+import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson.JSON;
@@ -22,11 +23,15 @@ import io.netty.handler.codec.http.multipart.FileUpload;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import io.netty.handler.codec.http.multipart.InterfaceHttpData;
 import io.netty.handler.codec.http.websocketx.*;
+import org.eclipse.jdt.internal.compiler.ast.ClassLiteralAccess;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static com.beeasy.web.core.Config.config;
@@ -42,6 +47,10 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
     private static final String KEEP_ALIVE = ("keep-alive");
     public static Throwable LastException = null;
     private static Map<String, Pattern> urlRegexs = new HashMap<>();
+
+    //dev-start
+    private static final HashMap<Class, Object> clzInstances = new HashMap<>();
+    //dev-end
 
 //    public static void AddRoute(Route... routes) {
 //        RouteList.addAll(Arrays.asList(routes));
@@ -134,6 +143,21 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 
         boolean keepAlive = HttpUtil.isKeepAlive(request);
         String path = URLUtil.getPath(uri);
+
+        //auto build
+        if(path.equals("/filechange")){
+            var q = decodeQuery(request);
+            var f = q.getString("file");
+            if(!f.endsWith(".java")){
+                return;
+            }
+            ThreadUtil.execAsync(() -> {
+                Compiler.compile(new File(f), "ecj");
+            });
+//            int d = 1;
+//            Compiler.compile()
+        }
+
         String[] arr = path.substring(1).split("\\/");
         route:
         {
@@ -179,17 +203,22 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             String className = ArrayUtil.get(arr, route.cIndex);
             String methodName = ArrayUtil.get(arr, route.aIndex);
 
-            MyClassLoadader loader = new MyClassLoadader();
+            ClassLoader loader = null;
+            if(config.dev){
+                loader = new MyClassLoadader();
+            } else {
+                loader = getClass().getClassLoader();
+            }
             Class clz = loader.loadClass(route.packageName + "." + className);
             Object result = null;
             for (Method method : clz.getDeclaredMethods()) {
                 if (method.getName().equalsIgnoreCase(methodName)) {
-                    Object instance = clz.newInstance();
+                    Object instance = getInstance(clz);
                     Object[] args = autoWiredParams(request, clz, method, null);
                     if (route.aops != null) {
                         result = doAop(request, loader, route.aops, clz, method, instance, args);
                     } else {
-                        result = method.invoke(clz.newInstance(), args);
+                        result = method.invoke(instance, args);
                     }
                     break;
                 }
@@ -334,7 +363,7 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             }
             Map<Class, Object> staticArgs = new HashMap<>();
             staticArgs.put(AopInvoke.class, invoke);
-            Object aopInstance = clzAop.newInstance();
+            Object aopInstance = getInstance(clzAop);
             Object[] aopArgs = autoWiredParams(request, clzAop, methodAop, staticArgs);
             invoke = new AopInvoke(clzAop, methodAop, aopInstance, aopArgs);
         }
@@ -397,7 +426,10 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
                             if (source.startsWith("[") && source.endsWith("]")) {
                                 JSONArray array = context.query.getJSONArray(name);
                                 ret[i] = array.toJavaObject(type);
-                            } else if (source.contains(",")) {
+                            }
+                            //只有一个的情况，直接尝试拆分
+                            else {
+//                                if (source.contains(",")) {
                                 String[] split = source.split(",");
                                 JSONArray array = new JSONArray(Arrays.asList(split));
                                 try {
@@ -422,4 +454,20 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
     }
 
 
+
+    private static Object getInstance(Class clz) throws IllegalAccessException, InstantiationException {
+        if(config.dev){
+            return clz.newInstance();
+        } else {
+            Object ins = null;
+            synchronized (clzInstances){
+                ins = clzInstances.get(clz);
+                if (ins == null) {
+                    ins = clz.newInstance() ;
+                    clzInstances.put(clz, ins);
+                }
+            }
+            return ins;
+        }
+    }
 }

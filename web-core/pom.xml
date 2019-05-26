@@ -122,7 +122,11 @@
             <!--<version>2.6</version>-->
         <!--</dependency>-->
 
-
+        <dependency>
+             <groupId>org.slf4j</groupId>
+             <artifactId>slf4j-nop</artifactId>
+             <version>1.7.2</version>
+         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
@@ -139,8 +143,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.11</source>
-                    <target>1.11</target>
+                    <source>11</source>
+                    <target>11</target>
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>

@@ -1,16 +1,11 @@
 package com.beeasy.easyshop.ctrl;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
-import com.beeasy.easyshop.U;
+import com.beeasy.easyshop.util.U;
 import com.beeasy.web.core.MultipartFile;
 import com.beeasy.web.core.R;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static com.beeasy.web.core.Config.config;
 

@@ -7,7 +7,7 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-05-17
+* gen by beetlsql 2019-05-20
 */
 @Table(name="yoehi.ra_album_pic")
 public class RaAlbumPic   {
@@ -22,6 +22,7 @@ public class RaAlbumPic   {
 	public static final String ALIAS_apic_name = "apic_name";
 	public static final String ALIAS_apic_spec = "apic_spec";
 	public static final String ALIAS_apic_tag = "apic_tag";
+	public static final String ALIAS_n_cover = "n_cover";
 	
 	/*
 	相册图片表id
@@ -59,6 +60,10 @@ public class RaAlbumPic   {
 	图片标签
 	*/
 	private String apic_tag ;
+	/*
+	新_修复后的上传路径
+	*/
+	private String n_cover ;
 	
 	public RaAlbumPic() {
 	}
@@ -196,6 +201,21 @@ public class RaAlbumPic   {
 	*/
 	public void setApic_tag(String apic_tag ){
 		this.apic_tag = apic_tag;
+	}
+	
+	/**
+	* 新_修复后的上传路径
+	*@return 
+	*/
+	public String getN_cover(){
+		return  n_cover;
+	}
+	/**
+	* 新_修复后的上传路径
+	*@param  n_cover
+	*/
+	public void setN_cover(String n_cover ){
+		this.n_cover = n_cover;
 	}
 	
 

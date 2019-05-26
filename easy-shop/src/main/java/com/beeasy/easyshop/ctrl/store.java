@@ -1,16 +1,22 @@
 package com.beeasy.easyshop.ctrl;
 
+import cn.hutool.core.img.ImgUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.beeasy.easyshop.U;
+import com.beeasy.easyshop.util.U;
 import com.beeasy.easyshop.filter.auth;
 import com.beeasy.easyshop.model.*;
 import com.beeasy.web.core.Flow;
+import com.beeasy.web.core.MultipartFile;
 import com.beeasy.web.core.R;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Objects;
 
-import static com.beeasy.easyshop.U.obj;
+import static com.beeasy.easyshop.util.U.*;
+import static com.beeasy.web.core.Config.config;
 import static com.beeasy.web.core.DBService.sqlManager;
 
 public class store {
@@ -135,9 +141,146 @@ public class store {
         if (dft != null) {
             sqlManager.lambdaQuery(RaAlbumPic.class)
                 .andEq(RaAlbumPic::getAclass_id, id)
-                .updateSelective(obj("aclass_id", dft.getAclass_id()));
+                .updateSelective(o("aclass_id", dft.getAclass_id()));
         }
         sqlManager.deleteObject(gallery);
         return R.ok();
     }
+
+    /**
+     * 图片列表
+     * @param aid
+     * @param page
+     * @param size
+     * @return
+     */
+    public R piclist(String aid, Integer page, Integer size){
+        if (page == null) {
+            page = 1;
+        }
+        if (size == null) {
+            size = 10;
+        }
+        return R.ok(sqlManager.lambdaQuery(RaAlbumPic.class)
+            .andEq(RaAlbumPic::getStore_id, auth.getStoreId())
+            .andEq(RaAlbumPic::getAclass_id, aid)
+            .page(page, size));
+    }
+
+
+    /**
+     * 设置封面
+     * @param id
+     * @param cover
+     * @return
+     */
+    public R setgindex(String id, String cover){
+        sqlManager.lambdaQuery(RaAlbumClass.class)
+            .andEq(RaAlbumClass::getAclass_id, id)
+            .andEq(RaAlbumClass::getStore_id, auth.getStoreId())
+            .updateSelective(o("n_conver", cover));
+        return R.ok();
+    }
+
+    /**
+     * 上传图片
+     * @param id
+     * @param file
+     * @return
+     */
+    public R uploadpic(int id, MultipartFile file) throws IOException {
+        String name = U.fixFileName(file.fileName());
+        File target = new File(config.uploadDir, name);
+        file.transferTo(target);
+
+        RaAlbumPic raAlbumPic = new RaAlbumPic();
+        raAlbumPic.setAclass_id(id);
+        raAlbumPic.setUpload_time((int) (System.currentTimeMillis() / 1000));
+        raAlbumPic.setApic_name(file.fileName());
+        raAlbumPic.setStore_id(Integer.parseInt(auth.getStoreId()));
+        raAlbumPic.setN_cover(name);
+        var img = ImgUtil.read(target);
+        raAlbumPic.setApic_size((int) target.length());
+        raAlbumPic.setApic_spec(img.getWidth() + "x" + img.getHeight());
+        sqlManager.insert(raAlbumPic, true);
+        return R.ok(raAlbumPic);
+    }
+
+    /**
+     * 删除图片
+     * @param id
+     * @return
+     */
+    public R delpic(String[] id){
+        sqlManager.lambdaQuery(RaAlbumPic.class)
+            .andEq(RaAlbumPic::getStore_id, auth.getStoreId())
+            .andIn(RaAlbumPic::getApic_id, Arrays.asList(id))
+            .delete();
+        return R.ok();
+    }
+
+    /**
+     * 批量转移
+     * @param id
+     * @param target
+     * @return
+     */
+    public R transformpic(String[] id, String target){
+        //只能转移我的相册
+        long count = sqlManager.lambdaQuery(RaAlbumClass.class)
+            .andEq(RaAlbumClass::getStore_id, auth.getStoreId())
+            .andEq(RaAlbumClass::getAclass_id, target)
+            .count();
+        if(count == 0){
+            return R.fail("只能转移到自己的相册");
+        }
+        sqlManager.lambdaQuery(RaAlbumPic.class)
+            .andEq(RaAlbumPic::getStore_id, auth.getStoreId())
+            .andIn(RaAlbumPic::getApic_id, Arrays.asList(id))
+            .updateSelective(o(
+                "aclass_id", target
+            ));
+        return R.ok();
+    }
+
+
+    /**
+     * 出售中的商品
+     * @param query
+     * @return
+     */
+    public R salelist(JSONObject query){
+        query.put("store_id", auth.getStoreId());
+        return R.ok(pageQuery("ra_goods_common.page", JSONObject.class, query));
+    }
+
+
+    /**
+     * 查找分类
+     * 分类是全部公开的，可以随意查询
+     * @param pid
+     * @return
+     */
+    public R getcat(){
+        return R.ok(
+            tree(
+                sqlManager.lambdaQuery(RaGoodsClass.class)
+                    .select(JSONObject.class), "gc_parent_id", "gc_id"
+            )
+        );
+    }
+
+    /**
+     * 店铺退款查询
+     * @param query
+     * @return
+     */
+    public R refundlist(JSONObject query){
+        query.put("store_id", auth.getStoreId());
+        return R.ok(
+          pageQuery("ra_refund_return.page", JSONObject.class, query)
+        );
+    }
+
+
 }

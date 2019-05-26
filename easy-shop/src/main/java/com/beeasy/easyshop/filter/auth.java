@@ -8,10 +8,12 @@ import cn.hutool.crypto.symmetric.DES;
 import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
 import cn.hutool.crypto.symmetric.SymmetricCrypto;
 import com.alibaba.fastjson.JSONObject;
+import com.beeasy.easyshop.util.U;
 import com.beeasy.web.core.AopInvoke;
 import com.beeasy.web.core.Cookie;
 import com.beeasy.web.core.R;
 import io.netty.handler.codec.http.FullHttpRequest;
+import static com.beeasy.easyshop.util.U.*;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -43,6 +45,8 @@ public class auth {
         if(path.startsWith("/user/login")){
             return invoke.call();
         }
+
+//        fixFileName5("fff3ddd");
 
         //检查权限
         var token = headers.getString("token");

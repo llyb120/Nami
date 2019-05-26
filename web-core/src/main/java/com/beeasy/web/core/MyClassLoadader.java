@@ -3,29 +3,13 @@ package com.beeasy.web.core;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 import static com.beeasy.web.core.Config.config;
 
 public class MyClassLoadader extends ClassLoader {
 
     private static ClassLoader defaultClassLoader = MyClassLoadader.class.getClassLoader();
-    /**
-     * @param filename
-     * @return Byte[]
-     * @throws IOException
-     */
-    private byte[] getBytes(String filename) throws IOException {
-        File file = new File(filename);
-        byte raw[] = new byte[(int) file.length()];
-        FileInputStream fin = new FileInputStream(file);
-        fin.read(raw);
-        fin.close();
-        return raw;
-    }
 
     @Override
     protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
@@ -48,10 +32,23 @@ public class MyClassLoadader extends ClassLoader {
             return defaultClassLoader.loadClass(name);
         }
 
-        if(null != config.compile){
+        //旧式的懒编译处罚
+        if(null != config.compile.compiler && !config.compile.parallel){
             try {
-                String realName = name.replaceAll("\\.", "/");
-                byte[] b = Compiler.compile(realName);
+                byte[] b = Compiler.compile(name);
+                return defineClass(null, b, 0, b.length);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return super.findClass(name);
+            }
+        }
+
+        //新式的多线程编译
+        if(config.compile.parallel){
+            //读取已经编译的
+            Compiler.waitForAllCompiled();
+            try {
+                var b = Compiler.readClass(name);
                 return defineClass(null, b, 0, b.length);
             } catch (Exception e) {
                 e.printStackTrace();

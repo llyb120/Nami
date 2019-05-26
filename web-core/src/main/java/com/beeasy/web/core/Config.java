@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Struct;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -21,11 +22,17 @@ public class Config {
     public Map<String,Db> db;
     public Set<String> hotswap;
     public LinkedHashSet<String> route;
-    public Compile compile;
+    public Compile compile = new Compile();
     public Cors cors;
     public JSONObject ext;
     public String upload;
     public File uploadDir;
+    public boolean dev = true;
+
+    static {
+        System.setProperty("illegal-access","deny");
+    }
+
 
     public static void init(String path){
         try (
@@ -48,10 +55,13 @@ public class Config {
 //                     new File(target, "target/classes").getAbsolutePath();
                 }
             }
+
             if(StrUtil.isNotEmpty(config.upload)){
                 config.uploadDir = new File(config.upload);
                 config.uploadDir.mkdirs();
             }
+
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -70,6 +80,7 @@ public class Config {
         public String source;
         public String target;
         public String compiler;
+        public boolean parallel;
     }
 
     static class Cors{
