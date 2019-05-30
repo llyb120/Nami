@@ -23,6 +23,7 @@ Nami是一款高质量、低码量的全栈式WEB开发框架。
     <version>1.0-SNAPSHOT</version>
 </dependency>
 ```
+
 3. 为了方便，我们可以将Maven中的代码编译设定为JDK11，Nami使用了JDK8新增的元数据反射，所以加入了`-parameters`参数
 ```xml
 <plugin>
