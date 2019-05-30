@@ -28,6 +28,9 @@
         "headers": "X-Requested-With, Authorization, TOKEN, Content-Type",
         "credentials": ""
     },
+    "model": [
+        "com.beeasy.easyshop.model"
+    ],
     "ext": {
         "chakra" : "D:\\work\\easyshop\\easy-shop\\js"
     },

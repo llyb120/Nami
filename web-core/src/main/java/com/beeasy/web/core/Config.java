@@ -28,6 +28,7 @@ public class Config {
     public String upload;
     public File uploadDir;
     public boolean dev = true;
+    public Set<String> model;
 
     static {
         System.setProperty("illegal-access","deny");

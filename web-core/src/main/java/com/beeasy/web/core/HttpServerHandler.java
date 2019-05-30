@@ -4,6 +4,7 @@ import static cn.hutool.core.util.StrUtil.*;
 
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -27,14 +28,14 @@ import org.eclipse.jdt.internal.compiler.ast.ClassLiteralAccess;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
+import java.lang.reflect.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static com.beeasy.web.core.Config.config;
+import static com.beeasy.web.core.DBService.sqlManager;
 
 public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 //    private static List<Route> RouteList = new ArrayList<>();
@@ -214,7 +215,7 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             for (Method method : clz.getDeclaredMethods()) {
                 if (method.getName().equalsIgnoreCase(methodName)) {
                     Object instance = getInstance(clz);
-                    Object[] args = autoWiredParams(request, clz, method, null);
+                    Object[] args = Param.autoWiredParams(request, clz, method, null);
                     if (route.aops != null) {
                         result = doAop(request, loader, route.aops, clz, method, instance, args);
                     } else {
@@ -364,93 +365,10 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             Map<Class, Object> staticArgs = new HashMap<>();
             staticArgs.put(AopInvoke.class, invoke);
             Object aopInstance = getInstance(clzAop);
-            Object[] aopArgs = autoWiredParams(request, clzAop, methodAop, staticArgs);
+            Object[] aopArgs = Param.autoWiredParams(request, clzAop, methodAop, staticArgs);
             invoke = new AopInvoke(clzAop, methodAop, aopInstance, aopArgs);
         }
         return invoke.call();
-    }
-
-    private Object[] autoWiredParams(FullHttpRequest request, Class clz, Method method, Map<Class, Object> staticArgs) {
-        var context = Context.holder.get();
-        Parameter[] parameters = method.getParameters();
-        Object[] ret = new Object[parameters.length];
-        int idex = -1;
-        int i = 0;
-
-        for (Parameter parameter : parameters) {
-            //特殊字段
-            String name = parameter.getName();
-            Class<?> type = parameter.getType();
-//            name = names.get(i);
-            ret[i] = null;
-            //如果有静态，则直接使用
-            if (null != staticArgs && staticArgs.containsKey(type)) {
-                ret[i++] = staticArgs.get(type);
-                continue;
-            }
-
-            if(type == Cookie.class){
-                ret[i++] = context.cookie;
-                continue;
-            }
-            if(type == FullHttpRequest.class){
-                ret[i++] = request;
-                continue;
-            }
-
-            switch (name) {
-                case "query":
-                    ret[i] = context.query.toJavaObject(type);
-
-                case "body":
-                    if (context.body != null) {
-                        ret[i] = context.body.toJavaObject(type);
-                    }
-                    break;
-
-                case "params":
-                    ret[i] = context.params.toJavaObject(type);
-                    break;
-
-                case "headers":
-                    ret[i] = context.headers.toJavaObject(type);
-                    break;
-
-                default:
-                    //必然为JSONOBJECT
-                    idex = type.getTypeName().indexOf("[]");
-                    //是数组的情况
-                    if (idex > -1) {
-                        String source = context.query.getString(name);
-                        if (isNotEmpty(source)) {
-                            if (source.startsWith("[") && source.endsWith("]")) {
-                                JSONArray array = context.query.getJSONArray(name);
-                                ret[i] = array.toJavaObject(type);
-                            }
-                            //只有一个的情况，直接尝试拆分
-                            else {
-//                                if (source.contains(",")) {
-                                String[] split = source.split(",");
-                                JSONArray array = new JSONArray(Arrays.asList(split));
-                                try {
-                                    ret[i] = array.toJavaObject(type);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    } else if (type == MultipartFile.class) {
-                        ret[i] = context.params.get(name);
-                    } else if (type == Context.class){
-                        ret[i] = context;
-                    } else {
-                        ret[i] = context.getParamValue(name, type);
-                    }
-                    break;
-            }
-            i++;
-        }
-        return ret;
     }
 
 
@@ -470,4 +388,6 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             return ins;
         }
     }
+
+
 }

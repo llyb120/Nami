@@ -3,9 +3,12 @@ package com.beeasy.easyshop.ctrl;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.beeasy.easyshop.model.RaMember;
+import com.beeasy.easyshop.model.RaStore;
 import com.beeasy.web.core.Cookie;
 import com.beeasy.web.core.MultipartFile;
 import org.beetl.sql.core.SQLReady;
+import org.beetl.sql.core.engine.PageQuery;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,10 +67,15 @@ public class a {
     }
 
     public String cookieDelete(
-        Cookie cookie
+        Cookie cookie,
+        RaStore mystore
     ){
         cookie.delete("cubi");
         return "";
+    }
+
+    public String testSuper(PageQuery<RaMember> pageQuery){
+        return null;
     }
 }
 

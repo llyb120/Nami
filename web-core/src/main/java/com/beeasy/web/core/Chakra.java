@@ -23,12 +23,12 @@ public class Chakra {
         //判断是否可以加载chakracore
         //必须异步启动
         ThreadUtil.execAsync(() -> {
-            System.loadLibrary("chakracore");
+//            System.loadLibrary("chakracore");
             System.loadLibrary("node");
 //            System.load("D:\\work\\easyshop\\easy-shop\\node.dll");
             System.out.println("chakracore boot success");
             //启动工作进程
-            ThreadUtil.execAsync(Chakra::startSocketServer);
+//            ThreadUtil.execAsync(Chakra::startSocketServer);
             start("", "D:\\work\\easyshop\\easy-shop\\js\\1.js");
         });
 
