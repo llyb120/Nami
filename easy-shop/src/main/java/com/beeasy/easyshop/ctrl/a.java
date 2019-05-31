@@ -78,7 +78,7 @@ public class a {
     }
 
     public Object testSuper(
-        @SqlBoost(model = RaAlbumClass.class, as="g", appendField="(select count(1) from ra_album_pic where aclass_id = g.aclass_id) as total") List<JSONObject> list
+        @SqlBoost(model = RaAlbumClass.class, appendField="(select count(1) from ra_album_pic where aclass_id = b.aclass_id) as total") List<JSONObject> list
     ){
         return list;
     }
