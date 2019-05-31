@@ -1,13 +1,9 @@
 package com.beeasy.web.core;
 
-import static cn.hutool.core.util.StrUtil.*;
-
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import io.netty.buffer.ByteBuf;
@@ -24,18 +20,14 @@ import io.netty.handler.codec.http.multipart.FileUpload;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import io.netty.handler.codec.http.multipart.InterfaceHttpData;
 import io.netty.handler.codec.http.websocketx.*;
-import org.eclipse.jdt.internal.compiler.ast.ClassLiteralAccess;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static com.beeasy.web.core.Config.config;
-import static com.beeasy.web.core.DBService.sqlManager;
 
 public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 //    private static List<Route> RouteList = new ArrayList<>();
@@ -215,7 +207,7 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             for (Method method : clz.getDeclaredMethods()) {
                 if (method.getName().equalsIgnoreCase(methodName)) {
                     Object instance = getInstance(clz);
-                    Object[] args = Param.autoWiredParams(request, clz, method, null);
+                    Object[] args = Param.AutoWiredParams(request, clz, method, null);
                     if (route.aops != null) {
                         result = doAop(request, loader, route.aops, clz, method, instance, args);
                     } else {
@@ -365,7 +357,7 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             Map<Class, Object> staticArgs = new HashMap<>();
             staticArgs.put(AopInvoke.class, invoke);
             Object aopInstance = getInstance(clzAop);
-            Object[] aopArgs = Param.autoWiredParams(request, clzAop, methodAop, staticArgs);
+            Object[] aopArgs = Param.AutoWiredParams(request, clzAop, methodAop, staticArgs);
             invoke = new AopInvoke(clzAop, methodAop, aopInstance, aopArgs);
         }
         return invoke.call();

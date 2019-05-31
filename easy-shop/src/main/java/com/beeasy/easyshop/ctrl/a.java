@@ -3,10 +3,13 @@ package com.beeasy.easyshop.ctrl;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.beeasy.easyshop.model.RaAlbumClass;
 import com.beeasy.easyshop.model.RaMember;
 import com.beeasy.easyshop.model.RaStore;
+import com.beeasy.web.core.Context;
 import com.beeasy.web.core.Cookie;
 import com.beeasy.web.core.MultipartFile;
+import com.beeasy.web.core.boost.SqlBoost;
 import org.beetl.sql.core.SQLReady;
 import org.beetl.sql.core.engine.PageQuery;
 
@@ -74,9 +77,12 @@ public class a {
         return "";
     }
 
-    public String testSuper(PageQuery<RaMember> pageQuery){
-        return null;
+    public Object testSuper(
+        @SqlBoost(model = RaAlbumClass.class, as="g", appendField="(select count(1) from ra_album_pic where aclass_id = g.aclass_id) as total") List<JSONObject> list
+    ){
+        return list;
     }
+
 }
 
 
