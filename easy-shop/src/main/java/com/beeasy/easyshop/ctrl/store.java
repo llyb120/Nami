@@ -9,10 +9,12 @@ import com.beeasy.easyshop.model.*;
 import com.beeasy.web.core.Flow;
 import com.beeasy.web.core.MultipartFile;
 import com.beeasy.web.core.R;
+import com.beeasy.web.core.boost.SqlBoost;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import static com.beeasy.easyshop.util.U.*;
@@ -78,15 +80,10 @@ public class store {
     }
 
 
-    public R gallerylist(JSONObject query){
+    public R gallerylist(
+        @SqlBoost(model = RaAlbumClass.class, appendField = "(select count(1) from ra_album_pic where aclass_id = b.aclass_id) as total") List<JSONObject> mylist){
        //只查我的店铺
-        query.put("storeId", auth.getStoreId());
-        return R.ok(
-            sqlManager.select("raAlbumClass.查询相册", JSONObject.class, query)
-        );
-//        return R.ok(sqlManager.lambdaQuery(RaAlbumClass.class)
-//            .andEq(RaAlbumClass::getStoreId, auth.getStoreId())
-//            .select());
+        return R.ok(mylist);
     }
 
     /**

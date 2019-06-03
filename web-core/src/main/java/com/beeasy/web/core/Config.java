@@ -4,17 +4,19 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.DefaultJSONParser;
+import com.alibaba.fastjson.parser.ParserConfig;
+import com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer;
+import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
 import org.beetl.sql.core.kit.GenKit;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.sql.Struct;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Config {
     public static Config config;
@@ -29,6 +31,8 @@ public class Config {
     public File uploadDir;
     public boolean dev = true;
     public Set<String> model;
+    public List<String> link;
+    public Map<String, Link> links;
 
     static {
         System.setProperty("illegal-access","deny");
@@ -62,7 +66,30 @@ public class Config {
                 config.uploadDir.mkdirs();
             }
 
-
+            if (config.link != null) {
+                config.links = new HashMap<>();
+                for (String s : config.link) {
+                    String[] arr = s.split("\\s*(\\[\\]|:|\\.|->)\\s*");
+                    Link link = new Link();
+                    if(arr.length == 6){
+                        link.many = true;
+                        link.name = arr[0];
+                        link.fromClz = arr[2].toLowerCase();
+                        link.fromField = arr[3].toLowerCase();
+                        link.toClz = arr[4].toLowerCase();
+                        link.toField = arr[5].toLowerCase();
+                    } else if(arr.length == 5){
+                        link.name = arr[0];
+                        link.fromClz = arr[1].toLowerCase();
+                        link.fromField = arr[2].toLowerCase();
+                        link.toClz = arr[3].toLowerCase();
+                        link.toField = arr[4].toLowerCase();
+                    }
+                    if(arr.length >= 5){
+                        config.links.put(link.fromClz + link.name, link);
+                    }
+                }
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -89,5 +116,15 @@ public class Config {
         public String method;
         public String headers;
         public String credentials;
+    }
+
+
+    static class Link{
+        public String fromClz;
+        public String fromField;
+        public String toClz;
+        public String toField;
+        public String name;
+        public boolean many = false;
     }
 }

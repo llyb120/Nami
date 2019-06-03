@@ -1,6 +1,6 @@
 //package com.beeasy.easyshop.ctrl;
 //
-//import com.alibaba.fastjson.JSONObject;
+//import com.alibaba.fastjson.Obj;
 //import com.beeasy.easyshop.model.RaOrder;
 //import com.beeasy.easyshop.model.RaOrderGoods;
 //import com.beeasy.web.core.Flow;
@@ -17,7 +17,7 @@
 //     * ]
 //     */
 //    public void test(
-//        JSONObject body
+//        Obj body
 //    ){
 //        Flow.of(body)
 //            //转换为商品

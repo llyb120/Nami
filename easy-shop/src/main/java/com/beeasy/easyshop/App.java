@@ -11,10 +11,10 @@ public class App {
 
     public static void main(String[] args) {
 
-        Param.AddRule((ctx,param) -> param.getType().isAssignableFrom(PageQuery.class),  (ctx, param, action) -> {
-            if(param.getName().startsWith("my")){
-                ctx.query.put("member_id", "1");
-            }
+        Param.AddRule((ctx,param) -> PageQuery.class.isAssignableFrom(param.getType()) || Iterable.class.isAssignableFrom(param.getType()),  (ctx, param, action) -> {
+//            if(param.getName().startsWith("my")){
+//                ctx.query.put("store_id", auth.getStoreId());
+//            }
             return action.around(ctx, param, null);
         });
 

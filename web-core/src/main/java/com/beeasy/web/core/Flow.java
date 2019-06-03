@@ -39,7 +39,7 @@ public class Flow<T,U> {
     }
 //    private Flow(Object data, Class clz){
 //        this.data = data;
-//        JSONObject object = (JSONObject) JSON.toJSON(data);
+//        Obj object = (Obj) JSON.toJSON(data);
 //        this.data = object.toJavaObject(clz);
 //        this.clz = clz;
 //    }
@@ -113,7 +113,7 @@ public class Flow<T,U> {
             data.putAll(obj);
 //            data = obj;
         }
-//        else if(data instanceof JSONArray){
+//        else if(data instanceof Arr){
 //
 //        }
         return this;

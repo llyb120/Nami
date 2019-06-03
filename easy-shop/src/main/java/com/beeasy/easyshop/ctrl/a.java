@@ -4,13 +4,14 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.beeasy.easyshop.model.RaAlbumClass;
-import com.beeasy.easyshop.model.RaMember;
+import com.beeasy.easyshop.model.RaOrder;
 import com.beeasy.easyshop.model.RaStore;
-import com.beeasy.web.core.Context;
 import com.beeasy.web.core.Cookie;
 import com.beeasy.web.core.MultipartFile;
 import com.beeasy.web.core.boost.SqlBoost;
+import io.netty.handler.codec.json.JsonObjectDecoder;
 import org.beetl.sql.core.SQLReady;
+import org.beetl.sql.core.annotatoin.Sql;
 import org.beetl.sql.core.engine.PageQuery;
 
 import java.io.File;
@@ -44,7 +45,7 @@ public class a {
 
     public String upload(
         JSON body,
-//        JSONArray params,
+//        Arr params,
         MultipartFile file
     ){
         try {
@@ -78,10 +79,19 @@ public class a {
     }
 
     public Object testSuper(
-        @SqlBoost(model = RaAlbumClass.class, appendField="(select count(1) from ra_album_pic where aclass_id = b.aclass_id) as total") List<JSONObject> list
+        @SqlBoost(model = RaAlbumClass.class, appendField="(select count(1) from ra_album_pic where aclass_id = b.aclass_id) as total") List<JSONObject> mylist
     ){
-        return list;
+        return mylist;
     }
+
+    public Object testSuper2(
+        @SqlBoost(model = RaOrder.class, appendField = "goods") PageQuery<JSONObject> orderlist,
+        @SqlBoost(model = RaOrder.class, appendField = "goods") JSONObject oi
+    ){
+        return orderlist;
+    }
+
+
 
 }
 

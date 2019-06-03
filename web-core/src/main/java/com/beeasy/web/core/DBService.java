@@ -6,6 +6,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.beetl.sql.core.*;
 import org.beetl.sql.core.annotatoin.Table;
+import org.beetl.sql.core.db.KeyWordHandler;
 import org.beetl.sql.core.db.MySqlStyle;
 
 import javax.sql.DataSource;
@@ -69,7 +70,19 @@ public class DBService {
         } else {
             nc = new UnderlinedNameConversion();
         }
-        sqlManager = new SQLManager(new MySqlStyle(),loader,source,nc,new Interceptor[]{new MyDebugInterceptor()});
+        var style = new MySqlStyle();
+        style.setKeyWordHandler(new KeyWordHandler() {
+            @Override
+            public String getTable(String tableName) {
+                return "`" + tableName + "`";
+            }
+
+            @Override
+            public String getCol(String colName) {
+                return colName;
+            }
+        });
+        sqlManager = new SQLManager(style, loader,source,nc,new Interceptor[]{new MyDebugInterceptor()});
 
 
         if (listener != null) {
