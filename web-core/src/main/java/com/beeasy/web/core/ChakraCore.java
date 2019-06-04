@@ -2,7 +2,6 @@ package com.beeasy.web.core;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.thread.ThreadUtil;
-import com.alibaba.fastjson.JSONObject;
 import com.sun.jna.*;
 import com.sun.jna.Native;
 import com.sun.jna.ptr.NativeLongByReference;

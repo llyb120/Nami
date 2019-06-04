@@ -12,9 +12,9 @@ public class App {
     public static void main(String[] args) {
 
         Param.AddRule((ctx,param) -> PageQuery.class.isAssignableFrom(param.getType()) || Iterable.class.isAssignableFrom(param.getType()),  (ctx, param, action) -> {
-//            if(param.getName().startsWith("my")){
-//                ctx.query.put("store_id", auth.getStoreId());
-//            }
+            if(param.getName().startsWith("ms")){
+                ctx.query.put("store_id", auth.getStoreId(ctx));
+            }
             return action.around(ctx, param, null);
         });
 

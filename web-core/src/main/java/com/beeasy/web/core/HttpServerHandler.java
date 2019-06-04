@@ -4,6 +4,7 @@ import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import io.netty.buffer.ByteBuf;
@@ -183,8 +184,8 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             }
             //全放到这里
             context.params.putAll(context.query);
-            if (context.body instanceof JSONObject) {
-                context.params.putAll((JSONObject) context.body);
+            if (context.body instanceof Obj) {
+                context.params.putAll((Obj) context.body);
             }
 
             //header
@@ -249,20 +250,20 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
     }
 
 
-    public static JSONObject decodeQuery(FullHttpRequest request) {
+    public static Obj decodeQuery(FullHttpRequest request) {
         QueryStringDecoder decoder = new QueryStringDecoder(request.uri(), StandardCharsets.UTF_8);
-        JSONObject object = new JSONObject();
+        Obj object = new Obj();
         decoder.parameters().forEach((k, v) -> object.put(k, v.get(0)));
         return object;
     }
 
-    public static void decodeQuery(FullHttpRequest request, JSONObject query){
+    public static void decodeQuery(FullHttpRequest request, Obj query){
         QueryStringDecoder decoder = new QueryStringDecoder(request.uri(), StandardCharsets.UTF_8);
         decoder.parameters().forEach((k, v) -> query.put(k, v.get(0)));
     }
 
-    public static JSONObject decodePost(FullHttpRequest request) {
-        JSONObject ret = new JSONObject();
+    public static Obj decodePost(FullHttpRequest request) {
+        Obj ret = new Obj();
         HttpPostRequestDecoder decoder = new HttpPostRequestDecoder(request);
         decoder.offer(request);
         List<InterfaceHttpData> parmList = decoder.getBodyHttpDatas();
@@ -285,8 +286,13 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 
     private static JSON decodeJson(FullHttpRequest request) {
         ByteBuf buf = request.content();
-        String json = buf.toString(StandardCharsets.UTF_8);
-        return (JSON) JSON.parse(json);
+        String str = buf.toString(StandardCharsets.UTF_8);
+        var json = (JSON) JSON.parse(str);
+        if(json instanceof JSONArray){
+            return new Arr((JSONArray)json);
+        } else {
+            return new Obj<>((JSONObject)json);
+        }
     }
 
     private static void writeCors(FullHttpResponse response){

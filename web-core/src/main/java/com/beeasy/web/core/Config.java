@@ -3,19 +3,12 @@ package com.beeasy.web.core;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.parser.DefaultJSONParser;
-import com.alibaba.fastjson.parser.ParserConfig;
-import com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer;
-import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
 import org.beetl.sql.core.kit.GenKit;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
-import java.sql.Struct;
 import java.util.*;
 
 public class Config {
@@ -26,7 +19,7 @@ public class Config {
     public LinkedHashSet<String> route;
     public Compile compile = new Compile();
     public Cors cors;
-    public JSONObject ext;
+    public Obj ext;
     public String upload;
     public File uploadDir;
     public boolean dev = true;
@@ -69,23 +62,15 @@ public class Config {
             if (config.link != null) {
                 config.links = new HashMap<>();
                 for (String s : config.link) {
-                    String[] arr = s.split("\\s*(\\[\\]|:|\\.|->)\\s*");
+                    String[] arr = s.split("\\s*(:|\\.|->|=>)\\s*");
                     Link link = new Link();
-                    if(arr.length == 6){
-                        link.many = true;
-                        link.name = arr[0];
-                        link.fromClz = arr[2].toLowerCase();
-                        link.fromField = arr[3].toLowerCase();
-                        link.toClz = arr[4].toLowerCase();
-                        link.toField = arr[5].toLowerCase();
-                    } else if(arr.length == 5){
                         link.name = arr[0];
                         link.fromClz = arr[1].toLowerCase();
                         link.fromField = arr[2].toLowerCase();
                         link.toClz = arr[3].toLowerCase();
                         link.toField = arr[4].toLowerCase();
-                    }
-                    if(arr.length >= 5){
+                        link.many = s.contains("=>");
+                    if(arr.length == 5){
                         config.links.put(link.fromClz + link.name, link);
                     }
                 }

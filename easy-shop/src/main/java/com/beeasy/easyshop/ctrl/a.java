@@ -1,21 +1,18 @@
 package com.beeasy.easyshop.ctrl;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.beeasy.easyshop.model.RaAlbumClass;
-import com.beeasy.easyshop.model.RaOrder;
-import com.beeasy.easyshop.model.RaStore;
-import com.beeasy.web.core.Cookie;
-import com.beeasy.web.core.MultipartFile;
+import com.beeasy.easyshop.model.*;
+import com.beeasy.web.core.*;
 import com.beeasy.web.core.boost.SqlBoost;
-import io.netty.handler.codec.json.JsonObjectDecoder;
 import org.beetl.sql.core.SQLReady;
-import org.beetl.sql.core.annotatoin.Sql;
 import org.beetl.sql.core.engine.PageQuery;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,16 +75,58 @@ public class a {
         return "";
     }
 
+
+    public Object testfuck(
+        JSON body
+    ){
+        return body;
+    }
+
     public Object testSuper(
-        @SqlBoost(model = RaAlbumClass.class, appendField="(select count(1) from ra_album_pic where aclass_id = b.aclass_id) as total") List<JSONObject> mylist
+        @SqlBoost(model = RaAlbumClass.class, appendField="(select count(1) from ra_album_pic where aclass_id = b.aclass_id) as total") List<Obj> mylist
     ){
         return mylist;
     }
 
     public Object testSuper2(
         @SqlBoost(model = RaOrder.class, appendField = "goods") PageQuery<JSONObject> orderlist,
-        @SqlBoost(model = RaOrder.class, appendField = "goods") JSONObject oi
+        @SqlBoost(model = RaOrder.class, appendField = "goods") JSONObject oi,
+        Obj<?> obj,
+        String member_name,
+        String member_passwd
     ){
+        if(StrUtil.isEmpty(member_name) || StrUtil.isEmpty(member_passwd)){
+            return R.fail("用户名错误");
+        }
+        member_passwd = SecureUtil.md5(member_passwd);
+        var user = sqlManager.lambdaQuery(RaMember.class)
+            .andEq(RaMember::getMember_name, member_name)
+            .andEq(RaMember::getMember_passwd, member_passwd)
+            .single();
+        if (user == null) {
+            return R.fail("用户名密码错误");
+        }
+        var seller = sqlManager.lambdaQuery(RaSeller.class)
+                    .andEq(RaSeller::getMember_id, user.getMember_id())
+                    .single();
+        if (seller == null) {
+            return R.fail("该用户不是商家");
+        }
+
+        obj.as(RaMember.class)
+            .on(Json.ValidateType.notempty, "不能为空", RaMember::getMember_name, RaMember::getMember_passwd)
+            .hold(RaMember::getMember_name,RaMember::getMember_passwd)
+            .set(RaMember::getMember_passwd, Json.ValueType.md5)
+            .find()
+            .on(Json.ValidateType.notempty, "用户名密码错误")
+            .assign(m -> {
+                return sqlManager.lambdaQuery(RaSeller.class)
+                    .andEq(RaSeller::getMember_id, m.getMember_id())
+                    .single();
+            })
+            .as(RaSeller.class)
+            .on(Json.ValidateType.notnull, "该用户不是商家", RaSeller::getSeller_id);
+
         return orderlist;
     }
 

@@ -6,11 +6,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.beeasy.easyshop.util.U;
 import com.beeasy.easyshop.filter.auth;
 import com.beeasy.easyshop.model.*;
-import com.beeasy.web.core.Flow;
+import com.beeasy.web.core.Json;
 import com.beeasy.web.core.MultipartFile;
+import com.beeasy.web.core.Obj;
 import com.beeasy.web.core.R;
 import com.beeasy.web.core.boost.SqlBoost;
+import org.beetl.sql.core.engine.PageQuery;
 
+import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -34,11 +37,10 @@ public class store {
      * @return
      */
     public R save(
-        JSONObject body
+        Obj<RaStore> body
     ) {
         //只接受以下属性的更新
-        Flow.of(RaStore.class, body)
-            .hold(
+        body.hold(
                 RaStore::getStore_qq,
                 RaStore::getStore_zy,
                 RaStore::getStore_ww,
@@ -91,15 +93,14 @@ public class store {
      * @param body
      * @return
      */
-    public R addgallery(JSONObject body){
-        var item = Flow.of(RaAlbumClass.class, body)
-            .hold(
+    public R addgallery(Obj<RaAlbumClass> body){
+        var item = body.hold(
                 RaAlbumClass::getAclass_sort,
                 RaAlbumClass::getAclass_id,
                 RaAlbumClass::getAclass_name,
                 RaAlbumClass::getAclass_des
             )
-            .on(RaAlbumClass::getAclass_name, Flow.ValidateType.notempty, "相册名不能为空")
+            .on(Json.ValidateType.notempty, "相册名不能为空", RaAlbumClass::getAclass_name)
             .cast();
         if(item.getAclass_id() != null){
             sqlManager.lambdaQuery(RaAlbumClass.class)
@@ -258,11 +259,12 @@ public class store {
      * @param pid
      * @return
      */
-    public R getcat(){
+    public R getcat(
+        @SqlBoost(model = RaGoodsClass.class) List<JSONObject> cats
+    ){
         return R.ok(
             tree(
-                sqlManager.lambdaQuery(RaGoodsClass.class)
-                    .select(JSONObject.class), "gc_parent_id", "gc_id"
+                cats, "gc_parent_id", "gc_id"
             )
         );
     }
@@ -272,10 +274,12 @@ public class store {
      * @param query
      * @return
      */
-    public R refundlist(JSONObject query){
-        query.put("store_id", auth.getStoreId());
+    public R refundlist(
+        PageQuery<RaRefundReturn> msrefund,
+        JSONObject query
+    ){
         return R.ok(
-          pageQuery("ra_refund_return.page", JSONObject.class, query)
+            msrefund
         );
     }
 

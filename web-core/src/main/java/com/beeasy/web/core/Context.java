@@ -5,11 +5,11 @@ import com.alibaba.fastjson.JSONObject;
 
 public class Context {
 
-    public JSONObject query = new JSONObject();
+    public Obj query = new Obj();
     public JSON body;
-    public JSONObject params = new JSONObject();
+    public Obj params = new Obj();
     public Cookie cookie = new Cookie();
-    public JSONObject headers = new JSONObject();
+    public Obj headers = new Obj();
 
     public static ThreadLocal<Context> holder = new ThreadLocal<>(){
         @Override

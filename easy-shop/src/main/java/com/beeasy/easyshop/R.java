@@ -1,6 +1,6 @@
 //package com.beeasy.easyshop;
 //
-//import com.alibaba.fastjson.JSON;
+//import com.alibaba.fastjson.com.alibaba.fastjson.JSON;
 //
 //public class R {
 //    public int code = 200;
@@ -32,6 +32,6 @@
 //
 //    @Override
 //    public String toString() {
-//        return JSON.toJSONString(this);
+//        return com.alibaba.fastjson.JSON.toJSONString(this);
 //    }
 //}

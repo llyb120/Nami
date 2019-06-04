@@ -10,6 +10,7 @@ import cn.hutool.crypto.symmetric.SymmetricCrypto;
 import com.alibaba.fastjson.JSONObject;
 import com.beeasy.easyshop.util.U;
 import com.beeasy.web.core.AopInvoke;
+import com.beeasy.web.core.Context;
 import com.beeasy.web.core.Cookie;
 import com.beeasy.web.core.R;
 import io.netty.handler.codec.http.FullHttpRequest;
@@ -40,29 +41,14 @@ public class auth {
         aes = new SymmetricCrypto(SymmetricAlgorithm.AES, salt);
     }
 
-    public Object around(AopInvoke invoke, Cookie cookie, JSONObject headers, FullHttpRequest request) throws Exception {
+    public Object around(AopInvoke invoke, Context context, Cookie cookie, JSONObject headers, FullHttpRequest request) throws Exception {
         String path = request.uri();
         if(path.startsWith("/user/login")){
             return invoke.call();
         }
 
-//        fixFileName5("fff3ddd");
-
-        //检查权限
-        var token = headers.getString("token");
-        if (StrUtil.isEmpty(token)) {
-            token = cookie.get("token");
-            if(StrUtil.isEmpty(token)){
-                return R.fail("请登录");
-            }
-        }
         try{
-            String str = aes.decryptStr(token);
-            String[] arr = str.split("\\|");
-            if(arr.length < 5){
-                return R.fail("请登录");
-            }
-            System.arraycopy(arr, 0, local.get(), 0, arr.length);
+            analyze(context);
         }
         catch (Exception e){
             return R.fail("请登录");
@@ -82,6 +68,27 @@ public class auth {
 
     public static String getStoreId(){
         return (String) local.get()[2];
+    }
+
+    public static String getStoreId(Context ctx){
+        analyze(ctx);
+        return getStoreId();
+    }
+
+    public static void analyze(Context context){
+        var token = context.headers.getString("token");
+        if (StrUtil.isEmpty(token)) {
+            token = context.cookie.get("token");
+            if(StrUtil.isEmpty(token)){
+                throw new RuntimeException();
+            }
+        }
+        String str = aes.decryptStr(token);
+        String[] arr = str.split("\\|");
+        if(arr.length < 5){
+            throw new RuntimeException();
+        }
+        System.arraycopy(arr, 0, local.get(), 0, arr.length);
     }
 
 }

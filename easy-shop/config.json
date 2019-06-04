@@ -32,7 +32,8 @@
         "com.beeasy.easyshop.model"
     ],
     "link": [
-        "goods[]:ra_order.order_id -> ra_order_goods.order_id"
+        "goods: ra_order.order_id => ra_order_goods.order_id",
+        "order: ra_order_goods.order_id -> ra_order.order_id"
     ],
     "ext": {
         "chakra" : "D:\\work\\easyshop\\easy-shop\\js"
