@@ -11,7 +11,7 @@
     },
     "hotswap": [
         "com.beeasy.hzlink.ctrl",
-        "com.beeasy.hzlink.service",
+        "com.beeasy.hzlink.service"
     ],
     "compile": {
         "compiler": "ecj",

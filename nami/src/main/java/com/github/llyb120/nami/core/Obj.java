@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.sql.Struct;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -69,13 +70,19 @@ public class Obj<U> extends JSONObject {
             String[] ps = path.split("\\.");
             Object obj = this;
             for (String p : ps) {
-                if(obj instanceof Arr){
-                    obj = ((Arr) obj).get(Integer.parseInt(p));
-                } else if(obj instanceof Obj){
-                    obj = ((Obj) obj).get(p);
+                if(obj instanceof JSONArray){
+                    obj = ((JSONArray) obj).get(Integer.parseInt(p));
+                } else if(obj instanceof JSONObject){
+                    obj = ((JSONObject) obj).get(p);
                 }
             }
-            return obj;
+            if(obj instanceof JSONObject){
+                return new Obj((Map<String, Object>) obj);
+            } else if(obj instanceof JSONArray){
+                return new Arr((List<Object>) obj);
+            } else {
+                return obj;
+            }
         }
         catch (Exception e){
             e.printStackTrace();

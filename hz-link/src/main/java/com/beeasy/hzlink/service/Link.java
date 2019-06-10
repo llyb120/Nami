@@ -2,8 +2,10 @@ package com.beeasy.hzlink.service;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.HttpUtil;
 import com.beeasy.hzlink.model.*;
 import com.github.llyb120.nami.core.Arr;
+import com.github.llyb120.nami.core.Json;
 import com.github.llyb120.nami.core.Obj;
 
 import java.math.BigDecimal;
@@ -22,44 +24,69 @@ public class Link {
     public static void do11_1(String compName) {
         var ret = a();
         //企业基本信息
-        var detail = sqlManager.lambdaQuery(QccDetails.class)
-            .andEq(QccDetails::getInner_company_name, compName)
-            .single();
+//        var detail = sqlManager.lambdaQuery(QccDetails.class)
+//            .andEq(QccDetails::getInner_company_name, compName)
+//            .single();
+//        if (detail == null) {
+//            return;
+//        }
+        var arr = new LinkedHashSet<String>();
+        var detail = getCompanyDetail(compName);
         if (detail == null) {
             return;
         }
+        arr.add(detail.getStr("OperName"));
 
         //主要人员
-        var ps = sqlManager.lambdaQuery(QccDetailsEmployees.class)
-            .andEq(QccDetailsEmployees::getInner_company_name, compName)
-            .andLike(QccDetailsEmployees::getJob, "%董事%")
-            .select(QccDetailsEmployees::getName);
+        var ps = detail.getArr("Employees");
+        for (Obj obj : ps.toObjList()) {
+            if(obj.getStr("Job","").contains("董事")){
+                arr.add(obj.getStr("Name"));
+            }
+        }
+
+//        var ps = sqlManager.lambdaQuery(QccDetailsEmployees.class)
+//            .andEq(QccDetailsEmployees::getInner_company_name, compName)
+//            .andLike(QccDetailsEmployees::getJob, "%董事%")
+//            .select(QccDetailsEmployees::getName);
 
         //股东
-        var dps = sqlManager.lambdaQuery(QccDetailsPartners.class)
-            .andEq(QccDetailsPartners::getInner_company_name, compName)
-            .andEq(QccDetailsPartners::getStock_type, "自然人股东")
-            .select();
-
-        var arr = new LinkedHashSet<>();
-        //加入法人
-        arr.add(detail.getOper_name());
-        //加入董事
-        for (QccDetailsEmployees p : ps) {
-            arr.add(p.getName());
-        }
-        //加入持股25%以上的自然人股东
-        for (QccDetailsPartners dp : dps) {
+        var dps = detail.getArr("Partners");
+        for (Obj obj : dps.toObjList()) {
             //算不出来的一概忽略
             try {
-                var p = Float.parseFloat(dp.getStock_percent().replaceAll("%", ""));
+                var p = Float.parseFloat(obj.getStr("StockPercent").replaceAll("%", ""));
                 if (p >= 25) {
-                    arr.add(dp.getStock_name());
+                    arr.add(obj.getStr("StockName"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
+//        var dps = sqlManager.lambdaQuery(QccDetailsPartners.class)
+//            .andEq(QccDetailsPartners::getInner_company_name, compName)
+//            .andEq(QccDetailsPartners::getStock_type, "自然人股东")
+//            .select();
+//
+//        //加入法人
+////        arr.add(detail.getOper_name());
+//        //加入董事
+////        for (QccDetailsEmployees p : ps) {
+////            arr.add(p.getName());
+////        }
+//        //加入持股25%以上的自然人股东
+//        for (QccDetailsPartners dp : dps) {
+//            //算不出来的一概忽略
+//            try {
+//                var p = Float.parseFloat(dp.getStock_percent().replaceAll("%", ""));
+//                if (p >= 25) {
+//                    arr.add(dp.getStock_name());
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
         //移除空的项目
         arr.removeIf(p -> StrUtil.isEmptyIfStr(p));
 
@@ -68,51 +95,84 @@ public class Link {
         }
 
         //检查董监高
-        //担任法人
-        var dfaren = sqlManager.lambdaQuery(QccCiaCompanyLegals.class)
-            .andEq(QccCiaCompanyLegals::getInner_company_name, compName)
-            .andIn(QccCiaCompanyLegals::getPer_name, arr)
-            .select(QccCiaCompanyLegals::getName, QccCiaCompanyLegals::getPer_name);
-        for (QccCiaCompanyLegals qccCiaCompanyLegals : dfaren) {
-            ret.add(a(qccCiaCompanyLegals.getName(), qccCiaCompanyLegals.getPer_name(), "法人"));
-        }
-        //担任董事
-        var dongshi = sqlManager.lambdaQuery(QccCiaForeignOffices.class)
-            .andEq(QccCiaForeignOffices::getInner_company_name, compName)
-            .andIn(QccCiaForeignOffices::getPer_name, arr)
-            .andLike(QccCiaForeignOffices::getPosition, "%董事%")
-            .select(QccCiaForeignOffices::getName, QccCiaForeignOffices::getPer_name);
-        for (QccCiaForeignOffices qccCiaForeignOffices : dongshi) {
-            ret.add(a(qccCiaForeignOffices.getName(), qccCiaForeignOffices.getPer_name(), "董事"));
-        }
-        //25%以上的自然人股东
-        var gudong = sqlManager.lambdaQuery(QccCiaForeignInvestments.class)
-            .andEq(QccCiaForeignInvestments::getInner_company_name, compName)
-            .andIn(QccCiaForeignInvestments::getPer_name, arr)
-            .select();
-        for (QccCiaForeignInvestments qccCiaForeignInvestments : gudong) {
-            //有的没数据，忽略
-            if (StrUtil.isNotBlank(qccCiaForeignInvestments.getReg_cap()) && StrUtil.isNotBlank(qccCiaForeignInvestments.getSub_con_amt())) {
-                //算不出来的一概忽略
-                try {
-                    var val = qccCiaForeignInvestments.getSub_con_amt();
-                    if (val.contains(",")) {
-                        var items = StrUtil.splitTrim(val, ",");
-                        var i = new BigDecimal(0);
-                        for (String item : items) {
-                            i.add(new BigDecimal(item));
+        for (String s : arr) {
+            var cia = getCia(compName, s);
+            if (cia != null) {
+                for (Obj ciaCompanyLegals : cia.getArr("CIACompanyLegals").toObjList()) {
+                    ret.add(a(ciaCompanyLegals.getStr("Name"), ciaCompanyLegals.getStr(""), "法人"));
+                }
+                for (Obj ciaForeignOffices : cia.getArr("CIAForeignOffices").toObjList()) {
+                    if(ciaForeignOffices.getStr("Position", "").contains("董事")){
+                        ret.add(a(ciaForeignOffices.getStr("Name"), s, "董事"));
+                    }
+                }
+                for (Obj ciaForeignInvestments : cia.getArr("CIAForeignInvestments").toObjList()) {
+                    //算不出来的一概忽略
+                    try {
+                        var val = ciaForeignInvestments.getStr("SubConAmt");
+                        if (val.contains(",")) {
+                            var items = StrUtil.splitTrim(val, ",");
+                            var i = new BigDecimal(0);
+                            for (String item : items) {
+                                i.add(new BigDecimal(item));
+                            }
+                            val = i.toString();
                         }
-                        val = i.toString();
+                        var percent = convertToMoney(val + "万").divide(convertToMoney(ciaForeignInvestments.getStr("RegCap")), 2);
+                        if (percent.floatValue() >= 0.25) {
+                            ret.add(a(ciaForeignInvestments.getStr("Name"), s, "自然人股东", percent.multiply(new BigDecimal(100))));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    var percent = convertToMoney(val + "万").divide(convertToMoney(qccCiaForeignInvestments.getReg_cap()), 2);
-                    if (percent.floatValue() >= 0.25) {
-                        ret.add(a(qccCiaForeignInvestments.getName(), qccCiaForeignInvestments.getPer_name(), "自然人股东", percent.multiply(new BigDecimal(100))));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
         }
+        //担任法人
+//        var dfaren = sqlManager.lambdaQuery(QccCiaCompanyLegals.class)
+//            .andEq(QccCiaCompanyLegals::getInner_company_name, compName)
+//            .andIn(QccCiaCompanyLegals::getPer_name, arr)
+//            .select(QccCiaCompanyLegals::getName, QccCiaCompanyLegals::getPer_name);
+//        for (QccCiaCompanyLegals qccCiaCompanyLegals : dfaren) {
+//            ret.add(a(qccCiaCompanyLegals.getName(), qccCiaCompanyLegals.getPer_name(), "法人"));
+//        }
+//        //担任董事
+//        var dongshi = sqlManager.lambdaQuery(QccCiaForeignOffices.class)
+//            .andEq(QccCiaForeignOffices::getInner_company_name, compName)
+//            .andIn(QccCiaForeignOffices::getPer_name, arr)
+//            .andLike(QccCiaForeignOffices::getPosition, "%董事%")
+//            .select(QccCiaForeignOffices::getName, QccCiaForeignOffices::getPer_name);
+//        for (QccCiaForeignOffices qccCiaForeignOffices : dongshi) {
+//            ret.add(a(qccCiaForeignOffices.getName(), qccCiaForeignOffices.getPer_name(), "董事"));
+//        }
+//        //25%以上的自然人股东
+//        var gudong = sqlManager.lambdaQuery(QccCiaForeignInvestments.class)
+//            .andEq(QccCiaForeignInvestments::getInner_company_name, compName)
+//            .andIn(QccCiaForeignInvestments::getPer_name, arr)
+//            .select();
+//        for (QccCiaForeignInvestments qccCiaForeignInvestments : gudong) {
+//            //有的没数据，忽略
+//            if (StrUtil.isNotBlank(qccCiaForeignInvestments.getReg_cap()) && StrUtil.isNotBlank(qccCiaForeignInvestments.getSub_con_amt())) {
+//                //算不出来的一概忽略
+//                try {
+//                    var val = qccCiaForeignInvestments.getSub_con_amt();
+//                    if (val.contains(",")) {
+//                        var items = StrUtil.splitTrim(val, ",");
+//                        var i = new BigDecimal(0);
+//                        for (String item : items) {
+//                            i.add(new BigDecimal(item));
+//                        }
+//                        val = i.toString();
+//                    }
+//                    var percent = convertToMoney(val + "万").divide(convertToMoney(qccCiaForeignInvestments.getReg_cap()), 2);
+//                    if (percent.floatValue() >= 0.25) {
+//                        ret.add(a(qccCiaForeignInvestments.getName(), qccCiaForeignInvestments.getPer_name(), "自然人股东", percent.multiply(new BigDecimal(100))));
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
 
         //检查是否在我行有贷款
         if (ret.size() == 0) {
@@ -172,56 +232,92 @@ public class Link {
     }
 
     public static void do11_3(String compName) {
-        sqlManager.lambdaQuery(Link111.class)
-            .andEq(Link111::getLink_rule, "11.3")
-            .andEq(Link111::getOrigin_name, compName)
-            .delete();
+        System.out.println("do11_3:" + compName);
+        var batch = a();
         var arr = getCompanyHolders(compName);
         //控股25%以上的公司列表
         for (String s : arr.toStrArr()) {
-            var list = sqlManager.lambdaQuery(QccHoldingCompanyNames.class)
-                .andEq(QccHoldingCompanyNames::getInner_company_name, s)
-                .select(QccHoldingCompanyNames::getName, QccHoldingCompanyNames::getPercent_total)
-                .stream()
-                .filter(q -> {
-                    //只保留25%以上的
+            var page = 1;
+            while (true) {
+                var list = getHoldingCompany(compName, page++);
+                if (list == null) {
+                    break;
+                }
+                for (Obj names : list.getArr("Names").toObjList()) {
                     try {
-                        var percent = new BigDecimal(q.getPercent_total().replace("%", ""));
-                        return percent.floatValue() >= 25;
+                        var percent = new BigDecimal(names.getStr("PercentTotal", "").replace("%", ""));
+                        if (percent.floatValue() >= 25) {
+                            Link111 link111 = new Link111();
+                            link111.setId(IdUtil.objectId());
+                            link111.setLink_rule("11.3");
+                            link111.setOrigin_name(compName);
+                            link111.setLink_left(compName);
+                            link111.setLink_right(names.getStr("Name"));
+                            link111.setLink_type("企业:" + s);
+                            link111.setIs_company(1);
+                            link111.setStock_percent(percent);
+                            batch.add(link111);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    return false;
-                })
-                .map(p -> p.getName())
-                .distinct()
-                .collect(Collectors.toList());
-
-            var batch = hasLoan(list)
-                .toStrList()
-                .stream()
-                .map(e -> {
-                    Link111 link111 = new Link111();
-                    link111.setId(IdUtil.objectId());
-                    link111.setLink_rule("11.3");
-                    link111.setOrigin_name(compName);
-                    link111.setLink_left(compName);
-                    link111.setLink_right(e);
-                    link111.setLink_type("企业:" + s);
-                    link111.setIs_company(1);
-                    return link111;
-                })
-                .collect(Collectors.toList());
-            if (batch.size() > 0) {
-                sqlManager.insertBatch(Link111.class, batch);
+                }
             }
         }
+
+        if (batch.isNotEmpty()) {
+            sqlManager.lambdaQuery(Link111.class)
+                .andEq(Link111::getLink_rule, "11.3")
+                .andEq(Link111::getOrigin_name, compName)
+                .delete();
+            sqlManager.insertBatch(Link111.class, batch);
+        }
+
+//            var list = sqlManager.lambdaQuery(QccHoldingCompanyNames.class)
+//                .andEq(QccHoldingCompanyNames::getInner_company_name, s)
+//                .select(QccHoldingCompanyNames::getName, QccHoldingCompanyNames::getPercent_total)
+//                .stream()
+//                .filter(q -> {
+//                    //只保留25%以上的
+//                    try {
+//                        var percent = new BigDecimal(q.getPercent_total().replace("%", ""));
+//                        return percent.floatValue() >= 25;
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    return false;
+//                })
+//                .map(p -> p.getName())
+//                .distinct()
+//                .collect(Collectors.toList());
+//
+//            var batch = hasLoan(list)
+//                .toStrList()
+//                .stream()
+//                .map(e -> {
+//                    Link111 link111 = new Link111();
+//                    link111.setId(IdUtil.objectId());
+//                    link111.setLink_rule("11.3");
+//                    link111.setOrigin_name(compName);
+//                    link111.setLink_left(compName);
+//                    link111.setLink_right(e);
+//                    link111.setLink_type("企业:" + s);
+//                    link111.setIs_company(1);
+//                    return link111;
+//                })
+//                .collect(Collectors.toList());
+//            if (batch.size() > 0) {
+//                sqlManager.insertBatch(Link111.class, batch);
+//            }
 
     }
 
 
     public static void do11_4(String compName) {
         var arr = getCompanyHolders(compName);
+        if(arr.isEmpty()){
+            return;
+        }
         //检查在我行是否有贷款
         var names = hasLoan(arr.toStrList());
         //插入关联集团
@@ -406,8 +502,19 @@ public class Link {
     }
 
 
-    public static void do12_2(){
+    public static void do12_2(String compName){
+        //企业基本信息
+        var detail = getCompanyDetail(compName);
+        if (detail == null) {
+            return;
+        }
+        
 
+//        //主要人员
+//        var ps = sqlManager.lambdaQuery(QccDetailsEmployees.class)
+//            .andEq(QccDetailsEmployees::getInner_company_name, compName)
+//            .andLike(QccDetailsEmployees::getJob, "%董事%")
+//            .select(QccDetailsEmployees::getName);
     }
 
     /**
@@ -415,11 +522,12 @@ public class Link {
      * @param compNames
      */
     private static Arr hasLoan(Collection<String> names) {
-        var allows = sqlManager.lambdaQuery(CusComList.class)
-            .andIn(CusComList::getCus_name, names)
-            .select();
+        List<Obj> allows = sqlManager.select("accloan.存量对公客户", Obj.class, o("names", names));
+//        var allows = sqlManager.lambdaQuery(CusComList.class)
+//            .andIn(CusComList::getCus_name, names)
+//            .select();
         return a(allows.stream()
-            .map(e -> e.getCus_name())
+            .map(e -> e.getStr("cus_name"))
             .toArray()
         );
     }
@@ -431,20 +539,39 @@ public class Link {
     private static Arr getCompanyHolders(String compName) {
         var arr = a();
         //持股25%以上的企业股东
-        var ps = sqlManager.lambdaQuery(QccDetailsPartners.class)
-            .andEq(QccDetailsPartners::getInner_company_name, compName)
-            .andEq(QccDetailsPartners::getStock_type, "企业法人")
-            .select();
-        for (QccDetailsPartners p : ps) {
+        var detail = getCompanyDetail(compName);
+        if (detail == null) {
+            return arr;
+        }
+        for (Obj obj : detail.getArr("Partners").toObjList()) {
+            if(!obj.getStr("StockType","").equals("企业法人")){
+                continue;
+            }
+            //算不出来的一概忽略
             try {
-                var percent = new BigDecimal(p.getStock_percent().replace("%", ""));
-                if (percent.floatValue() >= 25) {
-                    arr.add(p.getStock_name());
+                var p = Float.parseFloat(obj.getStr("StockPercent").replaceAll("%", ""));
+                if (p >= 25) {
+                    arr.add(obj.getStr("StockName"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
+//        var ps = sqlManager.lambdaQuery(QccDetailsPartners.class)
+//            .andEq(QccDetailsPartners::getInner_company_name, compName)
+//            .andEq(QccDetailsPartners::getStock_type, "企业法人")
+//            .select();
+//        for (QccDetailsPartners p : ps) {
+//            try {
+//                var percent = new BigDecimal(p.getStock_percent().replace("%", ""));
+//                if (percent.floatValue() >= 25) {
+//                    arr.add(p.getStock_name());
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
         return arr;
     }
 
@@ -460,5 +587,40 @@ public class Link {
             bg = new BigDecimal(sstr);
         }
         return bg;
+    }
+
+    private static Obj getCompanyDetail(String compName){
+        try{
+            var str = HttpUtil.get("http://47.96.98.198:8081/ECIV4/GetDetailsByName", o("fullName", compName));
+            return (Obj) Json.parseObject(str).getByPath("Result");
+        } catch (Exception e){
+            return null;
+        }
+    }
+
+    private static Obj getCia(String compName, String perName){
+        try{
+            var str = HttpUtil.get("http://47.96.98.198:8081/CIAEmployeeV4/GetStockRelationInfo", o("fullName", compName, "personName", perName));
+            return (Obj) Json.parseObject(str).getByPath("Result");
+        } catch (Exception e){
+            return null;
+        }
+    }
+
+
+    private static Obj getHoldingCompany(String compName, int page){
+        try{
+            var str = HttpUtil.get("http://47.96.98.198:8081/HoldingCompany/GetHoldingCompany", o("fullName", compName, "paegIndex", page, "pageSize", 100));
+            var obj = (Obj) Json.parseObject(str);
+            var paging = obj.getObj("Paging");
+            //没有下一页了
+            if(paging.getIntValue("TotalRecords") / 100 + 1 < page){
+                return null;
+            }
+            return (Obj) obj.getByPath("Result");
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 }
