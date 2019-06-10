@@ -2,8 +2,11 @@ package com.beeasy.hzlink;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.HttpUtil;
+import com.alibaba.fastjson.JSON;
 import com.beeasy.hzlink.model.*;
 import com.github.llyb120.nami.core.Arr;
+import com.github.llyb120.nami.core.Json;
 import com.github.llyb120.nami.core.Obj;
 
 import java.math.BigDecimal;
@@ -157,15 +160,26 @@ public class Link {
         sqlManager.insertBatch(Link111.class, batch);
     }
 
-    public static Obj do11_2(Arr compNames) {
-        //返回所有公司的法人
-        var ret = o();
-        for (QccDetails qccDetails : sqlManager.lambdaQuery(QccDetails.class)
-            .andIn(QccDetails::getInner_company_name, compNames)
-            .select(QccDetails::getOper_name, QccDetails::getInner_company_name)) {
-            ret.put(qccDetails.getInner_company_name(), qccDetails.getOper_name());
+    public static String do11_2(String compNames) {
+        var str = HttpUtil.get("http://47.96.98.198:8081/ECIV4/GetDetailsByName", o("fullName", compNames));
+        var obj = Json.parseObject(str);
+        if(obj.getStr("Status", "500").equals("200")){
+            var operName = obj.getObj("Result").getStr("OperName");
+            return operName;
         }
-        return ret;
+        var c = 1;
+//
+//
+//        //返回所有公司的法人
+//        var ret = o();
+//        for (QccDetails qccDetails : sqlManager.lambdaQuery(QccDetails.class)
+//            .andIn(QccDetails::getInner_company_name, compNames)
+//            .select(QccDetails::getOper_name, QccDetails::getInner_company_name)) {
+//            ret.put(qccDetails.getInner_company_name(), qccDetails.getOper_name());
+//        }
+//        return ret;
+
+        return null;
     }
 
     public static void do11_3(String compName) {

@@ -10,9 +10,8 @@
         }
     },
     "hotswap": [
-        "com.beeasy.easyshop.ctrl",
-        "com.beeasy.easyshop.filter",
-        "com.beeasy.easyshop.util"
+        "com.beeasy.hzlink.ctrl",
+        "com.beeasy.hzlink"
     ],
     "compile": {
         "compiler": "ecj",
@@ -20,7 +19,7 @@
     },
     "route": [
         "/:c/:a -> com.beeasy.easyshop.filter.auth -> com.beeasy.easyshop.ctrl",
-        "/test/:c/:a -> com.beeasy.easyshop.ctrl"
+        "/test/:c/:a -> com.beeasy.hzlink.ctrl"
     ],
     "cors": {
         "origin": "*",
