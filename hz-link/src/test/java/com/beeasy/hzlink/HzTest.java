@@ -3,6 +3,7 @@ package com.beeasy.hzlink;
 import cn.hutool.core.thread.ThreadUtil;
 import com.beeasy.hzlink.model.CusCom;
 import com.beeasy.hzlink.model.CusIndiv;
+import com.beeasy.hzlink.service.Link;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;

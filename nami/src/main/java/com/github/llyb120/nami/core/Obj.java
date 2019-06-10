@@ -64,6 +64,25 @@ public class Obj<U> extends JSONObject {
         return getString(key);
     }
 
+    public Object getByPath(String path){
+        try{
+            String[] ps = path.split("\\.");
+            Object obj = this;
+            for (String p : ps) {
+                if(obj instanceof Arr){
+                    obj = ((Arr) obj).get(Integer.parseInt(p));
+                } else if(obj instanceof Obj){
+                    obj = ((Obj) obj).get(p);
+                }
+            }
+            return obj;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /***********************************************/
 
 

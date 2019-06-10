@@ -1,4 +1,4 @@
-package com.beeasy.hzlink;
+package com.beeasy.hzlink.service;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;

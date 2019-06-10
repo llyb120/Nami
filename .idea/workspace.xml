@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="9e1b1465-c62c-440c-9270-01cb592d3669" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/Link.java" beforeDir="false" afterPath="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/Link.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/Link111.java" beforeDir="false" afterPath="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/Link111.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hz-link/config_back.json" beforeDir="false" afterPath="$PROJECT_DIR$/hz-link/config_back.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/Link.java" beforeDir="false" afterPath="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/service/Link.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/HzTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/HzTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Obj.java" beforeDir="false" afterPath="$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Obj.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -43,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/AppTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="320">
-              <caret line="49" column="28" selection-start-line="49" selection-start-column="28" selection-end-line="49" selection-end-column="28" />
+              <caret line="50" column="28" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3200#3201#0" expanded="true" />
@@ -56,8 +58,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/HzTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-655">
-              <caret line="40" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="-583">
+              <caret line="41" selection-start-line="41" selection-end-line="41" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#827#828#0" expanded="true" />
@@ -86,10 +88,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/Link.java">
+        <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/service/Link.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="108" column="134" selection-start-line="108" selection-start-column="127" selection-end-line="108" selection-end-column="135" />
+            <state relative-caret-position="172">
+              <caret line="341" column="24" selection-start-line="341" selection-start-column="24" selection-end-line="341" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -98,54 +100,57 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Json.java">
+        <entry file="file://$PROJECT_DIR$/hz-link/config_back.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="179" column="19" selection-start-line="179" selection-start-column="19" selection-end-line="179" selection-end-column="19" />
+            <state relative-caret-position="441">
+              <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Arr.java">
+        <entry file="file://$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Obj.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="472">
-              <caret line="66" selection-start-line="66" selection-end-line="66" />
+            <state relative-caret-position="63">
+              <caret line="66" column="27" selection-start-line="66" selection-start-column="27" selection-end-line="66" selection-end-column="27" />
               <folding>
-                <element signature="e#1403#1404#0" expanded="true" />
-                <element signature="e#1435#1436#0" expanded="true" />
+                <element signature="e#1396#1397#0" expanded="true" />
+                <element signature="e#1433#1434#0" expanded="true" />
+                <element signature="e#2614#2615#0" expanded="true" />
+                <element signature="e#2669#2670#0" expanded="true" />
+                <element signature="e#2768#2769#0" expanded="true" />
+                <element signature="e#3122#3123#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/easy-shop/src/main/resources/sql/raCircleClass.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor />
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/math/BigDecimal.java">
+        <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/QccDetails.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-94">
-              <caret line="1315" column="22" selection-start-line="1315" selection-start-column="22" selection-end-line="1315" selection-end-column="22" />
+            <state relative-caret-position="168">
+              <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hz-link/src/main/resources/sql/accloan.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="345">
-                <caret line="38" column="3" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
-              </first_editor>
-              <second_editor />
+        <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/Link111.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-169">
+              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/util/stream/Stream.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="301">
+              <caret line="371" column="14" selection-start-line="371" selection-start-column="14" selection-end-line="371" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -163,7 +168,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tojson</find>
       <find>property</find>
       <find>valuet</find>
       <find>append</find>
@@ -193,6 +197,7 @@
       <find>iscomp</find>
       <find>insert</find>
       <find>insert into</find>
+      <find>25</find>
     </findStrings>
     <replaceStrings>
       <replace>f1</replace>
@@ -269,8 +274,6 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/nami/config_back.json" />
         <option value="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/App.java" />
-        <option value="$PROJECT_DIR$/hz-link/config_back.json" />
-        <option value="$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Obj.java" />
         <option value="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/Link111.java" />
         <option value="$PROJECT_DIR$/hz-link/src/main/resources/sql/accloan.md" />
         <option value="$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Json.java" />
@@ -279,6 +282,8 @@
         <option value="$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/HzTest.java" />
         <option value="$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/AppTest.java" />
         <option value="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/Link.java" />
+        <option value="$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Obj.java" />
+        <option value="$PROJECT_DIR$/hz-link/config_back.json" />
       </list>
     </option>
   </component>
@@ -408,7 +413,26 @@
               <item name="hz-link" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="hzlink" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
+              <item name="hz-link" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
+              <item name="hz-link" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="sql" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
@@ -542,7 +566,7 @@
       <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.beeasy.hzlink.*" />
+          <option name="PATTERN" value="com.beeasy.hzlink.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -554,7 +578,7 @@
       <module name="hz-link" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.beeasy.hzlink.*" />
+          <option name="PATTERN" value="com.beeasy.hzlink.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -569,7 +593,7 @@
       <module name="hz-link" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.beeasy.hzlink.*" />
+          <option name="PATTERN" value="com.beeasy.hzlink.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -585,7 +609,7 @@
       <module name="hz-link" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.beeasy.hzlink.*" />
+          <option name="PATTERN" value="com.beeasy.hzlink.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -601,7 +625,7 @@
       <module name="hz-link" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.beeasy.hzlink.*" />
+          <option name="PATTERN" value="com.beeasy.hzlink.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -617,7 +641,7 @@
       <module name="hz-link" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.beeasy.hzlink.*" />
+          <option name="PATTERN" value="com.beeasy.hzlink.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -699,7 +723,7 @@
       <workItem from="1559885420848" duration="928000" />
       <workItem from="1559889565379" duration="5228000" />
       <workItem from="1559914687005" duration="58000" />
-      <workItem from="1559915034487" duration="17252000" />
+      <workItem from="1559915034487" duration="19227000" />
     </task>
     <task id="LOCAL-00001" summary="auto compile">
       <created>1556028534020</created>
@@ -827,13 +851,17 @@
       <option name="project" value="LOCAL" />
       <updated>1560149504661</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="增加11.1的股东比例">
+      <created>1560153501475</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1560153501475</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="HzTest_test11_5 - 2019.06.10 at 14h 17m 53s.xml">
-      <configuration name="HzTest.test11_5" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="HzTest_test11_5 - 2019.06.10 at 14h 20m 58s.xml">
       <configuration name="HzTest.test11_5" configurationId="JUnit" />
     </history-entry>
@@ -861,9 +889,12 @@
     <history-entry file="AppTest_testall - 2019.06.10 at 15h 53m 41s.xml">
       <configuration name="AppTest.testall" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="AppTest_testall - 2019.06.10 at 15h 55m 43s.xml">
+      <configuration name="AppTest.testall" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="407169000" />
+    <option name="totallyTimeSpent" value="409144000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -878,7 +909,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25067025" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25067025" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="JRebel" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
@@ -889,7 +920,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49731904" weight="0.14164306" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49798927" visible="true" weight="0.21246459" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49798927" visible="true" weight="0.14872521" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3286119" />
@@ -928,7 +959,8 @@
     <MESSAGE value="Merge branch 'master' of https://github.com/llyb120/easyshop&#10;&#10;# Conflicts:&#10;#&#9;README.md" />
     <MESSAGE value="增加sqlboost补强" />
     <MESSAGE value="增加sqlboost补强关联查询" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加sqlboost补强关联查询" />
+    <MESSAGE value="增加11.1的股东比例" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加11.1的股东比例" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1151,13 +1183,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/AppTest.java</url>
-          <line>36</line>
+          <line>37</line>
           <properties />
           <option name="timeStamp" value="250" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/AppTest.java</url>
-          <line>76</line>
+          <line>77</line>
           <properties />
           <option name="timeStamp" value="267" />
         </line-breakpoint>
@@ -1229,27 +1261,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/hz-link/src/main/resources/1.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80556">
-          <caret line="3836" column="1" selection-start-line="3836" selection-start-column="1" selection-end-line="3836" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/QccCiaForeignOffices.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/QccDetails.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/QccDetailsPartners.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
@@ -1295,13 +1306,6 @@
             <element signature="e#2452#2453#0" expanded="true" />
             <element signature="e#2496#2497#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hz-link/src/main/resources/pojo.tmpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
     </entry>
@@ -1488,64 +1492,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hz-link/config_back.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="80" lean-forward="true" selection-start-line="4" selection-start-column="80" selection-end-line="4" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/ibeetl/beetlsql/2.11.6/beetlsql-2.11.6-sources.jar!/org/beetl/sql/core/SQLManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="134">
           <caret line="457" column="23" selection-start-line="457" selection-start-column="23" selection-end-line="457" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Obj.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="63" column="30" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
-          <folding>
-            <element signature="e#1400#1401#0" expanded="true" />
-            <element signature="e#1437#1438#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/Link111.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#542#543#0" expanded="true" />
-            <element signature="e#559#560#0" expanded="true" />
-            <element signature="e#591#592#0" expanded="true" />
-            <element signature="e#610#611#0" expanded="true" />
-            <element signature="e#644#645#0" expanded="true" />
-            <element signature="e#669#670#0" expanded="true" />
-            <element signature="e#718#719#0" expanded="true" />
-            <element signature="e#753#754#0" expanded="true" />
-            <element signature="e#792#793#0" expanded="true" />
-            <element signature="e#816#817#0" expanded="true" />
-            <element signature="e#862#863#0" expanded="true" />
-            <element signature="e#895#896#0" expanded="true" />
-            <element signature="e#928#929#0" expanded="true" />
-            <element signature="e#953#954#0" expanded="true" />
-            <element signature="e#1001#1002#0" expanded="true" />
-            <element signature="e#1036#1037#0" expanded="true" />
-            <element signature="e#1068#1069#0" expanded="true" />
-            <element signature="e#1092#1093#0" expanded="true" />
-            <element signature="e#1138#1139#0" expanded="true" />
-            <element signature="e#1171#1172#0" expanded="true" />
-            <element signature="e#1203#1204#0" expanded="true" />
-            <element signature="e#1227#1228#0" expanded="true" />
-            <element signature="e#1273#1274#0" expanded="true" />
-            <element signature="e#1306#1307#0" expanded="true" />
-            <element signature="e#1340#1341#0" expanded="true" />
-            <element signature="e#1366#1367#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1606,22 +1556,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/HzTest.java">
+    <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/util/stream/Stream.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-655">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
+        <state relative-caret-position="301">
+          <caret line="371" column="14" selection-start-line="371" selection-start-column="14" selection-end-line="371" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/Link111.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-169">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#827#828#0" expanded="true" />
-            <element signature="e#875#876#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/QccDetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/resources/pojo.tmpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/resources/1.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Obj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="66" column="27" selection-start-line="66" selection-start-column="27" selection-end-line="66" selection-end-column="27" />
+          <folding>
+            <element signature="e#1396#1397#0" expanded="true" />
+            <element signature="e#1433#1434#0" expanded="true" />
+            <element signature="e#2614#2615#0" expanded="true" />
+            <element signature="e#2669#2670#0" expanded="true" />
+            <element signature="e#2768#2769#0" expanded="true" />
+            <element signature="e#3122#3123#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/config_back.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/AppTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
-          <caret line="49" column="28" selection-start-line="49" selection-start-column="28" selection-end-line="49" selection-end-column="28" />
+          <caret line="50" column="28" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3200#3201#0" expanded="true" />
@@ -1630,10 +1624,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/Link.java">
+    <entry file="file://$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/HzTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="108" column="134" selection-start-line="108" selection-start-column="127" selection-end-line="108" selection-end-column="135" />
+        <state relative-caret-position="-583">
+          <caret line="41" selection-start-line="41" selection-end-line="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#827#828#0" expanded="true" />
+            <element signature="e#875#876#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/service/Link.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="341" column="24" selection-start-line="341" selection-start-column="24" selection-end-line="341" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
