@@ -106,7 +106,7 @@ public class Link {
                     }
                     var percent = convertToMoney(val + "万").divide(convertToMoney(qccCiaForeignInvestments.getReg_cap()), 2);
                     if (percent.floatValue() >= 0.25) {
-                        ret.add(a(qccCiaForeignInvestments.getName(), qccCiaForeignInvestments.getPer_name(), "自然人"));
+                        ret.add(a(qccCiaForeignInvestments.getName(), qccCiaForeignInvestments.getPer_name(), "自然人股东", percent.multiply(new BigDecimal(100))));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -150,6 +150,9 @@ public class Link {
             link111.setLink_type(objects.getString(2));
             link111.setLink_rule("11.1");
             link111.setIs_company(1);
+            if(objects.size() > 3){
+                link111.setStock_percent(objects.getBigDecimal(3));
+            }
             cache.put(key, true);
             batch.add(link111);
         }
@@ -400,6 +403,11 @@ public class Link {
                 .delete();
             sqlManager.insertBatch(Link111.class, batch);
         }
+    }
+
+
+    public static void do12_2(){
+
     }
 
     /**

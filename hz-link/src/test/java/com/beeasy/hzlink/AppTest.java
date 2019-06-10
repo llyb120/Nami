@@ -48,8 +48,8 @@ public class AppTest {
             .forEach(e -> {
                 exec.submit(() -> {
                     Link.do11_1(e.getCus_name());
-                    Link.do11_3(e.getCus_name());
-                    Link.do11_4(e.getCus_name());
+//                    Link.do11_3(e.getCus_name());
+//                    Link.do11_4(e.getCus_name());
                 });
             });
         exec.shutdown();;
