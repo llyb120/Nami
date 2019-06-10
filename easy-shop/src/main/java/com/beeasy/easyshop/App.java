@@ -1,9 +1,9 @@
 package com.beeasy.easyshop;
 
 import com.beeasy.easyshop.filter.auth;
-import com.beeasy.web.core.DBService;
-import com.beeasy.web.core.Nami;
-import com.beeasy.web.core.Param;
+import com.github.llyb120.nami.core.DBService;
+import com.github.llyb120.nami.core.Nami;
+import com.github.llyb120.nami.core.Param;
 import org.beetl.sql.core.NameConversion;
 import org.beetl.sql.core.engine.PageQuery;
 

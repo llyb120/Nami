@@ -5,8 +5,8 @@ import cn.hutool.crypto.SecureUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.beeasy.easyshop.model.*;
-import com.beeasy.web.core.*;
-import com.beeasy.web.core.boost.SqlBoost;
+import com.github.llyb120.nami.core.*;
+import com.github.llyb120.nami.core.boost.SqlBoost;
 import org.beetl.sql.core.SQLReady;
 import org.beetl.sql.core.engine.PageQuery;
 
@@ -16,7 +16,7 @@ import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.beeasy.web.core.DBService.sqlManager;
+import static com.github.llyb120.nami.core.DBService.sqlManager;
 public class a {
 
     public static class d{

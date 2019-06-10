@@ -1,6 +1,6 @@
 //package com.beeasy.easyshop.ctrl;
 //
-//import com.beeasy.web.core.R;
+//import com.github.llyb120.nami.core.R;
 //
 //public class seller {
 //

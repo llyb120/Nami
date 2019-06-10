@@ -1,13 +1,13 @@
 package com.beeasy.easyshop.ctrl;
 
 import com.beeasy.easyshop.util.U;
-import com.beeasy.web.core.MultipartFile;
-import com.beeasy.web.core.R;
+import com.github.llyb120.nami.core.MultipartFile;
+import com.github.llyb120.nami.core.R;
 
 import java.io.File;
 import java.io.IOException;
 
-import static com.beeasy.web.core.Config.config;
+import static com.github.llyb120.nami.core.Config.config;
 
 public class pic {
 

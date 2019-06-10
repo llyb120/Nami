@@ -4,13 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.beeasy.easyshop.filter.auth;
 import com.beeasy.easyshop.model.RaMember;
 import com.beeasy.easyshop.model.RaSeller;
-import com.beeasy.web.core.Cookie;
-import com.beeasy.web.core.Obj;
-import com.beeasy.web.core.R;
+import com.github.llyb120.nami.core.Cookie;
+import com.github.llyb120.nami.core.Obj;
+import com.github.llyb120.nami.core.R;
 
 import java.io.Serializable;
 import java.util.function.Function;
-import static com.beeasy.web.core.DBService.sqlManager;
+import static com.github.llyb120.nami.core.DBService.sqlManager;
 
 import static com.beeasy.easyshop.util.U.*;
 

@@ -42,7 +42,7 @@ Nami是一款高质量、低码量的全栈式WEB开发框架。
 
 5. 建立启动类，例如
 ```java
-public class App {
+public class com.beeasy.hzlink.App {
     public static void main(String[] args) {
         Nami.start();
     }

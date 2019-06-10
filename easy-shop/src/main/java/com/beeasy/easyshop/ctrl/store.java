@@ -6,11 +6,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.beeasy.easyshop.util.U;
 import com.beeasy.easyshop.filter.auth;
 import com.beeasy.easyshop.model.*;
-import com.beeasy.web.core.Json;
-import com.beeasy.web.core.MultipartFile;
-import com.beeasy.web.core.Obj;
-import com.beeasy.web.core.R;
-import com.beeasy.web.core.boost.SqlBoost;
+import com.github.llyb120.nami.core.Json;
+import com.github.llyb120.nami.core.MultipartFile;
+import com.github.llyb120.nami.core.Obj;
+import com.github.llyb120.nami.core.R;
+import com.github.llyb120.nami.core.boost.SqlBoost;
 import org.beetl.sql.core.engine.PageQuery;
 
 import java.awt.image.Raster;
@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.beeasy.easyshop.util.U.*;
-import static com.beeasy.web.core.Config.config;
-import static com.beeasy.web.core.DBService.sqlManager;
+import static com.github.llyb120.nami.core.Config.config;
+import static com.github.llyb120.nami.core.DBService.sqlManager;
 
 public class store {
 

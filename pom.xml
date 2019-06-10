@@ -64,8 +64,9 @@
         <!--<module>full-text-search</module>-->
         <!--<module>gateway</module>-->
         <!--<module>hz-ms-zed</module>-->
-        <module>web-core</module>
+        <module>nami</module>
         <module>easy-shop</module>
+        <module>hz-link</module>
     </modules>
 
 

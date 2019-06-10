@@ -13,8 +13,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
-import static com.beeasy.web.core.DBService.sqlManager;
-import static com.beeasy.web.core.Config.config;
+import static com.github.llyb120.nami.core.DBService.sqlManager;
+import static com.github.llyb120.nami.core.Config.config;
 
 public class U {
 

@@ -2,28 +2,73 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9e1b1465-c62c-440c-9270-01cb592d3669" name="Default Changelist" comment="增加sqlboost补强关联查询">
-      <change afterPath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Arr.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Json.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Obj.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/easy-shop/src/main/resources/1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hz-link/config_back.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hz-link/config_qcc.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hz-link/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/Link.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hz-link/src/main/resources/1.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hz-link/src/main/resources/pojo.tmpl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hz-link/src/main/resources/sql/accloan.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/AppTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/HzTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/easy-shop/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/R.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/a.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/a.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/auth.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/auth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/cart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/pic.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/pic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/seller.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/seller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/store.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/store.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/user.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/user.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/filter/auth.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/filter/auth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/ChakraCore.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/ChakraCore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Context.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Context.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Flow.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Flow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/HttpServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/HttpServerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/filter/filter2.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/filter/filter2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/util/U.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/util/U.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Fix.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Fix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Flow.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Flow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Generate.java" beforeDir="false" afterPath="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Generate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/.settings/org.eclipse.jdt.apt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/jni/com_beeasy_web_core_Chakra.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/AopInvoke.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Arr.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Chakra.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/ChakraCore.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Compiler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Config.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Context.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Cookie.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/DBService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Flow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/HttpServerHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Json.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/MultipartFile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/MyClassLoadader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/MyDebugInterceptor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Nami.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Obj.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Param.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/R.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/RestException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Route.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/boost/SqlBoost.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/easy-shop/target/" />
     <ignored path="$PROJECT_DIR$/web-core/target/" />
+    <ignored path="$PROJECT_DIR$/hz-link/target/" />
+    <ignored path="$PROJECT_DIR$/nami/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,93 +96,28 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Param.java">
+        <entry file="file://$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/AppTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="82" column="48" selection-start-line="82" selection-start-column="48" selection-end-line="82" selection-end-column="48" />
+            <state relative-caret-position="363">
+              <caret line="54" column="15" selection-start-line="54" selection-start-column="15" selection-end-line="54" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Context.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#3200#3201#0" expanded="true" />
+                <element signature="e#3225#3226#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Obj.java">
+        <entry file="file://$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/HzTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="65">
-              <caret line="81" column="19" selection-start-line="81" selection-start-column="19" selection-end-line="81" selection-end-column="19" />
+            <state relative-caret-position="168">
+              <caret line="59" column="21" lean-forward="true" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#200#201#0" expanded="true" />
-                <element signature="e#226#227#0" expanded="true" />
-                <element signature="e#261#262#0" expanded="true" />
-                <element signature="e#291#292#0" expanded="true" />
-                <element signature="e#330#331#0" expanded="true" />
-                <element signature="e#368#369#0" expanded="true" />
-                <element signature="e#424#425#0" expanded="true" />
-                <element signature="e#471#472#0" expanded="true" />
-                <element signature="e#914#915#0" expanded="true" />
-                <element signature="e#968#969#0" expanded="true" />
-                <element signature="e#1251#1252#0" expanded="true" />
-                <element signature="e#1688#1689#0" expanded="true" />
-                <element signature="e#1743#1744#0" expanded="true" />
-                <element signature="e#1842#1843#0" expanded="true" />
-                <element signature="e#2196#2197#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/App.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="13" column="149" selection-start-line="13" selection-start-column="149" selection-end-line="13" selection-end-column="149" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/util/U.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1008">
-              <caret line="62" column="3" selection-start-line="62" selection-start-column="3" selection-end-line="62" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Flow.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="294" column="7" selection-start-line="294" selection-start-column="7" selection-end-line="294" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Json.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-357">
-              <caret line="173" column="4" selection-start-line="173" selection-start-column="4" selection-end-line="173" selection-end-column="4" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#827#828#0" expanded="true" />
+                <element signature="e#875#876#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -146,8 +126,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/a.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="85" column="36" lean-forward="true" selection-start-line="85" selection-start-column="36" selection-end-line="85" selection-end-column="36" />
+            <state relative-caret-position="189">
+              <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/easy-shop/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="337">
+              <caret line="56" column="27" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/Link.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="882">
+              <caret line="399" column="56" selection-start-line="399" selection-start-column="56" selection-end-line="399" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -156,27 +154,54 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Arr.java">
+        <entry file="file://$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Json.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="30" selection-start-line="30" selection-end-line="30" />
+            <state relative-caret-position="172">
+              <caret line="179" column="19" selection-start-line="179" selection-start-column="19" selection-end-line="179" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Arr.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="472">
+              <caret line="66" selection-start-line="66" selection-end-line="66" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#279#280#0" expanded="true" />
-                <element signature="e#306#307#0" expanded="true" />
+                <element signature="e#1403#1404#0" expanded="true" />
+                <element signature="e#1435#1436#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/HttpServerHandler.java">
+        <entry file="file://$PROJECT_DIR$/easy-shop/src/main/resources/sql/raCircleClass.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor />
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/math/BigDecimal.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1099">
-              <caret line="293" column="42" lean-forward="true" selection-start-line="293" selection-start-column="42" selection-end-line="293" selection-end-column="42" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="-94">
+              <caret line="1315" column="22" selection-start-line="1315" selection-start-column="22" selection-end-line="1315" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hz-link/src/main/resources/sql/accloan.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="345">
+                <caret line="38" column="3" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -187,25 +212,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
+        <option value="JUnit4 Test Class" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>com.alibaba.fastjson.JSONArray</find>
-      <find>com.alibaba.fastjson.JSONObject</find>
-      <find>ObjectDeserializer</find>
-      <find>put</find>
-      <find>putde</find>
-      <find>jsonob</find>
-      <find>jsontype</find>
-      <find>sqlboo</find>
-      <find>SqlBoost</find>
-      <find>split</find>
-      <find>.global</find>
-      <find>global</find>
-      <find>public sta</find>
       <find>tojson</find>
       <find>property</find>
       <find>valuet</find>
@@ -223,6 +236,19 @@
       <find>hold</find>
       <find>getfun</find>
       <find>new Obj</find>
+      <find>mysql</find>
+      <find>in</find>
+      <find>beetlsql</find>
+      <find>ins</find>
+      <find>g</find>
+      <find>exception</find>
+      <find>jdk</find>
+      <find>GroovyScriptEngine</find>
+      <find>com.beeasy.web.core</find>
+      <find>0.25</find>
+      <find>iscomp</find>
+      <find>insert into</find>
+      <find>insert</find>
     </findStrings>
     <replaceStrings>
       <replace>f1</replace>
@@ -237,15 +263,16 @@
       <replace>Arr</replace>
       <replace>toNamiJson</replace>
       <replace>Obj</replace>
+      <replace>com.github.llyb120.nami.core</replace>
     </replaceStrings>
     <dirStrings>
       <dir>D:\work\easyshop\vue-element-admin</dir>
       <dir>D:\work\easyshop\easy-shop\src\main\java</dir>
       <dir>C:\Users\bin\.m2\repository\org\eclipse\jdt\core\compiler\ecj\4.6.1\ecj-4.6.1.jar!\org\eclipse\jdt</dir>
       <dir>D:\work\easyshop\element-starter</dir>
-      <dir>D:\work\easyshop</dir>
       <dir>C:\Users\bin\.m2\repository\com\alibaba\fastjson\1.2.47\fastjson-1.2.47.jar!\com\alibaba\fastjson</dir>
       <dir>D:\work\easyshop\web-core\src\main\java\com\beeasy\web\core</dir>
+      <dir>D:\work\easyshop</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -257,42 +284,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/element-starter/src/pages/goods/gallery.vue" />
-        <option value="$PROJECT_DIR$/element-starter/src/components/my-gallery.vue" />
-        <option value="$PROJECT_DIR$/easy-shop/src/main/resources/sql/ra_goods_common.md" />
-        <option value="$PROJECT_DIR$/element-starter/src/pages/enum.js" />
-        <option value="$PROJECT_DIR$/element-starter/src/components/b-form-item.vue" />
-        <option value="$PROJECT_DIR$/element-starter/src/enum.js" />
-        <option value="$PROJECT_DIR$/element-starter/src/pages/goods/publish.vue" />
-        <option value="$PROJECT_DIR$/element-starter/src/pages/Index.vue" />
-        <option value="$PROJECT_DIR$/element-starter/src/route.js" />
-        <option value="$PROJECT_DIR$/element-starter/src/pages/store/refund.vue" />
-        <option value="$PROJECT_DIR$/easy-shop/src/main/resources/sql/ra_refund_return.md" />
-        <option value="$PROJECT_DIR$/element-starter/src/menu.js" />
-        <option value="$PROJECT_DIR$/element-starter/src/index.html" />
-        <option value="$PROJECT_DIR$/element-starter/src/pages/goods/sales.vue" />
-        <option value="$PROJECT_DIR$/element-starter/src/main.js" />
-        <option value="$PROJECT_DIR$/element-starter/src/pages/Home.vue" />
-        <option value="$PROJECT_DIR$/easy-shop/pom.xml" />
-        <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/bcb.java" />
-        <option value="$PROJECT_DIR$/web-core/pom.xml" />
-        <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/aaa.java" />
-        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/MyClassLoadader.java" />
-        <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/util/U.java" />
-        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Compiler.java" />
-        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Chakra.java" />
-        <option value="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Generate.java" />
-        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Nami.java" />
-        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/DBService.java" />
-        <option value="$PROJECT_DIR$/web-core/src/main/java/com/alibaba/fastjson/JSONObject.java" />
-        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/boost/SqlBoost.java" />
-        <option value="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Test.java" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/easy-shop/config.json" />
-        <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/filter/auth.java" />
-        <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/App.java" />
-        <option value="$PROJECT_DIR$/element-starter/src/pages/store/refund.comp.vue" />
-        <option value="$PROJECT_DIR$/web-core/src/main/java/com/alibaba/fastjson/JSON.java" />
         <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/JSON.java" />
         <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Flow.java" />
         <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/R.java" />
@@ -305,9 +296,45 @@
         <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/HttpServerHandler.java" />
         <option value="$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/a.java" />
         <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Param.java" />
-        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Arr.java" />
+        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/DBService.java" />
+        <option value="$PROJECT_DIR$/hz-link/src/main/java/App.java" />
+        <option value="$PROJECT_DIR$/hz-link/src/test/java/hzlink/App.java" />
+        <option value="$PROJECT_DIR$/hz-link/config.json" />
+        <option value="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/QccDetailsEmployees.java" />
+        <option value="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/QccDetails.java" />
+        <option value="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/QccCiaCompanyLegals.java" />
+        <option value="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/QccDetailsPartners.java" />
+        <option value="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/QccCiaForeignOffices.java" />
+        <option value="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/CusComList.java" />
+        <option value="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/QccCiaForeignInvestments.java" />
+        <option value="$PROJECT_DIR$/hz-link/src/main/resources/1.json" />
         <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Obj.java" />
         <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Json.java" />
+        <option value="$PROJECT_DIR$/hz-link/src/main/resources/pojo.tmpl" />
+        <option value="$PROJECT_DIR$/easy-shop/src/main/resources/1.java" />
+        <option value="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Test.java" />
+        <option value="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/c/groovy.java" />
+        <option value="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/c.groovy" />
+        <option value="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/b.groovy" />
+        <option value="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/bbb.groovy" />
+        <option value="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/a.groovy" />
+        <option value="$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/ff.groovy" />
+        <option value="$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Arr.java" />
+        <option value="$PROJECT_DIR$/web-core/pom.xml" />
+        <option value="$PROJECT_DIR$/hz-link/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/nami/config_back.json" />
+        <option value="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/App.java" />
+        <option value="$PROJECT_DIR$/hz-link/config_back.json" />
+        <option value="$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Obj.java" />
+        <option value="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/Link111.java" />
+        <option value="$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/AppTest.java" />
+        <option value="$PROJECT_DIR$/hz-link/src/main/resources/sql/accloan.md" />
+        <option value="$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Json.java" />
+        <option value="$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Arr.java" />
+        <option value="$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/Link.java" />
+        <option value="$PROJECT_DIR$/easy-shop/pom.xml" />
+        <option value="$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/HzTest.java" />
       </list>
     </option>
   </component>
@@ -323,16 +350,7 @@
       <expand>
         <path>
           <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="easyshop" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="web-core" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="web-core" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
+          <item name="nami" type="9519ce18:MavenProjectsStructure$ProjectNode" />
         </path>
       </expand>
       <select />
@@ -353,7 +371,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -404,124 +421,115 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="ctrl" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
               <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="web-core" type="462c0819:PsiDirectoryNode" />
+              <item name="hz-link" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
               <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="web-core" type="462c0819:PsiDirectoryNode" />
+              <item name="hz-link" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
               <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="web-core" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="web-core" type="462c0819:PsiDirectoryNode" />
+              <item name="hz-link" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
               <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="web-core" type="462c0819:PsiDirectoryNode" />
+              <item name="hz-link" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
               <item name="easyshop" type="462c0819:PsiDirectoryNode" />
-              <item name="web-core" type="462c0819:PsiDirectoryNode" />
+              <item name="hz-link" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="hzlink" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
+              <item name="hz-link" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
+              <item name="hz-link" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
+              <item name="hz-link" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: com.alibaba:fastjson:1.2.47" type="70bed36:NamedLibraryElementNode" />
+              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
+              <item name="hz-link" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="hzlink" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: com.alibaba:fastjson:1.2.47" type="70bed36:NamedLibraryElementNode" />
-              <item name="fastjson-1.2.47.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
+              <item name="nami" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: com.alibaba:fastjson:1.2.47" type="70bed36:NamedLibraryElementNode" />
-              <item name="fastjson-1.2.47.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="fastjson" type="462c0819:PsiDirectoryNode" />
+              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
+              <item name="nami" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: com.alibaba:fastjson:1.2.47" type="70bed36:NamedLibraryElementNode" />
-              <item name="fastjson-1.2.47.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="fastjson" type="462c0819:PsiDirectoryNode" />
-              <item name="annotation" type="462c0819:PsiDirectoryNode" />
+              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
+              <item name="nami" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: com.alibaba:fastjson:1.2.47" type="70bed36:NamedLibraryElementNode" />
-              <item name="fastjson-1.2.47.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="fastjson" type="462c0819:PsiDirectoryNode" />
-              <item name="asm" type="462c0819:PsiDirectoryNode" />
+              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
+              <item name="nami" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: com.alibaba:fastjson:1.2.47" type="70bed36:NamedLibraryElementNode" />
-              <item name="fastjson-1.2.47.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="fastjson" type="462c0819:PsiDirectoryNode" />
-              <item name="parser" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: com.alibaba:fastjson:1.2.47" type="70bed36:NamedLibraryElementNode" />
-              <item name="fastjson-1.2.47.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="fastjson" type="462c0819:PsiDirectoryNode" />
-              <item name="serializer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: com.alibaba:fastjson:1.2.47" type="70bed36:NamedLibraryElementNode" />
-              <item name="fastjson-1.2.47.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="fastjson" type="462c0819:PsiDirectoryNode" />
-              <item name="support" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="easyshop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: com.alibaba:fastjson:1.2.47" type="70bed36:NamedLibraryElementNode" />
-              <item name="fastjson-1.2.47.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="fastjson" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="easyshop" type="462c0819:PsiDirectoryNode" />
+              <item name="nami" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -529,8 +537,10 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558436891052" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../print/element-starter" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/hz-link/pom.xml" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -541,21 +551,31 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="C:\Program Files (x86)\JetBrains\IntelliJ IDEA 2018.3.5\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.beeasy.hzlink" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="hzlink" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\work\easyshop\hz-link" />
+      <recent name="D:\work\easyshop\web-core\jni" />
+      <recent name="D:\work\easyshop\easy-shop\target" />
+      <recent name="D:\work\easyshop\web-core\src\main\resources" />
+      <recent name="D:\work\easyshop" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\work\easyshop\element-starter\src" />
       <recent name="D:\work\easyshop\easy-shop\src\main\resources" />
       <recent name="D:\work\easyshop\easy-shop\src\main\resources\win32-x64" />
       <recent name="D:\work\easyshop\element-starter\src\pages" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\work\easyshop\web-core\jni" />
-      <recent name="D:\work\easyshop\easy-shop\target" />
-      <recent name="D:\work\easyshop\web-core\src\main\resources" />
-      <recent name="D:\work\easyshop" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -570,14 +590,15 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.App">
-    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.beeasy.easyshop.App" />
-      <module name="easy-shop" />
+  <component name="RunManager" selected="JUnit.HzTest.test11_6">
+    <configuration name="link-hz" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.beeasy.hzlink.App" />
+      <module name="hz-link" />
+      <option name="PROGRAM_PARAMETERS" value="-c config_back.json" />
       <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.beeasy.easyshop.filter.*" />
+          <option name="PATTERN" value="com.beeasy.hzlink.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -585,81 +606,100 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Arr" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.beeasy.web.core.Arr" />
-      <module name="web-core" />
+    <configuration name="AppTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hz-link" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.beeasy.web.core.*" />
+          <option name="PATTERN" value="com.beeasy.hzlink.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.beeasy.hzlink" />
+      <option name="MAIN_CLASS_NAME" value="com.beeasy.hzlink.AppTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Fix.fixGalleryPic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="easy-shop" />
+    <configuration name="AppTest.genOne" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hz-link" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.beeasy.easyshop.*" />
+          <option name="PATTERN" value="com.beeasy.hzlink.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.beeasy.easyshop" />
-      <option name="MAIN_CLASS_NAME" value="com.beeasy.easyshop.Fix" />
-      <option name="METHOD_NAME" value="fixGalleryPic" />
+      <option name="PACKAGE_NAME" value="com.beeasy.hzlink" />
+      <option name="MAIN_CLASS_NAME" value="com.beeasy.hzlink.AppTest" />
+      <option name="METHOD_NAME" value="genOne" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Generate.genOneSql" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="easy-shop" />
+    <configuration name="AppTest.testall" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hz-link" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.beeasy.easyshop.util.*" />
+          <option name="PATTERN" value="com.beeasy.hzlink.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.beeasy.easyshop" />
-      <option name="MAIN_CLASS_NAME" value="com.beeasy.easyshop.Generate" />
-      <option name="METHOD_NAME" value="genOneSql" />
+      <option name="PACKAGE_NAME" value="com.beeasy.hzlink" />
+      <option name="MAIN_CLASS_NAME" value="com.beeasy.hzlink.AppTest" />
+      <option name="METHOD_NAME" value="testall" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="easy-shop" />
+    <configuration name="HzTest.test11_5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hz-link" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.beeasy.easyshop.*" />
+          <option name="PATTERN" value="com.beeasy.hzlink.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.beeasy.easyshop" />
-      <option name="MAIN_CLASS_NAME" value="com.beeasy.easyshop.Test" />
-      <option name="METHOD_NAME" value="test" />
+      <option name="PACKAGE_NAME" value="com.beeasy.hzlink" />
+      <option name="MAIN_CLASS_NAME" value="com.beeasy.hzlink.HzTest" />
+      <option name="METHOD_NAME" value="test11_5" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HzTest.test11_6" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hz-link" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.beeasy.hzlink.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.beeasy.hzlink" />
+      <option name="MAIN_CLASS_NAME" value="com.beeasy.hzlink.HzTest" />
+      <option name="METHOD_NAME" value="test11_6" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.App" />
-      <item itemvalue="JUnit.Generate.genOneSql" />
-      <item itemvalue="JUnit.Fix.fixGalleryPic" />
-      <item itemvalue="JUnit.Test.test" />
-      <item itemvalue="Application.Arr" />
+      <item itemvalue="Application.link-hz" />
+      <item itemvalue="JUnit.AppTest.genOne" />
+      <item itemvalue="JUnit.AppTest.testall" />
+      <item itemvalue="JUnit.AppTest" />
+      <item itemvalue="JUnit.HzTest.test11_5" />
+      <item itemvalue="JUnit.HzTest.test11_6" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.App" />
-        <item itemvalue="Application.Arr" />
-        <item itemvalue="JUnit.Test.test" />
-        <item itemvalue="JUnit.Generate.genOneSql" />
-        <item itemvalue="JUnit.Fix.fixGalleryPic" />
+        <item itemvalue="JUnit.HzTest.test11_6" />
+        <item itemvalue="JUnit.HzTest.test11_5" />
+        <item itemvalue="JUnit.AppTest.testall" />
+        <item itemvalue="JUnit.AppTest" />
+        <item itemvalue="JUnit.AppTest.genOne" />
       </list>
     </recent_temporary>
   </component>
@@ -707,7 +747,15 @@
       <workItem from="1559004226009" duration="3369000" />
       <workItem from="1559112150591" duration="36104000" />
       <workItem from="1559610368697" duration="7994000" />
-      <workItem from="1559620057792" duration="10698000" />
+      <workItem from="1559620057792" duration="13011000" />
+      <workItem from="1559696972934" duration="19672000" />
+      <workItem from="1559731953340" duration="3299000" />
+      <workItem from="1559791338001" duration="587000" />
+      <workItem from="1559807318916" duration="2962000" />
+      <workItem from="1559885420848" duration="928000" />
+      <workItem from="1559889565379" duration="5228000" />
+      <workItem from="1559914687005" duration="58000" />
+      <workItem from="1559915034487" duration="15153000" />
     </task>
     <task id="LOCAL-00001" summary="auto compile">
       <created>1556028534020</created>
@@ -821,43 +869,50 @@
       <option name="project" value="LOCAL" />
       <updated>1559548577791</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="增加sqlboost补强关联查询">
+      <created>1559635845399</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1559635845399</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Test_test - 2019.06.03 at 15h 46m 00s.xml">
-      <configuration name="Test.test" configurationId="JUnit" />
+    <history-entry file="AppTest_testall - 2019.06.10 at 10h 57m 43s.xml">
+      <configuration name="AppTest.testall" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test_test - 2019.06.03 at 15h 46m 46s.xml">
-      <configuration name="Test.test" configurationId="JUnit" />
+    <history-entry file="AppTest_testall - 2019.06.10 at 11h 00m 41s.xml">
+      <configuration name="AppTest.testall" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test_test - 2019.06.03 at 15h 47m 03s.xml">
-      <configuration name="Test.test" configurationId="JUnit" />
+    <history-entry file="AppTest_testall - 2019.06.10 at 11h 02m 41s.xml">
+      <configuration name="AppTest.testall" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test_test - 2019.06.03 at 15h 47m 49s.xml">
-      <configuration name="Test.test" configurationId="JUnit" />
+    <history-entry file="HzTest_test11_5 - 2019.06.10 at 14h 03m 45s.xml">
+      <configuration name="HzTest.test11_5" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test_test - 2019.06.03 at 15h 52m 05s.xml">
-      <configuration name="Test.test" configurationId="JUnit" />
+    <history-entry file="HzTest_test11_5 - 2019.06.10 at 14h 04m 24s.xml">
+      <configuration name="HzTest.test11_5" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test_test - 2019.06.03 at 15h 53m 03s.xml">
-      <configuration name="Test.test" configurationId="JUnit" />
+    <history-entry file="HzTest_test11_5 - 2019.06.10 at 14h 05m 28s.xml">
+      <configuration name="HzTest.test11_5" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test_test - 2019.06.03 at 15h 53m 09s.xml">
-      <configuration name="Test.test" configurationId="JUnit" />
+    <history-entry file="HzTest_test11_5 - 2019.06.10 at 14h 06m 33s.xml">
+      <configuration name="HzTest.test11_5" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test_test - 2019.06.03 at 15h 55m 05s.xml">
-      <configuration name="Test.test" configurationId="JUnit" />
+    <history-entry file="HzTest_test11_5 - 2019.06.10 at 14h 06m 59s.xml">
+      <configuration name="HzTest.test11_5" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test_test - 2019.06.03 at 15h 55m 39s.xml">
-      <configuration name="Test.test" configurationId="JUnit" />
+    <history-entry file="HzTest_test11_5 - 2019.06.10 at 14h 17m 53s.xml">
+      <configuration name="HzTest.test11_5" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test_test - 2019.06.03 at 16h 01m 25s.xml">
-      <configuration name="Test.test" configurationId="JUnit" />
+    <history-entry file="HzTest_test11_5 - 2019.06.10 at 14h 20m 58s.xml">
+      <configuration name="HzTest.test11_5" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="354870000" />
+    <option name="totallyTimeSpent" value="405070000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -872,7 +927,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23994638" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25067025" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="JRebel" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
@@ -882,19 +937,19 @@
       <window_info id="Designer" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49798927" weight="0.21954674" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49798927" visible="true" weight="0.19688386" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49731904" weight="0.21246459" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49798927" visible="true" weight="0.2181303" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3286119" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50268096" side_tool="true" weight="0.194051" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50268096" side_tool="true" weight="0.398017" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49932975" weight="0.33994335" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49731904" weight="0.194051" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49463806" weight="0.194051" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
       <window_info anchor="bottom" id="Version Control" order="12" weight="0.28186968" />
       <window_info anchor="bottom" id="JRebel Executor" order="13" />
-      <window_info anchor="bottom" id="JRebel Console" order="14" sideWeight="0.5020107" side_tool="true" weight="0.2917847" />
+      <window_info anchor="bottom" id="JRebel Console" order="14" sideWeight="0.5033512" side_tool="true" weight="0.17705382" />
       <window_info anchor="bottom" id="Duplicate detector" order="15" weight="0.25070822" />
       <window_info anchor="bottom" id="TypeScript" order="16" />
       <window_info anchor="bottom" id="Problems" order="17" />
@@ -1096,36 +1151,6 @@
           <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/ChakraCore.java</url>
-          <line>262</line>
-          <properties />
-          <option name="timeStamp" value="93" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/ChakraCore.java</url>
-          <line>263</line>
-          <properties />
-          <option name="timeStamp" value="94" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/ChakraCore.java</url>
-          <line>251</line>
-          <properties />
-          <option name="timeStamp" value="97" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/ChakraCore.java</url>
-          <line>248</line>
-          <properties />
-          <option name="timeStamp" value="98" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/ChakraCore.java</url>
-          <line>210</line>
-          <properties />
-          <option name="timeStamp" value="102" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Generate.java</url>
           <line>82</line>
           <properties />
@@ -1173,437 +1198,169 @@
           <properties />
           <option name="timeStamp" value="249" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/AppTest.java</url>
+          <line>36</line>
+          <properties />
+          <option name="timeStamp" value="250" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/AppTest.java</url>
+          <line>76</line>
+          <properties />
+          <option name="timeStamp" value="267" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Test.java</url>
+          <line>51</line>
+          <properties />
+          <option name="timeStamp" value="268" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
       <expression>
-        <expression-string>ctx.query.put(&quot;store_id&quot;, auth.getStoreId(ctx))</expression-string>
-        <language-id>JAVA</language-id>
+        <expression-string>object.invokeMethod(&quot;fuck&quot;, [])</expression-string>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>auth.getStoreId()</expression-string>
-        <language-id>JAVA</language-id>
+        <expression-string>object.invokeMethod(&quot;fuck&quot;, {})</expression-string>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>boost.appendField()</expression-string>
-        <language-id>JAVA</language-id>
+        <expression-string>object.invokeMethod(&quot;fuck&quot;, new Object[]{})</expression-string>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>oi.get(&quot;goods&quot;)</expression-string>
-        <language-id>JAVA</language-id>
+        <expression-string>object.invokeMethod(&quot;fuck&quot;)</expression-string>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>orderlist.list.get(2).getJSONArray(&quot;goods&quot;)</expression-string>
-        <language-id>JAVA</language-id>
+        <expression-string>object.class.getMethods()</expression-string>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>table.name()</expression-string>
-        <language-id>JAVA</language-id>
+        <expression-string>name</expression-string>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>clazz == LinkedHashMap.class</expression-string>
-        <language-id>JAVA</language-id>
+        <expression-string>b.properties</expression-string>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>clazz.isInterface()</expression-string>
-        <language-id>JAVA</language-id>
+        <expression-string>b.getProperty(&quot;f&quot;)</expression-string>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>config.deserializers.buckets</expression-string>
+        <expression-string>sqlManager.insert(batch.get(0))</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
     </expressions>
+    <expressions id="breakpointCondition">
+      <expression>
+        <expression-string>!diyas.isEmpty()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>total == null</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>names.size() &gt; 0</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/resources/1.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80556">
+          <caret line="3836" column="1" selection-start-line="3836" selection-start-column="1" selection-end-line="3836" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/QccCiaForeignOffices.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/QccDetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/QccDetailsPartners.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/QccDetailsEmployees.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="12" column="35" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Json.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#768#769#0" expanded="true" />
+            <element signature="e#823#824#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Obj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1013#1014#0" expanded="true" />
+            <element signature="e#1068#1069#0" expanded="true" />
+            <element signature="e#1104#1105#0" expanded="true" />
+            <element signature="e#1160#1161#0" expanded="true" />
+            <element signature="e#1961#1962#0" expanded="true" />
+            <element signature="e#1988#1989#0" expanded="true" />
+            <element signature="e#2016#2017#0" expanded="true" />
+            <element signature="e#2043#2044#0" expanded="true" />
+            <element signature="e#2115#2116#0" expanded="true" />
+            <element signature="e#2142#2143#0" expanded="true" />
+            <element signature="e#2452#2453#0" expanded="true" />
+            <element signature="e#2496#2497#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/resources/pojo.tmpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/DBService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="84" column="30" selection-start-line="84" selection-start-column="30" selection-end-line="84" selection-end-column="30" />
+        <state relative-caret-position="210">
+          <caret line="24" column="51" selection-start-line="24" selection-start-column="51" selection-end-line="24" selection-end-column="51" />
           <folding>
-            <element signature="e#2829#2830#0" expanded="true" />
-            <element signature="e#2889#2890#0" expanded="true" />
-            <element signature="e#2963#2964#0" expanded="true" />
-            <element signature="e#3009#3010#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/cn/hutool/hutool-all/4.5.3/hutool-all-4.5.3-sources.jar!/cn/hutool/json/JSONArray.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="18" column="2" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.47/fastjson-1.2.47-sources.jar!/com/alibaba/fastjson/JSONPath.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="15" column="66" selection-start-line="15" selection-start-column="66" selection-end-line="15" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/lang/Runnable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="67" column="25" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.47/fastjson-1.2.47-sources.jar!/com/alibaba/fastjson/parser/deserializer/ObjectDeserializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="49" column="17" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.47/fastjson-1.2.47-sources.jar!/com/alibaba/fastjson/parser/deserializer/JavaBeanDeserializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-23447">
-          <caret line="41" column="11" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
-          <folding>
-            <element signature="e#1663#1664#0" expanded="true" />
-            <element signature="e#1705#1706#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.47/fastjson-1.2.47-sources.jar!/com/alibaba/fastjson/annotation/JSONType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="25" selection-start-column="25" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.47/fastjson-1.2.47-sources.jar!/com/alibaba/fastjson/JSONArray.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="49" column="13" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#10852#10853#0" expanded="true" />
-            <element signature="e#10895#10896#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.47/fastjson-1.2.47-sources.jar!/com/alibaba/fastjson/parser/ParserConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-304">
-          <caret line="425" column="20" selection-start-line="425" selection-start-column="12" selection-end-line="425" selection-end-column="20" />
-          <folding>
-            <element signature="e#3426#3427#0" expanded="true" />
-            <element signature="e#3455#3456#0" expanded="true" />
-            <element signature="e#28828#28829#0" expanded="true" />
-            <element signature="e#28881#28882#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.47/fastjson-1.2.47-sources.jar!/com/alibaba/fastjson/util/TypeUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-408">
-          <caret line="984" selection-start-line="984" selection-end-line="984" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.47/fastjson-1.2.47-sources.jar!/com/alibaba/fastjson/JSONObject.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/alibaba/fastjson/JSONObject.java" />
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/boost/SqlBoost.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/ibeetl/beetlsql/2.11.6/beetlsql-2.11.6-sources.jar!/org/beetl/sql/core/SQLManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="225" column="17" selection-start-line="225" selection-start-column="17" selection-end-line="225" selection-end-column="17" />
-          <folding>
-            <element signature="e#7631#7632#0" expanded="true" />
-            <element signature="e#7679#7680#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/util/Arrays.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89334">
-          <caret line="4329" column="30" selection-start-line="4329" selection-start-column="30" selection-end-line="4329" selection-end-column="30" />
-          <folding>
-            <element signature="e#201614#201615#0" expanded="true" />
-            <element signature="e#201655#201656#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/ibeetl/beetlsql/2.11.6/beetlsql-2.11.6-sources.jar!/org/beetl/sql/core/query/Query.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1449">
-          <caret line="90" column="13" selection-start-line="90" selection-start-column="13" selection-end-line="90" selection-end-column="13" />
-          <folding>
-            <element signature="e#3622#3623#0" expanded="true" />
-            <element signature="e#3680#3681#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="28" column="71" selection-start-line="28" selection-start-column="71" selection-end-line="28" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/config.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="1155">
-            <caret line="55" column="10" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/ibeetl/beetlsql/2.11.6/beetlsql-2.11.6-sources.jar!/org/beetl/sql/core/query/LambdaQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4851">
-          <caret line="249" selection-start-line="249" selection-end-line="249" />
-          <folding>
-            <element signature="e#8085#8086#0" expanded="true" />
-            <element signature="e#8147#8148#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/ibeetl/beetlsql/2.11.6/beetlsql-2.11.6-sources.jar!/org/beetl/sql/core/query/QueryCondition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="14" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/pages/store/refund.vue">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Compiler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1365">
-          <caret line="84" selection-start-line="84" selection-end-line="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/pages/store/refund.comp.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="48" column="43" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/sun/reflect/annotation/AnnotationType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.47/fastjson-1.2.47-sources.jar!/com/alibaba/fastjson/serializer/SerializeConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="245" column="43" selection-start-line="245" selection-start-column="43" selection-end-line="245" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/alibaba/fastjson/JSON.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="1002" column="31" selection-start-line="1002" selection-start-column="31" selection-end-line="1002" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#8575#8605#0" expanded="true" />
-            <element signature="e#9829#9859#0" expanded="true" />
-            <element signature="e#10072#10102#0" expanded="true" />
-            <element signature="e#11285#11315#0" expanded="true" />
-            <element signature="e#11509#11539#0" expanded="true" />
-            <element signature="e#11772#11802#0" expanded="true" />
-            <element signature="e#12857#12887#0" expanded="true" />
-            <element signature="e#14033#14063#0" expanded="true" />
-            <element signature="e#14284#14314#0" expanded="true" />
-            <element signature="e#15066#15096#0" expanded="true" />
-            <element signature="e#15893#15923#0" expanded="true" />
-            <element signature="e#16600#16630#0" expanded="true" />
-            <element signature="e#16928#16958#0" expanded="true" />
-            <element signature="e#32644#32645#0" expanded="true" />
-            <element signature="e#32717#32718#0" expanded="true" />
-            <element signature="e#32350#32380#0" expanded="true" />
-            <element signature="e#36190#36191#0" expanded="true" />
-            <element signature="e#36274#36275#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Nami.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/element-starter/src/pages/Login.vue">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/auth.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/filter/auth.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="39" column="31" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
-          <folding>
-            <element signature="e#1981#1982#0" expanded="true" />
-            <element signature="e#2027#2028#0" expanded="true" />
-            <element signature="e#2067#2068#0" expanded="true" />
-            <element signature="e#2113#2114#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.47/fastjson-1.2.47-sources.jar!/com/alibaba/fastjson/parser/DefaultJSONParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="1535" column="56" selection-start-line="1535" selection-start-column="50" selection-end-line="1535" selection-end-column="56" />
-          <folding>
-            <element signature="e#49371#49372#0" expanded="true" />
-            <element signature="e#49405#49406#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/R.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="38" column="15" selection-start-line="38" selection-start-column="15" selection-end-line="38" selection-end-column="15" />
-          <folding>
-            <element signature="e#719#720#0" expanded="true" />
-            <element signature="e#765#766#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/user.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/store.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-189">
-          <caret line="172" column="13" selection-start-line="172" selection-start-column="13" selection-end-line="172" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/ChakraCore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Flow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="38" column="17" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/AopInvoke.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.47/fastjson-1.2.47-sources.jar!/com/alibaba/fastjson/JSON.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="1002" column="17" selection-start-line="1002" selection-start-column="17" selection-end-line="1002" selection-end-column="17" />
-          <folding>
-            <element signature="e#5237#5238#0" expanded="true" />
-            <element signature="e#5295#5296#0" expanded="true" />
-            <element signature="e#32613#32614#0" expanded="true" />
-            <element signature="e#32686#32687#0" expanded="true" />
-            <element signature="e#36159#36160#0" expanded="true" />
-            <element signature="e#36243#36244#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Context.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/a.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="85" column="36" lean-forward="true" selection-start-line="85" selection-start-column="36" selection-end-line="85" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/HttpServerHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1099">
-          <caret line="293" column="42" lean-forward="true" selection-start-line="293" selection-start-column="42" selection-end-line="293" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#3156#3157#0" expanded="true" />
+            <element signature="e#3210#3211#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1615,83 +1372,319 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/resources/1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/c/groovy.java" />
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/c.groovy" />
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/b.groovy" />
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/bbb.groovy" />
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/ff.groovy" />
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/a.groovy" />
+    <entry file="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/groovy/2.4.5/groovy-2.4.5.jar!/groovy/util/GroovyScriptEngine.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="49" column="30" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/codehaus/groovy/groovy/2.4.5/groovy-2.4.5.jar!/org/codehaus/groovy/runtime/DefaultGroovyMethods.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7728">
+          <caret line="535" column="25" selection-start-line="535" selection-start-column="25" selection-end-line="535" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/cn/hutool/hutool-all/4.5.3/hutool-all-4.5.3-sources.jar!/cn/hutool/core/io/IoUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9072">
+          <caret line="472" selection-start-line="472" selection-end-line="472" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/CusComList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/cn/hutool/hutool-all/4.5.3/hutool-all-4.5.3-sources.jar!/cn/hutool/core/lang/ObjectId.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="28" column="1" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../web-core/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="23" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/util/Collection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="379" column="20" selection-start-line="379" selection-start-column="20" selection-end-line="379" selection-end-column="20" />
+          <folding>
+            <element signature="e#18598#18599#0" expanded="true" />
+            <element signature="e#18648#18649#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/test/java/com/beeasy/easyshop/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Arr.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        <state relative-caret-position="412">
+          <caret line="59" column="8" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="8" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#279#280#0" expanded="true" />
-            <element signature="e#306#307#0" expanded="true" />
+            <element signature="e#1125#1126#0" expanded="true" />
+            <element signature="e#1172#1173#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Param.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/com/ibeetl/beetlsql/2.11.6/beetlsql-2.11.6-sources.jar!/org/beetl/sql/core/annotatoin/AssignID.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="82" column="48" selection-start-line="82" selection-start-column="48" selection-end-line="82" selection-end-column="48" />
+        <state relative-caret-position="126">
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/github/llyb120/nami/core/Nami.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-core/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nami/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="8" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nami/config_back.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" column="53" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/config_qcc.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="24" column="12" selection-end-line="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Nami.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="75" column="23" selection-start-line="75" selection-start-column="23" selection-end-line="75" selection-end-column="23" />
+          <folding>
+            <element signature="e#2934#2935#0" expanded="true" />
+            <element signature="e#2969#2970#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/CusCom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="47" column="17" selection-start-line="47" selection-start-column="17" selection-end-line="47" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/config_back.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="80" lean-forward="true" selection-start-line="4" selection-start-column="80" selection-end-line="4" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/ibeetl/beetlsql/2.11.6/beetlsql-2.11.6-sources.jar!/org/beetl/sql/core/SQLManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="457" column="23" selection-start-line="457" selection-start-column="23" selection-end-line="457" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Obj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="63" column="30" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
+          <folding>
+            <element signature="e#1400#1401#0" expanded="true" />
+            <element signature="e#1437#1438#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/model/Link111.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#542#543#0" expanded="true" />
+            <element signature="e#559#560#0" expanded="true" />
+            <element signature="e#591#592#0" expanded="true" />
+            <element signature="e#610#611#0" expanded="true" />
+            <element signature="e#644#645#0" expanded="true" />
+            <element signature="e#669#670#0" expanded="true" />
+            <element signature="e#718#719#0" expanded="true" />
+            <element signature="e#753#754#0" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+            <element signature="e#816#817#0" expanded="true" />
+            <element signature="e#862#863#0" expanded="true" />
+            <element signature="e#895#896#0" expanded="true" />
+            <element signature="e#928#929#0" expanded="true" />
+            <element signature="e#953#954#0" expanded="true" />
+            <element signature="e#1001#1002#0" expanded="true" />
+            <element signature="e#1036#1037#0" expanded="true" />
+            <element signature="e#1068#1069#0" expanded="true" />
+            <element signature="e#1092#1093#0" expanded="true" />
+            <element signature="e#1138#1139#0" expanded="true" />
+            <element signature="e#1171#1172#0" expanded="true" />
+            <element signature="e#1203#1204#0" expanded="true" />
+            <element signature="e#1227#1228#0" expanded="true" />
+            <element signature="e#1273#1274#0" expanded="true" />
+            <element signature="e#1306#1307#0" expanded="true" />
+            <element signature="e#1340#1341#0" expanded="true" />
+            <element signature="e#1366#1367#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/develop/jdk12/lib/src.zip!/java.base/java/math/BigDecimal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-94">
+          <caret line="1315" column="22" selection-start-line="1315" selection-start-column="22" selection-end-line="1315" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/AppTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="54" column="15" selection-start-line="54" selection-start-column="15" selection-end-line="54" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3200#3201#0" expanded="true" />
+            <element signature="e#3225#3226#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/resources/sql/raCircleClass.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Json.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="179" column="19" selection-start-line="179" selection-start-column="19" selection-end-line="179" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/resources/sql/accloan.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="345">
+            <caret line="38" column="3" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nami/src/main/java/com/github/llyb120/nami/core/Arr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
+          <folding>
+            <element signature="e#1403#1404#0" expanded="true" />
+            <element signature="e#1435#1436#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/main/java/com/beeasy/hzlink/Link.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="882">
+          <caret line="399" column="56" selection-start-line="399" selection-start-column="56" selection-end-line="399" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Flow.java">
+    <entry file="file://$PROJECT_DIR$/easy-shop/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="294" column="7" selection-start-line="294" selection-start-column="7" selection-end-line="294" selection-end-column="7" />
+        <state relative-caret-position="337">
+          <caret line="56" column="27" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/App.java">
+    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/ctrl/a.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="13" column="149" selection-start-line="13" selection-start-column="149" selection-end-line="13" selection-end-column="149" />
+        <state relative-caret-position="189">
+          <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hz-link/src/test/java/com/beeasy/hzlink/HzTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="59" column="21" lean-forward="true" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easy-shop/src/main/java/com/beeasy/easyshop/util/U.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1008">
-          <caret line="62" column="3" selection-start-line="62" selection-start-column="3" selection-end-line="62" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Json.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-357">
-          <caret line="173" column="4" selection-start-line="173" selection-start-column="4" selection-end-line="173" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-core/src/main/java/com/beeasy/web/core/Obj.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="81" column="19" selection-start-line="81" selection-start-column="19" selection-end-line="81" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#200#201#0" expanded="true" />
-            <element signature="e#226#227#0" expanded="true" />
-            <element signature="e#261#262#0" expanded="true" />
-            <element signature="e#291#292#0" expanded="true" />
-            <element signature="e#330#331#0" expanded="true" />
-            <element signature="e#368#369#0" expanded="true" />
-            <element signature="e#424#425#0" expanded="true" />
-            <element signature="e#471#472#0" expanded="true" />
-            <element signature="e#914#915#0" expanded="true" />
-            <element signature="e#968#969#0" expanded="true" />
-            <element signature="e#1251#1252#0" expanded="true" />
-            <element signature="e#1688#1689#0" expanded="true" />
-            <element signature="e#1743#1744#0" expanded="true" />
-            <element signature="e#1842#1843#0" expanded="true" />
-            <element signature="e#2196#2197#0" expanded="true" />
+            <element signature="e#827#828#0" expanded="true" />
+            <element signature="e#875#876#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1748,7 +1741,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>web-core</last-edited>
+          <last-edited>hz-link</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

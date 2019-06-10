@@ -9,10 +9,10 @@ import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
 import cn.hutool.crypto.symmetric.SymmetricCrypto;
 import com.alibaba.fastjson.JSONObject;
 import com.beeasy.easyshop.util.U;
-import com.beeasy.web.core.AopInvoke;
-import com.beeasy.web.core.Context;
-import com.beeasy.web.core.Cookie;
-import com.beeasy.web.core.R;
+import com.github.llyb120.nami.core.AopInvoke;
+import com.github.llyb120.nami.core.Context;
+import com.github.llyb120.nami.core.Cookie;
+import com.github.llyb120.nami.core.R;
 import io.netty.handler.codec.http.FullHttpRequest;
 import static com.beeasy.easyshop.util.U.*;
 
@@ -23,8 +23,8 @@ import java.security.SecureRandom;
 import java.sql.Struct;
 import java.util.Base64;
 
-import static com.beeasy.web.core.DBService.dataSource;
-import static com.beeasy.web.core.DBService.sqlManager;
+import static com.github.llyb120.nami.core.DBService.dataSource;
+import static com.github.llyb120.nami.core.DBService.sqlManager;
 
 public class auth {
 

@@ -4,8 +4,8 @@ package com.beeasy.easyshop;
 import cn.hutool.core.io.IoUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.util.IOUtils;
-import com.beeasy.web.core.Config;
-import com.beeasy.web.core.DBService;
+import com.github.llyb120.nami.core.Config;
+import com.github.llyb120.nami.core.DBService;
 import org.beetl.sql.core.SQLReady;
 import org.beetl.sql.core.kit.GenKit;
 import org.beetl.sql.ext.gen.GenConfig;
@@ -17,7 +17,7 @@ import org.junit.Test;
 import java.io.*;
 import java.util.List;
 
-import static com.beeasy.web.core.DBService.sqlManager;
+import static com.github.llyb120.nami.core.DBService.sqlManager;
 
 public class Generate {
 

@@ -1,6 +1,6 @@
 package com.beeasy.easyshop.filter;
 
-import com.beeasy.web.core.AopInvoke;
+import com.github.llyb120.nami.core.AopInvoke;
 
 public class filter2 {
 

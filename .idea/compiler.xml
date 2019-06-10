@@ -7,22 +7,31 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="nami" />
         <module name="easy-shop" />
         <module name="web-core" />
+        <module name="hz-link" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="web-core" target="11" />
+    </bytecodeTargetLevel>
   </component>
   <component name="EclipseCompilerSettings">
     <option name="GENERATE_NO_WARNINGS" value="true" />
     <option name="ADDITIONAL_OPTIONS_STRING" value="-parameters" />
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="easy-shop" options="" />
+      <module name="hz-link" options="" />
+      <module name="nami" options="" />
       <module name="web-core" options="" />
     </option>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="easy-shop" options="-parameters" />
+      <module name="hz-link" options="-parameters" />
+      <module name="nami" options="-parameters" />
       <module name="web-core" options="-parameters" />
     </option>
   </component>

@@ -5,16 +5,16 @@ import cn.hutool.http.HttpUtil;
 import com.beeasy.easyshop.model.RaAlbumClass;
 import com.beeasy.easyshop.model.RaAlbumPic;
 import com.beeasy.easyshop.util.U;
-import com.beeasy.web.core.Config;
-import com.beeasy.web.core.DBService;
+import com.github.llyb120.nami.core.Config;
+import com.github.llyb120.nami.core.DBService;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
 import java.util.List;
 
-import static com.beeasy.web.core.DBService.sqlManager;
-import static com.beeasy.web.core.Config.config;
+import static com.github.llyb120.nami.core.DBService.sqlManager;
+import static com.github.llyb120.nami.core.Config.config;
 
 public class Fix {
     @BeforeClass
