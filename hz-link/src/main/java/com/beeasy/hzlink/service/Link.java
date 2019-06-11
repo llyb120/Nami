@@ -1,4 +1,4 @@
-package com.beeasy.hzlink;
+package com.beeasy.hzlink.service;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
@@ -10,10 +10,7 @@ import com.github.llyb120.nami.core.Json;
 import com.github.llyb120.nami.core.Obj;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -109,7 +106,7 @@ public class Link {
                     }
                     var percent = convertToMoney(val + "万").divide(convertToMoney(qccCiaForeignInvestments.getReg_cap()), 2);
                     if (percent.floatValue() >= 0.25) {
-                        ret.add(a(qccCiaForeignInvestments.getName(), qccCiaForeignInvestments.getPer_name(), "自然人"));
+                        ret.add(a(qccCiaForeignInvestments.getName(), qccCiaForeignInvestments.getPer_name(), "自然人股东", percent.multiply(new BigDecimal(100))));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -153,6 +150,9 @@ public class Link {
             link111.setLink_type(objects.getString(2));
             link111.setLink_rule("11.1");
             link111.setIs_company(1);
+            if(objects.size() > 3){
+                link111.setStock_percent(objects.getBigDecimal(3));
+            }
             cache.put(key, true);
             batch.add(link111);
         }
@@ -160,16 +160,47 @@ public class Link {
         sqlManager.insertBatch(Link111.class, batch);
     }
 
-    public static String do11_2(String compNames) {
+    public static void do11_2(String compNames) {
         var str = HttpUtil.get("http://47.96.98.198:8081/ECIV4/GetDetailsByName", o("fullName", compNames));
         var obj = Json.parseObject(str);
+        var operName = "";
         if(obj.getStr("Status", "500").equals("200")){
-            var operName = obj.getObj("Result").getStr("OperName");
-            return operName;
+            operName = obj.getObj("Result").getStr("OperName");
         }
-        var c = 1;
-//
-//
+        if(!"".equals(operName)){
+            CusCom cusCom = sqlManager.lambdaQuery(CusCom.class).andEq(CusCom::getCus_name,compNames).single();
+            if(cusCom != null ){
+                String legalName = cusCom.getLegal_name();
+                // 法人不一致，发送消息提醒
+                if(!operName.equals(legalName)){
+                    var user = sqlManager.lambdaQuery(TUser.class).andEq(TUser::getAcc_code,cusCom.getCust_mgr()).single();
+
+                    TSystemNotice notice = new TSystemNotice();
+                    notice.setId(IdUtil.createSnowflake(0,0).nextId());
+                    notice.setState("UNREAD");
+                    notice.setType("SYSTEM");
+                    notice.setUser_id(user.getId());
+                    notice.setContent(compNames + "企业法人有变动！");
+                    notice.setBind_data(JSON.toJSONString(null));
+                    notice.setAdd_time(new Date());
+                    sqlManager.insert(notice, true);
+                }else{
+                    String certCode = cusCom.getCert_code();
+                    var p = sqlManager.lambdaQuery(RptMRptSlsAcct.class).andEq(RptMRptSlsAcct::getEnt_cert_code, certCode).andEq(RptMRptSlsAcct::getCus_name, operName).select();
+                    if(null != p && !p.isEmpty()){
+                        Link111 link111 = new Link111();
+                        link111.setOrigin_name(compNames);
+                        link111.setId(IdUtil.objectId());
+                        link111.setLink_left(compNames);
+                        link111.setLink_right(operName);
+                        link111.setLink_type("自然人");
+                        link111.setLink_rule("11.2");
+                        link111.setIs_company(1);
+                        sqlManager.insert(link111, true);
+                    }
+                }
+            }
+        }
 //        //返回所有公司的法人
 //        var ret = o();
 //        for (QccDetails qccDetails : sqlManager.lambdaQuery(QccDetails.class)
@@ -179,7 +210,6 @@ public class Link {
 //        }
 //        return ret;
 
-        return null;
     }
 
     public static void do11_3(String compName) {
@@ -414,6 +444,11 @@ public class Link {
                 .delete();
             sqlManager.insertBatch(Link111.class, batch);
         }
+    }
+
+
+    public static void do12_2(){
+
     }
 
     /**

@@ -21,6 +21,7 @@ public class Link111   {
 	private String link_rule ;
 	private String link_type ;
 	private String origin_name ;
+	private BigDecimal stock_percent ;
 
 	public Link111() {
 	}
@@ -72,6 +73,13 @@ public class Link111   {
 	}
 	public void setOrigin_name(String origin_name ){
 		this.origin_name = origin_name;
+	}
+
+	public BigDecimal getStock_percent(){
+		return  stock_percent;
+	}
+	public void setStock_percent(BigDecimal stock_percent ){
+		this.stock_percent = stock_percent;
 	}
 
 

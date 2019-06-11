@@ -5,6 +5,7 @@ import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.thread.ThreadUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.beeasy.hzlink.model.CusComList;
+import com.beeasy.hzlink.service.Link;
 import com.github.llyb120.nami.core.Json;
 import io.netty.util.CharsetUtil;
 import org.beetl.sql.core.SQLReady;
@@ -24,7 +25,7 @@ public class AppTest {
 
     @BeforeClass
     public static void before(){
-        ThreadUtil.execAsync(() -> App.main(new String[]{"-c", "config_qcc.json"}));
+        ThreadUtil.execAsync(() -> App.main(new String[]{"-c", "config_back.json"}));
         while(sqlManager == null){
             ThreadUtil.sleep(100);
         }
@@ -48,8 +49,8 @@ public class AppTest {
             .forEach(e -> {
                 exec.submit(() -> {
                     Link.do11_1(e.getCus_name());
-                    Link.do11_3(e.getCus_name());
-                    Link.do11_4(e.getCus_name());
+//                    Link.do11_3(e.getCus_name());
+//                    Link.do11_4(e.getCus_name());
                 });
             });
         exec.shutdown();;
@@ -62,7 +63,7 @@ public class AppTest {
         ClassPathResource resource = new ClassPathResource("pojo.tmpl");
         genConfig.setTemplate(IoUtil.read(resource.getStream(), CharsetUtil.UTF_8));
         String[] models = new String[]{
-            "LINK_11_1"
+            "T_USER"
         };
         for (String model : models) {
             sqlManager.genPojoCode(model, "com.beeasy.hzlink.model", genConfig);
