@@ -32,22 +32,23 @@ public class AppTest {
     ExecutorService exec;
 
     @BeforeClass
-    public static void before(){
+    public static void before() {
         ThreadUtil.execAsync(() -> App.main(new String[]{"-c", "config_back.json"}));
-        while(sqlManager == null){
+        while (sqlManager == null) {
             ThreadUtil.sleep(100);
         }
     }
 
 
     @Before
-    public void onbefore(){
+    public void onbefore() {
         exec = Executors.newFixedThreadPool(16);
     }
 
     @After
     public void onafter() throws InterruptedException {
-        exec.shutdown();;
+        exec.shutdown();
+        ;
         exec.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
 
         int d = 1;
@@ -55,7 +56,7 @@ public class AppTest {
 
 
     @Test
-    public void test(){
+    public void test() {
 //        var a = sqlManager.execute(new SQLReady("values 1"), Obj.class);
 //        int d = 1;
 
@@ -64,18 +65,20 @@ public class AppTest {
 
     @Test
     public void testall() throws InterruptedException {
-        Link.do11_4("惠州市金泽国际物流有限公司");
+//        Link.do11_4("惠州市金泽国际物流有限公司");
 
 //        var r = a();
 //        var exec = Executors.newFixedThreadPool(16);
         var resource = new ClassPathResource("1.json");
         var cnt = IoUtil.read(resource.getReader(CharsetUtil.UTF_8));
-        var arr = (Arr)Json.parseObject(cnt).getByPath("data.list");
+        var arr = (Arr) Json.parseObject(cnt).getByPath("data.list");
         for (Obj obj : arr.toObjList()) {
             exec.submit(() -> {
 //                    Link.do11_1(obj.getStr("CUS_NAME"));
 //                Link.do11_3(obj.getStr("CUS_NAME"));
-                    Link.do11_4(obj.getStr("CUS_NAME"));
+//                    Link.do11_4(obj.getStr("CUS_NAME"));
+//                Link.do12_2(obj.getStr("CUS_NAME"));
+                Link.do12_3(obj.getStr("CUS_NAME"));
             });
         }
 
@@ -111,9 +114,8 @@ public class AppTest {
     }
 
 
-
     @Test
-    public void test11_5(){
+    public void test11_5() {
         Link.do11_5_1("白佳鹏", false);
     }
 }
