@@ -78,7 +78,8 @@ public class AppTest {
 //                Link.do11_3(obj.getStr("CUS_NAME"));
 //                    Link.do11_4(obj.getStr("CUS_NAME"));
 //                Link.do12_2(obj.getStr("CUS_NAME"));
-                Link.do12_3(obj.getStr("CUS_NAME"));
+//                Link.do12_3(obj.getStr("CUS_NAME"));
+                Link.do12_4(obj.getStr("CUS_NAME"));
             });
         }
 
