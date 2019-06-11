@@ -595,7 +595,7 @@ public class Link {
                         setLink_type("自然人股东");
                         setOrigin_name(compName);
                         setLink_left(compName);
-                        setLink_right(obj.getStr("Name"));
+                        setLink_right(obj.getStr("StockName"));
                         setStock_percent(p);
                     }});
                 }
@@ -766,7 +766,7 @@ public class Link {
                         setLink_type("自然人股东");
                         setOrigin_name(compName);
                         setLink_left(compName);
-                        setLink_right(obj.getStr("Name"));
+                        setLink_right(obj.getStr("StockName"));
                         setStock_percent(p);
                     }});
                 }
