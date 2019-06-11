@@ -5,6 +5,7 @@ class b{
             var ${user} = new String();
         //@}
 
+
         //@fuck(){
         var d = 1;
         //@}

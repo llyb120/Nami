@@ -581,6 +581,28 @@ public class Link {
             }
         }
 
+        var dps = detail.getArr("Partners");
+        for (Obj obj : dps.toObjList()) {
+            //算不出来的一概忽略
+            try {
+                var p = new BigDecimal(obj.getStr("StockPercent").replaceAll("%", ""));
+                if (p.floatValue() >= 25) {
+                    batch.add(new Link111(){{
+                        setLink_rule("12.2");
+                        setIs_company(1);
+                        setId(IdUtil.objectId());
+                        setLink_type("自然人股东");
+                        setOrigin_name(compName);
+                        setLink_left(compName);
+                        setLink_right(obj.getStr("Name"));
+                        setStock_percent(p);
+                    }});
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         if(batch.isNotEmpty()){
             sqlManager.lambdaQuery(Link111.class)
                 .andEq(Link111::getLink_rule, "12.2")
@@ -621,6 +643,7 @@ public class Link {
                 e.printStackTrace();
             }
         }
+
 
         if(batch.isNotEmpty()){
             sqlManager.lambdaQuery(Link111.class)
