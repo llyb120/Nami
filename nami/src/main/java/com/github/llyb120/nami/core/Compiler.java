@@ -7,6 +7,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import org.eclipse.jdt.internal.compiler.batch.Main;
 
+import javax.crypto.Mac;
 import javax.tools.JavaCompiler;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
@@ -30,7 +31,7 @@ public class Compiler{
     private static ExecutorService executor = Executors.newCachedThreadPool();
     private static Set<String> compiling = new ConcurrentHashSet<>();
     private static Map<String, SimpleClassFile> byteCodeCache = new HashMap<>();
-
+    private static File tempFolder = new File(System.getProperty("java.io.tmpdir"));
 
     public static class SimpleClassFile{
         public byte[] bytes;
@@ -107,17 +108,24 @@ public class Compiler{
                     compiling.add(path);
                 }
                 System.out.println(Thread.currentThread().getName() + ": reloading " + path);
-                compileWithEcj(file);
-                //编译完成后，直接放入缓存
-                synchronized (byteCodeCache){
-                    try {
-                        byteCodeCache.put(path, new SimpleClassFile(new File(path)));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                try{
+                    compileWithEcj(file);
                 }
-                synchronized (compiling){
-                    compiling.remove(path);
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+                finally {
+                    //编译完成后，直接放入缓存
+                    synchronized (byteCodeCache){
+                        try {
+                            byteCodeCache.put(path, new SimpleClassFile(new File(path)));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    synchronized (compiling){
+                        compiling.remove(path);
+                    }
                 }
             });
         }
@@ -158,7 +166,24 @@ public class Compiler{
     }
 
     private static void compileWithEcj(File file){
-        Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", "11","-d", config.compile.target, file.getAbsolutePath()});
+        File temp = new File(tempFolder, file.getName());
+        try(
+            FileReader reader = new FileReader(file);
+            ){
+            var code = IoUtil.read(reader);
+            var prepareCode = Macro.prepareRender(code);
+            var finalCode = Macro.render(prepareCode);
+            IoUtil.write(new FileOutputStream(temp), true, finalCode.getBytes());
+            Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", "11","-d", config.compile.target, temp.getAbsolutePath()});
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        finally {
+            if (temp == null) {
+                temp.delete(); 
+            } 
+        }
     }
 
 

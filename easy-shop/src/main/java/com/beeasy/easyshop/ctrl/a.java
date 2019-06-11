@@ -113,6 +113,11 @@ public class a {
             return R.fail("该用户不是商家");
         }
 
+        //@use(login.login,a,b,c){
+        int d = 13223222;
+        int c = 34252233;
+        //@}
+
         obj.as(RaMember.class)
             .on(Json.ValidateType.notempty, "不能为空", RaMember::getMember_name, RaMember::getMember_passwd)
             .hold(RaMember::getMember_name,RaMember::getMember_passwd)

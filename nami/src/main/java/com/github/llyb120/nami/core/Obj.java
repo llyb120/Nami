@@ -1,5 +1,8 @@
 package com.github.llyb120.nami.core;
 
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
+import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -90,6 +93,10 @@ public class Obj<U> extends JSONObject {
         return null;
     }
 
+    public boolean isNotEmpty(){
+        return !isEmpty();
+    }
+
     /***********************************************/
 
 
@@ -137,6 +144,5 @@ public class Obj<U> extends JSONObject {
     public U cast() {
         return (U) toJavaObject(clz);
     }
-
 
 }

@@ -1,9 +1,10 @@
 package com.beeasy.easyshop;
 
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
+import cn.hutool.core.util.CharsetUtil;
 import com.beeasy.easyshop.filter.auth;
-import com.github.llyb120.nami.core.DBService;
-import com.github.llyb120.nami.core.Nami;
-import com.github.llyb120.nami.core.Param;
+import com.github.llyb120.nami.core.*;
 import org.beetl.sql.core.NameConversion;
 import org.beetl.sql.core.engine.PageQuery;
 
@@ -18,6 +19,7 @@ public class App {
             return action.around(ctx, param, null);
         });
 
+        Macro.loadMacro("login");
         Nami.start();
     }
 
