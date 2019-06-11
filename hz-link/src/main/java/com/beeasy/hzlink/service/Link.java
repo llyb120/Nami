@@ -234,6 +234,7 @@ public class Link {
                 String legalName = cusCom.getLegal_name();
                 // 法人不一致，发送消息提醒
                 if(!operName.equals(legalName)){
+
                     var user = sqlManager.lambdaQuery(TUser.class).andEq(TUser::getAcc_code,cusCom.getCust_mgr()).single();
 
                     TSystemNotice notice = new TSystemNotice();
@@ -701,16 +702,86 @@ public class Link {
                 return;
             }else{
                 for(Link111 link: linkList){
-                    var company = link.getLink_left();
-
+                    String company = link.getLink_left();
+                    save12_5(company);
                 }
             }
         }else{
             for(CusCom list : lists){
-
+                String company = list.getCus_name();
+                save12_5(company);
             }
         }
 
+    }
+
+    // 12_5规则 查询法人、自然人股东、董事并保存
+    private static void save12_5(String compName){
+        //企业基本信息
+        var detail = getCompanyDetail(compName);
+        if (detail == null) {
+            return;
+        }
+        var batch = a();
+        batch.add(new Link111(){
+            {
+                setLink_rule("12.5");
+                setIs_company(1);
+                setId(IdUtil.objectId());
+                setLink_type("法人");
+                setOrigin_name(compName);
+                setLink_left(compName);
+                setLink_right(detail.getStr("OperName"));
+            }
+        });
+
+        //主要人员
+        var ps = detail.getArr("Employees");
+        for (Obj obj : ps.toObjList()) {
+            if(obj.getStr("Job","").contains("董事")){
+                batch.add(new Link111(){
+                    {
+                        setLink_rule("12.5");
+                        setIs_company(1);
+                        setId(IdUtil.objectId());
+                        setLink_type("董事");
+                        setOrigin_name(compName);
+                        setLink_left(compName);
+                        setLink_right(obj.getStr("Name"));
+                    }
+                });
+            }
+        }
+
+        var dps = detail.getArr("Partners");
+        for (Obj obj : dps.toObjList()) {
+            //算不出来的一概忽略
+            try {
+                var p = new BigDecimal(obj.getStr("StockPercent").replaceAll("%", ""));
+                if (p.floatValue() >= 25) {
+                    batch.add(new Link111(){{
+                        setLink_rule("12.5");
+                        setIs_company(1);
+                        setId(IdUtil.objectId());
+                        setLink_type("自然人股东");
+                        setOrigin_name(compName);
+                        setLink_left(compName);
+                        setLink_right(obj.getStr("Name"));
+                        setStock_percent(p);
+                    }});
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(batch.isNotEmpty()){
+            sqlManager.lambdaQuery(Link111.class)
+                    .andEq(Link111::getLink_rule, "12.5")
+                    .andEq(Link111::getOrigin_name, compName)
+                    .delete();
+            sqlManager.insertBatch(Link111.class, batch);
+        }
     }
 
     /**
