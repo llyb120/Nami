@@ -14,7 +14,7 @@ public class pic {
     public R upload(
         MultipartFile file
     ) throws IOException {
-        String name = U.fixFileName(file.fileName());
+        String name = U.fixFileName(file.fileName);
 //        var date = DateUtil.format(new Date(), "yyyy-MM-dd");
 //        var fileName = StrUtil.uuid() + U.getExt(file.fileName());
 //        var dir = new File(config.uploadDir, date);

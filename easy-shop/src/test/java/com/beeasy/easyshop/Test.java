@@ -60,6 +60,7 @@ public class Test {
         Configuration cfg = Configuration.defaultConfiguration();
         cfg.setStatementStart("//@");
         cfg.setStatementEnd(null);
+        cfg.setPlaceholderStart("_{");
         GroupTemplate gt = new GroupTemplate(resourceLoader, cfg);
         gt.registerTag("fuck", CompressTag.class);
         Template t = gt.getTemplate(code);

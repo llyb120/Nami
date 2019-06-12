@@ -53,9 +53,9 @@ public class Nami {
                         pipeline.addLast(new HttpServerCodec());
                         //将HTTP消息的多个部分组合成一条完整的HTTP消息
                         pipeline.addLast(new StringDecoder(Charset.forName("UTF-8")));
-                        pipeline.addLast(new ChunkedWriteHandler());
                         pipeline.addLast(new HttpObjectAggregator(1024 * 1024));
 //                        pipeline.addLast(new HttpStaticHandleAdapter());
+                        pipeline.addLast(new ChunkedWriteHandler());
                         pipeline.addLast(new HttpServerHandler());
 
                     }

@@ -187,14 +187,14 @@ public class store {
      * @return
      */
     public R uploadpic(int id, MultipartFile file) throws IOException {
-        String name = U.fixFileName(file.fileName());
+        String name = U.fixFileName(file.fileName);
         File target = new File(config.uploadDir, name);
         file.transferTo(target);
 
         RaAlbumPic raAlbumPic = new RaAlbumPic();
         raAlbumPic.setAclass_id(id);
         raAlbumPic.setUpload_time((int) (System.currentTimeMillis() / 1000));
-        raAlbumPic.setApic_name(file.fileName());
+        raAlbumPic.setApic_name(file.fileName);
         raAlbumPic.setStore_id(Integer.parseInt(auth.getStoreId()));
         raAlbumPic.setN_cover(name);
         var img = ImgUtil.read(target);
