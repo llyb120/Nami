@@ -97,10 +97,8 @@ public class Obj<U> extends JSONObject {
         return !isEmpty();
     }
 
-    /***********************************************/
 
 
-    /***********************************************/
 
     public <U> Obj<U> as(Class<U> clz) {
         this.clz = clz;

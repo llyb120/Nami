@@ -1,7 +1,9 @@
 package com.github.llyb120.nami.core;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -9,10 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.*;
 import io.netty.handler.codec.http.*;
 //import io.netty.handler.codec.http.cookie.Cookie;
 import io.netty.handler.codec.http.cookie.ServerCookieDecoder;
@@ -21,14 +20,24 @@ import io.netty.handler.codec.http.multipart.FileUpload;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import io.netty.handler.codec.http.multipart.InterfaceHttpData;
 import io.netty.handler.codec.http.websocketx.*;
+import io.netty.handler.ssl.SslHandler;
+import io.netty.handler.stream.ChunkedFile;
+import io.netty.handler.stream.ChunkedNioFile;
+import io.netty.handler.stream.ChunkedNioStream;
+import io.netty.handler.stream.ChunkedStream;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.lang.reflect.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static com.github.llyb120.nami.core.Config.config;
+import static io.netty.handler.codec.http.HttpResponseStatus.NOT_FOUND;
+import static io.netty.handler.codec.http.HttpResponseStatus.OK;
+import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 //    private static List<Route> RouteList = new ArrayList<>();
@@ -50,41 +59,39 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 //        RouteList.addAll(Arrays.asList(routes));
 //    }
 
-    public void send(ChannelHandlerContext ctx, int code, Object msg) {
-        ctx.writeAndFlush(getResponse(null, code));
-    }
+//    public void send(ChannelHandlerContext ctx, int code, Object msg) {
+//        ctx.writeAndFlush(getResponse(null, code));
+//    }
+//
+//    public FullHttpResponse getResponse(Throwable e, int code) {
+//        R r = R.fail();
+//        if (e != null) {
+//            Throwable cause = e;
+//            do{
+//                if(cause instanceof RestException){
+//                    r.errMessage = ((RestException) cause).msg;
+//                }
+//            }while((cause = cause.getCause()) != null);
+//        }
+//        ByteBuf buf = Unpooled.buffer();
+//        buf.writeBytes(r.toString().getBytes(StandardCharsets.UTF_8));
+//        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.NOT_FOUND, buf);
+//        if(code == 404){
+//           response.setStatus(HttpResponseStatus.NOT_FOUND);
+//        }
+//        else if(code == 200){
+//            response.setStatus(HttpResponseStatus.OK);
+//        }
+//        response.headers().set("Content-Type", "application/json; charset=utf-8");
+//        response.headers().set("Content-Length", buf.readableBytes());
+//        writeCors(response);
+//        return response;
+//    }
 
-    public FullHttpResponse getResponse(Throwable e, int code) {
-        R r = R.fail();
-        if (e != null) {
-            Throwable cause = e;
-            do{
-                if(cause instanceof RestException){
-                    r.errMessage = ((RestException) cause).msg;
-                }
-            }while((cause = cause.getCause()) != null);
-        }
-        ByteBuf buf = Unpooled.buffer();
-        buf.writeBytes(r.toString().getBytes(StandardCharsets.UTF_8));
-        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.NOT_FOUND, buf);
-        if(code == 404){
-           response.setStatus(HttpResponseStatus.NOT_FOUND);
-        }
-        else if(code == 200){
-            response.setStatus(HttpResponseStatus.OK);
-        }
-        response.headers().set("Content-Type", "application/json; charset=utf-8");
-        response.headers().set("Content-Length", buf.readableBytes());
-        writeCors(response);
-        return response;
-    }
-
-    public void write(ChannelHandlerContext ctx, FullHttpResponse response, boolean keepAlive) {
-        if (!keepAlive) {
-            ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
-        } else {
-            response.headers().set(CONNECTION, KEEP_ALIVE);
-            ctx.writeAndFlush(response);
+    public void write(ChannelHandlerContext ctx, HttpResponse response, boolean keepAlive) {
+        var future = ctx.writeAndFlush(response);
+        if(!keepAlive){
+            future.addListener(ChannelFutureListener.CLOSE);
         }
     }
 
@@ -125,32 +132,28 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             }
             return;
         }
-        if (uri.equals("/favicon.ico")) {
-            ctx.close();
-            return;
-        }
-
-        if(request.method().equals(HttpMethod.OPTIONS)){
-            ctx.writeAndFlush(getResponse(null,200));
-            return;
-        }
 
         boolean keepAlive = HttpUtil.isKeepAlive(request);
-        String path = URLUtil.getPath(uri);
-
-        //auto build
-        if(path.equals("/filechange")){
-            var q = decodeQuery(request);
-            var f = q.getString("file");
-            if(!f.endsWith(".java")){
-                return;
-            }
-            ThreadUtil.execAsync(() -> {
-                Compiler.compile(new File(f), "ecj");
-            });
-//            int d = 1;
-//            Compiler.compile()
+        HttpResponse response = new DefaultHttpResponse(HTTP_1_1, OK);
+        //写入keepalive
+        if(keepAlive){
+            response.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
         }
+        //写入跨域
+        writeCors(response);
+
+        if(request.method().equals(HttpMethod.OPTIONS)){
+            write(ctx, response, keepAlive);
+            return;
+        }
+
+        if (uri.equals("/favicon.ico")) {
+            response.setStatus(NOT_FOUND);
+            write(ctx, response, keepAlive);
+            return;
+        }
+
+        String path = URLUtil.getPath(uri);
 
         String[] arr = path.substring(1).split("\\/");
         route:
@@ -217,36 +220,48 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
                     break;
                 }
             }
-            FullHttpResponse response = null;
-            byte[] responseBytes;
-            if (result instanceof String) {
-                responseBytes = ((String) result).getBytes(StandardCharsets.UTF_8);
+            if(result instanceof File){
+                //提供文件下载
+                downloadFile(ctx, response, keepAlive, new MultipartFile(((File) result).getName(), (File)result));
+            } else if(result instanceof MultipartFile){
+                MultipartFile mfile = (MultipartFile) result;
+                if (mfile.byteBuf != null || mfile.file != null) {
+                    downloadFile(ctx, response, keepAlive, mfile);
+                }
             } else {
-                responseBytes = JSON.toJSONString(result, SerializerFeature.WriteDateUseDateFormat, SerializerFeature.PrettyFormat).getBytes(StandardCharsets.UTF_8);
+                byte[] responseBytes;
+                if(result instanceof String){
+                    responseBytes = ((String) result).getBytes(StandardCharsets.UTF_8);
+                } else {
+                    responseBytes = JSON.toJSONString(result, SerializerFeature.WriteDateUseDateFormat, SerializerFeature.PrettyFormat).getBytes(StandardCharsets.UTF_8);
+                }
+                ByteBuf buf = Unpooled.wrappedBuffer(responseBytes);
+//                var resp = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, buf);
+                response.headers().set(HttpHeaders.Names.CONTENT_TYPE, "application/json; charset=utf-8");
+                response.headers().set(HttpHeaders.Names.CONTENT_LENGTH, buf.readableBytes());
+                context.cookie.writeToResponse(response);
+                ctx.write(response);
+                var future = ctx.writeAndFlush(buf);
+                if(!keepAlive){
+                    future.addListener(ChannelFutureListener.CLOSE);
+                }
             }
-//                int contentLength = responseBytes.length;
-            // 构造FullHttpResponse对象，FullHttpResponse包含message body
-            ByteBuf buf = Unpooled.wrappedBuffer(responseBytes);
-            response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, buf);
-            response.headers().set(HttpHeaders.Names.CONTENT_TYPE, "application/json; charset=utf-8");
-            response.headers().set(HttpHeaders.Names.CONTENT_LENGTH, buf.readableBytes());
-            writeCors(response);
-            context.cookie.writeToResponse(response);
-//            buf.release();
-
-            write(ctx, response, keepAlive);
             return;
         }
 
-        send(ctx, 404, null);
+        response.setStatus(NOT_FOUND);
+        write(ctx, response, keepAlive);
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        LastException = cause;
+//        LastException = cause;
         cause.printStackTrace();
-        ctx.writeAndFlush(getResponse(cause,200));
+        //write error
         ctx.close();
+//        HttpResponse response =
+//        ctx.writeAndFlush(getResponse(cause,200));
+//        ctx.close();
     }
 
 
@@ -295,7 +310,7 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
-    private static void writeCors(FullHttpResponse response){
+    private static void writeCors(HttpResponse response){
         if (config.cors == null) {
            return;
         }
@@ -384,6 +399,86 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
                 }
             }
             return ins;
+        }
+    }
+
+
+    private void writeFileDesc(HttpResponse response, MultipartFile multipartFile){
+        var headers = response.headers();
+        headers.set("Content-Type", (multipartFile.contentType));
+        var fileName = URLUtil.encode(multipartFile.fileName, CharsetUtil.UTF_8);
+        headers.set("Content-Disposition", "attachment; filename=\"" + fileName + "\"; filename*=utf-8''" + fileName);
+        headers.set(HttpHeaderNames.TRANSFER_ENCODING, HttpHeaderValues.CHUNKED);
+    }
+    /**
+     * 文件下载
+     * @param ctx
+     * @param response
+     * @param file
+     */
+    private void downloadFile(ChannelHandlerContext ctx, HttpResponse response, boolean keepAlive, MultipartFile multipartFile){
+        try{
+//            RandomAccessFile raf = new RandomAccessFile(file, "r");
+//            long fileLength = file.length();
+//            HttpUtil.setContentLength(response, fileLength);
+            writeFileDesc(response, multipartFile);
+
+//            response.headers().set("Content-Type", "application/json; charset=utf-8");
+//        setContentTypeHeader(response, file);
+//        setDateAndCacheHeaders(response, file);
+//            if (HttpUtil.isKeepAlive(request)) {
+//                response.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
+//            }
+
+            // Write the initial line and the header.
+            ctx.write(response);
+
+            // Write the content.
+            ChannelFuture sendFileFuture;
+            ChannelFuture lastContentFuture;
+//            if (ctx.pipeline().get(SslHandler.class) == null) {
+                if(multipartFile.byteBuf != null){
+                    sendFileFuture = ctx.write(multipartFile.byteBuf, ctx.newProgressivePromise());
+                } else if(multipartFile.file != null){
+                    sendFileFuture = ctx.write(new ChunkedNioFile(multipartFile.file), ctx.newProgressivePromise());
+                } else {
+                    throw new IOException();
+                }
+                // Write the end marker.
+                lastContentFuture = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
+                ;
+//            } else {
+//                if(multipartFile.byteBuf != null){
+//
+//                } else if(multipartFile.file != null){
+//                    sendFileFuture = ctx.writeAndFlush(new HttpChunkedInput(new ChunkedFile(multipartFile.file)),
+//                        ctx.newProgressivePromise());
+//                } else {
+//                    throw new IOException();
+//                }
+//                // HttpChunkedInput will write the end marker (LastHttpContent) for us.
+//                lastContentFuture = sendFileFuture;
+//            }
+
+            sendFileFuture.addListener(new ChannelProgressiveFutureListener() {
+                @Override
+                public void operationProgressed(ChannelProgressiveFuture future, long progress, long total) {
+                }
+
+                @Override
+                public void operationComplete(ChannelProgressiveFuture future) {
+                    multipartFile.release();
+                }
+            });
+
+            if(!keepAlive){
+                lastContentFuture.addListener(ChannelFutureListener.CLOSE);
+            }
+
+        }
+        catch (IOException e){
+            response.setStatus(NOT_FOUND);
+            write(ctx, response, keepAlive);
         }
     }
 

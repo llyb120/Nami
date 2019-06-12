@@ -2,6 +2,7 @@ package com.github.llyb120.nami.core;
 
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpHeaders;
+import io.netty.handler.codec.http.HttpResponse;
 import io.netty.handler.codec.http.cookie.DefaultCookie;
 import io.netty.handler.codec.http.cookie.ServerCookieEncoder;
 
@@ -47,7 +48,7 @@ public class Cookie {
         }
     }
 
-    public void writeToResponse(FullHttpResponse response){
+    public void writeToResponse(HttpResponse response){
         if(!changed){
            return;
         }

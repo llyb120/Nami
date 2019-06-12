@@ -9,10 +9,12 @@
         <outputRelativeToContentRoot value="true" />
         <module name="nami" />
         <module name="hz-link" />
-        <module name="web-core" />
         <module name="easy-shop" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="web-core" target="11" />
+    </bytecodeTargetLevel>
   </component>
   <component name="EclipseCompilerSettings">
     <option name="GENERATE_NO_WARNINGS" value="true" />

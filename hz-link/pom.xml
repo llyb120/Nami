@@ -64,6 +64,28 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.jxls/jxls -->
+        <dependency>
+            <groupId>org.jxls</groupId>
+            <artifactId>jxls</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.jxls/jxls-jexcel &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.jxls</groupId>-->
+<!--            <artifactId>jxls-jexcel</artifactId>-->
+<!--            <version>1.0.9</version>-->
+<!--        </dependency>-->
+
+
+        <!-- https://mvnrepository.com/artifact/org.jxls/jxls-poi -->
+        <dependency>
+            <groupId>org.jxls</groupId>
+            <artifactId>jxls-poi</artifactId>
+            <version>2.6.0-rc1</version>
+        </dependency>
+
+
     </dependencies>
     <build>
         <plugins>

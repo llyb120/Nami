@@ -7,17 +7,23 @@ import com.alibaba.fastjson.JSONObject;
 import com.beeasy.easyshop.model.*;
 import com.github.llyb120.nami.core.*;
 import com.github.llyb120.nami.core.boost.SqlBoost;
+import com.github.llyb120.nami.excel.ExportUtil;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.beetl.sql.core.SQLReady;
 import org.beetl.sql.core.engine.PageQuery;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.github.llyb120.nami.core.DBService.sqlManager;
-public class a {
+import static com.github.llyb120.nami.core.Json.a;
+import static com.github.llyb120.nami.core.Json.o;
+
+public class aa {
 
     public static class d{
         public int c;
@@ -133,6 +139,27 @@ public class a {
             .on(Json.ValidateType.notnull, "该用户不是商家", RaSeller::getSeller_id);
 
         return orderlist;
+    }
+
+
+    public File download(File file){
+        return new File("d:/template.xls");
+    }
+
+    public MultipartFile ddd(){
+        try {
+            return ExportUtil.toXls(new FileInputStream("d:/template.xls"), o(
+                "values", a(
+                    o("name", "1"),
+                    o("name", "2")
+                )
+            ), "cubi.xls");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidFormatException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
