@@ -1,5 +1,6 @@
 package com.beeasy.easyshop.ctrl;
 
+import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.alibaba.fastjson.JSON;
@@ -146,12 +147,16 @@ public class aa {
         return new File("d:/template.xls");
     }
 
+    public MultipartFile testDownload(){
+        return new MultipartFile("111.mp4", new File("D:\\UpupooResource\\2000014971\\贞德1080p60fps.mp4"));
+    }
+
     public MultipartFile ddd(){
         try {
             return ExportUtil.toXls(new FileInputStream("d:/template.xls"), o(
                 "values", a(
-                    o("name", "1"),
-                    o("name", "2")
+                    o("name", "1", "code", "cu"),
+                    o("name", "2", "code", "da")
                 )
             ), "cubi.xls");
         } catch (IOException e) {
