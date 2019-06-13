@@ -168,6 +168,9 @@ public class aa {
     }
 
 
+    public Object obj(PageQuery<RaMember> memberPageQuery){
+        return memberPageQuery;
+    }
 
 }
 

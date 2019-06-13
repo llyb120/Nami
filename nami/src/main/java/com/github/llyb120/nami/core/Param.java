@@ -3,7 +3,6 @@ package com.github.llyb120.nami.core;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.github.llyb120.nami.core.boost.SqlBoost;
 import io.netty.handler.codec.http.FullHttpRequest;
 import org.beetl.sql.core.annotatoin.Table;
@@ -17,7 +16,6 @@ import java.util.stream.Stream;
 import static cn.hutool.core.util.StrUtil.*;
 import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.core.DBService.sqlManager;
-import static com.github.llyb120.nami.core.Json.a;
 
 public class Param {
     private static List<Rule> ruleList = new Vector<>();
@@ -146,8 +144,9 @@ public class Param {
     }
 
     private static boolean isModel(Parameter p, Class clz){
-        return (config.model != null && config.model.stream()
-            .anyMatch(e -> clz.getName().startsWith(e))) || (p.getAnnotation(SqlBoost.class) != null);
+        return clz.getAnnotation(Table.class) != null;
+//        return (config.model != null && config.model.stream()
+//            .anyMatch(e -> clz.getName().startsWith(e))) || (p.getAnnotation(SqlBoost.class) != null);
     }
 
 
@@ -190,15 +189,18 @@ public class Param {
                 }
             }
 
-            String[] ops = {">=","<=","=","!","%"};
+            String[] ops = {">>","<<", ">", "<" ,"%"};
             var finalop = Stream.of(ops)
-                .filter(e -> {
-                    var idex = entry.getKey().lastIndexOf(e);
-                    return idex > -1 && idex + e.length() == entry.getKey().length();
-                })
+                .filter(e -> entry.getKey().endsWith(e))
                 .findFirst()
                 .orElse("=");
             var key = entry.getKey().replace(finalop, "");
+            //否定判断
+            var flip = false;
+            if(key.endsWith("!")){
+                flip = true;
+                key = key.substring(0, key.length() - 1);
+            }
 
             //多个字段或
             String[] ks = null;
@@ -226,28 +228,97 @@ public class Param {
                     switch (finalop){
                         case "=":
                             if(ktype.equals("and")){
-                                con.andEq(fname, entry.getValue());
+                                if(flip){
+                                    con.andNotEq(fname, entry.getValue());
+                                } else {
+                                    con.andEq(fname, entry.getValue());
+                                }
                             } else {
-                                con.orEq(fname, val);
+                                if(flip){
+                                    con.orNotEq(fname, val);
+                                } else {
+                                    con.orEq(fname, val);
+                                }
                             }
                             break;
 
-                        case ">=":
-                            con.andGreatEq(fname, entry.getValue());
+                        case ">>":
+                            if(ktype.equals("and")){
+                                if(flip){
+                                    con.andLess(fname, entry.getValue());
+                                } else {
+                                    con.andGreatEq(fname, entry.getValue());
+                                }
+                            } else {
+                                if(flip){
+                                    con.orLess(fname, entry.getValue());
+                                } else {
+                                    con.orGreatEq(fname, entry.getValue());
+                                }
+                            }
                             break;
 
-                        case "<=":
-                            con.andLessEq(fname, val);
+                        case "<<":
+                            if (ktype.equals("and")) {
+                                if(flip){
+                                    con.andGreat(fname, val);
+                                } else {
+                                    con.andLessEq(fname, val);
+                                }
+                            } else {
+                                if(flip){
+                                    con.orGreat(fname, val);
+                                } else {
+                                    con.orLessEq(fname, val);
+                                }
+                            }
+                            break;
+
+                        case ">":
+                            if(ktype.equals("and")){
+                                if(flip){
+                                    con.andLessEq(fname, val);
+                                } else {
+                                    con.andGreat(fname, val);
+                                }
+                            } else {
+                                if(flip){
+                                    con.orLessEq(fname, val);
+                                } else {
+                                    con.orGreat(fname, val);
+                                }
+                            }
                             break;
 
                         case "<":
+                            if(ktype.equals("and")){
+                                if(flip){
+                                    con.andGreatEq(fname, val);
+                                } else {
+                                    con.andLess(fname, val);
+                                }
+                            } else {
+                                if(flip){
+                                    con.orGreatEq(fname, val);
+                                } else {
+                                    con.orLess(fname, val);
+                                }
+                            }
                             break;
 
                         case "%":
                             if(ktype.equals("and")){
-                                con.andLike(fname, val);
+                                if(flip){
+                                    con.andNotLike(fname, val);
+                                } else {
+                                    con.andLike(fname, val);
+                                }
                             } else {
-                                con.orLike(fname, val);
+                                if(flip){
+                                    con.orNotLike(fname, val);
+                                } else {
+                                    con.orLike(fname, val);
+                                }
                             }
                             break;
                     }
@@ -267,7 +338,7 @@ public class Param {
             .map(e -> as + "." + e)
             .collect(Collectors.toSet());
         if (boost != null && boost.appendField().length > 0) {
-            var key = table.name().toLowerCase();
+            var key = table.name();
             var idex = key.indexOf(".");
             if(idex > -1){
                 key = key.substring(idex + 1);
@@ -296,10 +367,8 @@ public class Param {
             return ret;
         } else if(flag == 2){
             if(Obj.class.isAssignableFrom(gType)){
-                var ret =  Json.toNamiJson(q.single());;
-                var list = new ArrayList<Obj>();
-                list.add((Obj) ret);
-                addLinks(list, links);
+                var ret =  Json.toNamiJson(q.single());
+                addLinks(Arrays.asList((Obj)ret), links);
                 return ret;
             } else {
                 var ret = q.single();

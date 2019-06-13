@@ -16,9 +16,9 @@ Nami是一款高质量、低码量的全栈式WEB开发框架。
 2. 在依赖中加入它，例如
 ```xml
 <dependency>
-    <groupId>com.beeasy</groupId>
-    <artifactId>web-core</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.github.llyb120</groupId>
+    <artifactId>nami</artifactId>
+    <version>1.0.1-RELEASE</version>
 </dependency>
 ```
 
@@ -42,7 +42,7 @@ Nami是一款高质量、低码量的全栈式WEB开发框架。
 
 5. 建立启动类，例如
 ```java
-public class com.beeasy.hzlink.App {
+public class App {
     public static void main(String[] args) {
         Nami.start();
     }

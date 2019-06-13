@@ -5,7 +5,7 @@
     <groupId>com.github.llyb120</groupId>
     <packaging>jar</packaging>
     <artifactId>nami</artifactId>
-    <version>1.0.1-RELEASE</version>
+    <version>1.0.2-RELEASE</version>
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -48,17 +48,6 @@
         </repository>
     </distributionManagement>
 
-    <profiles>
-        <profile>
-            <id>doclint-java8-disable</id>
-            <activation>
-                <jdk>[1.8,)</jdk>
-            </activation>
-            <properties>
-                <javadoc.opts>-Xdoclint:none</javadoc.opts>
-            </properties>
-        </profile>
-    </profiles>
 
     <repositories>
         <repository>
@@ -238,26 +227,27 @@
             </plugin>
 
 
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
-<!--                <version>3.1.0</version>-->
-<!--                <configuration>-->
-<!--                    <aggregate>true</aggregate>-->
-<!--                    <charset>UTF-8</charset>-->
-<!--                    <encoding>UTF-8</encoding>-->
-<!--                    <docencoding>UTF-8</docencoding>-->
-<!--                    <additionalparam>-Xdoclint:none</additionalparam>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>attach-javadocs</id>-->
-<!--                        <goals>-->
-<!--                            <goal>jar</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <doclint>none</doclint>
+                    <charset>UTF-8</charset>
+                    <encoding>UTF-8</encoding>
+                    <docencoding>UTF-8</docencoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
 
         </plugins>
     </build>
