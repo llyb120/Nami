@@ -3,6 +3,7 @@ package com.github.llyb120.nami.core;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.github.llyb120.nami.core.boost.SqlBoost;
 import io.netty.handler.codec.http.FullHttpRequest;
 import org.beetl.sql.core.annotatoin.Table;
@@ -16,6 +17,7 @@ import java.util.stream.Stream;
 import static cn.hutool.core.util.StrUtil.*;
 import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.core.DBService.sqlManager;
+import static com.github.llyb120.nami.core.Json.a;
 
 public class Param {
     private static List<Rule> ruleList = new Vector<>();
@@ -265,7 +267,7 @@ public class Param {
             .map(e -> as + "." + e)
             .collect(Collectors.toSet());
         if (boost != null && boost.appendField().length > 0) {
-            var key = table.name();
+            var key = table.name().toLowerCase();
             var idex = key.indexOf(".");
             if(idex > -1){
                 key = key.substring(idex + 1);
@@ -294,8 +296,10 @@ public class Param {
             return ret;
         } else if(flag == 2){
             if(Obj.class.isAssignableFrom(gType)){
-                var ret =  JSON.toJSON(q.single());
-                addLinks(Arrays.asList((Obj)ret), links);
+                var ret =  Json.toNamiJson(q.single());;
+                var list = new ArrayList<Obj>();
+                list.add((Obj) ret);
+                addLinks(list, links);
                 return ret;
             } else {
                 var ret = q.single();
