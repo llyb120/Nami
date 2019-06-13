@@ -23,7 +23,7 @@ public class Config {
     public String upload;
     public File uploadDir;
     public boolean dev = true;
-    public Set<String> model;
+//    public Set<String> model;
     public List<String> link;
     public Map<String, Link> links;
 
