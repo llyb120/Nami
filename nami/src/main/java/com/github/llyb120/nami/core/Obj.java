@@ -11,8 +11,10 @@ import com.alibaba.fastjson.JSONObject;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.sql.Struct;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 import static com.github.llyb120.nami.core.Json.*;
@@ -46,6 +48,17 @@ public class Obj<U> extends JSONObject {
             return (T) this;
         }
         return super.toJavaObject(clazz);
+    }
+
+    public static interface ObjValueIterator {
+        void call(Obj t);
+    }
+
+    public void forEachObj(ObjValueIterator iterator){
+        for (String s : this.keySet()) {
+            var val = getObj(s);
+            iterator.call(val);
+        }
     }
 
     public Arr getArr(String key) {

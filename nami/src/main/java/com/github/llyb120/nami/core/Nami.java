@@ -1,6 +1,6 @@
 package com.github.llyb120.nami.core;
 
-import cn.hutool.core.util.StrUtil;
+import com.github.llyb120.nami.sqltool.sqltool;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -30,6 +30,9 @@ public class Nami {
         if(config.dev && config.compile.parallel){
             Compiler.start();
         }
+
+        //注册基本类
+        sqltool.init();
 
 //        if(StrUtil.isNotEmpty(config.chakra)){
 //            chakraCore = new ChakraCore();
