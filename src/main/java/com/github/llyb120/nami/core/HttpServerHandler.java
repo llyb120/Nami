@@ -4,6 +4,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -137,7 +138,7 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
         HttpResponse response = new DefaultHttpResponse(HTTP_1_1, OK);
         //写入keepalive
         if(keepAlive){
-            response.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
+            HttpUtil.setKeepAlive(response, true);
         }
         //写入跨域
         writeCors(response);
@@ -241,7 +242,8 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
                 response.headers().set(HttpHeaders.Names.CONTENT_LENGTH, buf.readableBytes());
                 context.cookie.writeToResponse(response);
                 ctx.write(response);
-                var future = ctx.writeAndFlush(buf);
+                ctx.writeAndFlush(buf);
+                var future = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
                 if(!keepAlive){
                     future.addListener(ChannelFutureListener.CLOSE);
                 }
@@ -315,10 +317,18 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
            return;
         }
         HttpHeaders headers = response.headers();
-        headers.set(HttpHeaders.Names.ACCESS_CONTROL_ALLOW_ORIGIN, config.cors.origin);
-        headers.set(HttpHeaders.Names.ACCESS_CONTROL_ALLOW_METHODS, config.cors.method);
-        headers.set(HttpHeaders.Names.ACCESS_CONTROL_ALLOW_HEADERS, config.cors.headers);
-        headers.set(HttpHeaders.Names.ACCESS_CONTROL_ALLOW_CREDENTIALS, config.cors.credentials);
+        if (StrUtil.isNotEmpty(config.cors.origin)) {
+            headers.set(HttpHeaders.Names.ACCESS_CONTROL_ALLOW_ORIGIN, config.cors.origin);
+        }
+        if (StrUtil.isNotEmpty(config.cors.method)) {
+            headers.set(HttpHeaders.Names.ACCESS_CONTROL_ALLOW_METHODS, config.cors.method);
+        }
+        if (StrUtil.isNotEmpty(config.cors.headers)) {
+            headers.set(HttpHeaders.Names.ACCESS_CONTROL_ALLOW_HEADERS, config.cors.headers);
+        }
+        if (StrUtil.isNotEmpty(config.cors.credentials)) {
+            headers.set(HttpHeaders.Names.ACCESS_CONTROL_ALLOW_CREDENTIALS, config.cors.credentials);
+        }
     }
 //    public static Map<String, Object> getGetParamsFromChannel(FullHttpRequest fullHttpRequest) {
 //

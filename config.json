@@ -1,20 +1,23 @@
 {
-    "port": "8082",
+    "port": "8084",
     "db": {
         "main": {
-            "url": "jdbc:mysql://120.25.156.159:3306/yoehi?useUnicode=true&characterEncoding=utf8&useSSL=false",
-            "driver": "com.mysql.jdbc.Driver",
-            "username": "root",
-            "password": "qwerty!@#$%^"
+            "url": "jdbc:db2://47.94.97.138:50000/test:currentSchema=DB2INST1;",
+            "driver": "com.ibm.db2.jcc.DB2Driver",
+            "username": "db2inst1",
+            "password": "db2inst1",
+            "style": "_"
         }
     },
     "hotswap": [
-        "com.beeasy.easyshop.ctrl"
+        "com.github.llyb120.nami.sqltool"
     ],
     "route": [
-        "/qcc/:c/:a -> com.beeasy.easyshop.filter.Auth -> com.beeasy.easyshop.ctrl"
+        "/sqltool/:c/:a -> com.github.llyb120.nami.sqltool"
     ],
     "cors": {
-    
+        "origin": "*",
+        "method": "GET,POST,OPTIONS",
+        "headers": "X-Requested-With, Authorization, TOKEN, Content-Type"
     }
 }
