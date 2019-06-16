@@ -12,7 +12,6 @@
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
     <!-- 引入组件库 -->
     <script src="https://cdn.bootcss.com/element-ui/2.8.2/index.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <style>
         *{
             margin: 0;
@@ -21,6 +20,12 @@
         body,html, #app{
             width: 100%;
             height: 100%;
+        }
+        .el-input{
+            display: inline-block;
+        }
+        .el-collapse-item__wrap{
+            transition: none;
         }
     </style>
 </head>
@@ -32,8 +37,11 @@
             <el-main>
                 <a href="javascript:;" @click="add_table">添加表</a>
                 <div v-for="(table,i) in tables">
-                    <div v-if="i == 0">主表</div>
-                    <div v-else>关联表</div>
+                    <el-divider  content-position="center">
+                        {{i == 0 ? '主表' : '关联表'}}
+                        <span v-if="i > 0" v-text="i">
+                        </span>
+                    </el-divider >
 
                     <el-select v-model="table.name" filterable placeholder="请选择"
                                @change="e => sel_table(e, table)"
@@ -47,24 +55,35 @@
                         </el-option>
                     </el-select>
 
-                    <div v-if="i > 0">
-                        <div>
-                            关联条件
-                        </div>
-                        <div>
+                    <font>as</font>
+                    <el-input  v-model="table.as" style="width: 150px;"></el-input>
 
-                        </div>
-                    </div>
 
                     <el-collapse v-model="table.actives">
+                        <el-collapse-item v-if="i > 0" title="关联条件" name="join">
+                            <el-button type="primary" size="mini" @click="add_join_expr(table)">添加关联</el-button>
+                            <el-table :data="table.join">
+                                <el-table-column prop="left_type" label="左类型"></el-table-column>
+                                <el-table-column prop="left_value" label="左值"></el-table-column>
+                                <el-table-column prop="op" label="运算符"></el-table-column>
+                                <el-table-column prop="right_type" label="右类型"></el-table-column>
+                                <el-table-column prop="right_value" label="右值"></el-table-column>
+                            </el-table>
+                            <div v-for="item in table.join">
+
+                            </div>
+                        </el-collapse-item>
                         <el-collapse-item title="表字段" name="select">
                             <el-table
                                     :data="table.fields"
+                                    @selection-change="on_field_select_change"
                                     border
                                     style="width: 100%">
                                 <el-table-column
-                                        type="selection"
                                         width="55">
+                                    <template slot-scope="scope">
+                                        <el-checkbox v-model="scope.row.checked"></el-checkbox>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         prop="name"
@@ -75,14 +94,26 @@
                                         prop="comment"
                                         label="字段注释">
                                 </el-table-column>
+                                <el-table-column
+                                            prop="as"
+                                            label="as"
+                                >
+                                    <template slot-scope="scope">
+                                        <el-input v-model="scope.row.as"></el-input>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column
+                                        prop="formula"
+                                        label="公式"
+                                ></el-table-column>
                             </el-table>
                         </el-collapse-item>
-                        <el-collapse-item title="自定义字段" name="appendWhere">
+<!--                        <el-collapse-item title="自定义字段" name="appendWhere">-->
 
-                        </el-collapse-item>
-                        <el-collapse-item title="条件" name="where">
+<!--                        </el-collapse-item>-->
+<!--                        <el-collapse-item title="条件" name="where">-->
 
-                        </el-collapse-item>
+<!--                        </el-collapse-item>-->
                     </el-collapse>
                 </div>
             </el-main>
@@ -99,43 +130,83 @@
                 all_tables:{}
             }
         },
-        methods:{
-            add_table(){
+        mounted(){
+            this.get("http://127.0.0.1:8084/sqltool/sqltool/getTables", res => {
+                this.all_tables = res
+            })
+        },
+        computed:{
+            links(){
+                return 1
+            }
+        },
+
+        methods: {
+            add_table() {
                 var obj = {
                     name: "请选择",
                     fields: [],
-                    actives:[]
+                    actives: [],
+                    as: "t" + this.tables.length,
+                    join:[]
                 };
                 this.tables.push(obj)
             },
-            sel_table(e, table){
+            sel_table(e, table) {
                 console.log(arguments)
                 table.fields = []
+                var item = {
+                    name: "*",
+                    comment:"所有字段，选择该项的时候，其余的字段设置无效",
+                    checked: false,
+                    as:"*"
+                };
+                table.fields.push(item);
+
                 this.all_tables[e].fields.forEach(i => {
                     var item = JSON.parse(JSON.stringify(i));
                     //补充字段
                     // item.custom = false;
                     item.checked = false;
+                    item.as = item.name;
                     table.fields.push(item)
                 });
+            },
+            on_field_select_change(val){
+                console.log(val)
+            },
+            add_join_expr(table){
+                table.join.push({
+                    left_type:"",
+                    left_value:"",
+                    op:"=",
+                    right_type:"",
+                    right_value:""
+                })
+            },
+
+            get(url, data, callback) {
+                if (!callback && data && typeof data == 'function') {
+                    callback = data;
+                    data = {};
+                }
+                fetch(url).then(res => res.json()).then(res => callback.call(this, res));
             }
         }
     });
 
+    console.log(app)
 
-    $.ajaxSetup(
-        {
-            cache: false
-        }
-    )
-    $.get("http://127.0.0.1:8084/sqltool/sqltool/getTables", res => {
-        app.all_tables = res;
-        alert("ok")
-    }, "json");
-    $.get("http://127.0.0.1:8084/sqltool/sqltool/test", res => {
-
-    })
-
-    // fetch('').then(res => res.json()).then(res => {
+    // var get =
+    //
+    // $.ajaxSetup({
+    //     cache: false
     // });
+    // $.get("http://127.0.0.1:8084/sqltool/sqltool/getTables", res => {
+    //     app.all_tables = res;
+    //     alert("ok")
+    // }, "json");
+    //
+    // // fetch('').then(res => res.json()).then(res => {
+    // // });
 </script>

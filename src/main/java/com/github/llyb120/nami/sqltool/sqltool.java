@@ -35,8 +35,9 @@ public class sqltool {
             var table = o("name", e.getStr("tabname"), "fields", a());
             map.put(e.getStr("tabname"), table);
         });
-        sql = "SELECT tabname,colname,colno,typename,length,remarks FROM SYSCAT.COLUMNS  where TABSCHEMA='DB2INST1'";
-        sqlManager.execute(new SQLReady(sql), Obj.class)
+        sql = "SELECT tabname,colname,colno,typename,length,remarks FROM SYSCAT.COLUMNS  where TABSCHEMA= #schema#";
+        sqlManager.execute(sql, Obj.class, o("schema", "DB2INST1"))
+//        sqlManager.execute(new SQLReady(sql), Obj.class)
             .stream()
             .forEach(e -> {
                 var table = map.get(e.getStr("tabname"));

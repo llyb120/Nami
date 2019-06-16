@@ -13,7 +13,10 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import io.netty.util.CharsetUtil;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 import  static com.github.llyb120.nami.core.Config.config;
 
@@ -22,6 +25,8 @@ public class Nami {
 //    public static ChakraCore chakraCore;
 
     public static void start(String configPath, Listener listener){
+        disableAccessWarnings();
+
         Config.init(configPath);
         DBService.start(true, listener);
 
@@ -55,7 +60,7 @@ public class Nami {
                         //将请求和应答消息编码或解码为HTTP消息
                         pipeline.addLast(new HttpServerCodec());
                         //将HTTP消息的多个部分组合成一条完整的HTTP消息
-                        pipeline.addLast(new StringDecoder(Charset.forName("UTF-8")));
+                        pipeline.addLast(new StringDecoder(CharsetUtil.UTF_8));
                         pipeline.addLast(new HttpObjectAggregator(1024 * 1024));
 //                        pipeline.addLast(new HttpStaticHandleAdapter());
                         pipeline.addLast(new ChunkedWriteHandler());
@@ -86,6 +91,26 @@ public class Nami {
 
     public static abstract class Listener{
         public void onDBServiceBooted(){}
+    }
+
+
+    @SuppressWarnings("unchecked")
+    private static void disableAccessWarnings() {
+        try {
+            Class unsafeClass = Class.forName("sun.misc.Unsafe");
+            Field field = unsafeClass.getDeclaredField("theUnsafe");
+            field.setAccessible(true);
+            Object unsafe = field.get(null);
+
+            Method putObjectVolatile = unsafeClass.getDeclaredMethod("putObjectVolatile", Object.class, long.class, Object.class);
+            Method staticFieldOffset = unsafeClass.getDeclaredMethod("staticFieldOffset", Field.class);
+
+            Class loggerClass = Class.forName("jdk.internal.module.IllegalAccessLogger");
+            Field loggerField = loggerClass.getDeclaredField("logger");
+            Long offset = (Long) staticFieldOffset.invoke(unsafe, loggerField);
+            putObjectVolatile.invoke(unsafe, loggerClass, offset, null);
+        } catch (Exception ignored) {
+        }
     }
 
 //    public static void registerController(String prefix, String packageName){
