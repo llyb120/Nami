@@ -27,6 +27,9 @@
         .el-collapse-item__wrap{
             transition: none;
         }
+        .el-tree-node__content{
+            display: flex;
+        }
     </style>
 </head>
 <body>
@@ -35,87 +38,192 @@
             <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
             </el-aside>
             <el-main>
-                <a href="javascript:;" @click="add_table">添加表</a>
-                <div v-for="(table,i) in tables">
-                    <el-divider  content-position="center">
-                        {{i == 0 ? '主表' : '关联表'}}
-                        <span v-if="i > 0" v-text="i">
-                        </span>
-                    </el-divider >
+                <el-tabs v-model="tab">
+                    <el-tab-pane label="基本" name="base">
 
-                    <el-select v-model="table.name" filterable placeholder="请选择"
-                               @change="e => sel_table(e, table)"
-                    >
-                        <el-option
-                                v-for="item in all_tables"
-                                :key="item.name"
-                                :label="item.name"
-                                :value="item.name"
+                    </el-tab-pane>
+                    <el-tab-pane label="表" name="table">
+                        <el-button size="mini"  @click="add_table" type="primary">添加表</el-button>
+                        <el-tabs v-model="tabtab">
+                            <el-tab-pane v-for="(table,i) in tables" :label="(i == 0 ? '主表' : '关联表' + i) " :name="'t' + i">
+                                <el-select size="mini" v-model="table.name" filterable placeholder="请选择"
+                                           @change="e => sel_table(e, table)"
                                 >
-                        </el-option>
-                    </el-select>
+                                    <el-option
+                                            v-for="item in all_tables"
+                                            :key="item.name"
+                                            :label="item.name"
+                                            :value="item.name"
+                                    >
+                                    </el-option>
+                                </el-select>
 
-                    <font>as</font>
-                    <el-input  v-model="table.as" style="width: 150px;"></el-input>
+                                <font>as</font>
+                                <el-input size="mini"  v-model="table.as" style="width: 150px;"></el-input>
+                                <div v-if="i > 0" title="" name="join">
+                                    <div style="padding-top: 10px;padding-bottom: 10px;">关联条件</div>
+                                    <el-button type="primary" size="mini" @click="add_join_expr(table)">添加关联</el-button>
+                                    <el-table :data="table.join">
+                                        <el-table-column prop="left_value" label="左值">
+                                            <template slot-scope="scope">
+                                                <el-select size="mini" v-model="scope.row.left_value" filterable placeholder="请选择"
+                                                >
+                                                    <el-option
+                                                            v-if="item.name != '*'"
+                                                            v-for="item in table.fields"
+                                                            :key="item.name"
+                                                            :label="table.as + '.' + item.name + '(' + item.comment + ')'"
+                                                            :value="item.name"
+                                                    >
+                                                    </el-option>
+                                                </el-select>
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column prop="" label="运算符">
+                                            <template slot-scope="scope">
+                                                <el-radio v-model="scope.row.op" label="=">=</el-radio>
+                                                <el-radio v-model="scope.row.op" label=">">></el-radio>
+                                                <el-radio v-model="scope.row.op" label="<"><</el-radio>
+                                                <el-radio v-model="scope.row.op" label=">="><=</el-radio>
+                                                <el-radio v-model="scope.row.op" label="<=">>=</el-radio>
+                                                <el-radio v-model="scope.row.op" label="<>"><></el-radio>
+                                                <el-radio v-model="scope.row.op" label="is null">is null</el-radio>
+                                                <el-radio v-model="scope.row.op" label="is not null">is not null</el-radio>
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column prop="right_type" label="右类型">
+                                            <template slot-scope="scope">
+                                                <el-radio v-model="scope.row.right_type" label="field">字段</el-radio>
+                                                <el-radio v-model="scope.row.right_type" label="value">数值</el-radio>
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column prop="right_value" label="右值">
+                                            <template slot-scope="scope">
+                                                <el-select v-model="scope.row.right_value" v-if="scope.row.right_type == 'field'" filterable placeholder="请选择" size="mini">
+                                                    <el-option
+                                                            v-if="item.name != '*'"
+                                                            v-for="item in links"
+                                                            :key="item.name"
+                                                            :label="item.as + '.' + item.name + '(' + item.comment + ')'"
+                                                            :value="item.name"
+                                                    >
+                                                    </el-option>
+                                                </el-select>
+                                                <el-input size="mini" v-if="scope.row.right_type == 'value' " v-model="scope.row.right_value"></el-input>
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column label="操作">
+                                            <template slot-scope="scope">
+                                                <el-button size="mini" type="danger" @click="del_item(table.join, scope.$index)">删除</el-button>
+                                            </template>
+                                        </el-table-column>
+                                    </el-table>
+                                </div>
+                                <div title="" name="select">
+                                    <div style="padding-top: 10px;padding-bottom: 10px;">表字段</div>
+                                    <el-table
+                                            :data="table.fields"
+                                            @selection-change="on_field_select_change"
+                                            border
+                                            style="width: 100%">
+                                        <el-table-column
+                                                width="55">
+                                            <template slot-scope="scope">
+                                                <el-checkbox v-model="scope.row.checked"></el-checkbox>
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="name"
+                                                label="字段名"
+                                                width="180">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="comment"
+                                                label="字段注释">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="as"
+                                                label="as"
+                                        >
+                                            <template slot-scope="scope">
+                                                <el-input size="mini" v-model="scope.row.as"></el-input>
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="formula"
+                                                label="公式"
+                                        ></el-table-column>
+                                    </el-table>
+                                </div>
+                            </el-tab-pane>
+                        </el-tabs>
+                    </el-tab-pane>
 
+                    <el-tab-pane label="条件" name="where">
+                        <el-button type="primary" size="mini" @click="add_where">添加条件</el-button>
+                        <el-table  :data="where" border style="width: 100%;">
+                            <el-table-column label="字段">
+                                <template slot-scope="scope">
+                                    <el-select size="mini" v-model="scope.row.field" filterable placeholder="请选择"
+                                    >
+                                        <el-option
+                                                v-for="item in links"
+                                                :key="item.name"
+                                                :label="`${item.as}.${item.name}(${item.comment})`"
+                                                :value="`${item.as}.${item.name}`"
+                                        >
+                                        </el-option>
+                                    </el-select>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="运算符">
+                                <template slot-scope="scope">
+                                    <el-checkbox v-model="scope.row.ops" label="all">all</el-checkbox>
+                                    <el-checkbox v-model="scope.row.ops" label="=">=</el-checkbox>
+                                    <el-checkbox v-model="scope.row.ops" label=">">></el-checkbox>
+                                    <el-checkbox v-model="scope.row.ops" label="<"><</el-checkbox>
+                                    <el-checkbox v-model="scope.row.ops" label=">="><=</el-checkbox>
+                                    <el-checkbox v-model="scope.row.ops" label="<=">>=</el-checkbox>
+                                    <el-checkbox v-model="scope.row.ops" label="<>"><></el-checkbox>
+                                    <el-checkbox v-model="scope.row.ops" label="like">like</el-checkbox>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="操作">
+                                <template slot-scope="scope">
+                                    <el-button type="danger" size="mini" @click="del_item(where, scope.$index)">删除</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+<!--                        <div style="width: 800px;">-->
+<!--                            <el-tree-->
+<!--                                    :data="where"-->
+<!--                                    node-key="id"-->
+<!--                                    default-expand-all-->
+<!--                                    :expand-on-click-node="false"-->
+<!--                                    :render-content="renderContent"-->
+<!--                            >-->
+<!--                            </el-tree>-->
+<!--                        </div>-->
+                    </el-tab-pane>
+                    <el-tab-pane label="排序" name="order">
 
-                    <el-collapse v-model="table.actives">
-                        <el-collapse-item v-if="i > 0" title="关联条件" name="join">
-                            <el-button type="primary" size="mini" @click="add_join_expr(table)">添加关联</el-button>
-                            <el-table :data="table.join">
-                                <el-table-column prop="left_type" label="左类型"></el-table-column>
-                                <el-table-column prop="left_value" label="左值"></el-table-column>
-                                <el-table-column prop="op" label="运算符"></el-table-column>
-                                <el-table-column prop="right_type" label="右类型"></el-table-column>
-                                <el-table-column prop="right_value" label="右值"></el-table-column>
-                            </el-table>
-                            <div v-for="item in table.join">
+                    </el-tab-pane>
+                    <el-tab-pane label="自定义" name="custom">
+                        <el-divider>字段追加</el-divider>
+                        <el-input type="textarea"></el-input>
+                        <el-divider>表追加</el-divider>
+                        <el-input type="textarea"></el-input>
+                        <el-divider>条件追加</el-divider>
+                        <el-input type="textarea"></el-input>
+                        <el-divider>末尾追加</el-divider>
+                        <el-input type="textarea"></el-input>
+                    </el-tab-pane>
+                    <el-tab-pane label="SQL预览" name="preview">
+                    </el-tab-pane>
+                    <el-tab-pane label="测试" name="test">
+                    </el-tab-pane>
+                </el-tabs>
 
-                            </div>
-                        </el-collapse-item>
-                        <el-collapse-item title="表字段" name="select">
-                            <el-table
-                                    :data="table.fields"
-                                    @selection-change="on_field_select_change"
-                                    border
-                                    style="width: 100%">
-                                <el-table-column
-                                        width="55">
-                                    <template slot-scope="scope">
-                                        <el-checkbox v-model="scope.row.checked"></el-checkbox>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column
-                                        prop="name"
-                                        label="字段名"
-                                        width="180">
-                                </el-table-column>
-                                <el-table-column
-                                        prop="comment"
-                                        label="字段注释">
-                                </el-table-column>
-                                <el-table-column
-                                            prop="as"
-                                            label="as"
-                                >
-                                    <template slot-scope="scope">
-                                        <el-input v-model="scope.row.as"></el-input>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column
-                                        prop="formula"
-                                        label="公式"
-                                ></el-table-column>
-                            </el-table>
-                        </el-collapse-item>
-<!--                        <el-collapse-item title="自定义字段" name="appendWhere">-->
-
-<!--                        </el-collapse-item>-->
-<!--                        <el-collapse-item title="条件" name="where">-->
-
-<!--                        </el-collapse-item>-->
-                    </el-collapse>
-                </div>
             </el-main>
         </el-container>
     </div>
@@ -127,7 +235,17 @@
         data(){
             return {
                 tables:[],
-                all_tables:{}
+                all_tables:{},
+                // where: [
+                //     {
+                //         type: "group",
+                //         label: "条件组",
+                //         children: []
+                //     }
+                // ],
+                where: [],
+                tab: "base",
+                tabtab:"t0",
             }
         },
         mounted(){
@@ -137,7 +255,17 @@
         },
         computed:{
             links(){
-                return 1
+                var items = [];
+                this.tables.forEach(v => {
+                    v.fields.forEach(vv => {
+                        items.push({
+                            name: vv.name,
+                            comment: vv.comment,
+                            as: v.as
+                        })
+                    }) ;
+                });
+                return items;
             }
         },
 
@@ -148,9 +276,13 @@
                     fields: [],
                     actives: [],
                     as: "t" + this.tables.length,
-                    join:[]
+                    join:[],
+
                 };
                 this.tables.push(obj)
+                if(this.tables.length > 0){
+                    this.tabtab = 't' + (this.tables.length - 1)
+                }
             },
             sel_table(e, table) {
                 console.log(arguments)
@@ -180,9 +312,112 @@
                     left_type:"",
                     left_value:"",
                     op:"=",
-                    right_type:"",
+                    right_type:"field",
                     right_value:""
                 })
+            },
+            /**
+             * 删除
+             * @param data
+             * @param index
+             */
+            del_item(data,index){
+                data.splice(index,1)
+            },
+
+            add_where(){
+                this.where.push({
+                    field: "",
+                    ops: []
+                })
+            },
+
+            /**
+             * 条件节点渲染
+             */
+            renderContent(h, { node, data, store }){
+                console.log(node,data)
+                var self = this;
+                return h(
+                    "span", {
+                        style:{
+                            display: "flex",
+                            "align-items": "center",
+                            "justify-content": "space-between",
+                            "flex": 1
+                        }
+                    },
+                    [
+                        h(
+                            'div',{
+                                style:{
+                                    color: data.type == 'group' ? "#409EFF" : "#F1AB16"
+                                },
+                            },[
+                                data.label
+                            ]
+                        ),
+
+                        h(
+                            "div",{},[
+                                data.type == 'group' ? h("el-button", {
+                                    attrs: {
+                                        type: "text",
+                                    },
+                                    "on": {
+                                        "click": function () {
+                                            data.children = data.children || []
+                                            data.children.push({
+                                                type: "group",
+                                                label: "条件组",
+                                                children: []
+                                            });
+                                        }
+                                    },
+                                }, ["添加条件组"]) : undefined,
+                                data.type == 'group' ?
+                                h("el-button", {
+                                    attrs:{
+                                        type:"text"
+                                    },
+                                    "on": {
+                                        "click": function () {
+                                            data.children = data.children || []
+                                            data.children.push({
+                                                type: "item",
+                                                label: "条件",
+                                                value: "123"
+                                            });
+                                        }
+                                    },
+                                }, ["添加条件"]) : undefined,
+                                data.type == 'item' ? h(
+                                    "el-button", {
+                                        attrs: {
+                                            type: "text"
+                                        },
+                                        on:{
+                                            click: function () {
+
+                                            }
+                                        }
+                                    }, ["编辑"]
+                                ): undefined,
+                                node.level > 1 ? h("el-button", {
+                                    attrs:{
+                                        type:"text",
+                                    },
+                                    "on":{
+                                        click: function () {
+                                            var idex = node.parent.data.children.indexOf(data);
+                                            node.parent.data.children.splice(idex, 1);
+                                        }
+                                    }
+                                }, ["删除"]) : undefined
+                            ]
+                        )
+                    ]
+                )
             },
 
             get(url, data, callback) {

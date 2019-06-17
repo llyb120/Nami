@@ -6,10 +6,10 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
-import org.beetl.core.Tag;
 import org.beetl.core.Template;
 import cn.hutool.core.io.resource.ClassPathResource;
 import org.beetl.core.resource.StringTemplateResourceLoader;
+import org.beetl.core.tag.Tag;
 
 
 import java.io.IOException;

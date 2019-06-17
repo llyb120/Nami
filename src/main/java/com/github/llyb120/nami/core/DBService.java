@@ -22,7 +22,7 @@ public class DBService {
 
     private static void init(Nami.Listener listener){
         //修复beetl不支持java11的问题
-        System.setProperty("java.version", "11.0");
+//        System.setProperty("java.version", "11.0");
         Config.Db ds = Config.config.db.get("main");
         HikariConfig hikariConfig = new HikariConfig();
         //设置url

@@ -25,7 +25,7 @@ public class Nami {
 //    public static ChakraCore chakraCore;
 
     public static void start(String configPath, Listener listener){
-        disableAccessWarnings();
+//        disableAccessWarnings();
 
         Config.init(configPath);
         DBService.start(true, listener);
