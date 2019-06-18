@@ -12,6 +12,10 @@
     "hotswap": [
         "com.github.llyb120.nami.sqltool"
     ],
+    "compile": {
+        "compiler": "ecj",
+        "parallel": true
+    },
     "route": [
         "/sqltool/:c/:a -> com.github.llyb120.nami.sqltool"
     ],

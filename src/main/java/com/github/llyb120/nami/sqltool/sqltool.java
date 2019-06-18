@@ -1,8 +1,5 @@
 package com.github.llyb120.nami.sqltool;
-import com.github.llyb120.nami.core.Arr;
-import com.github.llyb120.nami.core.HttpServerHandler;
-import com.github.llyb120.nami.core.Obj;
-import com.github.llyb120.nami.core.Route;
+import com.github.llyb120.nami.core.*;
 import org.beetl.sql.core.SQLReady;
 
 import java.util.LinkedHashMap;
@@ -11,8 +8,7 @@ import java.util.stream.Collectors;
 
 import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.core.DBService.sqlManager;
-import static com.github.llyb120.nami.core.Json.a;
-import static com.github.llyb120.nami.core.Json.o;
+import static com.github.llyb120.nami.core.Json.*;
 
 public class sqltool {
 
@@ -37,8 +33,6 @@ public class sqltool {
         });
         sql = "SELECT tabname,colname,colno,typename,length,remarks FROM SYSCAT.COLUMNS  where TABSCHEMA= #schema#";
         sqlManager.execute(sql, Obj.class, o("schema", "DB2INST1"))
-//        sqlManager.execute(new SQLReady(sql), Obj.class)
-            .stream()
             .forEach(e -> {
                 var table = map.get(e.getStr("tabname"));
                 if (table == null) {
@@ -62,6 +56,47 @@ public class sqltool {
             obj.put("fields", li);
         });
         return map;
+    }
+
+
+    public Object preview(Obj body){
+        String sql = buildSql(body.getArr("table"));
+        return R.ok(sql);
+    }
+
+
+    private String buildSql(Arr tables){
+        var main = true;
+        var sb = new StringBuilder();
+        var sup = new StringBuilder();
+        sb.append("select");
+        var tobjs = tables.toObjList();
+        for (Obj obj : tobjs) {
+            field:{
+                for (Obj fields : obj.getArr("fields").toObjList()) {
+                    var field = fields.getStr("name", "");
+                    sb.append(" ");
+                    sb.append(obj.getStr("as"));
+                    sb.append(".");
+                    sb.append(field);
+                    sb.append(",");
+                    //如果出现了*
+                    if(field.equals("*")){
+                        break field;
+                    }
+                }
+            }
+            sb.deleteCharAt(sb.length() - 1);
+            sup.append(" from ");
+            sup.append(obj.getStr("name"));
+            sup.append(" as ");
+            sup.append(obj.getStr("as"));
+            sup.append(",");
+        }
+        sup.deleteCharAt(sup.length() - 1);
+        sb.append(sup);
+        System.out.println(sb.toString() + "111");
+        return sb.toString();
     }
 
 

@@ -33,7 +33,8 @@ public class Nami {
 //        Chakra.start();
 
         if(config.dev && config.compile.parallel){
-            Compiler.start();
+//            Compiler.start();
+            Compiler.macOsStart();
         }
 
         //注册基本类

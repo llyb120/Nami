@@ -90,6 +90,7 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 //    }
 
     public void write(ChannelHandlerContext ctx, HttpResponse response, boolean keepAlive) {
+        HttpUtil.setContentLength(response, 0);
         var future = ctx.writeAndFlush(response);
         if(!keepAlive){
             future.addListener(ChannelFutureListener.CLOSE);
@@ -134,24 +135,31 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             return;
         }
 
-        boolean keepAlive = HttpUtil.isKeepAlive(request);
-        HttpResponse response = new DefaultHttpResponse(HTTP_1_1, OK);
-        //写入keepalive
-        if(keepAlive){
-            HttpUtil.setKeepAlive(response, true);
+        if (HttpUtil.is100ContinueExpected(request)) {
+            ctx.write(new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.CONTINUE));
         }
+
+        HttpResponse response = new DefaultHttpResponse(HTTP_1_1, OK);
         //写入跨域
         writeCors(response);
 
         if(request.method().equals(HttpMethod.OPTIONS)){
-            write(ctx, response, keepAlive);
+            write(ctx, response, false);
             return;
         }
 
         if (uri.equals("/favicon.ico")) {
             response.setStatus(NOT_FOUND);
-            write(ctx, response, keepAlive);
+            write(ctx, response, false);
             return;
+        }
+
+        boolean keepAlive = HttpUtil.isKeepAlive(request);
+        keepAlive = false;
+
+        //写入keepalive
+        if(keepAlive){
+            HttpUtil.setKeepAlive(response, keepAlive);
         }
 
         String path = URLUtil.getPath(uri);
@@ -242,8 +250,8 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
                 response.headers().set(HttpHeaders.Names.CONTENT_LENGTH, buf.readableBytes());
                 context.cookie.writeToResponse(response);
                 ctx.write(response);
-                ctx.writeAndFlush(buf);
-                var future = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
+                var future = ctx.writeAndFlush(buf);
+//                var future = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
                 if(!keepAlive){
                     future.addListener(ChannelFutureListener.CLOSE);
                 }
