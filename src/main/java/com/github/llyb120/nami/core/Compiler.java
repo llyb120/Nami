@@ -191,10 +191,7 @@ public class Compiler {
                     .listener(event -> {
                         switch (event.eventType()) {
                             case CREATE: /* file created */
-                                ;
-                                break;
                             case MODIFY: /* file modified */
-                                ;
                                 if (event.path().toString().endsWith(".java")) {
                                     compile(event.path().toFile(), "ecj");
                                 }
@@ -208,6 +205,7 @@ public class Compiler {
                     // .logger(logger) // defaults to LoggerFactory.getLogger(DirectoryWatcher.class)
                     // .watchService(watchService) // defaults based on OS to either JVM WatchService or the JNA macOS WatchService
                     .build();
+            System.out.println("watching dir " + config.compile.source + " to compile automaualy");
             watcher.watchAsync();
         } catch (IOException e) {
             e.printStackTrace();
