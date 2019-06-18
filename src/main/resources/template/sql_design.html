@@ -78,7 +78,7 @@
                                                         v-for="item in get_fields(table)"
                                                         :key="item.name"
                                                         :label="table.as + '.' + item.name + '(' + item.comment + ')'"
-                                                        :value="item.name"
+                                                        :value="table.as + '.' + item.name"
                                                 >
                                                 </el-option>
                                             </el-select>
@@ -112,7 +112,7 @@
                                                         v-for="item in links"
                                                         :key="item.name"
                                                         :label="item.as + '.' + item.name + '(' + item.comment + ')'"
-                                                        :value="item.name"
+                                                        :value="item.as + '.' + item.name"
                                                 >
                                                 </el-option>
                                             </el-select>

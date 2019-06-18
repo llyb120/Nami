@@ -1,4 +1,5 @@
 package com.github.llyb120.nami.sqltool;
+import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.core.*;
 import org.beetl.sql.core.SQLReady;
 
@@ -61,7 +62,8 @@ public class sqltool {
 
     public Object preview(Obj body){
         String sql = buildSql(body.getArr("table"));
-        return R.ok(sql);
+        var ret = sqlManager.execute(new SQLReady(sql), Obj.class);
+        return R.ok(a(sql, ret));
     }
 
 
@@ -75,6 +77,8 @@ public class sqltool {
             field:{
                 for (Obj fields : obj.getArr("fields").toObjList()) {
                     var field = fields.getStr("name", "");
+                    //空字段自动忽略
+                    if(field.isEmpty()) break field;
                     sb.append(" ");
                     sb.append(obj.getStr("as"));
                     sb.append(".");
@@ -86,16 +90,38 @@ public class sqltool {
                     }
                 }
             }
-            sb.deleteCharAt(sb.length() - 1);
-            sup.append(" from ");
-            sup.append(obj.getStr("name"));
-            sup.append(" as ");
-            sup.append(obj.getStr("as"));
-            sup.append(",");
+            if(sb.charAt(sb.length() - 1) == ','){
+                sb.deleteCharAt(sb.length() - 1);
+            }
+            if(main){
+               main = false;
+                sup.append(" from ");
+                sup.append(obj.getStr("name"));
+                sup.append(" as ");
+                sup.append(obj.getStr("as"));
+            } else {
+                sup.append(" left join ");
+                sup.append(obj.getStr("name"));
+                sup.append(" as ");
+                sup.append(obj.getStr("as"));
+                sup.append(" on ");
+                //on
+                for (Obj join : obj.getArr("join").toObjList()) {
+                    sup.append(join.getStr("left_value"));
+                    sup.append(join.getStr("op"));
+                    var rtype = join.getStr("right_type", "field");
+                    var rvalue = join.getStr("right_value");
+                    if(rtype.equals("field")){
+                        sup.append(rvalue);
+                    } else {
+                        sup.append(StrUtil.wrap(rvalue, "'"));
+                    }
+                    sup.append(" and ");
+                }
+                sup.delete(sup.length() - 5, sup.length() - 1);
+            }
         }
-        sup.deleteCharAt(sup.length() - 1);
         sb.append(sup);
-        System.out.println(sb.toString() + "111");
         return sb.toString();
     }
 
