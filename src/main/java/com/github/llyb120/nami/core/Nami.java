@@ -26,8 +26,8 @@ public class Nami {
 
     public static void start(String configPath, Listener listener){
 //        disableAccessWarnings();
-
         Config.init(configPath);
+
         DBService.start(true, listener);
 
 //        Chakra.start();
@@ -47,8 +47,9 @@ public class Nami {
 
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        long stime = System.currentTimeMillis();
         try {
+            var stime = System.currentTimeMillis();
+
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
@@ -71,8 +72,8 @@ public class Nami {
                 });
 
             ChannelFuture f = b.bind(Config.config.port).sync();
-            System.out.println(String.format("port is on %d", Config.config.port));
             System.out.printf("boot success takes %d ms\n", System.currentTimeMillis() - stime);
+            System.out.println(String.format("port is on %d", Config.config.port));
             f.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();

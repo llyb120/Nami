@@ -12,7 +12,11 @@ import org.beetl.sql.core.db.KeyWordHandler;
 import org.beetl.sql.core.db.MySqlStyle;
 
 import javax.sql.DataSource;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.sql.SQLException;
+import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -24,19 +28,38 @@ public class DBService {
         //修复beetl不支持java11的问题
 //        System.setProperty("java.version", "11.0");
         Config.Db ds = Config.config.db.get("main");
-        HikariConfig hikariConfig = new HikariConfig();
-        //设置url
-        hikariConfig.setJdbcUrl(ds.url);
-        //数据库帐号
-        hikariConfig.setUsername(ds.username);
-        //数据库密码
-        hikariConfig.setPassword(ds.password);
-        hikariConfig.setDriverClassName(ds.driver);
-        hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
+
 //            hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
 //            hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 
-        dataSource = new HikariDataSource(hikariConfig);
+//        dataSource = new HikariDataSource(hikariConfig);
+        //异步延迟初始化数据源
+        dataSource = (DataSource) Proxy.newProxyInstance(DataSource.class.getClassLoader(), new Class[]{DataSource.class}, new InvocationHandler() {
+            private Future future = null;
+            private DataSource _dataSource;
+            {{
+                future = Async.submit(() -> {
+                    HikariConfig hikariConfig = new HikariConfig();
+                    //设置url
+                    hikariConfig.setJdbcUrl(ds.url);
+                    //数据库帐号
+                    hikariConfig.setUsername(ds.username);
+                    //数据库密码
+                    hikariConfig.setPassword(ds.password);
+                    hikariConfig.setDriverClassName(ds.driver);
+                    hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
+                    _dataSource = new HikariDataSource(hikariConfig);
+                });
+            }}
+
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                while (!future.isDone()){
+                    ThreadUtil.sleep(16);
+                }
+                return method.invoke(_dataSource, args);
+            }
+        });
         ConnectionSource source = ConnectionSourceHelper.getSingle(dataSource);
         ClasspathLoader loader = new ClasspathLoader("/sql");
         NameConversion nc;
@@ -89,13 +112,14 @@ public class DBService {
         } else if("com.ibm.db2.jcc.DB2Driver".equals(ds.driver)){
             style = new DB2SqlStyle();
         }
-        sqlManager = new SQLManager(style, loader,source,nc,new Interceptor[]{new MyDebugInterceptor()});
+        var property = new Properties();
+        property.setProperty("CHARSET", "UTF-8");
+        sqlManager = new SQLManager(style, loader,source,nc,new Interceptor[]{new MyDebugInterceptor()}, ds.schema, property);
 
         if (listener != null) {
             listener.onDBServiceBooted();
         }
 
-        System.out.println("db service boot success");
     }
 
     public static void start(boolean async){
@@ -106,7 +130,7 @@ public class DBService {
         if(!async){
             init(listener);
         } else {
-            ThreadUtil.execAsync(() -> init(listener));
+            Async.submit(() -> init(listener));
         }
     }
 

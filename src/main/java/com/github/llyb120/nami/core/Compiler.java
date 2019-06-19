@@ -215,7 +215,7 @@ public class Compiler {
     }
 
     public static void start() {
-        ThreadUtil.execAsync(() -> {
+        Async.submit(() -> {
             var targetPath = Paths.get(config.compile.source);
             WatchService watchService = targetPath.getFileSystem().newWatchService();
             Files.walkFileTree(targetPath, new SimpleFileVisitor<Path>() {

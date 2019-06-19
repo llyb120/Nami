@@ -8,36 +8,36 @@ import org.beetl.sql.core.kit.GenKit;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Config {
     public static Config config;
     public int port;
-    public Map<String,Db> db;
+    public Map<String, Db> db;
     public Set<String> hotswap;
     public LinkedHashSet<String> route;
     public Compile compile = new Compile();
     public Cors cors;
     public Obj ext;
-    public String upload;
-    public File uploadDir;
     public boolean dev = true;
-//    public Set<String> model;
     public List<String> link;
     public Map<String, Link> links;
 
     static {
-        System.setProperty("illegal-access","deny");
+        System.setProperty("illegal-access", "deny");
     }
 
 
-    public static void init(String path){
+    public static void init(String path) {
         try (
-            FileInputStream fis = new FileInputStream(path);
-        ){
-            String str = IoUtil.read(fis).toString(StandardCharsets.UTF_8);
-            config = JSON.parseObject(str, Config.class);
+                RandomAccessFile raf = new RandomAccessFile(path, "r");
+//            FileInputStream fis = new FileInputStream(path);
+        ) {
+            var bs = new byte[(int) raf.length()];
+            raf.readFully(bs);
+            config = JSON.parseObject(bs, Config.class);
 
             if (config.route != null) {
                 for (String s : config.route) {
@@ -50,13 +50,7 @@ public class Config {
                 }
                 if (config.compile.target == null) {
                     config.compile.target = new File(config.compile.source, "../../../target/classes").getAbsolutePath();
-//                     new File(target, "target/classes").getAbsolutePath();
                 }
-            }
-
-            if(StrUtil.isNotEmpty(config.upload)){
-                config.uploadDir = new File(config.upload);
-                config.uploadDir.mkdirs();
             }
 
             if (config.link != null) {
@@ -64,13 +58,13 @@ public class Config {
                 for (String s : config.link) {
                     String[] arr = s.split("\\s*(:|\\.|->|=>)\\s*");
                     Link link = new Link();
-                        link.name = arr[0];
-                        link.fromClz = arr[1].toLowerCase();
-                        link.fromField = arr[2].toLowerCase();
-                        link.toClz = arr[3].toLowerCase();
-                        link.toField = arr[4].toLowerCase();
-                        link.many = s.contains("=>");
-                    if(arr.length == 5){
+                    link.name = arr[0];
+                    link.fromClz = arr[1].toLowerCase();
+                    link.fromField = arr[2].toLowerCase();
+                    link.toClz = arr[3].toLowerCase();
+                    link.toField = arr[4].toLowerCase();
+                    link.many = s.contains("=>");
+                    if (arr.length == 5) {
                         config.links.put(link.fromClz + link.name, link);
                     }
                 }
@@ -81,22 +75,23 @@ public class Config {
         }
     }
 
-    static class Db{
+    static class Db {
         public String url;
         public String driver;
         public String username;
         public String password;
         public String style;
+        public String schema;
     }
 
-    static class Compile{
+    static class Compile {
         public String source;
         public String target;
         public String compiler;
         public boolean parallel;
     }
 
-    static class Cors{
+    static class Cors {
         public String origin;
         public String method;
         public String headers;
@@ -104,7 +99,7 @@ public class Config {
     }
 
 
-    static class Link{
+    static class Link {
         public String fromClz;
         public String fromField;
         public String toClz;
