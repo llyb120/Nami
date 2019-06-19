@@ -1,15 +1,15 @@
 package com.github.llyb120.nami.sqltool;
+
 import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.core.*;
 import org.beetl.sql.core.SQLReady;
 
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
 
-import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.core.DBService.sqlManager;
-import static com.github.llyb120.nami.core.Json.*;
+import static com.github.llyb120.nami.core.Json.a;
+import static com.github.llyb120.nami.core.Json.o;
 
 public class sqltool {
 

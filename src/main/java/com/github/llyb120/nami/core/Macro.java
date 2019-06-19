@@ -1,25 +1,20 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
-import org.beetl.core.Template;
-import cn.hutool.core.io.resource.ClassPathResource;
 import org.beetl.core.resource.StringTemplateResourceLoader;
 import org.beetl.core.tag.Tag;
-
 
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
-import static com.github.llyb120.nami.core.Json.a;
 import static com.github.llyb120.nami.core.Json.o;
 
 public class Macro {

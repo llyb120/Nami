@@ -1,7 +1,5 @@
 package com.github.llyb120.nami.core;
 
-import cn.hutool.core.io.FileUtil;
-
 import static com.github.llyb120.nami.core.Json.o;
 
 public class Mime {

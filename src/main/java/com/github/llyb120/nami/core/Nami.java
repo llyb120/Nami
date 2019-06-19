@@ -1,5 +1,6 @@
 package com.github.llyb120.nami.core;
 
+import cn.hutool.core.thread.ThreadUtil;
 import com.github.llyb120.nami.sqltool.sqltool;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -17,8 +18,9 @@ import io.netty.util.CharsetUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.nio.charset.Charset;
-import  static com.github.llyb120.nami.core.Config.config;
+
+import static com.github.llyb120.nami.core.Config.config;
+import static com.github.llyb120.nami.core.DBService.sqlManager;
 
 public class Nami {
 
@@ -27,7 +29,6 @@ public class Nami {
     public static void start(String configPath, Listener listener){
 //        disableAccessWarnings();
         Config.init(configPath);
-
         DBService.start(true, listener);
 
 //        Chakra.start();
@@ -73,7 +74,7 @@ public class Nami {
 
             ChannelFuture f = b.bind(Config.config.port).sync();
             System.out.printf("boot success takes %d ms\n", System.currentTimeMillis() - stime);
-            System.out.println(String.format("port is on %d", Config.config.port));
+            System.out.println(String.format("port is on %d \n", Config.config.port));
             f.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -81,6 +82,15 @@ public class Nami {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
         }
+    }
+
+    public static void test(String config){
+        Async.exitWhenError(() -> start(config));
+        waitFor(5000, sqlManager);
+    }
+
+    public static void test(){
+        test("config.json");
     }
 
     public static void start(String config){
@@ -93,6 +103,26 @@ public class Nami {
 
     public static abstract class Listener{
         public void onDBServiceBooted(){}
+    }
+
+    public static void waitFor(int maxDelay, Object ...objects){
+        var stime = System.currentTimeMillis();
+        wait: {
+            while(true){
+                if(System.currentTimeMillis() - stime >= maxDelay){
+                    break wait;
+                }
+                check:{
+                    for (Object object : objects) {
+                        if(object == null){
+                            break check;
+                        }
+                    }
+                    break wait;
+                }
+                ThreadUtil.sleep(16);
+            }
+        }
     }
 
 

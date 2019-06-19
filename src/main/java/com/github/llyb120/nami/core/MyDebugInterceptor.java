@@ -2,9 +2,7 @@ package com.github.llyb120.nami.core;
 
 
 import cn.hutool.core.util.StrUtil;
-import org.apache.xmlbeans.impl.regex.Match;
 import org.beetl.sql.core.InterceptorContext;
-import org.beetl.sql.core.engine.SQLParameter;
 import org.beetl.sql.ext.DebugInterceptor;
 
 import java.util.Collection;

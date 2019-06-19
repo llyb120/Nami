@@ -1,23 +1,15 @@
 package com.github.llyb120.nami.core;
 
-import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.io.resource.ClassPathResource;
-import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import java.io.Serializable;
-import java.lang.reflect.Type;
-import java.sql.Struct;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import static com.github.llyb120.nami.core.Json.*;
+import static com.github.llyb120.nami.core.Json.o;
 
 public class Obj<U> extends JSONObject {
     private Class clz = null;

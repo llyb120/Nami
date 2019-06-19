@@ -1,7 +1,6 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.github.llyb120.nami.core.boost.SqlBoost;
 import io.netty.handler.codec.http.FullHttpRequest;
@@ -13,7 +12,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static cn.hutool.core.util.StrUtil.*;
+import static cn.hutool.core.util.StrUtil.isNotEmpty;
 import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.core.DBService.sqlManager;
 

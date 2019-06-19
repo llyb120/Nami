@@ -17,6 +17,27 @@ public class Async {
         });
     }
 
+    public static void execute(Task task){
+        new Thread(() -> {
+            try {
+                task.call();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    public static void exitWhenError(Task task){
+        new Thread(() -> {
+            try {
+                task.call();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.exit(-1);
+            }
+        }).start();
+    }
+
     public interface Task{
         void call() throws Exception;
     }

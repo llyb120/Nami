@@ -3,7 +3,7 @@ package com.github.llyb120.nami.core;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 
-import java.io.*;
+import java.io.InputStream;
 
 import static com.github.llyb120.nami.core.Config.config;
 

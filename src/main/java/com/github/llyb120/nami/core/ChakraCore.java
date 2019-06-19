@@ -3,22 +3,16 @@ package com.github.llyb120.nami.core;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import com.sun.jna.*;
-import com.sun.jna.Native;
-import com.sun.jna.ptr.NativeLongByReference;
 import com.sun.jna.ptr.PointerByReference;
 
-import static com.github.llyb120.nami.core.Config.config;
-
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
+import static com.github.llyb120.nami.core.Config.config;
 
 @Deprecated
 public class ChakraCore {

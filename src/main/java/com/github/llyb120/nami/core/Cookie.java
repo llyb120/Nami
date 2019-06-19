@@ -1,6 +1,5 @@
 package com.github.llyb120.nami.core;
 
-import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpResponse;
 import io.netty.handler.codec.http.cookie.DefaultCookie;

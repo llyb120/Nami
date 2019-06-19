@@ -1,10 +1,10 @@
 package com.github.llyb120.nami.core;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Arr extends JSONArray  {
 
