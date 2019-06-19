@@ -49,7 +49,7 @@
                 <el-tab-pane label="表" name="table">
                     <el-button size="mini" @click="add_table" type="primary">添加表</el-button>
                     <el-tabs v-model="tabtab">
-                        <el-tab-pane v-for="(table,i) in tables" :label="(i == 0 ? '主表' : '关联表' + i) " :name="'t' + i">
+                        <el-tab-pane v-for="(table,i) in tables" v-if="table" :label="table.as" :name="'t' + i">
                             <el-select size="mini" v-model="table.name" filterable placeholder="请选择"
                                        @change="e => sel_table(e, table)"
                             >
@@ -64,6 +64,7 @@
 
                             <font>as</font>
                             <el-input size="mini" v-model="table.as" style="width: 150px;"></el-input>
+                            <el-button type="danger" v-if="i > 0" size="mini" @click="() => {tables[i] = null; tabtab = 't0'}">删除</el-button>
                             <div v-if="i > 0" title="" name="join">
                                 <div style="padding-top: 10px;padding-bottom: 10px;">关联条件</div>
                                 <el-button type="primary" size="mini" @click="add_join_expr(table)">添加关联</el-button>
@@ -92,11 +93,11 @@
                                             <el-radio v-model="scope.row.op" label=">="><=</el-radio>
                                             <el-radio v-model="scope.row.op" label="<=">>=</el-radio>
                                             <el-radio v-model="scope.row.op" label="<>"><></el-radio>
-                                            <el-radio v-model="scope.row.op" label="is null">is null</el-radio>
-                                            <el-radio v-model="scope.row.op" label="is not null">is not null</el-radio>
+                                            <el-radio v-model="scope.row.op" label="is">is</el-radio>
+                                            <el-radio v-model="scope.row.op" label="is not">is not</el-radio>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column prop="right_type" label="右类型">
+                                    <el-table-column prop="right_type" label="右类型" >
                                         <template slot-scope="scope">
                                             <el-radio v-model="scope.row.right_type" label="field">字段</el-radio>
                                             <el-radio v-model="scope.row.right_type" label="value">数值</el-radio>
@@ -108,7 +109,7 @@
                                                        v-if="scope.row.right_type == 'field'" filterable
                                                        placeholder="请选择" size="mini">
                                                 <el-option
-                                                        v-if="item.name != '*'"
+                                                        v-if="item.name != '*' && item.as != table.as"
                                                         v-for="item in links"
                                                         :key="item.name"
                                                         :label="item.as + '.' + item.name + '(' + item.comment + ')'"
@@ -265,6 +266,7 @@
                     <el-input type="textarea"></el-input>
                 </el-tab-pane>
                 <el-tab-pane label="SQL预览" name="preview">
+                    {{preview}}
                 </el-tab-pane>
                 <el-tab-pane label="测试" name="test">
                 </el-tab-pane>
@@ -293,6 +295,7 @@
                 order: [],
                 tab: "base",
                 tabtab: "t0",
+                preview: ""
             }
         },
         mounted() {
@@ -401,11 +404,17 @@
                 if (e.name != 'preview') {
                     return
                 }
+                var table = this.tables.filter(e => e)
+                var where = (JSON).parse(JSON.stringify(this.where));
+                where.forEach(v => console.log(v))
                 this.post( "http://127.0.0.1:8084/sqltool/sqltool/preview", {
-                    table: this.tables,
-                    where: this.where,
+                    table,
+                    where,
                     order: this.order
                 }, res => {
+                    if(res.code == 200){
+                        this.preview = res.data;
+                    }
                     console.log(res)
                 });
 
@@ -434,7 +443,7 @@
 
             add_where() {
                 this.where.push({
-                    field: "",
+                    name: "",
                     ops: []
                 })
             },

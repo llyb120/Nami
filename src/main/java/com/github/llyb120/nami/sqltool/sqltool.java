@@ -62,8 +62,8 @@ public class sqltool {
 
     public Object preview(Obj body){
         String sql = buildSql(body.getArr("table"));
-        var ret = sqlManager.execute(new SQLReady(sql), Obj.class);
-        return R.ok(a(sql, ret));
+//        var ret = sqlManager.execute(new SQLReady(sql), Obj.class);
+        return R.ok(sql);
     }
 
 
@@ -77,8 +77,6 @@ public class sqltool {
             field:{
                 for (Obj fields : obj.getArr("fields").toObjList()) {
                     var field = fields.getStr("name", "");
-                    //空字段自动忽略
-                    if(field.isEmpty()) break field;
                     sb.append(" ");
                     sb.append(obj.getStr("as"));
                     sb.append(".");
@@ -89,9 +87,6 @@ public class sqltool {
                         break field;
                     }
                 }
-            }
-            if(sb.charAt(sb.length() - 1) == ','){
-                sb.deleteCharAt(sb.length() - 1);
             }
             if(main){
                main = false;
@@ -120,6 +115,9 @@ public class sqltool {
                 }
                 sup.delete(sup.length() - 5, sup.length() - 1);
             }
+        }
+        if(sb.charAt(sb.length() - 1) == ','){
+            sb.deleteCharAt(sb.length() - 1);
         }
         sb.append(sup);
         return sb.toString();
