@@ -11,6 +11,7 @@ import org.beetl.sql.core.db.KeyWordHandler;
 import org.beetl.sql.core.db.MySqlStyle;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
 public class DBService {
     public static DataSource dataSource;
@@ -85,7 +86,9 @@ public class DBService {
         } else if("com.ibm.db2.jcc.DB2Driver".equals(ds.driver)){
             style = new DB2SqlStyle();
         }
-        sqlManager = new SQLManager(style, loader,source,nc,new Interceptor[]{new MyDebugInterceptor()});
+        var property = new Properties();
+        property.setProperty("CHARSET", "UTF-8");
+        sqlManager = new SQLManager(style, loader,source,nc,new Interceptor[]{new MyDebugInterceptor()},ds.schema, property ,"main");
 
         if (listener != null) {
             listener.onDBServiceBooted();

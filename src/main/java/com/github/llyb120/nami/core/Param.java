@@ -19,7 +19,7 @@ import static com.github.llyb120.nami.core.DBService.sqlManager;
 public class Param {
     private static List<Rule> ruleList = new Vector<>();
 
-    public static Object[] AutoWiredParams(FullHttpRequest request, Class clz, Method method, Map<Class, Object> staticArgs) {
+    public static Object[] AutoWiredParams(Class clz, Method method, Map<Class, Object> staticArgs) {
         var context = Context.holder.get();
         Parameter[] parameters = method.getParameters();
         Object[] ret = new Object[parameters.length];
@@ -42,10 +42,10 @@ public class Param {
                 ret[i++] = context.cookie;
                 continue;
             }
-            if(type == FullHttpRequest.class){
-                ret[i++] = request;
-                continue;
-            }
+//            if(type == FullHttpRequest.class){
+//                ret[i++] = request;
+//                continue;
+//            }
 
             switch (name) {
                 case "query":

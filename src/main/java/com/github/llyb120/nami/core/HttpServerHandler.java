@@ -42,47 +42,11 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
     public static Vector<Channel> clients = new Vector<>();
     private WebSocketServerHandshaker handshaker = null;
 
-    private static final String CONNECTION = ("Connection");
-    private static final String KEEP_ALIVE = ("keep-alive");
-    public static Throwable LastException = null;
     private static Map<String, Pattern> urlRegexs = new HashMap<>();
 
     //dev-start
     private static final HashMap<Class, Object> clzInstances = new HashMap<>();
     //dev-end
-
-//    public static void AddRoute(Route... routes) {
-//        RouteList.addAll(Arrays.asList(routes));
-//    }
-
-//    public void send(ChannelHandlerContext ctx, int code, Object msg) {
-//        ctx.writeAndFlush(getResponse(null, code));
-//    }
-//
-//    public FullHttpResponse getResponse(Throwable e, int code) {
-//        R r = R.fail();
-//        if (e != null) {
-//            Throwable cause = e;
-//            do{
-//                if(cause instanceof RestException){
-//                    r.errMessage = ((RestException) cause).msg;
-//                }
-//            }while((cause = cause.getCause()) != null);
-//        }
-//        ByteBuf buf = Unpooled.buffer();
-//        buf.writeBytes(r.toString().getBytes(StandardCharsets.UTF_8));
-//        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.NOT_FOUND, buf);
-//        if(code == 404){
-//           response.setStatus(HttpResponseStatus.NOT_FOUND);
-//        }
-//        else if(code == 200){
-//            response.setStatus(HttpResponseStatus.OK);
-//        }
-//        response.headers().set("Content-Type", "application/json; charset=utf-8");
-//        response.headers().set("Content-Length", buf.readableBytes());
-//        writeCors(response);
-//        return response;
-//    }
 
     public void write(ChannelHandlerContext ctx, HttpResponse response, boolean keepAlive) {
         HttpUtil.setContentLength(response, 0);
@@ -158,17 +122,16 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
         }
 
         String path = URLUtil.getPath(uri);
-
         String[] arr = path.substring(1).split("\\/");
         route:
         {
             Route route = null;
-            for (Route ctrl : ctrls) {
-                if (ctrl.match(path)) {
-                    route = ctrl;
-                    break;
-                }
-            }
+//            for (Route ctrl : Route.routes) {
+//                if (ctrl.match(path)) {
+//                    route = ctrl;
+//                    break;
+//                }
+//            }
             if (route == null) {
                 break route;
             }
@@ -189,6 +152,7 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
                     context.body = decodePost(request);
                 }
             }
+
             //全放到这里
             context.params.putAll(context.query);
             if (context.body instanceof Obj) {
@@ -215,7 +179,7 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             for (Method method : clz.getDeclaredMethods()) {
                 if (method.getName().equalsIgnoreCase(methodName)) {
                     Object instance = getInstance(clz);
-                    Object[] args = Param.AutoWiredParams(request, clz, method, null);
+                    Object[] args = Param.AutoWiredParams(clz, method, null);
                     if (route.aops != null) {
                         result = doAop(request, loader, route.aops, clz, method, instance, args);
                     } else {
@@ -391,7 +355,7 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
             Map<Class, Object> staticArgs = new HashMap<>();
             staticArgs.put(AopInvoke.class, invoke);
             Object aopInstance = getInstance(clzAop);
-            Object[] aopArgs = Param.AutoWiredParams(request, clzAop, methodAop, staticArgs);
+            Object[] aopArgs = Param.AutoWiredParams(clzAop, methodAop, staticArgs);
             invoke = new AopInvoke(clzAop, methodAop, aopInstance, aopArgs);
         }
         return invoke.call();

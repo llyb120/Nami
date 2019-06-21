@@ -6,9 +6,20 @@ import java.util.concurrent.Future;
 
 public class Async {
     private static ExecutorService executor = Executors.newFixedThreadPool(8);
+    private static ExecutorService cacheExecutor = Executors.newCachedThreadPool();
 
     public static Future submit(Task task){
         return executor.submit(() -> {
+            try {
+                task.call();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static Future submitCache(Task task){
+        return cacheExecutor.submit(() -> {
             try {
                 task.call();
             } catch (Exception e) {

@@ -18,8 +18,8 @@ public class sqltool {
         HttpServerHandler.ctrls.add(new Route("/sqltool/:c/:a -> com.github.llyb120.nami.sqltool"));
     }
 
-    public String test(){
-        return  "1111";
+    public String test(Obj body){
+        return body.toJSONString();
     }
 
 

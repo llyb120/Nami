@@ -19,14 +19,12 @@ public class MyClassLoadader extends ClassLoader {
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
         boolean hotswap = false;
-        if (Config.config.hotswap != null) {
             for (String s : Config.config.hotswap) {
                 if(name.startsWith(s)) {
                     hotswap = true;
                     break;
                 }
             }
-        }
 
         if(!hotswap){
             return defaultClassLoader.loadClass(name);

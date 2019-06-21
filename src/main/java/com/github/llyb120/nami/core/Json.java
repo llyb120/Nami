@@ -24,6 +24,25 @@ public class Json {
         return JSON.parseObject(str, Obj.class);
     }
 
+
+    public static JSON parse(String str){
+        var obj = JSON.parse(str);
+        if(obj instanceof JSONObject){
+            return new Obj((JSONObject)obj);
+        } else {
+            return new Arr((JSONArray)obj);
+        }
+    }
+
+    public static JSON parse(byte[] bs){
+        var obj = JSON.parse(bs);
+        if(obj instanceof JSONObject){
+            return new Obj((JSONObject)obj);
+        } else {
+            return new Arr((JSONArray)obj);
+        }
+    }
+
     public static Object toNamiJson(Object object){
         return toNamiJson(object, SerializeConfig.globalInstance);
     }

@@ -1,6 +1,8 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.thread.ThreadUtil;
+import com.github.llyb120.nami.server.DevServer;
+import com.github.llyb120.nami.server.NettyServer;
 import com.github.llyb120.nami.sqltool.sqltool;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -16,6 +18,7 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.util.CharsetUtil;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -28,7 +31,9 @@ public class Nami {
 
     public static void start(String configPath, Listener listener){
 //        disableAccessWarnings();
-        Config.init(configPath);
+        Config.config = new Config(configPath);
+
+//        Config.init(configPath);
         DBService.start(true, listener);
 
 //        Chakra.start();
@@ -46,41 +51,18 @@ public class Nami {
 //            chakraCore.start(true);
 ////        }
 
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
-        try {
-            var stime = System.currentTimeMillis();
-
-            ServerBootstrap b = new ServerBootstrap();
-            b.group(bossGroup, workerGroup)
-                .channel(NioServerSocketChannel.class)
-                .childHandler(new ChannelInitializer<SocketChannel>() {
-
-
-                    @Override
-                    protected void initChannel(SocketChannel ch) throws Exception {
-                        ChannelPipeline pipeline = ch.pipeline();
-                        //将请求和应答消息编码或解码为HTTP消息
-                        pipeline.addLast(new HttpServerCodec());
-                        //将HTTP消息的多个部分组合成一条完整的HTTP消息
-                        pipeline.addLast(new StringDecoder(CharsetUtil.UTF_8));
-                        pipeline.addLast(new HttpObjectAggregator(1024 * 1024));
-//                        pipeline.addLast(new HttpStaticHandleAdapter());
-                        pipeline.addLast(new ChunkedWriteHandler());
-                        pipeline.addLast(new HttpServerHandler());
-
-                    }
-                });
-
-            ChannelFuture f = b.bind(Config.config.port).sync();
-            System.out.printf("boot success takes %d ms\n", System.currentTimeMillis() - stime);
-            System.out.println(String.format("port is on %d \n", Config.config.port));
-            f.channel().closeFuture().sync();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            workerGroup.shutdownGracefully();
-            bossGroup.shutdownGracefully();
+        if(config.dev){
+            var server = new DevServer();
+            try {
+                server.start(config.port);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.exit(-1);
+            }
+        } else {
+            //netty server
+            var server = new NettyServer();
+            server.start(config.port);
         }
     }
 
@@ -90,7 +72,7 @@ public class Nami {
     }
 
     public static void test(){
-        test("config.json");
+        test("nami.conf");
     }
 
     public static void start(String config){
@@ -98,7 +80,7 @@ public class Nami {
     }
 
     public static void start(){
-        start("config.json");
+        start("nami.conf");
     }
 
     public static abstract class Listener{

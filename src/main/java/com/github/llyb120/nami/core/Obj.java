@@ -73,6 +73,14 @@ public class Obj<U> extends JSONObject {
         return getString(key);
     }
 
+    public int getInt(String key, int dft){
+        var i = getInteger(key);
+        if(i == null){
+            return dft;
+        }
+        return i;
+    }
+
     public Object getByPath(String path){
         try{
             String[] ps = path.split("\\.");

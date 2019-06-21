@@ -2,16 +2,25 @@ package com.github.llyb120.nami.core;
 
 import cn.hutool.core.util.ArrayUtil;
 
+import java.util.List;
+import java.util.Vector;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class Route {
+
+    public static List<Route> routes = new Vector<>();
 
     public int cIndex = -1;
     public int aIndex = -1;
     public Pattern reg = null;
     public String packageName = null;
     public String[] aops;
+
+
+    public String tempC;
+    public String tempA;
 
     public Route(String str){
         String[] route = str.split("\\s*->\\s*");
@@ -36,11 +45,23 @@ public class Route {
         packageName = ctrl;
 
         reg = Pattern.compile(
-            "^" + route[0].replaceAll(":c|:a", "[a-zA-Z0-9\\-\\_]+") + "$"
+            "^" + route[0].replaceAll(":c|:a", "([a-zA-Z0-9\\-\\_]+)") + "$"
         );
     }
 
-    public boolean match(String url){
-        return reg.matcher(url).find();
+    private Matcher match(String url){
+        return reg.matcher(url);
     }
+
+    public static Object[] getMatchedRoute(String path){
+        for (Route route : routes) {
+            var m = route.match(path);
+            if(m.find()){
+                return new Object[]{route.packageName, m.group(1), m.group(2), route.aops};
+            }
+        }
+        return null;
+    }
+
+
 }

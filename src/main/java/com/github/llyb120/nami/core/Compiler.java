@@ -86,7 +86,7 @@ public class Compiler {
 //            return compileWithJavac(file);
         } else {
             executor.submit(() -> {
-                if (config.hotswap == null || config.hotswap.size() == 0) {
+                if (config.hotswap.size() == 0) {
                     return;
                 }
                 //只动态编译需要编译的文件
