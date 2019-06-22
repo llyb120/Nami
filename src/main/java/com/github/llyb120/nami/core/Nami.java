@@ -51,7 +51,9 @@ public class Nami {
 //            chakraCore.start(true);
 ////        }
 
-        if(config.dev){
+
+        //暂时只能用devserver
+//        if(config.dev){
             var server = new DevServer();
             try {
                 server.start(config.port);
@@ -59,11 +61,11 @@ public class Nami {
                 e.printStackTrace();
                 System.exit(-1);
             }
-        } else {
-            //netty server
-            var server = new NettyServer();
-            server.start(config.port);
-        }
+//        } else {
+//            //netty server
+//            var server = new NettyServer();
+//            server.start(config.port);
+//        }
     }
 
     public static void test(String config){

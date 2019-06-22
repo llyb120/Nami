@@ -24,6 +24,7 @@ public class Response {
 
     public void write(Object body) throws IOException {
         enableCors();
+        setKeepAlive(false);
 
         //写入200
         os.write("HTTP/1.1 200 OK\r\n".getBytes());
@@ -36,7 +37,9 @@ public class Response {
         setContentLength(bs.length);
         for (Map.Entry<String, Object> entry : headers.entrySet()) {
             String value = (String) entry.getValue();
-            os.write((entry.getKey() + ": " + value + "\r\n").getBytes());
+            var line = entry.getKey() + ": " + value + "\r\n";
+            System.out.printf(line);
+            os.write(line.getBytes());
         }
         os.write("\r\n".getBytes());
         os.write(bs);
@@ -46,15 +49,20 @@ public class Response {
         headers.put(key, value);
     }
 
+    public void setKeepAlive(boolean b){
+        if(b){
+            setHeader("Connection", "Keep-Alive");
+        } else {
+            setHeader("Connection", "Close");
+        }
+    }
+
     public void setContentLength(int length) {
         headers.put("Content-Length", length + "");
     }
 
 
     public void enableCors() {
-        if (config.cors == null) {
-            return;
-        }
         if (StrUtil.isNotEmpty(config.cors.origin)) {
             setHeader("Access-Control-Allow-Origin", config.cors.origin);
         }
@@ -62,7 +70,7 @@ public class Response {
             setHeader("Access-Control-Allow-Methods", config.cors.method);
         }
         if (StrUtil.isNotEmpty(config.cors.headers)) {
-            setHeader("Access-Control-Allow-Origin", config.cors.headers);
+            setHeader("Access-Control-Allow-Headers", config.cors.headers);
         }
         if (StrUtil.isNotEmpty(config.cors.credentials)) {
             setHeader("Access-Control-Allow-Credentials", config.cors.credentials);

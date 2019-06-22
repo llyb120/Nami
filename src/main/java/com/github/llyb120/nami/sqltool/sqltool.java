@@ -19,7 +19,8 @@ public class sqltool {
     }
 
     public String test(Obj body){
-        return body.toJSONString();
+        return "fuck";
+//        return body.toJSONString();
     }
 
 

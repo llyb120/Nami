@@ -25,6 +25,9 @@ public class Request {
     public InputStream is;
     public JSON body;
 
+
+    private DataInputStream dis;
+
     enum Method {
         GET,
         POST,
@@ -103,8 +106,11 @@ public class Request {
     }
 
     public void decode() throws Exception {
+        dis = new DataInputStream(is);
+
         //解析头
-        var surplus = decodeHeaders();
+//        var surplus = decodeHeaders2();
+        decodeHeaders2();
 
         //解析body
         if (method != Method.POST) {
@@ -115,9 +121,19 @@ public class Request {
         var ctype = headers.getStr("Content-Type", "");
         if (ctype.contains("application/x-www-form-urlencoded")) {
             decodeFormEncoded(surplus);
-        }
-        else if(ctype.contains("application/json")){
+        } else if (ctype.contains("application/json")) {
             decodeJsonEncoded(surplus);
+        } else if (ctype.contains("multipart/form-data")){
+            decodeFormDataEncoded(surplus);
+        }
+    }
+
+    private void decodeFormDataEncoded(byte[] surplus){
+        try {
+            var bs = is.readAllBytes();
+            var d = 1;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -170,6 +186,15 @@ public class Request {
         }
     }
 
+
+    private void decodeHeaders2() throws IOException {
+        dis = new DataInputStream(is);
+        var line = "";
+        var idex = 0;
+        while((line = dis.readLine()) != null){
+            decodeHeader(line, idex++);
+        }
+    }
 
     /**
      * 半包解码, 解析请求头
