@@ -28,14 +28,14 @@ public class Async {
         });
     }
 
-    public static void execute(Task task){
-        new Thread(() -> {
+    public static Future execute(Task task){
+        return cacheExecutor.submit(() -> {
             try {
                 task.call();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }).start();
+        });
     }
 
     public static void exitWhenError(Task task){

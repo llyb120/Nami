@@ -70,7 +70,8 @@ public class Nami {
 
     public static void test(String config){
         Async.exitWhenError(() -> start(config));
-        waitFor(5000, sqlManager);
+        waitFor(5000, Config.config);
+//        waitFor(5000, sqlManager);
     }
 
     public static void test(){

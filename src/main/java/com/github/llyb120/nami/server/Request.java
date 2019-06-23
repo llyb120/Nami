@@ -120,15 +120,15 @@ public class Request {
 
         var ctype = headers.getStr("Content-Type", "");
         if (ctype.contains("application/x-www-form-urlencoded")) {
-            decodeFormEncoded(surplus);
+            decodeFormEncoded();
         } else if (ctype.contains("application/json")) {
-            decodeJsonEncoded(surplus);
+            decodeJsonEncoded();
         } else if (ctype.contains("multipart/form-data")){
-            decodeFormDataEncoded(surplus);
+            decodeFormDataEncoded();
         }
     }
 
-    private void decodeFormDataEncoded(byte[] surplus){
+    private void decodeFormDataEncoded(){
         try {
             var bs = is.readAllBytes();
             var d = 1;
@@ -137,29 +137,15 @@ public class Request {
         }
     }
 
-    private void decodeJsonEncoded(byte[] surplus) throws IOException {
+    private void decodeJsonEncoded() throws IOException {
         var clen = headers.getInt("Content-Length", 0);
-        var bs = new byte[clen];
-        var left = 0;
-        //如果上次预读的数据还有结余
-        if (null != surplus) {
-            System.arraycopy(surplus, 0, bs, 0, surplus.length);
-            left = surplus.length;
-        }
-        is.read(bs, left, bs.length - left);
+        var bs = dis.readNBytes(clen);
         body = Json.parse(bs);
     }
 
-    private void decodeFormEncoded(byte[] surplus) throws IOException {
+    private void decodeFormEncoded() throws IOException {
         var clen = headers.getInt("Content-Length", 0);
-        var bs = new byte[clen];
-        var left = 0;
-        //如果上次预读的数据还有结余
-        if (null != surplus) {
-            System.arraycopy(surplus, 0, bs, 0, surplus.length);
-            left = surplus.length;
-        }
-        is.read(bs, left, bs.length - left);
+        var bs = dis.readNBytes(clen);
         body = decodeQuery(new String(bs, StandardCharsets.UTF_8));
     }
 
@@ -192,6 +178,9 @@ public class Request {
         var line = "";
         var idex = 0;
         while((line = dis.readLine()) != null){
+            if(line.equals("")){
+                return;
+            }
             decodeHeader(line, idex++);
         }
     }

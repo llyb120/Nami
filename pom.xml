@@ -144,8 +144,8 @@
             <groupId>com.ibm.db2.jcc</groupId>
             <artifactId>db2jcc4</artifactId>
             <version>10.1</version>
-            <!--<scope>system</scope>-->
-            <!--<systemPath>${project.basedir}/lib/db2jcc4.jar</systemPath>-->
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/db2jcc.jar</systemPath>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.eclipse.jdt/ecj -->
@@ -207,6 +207,13 @@
             <groupId>org.jxls</groupId>
             <artifactId>jxls-poi</artifactId>
             <version>2.6.0-rc1</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.github.spullara.mustache.java</groupId>
+            <artifactId>compiler</artifactId>
+            <version>0.9.6</version>
         </dependency>
 
     </dependencies>

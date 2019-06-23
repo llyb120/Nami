@@ -10,9 +10,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Config {
     public static Config config;
     public int port;
-    public Map<String, Db> db = new HashMap<>();
+    public Map<String, Db> db = new Hashtable<>();
     public Set<String> hotswap = new HashSet<>();
-    public LinkedHashSet<String> route = new LinkedHashSet<>();
+    public List<String> route = new Vector<>();
     public Compile compile = new Compile();
     public Cors cors = new Cors();
     public Obj ext;
@@ -376,7 +376,7 @@ public class Config {
         }
     }
 
-    static class Db {
+    public static class Db {
         public String url;
         public String driver;
         public String username;
