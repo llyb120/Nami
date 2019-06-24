@@ -5,14 +5,18 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson.JSON;
 import com.github.llyb120.nami.core.Json;
+import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.core.Obj;
+import io.netty.buffer.ByteBufUtil;
 import org.apache.commons.compress.utils.ByteUtils;
+import org.apache.commons.compress.utils.IOUtils;
 
 import java.io.*;
 import java.nio.channels.Channels;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.github.llyb120.nami.core.Json.o;
 
@@ -124,17 +128,105 @@ public class Request {
         } else if (ctype.contains("application/json")) {
             decodeJsonEncoded();
         } else if (ctype.contains("multipart/form-data")){
-            decodeFormDataEncoded();
+            decodeFormDataEncoded(ctype);
         }
     }
 
-    private void decodeFormDataEncoded(){
-        try {
-            var bs = is.readAllBytes();
-            var d = 1;
-        } catch (IOException e) {
+    private String getFormDataValue(String str){
+        var first = str.indexOf("\"");
+        var last = str.lastIndexOf("\"");
+        var key = str.substring(first + 1, last);
+        return key;
+    }
+
+    private String readLine(int[] ptr) throws IOException {
+        var line = dis.readLine();
+        ptr[0] += (line.length() + 2);
+        return line;
+    }
+
+    private void decodeFormDataEncoded(String ctype){
+        var ret = o();
+        var clen = getContentLength();
+        var idex = ctype.indexOf("boundary=");
+        if(idex == -1){
+            return;
+        }
+        var token = ctype.substring(idex + 9);
+        var ptr = new int[]{0};
+        var similar = 0;
+
+        try{
+            while(ptr[0] < clen){
+                //skip key
+                var line = readLine(ptr);
+                MultipartFile file = null;
+//                new MultipartFile();
+                //read keys
+                do{
+                   line = readLine(ptr);
+                    var arr = line.split("; ");
+                    //第0个有特殊作用
+                    for (int i = 0; i < arr.length; i++) {
+                        if(i > 0) {
+                            var eq = arr[i].indexOf("=");
+                            var left = arr[i].substring(0, eq);
+                            var right = arr[i].substring(eq + 1);
+                            var value = getFormDataValue(right);
+                            var e = 1;
+                            switch (left){
+                                case "name":
+                                    break;
+
+                                case "filename":
+                                    //如果存在filename, 则开始读取文件
+//                                    isfile = true;
+                                    break;
+                            }
+                        } else {
+
+                        }
+                    }
+//                   idex = line.indexOf(":");
+//                   if(idex == -1){
+//                      break;
+//                   }
+//                   var left = line.substring(0, idex);
+//                   var right = line.substring(idex + 1);
+
+                }while(ptr[0] < clen && !line.equals(""));
+
+                if(file == null){
+                    continue;
+                }
+
+
+
+            }
+        } catch (IOException e){
             e.printStackTrace();
         }
+
+//        while(true){
+//            var line = dis.readLine();
+//        }
+
+//        while(ptr++ < clen){
+//            try {
+//                var c = is.read();
+//                if(c < 0){
+//                    break;
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        try {
+//            var bs = is.readAllBytes();
+//            var d = 1;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void decodeJsonEncoded() throws IOException {
@@ -147,6 +239,10 @@ public class Request {
         var clen = headers.getInt("Content-Length", 0);
         var bs = dis.readNBytes(clen);
         body = decodeQuery(new String(bs, StandardCharsets.UTF_8));
+    }
+
+    private int getContentLength(){
+        return headers.getInt("Content-Length", headers.getInt("content-length", 0));
     }
 
 

@@ -41,7 +41,7 @@ public class Nami {
 
 //        Config.init(configPath);
         if(config.ext.getBoolean("beetlSql")){
-            DBService.start(false, listener);
+            DBService.start(true, listener);
         }
 
 //        Chakra.start();
