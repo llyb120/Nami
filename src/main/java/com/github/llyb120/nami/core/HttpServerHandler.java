@@ -38,7 +38,7 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 //    private static List<Route> RouteList = new ArrayList<>();
 
-    public static List<Route> ctrls = new ArrayList<>();
+//    public static List<Route> ctrls = new ArrayList<>();
     public static Vector<Channel> clients = new Vector<>();
     private WebSocketServerHandshaker handshaker = null;
 

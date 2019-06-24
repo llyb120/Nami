@@ -15,7 +15,7 @@ public class sqltool {
 
 
     public static void init(){
-        HttpServerHandler.ctrls.add(new Route("/sqltool/:c/:a -> com.github.llyb120.nami.sqltool"));
+        Route.routes.add(new Route("/sqltool/:c/:a -> com.github.llyb120.nami.sqltool"));
     }
 
     public String test(Obj body){

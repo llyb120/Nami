@@ -36,6 +36,7 @@ public class FSql {
     private DataSource dataSource;
     private Config.Db db;
     private Future future;
+    //todo: 相同的不再分析
     private Map<String,String> tableNameCache = new Hashtable<>();
 
     public FSql(Config.Db db) throws InterruptedException, ExecutionException, SQLException, IOException {
