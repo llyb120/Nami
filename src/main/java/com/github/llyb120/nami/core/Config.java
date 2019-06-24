@@ -7,6 +7,9 @@ import java.io.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.github.llyb120.nami.core.Json.a;
+import static com.github.llyb120.nami.core.Json.o;
+
 public class Config {
     public static Config config;
     public int port;
@@ -15,7 +18,8 @@ public class Config {
     public List<String> route = new Vector<>();
     public Compile compile = new Compile();
     public Cors cors = new Cors();
-    public Obj ext;
+    public Obj ext = o();
+    public Obj var = o();
     public boolean dev = true;
     public List<String> link = new ArrayList<>();
     public Map<String, Link> links = new HashMap<>();
@@ -55,6 +59,7 @@ public class Config {
                         break;
 
                     case "hotswap":
+                        readNextToken();
                         readStringArray(hotswap);
                         break;
 
@@ -63,11 +68,22 @@ public class Config {
                         break;
 
                     case "route":
+                        readNextToken();
                         readStringArray(route);
                         break;
 
                     case "cors":
                         readCors();
+                        break;
+
+                    case "ext":
+                        readNextToken();
+                        readObj(ext);
+                        break;
+
+                    case "var":
+                        readNextToken();
+                        readObj(var);
                         break;
                 }
             }
@@ -101,9 +117,30 @@ public class Config {
         }
     }
 
+    private void readObj(Obj obj){
+        //read key
+        String key = null;
+        while((key = readNextToken()) != null) {
+            if (key.equals("}")) {
+                return;
+            }
+            //read value
+            var value = readUntilLine2();
+            if (value.equals("{")) {
+                var nobj = o();
+                obj.put(key, nobj);
+                readObj(nobj);
+            } else if(value.equals("[")){
+                var narr = a();
+                obj.put(key, narr);
+                readStringArray(narr);
+            } else {
+                obj.put(key, value);
+            }
+        }
+    }
+
     private void readStringArray(Collection collection) {
-        //skip [
-        readNextToken();
         var token = "";
         while ((token = readUntilLine2()) != null) {
             if (token.equals("]")) {
@@ -223,14 +260,20 @@ public class Config {
         while (ptr < bs.length) {
             switch (bs[ptr]) {
                 case ' ':
-                case '\r':
                 case '\t':
+                case '\r':
                     break;
 
                 case '\n':
                     if (left > -1) {
                         if (right == -1) {
-                            return new String(bs, left, (ptr++) - left);
+                            //如果有\r
+                            var p = ptr;
+                            if(bs[ptr - 1] == '\r'){
+                                p = ptr -1;
+                            }
+                            ptr++;
+                            return new String(bs, left, p - left);
                         } else {
                             ptr++;
                             return new String(bs, left, right - left + 1);

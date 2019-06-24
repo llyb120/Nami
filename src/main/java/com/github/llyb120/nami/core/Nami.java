@@ -36,10 +36,13 @@ public class Nami {
 
     public static void start(String configPath, boolean async, Listener listener) throws Exception {
 //        disableAccessWarnings();
+        var stime = System.currentTimeMillis();
         Config.config = new Config(configPath);
 
 //        Config.init(configPath);
-//        DBService.start(true, listener);
+        if(config.ext.getBoolean("beetlSql")){
+            DBService.start(false, listener);
+        }
 
 //        Chakra.start();
 
@@ -61,6 +64,7 @@ public class Nami {
 //            chakraCore.start(true);
 ////        }
 
+        System.out.println(String.format("prepare system takes %d ms", System.currentTimeMillis() - stime));
 
         //暂时只能用devserver
 //        if(config.dev){

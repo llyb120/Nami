@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.concurrent.ExecutionException;
 
 import static com.github.llyb120.nami.core.DBService.fSql;
+import static com.github.llyb120.nami.core.DBService.sqlManager;
 
 public class TestDao {
 
@@ -54,11 +55,12 @@ public class TestDao {
         var compName = "";
         var list = fSql.select(
                 "l11",
-                "rule", "11.1",
-                "oname", compName
+                "linkrlue", "11.1"
+//                "originnema", compName
         );
 
-        var d = 1;
+        var config = Config.config;
+        var d = 22;
 //        var a = new String[]{"1"};
 //        sql.select("fuck", a, "ri");
     }
