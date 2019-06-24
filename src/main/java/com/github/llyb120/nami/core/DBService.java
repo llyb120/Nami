@@ -1,6 +1,7 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.util.StrUtil;
+import com.github.llyb120.nami.dao.FSql;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.beetl.sql.core.*;
@@ -16,6 +17,7 @@ import java.util.Properties;
 public class DBService {
     public static DataSource dataSource;
     public static SQLManager sqlManager;
+    public static FSql fSql;
 
     private static void init(Nami.Listener listener){
         //修复beetl不支持java11的问题

@@ -1,15 +1,20 @@
 package com.github.llyb120.nami.dao;
 
+import cn.hutool.core.collection.ConcurrentHashSet;
+import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import com.github.llyb120.nami.core.Arr;
-import com.github.llyb120.nami.core.Async;
-import com.github.llyb120.nami.core.Config;
-import com.github.llyb120.nami.core.Obj;
+import com.github.llyb120.nami.core.*;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.beetl.core.BeetlKit;
+import org.beetl.core.resource.ClasspathResource;
+import org.beetl.sql.core.annotatoin.Table;
+import org.beetl.sql.core.kit.GenKit;
 
 import javax.sql.DataSource;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -20,11 +25,12 @@ import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 import static com.github.llyb120.nami.core.Config.config;
+import static com.github.llyb120.nami.core.DBService.fSql;
 import static com.github.llyb120.nami.core.Json.a;
 import static com.github.llyb120.nami.core.Json.o;
 
 
-public class FBsql {
+public class FSql {
 
     private Map<String,TableMetaData> tables = new Hashtable<>();
     private DataSource dataSource;
@@ -32,12 +38,19 @@ public class FBsql {
     private Future future;
     private Map<String,String> tableNameCache = new Hashtable<>();
 
-    public FBsql(Config.Db db){
+    public FSql(Config.Db db) throws InterruptedException, ExecutionException, SQLException, IOException {
         this.db = db;
-        future = Async.execute(() -> {
-            initDataSource();
+        if(config.dev){
             initAllTableName();
-        });
+            future = Async.execute(() -> initDataSource());
+        } else {
+            future = Async.execute(() -> {
+                initDataSource();
+                if(!config.dev){
+                    initAllTableName();
+                }
+            });
+        }
     }
 
 //    public SimpleQuery simple(String table){
@@ -91,7 +104,7 @@ public class FBsql {
                 var obj = o();
                 list.add(obj);
                 for(var i = 1; i <= metadata.getColumnCount(); i++){
-                    obj.put(metadata.getColumnName(i).toLowerCase(), ret.getString(i)) ;
+                    obj.put(metadata.getColumnLabel(i).toLowerCase(), ret.getObject(i)) ;
                 }
             }
             return list;
@@ -113,36 +126,90 @@ public class FBsql {
     }
 
     private String getTableMetaData(String tableName) throws InterruptedException, ExecutionException, SQLException {
+        tableName = tableName.toUpperCase();
+        String finalTableName = tableName;
         var list = tables.keySet()
                 .stream()
-                .map(e -> new Object[]{e, FBsqlUtil.sim(e, tableName)})
+                .map(e -> new Object[]{e, FBsqlUtil.sim(e, finalTableName)})
                 .sorted((a,b) -> Double.compare((double)b[1], (double)a[1]))
                 .collect(Collectors.toList());
         return (String) list.get(0)[0];
     }
 
     private String getField(TableMetaData metaData, String key){
+        key = key.toUpperCase();
+        String finalKey = key;
         var list = metaData.fields.stream()
-                .map(e -> new Object[]{e, FBsqlUtil.sim(e, key)})
+                .map(e -> new Object[]{e, FBsqlUtil.sim(e, finalKey)})
                 .sorted((a,b) -> Double.compare((double)b[1], (double)a[1]))
                 .collect(Collectors.toList());
         return (String) list.get(0)[0];
     }
 
 
-    private void initAllTableName() throws InterruptedException, ExecutionException, SQLException {
-        String sql = String.format("select table_name as t, column_name as c, data_type as type, CHARACTER_MAXIMUM_LENGTH as len from sysibm.columns where table_schema = '%s' and table_name not like 'explain%%'", db.schema);
-        var ret = execute(sql, dataSource.getConnection());
-        for (Object o : ret) {
-            Obj obj = (Obj) o;
-            var tname = obj.getStr("table_name").toLowerCase();
-            var metadata = tables.get(tname);
-            if (metadata == null) {
-                metadata = new TableMetaData();
-                metadata.name = tname;
-                tables.put(tname, metadata);
+    private void initAllTableName() throws InterruptedException, ExecutionException, SQLException, IOException {
+        if(config.dev){
+            try(
+                    var is = new ClassPathResource("fsql/cache/ALL_TABLES").getStream();
+                    ){
+                tables = ObjectUtil.unserialize(is.readAllBytes());
+            } catch (Exception e){
+                System.out.println("加载缓存失败，你可能需要生成fsql的缓存");
             }
-            metadata.fields.add(obj.getStr("column_name").toLowerCase());
+        } else {
+            String sql = String.format("select table_name as t, column_name as c, data_type as type, CHARACTER_MAXIMUM_LENGTH as len from sysibm.columns where table_schema = '%s' and table_name not like 'explain%%'", db.schema);
+            var ret = execute(sql, dataSource.getConnection());
+            for (Object o : ret) {
+                Obj obj = (Obj) o;
+                var tname = obj.getStr("t");
+                var metadata = tables.get(tname);
+                if (metadata == null) {
+                    metadata = new TableMetaData();
+                    metadata.name = tname;
+                    tables.put(tname, metadata);
+                }
+                metadata.fields.add(obj.getStr("c"));
+            }
+        }
+    }
+
+    public static void mkCache(){
+        Nami.test();
+        var path = new File(GenKit.getJavaResourcePath(), "fsql/cache");
+        //clear
+        path.mkdirs();
+        for (File file : path.listFiles()) {
+            file.delete();
+        }
+        //生成表名索引
+        try(
+            var raf = new RandomAccessFile(new File(path, "ALL_TABLES"), "rw");
+                ) {
+            String sql = String.format("select table_name as t, column_name as c, data_type as type, CHARACTER_MAXIMUM_LENGTH as len from sysibm.columns where table_schema = '%s' and table_name not like 'EXPLAIN_%%'", fSql.db.schema);
+            var ret = fSql.execute(sql, fSql.getConnection());
+            for (Object o : ret) {
+                Obj obj = (Obj) o;
+                var tname = obj.getStr("t");
+                var metadata = fSql.tables.get(tname);
+                if (metadata == null) {
+                    metadata = new TableMetaData();
+                    metadata.name = tname;
+                    metadata.fields = new Vector<>();
+                    fSql.tables.put(tname, metadata);
+                }
+                metadata.fields.add(obj.getStr("c"));
+            }
+
+            raf.write(
+                    ObjectUtil.serialize(fSql.tables)
+            );
+
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
     }
 
@@ -163,9 +230,9 @@ public class FBsql {
         dataSource = new HikariDataSource(hikariConfig);
     }
 
-    static class TableMetaData{
+    static class TableMetaData implements Serializable {
         String name;
-        List<String> fields = new Vector<>();
+        List<String> fields;
     }
 }
 

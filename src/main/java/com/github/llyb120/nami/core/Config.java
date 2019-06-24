@@ -223,6 +223,7 @@ public class Config {
         while (ptr < bs.length) {
             switch (bs[ptr]) {
                 case ' ':
+                case '\r':
                 case '\t':
                     break;
 
@@ -259,6 +260,7 @@ public class Config {
             switch (bs[ptr]) {
                 case ' ':
                 case '\t':
+                case '\r':
                 case '\n':
                     if (lastNotEmptyPtr > -1) {
                         return new String(bs, lastNotEmptyPtr, (ptr++) - lastNotEmptyPtr);
@@ -282,6 +284,7 @@ public class Config {
             switch (bs[ptr]) {
                 case ' ':
                 case '\t':
+                case '\r':
                     if (lastNotEmptyPtr != -1) {
                         return new String(bs, lastNotEmptyPtr, (ptr++) - lastNotEmptyPtr);
                     }
