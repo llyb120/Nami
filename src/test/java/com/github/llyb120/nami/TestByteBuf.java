@@ -1,7 +1,7 @@
 package com.github.llyb120.nami;
 
 import cn.hutool.core.util.RandomUtil;
-import com.github.llyb120.nami.server.ByteBuf;
+import com.github.llyb120.nami.server.ByteBuff;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,15 +12,16 @@ public class TestByteBuf {
 
     private byte[] bs;
     private String str;
-    private int step = 2;
+    private int step = RandomUtil.randomInt(50,100);
 
-    private ByteBuf buf ;
+    private ByteBuff buf ;
     private File file;
+
 
     @Before
     public void before() throws IOException {
-         buf = new ByteBuf(step);
-         str = (genRandomStr() + "\r\n");
+         buf = new ByteBuff(step);
+         str = (RandomUtil.randomString(step * 5) + "\r\n");
          bs = str.getBytes();
         file = genFile();
     }
@@ -45,7 +46,7 @@ public class TestByteBuf {
         fos.write(bs);
         var fis = new FileInputStream(file);
         buf.writeOnce(fis);
-        Assert.assertArrayEquals(str.substring(0,2).getBytes(), buf.readBytes());
+        Assert.assertArrayEquals(str.substring(0,step).getBytes(), buf.readBytes());
     }
 
 
@@ -85,6 +86,8 @@ public class TestByteBuf {
     public String genRandomStr(){
         return RandomUtil.randomString(20);
     }
+
+
 
 
 

@@ -6,37 +6,37 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 
-public class ByteBuf {
+public class ByteBuff {
     private int step;
     private LinkedList<byte[]> bytes = new LinkedList();
     private int writePtr = 0;
     private int readPtr = 0;
 
 
-    public ByteBuf(){
+    public ByteBuff(){
         this(1024);
     }
 
-    public ByteBuf(int step){
+    public ByteBuff(int step){
         this.step = step;
         this.bytes.addLast(createBytes());
     }
 
-    public ByteBuf write(byte b){
+    public ByteBuff write(byte b){
         var bs = getBs();
         bs[writePtr++] = b;
         return this;
     }
 
-    public ByteBuf write(byte[] bs){
+    public ByteBuff write(byte[] bs){
         return write(bs, 0, bs.length);
     }
 
-    public ByteBuf write(String str){
+    public ByteBuff write(String str){
         return write(str.getBytes());
     }
 
-    public ByteBuf write(String str, String encoding){
+    public ByteBuff write(String str, String encoding){
         try {
             return write(str.getBytes(encoding));
         } catch (UnsupportedEncodingException e) {
@@ -45,7 +45,7 @@ public class ByteBuf {
         return this;
     }
 
-    public ByteBuf write(byte[] bs, int pos, int len){
+    public ByteBuff write(byte[] bs, int pos, int len){
         var lenCopy = len;
         var posCopy = pos;
         var left = -1;
@@ -71,7 +71,7 @@ public class ByteBuf {
         return this;
     }
 
-    public ByteBuf writeOnce(InputStream is) throws IOException {
+    public ByteBuff writeOnce(InputStream is) throws IOException {
         var bs = createBytes();
         var n = is.read(bs);
         if(n <= 0){
@@ -81,7 +81,7 @@ public class ByteBuf {
         return this;
     }
 
-    public ByteBuf writeFull(InputStream is) throws IOException {
+    public ByteBuff writeFull(InputStream is) throws IOException {
         var bs = createBytes();
         var n = -1;
         while((n = is.read(bs)) > 0){
@@ -94,7 +94,7 @@ public class ByteBuf {
         if(pos[0] == -1 || pos[1] == -1){
             return new byte[0];
         }
-        var ret = new byte[length()];
+        var ret = createFullLengthBytes();
         var it = bytes.iterator();
         var i = -1;
         var ptr = 0;
@@ -139,7 +139,7 @@ public class ByteBuf {
     }
 
     public byte[] getBytes(){
-        var bs = new byte[length()];
+        var bs = createFullLengthBytes();
         var ptr = 0;
         for (int i = 0; i < bytes.size(); i++) {
             var start = getStart(i);
@@ -156,7 +156,7 @@ public class ByteBuf {
         return bs;
     }
 
-    public ByteBuf reset(){
+    public ByteBuff reset(){
         writePtr = 0;
         readPtr = 0;
         var first = bytes.getFirst();
@@ -167,6 +167,10 @@ public class ByteBuf {
 
     private byte[] createBytes(){
         return new byte[step];
+    }
+
+    private byte[] createFullLengthBytes(){
+        return new byte[length()];
     }
 
     private byte[] getBs(){
