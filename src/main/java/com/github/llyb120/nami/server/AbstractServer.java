@@ -51,10 +51,11 @@ public abstract class AbstractServer {
         var ctx = Context.holder.get();
         ctx.reset();
 
+        ctx.query = req.query;
         ctx.body = req.body;
         ctx.params.putAll(ctx.query);
-        if (ctx.body instanceof Obj) {
-            ctx.params.putAll((Obj) ctx.body);
+        if (ctx.body instanceof Map) {
+            ctx.params.putAll((Map) ctx.body);
         }
 
         //header
