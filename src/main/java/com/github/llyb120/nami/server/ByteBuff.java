@@ -3,7 +3,7 @@ package com.github.llyb120.nami.server;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.LinkedList;
 
 public class ByteBuff {
@@ -18,12 +18,21 @@ public class ByteBuff {
     }
 
     public ByteBuff(int step){
+        if(step <= 1){
+            throw new RuntimeException();
+        }
         this.step = step;
-        this.bytes.addLast(createBytes());
+        this.bytes.addLast(createSliceBytes());
     }
 
     public ByteBuff write(byte b){
-        var bs = getBs();
+        var bs = bytes.getLast();
+        var left = step - writePtr;
+        if(left <= 0){
+            bs = createSliceBytes();
+            bytes.addLast(bs);
+            writePtr = 0;
+        }
         bs[writePtr++] = b;
         return this;
     }
@@ -36,13 +45,8 @@ public class ByteBuff {
         return write(str.getBytes());
     }
 
-    public ByteBuff write(String str, String encoding){
-        try {
-            return write(str.getBytes(encoding));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return this;
+    public ByteBuff write(String str, Charset encoding){
+        return write(str.getBytes(encoding));
     }
 
     public ByteBuff write(byte[] bs, int pos, int len){
@@ -51,28 +55,27 @@ public class ByteBuff {
         var left = -1;
         //空间不足
         while(lenCopy > 0){
-            var last = getBs();
+            var last = bytes.getLast();
             left = step - writePtr;
-            if(left < lenCopy){
-                System.arraycopy(bs, posCopy, last, writePtr, left);
-                writePtr += left;
-                lenCopy -= left;
-//                last = getBs();
-//                System.arraycopy(bs, pos + len - left, last, writePtr, len - left);
-            } else {
-                System.arraycopy(bs, posCopy, last, writePtr, lenCopy);
-                writePtr += lenCopy;
-                lenCopy = 0;
+            //空间不足
+            if(left <= 0){
+                last = createSliceBytes();
+                bytes.addLast(last);
+                writePtr = 0;
+                left = step;
             }
+            //当前块的剩余空间不足以写入
+            var writeLen = Math.min(left, lenCopy);
+            System.arraycopy(bs, posCopy, last, writePtr, writeLen);
+            writePtr += writeLen;
             posCopy += left;
-            //不论如何，lencopy都会少掉一个step
-//            lenCopy -= step;
+            lenCopy -= writeLen;
         }
         return this;
     }
 
     public ByteBuff writeOnce(InputStream is) throws IOException {
-        var bs = createBytes();
+        var bs = createSliceBytes();
         var n = is.read(bs);
         if(n <= 0){
             throw new EOFException();
@@ -82,7 +85,7 @@ public class ByteBuff {
     }
 
     public ByteBuff writeFull(InputStream is) throws IOException {
-        var bs = createBytes();
+        var bs = createSliceBytes();
         var n = -1;
         while((n = is.read(bs)) > 0){
             write(bs, 0, n);
@@ -91,48 +94,102 @@ public class ByteBuff {
     }
 
     public byte[] readLine(int[] pos){
+        if(null == pos){
+            return null;
+        }
         if(pos[0] == -1 || pos[1] == -1){
-            return new byte[0];
+            return null;
         }
-        var ret = createFullLengthBytes();
-        var it = bytes.iterator();
-        var i = -1;
-        var ptr = 0;
-        while (it.hasNext()) {
-            i++;
-            if(i > pos[0]){
-                break;
-            }
-            var bs = it.next();
-            var start = (i == 0 ? readPtr : 0);
-            var end = (i == bytes.size() - 1 ? writePtr : step);
-            var len = end - start;
-            System.arraycopy(bs, start, ret, ptr, len);
-            ptr += len;
-        }
-        return ret;
+        var len = step * (pos[0]) - readPtr + pos[1] - 1;
+        return readNBytes(len);
+//        var ret = new byte[len];
+//        var it = bytes.iterator();
+//        var i = -1;
+//        var ptr = 0;
+//        while (it.hasNext()) {
+//            i++;
+//            if(i > pos[0]){
+//                break;
+//            }
+//            var bs = it.next();
+//            var start = getStart(i);
+//            var end = (i == pos[0] ? pos[1] : step);
+//            len = end - start;
+//            System.arraycopy(bs, start, ret, ptr, bs[end - 1] == '\r' ? len - 1 : len);
+//            ptr += len;
+//            if(i != pos[0]){
+//                it.remove();
+//            } else {
+//                //有一种特殊情况，即在当前节点且全部读完
+//                if(pos[1] + 1 >= step){
+//                    it.remove();
+//                    bytes.addLast(createSliceBytes());
+//                    readPtr = 0;
+//                } else {
+//                    readPtr = pos[1] + 1;
+//                }
+//            }
+//        }
+//        return ret;
     }
 
     public byte[] readLine() {
         var pos = canReadLine();
-        return readLine(pos);
+        return readNBytes(pos);
     }
 
-    private int[] canReadLine(){
-        var ret = new int[]{-1,-1};
+    public byte[] readLine(InputStream is){
+        int pos = -1;
+        try {
+            do{
+                pos = canReadLine();
+                if(pos < 1){
+                    writeOnce(is);
+                } else {
+                    break;
+                }
+            } while(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return readNBytes(pos);
+    }
+
+    public String readLineStr(InputStream is, Charset charset){
+        var bs = readLine(is);
+        if (bs == null) {
+            return null;
+        }
+        if(bs.length >= 2){
+            var end = bs.length;
+            if(bs[end - 1] == '\n'){
+                end--;
+            }
+            if(bs[end - 1] == '\r'){
+                end--;
+            }
+            return new String(bs, 0, end, charset);
+        } else {
+            return new String(bs, charset);
+        }
+    }
+
+    private int canReadLine(){
+        var ret = 0;
         var it = bytes.iterator();
-        var i = -1;
+        var i = 0;
         scan:{
             while (it.hasNext()) {
-                i++;
                 var bs = it.next();
-                for (int i1 = (i == 0 ? readPtr : 0); i1 < (i == bytes.size() - 1 ? writePtr : bs.length); i1++) {
+                var s = getStart(i);
+                var e = getEnd(i);
+                for (int i1 = s; i1 < e; i1++) {
+                    ret++;
                     if(bs[i1] == '\n'){
-                        ret[0] = i;
-                        ret[1] = i1;
                         break scan;
                     }
                 }
+                i++;
             }
         }
         return ret;
@@ -156,6 +213,46 @@ public class ByteBuff {
         return bs;
     }
 
+    public byte[] readNBytes(int n){
+        if(n < 1){
+            return null;
+        }
+        var nn = n;
+        var ret = new byte[n];
+        var it = bytes.iterator();
+        var i = 0;
+        var ptr = 0;
+        while(it.hasNext()){
+            var bs = it.next();
+            var start = getStart(i);
+            var end = getEnd(i);
+            var len = end - start;
+            if(nn < len){
+                len = nn;
+                readPtr = start + nn;
+            }
+            System.arraycopy(bs, start, ret, ptr, len);
+            i++;
+            ptr += len;
+            nn -= len;
+            if(nn <= 0){
+                break;
+            }
+        }
+        //清空掉已读过的buf
+        while(--i > 0){
+            bytes.removeFirst();
+        }
+        return ret;
+    }
+
+    public byte[] readNBytes(InputStream is, int n) throws IOException {
+        while(length() < n){
+            writeOnce(is);
+        }
+        return readNBytes(n);
+    }
+
     public ByteBuff reset(){
         writePtr = 0;
         readPtr = 0;
@@ -165,7 +262,7 @@ public class ByteBuff {
         return this;
     }
 
-    private byte[] createBytes(){
+    private byte[] createSliceBytes(){
         return new byte[step];
     }
 
@@ -173,10 +270,14 @@ public class ByteBuff {
         return new byte[length()];
     }
 
-    private byte[] getBs(){
+    /**
+     * 得到一个可写的块
+     * @return
+     */
+    private byte[] getWritableSlice(){
         byte[] bs;
         if(writePtr >= step){
-            bs = createBytes();
+            bs = createSliceBytes();
             bytes.addLast(bs);
             writePtr = 0;
         } else {
@@ -196,6 +297,14 @@ public class ByteBuff {
     private int getStart(int i){
         return (i == 0 ? readPtr : 0);
     }
+
+//    private int getStart(byte[] bs){
+//        return bs == bytes.getFirst() ? readPtr : 0;
+//    }
+//
+//    private int getEnd(byte[] bs){
+//        return bs == bytes.getLast() ? writePtr : step;
+//    }
 
     private int getEnd(int i){
         return  (i == bytes.size() - 1 ? writePtr : step);

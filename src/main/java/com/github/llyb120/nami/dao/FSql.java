@@ -1,25 +1,24 @@
 package com.github.llyb120.nami.dao;
 
-import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.io.resource.ClassPathResource;
-import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.core.*;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.beetl.core.BeetlKit;
-import org.beetl.core.resource.ClasspathResource;
-import org.beetl.sql.core.annotatoin.Table;
 import org.beetl.sql.core.kit.GenKit;
 
 import javax.sql.DataSource;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;

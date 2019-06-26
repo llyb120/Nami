@@ -1,14 +1,12 @@
 package com.github.llyb120.nami.server;
 
 import com.github.llyb120.nami.core.Async;
-import com.github.llyb120.nami.core.Context;
-import com.github.llyb120.nami.core.R;
-import com.github.llyb120.nami.core.Route;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 
 public class DevServer extends AbstractServer{
 

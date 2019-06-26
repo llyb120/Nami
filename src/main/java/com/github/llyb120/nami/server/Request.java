@@ -1,22 +1,15 @@
 package com.github.llyb120.nami.server;
 
-import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson.JSON;
 import com.github.llyb120.nami.core.Json;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.core.Obj;
-import io.netty.buffer.ByteBufUtil;
-import org.apache.commons.compress.utils.ByteUtils;
-import org.apache.commons.compress.utils.IOUtils;
 
-import java.io.*;
-import java.nio.channels.Channels;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.github.llyb120.nami.core.Json.o;
 
@@ -31,6 +24,7 @@ public class Request {
 
 
     private DataInputStream dis;
+    private ByteBuff buf = new ByteBuff();
 
     enum Method {
         GET,
@@ -110,11 +104,11 @@ public class Request {
     }
 
     public void decode() throws Exception {
-        dis = new DataInputStream(is);
+//        dis = new DataInputStream(is);
 
         //解析头
 //        var surplus = decodeHeaders2();
-        decodeHeaders2();
+        decodeHeaders3();
 
         //解析body
         if (method != Method.POST) {
@@ -230,14 +224,12 @@ public class Request {
     }
 
     private void decodeJsonEncoded() throws IOException {
-        var clen = headers.getInt("Content-Length", 0);
-        var bs = dis.readNBytes(clen);
+        var bs = buf.readNBytes(is, getContentLength());
         body = Json.parse(bs);
     }
 
     private void decodeFormEncoded() throws IOException {
-        var clen = headers.getInt("Content-Length", 0);
-        var bs = dis.readNBytes(clen);
+        var bs = buf.readNBytes(is, getContentLength());
         body = decodeQuery(new String(bs, StandardCharsets.UTF_8));
     }
 
@@ -247,9 +239,13 @@ public class Request {
 
 
     private void decodeHeader(String line, int idex) {
-        if (idex++ == 0) {
+        var i = line.lastIndexOf("\r\n");
+        if(i > -1){
+            line = line.substring(0, i);
+        }
+        if (idex == 0) {
             var arr = line.split("\\s+");
-            if (arr.length != 3) {
+            if (arr.length < 3) {
                 throw new RuntimeException();
             }
             method = Request.Method.valueOf(arr[0]);
@@ -268,6 +264,17 @@ public class Request {
         }
     }
 
+
+    private void decodeHeaders3(){
+        String line = null;
+        var i = 0;
+        while((line = buf.readLineStr(is, StandardCharsets.UTF_8)) != null){
+            if(line.isEmpty()){
+                break;
+            }
+            decodeHeader(line, i++);
+        }
+    }
 
     private void decodeHeaders2() throws IOException {
         dis = new DataInputStream(is);

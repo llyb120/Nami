@@ -22,13 +22,13 @@ public class TestConf {
     }
 
 
-    @Test
-    public void testreq(){
-        Nami.test();
-
-        var resp = HttpUtil.post("http://127.0.0.1:8084/sqltool/sqltool/test", o("fuck", "oh no"));
-        System.out.println(resp);
-        System.out.println("end");
-
-    }
+//    @Test
+//    public void testreq(){
+//        Nami.test();
+//
+//        var resp = HttpUtil.post("http://127.0.0.1:8084/sqltool/sqltool/test", o("fuck", "oh no"));
+//        System.out.println(resp);
+//        System.out.println("end");
+//
+//    }
 }

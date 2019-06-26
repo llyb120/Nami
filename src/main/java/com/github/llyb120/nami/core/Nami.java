@@ -3,32 +3,12 @@ package com.github.llyb120.nami.core;
 import cn.hutool.core.thread.ThreadUtil;
 import com.github.llyb120.nami.dao.FSql;
 import com.github.llyb120.nami.server.DevServer;
-import com.github.llyb120.nami.server.NettyServer;
 import com.github.llyb120.nami.sqltool.sqltool;
-import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.http.HttpObjectAggregator;
-import io.netty.handler.codec.http.HttpServerCodec;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.stream.ChunkedWriteHandler;
-import io.netty.util.CharsetUtil;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.sql.SQLException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 
 import static com.github.llyb120.nami.core.Config.config;
-import static com.github.llyb120.nami.core.DBService.sqlManager;
 
 public class Nami {
 
@@ -63,8 +43,7 @@ public class Nami {
 //            chakraCore = new ChakraCore();
 //            chakraCore.start(true);
 ////        }
-
-        System.out.println(String.format("prepare system takes %d ms", System.currentTimeMillis() - stime));
+//        System.out.println(String.format("prepare system takes %d ms", System.currentTimeMillis() - stime));
 
         //暂时只能用devserver
 //        if(config.dev){

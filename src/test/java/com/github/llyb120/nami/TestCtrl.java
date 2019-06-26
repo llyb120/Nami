@@ -67,6 +67,5 @@ public class TestCtrl {
                 .execute()
                 .body();
         assertEquals(JSON.parse(res).toString(), obj.toJSONString());
-        var d = 2;
     }
 }

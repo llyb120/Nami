@@ -78,6 +78,7 @@ public class TestByteBuf {
 
     public File genFile() throws IOException {
         var file = File.createTempFile("123", "456");
+        file.deleteOnExit();
         var fos = new FileOutputStream(file);
         fos.write(bs);
         return file;

@@ -1,7 +1,10 @@
 package com.github.llyb120.nami.sqltool;
 
 import cn.hutool.core.util.StrUtil;
-import com.github.llyb120.nami.core.*;
+import com.github.llyb120.nami.core.Arr;
+import com.github.llyb120.nami.core.Obj;
+import com.github.llyb120.nami.core.R;
+import com.github.llyb120.nami.core.Route;
 import org.beetl.sql.core.SQLReady;
 
 import java.util.LinkedHashMap;

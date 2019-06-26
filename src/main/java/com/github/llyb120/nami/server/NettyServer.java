@@ -1,6 +1,5 @@
 package com.github.llyb120.nami.server;
 
-import com.github.llyb120.nami.core.Config;
 import com.github.llyb120.nami.core.HttpServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
