@@ -1,5 +1,6 @@
 package com.github.llyb120.nami.test;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.github.llyb120.nami.core.Arr;
 import com.github.llyb120.nami.core.Obj;
 
@@ -34,4 +35,7 @@ public class a {
     }
 
 
+    public Object uploadFile(String cubi){
+        return cubi;
+    }
 }

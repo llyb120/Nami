@@ -41,7 +41,7 @@ public class TestByteBuf {
     }
 
     @Test
-    public void testWriteOnce() throws IOException {
+    public void testWriteOnce() throws IOException, ByteBuff.EOFException {
         var fos = new FileOutputStream(file);
         fos.write(bs);
         var fis = new FileInputStream(file);
@@ -74,6 +74,19 @@ public class TestByteBuf {
         var b = buf.readBytes();
         Assert.assertArrayEquals(a, b);
         Assert.assertArrayEquals(a, bs);
+    }
+
+
+    @Test
+    public void testWriteBefore(){
+        var str = RandomUtil.randomString(1024);
+        buf.write(bs);
+        buf.readNBytes(str.length() / 2);
+        buf.writeBefore(str.getBytes());
+        Assert.assertEquals(buf.toString().substring(0, str.length()), str);
+
+        buf.writeBefore(str.getBytes(), 500, 350);
+        Assert.assertEquals(buf.toString().substring(0, 350), str.substring(500, 850));
     }
 
     public File genFile() throws IOException {

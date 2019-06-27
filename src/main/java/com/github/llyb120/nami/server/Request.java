@@ -124,12 +124,16 @@ public class Request {
         }
     }
 
-    private String getFormDataValue(String str){
-        var first = str.indexOf("\"");
-        var last = str.lastIndexOf("\"");
-        var key = str.substring(first + 1, last);
-        return key;
+    private String[] getFormDataKV(String str){
+        var eq = str.indexOf("=");
+        var left = str.substring(0, eq);
+        var right = str.substring(eq + 1);
+        var first = right.indexOf("\"");
+        var last = right.lastIndexOf("\"");
+        var key = right.substring(first + 1, last);
+        return new String[]{left, key};
     }
+
 
     private String readLine(int[] ptr) throws IOException {
         var line = buf.readLineStr(is, StandardCharsets.UTF_8);
@@ -145,59 +149,100 @@ public class Request {
             return;
         }
         var token = ctype.substring(idex + 9);
+        var start = "--" + token;
+        var end = "--" + token + "--";
         var ptr = new int[]{0};
         var similar = 0;
+        var line = "";
 
-        try{
-            while(ptr[0] < clen){
-                //skip key
-                var line = readLine(ptr);
-                MultipartFile file = null;
-//                new MultipartFile();
-                //read keys
-                do{
-                   line = readLine(ptr);
+        //部分请求可能会多一个\r\n
+//        if(line.equals("")){
+//             line = buf.readLineStr(is, StandardCharsets.UTF_8);
+//        }
+        while((line = buf.readLineStr(is, StandardCharsets.UTF_8)) != null){
+            if(line.equals(start)){
+                while((line = buf.readLineStr(is, StandardCharsets.UTF_8)) != null){
+                    if(line.isEmpty()){
+                        break;
+                    }
+                    //start
                     var arr = line.split("; ");
-                    //第0个有特殊作用
                     for (int i = 0; i < arr.length; i++) {
-                        if(i > 0) {
-                            var eq = arr[i].indexOf("=");
-                            var left = arr[i].substring(0, eq);
-                            var right = arr[i].substring(eq + 1);
-                            var value = getFormDataValue(right);
-                            var e = 1;
-                            switch (left){
-                                case "name":
-                                    break;
+                        if(i > 0){
+                            var strs = getFormDataKV(arr[i]);
+                            switch (strs[0]){
 
-                                case "filename":
-                                    //如果存在filename, 则开始读取文件
-//                                    isfile = true;
-                                    break;
                             }
                         } else {
 
                         }
                     }
-//                   idex = line.indexOf(":");
-//                   if(idex == -1){
-//                      break;
-//                   }
-//                   var left = line.substring(0, idex);
-//                   var right = line.substring(idex + 1);
-
-                }while(ptr[0] < clen && !line.equals(""));
-
-                if(file == null){
-                    continue;
                 }
-
-
-
+                //读取value
+//                var value = buf.readUntil()
+//                var bs =
+//                var value = buf.readLineStr(is, StandardCharsets.UTF_8);
+//                var e = 2;
+                //
+            } else if(line.equals(end)){
+                //end
+                break;
             }
-        } catch (IOException e){
-            e.printStackTrace();
         }
+        //start
+
+        var d = 1;
+
+//        try{
+//            while(ptr[0] < clen){
+//                //skip key
+////                var line = readLine(ptr);
+//                MultipartFile file = null;
+////                new MultipartFile();
+//                //read keys
+//                do{
+//                   line = readLine(ptr);
+//                    var arr = line.split("; ");
+//                    //第0个有特殊作用
+//                    for (int i = 0; i < arr.length; i++) {
+//                        if(i > 0) {
+//                            var eq = arr[i].indexOf("=");
+//                            var left = arr[i].substring(0, eq);
+//                            var right = arr[i].substring(eq + 1);
+//                            var value = getFormDataValue(right);
+//                            var e = 1;
+//                            switch (left){
+//                                case "name":
+//                                    break;
+//
+//                                case "filename":
+//                                    //如果存在filename, 则开始读取文件
+////                                    isfile = true;
+//                                    break;
+//                            }
+//                        } else {
+//
+//                        }
+//                    }
+////                   idex = line.indexOf(":");
+////                   if(idex == -1){
+////                      break;
+////                   }
+////                   var left = line.substring(0, idex);
+////                   var right = line.substring(idex + 1);
+//
+//                }while(ptr[0] < clen && !line.equals(""));
+//
+//                if(file == null){
+//                    continue;
+//                }
+//
+//
+//
+//            }
+//        } catch (IOException e){
+//            e.printStackTrace();
+//        }
 
 //        while(true){
 //            var line = dis.readLine();
@@ -222,12 +267,22 @@ public class Request {
     }
 
     private void decodeJsonEncoded() throws IOException {
-        var bs = buf.readNBytes(is, getContentLength());
+        byte[] bs = new byte[0];
+        try {
+            bs = buf.readNBytes(is, getContentLength());
+        } catch (ByteBuff.EOFException e) {
+            e.printStackTrace();
+        }
         body = Json.parse(bs);
     }
 
     private void decodeFormEncoded() throws IOException {
-        var bs = buf.readNBytes(is, getContentLength());
+        byte[] bs = new byte[0];
+        try {
+            bs = buf.readNBytes(is, getContentLength());
+        } catch (ByteBuff.EOFException e) {
+            e.printStackTrace();
+        }
         var str = new String(bs, StandardCharsets.UTF_8);
         body = decodeQuery(str);
     }

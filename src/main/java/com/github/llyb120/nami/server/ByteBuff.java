@@ -1,10 +1,18 @@
 package com.github.llyb120.nami.server;
 
+import cn.hutool.core.util.ArrayUtil;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufUtil;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
 public class ByteBuff {
     private int step;
@@ -49,6 +57,30 @@ public class ByteBuff {
         return write(str.getBytes(encoding));
     }
 
+    public ByteBuff writeBefore(byte[] bs, int offset, int length){
+        var len = length;
+        var pos = 0;
+        while(len > 0){
+            var realLen = Math.min(len, readPtr);
+            //空间不够
+            if(realLen == 0){
+                var b = createSliceBytes();
+                bytes.addFirst(b);
+                readPtr = step;
+                realLen = Math.min(len, readPtr);
+            }
+            System.arraycopy(bs, offset + length - pos - realLen, bytes.getFirst(), readPtr - realLen, realLen);
+            len -= realLen;
+            readPtr -= realLen;
+            pos += realLen;
+        }
+        return this;
+    }
+
+    public ByteBuff writeBefore(byte[] bs){
+        return writeBefore(bs, 0, bs.length);
+    }
+
     public ByteBuff write(byte[] bs, int pos, int len){
         var lenCopy = len;
         var posCopy = pos;
@@ -74,7 +106,7 @@ public class ByteBuff {
         return this;
     }
 
-    public ByteBuff writeOnce(InputStream is) throws IOException {
+    public ByteBuff writeOnce(InputStream is) throws IOException, EOFException {
         var bs = createSliceBytes();
         var n = is.read(bs);
         if(n <= 0){
@@ -151,6 +183,8 @@ public class ByteBuff {
             } while(true);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (EOFException e) {
+            e.printStackTrace();
         }
         return readNBytes(pos);
     }
@@ -213,6 +247,53 @@ public class ByteBuff {
         return bs;
     }
 
+    public ByteBuff copyUntil(InputStream is, OutputStream os, byte[] target) throws IOException {
+        byte[] left = null;
+        var running = true;
+        var i = 0;
+        var ptr = 0;
+        while(running){
+            var bs = readNBytes(1024);
+            for (byte b : bs) {
+                if(b == target[i]){
+                    if(i == 0){
+                        ptr = i;
+                    }
+                    i++;
+                } else {
+                    i = 0;
+                    if(null != left){
+
+                    }
+                }
+            }
+            //如果命中了部分，则只copy这部分
+            os.write(bs, 0, bs.length - i);
+            if(ptr > 0){
+//                left =
+            }
+        }
+        return this;
+//        if(i > 0){
+//        } else {
+//            os.write();
+//        }
+    }
+
+//    public byte[] readUntil(InputStream is, byte[] b) throws IOException {
+//        var buf = new ByteBuff();
+//        try{
+//            var bs = readNBytes(is, 1024);
+//            buf.write(bs);
+//
+//        } catch (EOFException e){
+//            //读取完毕
+//        } catch (IOException e){
+//            throw e;
+//        }
+//        return buf.getBytes();
+//    }
+
     public byte[] readNBytes(int n){
         if(n < 1){
             return null;
@@ -246,7 +327,7 @@ public class ByteBuff {
         return ret;
     }
 
-    public byte[] readNBytes(InputStream is, int n) throws IOException {
+    public byte[] readNBytes(InputStream is, int n) throws IOException, EOFException {
         while(length() < n){
             writeOnce(is);
         }
@@ -314,6 +395,9 @@ public class ByteBuff {
     @Override
     public String toString() {
         return new String(getBytes());
+    }
+
+    public static class EOFException extends Exception{
     }
 }
 
