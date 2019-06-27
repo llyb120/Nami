@@ -59,7 +59,7 @@ public abstract class AbstractServer {
             var body = o();
             body.putAll((Map) req.body);
             ctx.body = body;
-        } else {
+        } else if(req.body instanceof Collection){
             var body = a();
             body.addAll((Collection) req.body);
             ctx.body = body;

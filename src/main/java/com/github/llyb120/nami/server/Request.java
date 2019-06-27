@@ -228,7 +228,8 @@ public class Request {
 
     private void decodeFormEncoded() throws IOException {
         var bs = buf.readNBytes(is, getContentLength());
-        body = decodeQuery(new String(bs, StandardCharsets.UTF_8));
+        var str = new String(bs, StandardCharsets.UTF_8);
+        body = decodeQuery(str);
     }
 
     private int getContentLength(){

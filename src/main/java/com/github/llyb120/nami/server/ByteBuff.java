@@ -227,7 +227,7 @@ public class ByteBuff {
             var start = getStart(i);
             var end = getEnd(i);
             var len = end - start;
-            if(nn < len){
+            if(nn <= len){
                 len = nn;
                 readPtr = start + nn;
             }
