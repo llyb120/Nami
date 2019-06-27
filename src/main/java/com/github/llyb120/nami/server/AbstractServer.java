@@ -1,13 +1,26 @@
 package com.github.llyb120.nami.server;
 
+import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.llyb120.nami.core.*;
+import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.HttpHeaders;
+import io.netty.handler.codec.http.HttpResponse;
 
 import java.io.File;
+import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.github.llyb120.nami.core.Config.config;
+import static com.github.llyb120.nami.core.Json.a;
+import static com.github.llyb120.nami.core.Json.o;
 
 public abstract class AbstractServer {
 
@@ -41,8 +54,17 @@ public abstract class AbstractServer {
         var ctx = Context.holder.get();
         ctx.reset();
 
-        ctx.query = req.query;
-        ctx.body = req.body;
+        ctx.query.putAll(req.query); //= req.query;
+        if(req.body instanceof Map){
+            var body = o();
+            body.putAll((Map) req.body);
+            ctx.body = body;
+        } else {
+            var body = a();
+            body.addAll((Collection) req.body);
+            ctx.body = body;
+        }
+//        ctx.body = req.body;
         ctx.params.putAll(ctx.query);
         if (ctx.body instanceof Map) {
             ctx.params.putAll((Map) ctx.body);

@@ -22,8 +22,6 @@ public class Request {
     public InputStream is;
     public JSON body;
 
-
-    private DataInputStream dis;
     private ByteBuff buf = new ByteBuff();
 
     enum Method {
@@ -134,7 +132,7 @@ public class Request {
     }
 
     private String readLine(int[] ptr) throws IOException {
-        var line = dis.readLine();
+        var line = buf.readLineStr(is, StandardCharsets.UTF_8);
         ptr[0] += (line.length() + 2);
         return line;
     }
@@ -276,17 +274,6 @@ public class Request {
         }
     }
 
-    private void decodeHeaders2() throws IOException {
-        dis = new DataInputStream(is);
-        var line = "";
-        var idex = 0;
-        while((line = dis.readLine()) != null){
-            if(line.equals("")){
-                return;
-            }
-            decodeHeader(line, idex++);
-        }
-    }
 
     /**
      * 半包解码, 解析请求头
