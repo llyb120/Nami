@@ -248,36 +248,31 @@ public class ByteBuff {
     }
 
     public ByteBuff copyUntil(InputStream is, OutputStream os, byte[] target) throws IOException {
-        byte[] left = null;
-        var running = true;
         var i = 0;
         var ptr = 0;
-        while(running){
-            var bs = readNBytes(1024);
-            for (byte b : bs) {
-                if(b == target[i]){
-                    if(i == 0){
-                        ptr = i;
-                    }
+        byte[] bs;
+        scan : while((bs = readNBytes(1024)) != null){
+            for (int i1 = 0; i1 < bs.length; i1++) {
+                if(bs[i1] == target[i]){
                     i++;
                 } else {
                     i = 0;
-                    if(null != left){
-
-                    }
+                    ptr = i1 + 1;
+                }
+                //完全命中
+                if(i == target.length){
+                    os.write(bs, 0, ptr);
+                    writeBefore(bs, ptr, bs.length - ptr);
+                    return this;
                 }
             }
             //如果命中了部分，则只copy这部分
-            os.write(bs, 0, bs.length - i);
-            if(ptr > 0){
-//                left =
+            os.write(bs, 0, ptr);
+            if(i > 0){
+                writeBefore(bs, bs.length - i, i);
             }
         }
         return this;
-//        if(i > 0){
-//        } else {
-//            os.write();
-//        }
     }
 
 //    public byte[] readUntil(InputStream is, byte[] b) throws IOException {
@@ -299,7 +294,7 @@ public class ByteBuff {
             return null;
         }
         var nn = n;
-        var ret = new byte[n];
+        var ret = new byte[Math.min(n, length())];
         var it = bytes.iterator();
         var i = 0;
         var ptr = 0;
@@ -308,14 +303,16 @@ public class ByteBuff {
             var start = getStart(i);
             var end = getEnd(i);
             var len = end - start;
-            if(nn <= len){
-                len = nn;
-                readPtr = start + nn;
-            }
-            System.arraycopy(bs, start, ret, ptr, len);
+            var left = Math.min(nn, len);
+            readPtr = start + left;
+//            if(nn <= len){
+//                len = nn;
+//                readPtr = start + nn;
+//            }
+            System.arraycopy(bs, start, ret, ptr, left);
             i++;
-            ptr += len;
-            nn -= len;
+            ptr += left;
+            nn -= left;
             if(nn <= 0){
                 break;
             }

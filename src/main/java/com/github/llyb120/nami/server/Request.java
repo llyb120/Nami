@@ -6,9 +6,7 @@ import com.github.llyb120.nami.core.Json;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.core.Obj;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 import static com.github.llyb120.nami.core.Json.o;
@@ -182,6 +180,13 @@ public class Request {
 //                var value = buf.readUntil()
 //                var bs =
 //                var value = buf.readLineStr(is, StandardCharsets.UTF_8);
+                var sw = new ByteArrayOutputStream();
+                try {
+                    var value = buf.copyUntil(is, sw, start.getBytes());
+                    var e = 2;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 //                var e = 2;
                 //
             } else if(line.equals(end)){
