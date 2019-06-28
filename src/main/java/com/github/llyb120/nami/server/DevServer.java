@@ -32,6 +32,7 @@ public class DevServer extends AbstractServer{
     private void handle(Socket _socket) {
         var req = new Request();
         var resp = new Response();
+        resp.request = req;
         InputStream is = null;
         OutputStream os = null;
         try {
@@ -68,6 +69,7 @@ public class DevServer extends AbstractServer{
                     e.printStackTrace();
                 }
             }
+            req.release();
         }
     }
 

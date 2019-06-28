@@ -1,24 +1,20 @@
 package com.github.llyb120.nami.server;
 
-import cn.hutool.core.util.ArrayUtil;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufUtil;
-
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Spliterator;
-import java.util.function.Consumer;
+import java.util.Map;
 
 public class ByteBuff {
     private int step;
     private LinkedList<byte[]> bytes = new LinkedList();
     private int writePtr = 0;
     private int readPtr = 0;
+
+    private Map<InputStream, StreamBlock> blockMap = new HashMap();
 
 
     public ByteBuff(){
@@ -31,6 +27,20 @@ public class ByteBuff {
         }
         this.step = step;
         this.bytes.addLast(createSliceBytes());
+    }
+
+    /**
+     *
+     * @param is
+     * @param length
+     * @param calSelf 是否计算本身缓冲区以内的长度
+     * @return
+     */
+    public ByteBuff blockStream(InputStream is, int length, boolean calSelf){
+        var block = new StreamBlock();
+        block.max = length - (calSelf ? length() : 0);
+        blockMap.put(is, block);
+        return this;
     }
 
     public ByteBuff write(byte b){
@@ -106,14 +116,26 @@ public class ByteBuff {
         return this;
     }
 
-    public ByteBuff writeOnce(InputStream is) throws IOException, EOFException {
-        var bs = createSliceBytes();
-        var n = is.read(bs);
-        if(n <= 0){
-            throw new EOFException();
+    public int writeOnce(InputStream is) throws IOException {
+        //如果已经越界
+        var block = blockMap.get(is);
+        var readLen = step;
+        if (block != null) {
+            if(block.current >= block.max){
+                return 0;
+            } else {
+                readLen = Math.min(block.max - block.current, step);
+            }
+            var bs = is.readNBytes(readLen);
+            block.current += readLen;
+            write(bs, 0, readLen);
+            return readLen;
+        } else {
+            byte[] bs;
+            var n = is.read(bs = createSliceBytes());
+            write(bs, 0, n);
+            return n;
         }
-        write(bs, 0, n);
-        return this;
     }
 
     public ByteBuff writeFull(InputStream is) throws IOException {
@@ -176,14 +198,15 @@ public class ByteBuff {
             do{
                 pos = canReadLine();
                 if(pos < 1){
-                    writeOnce(is);
+                    var n = writeOnce(is);
+                    if (n <= 0) {
+                        break;
+                    }
                 } else {
                     break;
                 }
             } while(true);
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (EOFException e) {
             e.printStackTrace();
         }
         return readNBytes(pos);
@@ -231,6 +254,9 @@ public class ByteBuff {
 
     public byte[] getBytes(){
         var bs = createFullLengthBytes();
+        if(bs.length == 0){
+            return null;
+        }
         var ptr = 0;
         for (int i = 0; i < bytes.size(); i++) {
             var start = getStart(i);
@@ -250,8 +276,8 @@ public class ByteBuff {
     public ByteBuff copyUntil(InputStream is, OutputStream os, byte[] target) throws IOException {
         var i = 0;
         var ptr = 0;
-        byte[] bs;
-        scan : while((bs = readNBytes(1024)) != null){
+        byte[] bs = null;
+        scan : while((bs = readNBytes(is, 1024)) != null){
             for (int i1 = 0; i1 < bs.length; i1++) {
                 if(bs[i1] == target[i]){
                     i++;
@@ -267,7 +293,12 @@ public class ByteBuff {
                 }
             }
             //如果命中了部分，则只copy这部分
-            os.write(bs, 0, ptr);
+            try{
+                os.write(bs, 0, ptr);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
             if(i > 0){
                 writeBefore(bs, bs.length - i, i);
             }
@@ -279,7 +310,7 @@ public class ByteBuff {
 //        var buf = new ByteBuff();
 //        try{
 //            var bs = readNBytes(is, 1024);
-//            buf.write(bs);
+//            buf.writeObject(bs);
 //
 //        } catch (EOFException e){
 //            //读取完毕
@@ -293,8 +324,12 @@ public class ByteBuff {
         if(n < 1){
             return null;
         }
+        var length = length();
+        if(length <= 0){
+            return null;
+        }
         var nn = n;
-        var ret = new byte[Math.min(n, length())];
+        var ret = new byte[Math.min(n, length)];
         var it = bytes.iterator();
         var i = 0;
         var ptr = 0;
@@ -321,12 +356,18 @@ public class ByteBuff {
         while(--i > 0){
             bytes.removeFirst();
         }
+        if(ret.length == 0){
+            var eee = 2;
+        }
         return ret;
     }
 
-    public byte[] readNBytes(InputStream is, int n) throws IOException, EOFException {
+    public byte[] readNBytes(InputStream is, int n) throws IOException {
         while(length() < n){
-            writeOnce(is);
+            var nn = writeOnce(is);
+            if(nn <= 0){
+                break;
+            }
         }
         return readNBytes(n);
     }
@@ -396,5 +437,13 @@ public class ByteBuff {
 
     public static class EOFException extends Exception{
     }
+
+    public static class StreamBlock{
+        public int max;
+        public int current = 0;
+    }
+
+
 }
+
 

@@ -1,26 +1,18 @@
 package com.github.llyb120.nami.server;
 
-import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.util.HexUtil;
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.llyb120.nami.core.*;
-import io.netty.handler.codec.http.FullHttpRequest;
-import io.netty.handler.codec.http.HttpHeaders;
-import io.netty.handler.codec.http.HttpResponse;
 
 import java.io.File;
-import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
+import java.io.IOException;
 import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
-import java.util.Collection;
+import java.security.cert.CRL;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.github.llyb120.nami.core.Config.config;
-import static com.github.llyb120.nami.core.Json.a;
-import static com.github.llyb120.nami.core.Json.o;
+import static com.github.llyb120.nami.server.Response.CRLF;
 
 public abstract class AbstractServer {
 
@@ -51,27 +43,27 @@ public abstract class AbstractServer {
             }
         }
 
-        var ctx = Context.holder.get();
-        ctx.reset();
-
-        ctx.query.putAll(req.query); //= req.query;
-        if(req.body instanceof Map){
-            var body = o();
-            body.putAll((Map) req.body);
-            ctx.body = body;
-        } else if(req.body instanceof Collection){
-            var body = a();
-            body.addAll((Collection) req.body);
-            ctx.body = body;
-        }
-//        ctx.body = req.body;
-        ctx.params.putAll(ctx.query);
-        if (ctx.body instanceof Map) {
-            ctx.params.putAll((Map) ctx.body);
-        }
+//        var ctx = Context.holder.get();
+//        ctx.reset();
+//
+//        ctx.query.putAll(req.query); //= req.query;
+//        if(req.body instanceof Map){
+//            var body = o();
+//            body.putAll((Map) req.body);
+//            ctx.body = body;
+//        } else if(req.body instanceof Collection){
+//            var body = a();
+//            body.addAll((Collection) req.body);
+//            ctx.body = body;
+//        }
+////        ctx.body = req.body;
+//        ctx.params.putAll(ctx.query);
+//        if (ctx.body instanceof Map) {
+//            ctx.params.putAll((Map) ctx.body);
+//        }
 
         //header
-        ctx.headers.putAll(req.headers);
+//        ctx.headers.putAll(req.headers);
 
         //end
 
@@ -96,9 +88,9 @@ public abstract class AbstractServer {
         for (Method method : clz.getDeclaredMethods()) {
             if (method.getName().equalsIgnoreCase(methodName)) {
                 Object instance = getInstance(clz);
-                Object[] args = Param.AutoWiredParams(clz, method, null);
+                Object[] args = Param.AutoWiredParams(clz, method, resp, null);
                 if (aops != null) {
-                    result = doAop(loader, aops, clz, method, instance, args);
+                    result = doAop(loader, aops, clz, method, instance, args, resp);
                 } else {
                     result = method.invoke(instance, args);
                 }
@@ -107,12 +99,12 @@ public abstract class AbstractServer {
         }
 
         if(result instanceof File){
-            downloadFile(req,resp, new MultipartFile((File)result));
+            downloadFile(resp, new MultipartFile((File)result));
         } else if(result instanceof MultipartFile){
-
+            downloadFile(resp, (MultipartFile) result);
         } else {
             resp.setHeader("Content-Type", "application/json; charset=utf-8");
-            resp.write(result);
+            resp.writeObject(result);
         }
 
     }
@@ -134,7 +126,7 @@ public abstract class AbstractServer {
     }
 
 
-    private Object doAop(ClassLoader loader, String[] aops, Class clz, Method method, Object instance, Object[] args) throws Exception {
+    private Object doAop(ClassLoader loader, String[] aops, Class clz, Method method, Object instance, Object[] args, Response response) throws Exception {
         AopInvoke invoke = null;
         invoke = new AopInvoke(clz, method, instance, args);
         int i = aops.length;
@@ -153,7 +145,7 @@ public abstract class AbstractServer {
             Map<Class, Object> staticArgs = new HashMap<>();
             staticArgs.put(AopInvoke.class, invoke);
             Object aopInstance = getInstance(clzAop);
-            Object[] aopArgs = Param.AutoWiredParams(clzAop, methodAop, staticArgs);
+            Object[] aopArgs = Param.AutoWiredParams(clzAop, methodAop, response, staticArgs);
             invoke = new AopInvoke(clzAop, methodAop, aopInstance, aopArgs);
         }
         return invoke.call();
@@ -161,8 +153,39 @@ public abstract class AbstractServer {
 
 
 
-    public void downloadFile(Request request, Response response, MultipartFile multipartFile){
-
+    public void downloadFile(Response response, MultipartFile multipartFile) throws IOException {
+        var length = multipartFile.length();
+        response.setFileDescription(multipartFile);
+        if(length > -1){
+            if(directDownloadLength() >= length){
+                response.writeHeaders((int) length);
+                multipartFile.transferTo(response.os);
+            } else {
+                response.setChunked(true);
+                response.writeHeaders(-1);
+                var size = directDownloadLength();
+                var bs = new byte[size];
+                try(
+                        var fis = multipartFile.openInputStream();
+                        ){
+                    var n = -1;
+                    while((n = fis.read(bs)) > 0){
+                        response
+                                .write(Integer.toHexString(n).getBytes())
+                                .write(CRLF)
+                                .write(bs, 0, n)
+                                .write(CRLF);
+                    }
+                    response.write((byte) '0')
+                        .write(CRLF)
+                        .write(CRLF);
+                }
+            }
+        }
     }
 
+
+    protected int directDownloadLength(){
+        return 4096;
+    }
 }

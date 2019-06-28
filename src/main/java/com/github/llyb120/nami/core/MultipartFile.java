@@ -1,18 +1,14 @@
 package com.github.llyb120.nami.core;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.handler.codec.http.multipart.FileUpload;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
+import java.io.*;
 
 public class MultipartFile {
 
     //friendly
     File file;
-    ByteBuf byteBuf;
+//    ByteBuf byteBuf;
     boolean isTemp = false;
 
     private FileUpload fileUpload;
@@ -46,15 +42,28 @@ public class MultipartFile {
         this.isTemp = isTemp;
     }
 
-    public MultipartFile(String name, ByteBuf buf) {
-        this(name);
-        this.byteBuf = buf;
-    }
+//    public MultipartFile(String name, ByteBuf buf) {
+//        this(name);
+//        this.byteBuf = buf;
+//    }
 
     public MultipartFile(FileUpload fileUpload) {
         this.fileUpload = fileUpload;
         this.fileName = fileUpload.getName();
         this.contentType = fileUpload.getContentType();
+    }
+
+
+    public long length(){
+        if(file == null) return -1;
+        return file.length();
+    }
+
+    public InputStream openInputStream() throws FileNotFoundException {
+        if(null == file){
+            return null;
+        }
+        return new FileInputStream(file);
     }
 
 //    public String fileName(){
@@ -65,21 +74,30 @@ public class MultipartFile {
 //        return fileUpload.getContentType();
 //    }
 
-    public void transferTo(File file) throws IOException {
-        try (
-            FileChannel channel = new FileOutputStream(file).getChannel();
-        ) {
-            ByteBuf buf = fileUpload.content();
-            fileUpload.content().readBytes(channel, 0, buf.readableBytes());
-        } catch (IOException e) {
-            throw e;
+    public void transferTo(OutputStream os) throws IOException {
+        try(
+                var fis = new FileInputStream(this.file);
+                ){
+            fis.transferTo(os);
         }
     }
 
-    void release() {
-        if (byteBuf != null) {
-            byteBuf.release();
+    public void transferTo(String path) throws IOException {
+        transferTo(new File(path));
+    }
+
+    public void transferTo(File file) throws IOException {
+        try(
+                var fos = new FileOutputStream(file);
+                ){
+            transferTo(fos);
         }
+    }
+
+    public void release() {
+//        if (byteBuf != null) {
+//            byteBuf.release();
+//        }
         if (isTemp && null != file) {
             file.delete();
         }

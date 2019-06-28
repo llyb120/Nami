@@ -2,23 +2,27 @@ package com.github.llyb120.nami.server;
 
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson.JSON;
+import com.github.llyb120.nami.core.Cookie;
 import com.github.llyb120.nami.core.Json;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.core.Obj;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 import static com.github.llyb120.nami.core.Json.o;
 
 public class Request {
     public Obj headers = o();
     public Obj query = o();
+    public Obj params = o();
     public Method method = null;
     public String path;
     public String version;
     public InputStream is;
     public JSON body;
+    public Cookie cookie;
 
     private ByteBuff buf = new ByteBuff();
 
@@ -105,6 +109,7 @@ public class Request {
         //解析头
 //        var surplus = decodeHeaders2();
         decodeHeaders3();
+        params.putAll(query);
 
         //解析body
         if (method != Method.POST) {
@@ -120,6 +125,10 @@ public class Request {
         } else if (ctype.contains("multipart/form-data")){
             decodeFormDataEncoded(ctype);
         }
+
+        if(body instanceof Map){
+            params.putAll((Map) body);
+        }
     }
 
     private String[] getFormDataKV(String str){
@@ -133,12 +142,6 @@ public class Request {
     }
 
 
-    private String readLine(int[] ptr) throws IOException {
-        var line = buf.readLineStr(is, StandardCharsets.UTF_8);
-        ptr[0] += (line.length() + 2);
-        return line;
-    }
-
     private void decodeFormDataEncoded(String ctype){
         var ret = o();
         var clen = getContentLength();
@@ -149,9 +152,10 @@ public class Request {
         var token = ctype.substring(idex + 9);
         var start = "--" + token;
         var end = "--" + token + "--";
-        var ptr = new int[]{0};
-        var similar = 0;
         var line = "";
+        var limit = ("\r\n" + start).getBytes();
+
+        buf.blockStream(is, clen, true);
 
         //部分请求可能会多一个\r\n
 //        if(line.equals("")){
@@ -159,6 +163,9 @@ public class Request {
 //        }
         while((line = buf.readLineStr(is, StandardCharsets.UTF_8)) != null){
             if(line.equals(start)){
+                File temp = null;
+                String name = "";
+                Object value = null;
                 while((line = buf.readLineStr(is, StandardCharsets.UTF_8)) != null){
                     if(line.isEmpty()){
                         break;
@@ -169,125 +176,68 @@ public class Request {
                         if(i > 0){
                             var strs = getFormDataKV(arr[i]);
                             switch (strs[0]){
+                                case "name":
+                                    name = strs[1];
+                                    break;
 
+                                case "filename":
+                                    try {
+                                        temp = File.createTempFile("nami", "nami");
+                                        value = new MultipartFile(strs[1], temp, true);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    break;
                             }
                         } else {
 
                         }
                     }
                 }
+
                 //读取value
-//                var value = buf.readUntil()
-//                var bs =
-//                var value = buf.readLineStr(is, StandardCharsets.UTF_8);
-                var sw = new ByteArrayOutputStream();
-                try {
-                    var value = buf.copyUntil(is, sw, start.getBytes());
-                    var e = 2;
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (temp == null) {
+                    try (
+                            var sw = new ByteArrayOutputStream();
+                    ){
+                        buf.copyUntil(is, sw, limit);
+                        value = sw.toString(StandardCharsets.UTF_8);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try(
+                            var fos = new FileOutputStream(temp);
+                            ){
+//                        var sw = new ByteArrayOutputStream();
+//                        buf.copyUntil(is, sw, limit);
+//                        var e=  2;
+                        buf.copyUntil(is, fos, limit);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-//                var e = 2;
+                //skip \r\n
+                buf.readNBytes(2);
+
+                ret.put(name, value);
                 //
             } else if(line.equals(end)){
                 //end
                 break;
             }
         }
-        //start
 
-        var d = 1;
-
-//        try{
-//            while(ptr[0] < clen){
-//                //skip key
-////                var line = readLine(ptr);
-//                MultipartFile file = null;
-////                new MultipartFile();
-//                //read keys
-//                do{
-//                   line = readLine(ptr);
-//                    var arr = line.split("; ");
-//                    //第0个有特殊作用
-//                    for (int i = 0; i < arr.length; i++) {
-//                        if(i > 0) {
-//                            var eq = arr[i].indexOf("=");
-//                            var left = arr[i].substring(0, eq);
-//                            var right = arr[i].substring(eq + 1);
-//                            var value = getFormDataValue(right);
-//                            var e = 1;
-//                            switch (left){
-//                                case "name":
-//                                    break;
-//
-//                                case "filename":
-//                                    //如果存在filename, 则开始读取文件
-////                                    isfile = true;
-//                                    break;
-//                            }
-//                        } else {
-//
-//                        }
-//                    }
-////                   idex = line.indexOf(":");
-////                   if(idex == -1){
-////                      break;
-////                   }
-////                   var left = line.substring(0, idex);
-////                   var right = line.substring(idex + 1);
-//
-//                }while(ptr[0] < clen && !line.equals(""));
-//
-//                if(file == null){
-//                    continue;
-//                }
-//
-//
-//
-//            }
-//        } catch (IOException e){
-//            e.printStackTrace();
-//        }
-
-//        while(true){
-//            var line = dis.readLine();
-//        }
-
-//        while(ptr++ < clen){
-//            try {
-//                var c = is.read();
-//                if(c < 0){
-//                    break;
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        try {
-//            var bs = is.readAllBytes();
-//            var d = 1;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        body = ret;
     }
 
     private void decodeJsonEncoded() throws IOException {
-        byte[] bs = new byte[0];
-        try {
-            bs = buf.readNBytes(is, getContentLength());
-        } catch (ByteBuff.EOFException e) {
-            e.printStackTrace();
-        }
+        var bs = buf.readNBytes(is, getContentLength());
         body = Json.parse(bs);
     }
 
     private void decodeFormEncoded() throws IOException {
-        byte[] bs = new byte[0];
-        try {
-            bs = buf.readNBytes(is, getContentLength());
-        } catch (ByteBuff.EOFException e) {
-            e.printStackTrace();
-        }
+        var bs = buf.readNBytes(is, getContentLength());
         var str = new String(bs, StandardCharsets.UTF_8);
         body = decodeQuery(str);
     }
@@ -363,7 +313,7 @@ public class Request {
                         //将指针指向当前
                         left = i + 1;
                         readleft = 0;
-                        System.out.println(str);
+//                        System.out.println(str);
                         //header读完
                         if (str.equals("")) {
                             var nbs = new byte[len - left];
@@ -393,5 +343,32 @@ public class Request {
             }
         }
         return null;
+    }
+
+
+    /**
+     * 清理
+     */
+    public void release(){
+        //清理request
+        ((Map) params).forEach((k,v) -> {
+            if(v instanceof MultipartFile){
+                ((MultipartFile) v).release();
+            }
+        });
+    }
+
+    /**
+     * 无脑取值
+     * @param name
+     * @param type
+     * @return
+     */
+    public Object getParamValue(String name, Class type) {
+        try {
+            return params.getObject(name, type);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

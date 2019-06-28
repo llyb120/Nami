@@ -1,8 +1,11 @@
 package com.github.llyb120.nami.test;
 
-import cn.hutool.core.util.ObjectUtil;
 import com.github.llyb120.nami.core.Arr;
+import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.core.Obj;
+
+import java.io.File;
+import java.io.IOException;
 
 public class a {
 
@@ -35,7 +38,21 @@ public class a {
     }
 
 
-    public Object uploadFile(String cubi){
-        return cubi;
+    public Object uploadFile(Obj body, String test, MultipartFile file) throws IOException {
+        var temp = File.createTempFile("test", "test");
+//        var temp = new File("d:/testupload.txt");
+        temp.deleteOnExit();
+        file.transferTo(temp);
+        return test + "|" + temp.getAbsolutePath();
     }
+
+    public File downloadFile1(String path){
+        return new File(path);
+    }
+
+    public MultipartFile downloadFile2(String path){
+        return new MultipartFile(new File(path));
+    }
+
+
 }

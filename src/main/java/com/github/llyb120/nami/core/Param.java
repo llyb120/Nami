@@ -3,6 +3,8 @@ package com.github.llyb120.nami.core;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.github.llyb120.nami.core.boost.SqlBoost;
+import com.github.llyb120.nami.server.Request;
+import com.github.llyb120.nami.server.Response;
 import org.beetl.sql.core.annotatoin.Table;
 import org.beetl.sql.core.engine.PageQuery;
 
@@ -18,8 +20,8 @@ import static com.github.llyb120.nami.core.DBService.sqlManager;
 public class Param {
     private static List<Rule> ruleList = new Vector<>();
 
-    public static Object[] AutoWiredParams(Class clz, Method method, Map<Class, Object> staticArgs) {
-        var context = Context.holder.get();
+    public static Object[] AutoWiredParams(Class clz, Method method, Response resp, Map<Class, Object> staticArgs) {
+//        var context = Context.holder.get();
         Parameter[] parameters = method.getParameters();
         Object[] ret = new Object[parameters.length];
         int idex = -1;
@@ -38,7 +40,7 @@ public class Param {
             }
 
             if(type == Cookie.class){
-                ret[i++] = context.cookie;
+                ret[i++] = resp.request.cookie;
                 continue;
             }
 //            if(type == FullHttpRequest.class){
@@ -48,21 +50,21 @@ public class Param {
 
             switch (name) {
                 case "query":
-                    ret[i] = context.query.toJavaObject(type);
+                    ret[i] = resp.request.query.toJavaObject(type);
                     break;
 
                 case "body":
-                    if (context.body != null) {
-                        ret[i] = context.body.toJavaObject(type);
+                    if (resp.request.body != null) {
+                        ret[i] = resp.request.body.toJavaObject(type);
                     }
                     break;
 
                 case "params":
-                    ret[i] = context.params.toJavaObject(type);
+                    ret[i] = resp.request.params.toJavaObject(type);
                     break;
 
                 case "headers":
-                    ret[i] = context.headers.toJavaObject(type);
+                    ret[i] = resp.request.headers.toJavaObject(type);
                     break;
 
                 default:
@@ -70,10 +72,10 @@ public class Param {
                     idex = type.getTypeName().indexOf("[]");
                     //是数组的情况
                     if (idex > -1) {
-                        String source = context.query.getString(name);
+                        String source = resp.request.query.getString(name);
                         if (isNotEmpty(source)) {
                             if (source.startsWith("[") && source.endsWith("]")) {
-                                JSONArray array = context.query.getArr(name);
+                                JSONArray array = resp.request.query.getArr(name);
                                 ret[i] = array.toJavaObject(type);
                             }
                             //只有一个的情况，直接尝试拆分
@@ -89,9 +91,9 @@ public class Param {
                             }
                         }
                     } else if (type == MultipartFile.class) {
-                        ret[i] = context.params.get(name);
-                    } else if (type == Context.class){
-                        ret[i] = context;
+                        ret[i] = resp.request.params.get(name);
+                    } else if (type == Request.class){
+                        ret[i] = resp.request;
                     }
                     else{
                         /**
@@ -115,18 +117,18 @@ public class Param {
                         }
                         rule:{
                             for (Rule rule : ruleList) {
-                                if(rule.condition.canRule(context, parameter)){
-                                    ret[i] = rule.action.around(context, parameter, action);
+                                if(rule.condition.canRule(resp, parameter)){
+                                    ret[i] = rule.action.around(resp, parameter, action);
                                     break rule;
                                 }
                             }
                             if (action != null) {
-                                ret[i] = action.around(context, parameter, null);
+                                ret[i] = action.around(resp, parameter, null);
                             }
                         }
                     }
                     if (ret[i] == null) {
-                        ret[i] = context.getParamValue(name, type);
+                        ret[i] = resp.request.getParamValue(name, type);
                     }
                     break;
             }
@@ -148,7 +150,7 @@ public class Param {
     }
 
 
-    private static Object pageQuery(Context context, Parameter parameter, Class gType, int flag){
+    private static Object pageQuery(Response response, Parameter parameter, Class gType, int flag){
         //如果这个字段有注解
         SqlBoost boost = parameter.getAnnotation(SqlBoost.class);
         String as = "b";
@@ -172,7 +174,7 @@ public class Param {
         var size = 10;
 //        q.appendSql("m left join ra_store store on m.member_id = store.member_id ");
 
-        for (Map.Entry<String, Object> entry : context.query.entrySet()) {
+        for (Map.Entry<String, Object> entry : response.request.query.entrySet()) {
             if(flag == 0){
                 if(entry.getKey().equalsIgnoreCase("page")) {
                     try{
@@ -419,11 +421,11 @@ public class Param {
 
 
     public static interface Condition{
-        boolean canRule(Context context, Parameter parameter);
+        boolean canRule(Response context, Parameter parameter);
     }
 
     public static interface Action{
-        Object around(Context context, Parameter parameter, Action defaultAction);
+        Object around(Response context, Parameter parameter, Action defaultAction);
     }
 
     public static class Rule{
