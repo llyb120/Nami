@@ -128,7 +128,7 @@ public class Param {
                         }
                     }
                     if (ret[i] == null) {
-                        ret[i] = resp.request.getParamValue(name, type);
+                        ret[i] = resp.request.getParam(name, type);
                     }
                     break;
             }

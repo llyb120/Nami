@@ -38,7 +38,8 @@ public class DevServer extends AbstractServer{
         try {
             is = _socket.getInputStream();
             os = _socket.getOutputStream();
-            req.is = is;
+//            req.is = is;
+            req.setInputstream(is);
 //            var bs = new byte[1024];
 //            is.read(bs);
 //            var str = new String(bs);

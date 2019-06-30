@@ -29,6 +29,24 @@ public class AsyncServerHandler implements Runnable {
     }
 
     public static void main(String[] args) {
+
+        var bs = new byte[]{0x01,0x02};
+       var buf = ByteBuffer.wrap(bs);//.wrap(bs);
+        var buf2 = ByteBuffer.allocateDirect(4);
+        buf2.put(buf);
+        buf.put(1, (byte) 0x03);
+        System.out.println(buf.get(1) == 0x03);
+        System.out.println(buf2.get(1) == 0x03);
+        if(buf.array() == buf.array()){
+            System.exit(-1);
+        }
+       buf.rewind();
+//        buf.put((byte) 0x11);
+        buf.flip();
+        var len = buf.remaining();
+        buf.get();
+         len = buf.remaining();
+
         new Thread(new AsyncServerHandler(8089)).start();
     }
 
@@ -59,7 +77,7 @@ public class AsyncServerHandler implements Runnable {
 //            System.out.println("连接的客户端数：" + Server.clientCount);
             serverHandler.channel.accept(serverHandler, this);
             //创建新的Buffer
-            ByteBuffer buffer = ByteBuffer.allocate(1024);
+            ByteBuffer buffer = ByteBuffer.allocate(10);
             //异步读  第三个参数为接收消息回调的业务Handler
             channel.read(buffer, buffer, new ReadHandler(channel));
         }
@@ -76,6 +94,7 @@ public class AsyncServerHandler implements Runnable {
         public ReadHandler(AsynchronousSocketChannel channel) {
             this.channel = channel;
         }
+        private ByteBuff buf = new ByteBuff();
         //读取到消息后的处理
         @Override
         public void completed(Integer result, ByteBuffer attachment) {
@@ -84,36 +103,49 @@ public class AsyncServerHandler implements Runnable {
             //根据
             byte[] message = new byte[attachment.remaining()];
             attachment.get(message);
-            try {
-                String expression = new String(message, "UTF-8");
-                attachment.flip();
-                try {
-                    attachment.compact();
-                    channel.read(attachment).get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("服务器收到消息: " + expression);
-                String calrResult = null;
-                try{
-                    System.out.println(Thread.currentThread().getName());
-                    calrResult = "HTTP/1.1 200 OK\r\n" +
-                            "Access-Control-Allow-Origin: *\r\n" +
-                            "Access-Control-Allow-Methods: GET,POST,OPTIONS\r\n" +
-                            "Access-Control-Allow-Headers: X-Requested-With, Authorization, TOKEN, Content-Type\r\n" +
-                            "content-type: application/json; charset=utf-8\r\n" +
-                            "content-length: 0\r\n\r\n";
-//                    calrResult = Calculator.cal(expression).toString();
-                }catch(Exception e){
-                    calrResult = "计算错误：" + e.getMessage();
-                }
-                //向客户端发送消息
-                doWrite(calrResult);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+            System.out.println(new String(message));
+
+            byte[] message2 = new byte[attachment.remaining()];
+            attachment.get(message2);
+            System.out.println(new String(message2));
+
+            if(result > 0){
+                System.out.println("continue");
+                buf.write(attachment.array());
+                channel.read(attachment, attachment, this);
+            } else {
+                System.out.println("end");
             }
+//            try {
+//                String expression = new String(message, "UTF-8");
+//                attachment.flip();
+//                try {
+//                    attachment.compact();
+//                    channel.read(attachment).get();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                } catch (ExecutionException e) {
+//                    e.printStackTrace();
+//                }
+//                System.out.println("服务器收到消息: " + expression);
+//                String calrResult = null;
+//                try{
+//                    System.out.println(Thread.currentThread().getName());
+//                    calrResult = "HTTP/1.1 200 OK\r\n" +
+//                            "Access-Control-Allow-Origin: *\r\n" +
+//                            "Access-Control-Allow-Methods: GET,POST,OPTIONS\r\n" +
+//                            "Access-Control-Allow-Headers: X-Requested-With, Authorization, TOKEN, Content-Type\r\n" +
+//                            "content-type: application/json; charset=utf-8\r\n" +
+//                            "content-length: 0\r\n\r\n";
+////                    calrResult = Calculator.cal(expression).toString();
+//                }catch(Exception e){
+//                    calrResult = "计算错误：" + e.getMessage();
+//                }
+//                //向客户端发送消息
+//                doWrite(calrResult);
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
         }
 
         //发送消息
