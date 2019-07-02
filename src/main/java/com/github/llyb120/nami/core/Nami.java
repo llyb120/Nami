@@ -28,7 +28,7 @@ public class Nami {
 
         var main = config.db.get("main");
         if (main != null) {
-            DBService.fSql = new FSql(config.db.get("main"));
+//            DBService.fSql = new FSql(config.db.get("main"));
         }
 
         if(config.dev && config.compile.parallel){

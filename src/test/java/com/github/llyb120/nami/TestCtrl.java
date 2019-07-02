@@ -73,6 +73,7 @@ public class TestCtrl {
                 .header("Content-Type", "application/json")
                 .execute()
                 .body();
+        System.out.println(res);
         assertEquals(JSON.parse(res).toString(), arr.toJSONString());
 
         var obj = o("a", "2", "b", a("1", "2"));

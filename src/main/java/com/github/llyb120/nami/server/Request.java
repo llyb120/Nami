@@ -32,6 +32,8 @@ public class Request {
 
     private ByteBuff buf = new ByteBuff();
     private Buffer buffer = new Buffer();
+    private boolean headerDecoded = false;
+    private boolean bodyDecoded = false;
 
     enum Method {
         GET,
@@ -41,7 +43,7 @@ public class Request {
         DELETE
     }
 
-    public void setInputstream(InputStream is){
+    public void setInputstream(InputStream is) {
         channel = Channels.newChannel(is);
     }
 
@@ -113,35 +115,96 @@ public class Request {
         }
     }
 
+    /**
+     * 每次数据进来的时候解析一次
+     */
+    private void decodeOnce() {
+        String line = null;
+        if (!headerDecoded) {
+            while ((line = buffer.readLineStr()) != null) {
+                if (line.isEmpty()) {
+                    headerDecoded = true;
+                    break;
+                }
+                decodeHeader(line);
+            }
+        }
+        if (headerDecoded) {
+            if (method == Method.GET) {
+                bodyDecoded = true;
+                return;
+            }
+
+            var clen = getContentLength();
+            if (clen < 1) {
+                bodyDecoded = true;
+                return;
+            }
+            var ctype = getContentType();
+            if (clen == buffer.length()) {
+                if (ctype.contains("application/x-www-form-urlencoded")) {
+                    decodeFormEncoded();
+                } else if (ctype.contains("application/json")) {
+                    decodeJsonEncoded();
+                }
+            } else if (ctype.contains("multipart/form-data")) {
+
+            }
+//            var ctype = getHeader("Content-Type");
+//            if (ctype.contains("application/x-www-form-urlencoded")) {
+//                decodeFormEncoded();
+//            } else if (ctype.contains("application/json")) {
+//                decodeJsonEncoded();
+//            } else if (ctype.contains("multipart/form-data")){
+//                decodeFormDataEncoded(ctype);
+//            }
+        }
+    }
+
     public void decode() throws Exception {
+        var byteBuffer = ByteBuffer.allocateDirect(1024);
+        while (!headerDecoded && !bodyDecoded) {
+            var n = channel.read(byteBuffer);
+            if (n < 1) {
+                break;
+            }
+            buffer.write(byteBuffer);
+            byteBuffer.flip();
+
+            decodeOnce();
+        }
+
 //        dis = new DataInputStream(is);
 
         //解析头
 //        var surplus = decodeHeaders2();
-        decodeHeaders3();
+//        decodeHeaders3();
         params.putAll(query);
-
-        //解析body
-        if (method != Method.POST) {
-            return;
-        }
-        //header的解析器有可能多读了一部分数据
-
-        var ctype = getHeader("Content-Type");
-        if (ctype.contains("application/x-www-form-urlencoded")) {
-            decodeFormEncoded();
-        } else if (ctype.contains("application/json")) {
-            decodeJsonEncoded();
-        } else if (ctype.contains("multipart/form-data")){
-            decodeFormDataEncoded(ctype);
-        }
-
-        if(body instanceof Map){
+        if (body instanceof Map) {
             params.putAll((Map) body);
         }
+
+        //解析body
+//        if (method != Method.POST) {
+//            return;
+//        }
+//        //header的解析器有可能多读了一部分数据
+//
+//        var ctype = getHeader("Content-Type");
+//        if (ctype.contains("application/x-www-form-urlencoded")) {
+//            decodeFormEncoded();
+//        } else if (ctype.contains("application/json")) {
+//            decodeJsonEncoded();
+//        } else if (ctype.contains("multipart/form-data")) {
+//            decodeFormDataEncoded(ctype);
+//        }
+//
+//        if (body instanceof Map) {
+//            params.putAll((Map) body);
+//        }
     }
 
-    private String[] getFormDataKV(String str){
+    private String[] getFormDataKV(String str) {
         var eq = str.indexOf("=");
         var left = str.substring(0, eq);
         var right = str.substring(eq + 1);
@@ -152,11 +215,11 @@ public class Request {
     }
 
 
-    private void decodeFormDataEncoded(String ctype){
+    private void decodeFormDataEncoded(String ctype) {
         var ret = o();
         var clen = getContentLength();
         var idex = ctype.indexOf("boundary=");
-        if(idex == -1){
+        if (idex == -1) {
             return;
         }
         var token = ctype.substring(idex + 9);
@@ -171,14 +234,16 @@ public class Request {
 //        if(line.equals("")){
 //             line = buf.readLineStr(is, StandardCharsets.UTF_8);
 //        }
-        scan: while(clen > 0) {
+        scan:
+        while (clen > 0) {
             while ((line = buffer.readLineStr()) != null) {
                 if (line.equals(start)) {
                     File temp = null;
                     String name = "";
                     Object value = null;
-                    scan2:{
-                        while(clen > 0){
+                    scan2:
+                    {
+                        while (clen > 0) {
                             while ((line = buffer.readLineStr()) != null) {
                                 if (line.isEmpty()) {
                                     break scan2;
@@ -253,31 +318,34 @@ public class Request {
         body = ret;
     }
 
-    private void decodeJsonEncoded() throws IOException {
-        buffer.writeOnce(channel, getContentLength() - buffer.length());
+    private void decodeJsonEncoded() {
+//        buffer.writeOnce(channel, getContentLength() - buffer.length());
         body = Json.parse(buffer.readBytes());
+        bodyDecoded = true;
     }
 
-    private void decodeFormEncoded() throws IOException {
-        buffer.writeOnce(channel, getContentLength() - buffer.length());
+    private void decodeFormEncoded() {
+//        buffer.writeOnce(channel, getContentLength() - buffer.length());
         var str = new String(buffer.readBytes(), StandardCharsets.UTF_8);
         body = decodeQuery(str);
+        bodyDecoded = true;
     }
 
-    private int getContentLength(){
+    private int getContentLength() {
         return headers.getInt("Content-Length", headers.getInt("content-length", 0));
     }
-    private String getContentType(){
+
+    private String getContentType() {
         return getHeader("Content-Type");
     }
 
 
-    private void decodeHeader(String line, int idex) {
-        var i = line.lastIndexOf("\r\n");
-        if(i > -1){
-            line = line.substring(0, i);
-        }
-        if (idex == 0) {
+    private void decodeHeader(String line) {
+//        var i = line.lastIndexOf("\r\n");
+//        if(i > -1){
+//            line = line.substring(0, i);
+//        }
+        if (null == method) {
             var arr = line.split("\\s+");
             if (arr.length < 3) {
                 throw new RuntimeException();
@@ -298,25 +366,26 @@ public class Request {
         }
     }
 
-    private void decodeHeaders3(){
+    private void decodeHeaders3() {
         var i = 0;
         String line = null;
-        scan: do{
-            while((line = buffer.readLineStr()) != null){
-                if(line.isEmpty()){
+        scan:
+        do {
+            while ((line = buffer.readLineStr()) != null) {
+                if (line.isEmpty()) {
                     break scan;
                 }
                 System.out.println(line);
-                decodeHeader(line, i++);
+                decodeHeader(line);
             }
             buffer.writeOnce(channel);
-        } while(true);
+        } while (true);
     }
 
     /**
      * cookie解析器
      */
-    private void decodeCookies(){
+    private void decodeCookies() {
 
     }
 
@@ -354,7 +423,7 @@ public class Request {
                             System.arraycopy(bs, left, nbs, 0, nbs.length);
                             return nbs;
                         } else {
-                            decodeHeader(str, idex++);
+                            decodeHeader(str);
                         }
                     }
                 }
@@ -383,10 +452,10 @@ public class Request {
     /**
      * 清理
      */
-    public void release(){
+    public void release() {
         //清理request
-        ((Map) params).forEach((k,v) -> {
-            if(v instanceof MultipartFile){
+        ((Map) params).forEach((k, v) -> {
+            if (v instanceof MultipartFile) {
                 ((MultipartFile) v).release();
             }
         });
@@ -394,6 +463,7 @@ public class Request {
 
     /**
      * 无脑取值
+     *
      * @param name
      * @param type
      * @return
@@ -409,12 +479,13 @@ public class Request {
     /**
      * 得到单一的header
      * 如果取不到的话，则用小写重新取
+     *
      * @param key
      * @return
      */
-    public String getHeader(String key){
-        var val =  headers.getStr(key, "");
-        if(val.isEmpty()){
+    public String getHeader(String key) {
+        var val = headers.getStr(key, "");
+        if (val.isEmpty()) {
             val = headers.getStr(key.toLowerCase(), "");
         }
         return val;
