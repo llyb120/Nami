@@ -44,7 +44,8 @@ public class DevServer extends AbstractServer{
 //            is.read(bs);
 //            var str = new String(bs);
             req.decode();
-            resp.os = os;
+            resp.setOutputStream(os);
+//            resp.os = os;
             handle(req, resp);
         } catch (Exception e) {
             e.printStackTrace();

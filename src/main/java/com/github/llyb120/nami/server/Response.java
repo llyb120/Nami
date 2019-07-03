@@ -9,6 +9,9 @@ import com.github.llyb120.nami.core.Obj;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.channels.AsynchronousByteChannel;
+import java.nio.channels.Channels;
+import java.nio.channels.WritableByteChannel;
 import java.nio.charset.StandardCharsets;
 import java.security.cert.CRL;
 import java.util.Map;
@@ -20,24 +23,32 @@ public class Response {
     public int status;
     public Request request;
     public Obj headers = o();
-    public OutputStream os;
+    public WritableByteChannel channel;
     public static byte[] CRLF = "\r\n".getBytes();
+
+    private Buffer buffer = new Buffer();
+
+    public Response setOutputStream(OutputStream os){
+        channel = Channels.newChannel(os);
+        return this;
+    }
 
     public void writeHeaders(int bodyLen) throws IOException {
         enableCors();
         setKeepAlive(false);
 
         //写入200
-        os.write("HTTP/1.1 200 OK\r\n".getBytes());
+        buffer.write("HTTP/1.1 200 OK\r\n");
         if(bodyLen > -1){
             setContentLength(bodyLen);
         }
         for (Map.Entry<String, Object> entry : headers.entrySet()) {
             String value = (String) entry.getValue();
             var line = entry.getKey() + ": " + value + "\r\n";
-            os.write(line.getBytes());
+            buffer.write(line);
         }
-        os.write(CRLF);
+        buffer.write(CRLF);
+        buffer.writeToChannel(channel);
     }
 
     public void writeObject(Object body) throws IOException {
@@ -48,11 +59,13 @@ public class Response {
             bs = JSON.toJSONBytes(body, SerializerFeature.WriteDateUseDateFormat, SerializerFeature.PrettyFormat);
         }
         writeHeaders(bs.length);
-        os.write(bs);
+        buffer.write(bs);
+        buffer.writeToChannel(channel);
     }
 
     public Response write(byte[] bs, int offset, int length) throws IOException {
-        os.write(bs, offset, length);
+        buffer.write(bs, offset, length);
+        buffer.writeToChannel(channel);
         return this;
     }
 
@@ -61,7 +74,8 @@ public class Response {
     }
 
     public Response write(byte b) throws IOException {
-        os.write(b);
+        buffer.write(b);
+        buffer.writeToChannel(channel);
         return this;
     }
 

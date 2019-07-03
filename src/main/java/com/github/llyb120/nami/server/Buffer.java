@@ -1,5 +1,7 @@
 package com.github.llyb120.nami.server;
 
+import io.netty.buffer.ByteBuf;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
@@ -10,7 +12,6 @@ import java.nio.charset.StandardCharsets;
 public class Buffer {
     private int step;
     private ByteBuffer buffer;
-
 
     public Buffer(){
         this(1024);
@@ -23,6 +24,16 @@ public class Buffer {
         this.step = step;
         buffer = ByteBuffer.allocateDirect(step);
 //        this.bytes.addLast(createSliceBytes());
+    }
+
+    public ByteBuffer getNioBuffer(){
+        return this.buffer;
+    }
+
+    public void writeToChannel(WritableByteChannel channel) throws IOException {
+        buffer.flip();
+        channel.write(buffer);
+        buffer.flip();
     }
 
     public Buffer resize(){
@@ -264,12 +275,12 @@ public class Buffer {
             return null;
         }
         var pos = buffer.position();
-        var nn = Math.min(buffer.remaining(), n);
-        if(nn < 1){
-            return null;
-        }
-        var bs = new byte[nn];
+//        if(nn < 1){
+//            return null;
+//        }
         buffer.flip();
+        var nn = Math.min(buffer.remaining(), n);
+        var bs = new byte[nn];
         buffer.get(bs);
         buffer.compact();
         buffer.flip();

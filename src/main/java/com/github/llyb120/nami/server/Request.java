@@ -33,7 +33,7 @@ public class Request {
     private ByteBuff buf = new ByteBuff();
     private Buffer buffer = new Buffer();
     private boolean headerDecoded = false;
-    private boolean bodyDecoded = false;
+    private int currentBodyLength = 0;
 
     enum Method {
         GET,
@@ -131,39 +131,31 @@ public class Request {
         }
         if (headerDecoded) {
             if (method == Method.GET) {
-                bodyDecoded = true;
                 return;
             }
 
             var clen = getContentLength();
             if (clen < 1) {
-                bodyDecoded = true;
                 return;
             }
             var ctype = getContentType();
-            if (clen == buffer.length()) {
+            if (ctype.contains("multipart/form-data")) {
+
+            } else if (clen == buffer.length()) {
                 if (ctype.contains("application/x-www-form-urlencoded")) {
                     decodeFormEncoded();
                 } else if (ctype.contains("application/json")) {
                     decodeJsonEncoded();
                 }
-            } else if (ctype.contains("multipart/form-data")) {
-
             }
-//            var ctype = getHeader("Content-Type");
-//            if (ctype.contains("application/x-www-form-urlencoded")) {
-//                decodeFormEncoded();
-//            } else if (ctype.contains("application/json")) {
-//                decodeJsonEncoded();
-//            } else if (ctype.contains("multipart/form-data")){
-//                decodeFormDataEncoded(ctype);
-//            }
         }
     }
 
     public void decode() throws Exception {
-        var byteBuffer = ByteBuffer.allocateDirect(1024);
-        while (!headerDecoded && !bodyDecoded) {
+        var size = 4096;
+        var byteBuffer = ByteBuffer.allocateDirect(size);
+        while (!headerDecoded || currentBodyLength < getContentLength()) {
+//            byteBuffer.clear();
             var n = channel.read(byteBuffer);
             if (n < 1) {
                 break;
@@ -320,15 +312,15 @@ public class Request {
 
     private void decodeJsonEncoded() {
 //        buffer.writeOnce(channel, getContentLength() - buffer.length());
+        currentBodyLength += buffer.length();
         body = Json.parse(buffer.readBytes());
-        bodyDecoded = true;
     }
 
     private void decodeFormEncoded() {
 //        buffer.writeOnce(channel, getContentLength() - buffer.length());
+        currentBodyLength += buffer.length();
         var str = new String(buffer.readBytes(), StandardCharsets.UTF_8);
         body = decodeQuery(str);
-        bodyDecoded = true;
     }
 
     private int getContentLength() {

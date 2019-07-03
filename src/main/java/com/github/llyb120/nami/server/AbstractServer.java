@@ -159,7 +159,7 @@ public abstract class AbstractServer {
         if(length > -1){
             if(directDownloadLength() >= length){
                 response.writeHeaders((int) length);
-                multipartFile.transferTo(response.os);
+//                multipartFile.transferTo(response.os);
             } else {
                 response.setChunked(true);
                 response.writeHeaders(-1);
