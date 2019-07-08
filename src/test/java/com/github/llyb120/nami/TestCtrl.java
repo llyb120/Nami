@@ -97,6 +97,15 @@ public class TestCtrl {
     }
 
     @Test
+    public void test_07_cookie(){
+        var res = HttpUtil.createGet("http://127.0.0.1:" + config.port + "/test/a/testCookie")
+        .header("Cookie", "_ga=GA1.2.2106664825.1561338214; UM_distinctid=16bb6c1b19615-0092e59a330b4b-2b580b4d-144000-16bb6c1b198bc; CNZZDATA1258351730=1961795621-1562137993-null%7C1562143853")
+                .execute()
+                .body();
+        assertEquals(res, "GA1.2.2106664825.1561338214");
+    }
+
+    @Test
     public void test_99_uploadAndDownload() throws Exception {
         // 换行符
         final String newLine = "\r\n";

@@ -42,6 +42,9 @@ public class Response {
         if(bodyLen > -1){
             setContentLength(bodyLen);
         }
+        if(request.cookie.hasChanged()){
+            headers.put("Set-Cookie", request.cookie.toSetCookieString());
+        }
         for (Map.Entry<String, Object> entry : headers.entrySet()) {
             String value = (String) entry.getValue();
             var line = entry.getKey() + ": " + value + "\r\n";

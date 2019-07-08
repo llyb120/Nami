@@ -1,7 +1,9 @@
 package com.github.llyb120.nami.core;
 
 import com.alibaba.fastjson.JSON;
+import com.github.llyb120.nami.server.Cookie;
 
+@Deprecated
 public class Context {
 
     public Obj query = new Obj();
@@ -20,7 +22,7 @@ public class Context {
     public void reset(){
         query.clear();
         params.clear();
-        cookie.reset();
+//        cookie.reset();
         headers.clear();
         body = null;
     }

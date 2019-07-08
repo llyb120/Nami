@@ -1,9 +1,7 @@
 package com.github.llyb120.nami.server;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson.JSON;
-import com.github.llyb120.nami.core.Cookie;
 import com.github.llyb120.nami.core.Json;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.core.Obj;
@@ -12,7 +10,6 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
-import java.nio.channels.WritableByteChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
@@ -29,7 +26,7 @@ public class Request {
     public InputStream is;
     public ReadableByteChannel channel;
     public JSON body;
-    public Cookie cookie;
+    public Cookie cookie = new Cookie();
 
     private ByteBuff buf = new ByteBuff();
     private Buffer buffer = new Buffer();
@@ -490,6 +487,9 @@ public class Request {
                 value = line.substring(comma + 1);
             }
             headers.put(key, value);
+            if(key.equalsIgnoreCase("Cookie")){
+                decodeCookies(value);
+            }
         }
     }
 
@@ -512,7 +512,17 @@ public class Request {
     /**
      * cookie解析器
      */
-    private void decodeCookies() {
+    private void decodeCookies(String value) {
+        if(value.length() == 0){
+            return;
+        }
+        var arr = value.split("; ");
+        for (String s : arr) {
+            var i = s.indexOf("=");
+            if(i > -1){
+                cookie.set(s.substring(0, i), s.substring(i+1), false);
+            }
+        }
 
     }
 

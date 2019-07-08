@@ -3,6 +3,7 @@ package com.github.llyb120.nami.test;
 import com.github.llyb120.nami.core.Arr;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.core.Obj;
+import com.github.llyb120.nami.server.Cookie;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,4 +64,7 @@ public class a {
     }
 
 
+    public Object testCookie(Cookie cookie){
+        return cookie.get("_ga");
+    }
 }

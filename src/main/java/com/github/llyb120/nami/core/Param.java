@@ -3,6 +3,7 @@ package com.github.llyb120.nami.core;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.github.llyb120.nami.core.boost.SqlBoost;
+import com.github.llyb120.nami.server.Cookie;
 import com.github.llyb120.nami.server.Request;
 import com.github.llyb120.nami.server.Response;
 import org.beetl.sql.core.annotatoin.Table;
