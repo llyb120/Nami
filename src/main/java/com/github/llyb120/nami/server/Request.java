@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import static com.github.llyb120.nami.core.Json.o;
+import static com.github.llyb120.nami.server.Response.CRLF;
 
 public class Request {
     public Obj headers = o();
@@ -34,6 +35,7 @@ public class Request {
     private Buffer buffer = new Buffer();
     private boolean headerDecoded = false;
     private int currentBodyLength = 0;
+    private FormDataTemp temp;
 
     enum Method {
         GET,
@@ -41,6 +43,39 @@ public class Request {
         OPTIONS,
         HEAD,
         DELETE
+    }
+
+    enum FormDataStep {
+        //等待读出头
+        WAIT_FOR_START,
+        WAIT_FOR_READ_PROPERTY,
+        WAIT_FOR_END,
+        WAIT_FOR_READ_VALUE,
+        ;
+    }
+
+    static class FormDataTemp {
+        String start = null;
+        String end = null;
+        byte[] limit = null;
+        FormDataStep step;
+        OutputStream tempOs;
+        String name;
+        MultipartFile file;
+
+        public void release() {
+            if (tempOs != null) {
+                try {
+                    tempOs.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            name = null;
+            file = null;
+            tempOs = null;
+            step = FormDataStep.WAIT_FOR_START;
+        }
     }
 
     public void setInputstream(InputStream is) {
@@ -118,10 +153,12 @@ public class Request {
     /**
      * 每次数据进来的时候解析一次
      */
-    private void decodeOnce() {
+    private void decodeOnce() throws IOException {
         String line = null;
         if (!headerDecoded) {
             while ((line = buffer.readLineStr()) != null) {
+                //关键：需要扣除掉头的长度
+                currentBodyLength -= (line.length() + 2);
                 if (line.isEmpty()) {
                     headerDecoded = true;
                     break;
@@ -140,7 +177,7 @@ public class Request {
             }
             var ctype = getContentType();
             if (ctype.contains("multipart/form-data")) {
-
+                decodeFormDataOnce();
             } else if (clen == buffer.length()) {
                 if (ctype.contains("application/x-www-form-urlencoded")) {
                     decodeFormEncoded();
@@ -153,20 +190,28 @@ public class Request {
 
     public void decode() throws Exception {
         var size = 4096;
-        var byteBuffer = ByteBuffer.allocateDirect(size);
         while (!headerDecoded || currentBodyLength < getContentLength()) {
+            var byteBuffer = ByteBuffer.allocateDirect(size);
 //            byteBuffer.clear();
             var n = channel.read(byteBuffer);
             if (n < 1) {
                 break;
             }
-            buffer.write(byteBuffer);
+            currentBodyLength += n;
             byteBuffer.flip();
-
+            buffer.writeNio(byteBuffer);
             decodeOnce();
         }
 
-//        dis = new DataInputStream(is);
+        //如果body还有剩余，则继续解析
+        if (getContentType().contains("multipart/form-data")) {
+            //如果一直没有变动，就当作解析失败
+            //补充\r\n
+            buffer.writeNio(CRLF);
+            while (buffer.length() > 0) {
+                decodeOnce();
+            }
+        }
 
         //解析头
 //        var surplus = decodeHeaders2();
@@ -206,6 +251,96 @@ public class Request {
         return new String[]{left, key};
     }
 
+    private void decodeFormDataOnce() throws IOException {
+        if (temp == null) {
+            temp = new FormDataTemp();
+        }
+        if (body == null) {
+            body = o();
+        }
+        if (temp.start == null) {
+            var ctype = getContentType();
+            var idex = ctype.indexOf("boundary=");
+            if (idex == -1) {
+                return;
+            }
+            var token = ctype.substring(idex + 9);
+            temp.start = ("--" + token);
+            temp.end = ("--" + token + "--");
+            temp.limit = ("\r\n" + temp.start).getBytes();
+            temp.step = FormDataStep.WAIT_FOR_START;
+        }
+        if (temp.step != FormDataStep.WAIT_FOR_READ_VALUE) {
+            String line = null;
+            scan:
+            while ((line = buffer.readLineStr()) != null) {
+                switch (temp.step) {
+                    case WAIT_FOR_START:
+                        if (line.equals(temp.start)) {
+                            temp.step = FormDataStep.WAIT_FOR_READ_PROPERTY;
+                        } else if (line.equals(temp.end)) {
+                            return;
+                        }
+                        break;
+
+                    case WAIT_FOR_READ_PROPERTY:
+                        if (line.isEmpty()) {
+                            temp.step = FormDataStep.WAIT_FOR_READ_VALUE;
+                            break scan;
+                        }
+                        var arr = line.split("; ");
+                        for (int i = 0; i < arr.length; i++) {
+                            if (i > 0) {
+                                var strs = getFormDataKV(arr[i]);
+                                switch (strs[0]) {
+                                    case "name":
+                                        temp.name = strs[1];
+                                        break;
+
+                                    case "filename":
+                                        var file = File.createTempFile("nami", "nami");
+                                        temp.file = new MultipartFile(strs[1], file, true);
+                                        temp.tempOs = new FileOutputStream(file);
+                                        break;
+                                }
+                            }
+                        }
+                        break;
+
+                    case WAIT_FOR_END:
+                        if (line.equals(temp.end)) {
+                            temp.step = FormDataStep.WAIT_FOR_START;
+                        }
+                        break;
+                }
+            }
+        } else {
+            //读取value
+            if (temp.tempOs == null) {
+                temp.tempOs = new ByteArrayOutputStream();
+            }
+            var i = buffer.indexOf(temp.limit);
+            if (i > -1) {
+                var bs = buffer.readNBytes(i);
+                if (bs != null) {
+                    temp.tempOs.write(bs);
+                }
+                if (temp.tempOs instanceof ByteArrayOutputStream) {
+                    ((Obj) body).put(temp.name, ((ByteArrayOutputStream) temp.tempOs).toString(StandardCharsets.UTF_8));
+                } else if (temp.tempOs instanceof FileOutputStream) {
+                    ((Obj) body).put(temp.name, temp.file);
+                }
+                buffer.readNBytes(2);
+                temp.release();
+            } else {
+                var bs = buffer.readBytes();
+                if (bs != null) {
+                    temp.tempOs.write(bs);
+                }
+            }
+        }
+
+    }
 
     private void decodeFormDataEncoded(String ctype) {
         var ret = o();
@@ -266,8 +401,8 @@ public class Request {
                             }
                         }
 
-                        var n = buffer.writeOnce(channel, Math.min(1024, clen));
-                        clen -= n;
+//                        var n = buffer.writeOnce(channel, Math.min(1024, clen));
+//                        clen -= n;
                     }
 
 
@@ -303,8 +438,8 @@ public class Request {
                     break scan;
                 }
             }
-            var n = buffer.writeOnce(channel, Math.min(1024, clen));
-            clen -= n;
+//            var n = buffer.writeOnce(channel, Math.min(1024, clen));
+//            clen -= n;
         }
 
         body = ret;
@@ -358,21 +493,21 @@ public class Request {
         }
     }
 
-    private void decodeHeaders3() {
-        var i = 0;
-        String line = null;
-        scan:
-        do {
-            while ((line = buffer.readLineStr()) != null) {
-                if (line.isEmpty()) {
-                    break scan;
-                }
-                System.out.println(line);
-                decodeHeader(line);
-            }
-            buffer.writeOnce(channel);
-        } while (true);
-    }
+//    private void decodeHeaders3() {
+//        var i = 0;
+//        String line = null;
+//        scan:
+//        do {
+//            while ((line = buffer.readLineStr()) != null) {
+//                if (line.isEmpty()) {
+//                    break scan;
+//                }
+//                System.out.println(line);
+//                decodeHeader(line);
+//            }
+//            buffer.writeOnce(channel);
+//        } while (true);
+//    }
 
     /**
      * cookie解析器
@@ -464,7 +599,11 @@ public class Request {
         try {
             return params.getObject(name, type);
         } catch (Exception e) {
-            return null;
+            try {
+                return (T) params.toJavaObject(type);
+            } catch (Exception ee) {
+                return null;
+            }
         }
     }
 

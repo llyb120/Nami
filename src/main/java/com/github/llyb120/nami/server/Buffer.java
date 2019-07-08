@@ -8,10 +8,14 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.LinkedList;
 
 public class Buffer {
     private int step;
     private ByteBuffer buffer;
+
+    private LinkedList<ByteBuffer> buffers = new LinkedList<>();
+
 
     public Buffer(){
         this(1024);
@@ -23,6 +27,8 @@ public class Buffer {
         }
         this.step = step;
         buffer = ByteBuffer.allocateDirect(step);
+
+
 //        this.bytes.addLast(createSliceBytes());
     }
 
@@ -31,28 +37,71 @@ public class Buffer {
     }
 
     public void writeToChannel(WritableByteChannel channel) throws IOException {
-        buffer.flip();
-        channel.write(buffer);
-        buffer.flip();
-    }
-
-    public Buffer resize(){
-        var swap = buffer;
-        buffer = ByteBuffer.allocateDirect(buffer.capacity() * 2);
-        write(swap);
-        return this;
-    }
-
-    private void checkAvaliable(int n){
-        while(buffer.remaining() < n){
-            resize();
+        for (ByteBuffer buffer : buffers) {
+            channel.write(buffer);
         }
+        buffers.clear();
     }
+
+//    public Buffer resize(){
+//        var swap = buffer;
+//        buffer = ByteBuffer.allocateDirect(buffer.capacity() * 2);
+//        buffer.flip();
+//        write(swap);
+//        return this;
+//    }
+//
+//    private void checkAvaliable(int n){
+//        while(buffer.remaining() < n){
+//            resize();
+//        }
+//    }
 
 
     public Buffer write(byte b){
-        checkAvaliable(1);
+        var buf = ByteBuffer.allocateDirect(1);
+        buf.put(b);
+        buf.flip();
+        buffers.addLast(buf);
         return this;
+    }
+
+
+    public Buffer writeNio(byte b){
+        return write(b);
+    }
+
+    public Buffer writeNio(byte[] bs){
+        return writeNio(bs, 0, bs.length);
+    }
+
+    public Buffer writeNio(byte[] bs, int offset, int length){
+        var buf = ByteBuffer.wrap(bs, offset, length);
+        buffers.addLast(buf);
+        return this;
+    }
+
+    public Buffer writeNio(String str, Charset encoding){
+        return writeNio(str.getBytes(encoding));
+    }
+
+    public Buffer writeNio(String str){
+        return writeNio(str, StandardCharsets.UTF_8);
+    }
+
+    public Buffer writeNio(ByteBuffer buf){
+        buffers.addLast(buf);
+        return this;
+    }
+
+    public Buffer writeBeforeNio(byte[] bs, int offset, int length){
+        var buf = ByteBuffer.allocateDirect(length);
+        buffers.addFirst(buf);
+        return this;
+    }
+
+    public Buffer writeBeforeNio(byte[] bs){
+        return writeBeforeNio(bs, 0, bs.length);
     }
 
     public Buffer write(byte[] bs){
@@ -68,24 +117,18 @@ public class Buffer {
     }
 
     public Buffer write(ByteBuffer buf){
-        checkAvaliable(buf.position());
-        buf.flip();
-        buffer.put(buf);
-//        buffer.position(buffer.position() + pos);
-//        buffer = nbuff;
-//        buf.flip();
-//        checkAvaliable(buf.remaining());
-//        buffer.put(buf);
+        var nbuf = ByteBuffer.allocateDirect(buf.capacity());
+        nbuf.put(buf);
+        nbuf.flip();
+        buffers.addLast(nbuf);
         return this;
     }
 
     public Buffer writeBefore(byte[] bs, int offset, int length){
-        checkAvaliable(length);
-        var swap = buffer;
-        buffer = ByteBuffer.allocateDirect(buffer.capacity());
-        buffer.put(bs, offset, length);
-        swap.flip();
-        buffer.put(swap);
+        var buf = ByteBuffer.allocateDirect(length);
+        buf.put(bs, offset, length);
+        buf.flip();
+        buffers.addFirst(buf);
         return this;
     }
 
@@ -94,88 +137,21 @@ public class Buffer {
     }
 
     public Buffer write(byte[] bs, int pos, int len){
-        checkAvaliable(len);
-        buffer.put(bs, pos, len);
+        var buf = ByteBuffer.allocateDirect(len);
+        buf.put(bs, pos, len);
+        buf.flip();
+        buffers.addLast(buf);
         return this;
     }
 
-    public int writeOnce(ReadableByteChannel channel, int length){
-        if(length <= 0){
-            return 0;
-        }
-        var buf = ByteBuffer.allocateDirect(length);
-        int n = 0;
-        try {
-            n = channel.read(buf);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if(n < 1){
-            return n;
-        }
-        checkAvaliable(n);
-        write(buf);
-        return n;
-    }
-
-    public int writeOnce(ReadableByteChannel channel){
-        return writeOnce(channel, step);
-//        var buf = createSliceBytes();
-//        int n = 0;
-//        try {
-//            n = channel.read(buf);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return 0;
-//        }
-//        if(n < 1){
-//            return n;
-//        }
-//        checkAvaliable(n);
-//        write(buf);
-//        return n;
-        //如果已经越界
-//        var block = blockMap.get(is);
-//        var readLen = step;
-//        if (block != null) {
-//            if(block.current >= block.max){
-//                return 0;
-//            } else {
-//                readLen = Math.min(block.max - block.current, step);
-//            }
-//            var bs = is.readNBytes(readLen);
-//            block.current += readLen;
-//            write(bs, 0, readLen);
-//            return readLen;
-//        } else {
-//            byte[] bs;
-//            var n = is.read(bs = createSliceBytes());
-//            write(bs, 0, n);
-//            return n;
-//        }
-    }
-
-    public Buffer writeFull(ReadableByteChannel channel) throws IOException {
-        var buf = createSliceBytes();
-        do{
-            buf.clear();
-            var n = channel.read(buf);
-            if(n < 1){
-                break;
-            }
-            write(buf);
-        } while(true);
-        return this;
-    }
 
     public byte[] readLine() {
         var pos = canReadLine();
-        return readNBytes(pos + 1);
+        return readNBytes(pos);
     }
 
     public String readLineStr(){
-        var pos = canReadLine();
-        var end = pos + 1;
+        var end = canReadLine();
         var bs = readNBytes(end);
         if (bs == null) {
             return null;
@@ -191,9 +167,14 @@ public class Buffer {
 
 
     private int canReadLine(){
-        for (int i = 0; i < buffer.position(); i++) {
-            if(buffer.get(i) == '\n'){
-                return i;
+        var count = 0;
+        for (int i = 0; i < buffers.size(); i++) {
+            var buf = buffers.get(i);
+            for (int j = buf.position(); j < buf.limit(); j++) {
+                count++;
+                if(buf.get(j) == '\n'){
+                    return count;
+                }
             }
         }
         return -1;
@@ -204,19 +185,40 @@ public class Buffer {
         if(bs.length == 0){
             return null;
         }
-        for (int i = 0; i < length(); i++) {
-            bs[i] = buffer.get(i);
+        var i = 0;
+        for (ByteBuffer buffer : buffers) {
+            for(var j = buffer.position(); j < buffer.limit(); j++){
+                bs[i++] = buffer.get(j);
+            }
         }
         return bs;
     }
 
     public byte[] readBytes(){
-        var bs = createFullLengthBytes();
-        buffer.flip();
-        buffer.get(bs);
-        buffer.compact();
-        buffer.flip();
-        return bs;
+        return readNBytes(length());
+    }
+
+
+    public int indexOf(byte[] key){
+        var n = 0;
+        var ptr = 0;
+        for (ByteBuffer byteBuffer : buffers) {
+            for (int i = byteBuffer.position(); i < byteBuffer.limit(); i++) {
+                ptr++;
+                var c = byteBuffer.get(i);
+                if(c != key[n]){
+                    n = 0;
+                }
+                if(c == key[n]){
+                    n++;
+                }
+
+                if(n == key.length){
+                    return ptr - n;
+                }
+            }
+        }
+        return -1;
     }
 
     public Buffer copyUntil(ReadableByteChannel is, WritableByteChannel channel, byte[] target) throws IOException {
@@ -274,19 +276,45 @@ public class Buffer {
         if(length < 1){
             return null;
         }
-        var pos = buffer.position();
-//        if(nn < 1){
-//            return null;
-//        }
-        buffer.flip();
-        var nn = Math.min(buffer.remaining(), n);
-        var bs = new byte[nn];
-        buffer.get(bs);
-        buffer.compact();
-        buffer.flip();
-        buffer.position(pos - nn);
-        buffer.limit(buffer.capacity());
-        return bs;
+        if(n > length){
+            n = length;
+        }
+        var ret = new byte[n];
+        var nn = n;
+        var ptr = 0;
+        var it = buffers.iterator();
+        while(it.hasNext()){
+            var item = it.next();
+                var len = Math.min(item.limit() - item.position(), nn);
+                item.get(ret, ptr, len);
+
+//                item.buffer.compact();
+                ptr += len;
+                nn -= len;
+            if(item.position() == item.limit()){
+                it.remove();
+            }
+            if(nn <= 0){
+                break;
+            }
+        }
+
+        return ret;
+//
+//
+//        var pos = buffer.position();
+////        if(nn < 1){
+////            return null;
+////        }
+//        buffer.flip();
+//        var nn = Math.min(buffer.remaining(), n);
+//        var bs = new byte[nn];
+//        buffer.get(bs);
+//        buffer.compact();
+//        buffer.flip();
+//        buffer.position(pos - nn);
+//        buffer.limit(buffer.capacity());
+//        return bs;
     }
 
 //    public byte[] readNBytes(ReadableByteChannel is, int n) throws IOException {
@@ -334,7 +362,11 @@ public class Buffer {
      * @return
      */
     public int length(){
-        return buffer.position();
+        var len = 0;
+        for (ByteBuffer item : buffers) {
+            len += (item.limit() - item.position());
+        }
+        return len;
     }
 
 
@@ -348,7 +380,11 @@ public class Buffer {
 
     @Override
     public String toString() {
-        return new String(getBytes());
+        var bs = getBytes();
+        if (bs == null) {
+            return "";
+        }
+        return new String(bs);
     }
 
 }

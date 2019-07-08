@@ -3,6 +3,10 @@ package com.github.llyb120.nami.core;
 import io.netty.handler.codec.http.multipart.FileUpload;
 
 import java.io.*;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.WritableByteChannel;
 
 public class MultipartFile {
 
@@ -66,6 +70,13 @@ public class MultipartFile {
         return new FileInputStream(file);
     }
 
+    public FileChannel openChannel() throws FileNotFoundException {
+        if (file == null) {
+            return null;
+        }
+        return new RandomAccessFile(file, "r").getChannel();
+    }
+
 //    public String fileName(){
 //        return fileUpload.getFilename();
 //    }
@@ -73,6 +84,14 @@ public class MultipartFile {
 //    public String contentType(){
 //        return fileUpload.getContentType();
 //    }
+
+    public void transferTo(WritableByteChannel channel) throws IOException {
+        try(
+            var fis = new FileInputStream(this.file).getChannel();
+                ){
+            fis.transferTo(0, this.file.length(), channel);
+        }
+    }
 
     public void transferTo(OutputStream os) throws IOException {
         try(

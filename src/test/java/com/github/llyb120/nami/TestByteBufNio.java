@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 
 public class TestByteBufNio {
@@ -32,7 +33,7 @@ public class TestByteBufNio {
 
     @Test
     public void testWriteBytes(){
-        buf.write(bs, 4, 4);
+        buf.writeNio(bs, 4, 4);
         Assert.assertArrayEquals(str.substring(4,8).getBytes(), buf.readBytes());
     }
 
@@ -40,40 +41,40 @@ public class TestByteBufNio {
     public void testAppendBytes(){
         testWriteBytes();
         var str = genRandomStr();
-        buf.write(str);
+        buf.writeNio(str);
         Assert.assertArrayEquals(str.getBytes(), buf.readBytes());
     }
-
-    @Test
-    public void testWriteOnce() throws IOException {
-        var fos = new FileOutputStream(file);
-        fos.write(bs);
-        var fis = new FileInputStream(file);
-        buf.writeOnce(Channels.newChannel(fis));
-        Assert.assertArrayEquals(str.substring(0,step).getBytes(), buf.readBytes());
-    }
+//
+//    @Test
+//    public void testWriteOnce() throws IOException {
+//        var fos = new FileOutputStream(file);
+//        fos.writeNio(bs);
+//        var fis = new FileInputStream(file);
+//        buf.writeOnce(Channels.newChannel(fis));
+//        Assert.assertArrayEquals(str.substring(0,step).getBytes(), buf.readBytes());
+//    }
 
 
 
     @Test
     public void testReadLine() throws IOException {
         var fis = new FileInputStream(file);
-        buf.writeFull(Channels.newChannel(fis));
+        buf.writeNio(fis.readAllBytes());
 
         var line = buf.readLine();
         Assert.assertNotNull(line);
     }
 
-    @Test
-    public void testWriteFull() throws IOException {
-        var fis = new FileInputStream(file);
-        buf.writeFull(Channels.newChannel(fis));
-        Assert.assertArrayEquals(bs, buf.readBytes());
-    }
+//    @Test
+//    public void testWriteFull() throws IOException {
+//        var fis = new FileInputStream(file);
+//        buf.writeFull(Channels.newChannel(fis));
+//        Assert.assertArrayEquals(bs, buf.readBytes());
+//    }
 
     @Test
     public void testGetBytes(){
-        buf.write(bs);
+        buf.writeNio(bs);
         var a = buf.getBytes();
         var b = buf.readBytes();
         Assert.assertArrayEquals(a, b);
@@ -84,7 +85,7 @@ public class TestByteBufNio {
     @Test
     public void testWriteBefore(){
         var str = RandomUtil.randomString(1024);
-        buf.write(bs);
+        buf.writeNio(bs);
         buf.readNBytes(str.length() / 2);
         buf.writeBefore(str.getBytes());
         Assert.assertEquals(buf.toString().substring(0, str.length()), str);
@@ -106,6 +107,24 @@ public class TestByteBufNio {
     }
 
 
+
+    @Test
+    public void test(){
+        var buf = new Buffer();
+        buf.writeNio("a".repeat(100));
+        buf.writeNio("b".repeat(100));
+
+        var n = buf.indexOf("ab".getBytes());
+        var e = 2;
+//        var str = RandomUtil.randomString(100);
+//        var a = buf.writeNio(str.getBytes(), 0, 50);
+//
+//        var b = buf.readNBytes(50);
+//        var e = 2;
+//        var c = new String(a.readNBytes(3));
+//        var e = new String(a.readNBytes(3));
+//        var d = 1;
+    }
 
 
 

@@ -38,16 +38,16 @@ public class Response {
         setKeepAlive(false);
 
         //写入200
-        buffer.write("HTTP/1.1 200 OK\r\n");
+        buffer.writeNio("HTTP/1.1 200 OK\r\n");
         if(bodyLen > -1){
             setContentLength(bodyLen);
         }
         for (Map.Entry<String, Object> entry : headers.entrySet()) {
             String value = (String) entry.getValue();
             var line = entry.getKey() + ": " + value + "\r\n";
-            buffer.write(line);
+            buffer.writeNio(line);
         }
-        buffer.write(CRLF);
+        buffer.writeNio(CRLF);
         buffer.writeToChannel(channel);
     }
 
@@ -59,12 +59,12 @@ public class Response {
             bs = JSON.toJSONBytes(body, SerializerFeature.WriteDateUseDateFormat, SerializerFeature.PrettyFormat);
         }
         writeHeaders(bs.length);
-        buffer.write(bs);
+        buffer.writeNio(bs);
         buffer.writeToChannel(channel);
     }
 
     public Response write(byte[] bs, int offset, int length) throws IOException {
-        buffer.write(bs, offset, length);
+        buffer.writeNio(bs, offset, length);
         buffer.writeToChannel(channel);
         return this;
     }
@@ -74,7 +74,7 @@ public class Response {
     }
 
     public Response write(byte b) throws IOException {
-        buffer.write(b);
+        buffer.writeNio(b);
         buffer.writeToChannel(channel);
         return this;
     }

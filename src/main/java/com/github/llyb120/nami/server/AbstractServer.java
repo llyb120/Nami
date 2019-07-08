@@ -7,6 +7,7 @@ import com.github.llyb120.nami.core.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.nio.ByteBuffer;
 import java.security.cert.CRL;
 import java.util.HashMap;
 import java.util.Map;
@@ -159,26 +160,33 @@ public abstract class AbstractServer {
         if(length > -1){
             if(directDownloadLength() >= length){
                 response.writeHeaders((int) length);
-//                multipartFile.transferTo(response.os);
+                multipartFile.transferTo(response.channel);
             } else {
                 response.setChunked(true);
                 response.writeHeaders(-1);
                 var size = directDownloadLength();
-                var bs = new byte[size];
+                var buf = new Buffer();
                 try(
-                        var fis = multipartFile.openInputStream();
+                        var fis = multipartFile.openChannel();
                         ){
                     var n = -1;
-                    while((n = fis.read(bs)) > 0){
-                        response
-                                .write(Integer.toHexString(n).getBytes())
-                                .write(CRLF)
-                                .write(bs, 0, n)
-                                .write(CRLF);
+                    while(true){
+                        var bs = ByteBuffer.allocateDirect(size);
+                        n = fis.read(bs);
+                        if(n < 1){
+                            break;
+                        }
+                        bs.flip();
+                        buf.writeNio(Integer.toHexString(n).getBytes())
+                                .writeNio(CRLF)
+                                .writeNio(bs)
+                                .writeNio(CRLF)
+                                .writeToChannel(response.channel);
                     }
-                    response.write((byte) '0')
-                        .write(CRLF)
-                        .write(CRLF);
+                    buf.writeNio((byte) '0')
+                        .writeNio(CRLF)
+                        .writeNio(CRLF)
+                        .writeToChannel(response.channel);
                 }
             }
         }

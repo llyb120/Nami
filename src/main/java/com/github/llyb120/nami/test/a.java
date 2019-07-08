@@ -29,6 +29,15 @@ public class a {
         return a;
     }
 
+    public static class A{
+        public String a;
+        public String b;
+    }
+
+    public Object getWithEntity(A a){
+        return a;
+    }
+
     public Object postJsonObject(Obj body){
         return body;
     }
@@ -36,7 +45,6 @@ public class a {
     public Object postJsonArray(Arr body){
         return body;
     }
-
 
     public Object uploadFile(Obj body, String test, MultipartFile file) throws IOException {
         var temp = File.createTempFile("test", "test");

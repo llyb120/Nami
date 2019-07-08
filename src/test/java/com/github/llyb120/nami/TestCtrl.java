@@ -9,7 +9,9 @@ import com.github.llyb120.nami.core.Route;
 import com.github.llyb120.nami.server.Buffer;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -27,6 +29,7 @@ import static com.github.llyb120.nami.core.Json.a;
 import static com.github.llyb120.nami.core.Json.o;
 import static org.junit.Assert.*;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestCtrl {
 
     @BeforeClass
@@ -37,27 +40,27 @@ public class TestCtrl {
     }
 
     @Test
-    public void getWithNoArg() {
+    public void test_01_getWithNoArg() {
         var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithNoArg");
         assertEquals(res, "ok");
     }
 
 
     @Test
-    public void getWithArgs() {
+    public void test_02_getWithArgs() {
         var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithArgs", o("a", 1));
         assertEquals(res, "1");
     }
 
     @Test
-    public void getQuery() {
+    public void test_03_getQuery() {
         var query = o("a", "1", "b", "2");
         var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getQuery", query);
         assertEquals(JSON.parse(res).toString(), query.toJSONString());
     }
 
     @Test
-    public void postUrlEncoded() {
+    public void test_04_postUrlEncoded() {
         var query = o("a", "1", "b", "2");
         var res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded", query);
         assertEquals(JSON.parse(res).toString(), query.toJSONString());
@@ -67,7 +70,7 @@ public class TestCtrl {
     }
 
     @Test
-    public void postJson() {
+    public void test_05_postJson() {
         var arr = a("1", "2", "3");
         var res = HttpUtil.createPost("http://127.0.0.1:" + config.port + "/test/a/postJsonArray")
                 .body(arr.toJSONString())
@@ -87,7 +90,14 @@ public class TestCtrl {
     }
 
     @Test
-    public void testUploadAndDownload() throws Exception {
+    public void test_06_getWithEntity(){
+        var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithEntity", o("a","1","b","2"));
+        assertNotNull(res);
+        assertNotEquals(res, "null");
+    }
+
+    @Test
+    public void test_99_uploadAndDownload() throws Exception {
         // 换行符
         final String newLine = "\r\n";
         // 服务器的上传地址
@@ -201,5 +211,23 @@ public class TestCtrl {
         HttpUtil.downloadFile("http://127.0.0.1:" + config.port + "/test/a/downloadFile2?path=" + arr[1], temp);
         Assert.assertEquals(IoUtil.read(new FileReader(temp)), str);
 
+    }
+
+
+    @Test
+    public void test_06_testDownload() throws IOException {
+        var str = RandomUtil.randomString(8192);
+        var temp = File.createTempFile("123","123");
+        temp.deleteOnExit();
+        IoUtil.write(new FileOutputStream(temp), true, str.getBytes());
+        var temp2 = File.createTempFile("444","555");
+        temp2.deleteOnExit();
+        HttpUtil.downloadFile("http://127.0.0.1:" + config.port + "/test/a/downloadFile1?path=" + temp.getAbsolutePath(), temp2);
+        Assert.assertEquals(IoUtil.read(new FileReader(temp)), str);
+
+        temp2 = File.createTempFile("444","555");
+        temp2.deleteOnExit();
+        HttpUtil.downloadFile("http://127.0.0.1:" + config.port + "/test/a/downloadFile2?path=" + temp.getAbsolutePath(), temp2);
+        Assert.assertEquals(IoUtil.read(new FileReader(temp)), str);
     }
 }
