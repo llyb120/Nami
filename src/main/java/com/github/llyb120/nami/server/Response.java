@@ -9,11 +9,9 @@ import com.github.llyb120.nami.core.Obj;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.channels.AsynchronousByteChannel;
 import java.nio.channels.Channels;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.StandardCharsets;
-import java.security.cert.CRL;
 import java.util.Map;
 
 import static com.github.llyb120.nami.core.Config.config;

@@ -3,9 +3,7 @@ package com.github.llyb120.nami.core;
 import io.netty.handler.codec.http.multipart.FileUpload;
 
 import java.io.*;
-import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
-import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 
 public class MultipartFile {

@@ -106,6 +106,20 @@ public class TestCtrl {
     }
 
     @Test
+    public void test_08_php_style(){
+        var val = RandomUtil.randomString(1024);
+        var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleGet", o("test", val));
+        assertEquals(res, val);
+    }
+    @Test
+    public void test_09_php_style() {
+        var val = RandomUtil.randomString(1024);
+        var parasm = o("test", val);
+        var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleRequest", parasm);
+        assertEquals(parasm.toJSONString(), JSON.parseObject(res).toJSONString());
+    }
+
+    @Test
     public void test_99_uploadAndDownload() throws Exception {
         // 换行符
         final String newLine = "\r\n";

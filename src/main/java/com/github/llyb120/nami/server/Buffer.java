@@ -1,7 +1,5 @@
 package com.github.llyb120.nami.server;
 
-import io.netty.buffer.ByteBuf;
-
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;

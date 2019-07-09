@@ -15,6 +15,7 @@ import java.util.Map;
 
 import static com.github.llyb120.nami.core.Json.o;
 import static com.github.llyb120.nami.server.Response.CRLF;
+import static com.github.llyb120.nami.server.Vars.*;
 
 public class Request {
     public Obj headers = o();
@@ -27,6 +28,7 @@ public class Request {
     public ReadableByteChannel channel;
     public JSON body;
     public Cookie cookie = new Cookie();
+
 
     private ByteBuff buf = new ByteBuff();
     private Buffer buffer = new Buffer();
@@ -213,10 +215,18 @@ public class Request {
         //解析头
 //        var surplus = decodeHeaders2();
 //        decodeHeaders3();
+        $get.clear();
+        $post.clear();
+        $request.clear();
+
+        $get.putAll(query);
+
         params.putAll(query);
         if (body instanceof Map) {
             params.putAll((Map) body);
+            $post.putAll((Map) body);
         }
+        $request.putAll(params);
 
         //解析body
 //        if (method != Method.POST) {

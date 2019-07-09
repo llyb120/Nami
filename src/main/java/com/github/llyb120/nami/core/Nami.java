@@ -1,7 +1,6 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.thread.ThreadUtil;
-import com.github.llyb120.nami.dao.FSql;
 import com.github.llyb120.nami.server.DevServer;
 import com.github.llyb120.nami.sqltool.sqltool;
 

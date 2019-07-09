@@ -8,6 +8,9 @@ import com.github.llyb120.nami.server.Cookie;
 import java.io.File;
 import java.io.IOException;
 
+import static com.github.llyb120.nami.server.Vars.$get;
+import static com.github.llyb120.nami.server.Vars.$request;
+
 public class a {
 
     public String getWithNoArg(){
@@ -67,4 +70,15 @@ public class a {
     public Object testCookie(Cookie cookie){
         return cookie.get("_ga");
     }
+
+
+    public Object phpStyleGet(){
+        return $get.s("test");
+    }
+
+    public Object phpStyleRequest(){
+        return $request;
+    }
+
+
 }
