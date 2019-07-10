@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.server.Response.CRLF;
@@ -16,7 +17,7 @@ public abstract class AbstractServer {
 
     private HashMap<Class, Object> clzInstances = new HashMap<>();
 
-    public abstract void start(int port) throws Exception;
+    public abstract void start(int port, boolean async) throws Exception;
 
 
     protected boolean handleOptions(){
@@ -28,7 +29,8 @@ public abstract class AbstractServer {
         return false;
     }
 
-    public void handle(Request req, Response resp) throws Exception {
+    public void handle(Response resp) throws Exception {
+        var req = resp.request;
         if(req.method.equals(Request.Method.OPTIONS)){
             if(!handleOptions()){
                 return;
@@ -40,30 +42,6 @@ public abstract class AbstractServer {
                 return;
             }
         }
-
-//        var ctx = Context.holder.get();
-//        ctx.reset();
-//
-//        ctx.query.putAll(req.query); //= req.query;
-//        if(req.body instanceof Map){
-//            var body = o();
-//            body.putAll((Map) req.body);
-//            ctx.body = body;
-//        } else if(req.body instanceof Collection){
-//            var body = a();
-//            body.addAll((Collection) req.body);
-//            ctx.body = body;
-//        }
-////        ctx.body = req.body;
-//        ctx.params.putAll(ctx.query);
-//        if (ctx.body instanceof Map) {
-//            ctx.params.putAll((Map) ctx.body);
-//        }
-
-        //header
-//        ctx.headers.putAll(req.headers);
-
-        //end
 
         //路由匹配
         var route = Route.getMatchedRoute(req.path);
@@ -102,7 +80,9 @@ public abstract class AbstractServer {
             downloadFile(resp, (MultipartFile) result);
         } else {
             resp.setHeader("Content-Type", "application/json; charset=utf-8");
+            //close
             resp.writeObject(result);
+            resp.flush();
         }
 
     }
@@ -151,18 +131,19 @@ public abstract class AbstractServer {
 
 
 
-    public void downloadFile(Response response, MultipartFile multipartFile) throws IOException {
+    public void downloadFile(Response response, MultipartFile multipartFile) throws IOException, ExecutionException, InterruptedException {
         var length = multipartFile.length();
         response.setFileDescription(multipartFile);
         if(length > -1){
             if(directDownloadLength() >= length){
                 response.writeHeaders((int) length);
-                multipartFile.transferTo(response.channel);
+                response.write(multipartFile).flush();
+//                multipartFile.transferTo(response.channel);
             } else {
                 response.setChunked(true);
                 response.writeHeaders(-1);
                 var size = directDownloadLength();
-                var buf = new Buffer();
+//                var buf = new Buffer();
                 try(
                         var fis = multipartFile.openChannel();
                         ){
@@ -173,17 +154,16 @@ public abstract class AbstractServer {
                         if(n < 1){
                             break;
                         }
-                        bs.flip();
-                        buf.writeNio(Integer.toHexString(n).getBytes())
-                                .writeNio(CRLF)
-                                .writeNio(bs)
-                                .writeNio(CRLF)
-                                .writeToChannel(response.channel);
+                        response.write(Integer.toHexString(n).getBytes())
+                                .write(CRLF)
+                                .write(bs.flip())
+                                .write(CRLF)
+                                .flush();
                     }
-                    buf.writeNio((byte) '0')
-                        .writeNio(CRLF)
-                        .writeNio(CRLF)
-                        .writeToChannel(response.channel);
+                    response.write((byte) '0')
+                        .write(CRLF)
+                        .write(CRLF)
+                        .flush();
                 }
             }
         }

@@ -8,6 +8,7 @@ import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 import java.util.concurrent.CountDownLatch;
 
+@Deprecated
 public class AsyncServerHandler implements Runnable {
     public CountDownLatch latch;
     public AsynchronousServerSocketChannel channel;

@@ -1,5 +1,6 @@
 package com.github.llyb120.nami.server;
 
+import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson.JSON;
@@ -7,31 +8,116 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.core.Obj;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.Channels;
+import java.nio.channels.CompletionHandler;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.StandardCharsets;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutionException;
 
 import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.core.Json.o;
 
-public class Response {
+public class Response implements AutoCloseable{
     public int status;
-    public Request request;
+    public Request request = new Request();
     public Obj headers = o();
     public WritableByteChannel channel;
+    public AsynchronousSocketChannel aChannel;
     public static byte[] CRLF = "\r\n".getBytes();
 
     private Buffer buffer = new Buffer();
+//    private LinkedList<ByteBuffer> buffers = new LinkedList<>();
+//    private boolean writing = false;
 
     public Response setOutputStream(OutputStream os){
         channel = Channels.newChannel(os);
         return this;
     }
 
-    public void writeHeaders(int bodyLen) throws IOException {
+    public Response setAsyncChannel(AsynchronousSocketChannel channel){
+        aChannel = channel;
+        return this;
+    }
+
+    public Response flush() throws IOException, ExecutionException, InterruptedException {
+        if(aChannel != null){
+            writeToAsyncChannel();
+        } else if(channel != null){
+            writeToChannel();
+        }
+        return this;
+    }
+
+    public void close() throws InterruptedException, ExecutionException, IOException {
+        if(buffer.length() > 0){
+            flush();
+        }
+        IoUtil.close(aChannel);
+        IoUtil.close(channel);
+        IoUtil.close(request);
+    }
+
+    private void writeToChannel() throws IOException {
+        var bfs = buffer.getNioBuffers();
+        for (ByteBuffer bf : bfs) {
+            channel.write(bf);
+        }
+        bfs.clear();
+    }
+
+    private void writeToAsyncChannel(){
+        var bfs = buffer.getNioBuffers();
+        for (ByteBuffer bf : bfs) {
+            try {
+                aChannel.write(bf).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+        bfs.clear();
+
+//        buffers.addAll(bfs);
+//        bfs.clear();
+//        if(buffers.size() > 0){
+//            var bf = buffers.getFirst();
+//            if (bf != null) {
+//                buffers.removeFirst();
+//                aChannel.write(bf, bf, new CompletionHandler<Integer, ByteBuffer>() {
+//                    @Override
+//                    public void completed(Integer result, ByteBuffer attachment) {
+//                        synchronized (Response.this){
+//                            var bf = buffers.getFirst();
+//                            if (bf != null) {
+//                                buffers.removeFirst();
+//                                aChannel.write(bf, bf, this);
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void failed(Throwable exc, ByteBuffer attachment) {
+//                        try {
+//                            aChannel.close();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//            }
+//        }
+    }
+    
+    public void writeHeaders(int bodyLen) throws IOException, ExecutionException, InterruptedException {
         enableCors();
         setKeepAlive(false);
 
@@ -49,10 +135,26 @@ public class Response {
             buffer.writeNio(line);
         }
         buffer.writeNio(CRLF);
-        buffer.writeToChannel(channel);
     }
 
-    public void writeObject(Object body) throws IOException {
+    public Response write(MultipartFile file) throws InterruptedException, ExecutionException, IOException {
+        flush();
+        if (aChannel != null) {
+            file.transferTo(aChannel);
+        }  else if (null != channel){
+            file.transferTo(channel);
+        }
+        return this;
+    }
+
+    /**
+     * 写后立刻关闭！
+     * @param body
+     * @throws IOException
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public void writeObject(Object body) throws IOException, ExecutionException, InterruptedException {
         byte[] bs;
         if (body instanceof String) {
             bs = ((String) body).getBytes(StandardCharsets.UTF_8);
@@ -61,22 +163,25 @@ public class Response {
         }
         writeHeaders(bs.length);
         buffer.writeNio(bs);
-        buffer.writeToChannel(channel);
     }
 
-    public Response write(byte[] bs, int offset, int length) throws IOException {
-        buffer.writeNio(bs, offset, length);
-        buffer.writeToChannel(channel);
+
+    public Response write(ByteBuffer buffers){
+        buffer.writeNio(buffers);
         return this;
     }
 
-    public Response write(byte[] bs) throws IOException {
+    public Response write(byte[] bs, int offset, int length) throws IOException, ExecutionException, InterruptedException {
+        buffer.writeNio(bs, offset, length);
+        return this;
+    }
+
+    public Response write(byte[] bs) throws IOException, ExecutionException, InterruptedException {
         return write(bs, 0, bs.length);
     }
 
-    public Response write(byte b) throws IOException {
+    public Response write(byte b) throws IOException, ExecutionException, InterruptedException {
         buffer.writeNio(b);
-        buffer.writeToChannel(channel);
         return this;
     }
 
@@ -86,9 +191,9 @@ public class Response {
 
     public void setKeepAlive(boolean b){
         if(b){
-            setHeader("Connection", "Keep-Alive");
+            setHeader("Connection", "keep-alive");
         } else {
-            setHeader("Connection", "Close");
+            setHeader("Connection", "close");
         }
     }
 

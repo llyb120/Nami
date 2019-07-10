@@ -2,11 +2,17 @@ package com.github.llyb120.nami.server;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousSocketChannel;
+import java.nio.channels.CompletionHandler;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Buffer {
     private int step;
@@ -34,12 +40,64 @@ public class Buffer {
         return this.buffer;
     }
 
-    public void writeToChannel(WritableByteChannel channel) throws IOException {
-        for (ByteBuffer buffer : buffers) {
-            channel.write(buffer);
-        }
-        buffers.clear();
+    public LinkedList<ByteBuffer> getNioBuffers(){
+        return buffers;
     }
+
+//    public void writeToChannel(WritableByteChannel channel) throws IOException {
+//        for (ByteBuffer buffer : buffers) {
+//            channel.write(buffer);
+//        }
+//        buffers.clear();
+//    }
+
+//    public void writeToAsyncChannel(AsynchronousSocketChannel channel, boolean close) throws ExecutionException, InterruptedException {
+//        if(buffers.size() == 0){
+//            return;
+//        }
+//        var items = buffers.toArray(ByteBuffer[]::new);
+//        buffers.clear();
+//        var len = items.length;
+//        var count = new AtomicInteger(0);
+//        channel.write(items[0], items, new CompletionHandler<Integer, ByteBuffer[]>() {
+//            @Override
+//            public void completed(Integer result, ByteBuffer[] attachment) {
+//                if(count.get() < len){
+//                    channel.write(items[count.get()], items, this);
+//                    count.incrementAndGet();
+//                } else if(close){
+//                    try {
+//                        channel.close();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void failed(Throwable exc, ByteBuffer[] attachment) {
+//
+//            }
+//        });
+////        for (ByteBuffer buffer : buffers) {
+////            channel.write(buffer);
+////        }
+////        channel.write(buffers.toArray(ByteBuffer[]::new), 0, length(), Long.MAX_VALUE, TimeUnit.SECONDS, this, new CompletionHandler<Long, Object>() {
+////            @Override
+////            public void completed(Long result, Object attachment) {
+////                var a = 1;
+////            }
+////
+////            @Override
+////            public void failed(Throwable exc, Object attachment) {
+////
+////            }
+////        });
+//////        for (ByteBuffer buffer : buffers) {
+//////            channel.write(buffer);
+//////        }
+////        buffers.clear();
+//    }
 
 //    public Buffer resize(){
 //        var swap = buffer;
@@ -366,6 +424,8 @@ public class Buffer {
         }
         return len;
     }
+
+
 
 
 //    private int getStart(byte[] bs){

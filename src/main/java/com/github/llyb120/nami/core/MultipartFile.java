@@ -1,12 +1,16 @@
 package com.github.llyb120.nami.core;
 
+import cn.hutool.core.io.IoUtil;
 import io.netty.handler.codec.http.multipart.FileUpload;
 
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.FileChannel;
 import java.nio.channels.WritableByteChannel;
+import java.util.concurrent.ExecutionException;
 
-public class MultipartFile {
+public class MultipartFile implements AutoCloseable{
 
     //friendly
     File file;
@@ -83,6 +87,15 @@ public class MultipartFile {
 //        return fileUpload.getContentType();
 //    }
 
+    public void transferTo(AsynchronousSocketChannel channel) throws IOException, ExecutionException, InterruptedException {
+        try(
+                var fis = new FileInputStream(this.file);
+        ){
+            var bs = IoUtil.readBytes(fis);
+            channel.write(ByteBuffer.wrap(bs)).get();
+        }
+    }
+
     public void transferTo(WritableByteChannel channel) throws IOException {
         try(
             var fis = new FileInputStream(this.file).getChannel();
@@ -111,14 +124,11 @@ public class MultipartFile {
         }
     }
 
-    public void release() {
-//        if (byteBuf != null) {
-//            byteBuf.release();
-//        }
+
+    @Override
+    public void close() throws Exception {
         if (isTemp && null != file) {
             file.delete();
         }
-
-
     }
 }

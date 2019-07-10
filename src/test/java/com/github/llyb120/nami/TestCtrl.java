@@ -39,6 +39,8 @@ public class TestCtrl {
         Thread.sleep(100);
     }
 
+
+
     @Test
     public void test_01_getWithNoArg() {
         var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithNoArg");
@@ -237,9 +239,8 @@ public class TestCtrl {
     }
 
 
-    @Test
-    public void test_06_testDownload() throws IOException {
-        var str = RandomUtil.randomString(8192);
+    private void test_06_sup(int length) throws IOException {
+        var str = RandomUtil.randomString(length);
         var temp = File.createTempFile("123","123");
         temp.deleteOnExit();
         IoUtil.write(new FileOutputStream(temp), true, str.getBytes());
@@ -252,5 +253,13 @@ public class TestCtrl {
         temp2.deleteOnExit();
         HttpUtil.downloadFile("http://127.0.0.1:" + config.port + "/test/a/downloadFile2?path=" + temp.getAbsolutePath(), temp2);
         Assert.assertEquals(IoUtil.read(new FileReader(temp)), str);
+    }
+
+    @Test
+    public void test_06_testDownload() throws IOException {
+        test_06_sup(1024);
+        test_06_sup(2028);
+        test_06_sup(4096);
+        test_06_sup(8192);
     }
 }

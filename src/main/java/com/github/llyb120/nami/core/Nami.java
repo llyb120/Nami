@@ -1,6 +1,9 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.socket.aio.AioServer;
+import com.github.llyb120.nami.server.AIOServer;
+import com.github.llyb120.nami.server.AbstractServer;
 import com.github.llyb120.nami.server.DevServer;
 import com.github.llyb120.nami.sqltool.sqltool;
 
@@ -45,18 +48,13 @@ public class Nami {
 //        System.out.println(String.format("prepare system takes %d ms", System.currentTimeMillis() - stime));
 
         //暂时只能用devserver
-//        if(config.dev){
-            var server = new DevServer();
-                if(async){
-                   Async.execute(() -> server.start(config.port));
-                } else {
-                    server.start(config.port);
-                }
-//        } else {
-//            //netty server
-//            var server = new NettyServer();
-//            server.start(config.port);
-//        }
+        AbstractServer server = null;
+        if(config.dev){
+            server = new DevServer();
+        } else {
+            server = new AIOServer();
+        }
+        server.start(config.port, async);
     }
 
     public static void test(String config){
