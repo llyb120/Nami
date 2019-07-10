@@ -1,5 +1,7 @@
 package com.github.llyb120.nami.server;
 
+import cn.hutool.core.thread.ThreadFactoryBuilder;
+import cn.hutool.core.util.RuntimeUtil;
 import cn.hutool.socket.aio.AioServer;
 import cn.hutool.socket.aio.AioSession;
 import cn.hutool.socket.aio.IoAction;
@@ -8,10 +10,7 @@ import io.netty.buffer.ByteBuf;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.channels.AsynchronousChannel;
-import java.nio.channels.AsynchronousServerSocketChannel;
-import java.nio.channels.AsynchronousSocketChannel;
-import java.nio.channels.CompletionHandler;
+import java.nio.channels.*;
 import java.util.concurrent.CountDownLatch;
 
 public class AIOServer extends AbstractServer {
@@ -85,7 +84,11 @@ public class AIOServer extends AbstractServer {
 ////        }
 //
         var stime = System.currentTimeMillis();
-        channel = AsynchronousServerSocketChannel.open();
+        var group = AsynchronousChannelGroup.withFixedThreadPool(//
+                16, // 默认线程池大小
+                ThreadFactoryBuilder.create().setNamePrefix("Nami-AioServer-").build()//
+        );
+        channel = AsynchronousServerSocketChannel.open(group);
         channel.bind(new InetSocketAddress(port));
         channel.accept(this, new CompletionHandler<AsynchronousSocketChannel, AIOServer>() {
             @Override
