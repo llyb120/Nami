@@ -1,16 +1,16 @@
 package com.github.llyb120.nami.core;
 
-import com.alibaba.fastjson.JSON;
+import com.github.llyb120.nami.json.FlexAction;
+import com.github.llyb120.nami.json.Obj;
 import org.beetl.sql.core.kit.GenKit;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.*;
 
-import static com.github.llyb120.nami.core.Json.a;
-import static com.github.llyb120.nami.core.Json.o;
+import static com.github.llyb120.nami.json.Json.a;
+import static com.github.llyb120.nami.json.Json.o;
 
 public class Config {
     public static Config config;
@@ -25,6 +25,7 @@ public class Config {
     public boolean dev = true;
     public List<String> link = new ArrayList<>();
     public Map<String, Link> links = new HashMap<>();
+    public Obj statics = o();
 
     private int ptr = 0;
     private byte[] bs = null;
@@ -78,6 +79,22 @@ public class Config {
                         readCors();
                         break;
 
+                    case "static":
+                        readNextToken();
+                        readObj(statics);
+                        //fixme 这里不应该去掉/，而是应该补上/，所有的请求path都应该补上/，路由匹配应按照树来查找，而不是简单的正则
+                        statics.flex(new FlexAction<>() {
+                            @Override
+                            public boolean canFlex(String k, Object v) {
+                                return k.endsWith("/");
+                            }
+                            @Override
+                            public Object call(String k, Object v) {
+                                return Map.entry(k.substring(0, k.length() - 1), v);
+                            }
+                        });
+                        break;
+
                     case "ext":
                         readNextToken();
                         readObj(ext);
@@ -87,6 +104,7 @@ public class Config {
                         readNextToken();
                         readObj(var);
                         break;
+
                 }
             }
 
@@ -377,52 +395,6 @@ public class Config {
         return null;
     }
 
-
-    @Deprecated
-    private static void init(String path) {
-        try (
-                RandomAccessFile raf = new RandomAccessFile(path, "r");
-//            FileInputStream fis = new FileInputStream(path);
-        ) {
-            var bs = new byte[(int) raf.length()];
-            raf.readFully(bs);
-            config = JSON.parseObject(bs, Config.class);
-
-            if (config.route != null) {
-                for (String s : config.route) {
-                    Route.routes.add(new Route(s));
-                }
-            }
-            if (config.compile != null) {
-                if (config.compile.source == null) {
-                    config.compile.source = GenKit.getJavaSRCPath();
-                }
-                if (config.compile.target == null) {
-                    config.compile.target = new File(config.compile.source, "../../../target/classes").getAbsolutePath();
-                }
-            }
-
-            if (config.link != null) {
-                config.links = new HashMap<>();
-                for (String s : config.link) {
-                    String[] arr = s.toLowerCase().split("\\s*(:|\\.|->|=>)\\s*");
-                    Link link = new Link();
-                    link.name = arr[0];
-                    link.fromClz = arr[1];
-                    link.fromField = arr[2];
-                    link.toClz = arr[3];
-                    link.toField = arr[4];
-                    link.many = s.contains("=>");
-                    if (arr.length == 5) {
-                        config.links.put(link.fromClz + link.name, link);
-                    }
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static class Db {
         public String url;

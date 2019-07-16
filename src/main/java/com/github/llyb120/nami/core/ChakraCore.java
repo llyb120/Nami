@@ -130,7 +130,7 @@ public class ChakraCore {
 
     private void start() {
         try {
-            File file = new File(config.ext.getString("chakra"), "ChakraCore");
+            File file = new File(config.ext.s("chakra"), "ChakraCore");
             instance = (Dll) Native.load(file.getPath(), Dll.class);
         } finally {
             if (instance == null) {

@@ -144,7 +144,7 @@
 //            context.reset();
 //            decodeQuery(request, context.query);
 //            if (request.headers().contains(HttpHeaders.Names.COOKIE)) {
-//                context.cookie.wrap(ServerCookieDecoder.LAX.decode(request.headers().get(HttpHeaders.Names.COOKIE)));
+//                context.cookie.wrap(ServerCookieDecoder.LAX.parse(request.headers().get(HttpHeaders.Names.COOKIE)));
 //            }
 //
 //            if (HttpMethod.POST == request.method()) {
@@ -193,11 +193,11 @@
 //            }
 //            if(result instanceof File){
 //                //提供文件下载
-//                downloadFile(ctx, response, keepAlive, new MultipartFile(((File) result).getName(), (File)result));
+//                proxyFile(ctx, response, keepAlive, new MultipartFile(((File) result).getName(), (File)result));
 //            } else if(result instanceof MultipartFile){
 //                MultipartFile mfile = (MultipartFile) result;
 ////                if (mfile.byteBuf != null || mfile.file != null) {
-////                    downloadFile(ctx, response, keepAlive, mfile);
+////                    proxyFile(ctx, response, keepAlive, mfile);
 ////                }
 //            } else {
 //                byte[] responseBytes;
@@ -396,7 +396,7 @@
 //     * @param response
 //     * @param file
 //     */
-//    private void downloadFile(ChannelHandlerContext ctx, HttpResponse response, boolean keepAlive, MultipartFile multipartFile){
+//    private void proxyFile(ChannelHandlerContext ctx, HttpResponse response, boolean keepAlive, MultipartFile multipartFile){
 //        try{
 ////            RandomAccessFile raf = new RandomAccessFile(file, "r");
 ////            long fileLength = file.length();

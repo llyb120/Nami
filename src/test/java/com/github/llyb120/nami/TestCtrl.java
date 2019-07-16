@@ -3,7 +3,6 @@ package com.github.llyb120.nami;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.http.HttpUtil;
-import com.alibaba.fastjson.JSON;
 import com.github.llyb120.nami.core.Nami;
 import com.github.llyb120.nami.core.Route;
 import com.github.llyb120.nami.server.Buffer;
@@ -14,19 +13,11 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpHeaders;
-import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
-import java.time.Duration;
-import java.util.Optional;
 
 import static com.github.llyb120.nami.core.Config.config;
-import static com.github.llyb120.nami.core.Json.a;
-import static com.github.llyb120.nami.core.Json.o;
+import static com.github.llyb120.nami.json.Json.a;
+import static com.github.llyb120.nami.json.Json.o;
 import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -35,7 +26,7 @@ public class TestCtrl {
     @BeforeClass
     public static void before() throws InterruptedException {
         Route.routes.add(new Route("/test/:c/:a -> com.github.llyb120.nami.test"));
-        Nami.test();
+        Nami.dev();
         Thread.sleep(100);
     }
 
@@ -58,14 +49,14 @@ public class TestCtrl {
     public void test_03_getQuery() {
         var query = o("a", "1", "b", "2");
         var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getQuery", query);
-        assertEquals(JSON.parse(res).toString(), query.toJSONString());
+        assertEquals(res, query.toString());
     }
 
     @Test
     public void test_04_postUrlEncoded() {
         var query = o("a", "1", "b", "2");
         var res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded", query);
-        assertEquals(JSON.parse(res).toString(), query.toJSONString());
+        assertEquals(res, query.toString());
 
         res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded2", query);
         assertEquals(res, "1");
@@ -75,20 +66,20 @@ public class TestCtrl {
     public void test_05_postJson() {
         var arr = a("1", "2", "3");
         var res = HttpUtil.createPost("http://127.0.0.1:" + config.port + "/test/a/postJsonArray")
-                .body(arr.toJSONString())
+                .body(arr.toString())
                 .header("Content-Type", "application/json")
                 .execute()
                 .body();
         System.out.println(res);
-        assertEquals(JSON.parse(res).toString(), arr.toJSONString());
+        assertEquals(res, arr.toString());
 
         var obj = o("a", "2", "b", a("1", "2"));
         res = HttpUtil.createPost("http://127.0.0.1:" + config.port + "/test/a/postJsonObject")
-                .body(obj.toJSONString())
+                .body(obj.toString())
                 .header("Content-Type", "application/json")
                 .execute()
                 .body();
-        assertEquals(JSON.parse(res).toString(), obj.toJSONString());
+        assertEquals(res, obj.toString());
     }
 
     @Test
@@ -110,15 +101,15 @@ public class TestCtrl {
     @Test
     public void test_08_php_style(){
         var val = RandomUtil.randomString(1024);
-        var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleGet", o("test", val));
+        var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleGet", o("dev", val));
         assertEquals(res, val);
     }
     @Test
     public void test_09_php_style() {
         var val = RandomUtil.randomString(1024);
-        var parasm = o("test", val);
+        var parasm = o("dev", val);
         var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleRequest", parasm);
-        assertEquals(parasm.toJSONString(), JSON.parseObject(res).toJSONString());
+        assertEquals(parasm.toString(), res);
     }
 
     @Test
@@ -183,7 +174,7 @@ public class TestCtrl {
 //        StringBuilder sb = new StringBuilder();
 //        // 文件参数
 //        sb.append("------WebKitFormBoundaryari0emH33oMihIU4\n");
-//        sb.append("Content-Disposition: form-data; name=\"test\"");
+//        sb.append("Content-Disposition: form-data; name=\"dev\"");
 //        sb.append(newLine);
 //        sb.append(newLine);
 //        sb.append(fileName);

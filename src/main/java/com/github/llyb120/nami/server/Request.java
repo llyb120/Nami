@@ -2,10 +2,9 @@ package com.github.llyb120.nami.server;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.URLUtil;
-import com.alibaba.fastjson.JSON;
-import com.github.llyb120.nami.core.Json;
 import com.github.llyb120.nami.core.MultipartFile;
-import com.github.llyb120.nami.core.Obj;
+import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Obj;
 
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -14,7 +13,7 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-import static com.github.llyb120.nami.core.Json.o;
+import static com.github.llyb120.nami.json.Json.o;
 import static com.github.llyb120.nami.server.Response.CRLF;
 import static com.github.llyb120.nami.server.Vars.*;
 
@@ -27,11 +26,10 @@ public class Request implements AutoCloseable{
     public String version;
 //    public InputStream is;
     public ReadableByteChannel channel;
-    public JSON body;
+    public Object body;
     public Cookie cookie = new Cookie();
 
 
-    private ByteBuff buf = new ByteBuff();
     private Buffer buffer = new Buffer();
     public boolean headerDecoded = false;
     private int currentBodyLength = 0;
@@ -497,7 +495,7 @@ public class Request implements AutoCloseable{
     }
 
     private int getContentLength() {
-        return headers.getInt("Content-Length", headers.getInt("content-length", 0));
+        return headers.i("Content-Length", headers.i("content-length", 0));
     }
 
     private String getContentType() {
@@ -637,14 +635,14 @@ public class Request implements AutoCloseable{
      */
     public <T> T getParam(String name, Class<T> type) {
         try {
-            return params.getObject(name, type);
+            return params.get(name, type);
         } catch (Exception e) {
             try {
-                return (T) params.toJavaObject(type);
+                return (T) params.to(type);
             } catch (Exception ee) {
-                return null;
             }
         }
+        return null;
     }
 
     /**
@@ -655,9 +653,9 @@ public class Request implements AutoCloseable{
      * @return
      */
     public String getHeader(String key) {
-        var val = headers.getStr(key, "");
+        var val = headers.s(key, "");
         if (val.isEmpty()) {
-            val = headers.getStr(key.toLowerCase(), "");
+            val = headers.s(key.toLowerCase(), "");
         }
         return val;
     }

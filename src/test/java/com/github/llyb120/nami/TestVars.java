@@ -2,6 +2,7 @@ package com.github.llyb120.nami;
 
 import cn.hutool.core.util.RandomUtil;
 import com.github.llyb120.nami.core.Async;
+import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.Vars;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,7 +15,7 @@ public class TestVars {
 
     @Test
     public void test() throws InterruptedException {
-        var vars = new Vars();
+        var vars = new Obj(true);
         ExecutorService exec = Executors.newCachedThreadPool();
         for (int i = 0; i < 100 ; i++) {
             exec.submit(() -> {

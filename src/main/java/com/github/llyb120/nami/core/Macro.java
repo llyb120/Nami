@@ -4,6 +4,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
+import com.github.llyb120.nami.json.Obj;
 import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.resource.StringTemplateResourceLoader;
@@ -15,14 +16,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
-import static com.github.llyb120.nami.core.Json.o;
+import static com.github.llyb120.nami.json.Json.o;
 
 public class Macro {
 
     private static GroupTemplate gt = null;
     private static Pattern codePattern = Pattern.compile("//@code\\((.+?)\\)\\{([\\w\\W]+?)//@}");
     private static Pattern usePattern = Pattern.compile("//@use\\((.+?)\\)\\{([\\w\\W]+?)//@}");
-    private static Map<String,Obj> macros = new ConcurrentHashMap<>();
+    private static Map<String, Obj> macros = new ConcurrentHashMap<>();
 
     static {
         StringTemplateResourceLoader resourceLoader = new StringTemplateResourceLoader();
@@ -80,7 +81,7 @@ public class Macro {
                 matcher.appendReplacement(sb, matcher.group(0));
                 continue;
             }
-            matcher.appendReplacement(sb, map.getStr(names[1]));
+            matcher.appendReplacement(sb, map.s(names[1]));
         }
         matcher.appendTail(sb);
         return sb.toString();

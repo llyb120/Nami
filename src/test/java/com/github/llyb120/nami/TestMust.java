@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.io.*;
 import java.util.HashMap;
 
-import static com.github.llyb120.nami.core.Json.o;
+import static com.github.llyb120.nami.json.Json.o;
 
 public class TestMust {
 

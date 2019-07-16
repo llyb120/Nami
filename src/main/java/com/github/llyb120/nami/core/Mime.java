@@ -1,6 +1,8 @@
 package com.github.llyb120.nami.core;
 
-import static com.github.llyb120.nami.core.Json.o;
+import com.github.llyb120.nami.json.Obj;
+
+import static com.github.llyb120.nami.json.Json.o;
 
 public class Mime {
     
@@ -573,10 +575,6 @@ public class Mime {
             return "application/octet-stream";
         }
         var ext = path.substring(dot, path.length());
-        var mime = map.getStr(ext);
-        if (mime == null) {
-            return "application/octet-stream";
-        }
-        return mime;
+        return map.s(ext, "application/octet-stream");
     }
 }

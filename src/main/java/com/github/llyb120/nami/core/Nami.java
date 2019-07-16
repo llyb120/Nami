@@ -1,7 +1,7 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.thread.ThreadUtil;
-import cn.hutool.socket.aio.AioServer;
+import com.github.llyb120.nami.dao.FSql;
 import com.github.llyb120.nami.server.AIOServer;
 import com.github.llyb120.nami.server.AbstractServer;
 import com.github.llyb120.nami.server.DevServer;
@@ -17,12 +17,16 @@ public class Nami {
 //    public static ChakraCore chakraCore;
 
     public static void start(String configPath, boolean async, Listener listener) throws Exception {
-//        disableAccessWarnings();
+        //关掉烦人的警告
+        Async.execute(() -> {
+            disableAccessWarnings();
+        });
+
         var stime = System.currentTimeMillis();
         Config.config = new Config(configPath);
 
 //        Config.init(configPath);
-        if(config.ext.getBoolean("beetlSql")){
+        if(config.ext.b("beetlSql")){
             DBService.start(true, listener);
         }
 
@@ -30,7 +34,7 @@ public class Nami {
 
         var main = config.db.get("main");
         if (main != null) {
-//            DBService.fSql = new FSql(config.db.get("main"));
+            DBService.fSql = new FSql(config.db.get("main"));
         }
 
         if(config.dev && config.compile.parallel){
@@ -57,12 +61,12 @@ public class Nami {
         server.start(config.port, async);
     }
 
-    public static void test(String config){
+    public static void dev(String config){
         start(config, true);
     }
 
-    public static void test(){
-        test("nami.conf");
+    public static void dev(){
+        dev("nami.conf");
     }
 
     public static void start(String config, boolean async){

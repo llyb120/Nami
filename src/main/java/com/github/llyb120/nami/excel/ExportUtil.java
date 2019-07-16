@@ -1,7 +1,7 @@
 package com.github.llyb120.nami.excel;
 
 import com.github.llyb120.nami.core.MultipartFile;
-import com.github.llyb120.nami.core.Obj;
+import com.github.llyb120.nami.json.Obj;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.jxls.common.Context;
 import org.jxls.util.JxlsHelper;

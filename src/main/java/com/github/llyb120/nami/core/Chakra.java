@@ -1,13 +1,11 @@
 package com.github.llyb120.nami.core;
 
-import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.*;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
-
-import java.nio.charset.StandardCharsets;
+//import io.netty.bootstrap.ServerBootstrap;
+//import io.netty.buffer.ByteBuf;
+//import io.netty.channel.*;
+//import io.netty.channel.nio.NioEventLoopGroup;
+//import io.netty.channel.socket.SocketChannel;
+//import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class Chakra {
 
@@ -29,51 +27,51 @@ public class Chakra {
 
     }
 
-    private static void startSocketServer(){
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
-        try {
-            ServerBootstrap b = new ServerBootstrap();
-            b.group(bossGroup, workerGroup)
-                .channel(NioServerSocketChannel.class)
-                .childHandler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    protected void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline()
-                            .addLast(new ChakraSocketServer());
-                    }
-                });
-            ChannelFuture f = b.bind(6380).sync();
-//            System.out.println(String.format("port is on %d", Config.config.port));
-//            System.out.printf("boot success takes %d ms\n", System.currentTimeMillis() - stime);
-            f.channel().closeFuture().sync();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            workerGroup.shutdownGracefully();
-            bossGroup.shutdownGracefully();
-        }
-
-    }
-
-
-    public static class ChakraSocketServer extends ChannelInboundHandlerAdapter {
-
-
-
-        @Override
-        public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-            super.exceptionCaught(ctx, cause);
-        }
-
-
-        @Override
-        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-            ByteBuf byteBuf = (ByteBuf) msg;
-            int len = byteBuf.readInt();
-            System.out.println(byteBuf.readCharSequence(len, StandardCharsets.UTF_8));
-//            super.channelRead(ctx, msg);
-        }
-
-    }
+//    private static void startSocketServer(){
+//        EventLoopGroup bossGroup = new NioEventLoopGroup();
+//        EventLoopGroup workerGroup = new NioEventLoopGroup();
+//        try {
+//            ServerBootstrap b = new ServerBootstrap();
+//            b.group(bossGroup, workerGroup)
+//                .channel(NioServerSocketChannel.class)
+//                .childHandler(new ChannelInitializer<SocketChannel>() {
+//                    @Override
+//                    protected void initChannel(SocketChannel ch) throws Exception {
+//                        ch.pipeline()
+//                            .addLast(new ChakraSocketServer());
+//                    }
+//                });
+//            ChannelFuture f = b.bind(6380).sync();
+////            System.out.println(String.format("port is on %d", Config.config.port));
+////            System.out.printf("boot success takes %d ms\n", System.currentTimeMillis() - stime);
+//            f.channel().closeFuture().sync();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } finally {
+//            workerGroup.shutdownGracefully();
+//            bossGroup.shutdownGracefully();
+//        }
+//
+//    }
+//
+//
+//    public static class ChakraSocketServer extends ChannelInboundHandlerAdapter {
+//
+//
+//
+//        @Override
+//        public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+//            super.exceptionCaught(ctx, cause);
+//        }
+//
+//
+//        @Override
+//        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+//            ByteBuf byteBuf = (ByteBuf) msg;
+//            int len = byteBuf.readInt();
+//            System.out.println(byteBuf.readCharSequence(len, StandardCharsets.UTF_8));
+////            super.channelRead(ctx, msg);
+//        }
+//
+//    }
 }

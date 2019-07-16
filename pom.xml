@@ -92,12 +92,12 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
-            <version>4.1.36.Final</version>
-            <scope>provided</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.netty</groupId>-->
+<!--            <artifactId>netty-all</artifactId>-->
+<!--            <version>4.1.36.Final</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
         <dependency>
@@ -106,11 +106,11 @@
             <version>4.5.3</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.47</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba</groupId>-->
+<!--            <artifactId>fastjson</artifactId>-->
+<!--            <version>1.2.47</version>-->
+<!--        </dependency>-->
 
 <!--        <dependency>-->
 <!--            <groupId>com.ibeetl</groupId>-->
@@ -216,7 +216,15 @@
             <version>0.9.6</version>
         </dependency>
 
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload &ndash;&gt;-->
+        <!-- https://mvnrepository.com/artifact/com.esotericsoftware/reflectasm -->
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>reflectasm</artifactId>
+            <version>1.11.9</version>
+        </dependency>
+
+
+        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload &ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>commons-fileupload</groupId>-->
 <!--            <artifactId>commons-fileupload</artifactId>-->

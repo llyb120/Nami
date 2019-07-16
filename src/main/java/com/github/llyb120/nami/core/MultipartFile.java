@@ -1,7 +1,6 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.io.IoUtil;
-import io.netty.handler.codec.http.multipart.FileUpload;
 
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -17,7 +16,7 @@ public class MultipartFile implements AutoCloseable{
 //    ByteBuf byteBuf;
     boolean isTemp = false;
 
-    private FileUpload fileUpload;
+//    private FileUpload fileUpload;
 
     public String fileName;
     public String contentType;
@@ -53,11 +52,11 @@ public class MultipartFile implements AutoCloseable{
 //        this.byteBuf = buf;
 //    }
 
-    public MultipartFile(FileUpload fileUpload) {
-        this.fileUpload = fileUpload;
-        this.fileName = fileUpload.getName();
-        this.contentType = fileUpload.getContentType();
-    }
+//    public MultipartFile(FileUpload fileUpload) {
+//        this.fileUpload = fileUpload;
+//        this.fileName = fileUpload.getName();
+//        this.contentType = fileUpload.getContentType();
+//    }
 
 
     public long length(){

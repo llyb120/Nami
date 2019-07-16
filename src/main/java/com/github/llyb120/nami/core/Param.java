@@ -1,8 +1,10 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSONArray;
 import com.github.llyb120.nami.core.boost.SqlBoost;
+import com.github.llyb120.nami.json.Arr;
+import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.Cookie;
 import com.github.llyb120.nami.server.Request;
 import com.github.llyb120.nami.server.Response;
@@ -51,21 +53,28 @@ public class Param {
 
             switch (name) {
                 case "query":
-                    ret[i] = resp.request.query.toJavaObject(type);
+                    ret[i] = resp.request.query.to(type);
                     break;
 
                 case "body":
                     if (resp.request.body != null) {
-                        ret[i] = resp.request.body.toJavaObject(type);
+                        if(type == String.class){
+                            ret[i] = Json.stringify(resp.request.body);
+                        }
+                        if(resp.request.body instanceof Obj){
+                            ret[i] = ((Obj)resp.request.body).to(type);
+                        } else if(resp.request.body instanceof Arr){
+                            ret[i] = ((Arr)resp.request.body).to(type);
+                        }
                     }
                     break;
 
                 case "params":
-                    ret[i] = resp.request.params.toJavaObject(type);
+                    ret[i] = resp.request.params.to(type);
                     break;
 
                 case "headers":
-                    ret[i] = resp.request.headers.toJavaObject(type);
+                    ret[i] = resp.request.headers.to(type);
                     break;
 
                 default:
@@ -73,19 +82,19 @@ public class Param {
                     idex = type.getTypeName().indexOf("[]");
                     //是数组的情况
                     if (idex > -1) {
-                        String source = resp.request.query.getString(name);
+                        String source = resp.request.query.s(name);
                         if (isNotEmpty(source)) {
                             if (source.startsWith("[") && source.endsWith("]")) {
-                                JSONArray array = resp.request.query.getArr(name);
-                                ret[i] = array.toJavaObject(type);
+                                Arr array = resp.request.query.a(name);
+                                ret[i] = array.to(type);
                             }
                             //只有一个的情况，直接尝试拆分
                             else {
 //                                if (source.contains(",")) {
                                 String[] split = source.split(",");
-                                Arr array = new Arr(Arrays.asList(split));
+                                Arr array = new Arr((split));
                                 try {
-                                    ret[i] = array.toJavaObject(type);
+                                    ret[i] = array.to(type);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -368,7 +377,8 @@ public class Param {
             return ret;
         } else if(flag == 2){
             if(Obj.class.isAssignableFrom(gType)){
-                var ret =  Json.toNamiJson(q.single());
+                //todo: fix this !!!!!!!!!!!
+                Obj ret = null; //Json.parse(q.single());
                 addLinks(Arrays.asList((Obj)ret), links);
                 return ret;
             } else {
@@ -385,8 +395,8 @@ public class Param {
             var map = new Obj();
             var ids = ret
                 .stream()
-                .peek(e -> map.put(((Obj) e).getString(link.fromField), e))
-                .map(e -> ((Obj) e).getString(link.fromField))
+                .peek(e -> map.put(((Obj) e).s(link.fromField), e))
+                .map(e -> ((Obj) e).s(link.fromField))
                 .map(e -> StrUtil.wrap((CharSequence) e, "'"))
                 .collect(Collectors.joining(","));
             if(StrUtil.isEmpty((CharSequence) ids)){
@@ -394,21 +404,21 @@ public class Param {
             }
             var items = sqlManager.execute(String.format("select * from %s where %s in (%s)", link.toClz, link.toField, ids), Obj.class, new Obj());
             for (Obj item : items) {
-                var target = map.getJSONObject(item.getString(link.toField));
+                var target = map.o(item.s(link.toField));
                 if (target == null) {
                     continue;
                 }
                 Object arr = target.get(link.name);
                 if (arr == null) {
                     if(link.many){
-                        arr = new JSONArray();
+                        arr = new Arr();
                     } else {
                         arr = new Obj();
                     }
                     target.put(link.name, arr);
                 }
                 if(link.many){
-                    ((JSONArray)arr).add(item);
+                    ((Arr)arr).add(item);
                 } else {
                     ((Obj)arr).putAll(item);
                 }

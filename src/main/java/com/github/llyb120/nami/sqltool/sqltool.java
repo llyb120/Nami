@@ -1,18 +1,19 @@
 package com.github.llyb120.nami.sqltool;
 
 import cn.hutool.core.util.StrUtil;
-import com.github.llyb120.nami.core.Arr;
-import com.github.llyb120.nami.core.Obj;
 import com.github.llyb120.nami.core.R;
 import com.github.llyb120.nami.core.Route;
+import com.github.llyb120.nami.json.Arr;
+import com.github.llyb120.nami.json.Obj;
 import org.beetl.sql.core.SQLReady;
 
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
 
 import static com.github.llyb120.nami.core.DBService.sqlManager;
-import static com.github.llyb120.nami.core.Json.a;
-import static com.github.llyb120.nami.core.Json.o;
+import static com.github.llyb120.nami.json.Json.a;
+import static com.github.llyb120.nami.json.Json.o;
 
 public class sqltool {
 
@@ -33,29 +34,28 @@ public class sqltool {
         sqlManager.execute(new SQLReady(sql), Obj.class)
         .stream()
         .forEachOrdered(e -> {
-            var table = o("name", e.getStr("tabname"), "fields", a());
-            map.put(e.getStr("tabname"), table);
+            var table = o("name", e.s("tabname"), "fields", a());
+            map.put(e.s("tabname"), table);
         });
         sql = "SELECT tabname,colname,colno,typename,length,remarks FROM SYSCAT.COLUMNS  where TABSCHEMA= #schema#";
         sqlManager.execute(sql, Obj.class, o("schema", "DB2INST1"))
             .forEach(e -> {
-                var table = map.get(e.getStr("tabname"));
+                var table = map.get(e.s("tabname"));
                 if (table == null) {
                     return;
                 }
-                table.getArr("fields").add(o(
-                    "name", e.getStr("colname"),
-                    "no", e.getInteger("colno"),
-                    "type", e.getStr("typename"),
-                    "length", e.getInteger("length"),
-                    "comment", e.getStr("remarks")
+                table.a("fields").add(o(
+                    "name", e.s("colname"),
+                    "no", e.i("colno"),
+                    "type", e.s("typename"),
+                    "length", e.i("length"),
+                    "comment", e.s("remarks")
                 ));
             });
         map.forEach((k,obj) -> {
-            var li = obj.getArr("fields")
-                .toObjList()
+            var li = obj.oa("fields")
                 .stream()
-                .sorted((a,b) -> a.getInteger("no").compareTo(b.getInteger("no")))
+                .sorted(Comparator.comparing(a -> a.i("no")))
                 .peek(e -> e.remove("no"))
                 .collect(Collectors.toList());
             obj.put("fields", li);
@@ -65,24 +65,24 @@ public class sqltool {
 
 
     public Object preview(Obj body){
-        String sql = buildSql(body.getArr("table"));
+        String sql = buildSql(body.a("table"));
 //        var ret = sqlManager.execute(new SQLReady(sql), Obj.class);
         return R.ok(sql);
     }
 
 
-    private String buildSql(Arr tables){
+    private String buildSql(Arr<Obj> tables){
         var main = true;
         var sb = new StringBuilder();
         var sup = new StringBuilder();
         sb.append("select");
-        var tobjs = tables.toObjList();
+        var tobjs = tables.oa();
         for (Obj obj : tobjs) {
             field:{
-                for (Obj fields : obj.getArr("fields").toObjList()) {
-                    var field = fields.getStr("name", "");
+                for (Obj fields : obj.oa("fields")) {
+                    var field = fields.s("name", "");
                     sb.append(" ");
-                    sb.append(obj.getStr("as"));
+                    sb.append(obj.s("as"));
                     sb.append(".");
                     sb.append(field);
                     sb.append(",");
@@ -95,21 +95,21 @@ public class sqltool {
             if(main){
                main = false;
                 sup.append(" from ");
-                sup.append(obj.getStr("name"));
+                sup.append(obj.s("name"));
                 sup.append(" as ");
-                sup.append(obj.getStr("as"));
+                sup.append(obj.s("as"));
             } else {
                 sup.append(" left join ");
-                sup.append(obj.getStr("name"));
+                sup.append(obj.s("name"));
                 sup.append(" as ");
-                sup.append(obj.getStr("as"));
+                sup.append(obj.s("as"));
                 sup.append(" on ");
                 //on
-                for (Obj join : obj.getArr("join").toObjList()) {
-                    sup.append(join.getStr("left_value"));
-                    sup.append(join.getStr("op"));
-                    var rtype = join.getStr("right_type", "field");
-                    var rvalue = join.getStr("right_value");
+                for (Obj join : obj.oa("join")) {
+                    sup.append(join.s("left_value"));
+                    sup.append(join.s("op"));
+                    var rtype = join.s("right_type", "field");
+                    var rvalue = join.s("right_value");
                     if(rtype.equals("field")){
                         sup.append(rvalue);
                     } else {

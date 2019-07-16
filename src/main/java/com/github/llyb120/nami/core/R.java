@@ -1,6 +1,6 @@
 package com.github.llyb120.nami.core;
 
-import com.alibaba.fastjson.JSON;
+import com.github.llyb120.nami.json.Json;
 
 public class R {
     public int code = 200;
@@ -36,6 +36,6 @@ public class R {
 
     @Override
     public String toString() {
-        return JSON.toJSONString(this);
+        return Json.stringify(this);
     }
 }

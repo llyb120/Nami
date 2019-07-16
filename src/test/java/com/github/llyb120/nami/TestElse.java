@@ -1,15 +1,43 @@
 package com.github.llyb120.nami;
 
+import cn.hutool.core.io.IoUtil;
 import com.github.llyb120.nami.core.Nami;
 import com.github.llyb120.nami.core.Route;
 import org.junit.Test;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TestElse {
 
     @Test
     public void ttt(){
-        Route.routes.add(new Route("/test/:c/:a -> com.github.llyb120.nami.test"));
+        Route.routes.add(new Route("/dev/:c/:a -> com.github.llyb120.nami.dev"));
         Nami.start();
+    }
 
+    @Test
+    public void test() throws IOException {
+        var out = new FileOutputStream("d:/gate.txt");
+       //行数计算
+        var file = new File("C:\\Users\\Administrator\\Downloads\\llyb120-hz-gateway-master\\hz-gateway");
+        var files = new ArrayList<>(Arrays.asList(file.listFiles()));
+        files.add(new File("D:\\work\\hznsh\\www\\htmlsrc\\lab\\gate\\gate.list.html"));
+        files.add(new File("D:\\work\\hznsh\\www\\htmlsrc\\lab\\gate\\gate.edit.html"));
+        files.add(new File("D:\\work\\hznsh\\www\\static\\htmljs\\utils.js"));
+        for (File listFile : files) {
+            if(listFile.isFile() && listFile.getName().endsWith(".go") || listFile.getName().endsWith(".html") || listFile.getName().endsWith(".js")){
+                var str = IoUtil.read(new FileReader(listFile));
+                out.write("/************************* ".getBytes());
+                if(listFile.getName().endsWith(".js")){
+                    out.write("系统所使用的公共JS".getBytes());
+                }
+                out.write(listFile.getName().getBytes());
+                out.write("*************************/".getBytes());
+                out.write("\r\n".getBytes());
+                out.write(str.getBytes());
+            }
+        }
     }
 }

@@ -43,6 +43,25 @@ public abstract class AbstractServer {
             }
         }
 
+        //静态资源
+        for (String s : config.statics.keySet()) {
+            if(req.path.startsWith(s)){
+                var relative = req.path.replace(s, "");
+                var file = new File(config.statics.s(s), relative);
+                if(file.exists()){
+                    if(file.isFile()){
+                        proxyFile(resp, new MultipartFile(file), false);
+                    } else {
+                        file = new File(file, "index.html");
+                        if(file.exists()){
+                            proxyFile(resp, new MultipartFile(file), false);
+                        }
+                    }
+                }
+                return;
+            }
+        }
+
         //路由匹配
         var route = Route.getMatchedRoute(req.path);
         if (route == null) {
@@ -60,7 +79,17 @@ public abstract class AbstractServer {
             loader = getClass().getClassLoader();
         }
         Class clz = loader.loadClass(packageName + "." + className);
+
         Object result = null;
+//        var ma = MethodAccess.get(clz);
+//        var ca = ConstructorAccess.get(clz);
+//        var i = 0;
+//        for (String name : ma.getMethodNames()) {
+//            if (name.equalsIgnoreCase(methodName)) {
+//                result = ma.invoke(ca.newInstance(), i);
+//            }
+//            i++;
+//        }
         for (Method method : clz.getDeclaredMethods()) {
             if (method.getName().equalsIgnoreCase(methodName)) {
                 Object instance = getInstance(clz);
@@ -75,9 +104,9 @@ public abstract class AbstractServer {
         }
 
         if(result instanceof File){
-            downloadFile(resp, new MultipartFile((File)result));
+            proxyFile(resp, new MultipartFile((File)result));
         } else if(result instanceof MultipartFile){
-            downloadFile(resp, (MultipartFile) result);
+            proxyFile(resp, (MultipartFile) result);
         } else {
             resp.setHeader("Content-Type", "application/json; charset=utf-8");
             //close
@@ -131,9 +160,13 @@ public abstract class AbstractServer {
 
 
 
-    public void downloadFile(Response response, MultipartFile multipartFile) throws IOException, ExecutionException, InterruptedException {
+    public void proxyFile(Response response, MultipartFile multipartFile) throws InterruptedException, ExecutionException, IOException {
+        proxyFile(response, multipartFile, false);
+    }
+
+    public void proxyFile(Response response, MultipartFile multipartFile, boolean download) throws IOException, ExecutionException, InterruptedException {
         var length = multipartFile.length();
-        response.setFileDescription(multipartFile);
+        response.setFileDescription(multipartFile,download);
         if(length > -1){
             if(directDownloadLength() >= length){
                 response.writeHeaders((int) length);

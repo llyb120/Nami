@@ -3,27 +3,22 @@ package com.github.llyb120.nami.server;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.llyb120.nami.core.MultipartFile;
-import com.github.llyb120.nami.core.Obj;
+import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Obj;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.Channels;
-import java.nio.channels.CompletionHandler;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.StandardCharsets;
-import java.util.LinkedList;
 import java.util.Map;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutionException;
 
 import static com.github.llyb120.nami.core.Config.config;
-import static com.github.llyb120.nami.core.Json.o;
+import static com.github.llyb120.nami.json.Json.o;
 
 public class Response implements AutoCloseable{
     public int status;
@@ -159,7 +154,8 @@ public class Response implements AutoCloseable{
         if (body instanceof String) {
             bs = ((String) body).getBytes(StandardCharsets.UTF_8);
         } else {
-            bs = JSON.toJSONBytes(body, SerializerFeature.WriteDateUseDateFormat, SerializerFeature.PrettyFormat);
+            bs = Json.stringify(body).getBytes(StandardCharsets.UTF_8);
+//            bs = JSON.toJSONBytes(body, SerializerFeature.WriteDateUseDateFormat, SerializerFeature.PrettyFormat);
         }
         writeHeaders(bs.length);
         buffer.writeNio(bs);
@@ -202,11 +198,12 @@ public class Response implements AutoCloseable{
     }
 
 
-    public void setFileDescription(MultipartFile multipartFile){
+    public void setFileDescription(MultipartFile multipartFile, boolean download){
         var fileName = URLUtil.encode(multipartFile.fileName, StandardCharsets.UTF_8);
         setContentType(multipartFile.contentType);
-        headers.put("Content-Disposition", "attachment; filename=\"" + fileName + "\"; filename*=utf-8''" + fileName);
-//        headers.put(HttpHeaderNames.TRANSFER_ENCODING, HttpHeaderValues.CHUNKED);
+        if(download){
+            headers.put("Content-Disposition", "attachment; filename=\"" + fileName + "\"; filename*=utf-8''" + fileName);
+        }
     }
 
     public void setChunked(boolean b){

@@ -1,9 +1,14 @@
 package com.github.llyb120.nami.dao;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import com.github.llyb120.nami.core.*;
+import com.github.llyb120.nami.core.Async;
+import com.github.llyb120.nami.core.Config;
+import com.github.llyb120.nami.core.Nami;
+import com.github.llyb120.nami.json.Arr;
+import com.github.llyb120.nami.json.Obj;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.beetl.sql.core.kit.GenKit;
@@ -15,18 +20,16 @@ import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.sql.Statement;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.core.DBService.fSql;
-import static com.github.llyb120.nami.core.Json.a;
-import static com.github.llyb120.nami.core.Json.o;
+import static com.github.llyb120.nami.json.Json.a;
+import static com.github.llyb120.nami.json.Json.o;
 
 
 public class FSql {
@@ -37,20 +40,25 @@ public class FSql {
     private Future future;
     //todo: 相同的不再分析
     private Map<String,String> tableNameCache = new Hashtable<>();
+    private DB2Driver driver;
 
     public FSql(Config.Db db) throws InterruptedException, ExecutionException, SQLException, IOException {
         this.db = db;
-        if(config.dev){
-            initAllTableName();
-            future = Async.execute(() -> initDataSource());
-        } else {
-            future = Async.execute(() -> {
-                initDataSource();
-                if(!config.dev){
-                    initAllTableName();
-                }
-            });
+        if(db.url.startsWith("jdbc:db2:")){
+            driver = new DB2Driver(this);
         }
+        future = Async.execute(() -> initDataSource());
+//        if(config.dev){
+////            initAllTableName();
+//            future = Async.execute(() -> initDataSource());
+//        } else {
+//            future = Async.execute(() -> {
+//                initDataSource();
+////                if(!config.dev){
+////                    initAllTableName();
+////                }
+//            });
+//        }
     }
 
 //    public SimpleQuery simple(String table){
@@ -70,12 +78,63 @@ public class FSql {
             sb.append("select * from ");
             sb.append(tname);
             buildWhere(tname, sb, values);
-            return execute(sb.toString(), conn).toJavaList(clz);
+            return (List<T>) execute(sb.toString(), conn).to(clz);
         } catch (InterruptedException | ExecutionException | SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
+
+    public void insert(String table, Iterable objects){
+        var metadata = getMetaData(table);
+    }
+
+    public Arr insert(String table, Object object){
+        var sb = new StringBuilder("insert into ");
+        sb.append(table);
+        sb.append("(");
+        var val = new StringBuilder();
+        if(object instanceof Map){
+            if(((Map) object).size() > 0){
+                ((Map) object).forEach((k,v) -> {
+                    sb.append(k);
+                    sb.append(",");
+                    if(v == null){
+                        val.append("null,");
+                    } else {
+                        if(v instanceof Date){
+                           v = DateUtil.formatDateTime((Date)v);
+                        }
+                        val.append("'");
+                        val.append(v);
+                        val.append("'");
+                        val.append(",");
+                    }
+                });
+                sb.deleteCharAt(sb.length() - 1);
+                val.deleteCharAt(val.length() - 1);
+            }
+        } else {
+
+        }
+        sb.append(")values(");
+        sb.append(val);
+        sb.append(")");
+        var id = executeInsert(sb.toString());
+        var e = 2;
+        return id;
+    }
+
+    private TableMetaData getMetaData(String table){
+        if(config.dev){
+
+        } else {
+
+        }
+        return null;
+    }
+
+
 
     private void buildWhere(String tname, StringBuilder sb, Object ...values){
         sb.append(" where 1 = 1");
@@ -111,13 +170,58 @@ public class FSql {
         }
     }
 
-    private Arr execute(String sql) throws InterruptedException, ExecutionException, SQLException {
+    public Arr execute(String sql){
         try(
                var conn = getConnection();
                 ){
             System.out.println(sql);
             return execute(sql, conn);
+        } catch (SQLException | ExecutionException | InterruptedException e) {
+            e.printStackTrace();
         }
+        return a();
+    }
+
+    private int executeUpdate(String sql){
+        try(
+                var conn = getConnection();
+                var stmt = conn.createStatement();
+                ){
+            System.out.println(sql);
+//            conn.prepareStatement()
+            var ret =  stmt.executeUpdate(sql);
+            return ret;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    private Arr executeInsert(String sql){
+        var ret = a();
+        try(
+                var conn = getConnection();
+                var stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                ) {
+            stmt.executeUpdate();
+            var rs = stmt.getGeneratedKeys();
+            var metadata = rs.getMetaData();
+            while(rs.next()){
+                var obj = o();
+                for (int i = 1; i <= metadata.getColumnCount(); i++) {
+                    obj.put(metadata.getColumnLabel(i), rs.getObject(i));
+                }
+                ret.add(obj);
+            }
+            return ret;
+        } catch (InterruptedException | ExecutionException | SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
     }
 
     private Connection getConnection() throws SQLException, ExecutionException, InterruptedException {
@@ -147,6 +251,7 @@ public class FSql {
     }
 
 
+    @Deprecated
     private void initAllTableName() throws InterruptedException, ExecutionException, SQLException, IOException {
         if(config.dev){
             try(
@@ -161,20 +266,20 @@ public class FSql {
             var ret = execute(sql, dataSource.getConnection());
             for (Object o : ret) {
                 Obj obj = (Obj) o;
-                var tname = obj.getStr("t");
+                var tname = obj.s("t");
                 var metadata = tables.get(tname);
                 if (metadata == null) {
                     metadata = new TableMetaData();
                     metadata.name = tname;
                     tables.put(tname, metadata);
                 }
-                metadata.fields.add(obj.getStr("c"));
+                metadata.fields.add(obj.s("c"));
             }
         }
     }
 
     public static void mkCache(){
-        Nami.test();
+        Nami.dev();
         var path = new File(GenKit.getJavaResourcePath(), "fsql/cache");
         //clear
         path.mkdirs();
@@ -189,7 +294,7 @@ public class FSql {
             var ret = fSql.execute(sql, fSql.getConnection());
             for (Object o : ret) {
                 Obj obj = (Obj) o;
-                var tname = obj.getStr("t");
+                var tname = obj.s("t");
                 var metadata = fSql.tables.get(tname);
                 if (metadata == null) {
                     metadata = new TableMetaData();
@@ -197,7 +302,7 @@ public class FSql {
                     metadata.fields = new Vector<>();
                     fSql.tables.put(tname, metadata);
                 }
-                metadata.fields.add(obj.getStr("c"));
+                metadata.fields.add(obj.s("c"));
             }
 
             raf.write(

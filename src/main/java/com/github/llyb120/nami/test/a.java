@@ -1,8 +1,8 @@
 package com.github.llyb120.nami.test;
 
-import com.github.llyb120.nami.core.Arr;
 import com.github.llyb120.nami.core.MultipartFile;
-import com.github.llyb120.nami.core.Obj;
+import com.github.llyb120.nami.json.Arr;
+import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.Cookie;
 
 import java.io.File;
@@ -51,7 +51,7 @@ public class a {
     }
 
     public Object uploadFile(Obj body, String test, MultipartFile file) throws IOException {
-        var temp = File.createTempFile("test", "test");
+        var temp = File.createTempFile("dev", "dev");
 //        var temp = new File("d:/testupload.txt");
         temp.deleteOnExit();
         file.transferTo(temp);
@@ -73,7 +73,7 @@ public class a {
 
 
     public Object phpStyleGet(){
-        return $get.s("test");
+        return $get.s("dev");
     }
 
     public Object phpStyleRequest(){
