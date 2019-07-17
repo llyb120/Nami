@@ -35,16 +35,16 @@ public class TestByteBuf {
     @Test
     public void testAppendBytes(){
         testWriteBytes();
-        var str = genRandomStr();
+        String str = genRandomStr();
         buf.write(str);
         Assert.assertArrayEquals(str.getBytes(), buf.readBytes());
     }
 
     @Test
     public void testWriteOnce() throws IOException, ByteBuff.EOFException {
-        var fos = new FileOutputStream(file);
+        FileOutputStream fos = new FileOutputStream(file);
         fos.write(bs);
-        var fis = new FileInputStream(file);
+        FileInputStream fis = new FileInputStream(file);
         buf.writeOnce(fis);
         Assert.assertArrayEquals(str.substring(0,step).getBytes(), buf.readBytes());
     }
@@ -53,16 +53,15 @@ public class TestByteBuf {
 
     @Test
     public void testReadLine() throws IOException {
-        var fis = new FileInputStream(file);
+        FileInputStream fis = new FileInputStream(file);
         buf.writeFull(fis);
-
-        var line = buf.readLine();
-        var e = 2;
+        byte[] line = buf.readLine();
+        int e = 2;
     }
 
     @Test
     public void testWriteFull() throws IOException {
-        var fis = new FileInputStream(file);
+        FileInputStream fis = new FileInputStream(file);
         buf.writeFull(fis);
         Assert.assertArrayEquals(bs, buf.readBytes());
     }
@@ -70,8 +69,8 @@ public class TestByteBuf {
     @Test
     public void testGetBytes(){
         buf.write(bs);
-        var a = buf.getBytes();
-        var b = buf.readBytes();
+        byte[] a = buf.getBytes();
+        byte[] b = buf.readBytes();
         Assert.assertArrayEquals(a, b);
         Assert.assertArrayEquals(a, bs);
     }
@@ -79,7 +78,7 @@ public class TestByteBuf {
 
     @Test
     public void testWriteBefore(){
-        var str = RandomUtil.randomString(1024);
+         String str = RandomUtil.randomString(1024);
         buf.write(bs);
         buf.readNBytes(str.length() / 2);
         buf.writeBefore(str.getBytes());
@@ -90,9 +89,9 @@ public class TestByteBuf {
     }
 
     public File genFile() throws IOException {
-        var file = File.createTempFile("123", "456");
+         File file = File.createTempFile("123", "456");
         file.deleteOnExit();
-        var fos = new FileOutputStream(file);
+        FileOutputStream fos = new FileOutputStream(file);
         fos.write(bs);
         return file;
     }

@@ -1,6 +1,8 @@
 package com.github.llyb120.nami;
 
+import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.server.Buffer;
 import org.junit.Assert;
 import org.junit.Before;
@@ -40,7 +42,7 @@ public class TestByteBufNio {
     @Test
     public void testAppendBytes(){
         testWriteBytes();
-        var str = genRandomStr();
+        String str = genRandomStr();
         buf.writeNio(str);
         Assert.assertArrayEquals(str.getBytes(), buf.readBytes());
     }
@@ -58,10 +60,10 @@ public class TestByteBufNio {
 
     @Test
     public void testReadLine() throws IOException {
-        var fis = new FileInputStream(file);
-        buf.writeNio(fis.readAllBytes());
+        FileInputStream fis = new FileInputStream(file);
+        buf.writeNio(IoUtil.readBytes(fis));
 
-        var line = buf.readLine();
+        byte[] line = buf.readLine();
         Assert.assertNotNull(line);
     }
 
@@ -75,8 +77,8 @@ public class TestByteBufNio {
     @Test
     public void testGetBytes(){
         buf.writeNio(bs);
-        var a = buf.getBytes();
-        var b = buf.readBytes();
+        byte[] a = buf.getBytes();
+        byte[] b = buf.readBytes();
         Assert.assertArrayEquals(a, b);
         Assert.assertArrayEquals(a, bs);
     }
@@ -84,7 +86,7 @@ public class TestByteBufNio {
 
     @Test
     public void testWriteBefore(){
-        var str = RandomUtil.randomString(1024);
+        String str = RandomUtil.randomString(1024);
         buf.writeNio(bs);
         buf.readNBytes(str.length() / 2);
         buf.writeBefore(str.getBytes());
@@ -95,9 +97,9 @@ public class TestByteBufNio {
     }
 
     public File genFile() throws IOException {
-        var file = File.createTempFile("123", "456");
+        File file = File.createTempFile("123", "456");
         file.deleteOnExit();
-        var fos = new FileOutputStream(file);
+        FileOutputStream fos = new FileOutputStream(file);
         fos.write(bs);
         return file;
     }
@@ -110,12 +112,12 @@ public class TestByteBufNio {
 
     @Test
     public void test(){
-        var buf = new Buffer();
-        buf.writeNio("a".repeat(100));
-        buf.writeNio("b".repeat(100));
+        Buffer buf = new Buffer();
+        buf.writeNio(StrUtil.repeat("a", 100));
+        buf.writeNio(StrUtil.repeat("b", 100));
 
-        var n = buf.indexOf("ab".getBytes());
-        var e = 2;
+        int n = buf.indexOf("ab".getBytes());
+        int e = 2;
 //        var str = RandomUtil.randomString(100);
 //        var a = buf.writeNio(str.getBytes(), 0, 50);
 //

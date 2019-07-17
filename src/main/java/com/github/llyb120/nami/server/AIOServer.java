@@ -80,8 +80,8 @@ public class AIOServer extends AbstractServer {
 ////            return;
 ////        }
 //
-        var stime = System.currentTimeMillis();
-        var group = AsynchronousChannelGroup.withFixedThreadPool(//
+        long stime = System.currentTimeMillis();
+        AsynchronousChannelGroup group = AsynchronousChannelGroup.withFixedThreadPool(//
                 16, // 默认线程池大小
                 ThreadFactoryBuilder.create().setNamePrefix("Nami-AioServer-").build()//
         );
@@ -122,7 +122,7 @@ public class AIOServer extends AbstractServer {
             try {
                 if (result > 0) {
                     //写入解析
-                    response.request.decodeOnce(attachment.flip(), true);
+                    response.request.decodeOnce((ByteBuffer)attachment.flip(), true);
                 }
                 if (response.request.hasRemaining()) {
                     ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);

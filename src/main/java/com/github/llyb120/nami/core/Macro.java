@@ -7,13 +7,16 @@ import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.json.Obj;
 import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
+import org.beetl.core.Template;
 import org.beetl.core.resource.StringTemplateResourceLoader;
 import org.beetl.core.tag.Tag;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.github.llyb120.nami.json.Json.o;
@@ -44,7 +47,7 @@ public class Macro {
 
         @Override
         public void render() {
-            var a = 1;
+            int a = 1;
         }
 
     }
@@ -61,18 +64,18 @@ public class Macro {
     }
 
     public static String prepareRender(String str){
-        var matcher = usePattern.matcher(str);
-        var sb = new StringBuilder();
+        Matcher matcher = usePattern.matcher(str);
+        StringBuffer sb = new StringBuffer();
         while(matcher.find()){
-            var args = StrUtil.splitTrim(matcher.group(1), ",");
-            var code = matcher.group(2);
-            var names = args.get(0).trim().split("\\.");
+            List<String> args = StrUtil.splitTrim(matcher.group(1), ",");
+            String code = matcher.group(2);
+            String[] names = args.get(0).trim().split("\\.");
             loadMacro(names[0]);
             if(names.length != 2){
                 matcher.appendReplacement(sb, matcher.group(0));
                 continue;
             }
-            var map = macros.get(names[0]);
+            Obj map = macros.get(names[0]);
             if (map == null) {
                 matcher.appendReplacement(sb, matcher.group(0));
                 continue;
@@ -88,25 +91,25 @@ public class Macro {
     }
 
     public static String render(String template){
-        var tmpl = gt.getTemplate(template);
+        Template tmpl = gt.getTemplate(template);
         tmpl.binding("a", "cubucu");
         return tmpl.render();
     }
 
     public static void loadMacro(String name) {
         //加载模板
-        var resource = new ClassPathResource("macro/" + name + ".java");
+        ClassPathResource resource = new ClassPathResource("macro/" + name + ".java");
         try (
             Reader reader = resource.getReader(CharsetUtil.charset(CharsetUtil.UTF_8));
         ) {
-            var map = o();
-            var str = IoUtil.read(reader);
+            Obj map = o();
+            String str = IoUtil.read(reader);
 //            var ptr = 0;
 //            var len = str.length();
 //            var tagName = "";
 //            var bodyStart = -1;
 
-            var matcher = codePattern.matcher(str);
+            Matcher matcher = codePattern.matcher(str);
             while(matcher.find()){
                 map.put(matcher.group(1).trim(), matcher.group(2));
             }

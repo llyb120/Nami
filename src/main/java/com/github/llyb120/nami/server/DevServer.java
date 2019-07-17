@@ -12,7 +12,7 @@ public class DevServer extends AbstractServer{
 
     //这个方法不会被大量并发访问，不太需要考虑效率，直接进行方法同步就行了
     public void start(int port, boolean async) throws Exception {
-        var stime = System.currentTimeMillis();
+        long stime = System.currentTimeMillis();
         ServerSocket server = new ServerSocket(port);
         //通过构造函数创建ServerSocket
         //如果端口合法且空闲，服务端就监听成功

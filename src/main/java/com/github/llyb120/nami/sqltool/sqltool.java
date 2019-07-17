@@ -9,9 +9,10 @@ import org.beetl.sql.core.SQLReady;
 
 import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.github.llyb120.nami.core.DBService.sqlManager;
+import static com.github.llyb120.nami.ext.BeetlSql.sqlManager;
 import static com.github.llyb120.nami.json.Json.a;
 import static com.github.llyb120.nami.json.Json.o;
 
@@ -29,18 +30,18 @@ public class sqltool {
 
 
     public Object getTables(){
-        var map = new LinkedHashMap<String, Obj>();
-        var sql = "select tabname from syscat.tables where tabschema='DB2INST1' and tabname not like 'EXPLAIN_%'";
+        LinkedHashMap<String, Obj> map = new LinkedHashMap<String, Obj>();
+        String sql = "select tabname from syscat.tables where tabschema='DB2INST1' and tabname not like 'EXPLAIN_%'";
         sqlManager.execute(new SQLReady(sql), Obj.class)
         .stream()
         .forEachOrdered(e -> {
-            var table = o("name", e.s("tabname"), "fields", a());
+            Obj table = o("name", e.s("tabname"), "fields", a());
             map.put(e.s("tabname"), table);
         });
         sql = "SELECT tabname,colname,colno,typename,length,remarks FROM SYSCAT.COLUMNS  where TABSCHEMA= #schema#";
         sqlManager.execute(sql, Obj.class, o("schema", "DB2INST1"))
             .forEach(e -> {
-                var table = map.get(e.s("tabname"));
+                Obj table = map.get(e.s("tabname"));
                 if (table == null) {
                     return;
                 }
@@ -53,11 +54,11 @@ public class sqltool {
                 ));
             });
         map.forEach((k,obj) -> {
-            var li = obj.oa("fields")
-                .stream()
-                .sorted(Comparator.comparing(a -> a.i("no")))
-                .peek(e -> e.remove("no"))
-                .collect(Collectors.toList());
+            List<Obj> li = obj.oa("fields")
+                    .stream()
+                    .sorted(Comparator.comparing(a -> a.i("no")))
+                    .peek(e -> e.remove("no"))
+                    .collect(Collectors.toList());
             obj.put("fields", li);
         });
         return map;
@@ -72,15 +73,14 @@ public class sqltool {
 
 
     private String buildSql(Arr<Obj> tables){
-        var main = true;
-        var sb = new StringBuilder();
-        var sup = new StringBuilder();
+        boolean main = true;
+        StringBuilder sb = new StringBuilder();
+        StringBuilder sup = new StringBuilder();
         sb.append("select");
-        var tobjs = tables.oa();
-        for (Obj obj : tobjs) {
+        for (Obj obj : tables.oa()) {
             field:{
                 for (Obj fields : obj.oa("fields")) {
-                    var field = fields.s("name", "");
+                    String field = fields.s("name", "");
                     sb.append(" ");
                     sb.append(obj.s("as"));
                     sb.append(".");
@@ -108,8 +108,8 @@ public class sqltool {
                 for (Obj join : obj.oa("join")) {
                     sup.append(join.s("left_value"));
                     sup.append(join.s("op"));
-                    var rtype = join.s("right_type", "field");
-                    var rvalue = join.s("right_value");
+                    String rtype = join.s("right_type", "field");
+                    String rvalue = join.s("right_value");
                     if(rtype.equals("field")){
                         sup.append(rvalue);
                     } else {

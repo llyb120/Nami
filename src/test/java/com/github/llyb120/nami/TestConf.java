@@ -9,10 +9,10 @@ public class TestConf {
 
     @Test
     public void test() throws IOException {
-        var stime = System.currentTimeMillis();
-        var cfg = new Config("nami.conf");
+        long stime = System.currentTimeMillis();
+        Config cfg = new Config("nami.conf");
         System.out.println(System.currentTimeMillis() - stime);
-        var e = 1;
+        long e = 1;
     }
 
 

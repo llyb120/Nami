@@ -88,20 +88,19 @@ public class Request implements AutoCloseable{
         channel = Channels.newChannel(is);
     }
 
-    private Obj decodeQuery(String query) {
-        var ret = o();
-        var qs = query + "&";
+    private Obj decodeQuery(String query, Obj ret) {
+        String qs = query + "&";
         qs = URLUtil.decode(qs);
-        var len = qs.length();
-        var ptr = 0;
-        var key = "";
-        var value = "";
+        int len = qs.length();
+        int ptr = 0;
+        String key = "";
+        String value = "";
         //0 - readkey
         //1 - readvalue
-        var mode = 0;
-        var sb = new StringBuilder();
+        int mode = 0;
+        StringBuilder sb = new StringBuilder();
         while (ptr < len) {
-            var ch = qs.charAt(ptr);
+            char ch = qs.charAt(ptr);
             switch (ch) {
                 case '=':
                     if (mode == 0) {
@@ -146,13 +145,12 @@ public class Request implements AutoCloseable{
      * @param path
      */
     private void decodePath(String path) {
-        var qmark = path.indexOf("?");
+        int qmark = path.indexOf("?");
         if (qmark == -1) {
             this.path = path;
         } else {
             this.path = path.substring(0, qmark);
-            var obj = decodeQuery(path.substring(qmark + 1));
-            this.query.putAll(obj);
+            decodeQuery(path.substring(qmark + 1), this.query);
         }
     }
 
@@ -192,11 +190,11 @@ public class Request implements AutoCloseable{
                 return;
             }
 
-            var clen = getContentLength();
+            int clen = getContentLength();
             if (clen < 1) {
                 return;
             }
-            var ctype = getContentType();
+            String ctype = getContentType();
             if (ctype.contains("multipart/form-data")) {
                 decodeFormDataOnce();
             } else if (clen == buffer.length()) {
@@ -242,11 +240,11 @@ public class Request implements AutoCloseable{
     }
 
     public void decode() throws Exception {
-        var size = 4096;
+        int size = 4096;
         while (hasRemaining()) {
-            var byteBuffer = ByteBuffer.allocateDirect(size);
+            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(size);
 //            byteBuffer.clear();
-            var n = channel.read(byteBuffer);
+            int n = channel.read(byteBuffer);
             if (n < 1) {
                 break;
             }
@@ -278,12 +276,12 @@ public class Request implements AutoCloseable{
     }
 
     private String[] getFormDataKV(String str) {
-        var eq = str.indexOf("=");
-        var left = str.substring(0, eq);
-        var right = str.substring(eq + 1);
-        var first = right.indexOf("\"");
-        var last = right.lastIndexOf("\"");
-        var key = right.substring(first + 1, last);
+        int eq = str.indexOf("=");
+        String left = str.substring(0, eq);
+        String right = str.substring(eq + 1);
+        int first = right.indexOf("\"");
+        int last = right.lastIndexOf("\"");
+        String key = right.substring(first + 1, last);
         return new String[]{left, key};
     }
 
@@ -295,12 +293,12 @@ public class Request implements AutoCloseable{
             body = o();
         }
         if (temp.start == null) {
-            var ctype = getContentType();
-            var idex = ctype.indexOf("boundary=");
+            String ctype = getContentType();
+            int idex = ctype.indexOf("boundary=");
             if (idex == -1) {
                 return;
             }
-            var token = ctype.substring(idex + 9);
+            String token = ctype.substring(idex + 9);
             temp.start = ("--" + token);
             temp.end = ("--" + token + "--");
             temp.limit = ("\r\n" + temp.start).getBytes();
@@ -324,17 +322,17 @@ public class Request implements AutoCloseable{
                             temp.step = FormDataStep.WAIT_FOR_READ_VALUE;
                             break scan;
                         }
-                        var arr = line.split("; ");
+                        String[] arr = line.split("; ");
                         for (int i = 0; i < arr.length; i++) {
                             if (i > 0) {
-                                var strs = getFormDataKV(arr[i]);
+                                String[] strs = getFormDataKV(arr[i]);
                                 switch (strs[0]) {
                                     case "name":
                                         temp.name = strs[1];
                                         break;
 
                                     case "filename":
-                                        var file = File.createTempFile("nami", "nami");
+                                        File file = File.createTempFile("nami", "nami");
                                         temp.file = new MultipartFile(strs[1], file, true);
                                         temp.tempOs = new FileOutputStream(file);
                                         break;
@@ -355,21 +353,21 @@ public class Request implements AutoCloseable{
             if (temp.tempOs == null) {
                 temp.tempOs = new ByteArrayOutputStream();
             }
-            var i = buffer.indexOf(temp.limit);
+            int i = buffer.indexOf(temp.limit);
             if (i > -1) {
-                var bs = buffer.readNBytes(i);
+                byte[] bs = buffer.readNBytes(i);
                 if (bs != null) {
                     temp.tempOs.write(bs);
                 }
                 if (temp.tempOs instanceof ByteArrayOutputStream) {
-                    ((Obj) body).put(temp.name, ((ByteArrayOutputStream) temp.tempOs).toString(StandardCharsets.UTF_8));
+                    ((Obj) body).put(temp.name, ((ByteArrayOutputStream) temp.tempOs).toString(StandardCharsets.UTF_8.name()));
                 } else if (temp.tempOs instanceof FileOutputStream) {
                     ((Obj) body).put(temp.name, temp.file);
                 }
                 buffer.readNBytes(2);
                 temp.release();
             } else {
-                var bs = buffer.readBytes();
+                byte[] bs = buffer.readBytes();
                 if (bs != null) {
                     temp.tempOs.write(bs);
                 }
@@ -490,8 +488,9 @@ public class Request implements AutoCloseable{
     private void decodeFormEncoded() {
 //        buffer.writeOnce(channel, getContentLength() - buffer.length());
         currentBodyLength += buffer.length();
-        var str = new String(buffer.readBytes(), StandardCharsets.UTF_8);
-        body = decodeQuery(str);
+        String str = new String(buffer.readBytes(), StandardCharsets.UTF_8);
+        body = o();
+        decodeQuery(str, (Obj)body);
     }
 
     private int getContentLength() {
@@ -509,7 +508,7 @@ public class Request implements AutoCloseable{
 //            line = line.substring(0, i);
 //        }
         if (null == method) {
-            var arr = line.split("\\s+");
+            String[] arr = line.split("\\s+");
             if (arr.length < 3) {
                 throw new RuntimeException();
             }
@@ -517,8 +516,8 @@ public class Request implements AutoCloseable{
             version = arr[2];
             decodePath(arr[1]);
         } else {
-            var comma = line.indexOf(":");
-            var key = line.substring(0, comma);
+            int comma = line.indexOf(":");
+            String key = line.substring(0, comma);
             String value;
             if (line.charAt(comma + 1) == ' ') {
                 value = line.substring(comma + 2);
@@ -555,9 +554,9 @@ public class Request implements AutoCloseable{
         if(value.length() == 0){
             return;
         }
-        var arr = value.split("; ");
+        String[] arr = value.split("; ");
         for (String s : arr) {
-            var i = s.indexOf("=");
+            int i = s.indexOf("=");
             if(i > -1){
                 cookie.set(s.substring(0, i), s.substring(i+1), false);
             }
@@ -653,7 +652,7 @@ public class Request implements AutoCloseable{
      * @return
      */
     public String getHeader(String key) {
-        var val = headers.s(key, "");
+        String val = headers.s(key, "");
         if (val.isEmpty()) {
             val = headers.s(key.toLowerCase(), "");
         }

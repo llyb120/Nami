@@ -46,7 +46,7 @@ public class MyClassLoadader extends ClassLoader {
             //读取已经编译的
             Compiler.waitForAllCompiled();
             try {
-                var b = Compiler.readClass(name);
+                byte[] b = Compiler.readClass(name);
                 return defineClass(null, b, 0, b.length);
             } catch (Exception e) {
                 e.printStackTrace();

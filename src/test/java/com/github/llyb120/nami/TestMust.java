@@ -14,8 +14,7 @@ public class TestMust {
 
     @Test
     public void tets() throws IOException {
-
-        var stime = System.currentTimeMillis();
+        long stime = System.currentTimeMillis();
         HashMap<String, Object> scopes = new HashMap<String, Object>();
         scopes.put("name", "Mustache");
         scopes.put("feature", o("description", "rilegou"));

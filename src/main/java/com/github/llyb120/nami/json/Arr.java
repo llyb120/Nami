@@ -27,7 +27,7 @@ public class Arr<T> implements List<T> {
 //    }
 
     public Obj[] oa(){
-        return this.toArray(Obj[]::new);
+        return this.toArray(new Obj[this.size()]);
     }
 
 //    public List<Obj>toObjList toObjList(){
@@ -98,7 +98,7 @@ public class Arr<T> implements List<T> {
     }
 
     public List<Arr> toArrList(){
-        var list = new ArrayList<Arr>();
+        List list = new ArrayList<Arr>();
         for (Object o : this) {
             list.add((Arr)o);
         }
@@ -106,11 +106,11 @@ public class Arr<T> implements List<T> {
     }
 
     public String[] toStrArr(){
-        return this.toArray(String[]::new);
+        return this.toArray(new String[this.size()]);
     }
 
     public List<String> toStrList(){
-        var list = new ArrayList<String>();
+        List list = new ArrayList<String>();
         for (Object o : this) {
             list.add((String) o);
         }

@@ -22,20 +22,20 @@ public class Nami {
             disableAccessWarnings();
         });
 
-        var stime = System.currentTimeMillis();
+//        long stime = System.currentTimeMillis();
         Config.config = new Config(configPath);
 
 //        Config.init(configPath);
-        if(config.ext.b("beetlSql")){
-            DBService.start(true, listener);
-        }
+//        if(config.ext.b("BeetlSql")){
+//            DBService.start(true, listener);
+//        }
 
 //        Chakra.start();
 
-        var main = config.db.get("main");
-        if (main != null) {
-            DBService.fSql = new FSql(config.db.get("main"));
-        }
+//        var main = config.db.get("main");
+//        if (main != null) {
+//            DBService.fSql = new FSql(config.db.get("main"));
+//        }
 
         if(config.dev && config.compile.parallel){
 //            Compiler.start();
@@ -87,25 +87,25 @@ public class Nami {
         public void onDBServiceBooted(){}
     }
 
-    public static void waitFor(int maxDelay, Object ...objects){
-        var stime = System.currentTimeMillis();
-        wait: {
-            while(true){
-                if(System.currentTimeMillis() - stime >= maxDelay){
-                    break wait;
-                }
-                check:{
-                    for (Object object : objects) {
-                        if(object == null){
-                            break check;
-                        }
-                    }
-                    break wait;
-                }
-                ThreadUtil.sleep(16);
-            }
-        }
-    }
+//    public static void waitFor(int maxDelay, Object ...objects){
+//        long stime = System.currentTimeMillis();
+//        wait: {
+//            while(true){
+//                if(System.currentTimeMillis() - stime >= maxDelay){
+//                    break wait;
+//                }
+//                check:{
+//                    for (Object object : objects) {
+//                        if(object == null){
+//                            break check;
+//                        }
+//                    }
+//                    break wait;
+//                }
+//                ThreadUtil.sleep(16);
+//            }
+//        }
+//    }
 
 
     @SuppressWarnings("unchecked")

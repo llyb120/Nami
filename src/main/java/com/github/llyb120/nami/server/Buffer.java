@@ -6,6 +6,7 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Buffer {
@@ -109,7 +110,7 @@ public class Buffer {
 
 
     public Buffer write(byte b){
-        var buf = ByteBuffer.allocateDirect(1);
+        ByteBuffer buf = ByteBuffer.allocateDirect(1);
         buf.put(b);
         buf.flip();
         buffers.addLast(buf);
@@ -126,7 +127,7 @@ public class Buffer {
     }
 
     public Buffer writeNio(byte[] bs, int offset, int length){
-        var buf = ByteBuffer.wrap(bs, offset, length);
+        ByteBuffer buf = ByteBuffer.wrap(bs, offset, length);
         buffers.addLast(buf);
         return this;
     }
@@ -145,7 +146,7 @@ public class Buffer {
     }
 
     public Buffer writeBeforeNio(byte[] bs, int offset, int length){
-        var buf = ByteBuffer.allocateDirect(length);
+        ByteBuffer buf = ByteBuffer.allocateDirect(length);
         buffers.addFirst(buf);
         return this;
     }
@@ -167,7 +168,7 @@ public class Buffer {
     }
 
     public Buffer write(ByteBuffer buf){
-        var nbuf = ByteBuffer.allocateDirect(buf.capacity());
+        ByteBuffer nbuf = ByteBuffer.allocateDirect(buf.capacity());
         nbuf.put(buf);
         nbuf.flip();
         buffers.addLast(nbuf);
@@ -175,7 +176,7 @@ public class Buffer {
     }
 
     public Buffer writeBefore(byte[] bs, int offset, int length){
-        var buf = ByteBuffer.allocateDirect(length);
+        ByteBuffer buf = ByteBuffer.allocateDirect(length);
         buf.put(bs, offset, length);
         buf.flip();
         buffers.addFirst(buf);
@@ -187,7 +188,7 @@ public class Buffer {
     }
 
     public Buffer write(byte[] bs, int pos, int len){
-        var buf = ByteBuffer.allocateDirect(len);
+        ByteBuffer buf = ByteBuffer.allocateDirect(len);
         buf.put(bs, pos, len);
         buf.flip();
         buffers.addLast(buf);
@@ -196,13 +197,13 @@ public class Buffer {
 
 
     public byte[] readLine() {
-        var pos = canReadLine();
+        int pos = canReadLine();
         return readNBytes(pos);
     }
 
     public String readLineStr(){
-        var end = canReadLine();
-        var bs = readNBytes(end);
+        int end = canReadLine();
+        byte[] bs = readNBytes(end);
         if (bs == null) {
             return null;
         }
@@ -217,9 +218,9 @@ public class Buffer {
 
 
     private int canReadLine(){
-        var count = 0;
+        int count = 0;
         for (int i = 0; i < buffers.size(); i++) {
-            var buf = buffers.get(i);
+            ByteBuffer buf = buffers.get(i);
             for (int j = buf.position(); j < buf.limit(); j++) {
                 count++;
                 if(buf.get(j) == '\n'){
@@ -231,13 +232,13 @@ public class Buffer {
     }
 
     public byte[] getBytes(){
-        var bs = createFullLengthBytes();
+        byte[] bs = createFullLengthBytes();
         if(bs.length == 0){
             return null;
         }
-        var i = 0;
+        int i = 0;
         for (ByteBuffer buffer : buffers) {
-            for(var j = buffer.position(); j < buffer.limit(); j++){
+            for(int j = buffer.position(); j < buffer.limit(); j++){
                 bs[i++] = buffer.get(j);
             }
         }
@@ -250,12 +251,12 @@ public class Buffer {
 
 
     public int indexOf(byte[] key){
-        var n = 0;
-        var ptr = 0;
+        int n = 0;
+        int ptr = 0;
         for (ByteBuffer byteBuffer : buffers) {
             for (int i = byteBuffer.position(); i < byteBuffer.limit(); i++) {
                 ptr++;
-                var c = byteBuffer.get(i);
+                byte c = byteBuffer.get(i);
                 if(c != key[n]){
                     n = 0;
                 }
@@ -322,20 +323,20 @@ public class Buffer {
         if(n < 1){
             return null;
         }
-        var length = length();
+        int length = length();
         if(length < 1){
             return null;
         }
         if(n > length){
             n = length;
         }
-        var ret = new byte[n];
-        var nn = n;
-        var ptr = 0;
-        var it = buffers.iterator();
+        byte[] ret = new byte[n];
+        int nn = n;
+        int ptr = 0;
+        Iterator<ByteBuffer> it = buffers.iterator();
         while(it.hasNext()){
-            var item = it.next();
-                var len = Math.min(item.limit() - item.position(), nn);
+            ByteBuffer item = it.next();
+                int len = Math.min(item.limit() - item.position(), nn);
                 item.get(ret, ptr, len);
 
 //                item.buffer.compact();
@@ -412,7 +413,7 @@ public class Buffer {
      * @return
      */
     public int length(){
-        var len = 0;
+        int len = 0;
         for (ByteBuffer item : buffers) {
             len += (item.limit() - item.position());
         }
@@ -432,7 +433,7 @@ public class Buffer {
 
     @Override
     public String toString() {
-        var bs = getBytes();
+        byte[] bs = getBytes();
         if (bs == null) {
             return "";
         }

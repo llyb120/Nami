@@ -180,7 +180,7 @@ public class Obj implements Map<String, Object>{
     }
 
     public String s(String key, String defaultValue){
-        var str = s(key);
+        String str = s(key);
         if(StrUtil.isEmpty(str)){
             return defaultValue;
         }
@@ -188,7 +188,7 @@ public class Obj implements Map<String, Object>{
     }
 
     public Integer i(String k, int defaultValue){
-        var val = i(k);
+        Integer val = i(k);
         if (val == null) {
             val = defaultValue;
         }
@@ -200,7 +200,7 @@ public class Obj implements Map<String, Object>{
     }
 
     public boolean b(String k){
-        var val = get(k);
+        Object val = get(k);
         if (val == null) {
             return false;
         }
@@ -212,7 +212,7 @@ public class Obj implements Map<String, Object>{
     }
 
     public Obj o(String k){
-        var val = get(k);
+        Object val = get(k);
         if (val == null) {
             return null;
         }
@@ -226,7 +226,7 @@ public class Obj implements Map<String, Object>{
     }
 
     public Arr a(String k){
-        var val = get(k);
+        Object val = get(k);
         if (val == null) {
             return null;
         }
@@ -277,7 +277,7 @@ public class Obj implements Map<String, Object>{
 //    }
 
     public Obj to(String tableName){
-        var arr = fSql.insert(tableName, this);
+        Arr arr = fSql.insert(tableName, this);
         return null;
     }
 
@@ -287,15 +287,15 @@ public class Obj implements Map<String, Object>{
 
 
     public Obj flex(Object ...objects){
-        var nobj = Json.o();
-        var flexed = false;
+        Obj nobj = Json.o();
+        boolean flexed = false;
         for (int i = 0; i < objects.length; i++) {
-            var obj = objects[i];
-            var readNext = false;
+            Object obj = objects[i];
+            boolean readNext = false;
             if(obj instanceof FlexAction){
                 for (Entry<String, ?> entry : this.entrySet()) {
                     if(((FlexAction) obj).canFlex(entry.getKey(), entry.getValue())){
-                        var fval = ((FlexAction) obj).call(entry.getKey(), entry.getValue());
+                        Object fval = ((FlexAction) obj).call(entry.getKey(), entry.getValue());
                         if(fval instanceof Map.Entry){
                             nobj.put((String) ((Entry) fval).getKey(), ((Entry) fval).getValue());
                         } else {

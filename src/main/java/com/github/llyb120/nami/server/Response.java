@@ -14,6 +14,7 @@ import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.Channels;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.StandardCharsets;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -61,7 +62,7 @@ public class Response implements AutoCloseable{
     }
 
     private void writeToChannel() throws IOException {
-        var bfs = buffer.getNioBuffers();
+        LinkedList<ByteBuffer> bfs = buffer.getNioBuffers();
         for (ByteBuffer bf : bfs) {
             channel.write(bf);
         }
@@ -69,7 +70,7 @@ public class Response implements AutoCloseable{
     }
 
     private void writeToAsyncChannel(){
-        var bfs = buffer.getNioBuffers();
+        LinkedList<ByteBuffer> bfs = buffer.getNioBuffers();
         for (ByteBuffer bf : bfs) {
             try {
                 aChannel.write(bf).get();
@@ -126,7 +127,7 @@ public class Response implements AutoCloseable{
         }
         for (Map.Entry<String, Object> entry : headers.entrySet()) {
             String value = (String) entry.getValue();
-            var line = entry.getKey() + ": " + value + "\r\n";
+            String line = entry.getKey() + ": " + value + "\r\n";
             buffer.writeNio(line);
         }
         buffer.writeNio(CRLF);
@@ -199,7 +200,7 @@ public class Response implements AutoCloseable{
 
 
     public void setFileDescription(MultipartFile multipartFile, boolean download){
-        var fileName = URLUtil.encode(multipartFile.fileName, StandardCharsets.UTF_8);
+        String fileName = URLUtil.encode(multipartFile.fileName, StandardCharsets.UTF_8);
         setContentType(multipartFile.contentType);
         if(download){
             headers.put("Content-Disposition", "attachment; filename=\"" + fileName + "\"; filename*=utf-8''" + fileName);

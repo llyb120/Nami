@@ -15,12 +15,12 @@ public class TestVars {
 
     @Test
     public void test() throws InterruptedException {
-        var vars = new Obj(true);
+        Obj vars = new Obj(true);
         ExecutorService exec = Executors.newCachedThreadPool();
         for (int i = 0; i < 100 ; i++) {
             exec.submit(() -> {
-                var key = RandomUtil.randomString(10);
-                var n = RandomUtil.randomInt();
+                String key = RandomUtil.randomString(10);
+                Integer n = RandomUtil.randomInt();
                 vars.put(key, n);
 //                Assert.assertEquals(n, vars.i(key));
                 Assert.assertTrue(n == vars.i(key));

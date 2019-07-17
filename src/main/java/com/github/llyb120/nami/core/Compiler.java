@@ -40,7 +40,7 @@ public class Compiler {
             try (
                     FileInputStream fis = new FileInputStream(file);
             ) {
-                var bs = fis.readAllBytes();
+                byte[] bs = IoUtil.readBytes(fis);
                 this.lastModified = file.lastModified();
                 this.bytes = bs;
             }
@@ -51,10 +51,10 @@ public class Compiler {
 
     public static byte[] readClass(String className) throws IOException {
         synchronized (byteCodeCache) {
-            var realName = className.replaceAll("\\.", "/");
-            var file = new File(config.compile.target, realName + ".class");
-            var path = file.getAbsolutePath();
-            var scf = byteCodeCache.get(path);
+            String realName = className.replaceAll("\\.", "/");
+            File file = new File(config.compile.target, realName + ".class");
+            String path = file.getAbsolutePath();
+            SimpleClassFile scf = byteCodeCache.get(path);
             if (scf == null) {
                 scf = new SimpleClassFile(file);
                 //没有的话 直接读取最新的文件
@@ -90,11 +90,11 @@ public class Compiler {
                     return;
                 }
                 //只动态编译需要编译的文件
-                var path = file.getAbsolutePath();
-                var classPath = path.replace(config.compile.source, "")
+                String path = file.getAbsolutePath();
+                String classPath = path.replace(config.compile.source, "")
                         .replaceAll("\\\\|/", ".")
                         .substring(1);
-                var flag = config.hotswap.stream()
+                boolean flag = config.hotswap.stream()
                         .anyMatch(i -> classPath.startsWith(i));
                 if (!flag) {
                     return;
@@ -151,14 +151,14 @@ public class Compiler {
     private static byte[] compileWithJavac(String name) throws IOException {
         Iterable it = javaFileManager.getJavaFileObjects(config.compile.source + File.separator + name.replaceAll("\\.", "/") + ".java");
         //创建编译任务
-        JavaCompiler.CompilationTask task = javaCompiler.getTask(new StringWriter(), null, null, Arrays.asList("-d", config.compile.target, "-parameters", "-nowarn", "-source", "11"), null, it);
+        JavaCompiler.CompilationTask task = javaCompiler.getTask(new StringWriter(), null, null, Arrays.asList("-d", config.compile.target, "-parameters", "-nowarn", "-source", config.version), null, it);
         //执行编译
         task.call();
         return readClass(name);
     }
 
     private static byte[] compileWithEcj(String name) throws IOException {
-        Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", "11", "-d", config.compile.target, config.compile.source + File.separator + name.replaceAll("\\.", "/") + ".java"});
+        Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", config.version, "-d", config.compile.target, config.compile.source + File.separator + name.replaceAll("\\.", "/") + ".java"});
         return readClass(name);
     }
 
@@ -167,9 +167,9 @@ public class Compiler {
         try (
                 FileReader reader = new FileReader(file);
         ) {
-            var code = IoUtil.read(reader);
-            var prepareCode = Macro.prepareRender(code);
-            var finalCode = Macro.render(prepareCode);
+            String code = IoUtil.read(reader);
+            String prepareCode = Macro.prepareRender(code);
+            String finalCode = Macro.render(prepareCode);
             IoUtil.write(new FileOutputStream(temp), true, finalCode.getBytes());
             Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", "11", "-d", config.compile.target, temp.getAbsolutePath()});
         } catch (IOException e) {
@@ -184,7 +184,7 @@ public class Compiler {
 
     public static void macOsStart() {
         try {
-            var watcher = DirectoryWatcher.builder()
+            DirectoryWatcher watcher = DirectoryWatcher.builder()
                     .path(Paths.get(config.compile.source)) // or use paths(directoriesToWatch)
                     .listener(event -> {
                         switch (event.eventType()) {
@@ -212,7 +212,7 @@ public class Compiler {
 
     public static void start() {
         Async.submit(() -> {
-            var targetPath = Paths.get(config.compile.source);
+            Path targetPath = Paths.get(config.compile.source);
             WatchService watchService = targetPath.getFileSystem().newWatchService();
             Files.walkFileTree(targetPath, new SimpleFileVisitor<Path>() {
                 @Override

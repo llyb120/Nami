@@ -51,7 +51,7 @@ public class a {
     }
 
     public Object uploadFile(Obj body, String test, MultipartFile file) throws IOException {
-        var temp = File.createTempFile("dev", "dev");
+        File temp = File.createTempFile("dev", "dev");
 //        var temp = new File("d:/testupload.txt");
         temp.deleteOnExit();
         file.transferTo(temp);

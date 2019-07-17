@@ -1,6 +1,7 @@
 package com.github.llyb120.nami.dao;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
@@ -14,14 +15,10 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.beetl.sql.core.kit.GenKit;
 
 import javax.sql.DataSource;
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.io.*;
+import java.sql.*;
 import java.util.*;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
@@ -71,10 +68,10 @@ public class FSql {
 
     public <T> List<T> select(String table, Class<T> clz, Object ...values){
         try (
-                var conn = getConnection();
+                Connection conn = getConnection();
                 ){
-            var tname = getTableMetaData(table);
-            var sb = new StringBuilder();
+            String tname = getTableMetaData(table);
+            StringBuilder sb = new StringBuilder();
             sb.append("select * from ");
             sb.append(tname);
             buildWhere(tname, sb, values);
@@ -86,14 +83,14 @@ public class FSql {
     }
 
     public void insert(String table, Iterable objects){
-        var metadata = getMetaData(table);
+        TableMetaData metadata = getMetaData(table);
     }
 
     public Arr insert(String table, Object object){
-        var sb = new StringBuilder("insert into ");
+        StringBuilder sb = new StringBuilder("insert into ");
         sb.append(table);
         sb.append("(");
-        var val = new StringBuilder();
+        StringBuilder val = new StringBuilder();
         if(object instanceof Map){
             if(((Map) object).size() > 0){
                 ((Map) object).forEach((k,v) -> {
@@ -120,8 +117,7 @@ public class FSql {
         sb.append(")values(");
         sb.append(val);
         sb.append(")");
-        var id = executeInsert(sb.toString());
-        var e = 2;
+        Arr id = executeInsert(sb.toString());
         return id;
     }
 
@@ -138,7 +134,7 @@ public class FSql {
 
     private void buildWhere(String tname, StringBuilder sb, Object ...values){
         sb.append(" where 1 = 1");
-        var table = tables.get(tname);
+        TableMetaData table = tables.get(tname);
         for (int i = 0; i < values.length; i++) {
             if (table == null) {
 //                sb.append("")
@@ -153,16 +149,16 @@ public class FSql {
 
     private Arr execute(String sql, Connection connection) throws SQLException {
         System.out.println(sql);
-        var list = a();
+        Arr list = a();
         try(
-                var stmt = connection.createStatement();
+                Statement stmt = connection.createStatement();
                 ){
-            var ret = stmt.executeQuery(sql);
-            var metadata = ret.getMetaData();
+            ResultSet ret = stmt.executeQuery(sql);
+            ResultSetMetaData metadata = ret.getMetaData();
             while(ret.next()){
-                var obj = o();
+                Obj obj = o();
                 list.add(obj);
-                for(var i = 1; i <= metadata.getColumnCount(); i++){
+                for(int i = 1; i <= metadata.getColumnCount(); i++){
                     obj.put(metadata.getColumnLabel(i).toLowerCase(), ret.getObject(i)) ;
                 }
             }
@@ -172,7 +168,7 @@ public class FSql {
 
     public Arr execute(String sql){
         try(
-               var conn = getConnection();
+               Connection conn = getConnection();
                 ){
             System.out.println(sql);
             return execute(sql, conn);
@@ -184,12 +180,12 @@ public class FSql {
 
     private int executeUpdate(String sql){
         try(
-                var conn = getConnection();
-                var stmt = conn.createStatement();
+                Connection conn = getConnection();
+                Statement stmt = conn.createStatement();
                 ){
             System.out.println(sql);
 //            conn.prepareStatement()
-            var ret =  stmt.executeUpdate(sql);
+            int ret = stmt.executeUpdate(sql);
             return ret;
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -202,16 +198,16 @@ public class FSql {
     }
 
     private Arr executeInsert(String sql){
-        var ret = a();
+        Arr ret = a();
         try(
-                var conn = getConnection();
-                var stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ) {
             stmt.executeUpdate();
-            var rs = stmt.getGeneratedKeys();
-            var metadata = rs.getMetaData();
+            ResultSet rs = stmt.getGeneratedKeys();
+            ResultSetMetaData metadata = rs.getMetaData();
             while(rs.next()){
-                var obj = o();
+                Obj obj = o();
                 for (int i = 1; i <= metadata.getColumnCount(); i++) {
                     obj.put(metadata.getColumnLabel(i), rs.getObject(i));
                 }
@@ -232,10 +228,10 @@ public class FSql {
     private String getTableMetaData(String tableName) throws InterruptedException, ExecutionException, SQLException {
         tableName = tableName.toUpperCase();
         String finalTableName = tableName;
-        var list = tables.keySet()
+        List<Object[]> list = tables.keySet()
                 .stream()
                 .map(e -> new Object[]{e, FBsqlUtil.sim(e, finalTableName)})
-                .sorted((a,b) -> Double.compare((double)b[1], (double)a[1]))
+                .sorted((a, b) -> Double.compare((double) b[1], (double) a[1]))
                 .collect(Collectors.toList());
         return (String) list.get(0)[0];
     }
@@ -243,9 +239,9 @@ public class FSql {
     private String getField(TableMetaData metaData, String key){
         key = key.toUpperCase();
         String finalKey = key;
-        var list = metaData.fields.stream()
+        List<Object[]> list = metaData.fields.stream()
                 .map(e -> new Object[]{e, FBsqlUtil.sim(e, finalKey)})
-                .sorted((a,b) -> Double.compare((double)b[1], (double)a[1]))
+                .sorted((a, b) -> Double.compare((double) b[1], (double) a[1]))
                 .collect(Collectors.toList());
         return (String) list.get(0)[0];
     }
@@ -255,19 +251,19 @@ public class FSql {
     private void initAllTableName() throws InterruptedException, ExecutionException, SQLException, IOException {
         if(config.dev){
             try(
-                    var is = new ClassPathResource("fsql/cache/ALL_TABLES").getStream();
+                    InputStream is = new ClassPathResource("fsql/cache/ALL_TABLES").getStream();
                     ){
-                tables = ObjectUtil.unserialize(is.readAllBytes());
+                tables = ObjectUtil.unserialize(IoUtil.readBytes(is));
             } catch (Exception e){
                 System.out.println("加载缓存失败，你可能需要生成fsql的缓存");
             }
         } else {
             String sql = String.format("select table_name as t, column_name as c, data_type as type, CHARACTER_MAXIMUM_LENGTH as len from sysibm.columns where table_schema = '%s' and table_name not like 'explain%%'", db.schema);
-            var ret = execute(sql, dataSource.getConnection());
+            Arr ret = execute(sql, dataSource.getConnection());
             for (Object o : ret) {
                 Obj obj = (Obj) o;
-                var tname = obj.s("t");
-                var metadata = tables.get(tname);
+                String tname = obj.s("t");
+                TableMetaData metadata = tables.get(tname);
                 if (metadata == null) {
                     metadata = new TableMetaData();
                     metadata.name = tname;
@@ -280,7 +276,7 @@ public class FSql {
 
     public static void mkCache(){
         Nami.dev();
-        var path = new File(GenKit.getJavaResourcePath(), "fsql/cache");
+        File path = new File(GenKit.getJavaResourcePath(), "fsql/cache");
         //clear
         path.mkdirs();
         for (File file : path.listFiles()) {
@@ -288,14 +284,14 @@ public class FSql {
         }
         //生成表名索引
         try(
-            var raf = new RandomAccessFile(new File(path, "ALL_TABLES"), "rw");
+             RandomAccessFile raf = new RandomAccessFile(new File(path, "ALL_TABLES"), "rw");
                 ) {
             String sql = String.format("select table_name as t, column_name as c, data_type as type, CHARACTER_MAXIMUM_LENGTH as len from sysibm.columns where table_schema = '%s' and table_name not like 'EXPLAIN_%%'", fSql.db.schema);
-            var ret = fSql.execute(sql, fSql.getConnection());
+            Arr ret = fSql.execute(sql, fSql.getConnection());
             for (Object o : ret) {
                 Obj obj = (Obj) o;
-                var tname = obj.s("t");
-                var metadata = fSql.tables.get(tname);
+                String tname = obj.s("t");
+                TableMetaData metadata = fSql.tables.get(tname);
                 if (metadata == null) {
                     metadata = new TableMetaData();
                     metadata.name = tname;

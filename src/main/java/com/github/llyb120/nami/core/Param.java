@@ -10,6 +10,7 @@ import com.github.llyb120.nami.server.Request;
 import com.github.llyb120.nami.server.Response;
 import org.beetl.sql.core.annotatoin.Table;
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.query.LambdaQuery;
 
 import java.lang.reflect.*;
 import java.util.*;
@@ -18,7 +19,7 @@ import java.util.stream.Stream;
 
 import static cn.hutool.core.util.StrUtil.isNotEmpty;
 import static com.github.llyb120.nami.core.Config.config;
-import static com.github.llyb120.nami.core.DBService.sqlManager;
+import static com.github.llyb120.nami.ext.BeetlSql.sqlManager;
 
 public class Param {
     private static List<Rule> ruleList = new Vector<>();
@@ -111,13 +112,13 @@ public class Param {
                          */
                         Action action = null;
                         if(PageQuery.class.isAssignableFrom(type)){
-                            var gen = getGenericType(parameter);
+                            Class gen = getGenericType(parameter);
                             if (isModel(parameter, gen)) {
                                 action = (ctx, p, ac) -> pageQuery(ctx,p, gen, 0);
                             }
                         }
                         else if(Collection.class.isAssignableFrom(type)){
-                            var gen = getGenericType(parameter);
+                            Class gen = getGenericType(parameter);
                             if(isModel(parameter, gen)){
                                 action = (ctx,p,ac) -> pageQuery(ctx,p, gen, 1);
                             }
@@ -149,7 +150,7 @@ public class Param {
 
 
     private static Class getGenericType(Parameter parameter){
-        var p = (ParameterizedType)parameter.getParameterizedType();
+        ParameterizedType p = (ParameterizedType) parameter.getParameterizedType();
         return (Class) p.getActualTypeArguments()[0];
     }
 
@@ -170,18 +171,18 @@ public class Param {
         }
 
         //查看有没有字段
-        var q = sqlManager.lambdaQuery(retType);
+        LambdaQuery q = sqlManager.lambdaQuery(retType);
         q.appendSql(" as " + as + " ");
 
-        var fields = new HashMap<String, Field>();
+        HashMap<String, Field> fields = new HashMap<String, Field>();
         for (Field field : retType.getDeclaredFields()) {
             if(Modifier.isStatic(field.getModifiers())){
                 continue;
             }
             fields.put(field.getName(), field);
         }
-        var page = 1;
-        var size = 10;
+        int page = 1;
+        int size = 10;
 //        q.appendSql("m left join ra_store store on m.member_id = store.member_id ");
 
         for (Map.Entry<String, Object> entry : response.request.query.entrySet()) {
@@ -200,13 +201,13 @@ public class Param {
             }
 
             String[] ops = {">>","<<", ">", "<" ,"%"};
-            var finalop = Stream.of(ops)
-                .filter(e -> entry.getKey().endsWith(e))
-                .findFirst()
-                .orElse("=");
-            var key = entry.getKey().replace(finalop, "");
+            String finalop = Stream.of(ops)
+                    .filter(e -> entry.getKey().endsWith(e))
+                    .findFirst()
+                    .orElse("=");
+            String key = entry.getKey().replace(finalop, "");
             //否定判断
-            var flip = false;
+            boolean flip = false;
             if(key.endsWith("!")){
                 flip = true;
                 key = key.substring(0, key.length() - 1);
@@ -223,18 +224,18 @@ public class Param {
             } else {
                 ks = new String[]{key};
             }
-            var con = q.condition();
-            var used = false;
+            LambdaQuery con = q.condition();
+            boolean used = false;
             for (String k : ks) {
                 //判断有没有这个字段
-                var f = fields.get(k);
+                Field f = fields.get(k);
                 if (f == null) {
                     continue;
                 }
-                var val = String.valueOf(entry.getValue());
+                String val = String.valueOf(entry.getValue());
                 if (StrUtil.isNotBlank(val) && !"null".equals(val)) {
                     used = true;
-                    var fname = (as + ".") + f.getName();
+                    String fname = (as + ".") + f.getName();
                     switch (finalop){
                         case "=":
                             if(ktype.equals("and")){
@@ -343,13 +344,13 @@ public class Param {
         Table table = (Table) retType.getAnnotation(Table.class);
         List<Config.Link> links = new ArrayList<>();
 
-        var nfs = fields.keySet()
-            .stream()
-            .map(e -> as + "." + e)
-            .collect(Collectors.toSet());
+        Set<String> nfs = fields.keySet()
+                .stream()
+                .map(e -> as + "." + e)
+                .collect(Collectors.toSet());
         if (boost != null && boost.appendField().length > 0) {
-            var key = table.name();
-            var idex = key.indexOf(".");
+            String key = table.name();
+            int idex = key.indexOf(".");
             if(idex > -1){
                 key = key.substring(idex + 1);
             }
@@ -357,7 +358,7 @@ public class Param {
                 if(StrUtil.isEmpty(s)){
                     continue;
                 }
-                var link = config.links.get(key + s);
+                Config.Link link = config.links.get(key + s);
                 if (link == null) {
                     nfs.add(s);
                 } else {
@@ -368,11 +369,11 @@ public class Param {
 
 
         if(flag == 0){
-            var ret = q.page(page, size, gType, nfs.toArray(String[]::new));
+            PageQuery ret = q.page(page, size, gType, nfs.toArray(new String[nfs.size()]));
             addLinks(ret.getList(), links);
             return ret;
         } else if(flag == 1){
-            var ret = q.select(gType, nfs.toArray(String[]::new));
+            List ret = q.select(gType, nfs.toArray(new String[nfs.size()]));
             addLinks(ret, links);
             return ret;
         } else if(flag == 2){
@@ -382,7 +383,7 @@ public class Param {
                 addLinks(Arrays.asList((Obj)ret), links);
                 return ret;
             } else {
-                var ret = q.single();
+                Object ret = q.single();
                 return ret;
             }
         } else {
@@ -392,19 +393,19 @@ public class Param {
 
     private static void addLinks(Collection<Obj> ret, List<Config.Link> links){
         for (Config.Link link : links) {
-            var map = new Obj();
-            var ids = ret
-                .stream()
-                .peek(e -> map.put(((Obj) e).s(link.fromField), e))
-                .map(e -> ((Obj) e).s(link.fromField))
-                .map(e -> StrUtil.wrap((CharSequence) e, "'"))
-                .collect(Collectors.joining(","));
+            Obj map = new Obj();
+            String ids = ret
+                    .stream()
+                    .peek(e -> map.put(((Obj) e).s(link.fromField), e))
+                    .map(e -> ((Obj) e).s(link.fromField))
+                    .map(e -> StrUtil.wrap((CharSequence) e, "'"))
+                    .collect(Collectors.joining(","));
             if(StrUtil.isEmpty((CharSequence) ids)){
                 continue;
             }
-            var items = sqlManager.execute(String.format("select * from %s where %s in (%s)", link.toClz, link.toField, ids), Obj.class, new Obj());
+            List<Obj> items = sqlManager.execute(String.format("select * from %s where %s in (%s)", link.toClz, link.toField, ids), Obj.class, new Obj());
             for (Obj item : items) {
-                var target = map.o(item.s(link.toField));
+                Obj target = map.o(item.s(link.toField));
                 if (target == null) {
                     continue;
                 }

@@ -5,6 +5,8 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.http.HttpUtil;
 import com.github.llyb120.nami.core.Nami;
 import com.github.llyb120.nami.core.Route;
+import com.github.llyb120.nami.json.Arr;
+import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.Buffer;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -34,28 +36,28 @@ public class TestCtrl {
 
     @Test
     public void test_01_getWithNoArg() {
-        var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithNoArg");
+        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithNoArg");
         assertEquals(res, "ok");
     }
 
 
     @Test
     public void test_02_getWithArgs() {
-        var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithArgs", o("a", 1));
+        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithArgs", o("a", 1));
         assertEquals(res, "1");
     }
 
     @Test
     public void test_03_getQuery() {
-        var query = o("a", "1", "b", "2");
-        var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getQuery", query);
+        Obj query = o("a", "1", "b", "2");
+        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getQuery", query);
         assertEquals(res, query.toString());
     }
 
     @Test
     public void test_04_postUrlEncoded() {
-        var query = o("a", "1", "b", "2");
-        var res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded", query);
+        Obj query = o("a", "1", "b", "2");
+        String res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded", query);
         assertEquals(res, query.toString());
 
         res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded2", query);
@@ -64,8 +66,8 @@ public class TestCtrl {
 
     @Test
     public void test_05_postJson() {
-        var arr = a("1", "2", "3");
-        var res = HttpUtil.createPost("http://127.0.0.1:" + config.port + "/test/a/postJsonArray")
+        Arr arr = a("1", "2", "3");
+        String res = HttpUtil.createPost("http://127.0.0.1:" + config.port + "/test/a/postJsonArray")
                 .body(arr.toString())
                 .header("Content-Type", "application/json")
                 .execute()
@@ -73,7 +75,7 @@ public class TestCtrl {
         System.out.println(res);
         assertEquals(res, arr.toString());
 
-        var obj = o("a", "2", "b", a("1", "2"));
+        Obj obj = o("a", "2", "b", a("1", "2"));
         res = HttpUtil.createPost("http://127.0.0.1:" + config.port + "/test/a/postJsonObject")
                 .body(obj.toString())
                 .header("Content-Type", "application/json")
@@ -84,15 +86,15 @@ public class TestCtrl {
 
     @Test
     public void test_06_getWithEntity(){
-        var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithEntity", o("a","1","b","2"));
+        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithEntity", o("a", "1", "b", "2"));
         assertNotNull(res);
         assertNotEquals(res, "null");
     }
 
     @Test
     public void test_07_cookie(){
-        var res = HttpUtil.createGet("http://127.0.0.1:" + config.port + "/test/a/testCookie")
-        .header("Cookie", "_ga=GA1.2.2106664825.1561338214; UM_distinctid=16bb6c1b19615-0092e59a330b4b-2b580b4d-144000-16bb6c1b198bc; CNZZDATA1258351730=1961795621-1562137993-null%7C1562143853")
+        String res = HttpUtil.createGet("http://127.0.0.1:" + config.port + "/test/a/testCookie")
+                .header("Cookie", "_ga=GA1.2.2106664825.1561338214; UM_distinctid=16bb6c1b19615-0092e59a330b4b-2b580b4d-144000-16bb6c1b198bc; CNZZDATA1258351730=1961795621-1562137993-null%7C1562143853")
                 .execute()
                 .body();
         assertEquals(res, "GA1.2.2106664825.1561338214");
@@ -100,15 +102,15 @@ public class TestCtrl {
 
     @Test
     public void test_08_php_style(){
-        var val = RandomUtil.randomString(1024);
-        var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleGet", o("dev", val));
+        String val = RandomUtil.randomString(1024);
+        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleGet", o("dev", val));
         assertEquals(res, val);
     }
     @Test
     public void test_09_php_style() {
-        var val = RandomUtil.randomString(1024);
-        var parasm = o("dev", val);
-        var res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleRequest", parasm);
+        String val = RandomUtil.randomString(1024);
+        Obj parasm = o("dev", val);
+        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleRequest", parasm);
         assertEquals(parasm.toString(), res);
     }
 
@@ -117,7 +119,7 @@ public class TestCtrl {
         // 换行符
         final String newLine = "\r\n";
         // 服务器的上传地址
-        var fileName = RandomUtil.randomString(10);
+        String fileName = RandomUtil.randomString(10);
         // 上传文件
         StringBuilder sb = new StringBuilder();
         // 文件参数
@@ -134,9 +136,9 @@ public class TestCtrl {
         sb.append(newLine);
         sb.append(newLine);
 
-        var buf = new Buffer();
+        Buffer buf = new Buffer();
         buf.write(sb.toString());
-        var str = RandomUtil.randomString(4024) + "\r\n" + RandomUtil.randomString(4024);
+        String str = RandomUtil.randomString(4024) + "\r\n" + RandomUtil.randomString(4024);
         byte[] bufferOut = new byte[2048];
         int bytes = 0;
         // 每次读2KB数据,并且将文件数据写入到输出流中
@@ -148,9 +150,9 @@ public class TestCtrl {
         // 写上结尾标识
         buf.write(end_data);
 
-        var res = HttpUtil.createPost("http://127.0.0.1:" + config.port + "/test/a/uploadFile")
-            .contentType("multipart/form-data; boundary=----WebKitFormBoundaryari0emH33oMihIU4")
-            .body(buf.readBytes())
+        String res = HttpUtil.createPost("http://127.0.0.1:" + config.port + "/test/a/uploadFile")
+                .contentType("multipart/form-data; boundary=----WebKitFormBoundaryari0emH33oMihIU4")
+                .body(buf.readBytes())
                 .execute()
                 .body();
 
@@ -169,7 +171,7 @@ public class TestCtrl {
 //
 //        OutputStream out = (conn.getOutputStream());
 //
-//        var fileName = RandomUtil.randomString(10);
+//         fileName = RandomUtil.randomString(10);
 //        // 上传文件
 //        StringBuilder sb = new StringBuilder();
 //        // 文件参数
@@ -190,7 +192,7 @@ public class TestCtrl {
 //        out.write(sb.toString().getBytes());
 //
 //        // 数据输入流,用于读取文件数据
-//        var str = RandomUtil.randomString(4024) + "\r\n" + RandomUtil.randomString(4024);
+//         str = RandomUtil.randomString(4024) + "\r\n" + RandomUtil.randomString(4024);
 //        byte[] bufferOut = new byte[2048];
 //        int bytes = 0;
 //        // 每次读2KB数据,并且将文件数据写入到输出流中
@@ -205,10 +207,10 @@ public class TestCtrl {
 //        out.close();
 //
 //        // 定义BufferedReader输入流来读取URL的响应
-//        var resp = new String(conn.getInputStream().readAllBytes());
-        var arr = res.split("\\|");
+//         resp = new String(conn.getInputStream().readAllBytes());
+        String[] arr = res.split("\\|");
         Assert.assertEquals(arr[0], fileName);
-        var bs = IoUtil.readBytes(new FileInputStream(arr[1]));
+        byte[] bs = IoUtil.readBytes(new FileInputStream(arr[1]));
         Assert.assertArrayEquals(bs, str.getBytes());
 //            BufferedReader reader = new BufferedReader(new InputStreamReader(
 //                    conn.getInputStream(),"UTF-8"));
@@ -219,7 +221,7 @@ public class TestCtrl {
 //            }
 
 
-        var temp = File.createTempFile("123","123");
+        File temp = File.createTempFile("123", "123");
         temp.deleteOnExit();
         HttpUtil.downloadFile("http://127.0.0.1:" + config.port + "/test/a/downloadFile1?path=" + arr[1], temp);
         Assert.assertEquals(IoUtil.read(new FileReader(temp)), str);
@@ -231,11 +233,11 @@ public class TestCtrl {
 
 
     private void test_06_sup(int length) throws IOException {
-        var str = RandomUtil.randomString(length);
-        var temp = File.createTempFile("123","123");
+        String str = RandomUtil.randomString(length);
+        File temp = File.createTempFile("123", "123");
         temp.deleteOnExit();
         IoUtil.write(new FileOutputStream(temp), true, str.getBytes());
-        var temp2 = File.createTempFile("444","555");
+        File temp2 = File.createTempFile("444", "555");
         temp2.deleteOnExit();
         HttpUtil.downloadFile("http://127.0.0.1:" + config.port + "/test/a/downloadFile1?path=" + temp.getAbsolutePath(), temp2);
         Assert.assertEquals(IoUtil.read(new FileReader(temp)), str);

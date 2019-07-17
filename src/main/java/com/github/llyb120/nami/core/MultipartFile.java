@@ -88,16 +88,16 @@ public class MultipartFile implements AutoCloseable{
 
     public void transferTo(AsynchronousSocketChannel channel) throws IOException, ExecutionException, InterruptedException {
         try(
-                var fis = new FileInputStream(this.file);
+                FileInputStream fis = new FileInputStream(this.file);
         ){
-            var bs = IoUtil.readBytes(fis);
+            byte[] bs = IoUtil.readBytes(fis);
             channel.write(ByteBuffer.wrap(bs)).get();
         }
     }
 
     public void transferTo(WritableByteChannel channel) throws IOException {
         try(
-            var fis = new FileInputStream(this.file).getChannel();
+            FileChannel fis = new FileInputStream(this.file).getChannel();
                 ){
             fis.transferTo(0, this.file.length(), channel);
         }
@@ -105,9 +105,9 @@ public class MultipartFile implements AutoCloseable{
 
     public void transferTo(OutputStream os) throws IOException {
         try(
-                var fis = new FileInputStream(this.file);
+                FileInputStream fis = new FileInputStream(this.file);
                 ){
-            fis.transferTo(os);
+            IoUtil.copyByNIO(fis, os, 4096, null);
         }
     }
 
@@ -117,7 +117,7 @@ public class MultipartFile implements AutoCloseable{
 
     public void transferTo(File file) throws IOException {
         try(
-                var fos = new FileOutputStream(file);
+                FileOutputStream fos = new FileOutputStream(file);
                 ){
             transferTo(fos);
         }

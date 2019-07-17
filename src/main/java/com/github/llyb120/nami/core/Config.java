@@ -1,5 +1,7 @@
 package com.github.llyb120.nami.core;
 
+import cn.hutool.core.io.IoUtil;
+import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.FlexAction;
 import com.github.llyb120.nami.json.Obj;
 import org.beetl.sql.core.kit.GenKit;
@@ -26,6 +28,7 @@ public class Config {
     public List<String> link = new ArrayList<>();
     public Map<String, Link> links = new HashMap<>();
     public Obj statics = o();
+    public String version;
 
     private int ptr = 0;
     private byte[] bs = null;
@@ -42,10 +45,18 @@ public class Config {
 
 
     private void initConf(String path) {
+        //jdk版本
+        String version = System.getProperty("java.version");
+        int idex = version.indexOf(".");
+        if(idex == -1){
+            this.version = version;
+        } else {
+            this.version = version.substring(0, idex);
+        }
         try (
-                var fis = new FileInputStream(path);
+                FileInputStream fis = new FileInputStream(path);
         ) {
-            bs = fis.readAllBytes();
+            bs = IoUtil.readBytes(fis);
             String token;
             while ((token = readNextToken()) != null) {
                 switch (token) {
@@ -83,14 +94,14 @@ public class Config {
                         readNextToken();
                         readObj(statics);
                         //fixme 这里不应该去掉/，而是应该补上/，所有的请求path都应该补上/，路由匹配应按照树来查找，而不是简单的正则
-                        statics.flex(new FlexAction<>() {
+                        statics.flex(new FlexAction() {
                             @Override
                             public boolean canFlex(String k, Object v) {
                                 return k.endsWith("/");
                             }
                             @Override
                             public Object call(String k, Object v) {
-                                return Map.entry(k.substring(0, k.length() - 1), v);
+                                return new HashMap.SimpleEntry(k.substring(0, k.length() - 1), v);
                             }
                         });
                         break;
@@ -145,13 +156,13 @@ public class Config {
                 return;
             }
             //read value
-            var value = readUntilLine2();
+            String value = readUntilLine2();
             if (value.equals("{")) {
-                var nobj = o();
+                Obj nobj = o();
                 obj.put(key, nobj);
                 readObj(nobj);
             } else if(value.equals("[")){
-                var narr = a();
+                Arr narr = a();
                 obj.put(key, narr);
                 readStringArray(narr);
             } else {
@@ -161,7 +172,7 @@ public class Config {
     }
 
     private void readStringArray(Collection collection) {
-        var token = "";
+        String token = "";
         while ((token = readUntilLine2()) != null) {
             if (token.equals("]")) {
                 break;
@@ -230,7 +241,7 @@ public class Config {
             if (token.equals("}")) {
                 return;
             } else {
-                var ds = new Db();
+                Db ds = new Db();
                 this.db.put(token, ds);
                 //skip {
                 readNextToken();
@@ -275,8 +286,8 @@ public class Config {
 
 
     private String readUntilLine2() {
-        var left = -1;
-        var right = -1;
+        int left = -1;
+        int right = -1;
         while (ptr < bs.length) {
             switch (bs[ptr]) {
                 case ' ':
@@ -288,7 +299,7 @@ public class Config {
                     if (left > -1) {
                         if (right == -1) {
                             //如果有\r
-                            var p = ptr;
+                            int p = ptr;
                             if(bs[ptr - 1] == '\r'){
                                 p = ptr -1;
                             }
@@ -318,7 +329,7 @@ public class Config {
     }
 
     private String readUntilLine() {
-        var lastNotEmptyPtr = -1;
+        int lastNotEmptyPtr = -1;
         while (ptr < bs.length) {
             switch (bs[ptr]) {
                 case ' ':
@@ -342,7 +353,7 @@ public class Config {
     }
 
     private String readNextToken() {
-        var lastNotEmptyPtr = -1;
+        int lastNotEmptyPtr = -1;
         while (ptr < bs.length) {
             switch (bs[ptr]) {
                 case ' ':

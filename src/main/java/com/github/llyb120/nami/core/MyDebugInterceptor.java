@@ -3,9 +3,11 @@ package com.github.llyb120.nami.core;
 
 import cn.hutool.core.util.StrUtil;
 import org.beetl.sql.core.InterceptorContext;
+import org.beetl.sql.core.engine.SQLParameter;
 import org.beetl.sql.ext.DebugInterceptor;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,9 +21,9 @@ public class MyDebugInterceptor extends DebugInterceptor {
         }
 
         if (!this.isSimple(sqlId)) {
-            StringBuilder sb = new StringBuilder();
-            var sql = this.formatSql(ctx.getSql());
-            var args = ctx.getParas();
+            StringBuffer sb = new StringBuffer();
+            String sql = this.formatSql(ctx.getSql());
+            List<SQLParameter> args = ctx.getParas();
 
 
             String lineSeparator = System.getProperty("line.separator", "\n");
@@ -31,7 +33,7 @@ public class MyDebugInterceptor extends DebugInterceptor {
                 .append(lineSeparator);
 
             Matcher matcher = pattern.matcher(sql);
-            var idex = -1;
+            int idex = -1;
             while(matcher.find()){
                 idex++;
                 matcher.appendReplacement(sb, StrUtil.wrap(String.valueOf(args.get(idex).value), "'"));

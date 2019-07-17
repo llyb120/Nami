@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -30,7 +31,7 @@ public abstract class AbstractServer {
     }
 
     public void handle(Response resp) throws Exception {
-        var req = resp.request;
+        Request req = resp.request;
         if(req.method.equals(Request.Method.OPTIONS)){
             if(!handleOptions()){
                 return;
@@ -46,8 +47,8 @@ public abstract class AbstractServer {
         //静态资源
         for (String s : config.statics.keySet()) {
             if(req.path.startsWith(s)){
-                var relative = req.path.replace(s, "");
-                var file = new File(config.statics.s(s), relative);
+                String relative = req.path.replace(s, "");
+                File file = new File(config.statics.s(s), relative);
                 if(file.exists()){
                     if(file.isFile()){
                         proxyFile(resp, new MultipartFile(file), false);
@@ -63,7 +64,7 @@ public abstract class AbstractServer {
         }
 
         //路由匹配
-        var route = Route.getMatchedRoute(req.path);
+        Object[] route = Route.getMatchedRoute(req.path);
         if (route == null) {
             return;
         }
@@ -165,7 +166,7 @@ public abstract class AbstractServer {
     }
 
     public void proxyFile(Response response, MultipartFile multipartFile, boolean download) throws IOException, ExecutionException, InterruptedException {
-        var length = multipartFile.length();
+        long length = multipartFile.length();
         response.setFileDescription(multipartFile,download);
         if(length > -1){
             if(directDownloadLength() >= length){
@@ -175,21 +176,21 @@ public abstract class AbstractServer {
             } else {
                 response.setChunked(true);
                 response.writeHeaders(-1);
-                var size = directDownloadLength();
+                int size = directDownloadLength();
 //                var buf = new Buffer();
                 try(
-                        var fis = multipartFile.openChannel();
+                        FileChannel fis = multipartFile.openChannel();
                         ){
-                    var n = -1;
+                    int n = -1;
                     while(true){
-                        var bs = ByteBuffer.allocateDirect(size);
+                        ByteBuffer bs = ByteBuffer.allocateDirect(size);
                         n = fis.read(bs);
                         if(n < 1){
                             break;
                         }
                         response.write(Integer.toHexString(n).getBytes())
                                 .write(CRLF)
-                                .write(bs.flip())
+                                .write((ByteBuffer)bs.flip())
                                 .write(CRLF)
                                 .flush();
                     }

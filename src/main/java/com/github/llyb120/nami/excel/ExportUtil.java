@@ -16,10 +16,10 @@ public class ExportUtil {
     public static MultipartFile toXls(String fileName, InputStream template, Obj obj) throws IOException, InvalidFormatException {
         File temp = File.createTempFile("123", ".xls");
         try(
-            var is = template;
-            var fos = new FileOutputStream(temp);
+            InputStream is = template;
+            FileOutputStream fos = new FileOutputStream(temp);
             ){
-              var context = new Context();
+              Context context = new Context();
               obj.forEach((k,v) -> context.putVar(String.valueOf(k),v));
             JxlsHelper
                 .getInstance()

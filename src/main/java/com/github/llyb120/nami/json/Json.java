@@ -76,23 +76,23 @@ public class Json {
 
 
     public static Arr tree(Collection<Obj> list, String parentKey, String childKey) {
-        var map = o();
+        Obj map = o();
         for (Obj object : list) {
-            var key = object.s(childKey);
+            String key = object.s(childKey);
             if (key == null) {
                 continue;
             }
             map.put(key, object);
 //            object.put("children", a());
         }
-        var ret = a();
+        Arr ret = a();
         for (Obj object : list) {
-            var par = map.o(object.s(parentKey));
+            Obj par = map.o(object.s(parentKey));
             if (par == null) {
                 ret.add(object);
                 continue;
             }
-            var child = par.a("children");
+            Arr child = par.a("children");
             if (child == null) {
                 child = a();
                 par.put("children", child);
@@ -193,7 +193,7 @@ public class Json {
         }
 
         private Obj parseObj() {
-            var obj = o();
+            Obj obj = o();
             JsonToken token;
             String key = null;
             loop:
@@ -254,7 +254,7 @@ public class Json {
         }
 
         private Arr parseArr() {
-            var arr = a();
+            Arr arr = a();
             JsonToken token;
             loop:
             while ((token = readToken()) != null) {
@@ -300,7 +300,7 @@ public class Json {
             boolean isStr = false;
             int start = -1;
             while (ptr < len) {
-                var ch = str.charAt(ptr);
+                char ch = str.charAt(ptr);
                 isBlank = CharUtil.isBlankChar(ch);
                 boolean isStrStart = (ch == '"');
                 if (start > -1) {
@@ -308,7 +308,7 @@ public class Json {
                         return new JsonToken(JsonTokenType.STRING, str.substring(start, ptr++));
                     } else if (!isStr && (ch == '{' || ch == '}' || ch == '[' || ch == ']' || ch == ':' || ch == ',' || isBlank)) {
                         //强行中断
-                        var token = str.substring(start, ptr);
+                        String token = str.substring(start, ptr);
                         if (isBlank) {
                             ptr++;
                         }
@@ -414,35 +414,35 @@ public class Json {
         }
 
         private void encodeEntity(Object obj) {
-            var fa = FieldAccess.get(obj.getClass());
-            var ma = MethodAccess.get(obj.getClass());
-            var i = 0;
+            FieldAccess fa = FieldAccess.get(obj.getClass());
+            MethodAccess ma = MethodAccess.get(obj.getClass());
+            int i = 0;
             sb.append("{");
             for (String fieldName : fa.getFieldNames()) {
                 sb.append("\"");
                 sb.append(fieldName);
                 sb.append("\"");
                 sb.append(":");
-                var val = fa.get(obj, i++);
+                Object val = fa.get(obj, i++);
                 encode(val);
                 sb.append(",");
             }
             i = 0;
             for (String methodName : ma.getMethodNames()) {
-                var idex = methodName.indexOf("get");
+                int idex = methodName.indexOf("get");
                 if (idex == -1) {
                     continue;
                 }
-                var key = methodName.substring(idex + 3, idex + 4).toLowerCase() + methodName.substring(idex + 4);
-                var types = ma.getParameterTypes()[i];
-                var retType = ma.getReturnTypes()[i];
+                String key = methodName.substring(idex + 3, idex + 4).toLowerCase() + methodName.substring(idex + 4);
+                Class[] types = ma.getParameterTypes()[i];
+                Class retType = ma.getReturnTypes()[i];
                 if (types.length == 0 && !"void".equals(retType.getName())) {
                     sb.append("\"");
                     sb.append(key);
                     sb.append("\"");
                     sb.append(":");
                     try {
-                        var val = ma.invoke(obj, i++);
+                        Object val = ma.invoke(obj, i++);
                         encode(val);
                     } catch (Exception e) {
                         encode(null);
@@ -467,10 +467,10 @@ public class Json {
 
         private void encodeMap(Map map) {
             sb.append("{");
-            var eset = map.entrySet();
+            Set eset = map.entrySet();
             for (Object o : eset) {
                 Map.Entry entry = (Map.Entry) o;
-                var key = entry.getKey();
+                Object key = entry.getKey();
                 if (key == null) {
                     continue;
                 }
@@ -482,7 +482,7 @@ public class Json {
                 }
                 sb.append("\"");
                 sb.append(":");
-                var val = entry.getValue();
+                Object val = entry.getValue();
                 encode(val);
                 sb.append(",");
             }
@@ -502,7 +502,7 @@ public class Json {
 
 
     static <T> T newInstance(Class<T> clz) {
-        var ca = ConstructorAccess.get(clz);
+        ConstructorAccess<T> ca = ConstructorAccess.get(clz);
         return ca.newInstance();
     }
 
@@ -510,7 +510,7 @@ public class Json {
         if (source == null) {
             return null;
         }
-        var type = source.getClass();
+        Class<?> type = source.getClass();
         //基本类型
         if (clz == String.class) {
             if (source instanceof String) {
@@ -530,7 +530,7 @@ public class Json {
                 }
                 //尝试使用数字
                 try {
-                    var decimal = new BigDecimal(String.valueOf(source));
+                    BigDecimal decimal = new BigDecimal(String.valueOf(source));
                     return (T) new Boolean(decimal.intValue() != 0);
                 } catch (Exception e) {
                 }
@@ -580,10 +580,10 @@ public class Json {
             return (T) list;
         }
         if(clz.isArray()){
-            var arrType = clz.getComponentType();
+            Class<?> arrType = clz.getComponentType();
             Collection collection = (Collection) source;
-            var narr = Array.newInstance(arrType, (collection.size()));
-            var i = 0;
+            Object narr = Array.newInstance(arrType, (collection.size()));
+            int i = 0;
             for (Object o : collection) {
                 Array.set(narr, i, Json.cast(o, arrType));
                 i++;
@@ -605,7 +605,7 @@ public class Json {
         }
         //把目标当bean转换
         //todo: 使用reflectasm
-        var ret = (T) BeanUtil.toBean(source, clz);
+        T ret = (T) BeanUtil.toBean(source, clz);
         if (ret == null) {
             throw new RuntimeException();
         }

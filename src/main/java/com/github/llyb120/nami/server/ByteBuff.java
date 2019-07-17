@@ -1,10 +1,13 @@
 package com.github.llyb120.nami.server;
 
+import cn.hutool.core.io.IoUtil;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -38,15 +41,15 @@ public class ByteBuff {
      * @return
      */
     public ByteBuff blockStream(InputStream is, int length, boolean calSelf){
-        var block = new StreamBlock();
+        StreamBlock block = new StreamBlock();
         block.max = length - (calSelf ? length() : 0);
         blockMap.put(is, block);
         return this;
     }
 
     public ByteBuff write(byte b){
-        var bs = bytes.getLast();
-        var left = step - writePtr;
+        byte[] bs = bytes.getLast();
+        int left = step - writePtr;
         if(left <= 0){
             bs = createSliceBytes();
             bytes.addLast(bs);
@@ -69,13 +72,13 @@ public class ByteBuff {
     }
 
     public ByteBuff writeBefore(byte[] bs, int offset, int length){
-        var len = length;
-        var pos = 0;
+        int len = length;
+        int pos = 0;
         while(len > 0){
-            var realLen = Math.min(len, readPtr);
+            int realLen = Math.min(len, readPtr);
             //空间不够
             if(realLen == 0){
-                var b = createSliceBytes();
+                byte[] b = createSliceBytes();
                 bytes.addFirst(b);
                 readPtr = step;
                 realLen = Math.min(len, readPtr);
@@ -93,12 +96,12 @@ public class ByteBuff {
     }
 
     public ByteBuff write(byte[] bs, int pos, int len){
-        var lenCopy = len;
-        var posCopy = pos;
-        var left = -1;
+        int lenCopy = len;
+        int posCopy = pos;
+        int left = -1;
         //空间不足
         while(lenCopy > 0){
-            var last = bytes.getLast();
+            byte[] last = bytes.getLast();
             left = step - writePtr;
             //空间不足
             if(left <= 0){
@@ -108,7 +111,7 @@ public class ByteBuff {
                 left = step;
             }
             //当前块的剩余空间不足以写入
-            var writeLen = Math.min(left, lenCopy);
+            int writeLen = Math.min(left, lenCopy);
             System.arraycopy(bs, posCopy, last, writePtr, writeLen);
             writePtr += writeLen;
             posCopy += left;
@@ -119,29 +122,29 @@ public class ByteBuff {
 
     public int writeOnce(InputStream is) throws IOException {
         //如果已经越界
-        var block = blockMap.get(is);
-        var readLen = step;
+        StreamBlock block = blockMap.get(is);
+        int readLen = step;
         if (block != null) {
             if(block.current >= block.max){
                 return 0;
             } else {
                 readLen = Math.min(block.max - block.current, step);
             }
-            var bs = is.readNBytes(readLen);
+            byte[] bs = IoUtil.readBytes(is, readLen);
             block.current += readLen;
             write(bs, 0, readLen);
             return readLen;
         } else {
             byte[] bs;
-            var n = is.read(bs = createSliceBytes());
+            int n = is.read(bs = createSliceBytes());
             write(bs, 0, n);
             return n;
         }
     }
 
     public ByteBuff writeFull(InputStream is) throws IOException {
-        var bs = createSliceBytes();
-        var n = -1;
+        byte[] bs = createSliceBytes();
+        int n = -1;
         while((n = is.read(bs)) > 0){
             write(bs, 0, n);
         }
@@ -155,7 +158,7 @@ public class ByteBuff {
         if(pos[0] == -1 || pos[1] == -1){
             return null;
         }
-        var len = step * (pos[0]) - readPtr + pos[1] - 1;
+        int len = step * (pos[0]) - readPtr + pos[1] - 1;
         return readNBytes(len);
 //        var ret = new byte[len];
 //        var it = bytes.iterator();
@@ -189,7 +192,7 @@ public class ByteBuff {
     }
 
     public byte[] readLine() {
-        var pos = canReadLine();
+        int pos = canReadLine();
         return readNBytes(pos);
     }
 
@@ -199,7 +202,7 @@ public class ByteBuff {
             do{
                 pos = canReadLine();
                 if(pos < 1){
-                    var n = writeOnce(is);
+                    int n = writeOnce(is);
                     if (n <= 0) {
                         break;
                     }
@@ -214,12 +217,12 @@ public class ByteBuff {
     }
 
     public String readLineStr(InputStream is, Charset charset){
-        var bs = readLine(is);
+        byte[] bs = readLine(is);
         if (bs == null) {
             return null;
         }
         if(bs.length >= 2){
-            var end = bs.length;
+            int end = bs.length;
             if(bs[end - 1] == '\n'){
                 end--;
             }
@@ -233,14 +236,14 @@ public class ByteBuff {
     }
 
     private int canReadLine(){
-        var ret = 0;
-        var it = bytes.iterator();
-        var i = 0;
+        int ret = 0;
+        Iterator<byte[]> it = bytes.iterator();
+        int i = 0;
         scan:{
             while (it.hasNext()) {
-                var bs = it.next();
-                var s = getStart(i);
-                var e = getEnd(i);
+                byte[] bs = it.next();
+                int s = getStart(i);
+                int e = getEnd(i);
                 for (int i1 = s; i1 < e; i1++) {
                     ret++;
                     if(bs[i1] == '\n'){
@@ -254,14 +257,14 @@ public class ByteBuff {
     }
 
     public byte[] getBytes(){
-        var bs = createFullLengthBytes();
+        byte[] bs = createFullLengthBytes();
         if(bs.length == 0){
             return null;
         }
-        var ptr = 0;
+        int ptr = 0;
         for (int i = 0; i < bytes.size(); i++) {
-            var start = getStart(i);
-            var end = getEnd(i);
+            int start = getStart(i);
+            int end = getEnd(i);
             System.arraycopy(bytes.get(i), start, bs, ptr, end - start);
             ptr += (end - start) ;
         }
@@ -269,14 +272,14 @@ public class ByteBuff {
     }
 
     public byte[] readBytes(){
-        var bs = getBytes();
+        byte[] bs = getBytes();
         reset();
         return bs;
     }
 
     public ByteBuff copyUntil(InputStream is, OutputStream os, byte[] target) throws IOException {
-        var i = 0;
-        var ptr = 0;
+        int i = 0;
+        int ptr = 0;
         byte[] bs = null;
         scan : while((bs = readNBytes(is, 1024)) != null){
             for (int i1 = 0; i1 < bs.length; i1++) {
@@ -325,21 +328,21 @@ public class ByteBuff {
         if(n < 1){
             return null;
         }
-        var length = length();
+        int length = length();
         if(length <= 0){
             return null;
         }
-        var nn = n;
-        var ret = new byte[Math.min(n, length)];
-        var it = bytes.iterator();
-        var i = 0;
-        var ptr = 0;
+        int nn = n;
+        byte[] ret = new byte[Math.min(n, length)];
+        Iterator<byte[]> it = bytes.iterator();
+        int i = 0;
+        int ptr = 0;
         while(it.hasNext()){
-            var bs = it.next();
-            var start = getStart(i);
-            var end = getEnd(i);
-            var len = end - start;
-            var left = Math.min(nn, len);
+            byte[] bs = it.next();
+            int start = getStart(i);
+            int end = getEnd(i);
+            int len = end - start;
+            int left = Math.min(nn, len);
             readPtr = start + left;
 //            if(nn <= len){
 //                len = nn;
@@ -358,14 +361,14 @@ public class ByteBuff {
             bytes.removeFirst();
         }
         if(ret.length == 0){
-            var eee = 2;
+            int eee = 2;
         }
         return ret;
     }
 
     public byte[] readNBytes(InputStream is, int n) throws IOException {
         while(length() < n){
-            var nn = writeOnce(is);
+            int nn = writeOnce(is);
             if(nn <= 0){
                 break;
             }
@@ -376,7 +379,7 @@ public class ByteBuff {
     public ByteBuff reset(){
         writePtr = 0;
         readPtr = 0;
-        var first = bytes.getFirst();
+        byte[] first = bytes.getFirst();
         bytes.clear();
         bytes.addFirst(first);
         return this;
