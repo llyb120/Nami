@@ -81,13 +81,19 @@ public class Compiler {
         }
     }
 
-    public static void compile(File file, String compiler) {
+    public static void compile(File file, String compiler){
+        compile(file, compiler, false);
+    }
+
+    public static void compile(File file, String compiler, boolean force) {
         if ("javac".equals(compiler)) {
 //            return compileWithJavac(file);
         } else {
             executor.submit(() -> {
-                if (config.hotswap.size() == 0) {
-                    return;
+                if(!force){
+                    if (config.hotswap.size() == 0) {
+                        return;
+                    }
                 }
                 //只动态编译需要编译的文件
                 String path = file.getAbsolutePath();
@@ -96,6 +102,9 @@ public class Compiler {
                         .substring(1);
                 boolean flag = config.hotswap.stream()
                         .anyMatch(i -> classPath.startsWith(i));
+                if(force){
+                    flag = true;
+                }
                 if (!flag) {
                     return;
                 }
