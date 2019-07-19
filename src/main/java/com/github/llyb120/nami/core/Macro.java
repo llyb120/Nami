@@ -134,7 +134,7 @@ public class Macro {
 //                ptr++;
 //            }
 
-            if(map.isNotEmpty()){
+            if(!map.isEmpty()){
                 macros.put(name, map);
             }
 

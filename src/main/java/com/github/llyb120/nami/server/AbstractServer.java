@@ -71,6 +71,9 @@ public abstract class AbstractServer {
         String className = (String) route[1];
         String methodName = (String) route[2];
         String packageName = (String) route[0];
+        if(className == null){
+           className = packageName;
+        }
         String[] aops = (String[]) route[3];
 
         ClassLoader loader = null;
@@ -79,7 +82,7 @@ public abstract class AbstractServer {
         } else {
             loader = getClass().getClassLoader();
         }
-        Class clz = loader.loadClass(packageName + "." + className);
+        Class clz = loader.loadClass(className);
 
         Object result = null;
 //        var ma = MethodAccess.get(clz);

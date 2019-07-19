@@ -8,6 +8,8 @@ import org.junit.Test;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 import static com.github.llyb120.nami.ext.BeetlSql.sqlManager;
 
@@ -55,6 +57,24 @@ public class TestElse {
             }).start();
         }
         Thread.sleep(10000);
+    }
+
+
+    private void test2(Map map){
+        Object a = new Object();
+        map.put(a, 1);
+        return;
+    }
+    @Test
+    public void testWeakMap(){
+        Map map = new WeakHashMap<>();
+        test2(map);
+        Object a = new Object();
+        map.put(a, 2);
+        System.gc();
+
+        int la = 2;
+
     }
 
 }

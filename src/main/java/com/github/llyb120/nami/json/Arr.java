@@ -2,7 +2,7 @@ package com.github.llyb120.nami.json;
 
 import java.util.*;
 
-public class Arr<T> implements List<T> {
+public class Arr<T> implements List<T>, IArr<T> {
 
     protected LinkedList list = new LinkedList();
 

@@ -10,7 +10,7 @@ import java.util.Set;
 import static com.github.llyb120.nami.core.DBService.fSql;
 import static com.github.llyb120.nami.json.Json.cast;
 
-public class Obj implements Map<String, Object>{
+public class Obj implements IObj<Arr, Obj>{
     protected Class clz = null;
     protected LinkedHashMap<String,Object> map;
     private boolean parallel = false;
@@ -40,7 +40,7 @@ public class Obj implements Map<String, Object>{
     }
 
 
-    public Map getInnerMap(){
+    public Map innerMap(){
         if(parallel){
             return (Map) local.get();
         } else {
@@ -69,75 +69,11 @@ public class Obj implements Map<String, Object>{
 //        return super.toJavaObject(clazz);
 //    }
 
-    @Override
-    public int size() {
-        return getInnerMap().size();
-    }
 
-    @Override
-    public boolean isEmpty() {
-        return getInnerMap().isEmpty();
-    }
-
-    @Override
-    public boolean containsKey(Object key) {
-        return getInnerMap().containsKey(key);
-    }
-
-    @Override
-    public boolean containsValue(Object value) {
-        return getInnerMap().containsValue(value);
-    }
-
-    @Override
-    public Object get(Object key) {
-        return getInnerMap().get(key);
-    }
-
-    public <T> T get(String key, Class<T> clz){
-        return cast(get(key), clz);
-    }
-
-    @Override
-    public Object put(String key, Object value) {
-        return getInnerMap().put(key, value);
-    }
-
-    @Override
-    public Object remove(Object key) {
-        return getInnerMap().remove(key);
-    }
-
-    @Override
-    public void putAll(Map<? extends String, ?> m) {
-        getInnerMap().putAll(m);
-    }
-
-
-    @Override
-    public void clear() {
-        getInnerMap().clear();
-    }
-
-    @Override
-    public Set<String> keySet() {
-        return getInnerMap().keySet();
-    }
-
-    @Override
-    public Collection<Object> values() {
-        return getInnerMap().values();
-    }
-
-    @Override
-    public Set<Entry<String, Object>> entrySet() {
-        return getInnerMap().entrySet();
-    }
-
-
-    public static interface ObjValueIterator {
-        void call(Obj t);
-    }
+//
+//    public static interface ObjValueIterator {
+//        void call(Obj t);
+//    }
 
 //    public void forEachObj(ObjValueIterator iterator){
 //        for (String s : this.keySet()) {
@@ -175,70 +111,40 @@ public class Obj implements Map<String, Object>{
 //        return String.valueOf(obj);
 //    }
 
-    public String s(String key){
-        return get(key, String.class);
-    }
 
-    public String s(String key, String defaultValue){
-        String str = s(key);
-        if(StrUtil.isEmpty(str)){
-            return defaultValue;
-        }
-        return str;
-    }
 
-    public Integer i(String k, int defaultValue){
-        Integer val = i(k);
-        if (val == null) {
-            val = defaultValue;
-        }
-        return val;
-    }
 
-    public Integer i(String k){
-        return get(k, Integer.class);
-    }
 
-    public boolean b(String k){
-        Object val = get(k);
-        if (val == null) {
-            return false;
-        }
-        return Json.cast(val, Boolean.class);
-    }
 
-    public Arr<Obj> oa(String k){
-        return a(k);
-    }
 
-    public Obj o(String k){
-        Object val = get(k);
-        if (val == null) {
-            return null;
-        }
-        if(val instanceof Obj){
-            return (Obj) val;
-        }
-        if(val instanceof Map){
-            return new Obj((Map<String, Object>) val);
-        }
-        return null;
-    }
-
-    public Arr a(String k){
-        Object val = get(k);
-        if (val == null) {
-            return null;
-        }
-        if(val instanceof Arr){
-            return (Arr) val;
-        }
-        //todo: 数组的添加
-//        if(val instanceof Iterable){
-//            return new Arr((Iterable) val);
+//    public Obj o(String k){
+//        Object val = get(k);
+//        if (val == null) {
+//            return null;
 //        }
-        return null;
-    }
+//        if(val instanceof Obj){
+//            return (Obj) val;
+//        }
+//        if(val instanceof Map){
+//            return new Obj((Map<String, Object>) val);
+//        }
+//        return null;
+//    }
+
+//    public Arr a(String k){
+//        Object val = get(k);
+//        if (val == null) {
+//            return null;
+//        }
+//        if(val instanceof Arr){
+//            return (Arr) val;
+//        }
+//        //todo: 数组的添加
+////        if(val instanceof Iterable){
+////            return new Arr((Iterable) val);
+////        }
+//        return null;
+//    }
 
 //    public Object getByPath(String path){
 //        try{
@@ -265,58 +171,15 @@ public class Obj implements Map<String, Object>{
 //        return null;
 //    }
 
-    public boolean isNotEmpty(){
-        return !isEmpty();
-    }
-
-
-
-//    public Obj set(String key, Object value){
-//         put(key, value);
-//         return this;
-//    }
 
     public Obj to(String tableName){
         Arr arr = fSql.insert(tableName, this);
         return null;
     }
 
-    public <T> T to(Class<T> clz){
-        return Json.cast(this, clz);
-    }
-
-
-    public Obj flex(Object ...objects){
-        Obj nobj = Json.o();
-        boolean flexed = false;
-        for (int i = 0; i < objects.length; i++) {
-            Object obj = objects[i];
-            boolean readNext = false;
-            if(obj instanceof FlexAction){
-                for (Entry<String, ?> entry : this.entrySet()) {
-                    if(((FlexAction) obj).canFlex(entry.getKey(), entry.getValue())){
-                        Object fval = ((FlexAction) obj).call(entry.getKey(), entry.getValue());
-                        if(fval instanceof Map.Entry){
-                            nobj.put((String) ((Entry) fval).getKey(), ((Entry) fval).getValue());
-                        } else {
-                            nobj.put(entry.getKey(), fval) ;
-                        }
-                    }
-                }
-                flexed = true;
-                continue;
-            }
-        }
-        if(flexed){
-            clear();
-            putAll(nobj);
-        }
-        return this;
-    }
-
     @Override
     public String toString() {
-        return Json.stringify(this);
+        return toJsonString();
     }
 
 

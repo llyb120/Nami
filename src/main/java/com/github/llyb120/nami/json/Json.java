@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Function;
 
-public class Json {
+public abstract class Json {
 
     public enum ValidateType {
         notnull,
