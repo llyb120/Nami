@@ -1,6 +1,6 @@
 package com.github.llyb120.nami.core;
 
-import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.json.Json;
 
 import java.util.concurrent.ConcurrentHashMap;
 

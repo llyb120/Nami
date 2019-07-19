@@ -4,7 +4,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.URLUtil;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Json;
-import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.json.Json;
 
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -18,15 +18,15 @@ import static com.github.llyb120.nami.server.Response.CRLF;
 import static com.github.llyb120.nami.server.Vars.*;
 
 public class Request implements AutoCloseable{
-    public Obj headers = o();
-    public Obj query = o();
-    public Obj params = o();
+    public Json headers = o();
+    public Json<?> query = o();
+    public Json params = o();
     public Method method = null;
     public String path;
     public String version;
 //    public InputStream is;
     public ReadableByteChannel channel;
-    public Object body;
+    public Json body;
     public Cookie cookie = new Cookie();
 
 
@@ -88,7 +88,7 @@ public class Request implements AutoCloseable{
         channel = Channels.newChannel(is);
     }
 
-    private Obj decodeQuery(String query, Obj ret) {
+    private Json decodeQuery(String query, Json ret) {
         String qs = query + "&";
         qs = URLUtil.decode(qs);
         int len = qs.length();
@@ -221,18 +221,19 @@ public class Request implements AutoCloseable{
         //解析头
 //        var surplus = decodeHeaders2();
 //        decodeHeaders3();
-        $get.clear();
-        $post.clear();
-        $request.clear();
+//        $get.clear();
+//        $post.clear();
+//        $request.clear();
 
-        $get.putAll(query);
-
-        params.putAll(query);
-        if (body instanceof Map) {
-            params.putAll((Map) body);
-            $post.putAll((Map) body);
+        $get.holder(query.holder());
+        params.putAll(query.map());
+        if(null != body){
+            if(body.isMap()){
+                params.putAll(body.map());
+            }
+            $post.holder(body.holder());
         }
-        $request.putAll(params);
+        $request.holder(params.holder());
     }
 
     public boolean hasRemaining(){
@@ -322,10 +323,10 @@ public class Request implements AutoCloseable{
                             temp.step = FormDataStep.WAIT_FOR_READ_VALUE;
                             break scan;
                         }
-                        String[] arr = line.split("; ");
-                        for (int i = 0; i < arr.length; i++) {
+                        String[] Json = line.split("; ");
+                        for (int i = 0; i < Json.length; i++) {
                             if (i > 0) {
-                                String[] strs = getFormDataKV(arr[i]);
+                                String[] strs = getFormDataKV(Json[i]);
                                 switch (strs[0]) {
                                     case "name":
                                         temp.name = strs[1];
@@ -360,9 +361,9 @@ public class Request implements AutoCloseable{
                     temp.tempOs.write(bs);
                 }
                 if (temp.tempOs instanceof ByteArrayOutputStream) {
-                    ((Obj) body).put(temp.name, ((ByteArrayOutputStream) temp.tempOs).toString(StandardCharsets.UTF_8.name()));
+                    ((Json) body).put(temp.name, ((ByteArrayOutputStream) temp.tempOs).toString(StandardCharsets.UTF_8.name()));
                 } else if (temp.tempOs instanceof FileOutputStream) {
-                    ((Obj) body).put(temp.name, temp.file);
+                    ((Json) body).put(temp.name, temp.file);
                 }
                 buffer.readNBytes(2);
                 temp.release();
@@ -410,10 +411,10 @@ public class Request implements AutoCloseable{
 //                                    break scan2;
 //                                }
 //                                //start
-//                                var arr = line.split("; ");
-//                                for (int i = 0; i < arr.length; i++) {
+//                                var Json = line.split("; ");
+//                                for (int i = 0; i < Json.length; i++) {
 //                                    if (i > 0) {
-//                                        var strs = getFormDataKV(arr[i]);
+//                                        var strs = getFormDataKV(Json[i]);
 //                                        switch (strs[0]) {
 //                                            case "name":
 //                                                name = strs[1];
@@ -490,7 +491,7 @@ public class Request implements AutoCloseable{
         currentBodyLength += buffer.length();
         String str = new String(buffer.readBytes(), StandardCharsets.UTF_8);
         body = o();
-        decodeQuery(str, (Obj)body);
+        decodeQuery(str, (Json)body);
     }
 
     private int getContentLength() {
@@ -508,13 +509,13 @@ public class Request implements AutoCloseable{
 //            line = line.substring(0, i);
 //        }
         if (null == method) {
-            String[] arr = line.split("\\s+");
-            if (arr.length < 3) {
+            String[] Json = line.split("\\s+");
+            if (Json.length < 3) {
                 throw new RuntimeException();
             }
-            method = Request.Method.valueOf(arr[0]);
-            version = arr[2];
-            decodePath(arr[1]);
+            method = Request.Method.valueOf(Json[0]);
+            version = Json[2];
+            decodePath(Json[1]);
         } else {
             int comma = line.indexOf(":");
             String key = line.substring(0, comma);
@@ -554,8 +555,8 @@ public class Request implements AutoCloseable{
         if(value.length() == 0){
             return;
         }
-        String[] arr = value.split("; ");
-        for (String s : arr) {
+        String[] Json = value.split("; ");
+        for (String s : Json) {
             int i = s.indexOf("=");
             if(i > -1){
                 cookie.set(s.substring(0, i), s.substring(i+1), false);
@@ -634,7 +635,7 @@ public class Request implements AutoCloseable{
      */
     public <T> T getParam(String name, Class<T> type) {
         try {
-            return params.get(name, type);
+            return (T) params.get(name, type);
         } catch (Exception e) {
             try {
                 return (T) params.to(type);

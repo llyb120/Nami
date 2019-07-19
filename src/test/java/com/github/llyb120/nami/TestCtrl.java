@@ -5,8 +5,8 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.http.HttpUtil;
 import com.github.llyb120.nami.core.Nami;
 import com.github.llyb120.nami.core.Route;
-import com.github.llyb120.nami.json.Arr;
-import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.server.Buffer;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -43,50 +43,50 @@ public class TestCtrl {
 
     @Test
     public void test_02_getWithArgs() {
-        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithArgs", o("a", 1));
+        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithArgs", o("a", 1).map());
         assertEquals(res, "1");
     }
 
     @Test
     public void test_03_getQuery() {
-        Obj query = o("a", "1", "b", "2");
-        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getQuery", query);
+        Json query = o("a", "1", "b", "2");
+        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getQuery", query.map());
         assertEquals(res, query.toString());
     }
 
     @Test
     public void test_04_postUrlEncoded() {
-        Obj query = o("a", "1", "b", "2");
-        String res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded", query);
+        Json query = o("a", "1", "b", "2");
+        String res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded", query.map());
         assertEquals(res, query.toString());
 
-        res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded2", query);
+        res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded2", query.map());
         assertEquals(res, "1");
     }
 
     @Test
     public void test_05_postJson() {
-        Arr arr = a("1", "2", "3");
+        Json Json = a("1", "2", "3");
         String res = HttpUtil.createPost("http://127.0.0.1:" + config.port + "/test/a/postJsonArray")
-                .body(arr.toString())
+                .body(Json.toString())
                 .header("Content-Type", "application/json")
                 .execute()
                 .body();
         System.out.println(res);
-        assertEquals(res, arr.toString());
+        assertEquals(res, Json.toString());
 
-        Obj obj = o("a", "2", "b", a("1", "2"));
+        Json = o("a", "2", "b", a("1", "2"));
         res = HttpUtil.createPost("http://127.0.0.1:" + config.port + "/test/a/postJsonObject")
-                .body(obj.toString())
+                .body(Json.toString())
                 .header("Content-Type", "application/json")
                 .execute()
                 .body();
-        assertEquals(res, obj.toString());
+        assertEquals(res, Json.toString());
     }
 
     @Test
     public void test_06_getWithEntity(){
-        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithEntity", o("a", "1", "b", "2"));
+        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithEntity", o("a", "1", "b", "2").map());
         assertNotNull(res);
         assertNotEquals(res, "null");
     }
@@ -103,14 +103,14 @@ public class TestCtrl {
     @Test
     public void test_08_php_style(){
         String val = RandomUtil.randomString(1024);
-        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleGet", o("dev", val));
+        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleGet", o("dev", val).map());
         assertEquals(res, val);
     }
     @Test
     public void test_09_php_style() {
         String val = RandomUtil.randomString(1024);
-        Obj parasm = o("dev", val);
-        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleRequest", parasm);
+        Json parasm = o("dev", val);
+        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleRequest", parasm.map());
         assertEquals(parasm.toString(), res);
     }
 
@@ -208,9 +208,9 @@ public class TestCtrl {
 //
 //        // 定义BufferedReader输入流来读取URL的响应
 //         resp = new String(conn.getInputStream().readAllBytes());
-        String[] arr = res.split("\\|");
-        Assert.assertEquals(arr[0], fileName);
-        byte[] bs = IoUtil.readBytes(new FileInputStream(arr[1]));
+        String[] Json = res.split("\\|");
+        Assert.assertEquals(Json[0], fileName);
+        byte[] bs = IoUtil.readBytes(new FileInputStream(Json[1]));
         Assert.assertArrayEquals(bs, str.getBytes());
 //            BufferedReader reader = new BufferedReader(new InputStreamReader(
 //                    conn.getInputStream(),"UTF-8"));
@@ -223,10 +223,10 @@ public class TestCtrl {
 
         File temp = File.createTempFile("123", "123");
         temp.deleteOnExit();
-        HttpUtil.downloadFile("http://127.0.0.1:" + config.port + "/test/a/downloadFile1?path=" + arr[1], temp);
+        HttpUtil.downloadFile("http://127.0.0.1:" + config.port + "/test/a/downloadFile1?path=" + Json[1], temp);
         Assert.assertEquals(IoUtil.read(new FileReader(temp)), str);
 
-        HttpUtil.downloadFile("http://127.0.0.1:" + config.port + "/test/a/downloadFile2?path=" + arr[1], temp);
+        HttpUtil.downloadFile("http://127.0.0.1:" + config.port + "/test/a/downloadFile2?path=" + Json[1], temp);
         Assert.assertEquals(IoUtil.read(new FileReader(temp)), str);
 
     }

@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.core.Config;
 import com.github.llyb120.nami.core.Nami;
 import com.github.llyb120.nami.dao.FSql;
-import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.json.Json;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.junit.BeforeClass;
@@ -63,7 +63,7 @@ public class TestDao {
         Nami.dev();
 //        var sql = new FSql(Config.config.db.get("main"));
         String compName = "";
-        List<Obj> list = fSql.select(
+        List<Json> list = fSql.select(
                 "l11",
                 "linkrlue", "11.1"
 //                "originnema", compName

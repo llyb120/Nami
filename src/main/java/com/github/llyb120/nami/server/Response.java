@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Json;
-import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.json.Json;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -24,7 +24,7 @@ import static com.github.llyb120.nami.json.Json.o;
 public class Response implements AutoCloseable{
     public int status;
     public Request request = new Request();
-    public Obj headers = o();
+    public Json headers = o();
     public WritableByteChannel channel;
     public AsynchronousSocketChannel aChannel;
     public static byte[] CRLF = "\r\n".getBytes();
@@ -125,7 +125,8 @@ public class Response implements AutoCloseable{
         if(request.cookie.hasChanged()){
             headers.put("Set-Cookie", request.cookie.toSetCookieString());
         }
-        for (Map.Entry<String, Object> entry : headers.entrySet()) {
+        for (Object o : headers.entrySet()) {
+            Map.Entry<String, Object> entry = (Map.Entry<String, Object>) o;
             String value = (String) entry.getValue();
             String line = entry.getKey() + ": " + value + "\r\n";
             buffer.writeNio(line);

@@ -1,9 +1,9 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.io.IoUtil;
-import com.github.llyb120.nami.json.Arr;
+import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.FlexAction;
-import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.json.Json;
 import org.beetl.sql.core.kit.GenKit;
 
 import java.io.File;
@@ -22,12 +22,12 @@ public class Config {
     public List<String> route = new Vector<>();
     public Compile compile = new Compile();
     public Cors cors = new Cors();
-    public Obj ext = o();
-    public Obj var = o();
+    public Json ext = o();
+    public Json var = o();
     public boolean dev = true;
     public List<String> link = new ArrayList<>();
     public Map<String, Link> links = new HashMap<>();
-    public Obj statics = o();
+    public Json<?> statics = o();
     public String version;
 
     private int ptr = 0;
@@ -130,15 +130,15 @@ public class Config {
                 }
             }
             for (String s : config.link) {
-                String[] arr = s.toLowerCase().split("\\s*(:|\\.|->|=>)\\s*");
+                String[] Json = s.toLowerCase().split("\\s*(:|\\.|->|=>)\\s*");
                 Link link = new Link();
-                link.name = arr[0];
-                link.fromClz = arr[1];
-                link.fromField = arr[2];
-                link.toClz = arr[3];
-                link.toField = arr[4];
+                link.name = Json[0];
+                link.fromClz = Json[1];
+                link.fromField = Json[2];
+                link.toClz = Json[3];
+                link.toField = Json[4];
                 link.many = s.contains("=>");
-                if (arr.length == 5) {
+                if (Json.length == 5) {
                     config.links.put(link.fromClz + link.name, link);
                 }
             }
@@ -148,7 +148,7 @@ public class Config {
         }
     }
 
-    private void readObj(Obj obj){
+    private void readObj(Json Json){
         //read key
         String key = null;
         while((key = readNextToken()) != null) {
@@ -158,15 +158,15 @@ public class Config {
             //read value
             String value = readUntilLine2();
             if (value.equals("{")) {
-                Obj nobj = o();
-                obj.put(key, nobj);
+                Json nobj = o();
+                Json.put(key, nobj);
                 readObj(nobj);
             } else if(value.equals("[")){
-                Arr narr = a();
-                obj.put(key, narr);
-                readStringArray(narr);
+                Json narr = a();
+                Json.put(key, narr);
+                readStringArray(narr.list());
             } else {
-                obj.put(key, value);
+                Json.put(key, value);
             }
         }
     }

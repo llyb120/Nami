@@ -4,7 +4,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
-import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.json.Json;
 import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
@@ -26,7 +26,7 @@ public class Macro {
     private static GroupTemplate gt = null;
     private static Pattern codePattern = Pattern.compile("//@code\\((.+?)\\)\\{([\\w\\W]+?)//@}");
     private static Pattern usePattern = Pattern.compile("//@use\\((.+?)\\)\\{([\\w\\W]+?)//@}");
-    private static Map<String, Obj> macros = new ConcurrentHashMap<>();
+    private static Map<String, Json> macros = new ConcurrentHashMap<>();
 
     static {
         StringTemplateResourceLoader resourceLoader = new StringTemplateResourceLoader();
@@ -75,7 +75,7 @@ public class Macro {
                 matcher.appendReplacement(sb, matcher.group(0));
                 continue;
             }
-            Obj map = macros.get(names[0]);
+            Json map = macros.get(names[0]);
             if (map == null) {
                 matcher.appendReplacement(sb, matcher.group(0));
                 continue;
@@ -102,7 +102,7 @@ public class Macro {
         try (
             Reader reader = resource.getReader(CharsetUtil.charset(CharsetUtil.UTF_8));
         ) {
-            Obj map = o();
+            Json map = o();
             String str = IoUtil.read(reader);
 //            var ptr = 0;
 //            var len = str.length();

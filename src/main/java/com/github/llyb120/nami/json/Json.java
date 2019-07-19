@@ -15,89 +15,149 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Function;
 
-public abstract class Json {
+import static com.github.llyb120.nami.core.DBService.fSql;
 
-    public enum ValidateType {
-        notnull,
-        notempty,
-        notblank;
+public class Json <T> implements IJson<T>{
+
+    private boolean parallel = false;
+    private ThreadLocal<Holder> local;
+    private Holder holder;
+
+    public Json(){
+        this(false);
     }
 
-    public enum ValueType {
-        md5;
+    public Json(T[] arr){
+        this(false);
+        holder.list.addAll(Arrays.asList(arr));
     }
 
-
-    public static interface Property<T, R> extends Function<T, R>, Serializable {
-    }
-
-    public static String getFunctionKey(Function function) {
-        String name = getFunctionName(function);
-        if (name.length() > 1) {
-            return name.substring(0, 1).toLowerCase() + name.substring(1);
-        }
-        return name;
-    }
-
-    public static String getFunctionName(Function function) {
-        try {
-            Method declaredMethod = function.getClass().getDeclaredMethod("writeReplace");
-            declaredMethod.setAccessible(Boolean.TRUE);
-            SerializedLambda serializedLambda = (SerializedLambda) declaredMethod.invoke(function);
-            String method = serializedLambda.getImplMethodName();
-            String attr = null;
-            if (method.startsWith("get")) {
-                attr = method.substring(3);
-            } else {
-                attr = method.substring(2);
-            }
-            return attr;
-
-        } catch (ReflectiveOperationException var6) {
-            throw new RuntimeException(var6);
+    public Json(boolean parallel){
+        this.parallel = parallel;
+        if(parallel){
+            local = new ThreadLocal<Holder>(){
+                @Override
+                protected Holder initialValue() {
+                    return new Holder();
+                }
+            };
+        } else {
+            holder = new Holder();
         }
     }
 
-    public static Obj o(Object... objects) {
-        Obj object = new Obj();
+    @Override
+    public Holder holder() {
+        if(parallel){
+            return local.get();
+        } else {
+            return holder;
+        }
+    }
+
+    @Override
+    public Json<T> holder(Holder holder) {
+        if(parallel){
+            local.set(holder);
+        } else {
+            this.holder = holder;
+        }
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return stringify(this);
+    }
+
+    public Json<T> to(String tableName){
+        fSql.insert(tableName, this);
+        return null;
+    }
+
+    //    public enum ValidateType {
+//        notnull,
+//        notempty,
+//        notblank;
+//    }
+//
+//    public enum ValueType {
+//        md5;
+//    }
+//
+//
+//    public static interface Property<T, R> extends Function<T, R>, Serializable {
+//    }
+//
+//    public static String getFunctionKey(Function function) {
+//        String name = getFunctionName(function);
+//        if (name.length() > 1) {
+//            return name.substring(0, 1).toLowerCase() + name.substring(1);
+//        }
+//        return name;
+//    }
+//
+//    public static String getFunctionName(Function function) {
+//        try {
+//            Method declaredMethod = function.getClass().getDeclaredMethod("writeReplace");
+//            declaredMethod.setAccessible(Boolean.TRUE);
+//            SerializedLambda serializedLambda = (SerializedLambda) declaredMethod.invoke(function);
+//            String method = serializedLambda.getImplMethodName();
+//            String attr = null;
+//            if (method.startsWith("get")) {
+//                attr = method.substring(3);
+//            } else {
+//                attr = method.substring(2);
+//            }
+//            return attr;
+//
+//        } catch (ReflectiveOperationException var6) {
+//            throw new RuntimeException(var6);
+//        }
+//    }
+
+    public static Json o(Object... objects) {
+        Json json = new Json();
+        json.map();
         for (short i = 0; i < objects.length; i += 2) {
-            object.put((String) objects[i], objects[i + 1]);
+            json.put((String) objects[i], objects[i + 1]);
         }
-        return object;
+        return json;
     }
 
-    public static Arr a(Object... objects) {
-        Arr array = new Arr();
+    public static Json a(Object... objects) {
+        Json json = new Json();
+        json.list();
         for (Object object : objects) {
-            array.add(object);
+            json.add(object);
         }
-        return array;
+        return json;
     }
 
 
-    public static Arr tree(Collection<Obj> list, String parentKey, String childKey) {
-        Obj map = o();
-        for (Obj object : list) {
-            String key = object.s(childKey);
+    public static Json tree(Collection<Json> list, String parentKey, String childKey) {
+        Json map = o();
+        for (Json json : list) {
+            String key = json.s(childKey);
             if (key == null) {
                 continue;
             }
-            map.put(key, object);
+            map.put(key, json);
 //            object.put("children", a());
         }
-        Arr ret = a();
-        for (Obj object : list) {
-            Obj par = map.o(object.s(parentKey));
+        Json ret = a();
+        for (Json json : list) {
+            Json par = map.o(json.s(parentKey));
             if (par == null) {
-                ret.add(object);
+                ret.add(json);
                 continue;
             }
-            Arr child = par.a("children");
+            Json child = par.a("children");
             if (child == null) {
                 child = a();
                 par.put("children", child);
             }
-            child.add(object);
+            child.add(json);
         }
         return ret;
     }
@@ -117,13 +177,17 @@ public abstract class Json {
         return parse(new String(bs));
     }
 
-    public static Obj toObj(Object object){
-       return cast(object, Obj.class);
+    public static <T> Json<T> toJson(Object source){
+        return cast(source, Json.class);
     }
 
-    public static Arr toArr(Object object){
-        return cast(object, Arr.class);
-    }
+//    public static Obj toObj(Object object){
+//       return cast(object, Obj.class);
+//    }
+
+//    public static Arr toArr(Object object){
+//        return cast(object, Arr.class);
+//    }
 
 //    public static <T> T parse(String str, Class<T> clz){
 //    }
@@ -133,370 +197,6 @@ public abstract class Json {
 //        Arr arr = Json.parse("fuck");
 //    }
 
-
-    /******************************************************/
-    /**
-     * parser
-     */
-
-    private static class JsonParser {
-        private String str;
-        private int ptr = 0;
-        private int len = 0;
-//        private StringBuilder sb = new StringBuilder();
-
-        private enum JsonTokenType {
-            LEFT_LARGE_BLOCK,
-            RIGHT_LARGE_BLOCK,
-            LEFT_MIDDLE_BLOCK,
-            RIGHT_MIDDLE_BLOCK,
-            COMMA,
-            COLON,
-            STRING,
-            BOOL,
-            NUMBER,
-            NULL;
-        }
-
-        private static class JsonToken {
-            public JsonTokenType type;
-            public String value;
-
-            public JsonToken(JsonTokenType type, String value) {
-                this.type = type;
-                this.value = value;
-            }
-
-            @Override
-            public String toString() {
-                return type.name() + " : " + value;
-            }
-        }
-
-        public JsonParser(String str) {
-            this.str = str;
-            this.len = str.length();
-        }
-
-        private Object parse() {
-            JsonToken token = readToken();
-            if (token == null) {
-                return null;
-            }
-            if (token.type == JsonTokenType.LEFT_MIDDLE_BLOCK) {
-                return parseArr();
-            } else if (token.type == JsonTokenType.LEFT_LARGE_BLOCK) {
-                return parseObj();
-            } else {
-                return token.value;
-            }
-        }
-
-        private Obj parseObj() {
-            Obj obj = o();
-            JsonToken token;
-            String key = null;
-            loop:
-            while ((token = readToken()) != null) {
-                //skip colon
-                switch (token.type) {
-                    case LEFT_LARGE_BLOCK:
-                        obj.put(key, parseObj());
-                        key = null;
-                        break;
-
-                    case COLON:
-                    case COMMA:
-                        break;
-
-                    case RIGHT_LARGE_BLOCK:
-                        break loop;
-
-                    case LEFT_MIDDLE_BLOCK:
-                        obj.put(key, parseArr());
-                        key = null;
-                        break;
-
-                    case RIGHT_MIDDLE_BLOCK:
-                        throw new RuntimeException();
-
-                    case STRING:
-                        if (key == null) {
-                            key = token.value;
-                        } else {
-                            obj.put(key, token.value);
-                            key = null;
-                        }
-                        break;
-
-                    default:
-                        if (key == null) {
-                            throw new RuntimeException();
-                        }
-                        obj.put(key, parseValue(token));
-                        key = null;
-                        break;
-                }
-            }
-            return obj;
-        }
-
-        private Object parseValue(JsonToken token) {
-            if (token.type == JsonTokenType.NUMBER) {
-                return new BigDecimal(token.value);
-            } else if (token.type == JsonTokenType.BOOL) {
-                return Boolean.parseBoolean(token.value);
-            } else if (token.type == JsonTokenType.STRING) {
-                return token.value;
-            } else {
-                return null;
-            }
-        }
-
-        private Arr parseArr() {
-            Arr arr = a();
-            JsonToken token;
-            loop:
-            while ((token = readToken()) != null) {
-                switch (token.type) {
-                    case LEFT_MIDDLE_BLOCK:
-                        arr.add(parseArr());
-                        break;
-
-                    case RIGHT_MIDDLE_BLOCK:
-                        break loop;
-
-                    case LEFT_LARGE_BLOCK:
-                        arr.add(parseObj());
-                        break;
-
-                    case RIGHT_LARGE_BLOCK:
-                        throw new RuntimeException();
-
-                    case COLON:
-                    case COMMA:
-                        break;
-
-                    default:
-                        arr.add(parseValue(token));
-                        break;
-                }
-
-            }
-            return arr;
-        }
-
-        private void assertToken(JsonToken token, JsonTokenType... types) {
-            for (JsonTokenType type : types) {
-                if (token.type == type) {
-                    return;
-                }
-            }
-            throw new RuntimeException();
-        }
-
-        private JsonToken readToken() {
-            boolean isBlank = false;
-            boolean isStr = false;
-            int start = -1;
-            while (ptr < len) {
-                char ch = str.charAt(ptr);
-                isBlank = CharUtil.isBlankChar(ch);
-                boolean isStrStart = (ch == '"');
-                if (start > -1) {
-                    if (isStrStart && isStr) {
-                        return new JsonToken(JsonTokenType.STRING, str.substring(start, ptr++));
-                    } else if (!isStr && (ch == '{' || ch == '}' || ch == '[' || ch == ']' || ch == ':' || ch == ',' || isBlank)) {
-                        //强行中断
-                        String token = str.substring(start, ptr);
-                        if (isBlank) {
-                            ptr++;
-                        }
-                        if (token.equalsIgnoreCase("true") || token.equalsIgnoreCase("false")) {
-                            return new JsonToken(JsonTokenType.BOOL, token);
-                        }
-                        if (token.equalsIgnoreCase("null")) {
-                            return new JsonToken(JsonTokenType.NULL, token);
-                        }
-//                        if(isStr){
-//                            return new JsonToken(JsonTokenType.STRING, token);
-//                        }
-                        return new JsonToken(JsonTokenType.NUMBER, token);
-                    } else {
-                        //不是空格的情况下才往下走（空格立刻结束）
-                        ptr++;
-                        continue;
-                    }
-                } else {
-                    if (ch == ':') {
-                        ptr++;
-                        return new JsonToken(JsonTokenType.COLON, ":");
-                    }
-                    if (ch == ',') {
-                        ptr++;
-                        return new JsonToken(JsonTokenType.COMMA, ",");
-                    }
-                    if (ch == '[') {
-                        ptr++;
-                        return new JsonToken(JsonTokenType.LEFT_MIDDLE_BLOCK, "[");
-                    }
-                    if (ch == ']') {
-                        ptr++;
-                        return new JsonToken(JsonTokenType.RIGHT_MIDDLE_BLOCK, "]");
-                    }
-                    if (ch == '{') {
-                        ptr++;
-                        return new JsonToken(JsonTokenType.LEFT_LARGE_BLOCK, "{");
-                    }
-                    if (ch == '}') {
-                        ptr++;
-                        return new JsonToken(JsonTokenType.RIGHT_LARGE_BLOCK, "}");
-                    }
-                    if (isStrStart) {
-                        isStr = true;
-                        start = ptr + 1;
-                    } else if (!isBlank) {
-                        start = ptr;
-                    }
-                }
-                ptr++;
-            }
-            return null;
-        }
-
-
-    }
-
-    /******************************************************/
-
-
-    /******************************************************/
-    /**
-     * encoder
-     **/
-    private static class JsonEncoder {
-        StringBuilder sb = new StringBuilder();
-
-        public String stringify(Object obj) {
-            sb.setLength(0);
-            encode(obj);
-            return sb.toString();
-        }
-
-        private void encode(Object obj) {
-            if (obj == null) {
-                sb.append("null");
-                return;
-            }
-            if (obj instanceof Map) {
-                encodeMap((Map) obj);
-            } else if (obj instanceof Iterable) {
-                encodeCollection((Iterable) obj);
-            }
-            //基本类型
-            else if (obj instanceof Boolean) {
-                if ((Boolean) obj) {
-                    sb.append("true");
-                } else {
-                    sb.append("false");
-                }
-            } else if (obj instanceof Integer || obj instanceof Double || obj instanceof Float || obj instanceof String || obj instanceof BigDecimal) {
-                sb.append("\"");
-                sb.append(obj);
-                sb.append("\"");
-            } else if (obj instanceof Date) {
-                sb.append("\"");
-                sb.append(DateUtil.formatDateTime((Date) obj));
-                sb.append("\"");
-            } else {
-                encodeEntity(obj);
-            }
-        }
-
-        private void encodeEntity(Object obj) {
-            FieldAccess fa = FieldAccess.get(obj.getClass());
-            MethodAccess ma = MethodAccess.get(obj.getClass());
-            int i = 0;
-            sb.append("{");
-            for (String fieldName : fa.getFieldNames()) {
-                sb.append("\"");
-                sb.append(fieldName);
-                sb.append("\"");
-                sb.append(":");
-                Object val = fa.get(obj, i++);
-                encode(val);
-                sb.append(",");
-            }
-            i = 0;
-            for (String methodName : ma.getMethodNames()) {
-                int idex = methodName.indexOf("get");
-                if (idex == -1) {
-                    continue;
-                }
-                String key = methodName.substring(idex + 3, idex + 4).toLowerCase() + methodName.substring(idex + 4);
-                Class[] types = ma.getParameterTypes()[i];
-                Class retType = ma.getReturnTypes()[i];
-                if (types.length == 0 && !"void".equals(retType.getName())) {
-                    sb.append("\"");
-                    sb.append(key);
-                    sb.append("\"");
-                    sb.append(":");
-                    try {
-                        Object val = ma.invoke(obj, i++);
-                        encode(val);
-                    } catch (Exception e) {
-                        encode(null);
-                    }
-                    sb.append(",");
-                }
-            }
-            deleteLastComma();
-            sb.append("}");
-        }
-
-
-        private void encodeCollection(Iterable iterable) {
-            sb.append("[");
-            for (Object o : iterable) {
-                encode(o);
-                sb.append(",");
-            }
-            deleteLastComma();
-            sb.append("]");
-        }
-
-        private void encodeMap(Map map) {
-            sb.append("{");
-            Set eset = map.entrySet();
-            for (Object o : eset) {
-                Map.Entry entry = (Map.Entry) o;
-                Object key = entry.getKey();
-                if (key == null) {
-                    continue;
-                }
-                sb.append("\"");
-                if (key instanceof String) {
-                    sb.append(key);
-                } else {
-                    sb.append(String.valueOf(key));
-                }
-                sb.append("\"");
-                sb.append(":");
-                Object val = entry.getValue();
-                encode(val);
-                sb.append(",");
-            }
-            deleteLastComma();
-            sb.append("}");
-        }
-
-        private void deleteLastComma() {
-            if (sb.charAt(sb.length() - 1) == ',') {
-                sb.deleteCharAt(sb.length() - 1);
-            }
-        }
-
-    }
 
     /******************************************************/
 

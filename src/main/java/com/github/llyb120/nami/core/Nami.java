@@ -5,7 +5,7 @@ import com.github.llyb120.nami.dao.FSql;
 import com.github.llyb120.nami.server.AIOServer;
 import com.github.llyb120.nami.server.AbstractServer;
 import com.github.llyb120.nami.server.DevServer;
-import com.github.llyb120.nami.sqltool.sqltool;
+//import com.github.llyb120.nami.sqltool.sqltool;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -43,7 +43,7 @@ public class Nami {
         }
 
         //注册基本类
-        sqltool.init();
+//        sqltool.init();
 
 //        if(StrUtil.isNotEmpty(config.chakra)){
 //            chakraCore = new ChakraCore();

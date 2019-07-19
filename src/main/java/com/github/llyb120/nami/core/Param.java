@@ -2,9 +2,9 @@ package com.github.llyb120.nami.core;
 
 import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.core.boost.SqlBoost;
-import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Json;
-import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.server.Cookie;
 import com.github.llyb120.nami.server.Request;
 import com.github.llyb120.nami.server.Response;
@@ -62,10 +62,10 @@ public class Param {
                         if(type == String.class){
                             ret[i] = Json.stringify(resp.request.body);
                         }
-                        if(resp.request.body instanceof Obj){
-                            ret[i] = ((Obj)resp.request.body).to(type);
-                        } else if(resp.request.body instanceof Arr){
-                            ret[i] = ((Arr)resp.request.body).to(type);
+                        if(resp.request.body instanceof Json){
+                            ret[i] = ((Json)resp.request.body).to(type);
+                        } else if(resp.request.body instanceof Json){
+                            ret[i] = ((Json)resp.request.body).to(type);
                         }
                     }
                     break;
@@ -86,14 +86,14 @@ public class Param {
                         String source = resp.request.query.s(name);
                         if (isNotEmpty(source)) {
                             if (source.startsWith("[") && source.endsWith("]")) {
-                                Arr array = resp.request.query.a(name);
+                                Json array = resp.request.query.a(name);
                                 ret[i] = array.to(type);
                             }
                             //只有一个的情况，直接尝试拆分
                             else {
 //                                if (source.contains(",")) {
                                 String[] split = source.split(",");
-                                Arr array = new Arr((split));
+                                Json array = new Json((split));
                                 try {
                                     ret[i] = array.to(type);
                                 } catch (Exception e) {
@@ -185,7 +185,7 @@ public class Param {
         int size = 10;
 //        q.appendSql("m left join ra_store store on m.member_id = store.member_id ");
 
-        for (Map.Entry<String, Object> entry : response.request.query.entrySet()) {
+        for (Map.Entry<String, ?> entry : response.request.query.entrySet()) {
             if(flag == 0){
                 if(entry.getKey().equalsIgnoreCase("page")) {
                     try{
@@ -377,10 +377,10 @@ public class Param {
             addLinks(ret, links);
             return ret;
         } else if(flag == 2){
-            if(Obj.class.isAssignableFrom(gType)){
+            if(Json.class.isAssignableFrom(gType)){
                 //todo: fix this !!!!!!!!!!!
-                Obj ret = null; //Json.parse(q.single());
-                addLinks(Arrays.asList((Obj)ret), links);
+                Json ret = null; //Json.parse(q.single());
+                addLinks(Arrays.asList((Json)ret), links);
                 return ret;
             } else {
                 Object ret = q.single();
@@ -391,37 +391,37 @@ public class Param {
         }
     }
 
-    private static void addLinks(Collection<Obj> ret, List<Config.Link> links){
+    private static void addLinks(Collection<Json> ret, List<Config.Link> links){
         for (Config.Link link : links) {
-            Obj map = new Obj();
+            Json map = new Json();
             String ids = ret
                     .stream()
-                    .peek(e -> map.put(((Obj) e).s(link.fromField), e))
-                    .map(e -> ((Obj) e).s(link.fromField))
+                    .peek(e -> map.put(((Json) e).s(link.fromField), e))
+                    .map(e -> ((Json) e).s(link.fromField))
                     .map(e -> StrUtil.wrap((CharSequence) e, "'"))
                     .collect(Collectors.joining(","));
             if(StrUtil.isEmpty((CharSequence) ids)){
                 continue;
             }
-            List<Obj> items = sqlManager.execute(String.format("select * from %s where %s in (%s)", link.toClz, link.toField, ids), Obj.class, new Obj());
-            for (Obj item : items) {
-                Obj target = map.o(item.s(link.toField));
+            List<Json> items = sqlManager.execute(String.format("select * from %s where %s in (%s)", link.toClz, link.toField, ids), Json.class, new Json());
+            for (Json item : items) {
+                Json target = map.o(item.s(link.toField));
                 if (target == null) {
                     continue;
                 }
-                Object arr = target.get(link.name);
-                if (arr == null) {
+                Object Json = target.get(link.name);
+                if (Json == null) {
                     if(link.many){
-                        arr = new Arr();
+                        Json = new Json();
                     } else {
-                        arr = new Obj();
+                        Json = new Json();
                     }
-                    target.put(link.name, arr);
+                    target.put(link.name, Json);
                 }
                 if(link.many){
-                    ((Arr)arr).add(item);
+                    ((Json)Json).add(item);
                 } else {
-                    ((Obj)arr).putAll(item);
+                    ((Json)Json).putAll(item.map());
                 }
             }
         }

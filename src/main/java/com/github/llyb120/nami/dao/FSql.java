@@ -8,8 +8,8 @@ import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.Config;
 import com.github.llyb120.nami.core.Nami;
-import com.github.llyb120.nami.json.Arr;
-import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Json;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.beetl.sql.core.kit.GenKit;
@@ -62,8 +62,8 @@ public class FSql {
 //        return new SimpleQuery();
 //    }
 
-    public List<Obj> select(String table, Object ...values){
-        return select(table, Obj.class, values);
+    public List<Json> select(String table, Object ...values){
+        return select(table, Json.class, values);
     }
 
     public <T> List<T> select(String table, Class<T> clz, Object ...values){
@@ -86,7 +86,7 @@ public class FSql {
         TableMetaData metadata = getMetaData(table);
     }
 
-    public Arr insert(String table, Object object){
+    public Json insert(String table, Object object){
         StringBuilder sb = new StringBuilder("insert into ");
         sb.append(table);
         sb.append("(");
@@ -117,7 +117,7 @@ public class FSql {
         sb.append(")values(");
         sb.append(val);
         sb.append(")");
-        Arr id = executeInsert(sb.toString());
+        Json id = executeInsert(sb.toString());
         return id;
     }
 
@@ -147,26 +147,26 @@ public class FSql {
         }
     }
 
-    private Arr execute(String sql, Connection connection) throws SQLException {
+    private Json execute(String sql, Connection connection) throws SQLException {
         System.out.println(sql);
-        Arr list = a();
+        Json list = a();
         try(
                 Statement stmt = connection.createStatement();
                 ){
             ResultSet ret = stmt.executeQuery(sql);
             ResultSetMetaData metadata = ret.getMetaData();
             while(ret.next()){
-                Obj obj = o();
-                list.add(obj);
+                Json Json = o();
+                list.add(Json);
                 for(int i = 1; i <= metadata.getColumnCount(); i++){
-                    obj.put(metadata.getColumnLabel(i).toLowerCase(), ret.getObject(i)) ;
+                    Json.put(metadata.getColumnLabel(i).toLowerCase(), ret.getObject(i)) ;
                 }
             }
             return list;
         }
     }
 
-    public Arr execute(String sql){
+    public Json execute(String sql){
         try(
                Connection conn = getConnection();
                 ){
@@ -197,8 +197,8 @@ public class FSql {
         return -1;
     }
 
-    private Arr executeInsert(String sql){
-        Arr ret = a();
+    private Json executeInsert(String sql){
+        Json ret = a();
         try(
                 Connection conn = getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -207,11 +207,11 @@ public class FSql {
             ResultSet rs = stmt.getGeneratedKeys();
             ResultSetMetaData metadata = rs.getMetaData();
             while(rs.next()){
-                Obj obj = o();
+                Json Json = o();
                 for (int i = 1; i <= metadata.getColumnCount(); i++) {
-                    obj.put(metadata.getColumnLabel(i), rs.getObject(i));
+                    Json.put(metadata.getColumnLabel(i), rs.getObject(i));
                 }
-                ret.add(obj);
+                ret.add(Json);
             }
             return ret;
         } catch (InterruptedException | ExecutionException | SQLException e) {
@@ -259,17 +259,17 @@ public class FSql {
             }
         } else {
             String sql = String.format("select table_name as t, column_name as c, data_type as type, CHARACTER_MAXIMUM_LENGTH as len from sysibm.columns where table_schema = '%s' and table_name not like 'explain%%'", db.schema);
-            Arr ret = execute(sql, dataSource.getConnection());
+            Json ret = execute(sql, dataSource.getConnection());
             for (Object o : ret) {
-                Obj obj = (Obj) o;
-                String tname = obj.s("t");
+                Json Json = (Json) o;
+                String tname = Json.s("t");
                 TableMetaData metadata = tables.get(tname);
                 if (metadata == null) {
                     metadata = new TableMetaData();
                     metadata.name = tname;
                     tables.put(tname, metadata);
                 }
-                metadata.fields.add(obj.s("c"));
+                metadata.fields.add(Json.s("c"));
             }
         }
     }
@@ -287,10 +287,10 @@ public class FSql {
              RandomAccessFile raf = new RandomAccessFile(new File(path, "ALL_TABLES"), "rw");
                 ) {
             String sql = String.format("select table_name as t, column_name as c, data_type as type, CHARACTER_MAXIMUM_LENGTH as len from sysibm.columns where table_schema = '%s' and table_name not like 'EXPLAIN_%%'", fSql.db.schema);
-            Arr ret = fSql.execute(sql, fSql.getConnection());
+            Json ret = fSql.execute(sql, fSql.getConnection());
             for (Object o : ret) {
-                Obj obj = (Obj) o;
-                String tname = obj.s("t");
+                Json Json = (Json) o;
+                String tname = Json.s("t");
                 TableMetaData metadata = fSql.tables.get(tname);
                 if (metadata == null) {
                     metadata = new TableMetaData();
@@ -298,7 +298,7 @@ public class FSql {
                     metadata.fields = new Vector<>();
                     fSql.tables.put(tname, metadata);
                 }
-                metadata.fields.add(obj.s("c"));
+                metadata.fields.add(Json.s("c"));
             }
 
             raf.write(
