@@ -15,48 +15,48 @@ import static com.github.llyb120.nami.core.DBService.fSql;
 
 public abstract class Json <T>{
 
-    private boolean parallel = false;
-    private ThreadLocal<Holder> local;
-    private Holder holder;
+//    private boolean parallel = false;
+//    private ThreadLocal<Holder> local;
+//    private Holder holder;
 
-    public Json(){
-        this(false);
-    }
+//    public Json(){
+//        this(false);
+//    }
 
-    public Json(T[] arr){
-        this(false);
-        holder.list.addAll(Arrays.asList(arr));
-    }
-
-    public Json(boolean parallel){
-        this.parallel = parallel;
-        if(parallel){
-            local = new ThreadLocal<Holder>(){
-                @Override
-                protected Holder initialValue() {
-                    return new Holder();
-                }
-            };
-        } else {
-            holder = new Holder();
-        }
-    }
-
-    public Holder holder() {
-        if(parallel){
-            return local.get();
-        } else {
-            return holder;
-        }
-    }
-
-    public void holder(Holder holder) {
-        if(parallel){
-            local.set(holder);
-        } else {
-            this.holder = holder;
-        }
-    }
+//    public Json(T[] arr){
+//        this(false);
+//        holder.list.addAll(Arrays.asList(arr));
+//    }
+//
+//    public Json(boolean parallel){
+//        this.parallel = parallel;
+//        if(parallel){
+//            local = new ThreadLocal<Holder>(){
+//                @Override
+//                protected Holder initialValue() {
+//                    return new Holder();
+//                }
+//            };
+//        } else {
+//            holder = new Holder();
+//        }
+//    }
+//
+//    public Holder holder() {
+//        if(parallel){
+//            return local.get();
+//        } else {
+//            return holder;
+//        }
+//    }
+//
+//    public void holder(Holder holder) {
+//        if(parallel){
+//            local.set(holder);
+//        } else {
+//            this.holder = holder;
+//        }
+//    }
 
     @Override
     public String toString() {
@@ -93,41 +93,41 @@ public abstract class Json <T>{
 //        Pool.put(this, holder);
 //    }
 
-    public List<Object> list(){
-        Holder holder = holder();
-        if(holder.list != null){
-            return holder.list;
-        }
-        else if(holder.map == null){
-            holder.list = new ArrayList<>();
-            return holder.list;
-        }
-        return null;
-    }
-
-    public Map<String, Object> map(){
-        Holder holder = holder();
-        if(holder.map == null){
-            holder.map = new LinkedHashMap<>();
-        }
-        return holder.map;
-    }
-
-    public boolean isList(){
-        return holder().list != null;
-    }
-
-    public boolean isMap(){
-        return holder().map != null;
-    }
-
-    public boolean add(T arg0){
-        return list().add(arg0);
-    }
-
-    public boolean addAll(Collection arg0){
-        return list().addAll(arg0);
-    }
+//    public List<Object> list(){
+//        Holder holder = holder();
+//        if(holder.list != null){
+//            return holder.list;
+//        }
+//        else if(holder.map == null){
+//            holder.list = new ArrayList<>();
+//            return holder.list;
+//        }
+//        return null;
+//    }
+//
+//    public Map<String, Object> map(){
+//        Holder holder = holder();
+//        if(holder.map == null){
+//            holder.map = new LinkedHashMap<>();
+//        }
+//        return holder.map;
+//    }
+//
+//    public boolean isList(){
+//        return holder().list != null;
+//    }
+//
+//    public boolean isMap(){
+//        return holder().map != null;
+//    }
+//
+//    public boolean add(T arg0){
+//        return list().add(arg0);
+//    }
+//
+//    public boolean addAll(Collection arg0){
+//        return list().addAll(arg0);
+//    }
 
 //    public void putAll(Map<? extends String,? extends T> arg0){
 //        map().putAll(arg0);
@@ -138,65 +138,65 @@ public abstract class Json <T>{
 //        return map().put(key ,value);
 //    }
 
-    public void clear(){
-        Holder holder = holder();
-        if (holder.list != null) {
-            holder.list.clear();
-        }
-        if(holder.map != null){
-            holder.map.clear();
-        }
-    }
-
-    public boolean contains(Object arg0){
-        Holder holder = holder();
-        if (holder.list != null) {
-            return holder.list.contains(arg0);
-        }
-        return false;
-    }
-    public int indexOf(Object arg0){
-        Holder holder = holder();
-        if(holder.list != null){
-            return holder.list.indexOf(arg0);
-        }
-        return -1;
-    }
-
-    public int lastIndexOf(Object arg0){
-        Holder holder = holder();
-        if(holder.list != null){
-            return holder.list.lastIndexOf(arg0);
-        }
-        return -1;
-    }
-
-    public boolean isEmpty(){
-        Holder holder = holder();
-        if (holder.list != null) {
-            return holder.list.isEmpty();
-        }
-        if(holder.map != null){
-            return holder.map.isEmpty();
-        }
-        return true;
-    }
-
-    public Iterator<T> iterator(){
-        return (Iterator<T>) list().iterator();
-    }
-
-
-    public Object delete(Object object){
-        Holder holder = holder();
-        if (holder.list != null) {
-            return holder.list.remove(object);
-        }
-        if (holder.map != null){
-            return holder.map.remove(object);
-        }
-        return null;
-    }
+//    public void clear(){
+//        Holder holder = holder();
+//        if (holder.list != null) {
+//            holder.list.clear();
+//        }
+//        if(holder.map != null){
+//            holder.map.clear();
+//        }
+//    }
+//
+//    public boolean contains(Object arg0){
+//        Holder holder = holder();
+//        if (holder.list != null) {
+//            return holder.list.contains(arg0);
+//        }
+//        return false;
+//    }
+//    public int indexOf(Object arg0){
+//        Holder holder = holder();
+//        if(holder.list != null){
+//            return holder.list.indexOf(arg0);
+//        }
+//        return -1;
+//    }
+//
+//    public int lastIndexOf(Object arg0){
+//        Holder holder = holder();
+//        if(holder.list != null){
+//            return holder.list.lastIndexOf(arg0);
+//        }
+//        return -1;
+//    }
+//
+//    public boolean isEmpty(){
+//        Holder holder = holder();
+//        if (holder.list != null) {
+//            return holder.list.isEmpty();
+//        }
+//        if(holder.map != null){
+//            return holder.map.isEmpty();
+//        }
+//        return true;
+//    }
+//
+//    public Iterator<T> iterator(){
+//        return (Iterator<T>) list().iterator();
+//    }
+//
+//
+//    public Object delete(Object object){
+//        Holder holder = holder();
+//        if (holder.list != null) {
+//            return holder.list.remove(object);
+//        }
+//        if (holder.map != null){
+//            return holder.map.remove(object);
+//        }
+//        return null;
+//    }
 
 //    public Object set(int arg0, Object arg1){
 //        return list().set(arg0, arg1);
@@ -231,21 +231,21 @@ public abstract class Json <T>{
 //        return 0;
 //    }
 
-    public boolean containsKey(Object arg0){
-        Holder holder = holder();
-        if (holder.map != null) {
-            return holder.map.containsKey(arg0);
-        }
-        return false;
-    }
-
-    public boolean containsValue(Object arg0){
-        Holder holder = holder();
-        if (holder.map != null) {
-            return holder.map.containsValue(arg0);
-        }
-        return false;
-    }
+//    public boolean containsKey(Object arg0){
+//        Holder holder = holder();
+//        if (holder.map != null) {
+//            return holder.map.containsKey(arg0);
+//        }
+//        return false;
+//    }
+//
+//    public boolean containsValue(Object arg0){
+//        Holder holder = holder();
+//        if (holder.map != null) {
+//            return holder.map.containsValue(arg0);
+//        }
+//        return false;
+//    }
 
 //    public Set<Map.Entry<String,Object>> entrySet(){
 //        return map().entrySet();
@@ -256,16 +256,16 @@ public abstract class Json <T>{
 //    }
 
 
-    public Collection values(){
-        Holder holder = holder();
-        if (holder.list != null) {
-            return holder.list;
-        }
-        if(holder.map != null){
-            return holder.map.values();
-        }
-        return new ArrayList();
-    }
+//    public Collection values(){
+//        Holder holder = holder();
+//        if (holder.list != null) {
+//            return holder.list;
+//        }
+//        if(holder.map != null){
+//            return holder.map.values();
+//        }
+//        return new ArrayList();
+//    }
 
 
 
@@ -302,21 +302,7 @@ public abstract class Json <T>{
         return Json.cast(this, clz);
     }
 
-    public Document toBsonDoc(){
-        if(isMap()){
-            return Document.parse(Json.stringify(this));
-        }
-        return new Document();
-    }
 
-    public List<? extends Bson> toBsonArray(){
-        if(isList()){
-            BsonArray source = BsonArray.parse(Json.stringify(this));
-            List list = new ArrayList(source);
-            return list;
-        }
-        return new ArrayList<>();
-    }
 
 
 
@@ -390,7 +376,7 @@ public abstract class Json <T>{
             }
             map.put(key, map1);
         }
-        Json ret = a();
+        Arr ret = a();
         for (Map map1 : list) {
             String key = (String) map1.get(parentKey);
             if (key == null) {

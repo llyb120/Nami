@@ -1,6 +1,7 @@
 package com.github.llyb120.nami.json;
 
 import cn.hutool.core.util.StrUtil;
+import org.bson.Document;
 
 import java.util.*;
 
@@ -198,6 +199,11 @@ public class Obj extends Json implements Map<String,Object> {
             return defaultValue;
         }
         return val;
+    }
+
+
+    public Document toBsonDoc(){
+        return Document.parse(toString());
     }
 
 //    public void forEach(KVIterator<Object> iterator){

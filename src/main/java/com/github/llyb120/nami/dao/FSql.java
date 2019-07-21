@@ -198,8 +198,8 @@ public class FSql {
         return -1;
     }
 
-    private Json executeInsert(String sql){
-        Json ret = a();
+    private Arr executeInsert(String sql){
+        Arr ret = a();
         try(
                 Connection conn = getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

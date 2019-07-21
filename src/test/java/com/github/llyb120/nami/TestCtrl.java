@@ -110,8 +110,8 @@ public class TestCtrl {
     @Test
     public void test_09_php_style() {
         String val = RandomUtil.randomString(1024);
-        Json parasm = o("dev", val);
-        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleRequest", parasm.map());
+        Obj parasm = o("dev", val);
+        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleRequest", parasm);
         assertEquals(parasm.toString(), res);
     }
 

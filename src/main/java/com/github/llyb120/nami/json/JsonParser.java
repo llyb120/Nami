@@ -134,8 +134,8 @@ public class JsonParser {
         }
     }
 
-    private Json parseArr() {
-        Json arr = a();
+    private Arr parseArr() {
+        Arr arr = a();
         JsonToken token;
         loop:
         while ((token = readToken()) != null) {
