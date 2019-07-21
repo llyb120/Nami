@@ -1,12 +1,13 @@
 package com.github.llyb120.nami.server;
 
 import cn.hutool.core.util.StrUtil;
-import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Obj;
 
 import java.util.*;
 
 public interface Vars{
-    Json $get = new Json(true);
-    Json $post = new Json(true);
-    Json $request = new Json(true);
+    Obj $get = new Obj(true);
+    Obj $post = new Obj(true);
+    Obj $request = new Obj(true);
+    
 }

@@ -3,7 +3,7 @@
 //import cn.hutool.core.util.StrUtil;
 //import cn.hutool.crypto.SecureUtil;
 //import com.alibaba.fastjson.JSON;
-//import com.alibaba.fastjson.Obj;
+//import com.alibaba.fastjson.Obj2;
 //import org.beetl.sql.core.query.Query;
 //
 //import java.io.Serializable;
@@ -14,36 +14,36 @@
 //import static com.github.llyb120.nami.core.DBService.sqlManager;
 //
 //public class Flow<T,U> {
-//    private Obj data;
+//    private Obj2 data;
 ////    private LinkedList<Holder> stack = new LinkedList();
 //    private Class clz;
 //    private String lastKey = null;
 //    private List<Object[]> fieldBuffer = new ArrayList<>();
 ////    private LinkedList<OnItem> onBuf = new LinkedList<>();
 //
-//    private Flow(Obj data){
+//    private Flow(Obj2 data){
 //        this.data = data;
 ////        stack.addLast(new Holder(data, data));
 //        this.data = data;
 //    }
 //
-//    private Flow(Class<T> clz, Obj data){
+//    private Flow(Class<T> clz, Obj2 data){
 //        this.data = data;
 //        this.clz = clz;
 //    }
 ////    private Flow(Object data, Class clz){
 ////        this.data = data;
-////        Obj object = (Obj) com.alibaba.fastjson.JSON.toJSON(data);
+////        Obj2 object = (Obj2) com.alibaba.fastjson.JSON.toJSON(data);
 ////        this.data = object.toJavaObject(clz);
 ////        this.clz = clz;
 ////    }
 //
-//    public static Flow<?,?> of(Obj object){
+//    public static Flow<?,?> of(Obj2 object){
 //        return new Flow<>(object);
 //    }
 //
 //
-//    public static <T> Flow<T,?> of(Class<T> clz, Obj object){
+//    public static <T> Flow<T,?> of(Class<T> clz, Obj2 object){
 //        return (Flow<T,?>) new Flow(clz, object);
 //    }
 ////    public static <R> Flow<R> of(Object object, Class<R> clz){
@@ -55,8 +55,8 @@
 //        return (Flow<T, ?>) this;
 //    }
 //
-//    public Flow<Obj,?> flip(){
-//        return as(Obj.class);
+//    public Flow<Obj2,?> flip(){
+//        return as(Obj2.class);
 //    }
 //
 //    public Flow<T,U> assign(Function<T,?> function){
@@ -64,9 +64,9 @@
 //        //这里必须强转
 //        T obj = (T) data.toJavaObject(clz);
 //        Object object = function.apply((T) obj);
-//        Obj object1 = (Obj) JSON.toJSON(object);
+//        Obj2 object1 = (Obj2) JSON.toJSON(object);
 //        if (object1 != null) {
-//            data.putAll(object1);
+//            data.concat(object1);
 //        }
 //        return this;
 //    }
@@ -81,7 +81,7 @@
 //
 //    public Flow<T,U> on(String field, ValidateType validateType, String errorMessage, SqlOperator operator) {
 //        lastKey = field;
-//        Object value = data.get(field);
+//        Object value = data.g(field);
 //        assertSingle(value ,validateType, errorMessage);
 //        //记录operator
 //        fieldBuffer.add(new Object[]{field, operator});
@@ -97,14 +97,14 @@
 //        return this;
 //    }
 //    public Flow<T,U> hold(Property<T,?> ...funs){
-//        if(data instanceof Obj){
-//            Obj obj = new Obj();
+//        if(data instanceof Obj2){
+//            Obj2 obj = new Obj2();
 //            for (Property<T, ?> fun : funs) {
 //                String name = getFunctionKey(fun);
-//                obj.put(name, data.get(name));
+//                obj.set(name, data.g(name));
 //            }
-//            data.clear();
-//            data.putAll(obj);
+//            data.reset();
+//            data.concat(obj);
 ////            data = obj;
 //        }
 ////        else if(data instanceof Arr){
@@ -129,13 +129,13 @@
 //    }
 //
 //    public Flow<T,U> set(ValueType type){
-//        Object value = data.get(lastKey);
+//        Object value = data.g(lastKey);
 //        switch (type){
 //            case md5:
 //                value = SecureUtil.md5((String) value);
 //                break;
 //        }
-//        data.put(lastKey, value);
+//        data.set(lastKey, value);
 //        return this;
 //    }
 //
@@ -144,8 +144,8 @@
 ////    }
 //
 //    public Flow<T,U> set(Function<U,U> function){
-//        Object value = function.apply((U) data.get(lastKey));
-//        data.put(lastKey, value);
+//        Object value = function.apply((U) data.g(lastKey));
+//        data.set(lastKey, value);
 //        return this;
 //    }
 //
@@ -153,7 +153,7 @@
 //        return (T) JSON.toJavaObject(data, clz);
 //    }
 //
-//    public T get(){
+//    public T g(){
 //        return (T) data;
 //    }
 //
@@ -164,17 +164,17 @@
 //
 //    public Flow<T,U> find(){
 //        Query query = sqlManager.query(clz);
-//        if(data instanceof Obj){
-//            data.forEach((k,v) -> {
+//        if(data instanceof Obj2){
+//            data.each((k,v) -> {
 //                query.andEq(StrUtil.toUnderlineCase(k), v);
 //            });
 //        }
-//        List<Obj> list = query.select(Obj.class);
+//        List<Obj2> list = query.select(Obj2.class);
 ////        List<U> list = (List<U>) (query.select());
 ////        this.clz = clz;
-//        Obj data = null;
-//        if(list.size() > 0){
-//            data = (list.get(0));
+//        Obj2 data = null;
+//        if(list.length() > 0){
+//            data = (list.g(0));
 //        } else {
 //            data = null;
 //        }
@@ -221,10 +221,10 @@
 //    }
 //
 //    private static class Holder<T>{
-//        public Obj now;
+//        public Obj2 now;
 //        public T proxy;
 //
-//        public Holder(Obj now, T proxy) {
+//        public Holder(Obj2 now, T proxy) {
 //            this.now = now;
 //            this.proxy = proxy;
 //        }
@@ -282,7 +282,7 @@
 //            SerializedLambda serializedLambda = (SerializedLambda) declaredMethod.invoke(function);
 //            String method = serializedLambda.getImplMethodName();
 //            String attr = null;
-//            if (method.startsWith("get")) {
+//            if (method.startsWith("g")) {
 //                attr = method.substring(3);
 //            } else {
 //                attr = method.substring(2);

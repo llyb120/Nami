@@ -1,8 +1,7 @@
-package com.github.llyb120.nami.ext;
+package com.github.llyb120.nami.ext.beetlsql;
 
 import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.core.Config;
-import com.github.llyb120.nami.core.MyDebugInterceptor;
 import org.beetl.sql.core.*;
 import org.beetl.sql.core.annotatoin.Table;
 import org.beetl.sql.core.db.DB2SqlStyle;

@@ -6,12 +6,13 @@ import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.json.Json;
-import com.github.llyb120.nami.json.Json;
-import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Obj;
+import com.mongodb.util.JSON;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import static com.github.llyb120.nami.json.Json.o;
 
@@ -65,14 +66,14 @@ public class TestJson {
     }
     @Test
     public void test_01_decode() throws IOException {
-        Json a = (Json) Json.parse(IoUtil.readBytes(new ClassPathResource("test/test.json").getStream()));
+        Obj a = Json.parse(IoUtil.readBytes(new ClassPathResource("test/test.json").getStream()));
         a.put("fuck",22);
         FFF f2 = new FFF(1234);
         a.put("f2", f2);
         a.put("date", new Date());
 //        f2.setFuck(123);
         String str = Json.stringify(a);
-        Json f4 = Json.parse(str);
+        Obj f4 = Json.parse(str);
         Object f22 =  f4.get("f2");
         FFF f3 = Convert.convert(FFF.class, f22);
         int b = 1;
@@ -92,6 +93,12 @@ public class TestJson {
     public void fff(){
         Json a = o();
         a.toString();
+    }
+
+
+    @Test
+    public void testtree(){
+        String str = "[{\"_id\":\"5d33e7a6ae3ae6736c1e22e4\",\"text\":\"新分类\"},{\"_id\":\"5d33f3cbeb9ec954a0cfcdc7\",\"text\":\"新分类\",\"pid\":\"5d33e7a6ae3ae6736c1e22e4\"},{\"_id\":\"5d33f3d0eb9ec954a0cfcdc8\",\"text\":\"新分类\",\"pid\":\"5d33f3cbeb9ec954a0cfcdc7\"}]";
     }
 
 }

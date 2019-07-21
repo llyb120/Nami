@@ -2,6 +2,7 @@ package com.github.llyb120.nami.excel;
 
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Obj;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.jxls.common.Context;
 import org.jxls.util.JxlsHelper;
@@ -13,14 +14,14 @@ import java.io.InputStream;
 
 public class ExportUtil {
 
-    public static MultipartFile toXls(String fileName, InputStream template, Json Json) throws IOException, InvalidFormatException {
+    public static MultipartFile toXls(String fileName, InputStream template, Obj obj) throws IOException, InvalidFormatException {
         File temp = File.createTempFile("123", ".xls");
         try(
             InputStream is = template;
             FileOutputStream fos = new FileOutputStream(temp);
             ){
               Context context = new Context();
-              Json.forEach((k,v) -> context.putVar(String.valueOf(k),v));
+              obj.forEach((k, v) -> context.putVar(String.valueOf(k),v));
             JxlsHelper
                 .getInstance()
                 .setUseFastFormulaProcessor(false)

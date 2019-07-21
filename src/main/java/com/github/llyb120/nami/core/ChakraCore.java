@@ -288,7 +288,7 @@ public class ChakraCore {
     }
 
 //    private Pointer createContext(){
-//        Pointer runtime = runtimes.get();
+//        Pointer runtime = runtimes.g();
 //        PointerByReference contextPtr = new PointerByReference();
 //        instance.JsCreateContext(runtime, contextPtr);
 //    }

@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import static com.github.llyb120.nami.ext.BeetlSql.sqlManager;
+import static com.github.llyb120.nami.ext.beetlsql.BeetlSql.sqlManager;
 
 
 public class TestElse {

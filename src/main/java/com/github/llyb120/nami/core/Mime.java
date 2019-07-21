@@ -453,7 +453,7 @@ public class Mime {
                 ".trm", "application/x-msterminal",
                 ".trx", "application/xml",
                 ".ts", "video/vnd.dlna.mpeg-tts",
-                ".tsv", "text/tab-separated-values",
+                ".tsv", "text/tab-separated-vals",
                 ".ttf", "application/octet-stream",
                 ".tts", "video/vnd.dlna.mpeg-tts",
                 ".txt", "text/plain",

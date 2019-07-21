@@ -32,9 +32,9 @@ public class Nami {
 
 //        Chakra.start();
 
-//        var main = config.db.get("main");
+//        var main = config.db.g("main");
 //        if (main != null) {
-//            DBService.fSql = new FSql(config.db.get("main"));
+//            DBService.fSql = new FSql(config.db.g("main"));
 //        }
 
         if(config.dev && config.compile.parallel){
@@ -128,6 +128,6 @@ public class Nami {
     }
 
 //    public static void registerController(String prefix, String packageName){
-//        HttpServerHandler.ctrls.put(prefix, packageName);
+//        HttpServerHandler.ctrls.set(prefix, packageName);
 //    }
 }

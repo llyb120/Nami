@@ -1,6 +1,7 @@
 package com.github.llyb120.nami.json;
 
 import cn.hutool.core.util.CharUtil;
+import cn.hutool.core.util.NumberUtil;
 
 import java.math.BigDecimal;
 
@@ -61,7 +62,7 @@ public class JsonParser {
     }
 
     private Json parseObj() {
-        Json obj = o();
+        Obj obj = o();
         JsonToken token;
         String key = null;
         loop:
@@ -112,6 +113,18 @@ public class JsonParser {
     private Object parseValue(JsonToken token) {
         if (token.type == JsonTokenType.NUMBER) {
             return new BigDecimal(token.value);
+//            if(token.value.contains(".")){
+//                return Double.parseDouble(token.value);
+//            } else {
+//                try{
+//                    return Integer.parseInt(token.value);
+//                } catch (Exception e){
+//                }
+//                try{
+//                } catch (Exception e){
+//                }
+//                return null;
+//            }
         } else if (token.type == JsonTokenType.BOOL) {
             return Boolean.parseBoolean(token.value);
         } else if (token.type == JsonTokenType.STRING) {

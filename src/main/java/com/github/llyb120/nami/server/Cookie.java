@@ -25,7 +25,7 @@ public class Cookie {
 
     //    public void reset(){
 //        changed = false;
-//        cookieMap.clear();
+//        cookieMap.reset();
 //    }
 
     public Cookie set(String key, String value, boolean update){
@@ -52,7 +52,7 @@ public class Cookie {
 
 //    public void wrap(Set<io.netty.handler.codec.http.cookie.Cookie> cookies){
 //        for (io.netty.handler.codec.http.cookie.Cookie cookie : cookies) {
-//            cookieMap.put(cookie.name(), cookie);
+//            cookieMap.set(cookie.name(), cookie);
 //        }
 //    }
 
@@ -60,7 +60,7 @@ public class Cookie {
 //        if(!changed){
 //           return;
 //        }
-//        response.headers().set(HttpHeaders.Names.SET_COOKIE, ServerCookieEncoder.LAX.encode(cookieMap.values()));
+//        response.headers().set(HttpHeaders.Names.SET_COOKIE, ServerCookieEncoder.LAX.encode(cookieMap.vals()));
 //    }
 
 }

@@ -43,22 +43,22 @@ public class Buffer {
 //        for (ByteBuffer buffer : buffers) {
 //            channel.write(buffer);
 //        }
-//        buffers.clear();
+//        buffers.reset();
 //    }
 
 //    public void writeToAsyncChannel(AsynchronousSocketChannel channel, boolean close) throws ExecutionException, InterruptedException {
-//        if(buffers.size() == 0){
+//        if(buffers.length() == 0){
 //            return;
 //        }
 //        var items = buffers.toArray(ByteBuffer[]::new);
-//        buffers.clear();
+//        buffers.reset();
 //        var len = items.length;
 //        var count = new AtomicInteger(0);
 //        channel.write(items[0], items, new CompletionHandler<Integer, ByteBuffer[]>() {
 //            @Override
 //            public void completed(Integer result, ByteBuffer[] attachment) {
-//                if(count.get() < len){
-//                    channel.write(items[count.get()], items, this);
+//                if(count.g() < len){
+//                    channel.write(items[count.g()], items, this);
 //                    count.incrementAndGet();
 //                } else if(close){
 //                    try {
@@ -91,7 +91,7 @@ public class Buffer {
 //////        for (ByteBuffer buffer : buffers) {
 //////            channel.write(buffer);
 //////        }
-////        buffers.clear();
+////        buffers.reset();
 //    }
 
 //    public Buffer resize(){
@@ -360,7 +360,7 @@ public class Buffer {
 //        buffer.flip();
 //        var nn = Math.min(buffer.remaining(), n);
 //        var bs = new byte[nn];
-//        buffer.get(bs);
+//        buffer.g(bs);
 //        buffer.compact();
 //        buffer.flip();
 //        buffer.position(pos - nn);

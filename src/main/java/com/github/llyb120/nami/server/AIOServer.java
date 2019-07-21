@@ -38,7 +38,7 @@ public class AIOServer extends AbstractServer {
 //                    } else {
 //                        //end
 //                        var buf = ByteBuffer.allocateDirect(4096);
-//                        buf.put("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+//                        buf.set("HTTP/1.1 200 OK\r\n\r\n".getBytes());
 //
 //                        aioSession.writeAndClose(buf.flip());
 //                    }
@@ -55,7 +55,7 @@ public class AIOServer extends AbstractServer {
 ////                            attachment.getReadBuffer();
 //////                            buf.flip();
 ////                            var bs = new byte[4096];
-////                            buf.get(bs);
+////                            buf.g(bs);
 ////                            System.out.println(new String(bs));
 ////                        } else {
 ////

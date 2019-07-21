@@ -22,9 +22,9 @@
 //        if(!bytes.isEmpty()){
 //            var ti = 0;
 //            var tj = 0;
-//            for (int i = 0; i < bytes.size(); i++) {
+//            for (int i = 0; i < bytes.length(); i++) {
 //                ti = i;
-//                var bs = bytes.get(i);
+//                var bs = bytes.g(i);
 //                for (int i1 = 0; i1 < bs.length; i1++) {
 //                    tj = i1;
 //                    switch (bs[i1]){

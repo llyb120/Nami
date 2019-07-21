@@ -2,9 +2,9 @@ package com.github.llyb120.nami.core;
 
 import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.core.boost.SqlBoost;
+import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Json;
-import com.github.llyb120.nami.json.Json;
-import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.Cookie;
 import com.github.llyb120.nami.server.Request;
 import com.github.llyb120.nami.server.Response;
@@ -19,13 +19,15 @@ import java.util.stream.Stream;
 
 import static cn.hutool.core.util.StrUtil.isNotEmpty;
 import static com.github.llyb120.nami.core.Config.config;
-import static com.github.llyb120.nami.ext.BeetlSql.sqlManager;
+import static com.github.llyb120.nami.ext.beetlsql.BeetlSql.sqlManager;
+import static com.github.llyb120.nami.json.Json.a;
+import static com.github.llyb120.nami.json.Json.o;
 
 public class Param {
     private static List<Rule> ruleList = new Vector<>();
 
     public static Object[] AutoWiredParams(Class clz, Method method, Response resp, Map<Class, Object> staticArgs) {
-//        var context = Context.holder.get();
+//        var context = Context.holder.g();
         Parameter[] parameters = method.getParameters();
         Object[] ret = new Object[parameters.length];
         int idex = -1;
@@ -35,7 +37,7 @@ public class Param {
             //特殊字段
             String name = parameter.getName();
             Class<?> type = parameter.getType();
-//            name = names.get(i);
+//            name = names.g(i);
             ret[i] = null;
             //如果有静态，则直接使用
             if (null != staticArgs && staticArgs.containsKey(type)) {
@@ -86,14 +88,14 @@ public class Param {
                         String source = resp.request.query.s(name);
                         if (isNotEmpty(source)) {
                             if (source.startsWith("[") && source.endsWith("]")) {
-                                Json array = resp.request.query.a(name);
+                                Json array = a(name);
                                 ret[i] = array.to(type);
                             }
                             //只有一个的情况，直接尝试拆分
                             else {
 //                                if (source.contains(",")) {
                                 String[] split = source.split(",");
-                                Json array = new Json((split));
+                                Arr array = a((split));
                                 try {
                                     ret[i] = array.to(type);
                                 } catch (Exception e) {
@@ -192,7 +194,7 @@ public class Param {
                         page = Integer.parseUnsignedInt(String.valueOf(entry.getValue())) ;
                     } catch (Exception e){
                     }
-                } else if(entry.getKey().equalsIgnoreCase("size")) {
+                } else if(entry.getKey().equalsIgnoreCase("length")) {
                     try {
                         size = Integer.parseUnsignedInt(String.valueOf(entry.getValue()));
                     } catch (Exception e) {
@@ -393,35 +395,35 @@ public class Param {
 
     private static void addLinks(Collection<Json> ret, List<Config.Link> links){
         for (Config.Link link : links) {
-            Json map = new Json();
+            Obj map = o();
             String ids = ret
                     .stream()
-                    .peek(e -> map.put(((Json) e).s(link.fromField), e))
-                    .map(e -> ((Json) e).s(link.fromField))
+                    .peek(e -> map.put(((Obj) e).s(link.fromField), e))
+                    .map(e -> ((Obj) e).s(link.fromField))
                     .map(e -> StrUtil.wrap((CharSequence) e, "'"))
                     .collect(Collectors.joining(","));
             if(StrUtil.isEmpty((CharSequence) ids)){
                 continue;
             }
-            List<Json> items = sqlManager.execute(String.format("select * from %s where %s in (%s)", link.toClz, link.toField, ids), Json.class, new Json());
-            for (Json item : items) {
-                Json target = map.o(item.s(link.toField));
+            List<Obj> items = sqlManager.execute(String.format("select * from %s where %s in (%s)", link.toClz, link.toField, ids), Obj.class, o());
+            for (Obj item : items) {
+                Obj target = o(item.s(link.toField));
                 if (target == null) {
                     continue;
                 }
                 Object Json = target.get(link.name);
                 if (Json == null) {
                     if(link.many){
-                        Json = new Json();
+                        Json = a();
                     } else {
-                        Json = new Json();
+                        Json = o();
                     }
                     target.put(link.name, Json);
                 }
                 if(link.many){
-                    ((Json)Json).add(item);
+                    ((Arr)Json).add(item);
                 } else {
-                    ((Json)Json).putAll(item.map());
+                    ((Map)Json).putAll(item.map());
                 }
             }
         }

@@ -8,8 +8,9 @@ import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.Config;
 import com.github.llyb120.nami.core.Nami;
+import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Json;
-import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Obj;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.beetl.sql.core.kit.GenKit;
@@ -114,7 +115,7 @@ public class FSql {
         } else {
 
         }
-        sb.append(")values(");
+        sb.append(")vals(");
         sb.append(val);
         sb.append(")");
         Json id = executeInsert(sb.toString());
@@ -147,16 +148,16 @@ public class FSql {
         }
     }
 
-    private Json execute(String sql, Connection connection) throws SQLException {
+    private Arr execute(String sql, Connection connection) throws SQLException {
         System.out.println(sql);
-        Json list = a();
+        Arr list = a();
         try(
                 Statement stmt = connection.createStatement();
                 ){
             ResultSet ret = stmt.executeQuery(sql);
             ResultSetMetaData metadata = ret.getMetaData();
             while(ret.next()){
-                Json Json = o();
+                Obj Json = o();
                 list.add(Json);
                 for(int i = 1; i <= metadata.getColumnCount(); i++){
                     Json.put(metadata.getColumnLabel(i).toLowerCase(), ret.getObject(i)) ;
@@ -207,7 +208,7 @@ public class FSql {
             ResultSet rs = stmt.getGeneratedKeys();
             ResultSetMetaData metadata = rs.getMetaData();
             while(rs.next()){
-                Json Json = o();
+                Obj Json = o();
                 for (int i = 1; i <= metadata.getColumnCount(); i++) {
                     Json.put(metadata.getColumnLabel(i), rs.getObject(i));
                 }
@@ -259,9 +260,9 @@ public class FSql {
             }
         } else {
             String sql = String.format("select table_name as t, column_name as c, data_type as type, CHARACTER_MAXIMUM_LENGTH as len from sysibm.columns where table_schema = '%s' and table_name not like 'explain%%'", db.schema);
-            Json ret = execute(sql, dataSource.getConnection());
+            Arr ret = execute(sql, dataSource.getConnection());
             for (Object o : ret) {
-                Json Json = (Json) o;
+                Obj Json = (Obj) o;
                 String tname = Json.s("t");
                 TableMetaData metadata = tables.get(tname);
                 if (metadata == null) {
@@ -277,7 +278,7 @@ public class FSql {
     public static void mkCache(){
         Nami.dev();
         File path = new File(GenKit.getJavaResourcePath(), "fsql/cache");
-        //clear
+        //reset
         path.mkdirs();
         for (File file : path.listFiles()) {
             file.delete();
@@ -287,9 +288,9 @@ public class FSql {
              RandomAccessFile raf = new RandomAccessFile(new File(path, "ALL_TABLES"), "rw");
                 ) {
             String sql = String.format("select table_name as t, column_name as c, data_type as type, CHARACTER_MAXIMUM_LENGTH as len from sysibm.columns where table_schema = '%s' and table_name not like 'EXPLAIN_%%'", fSql.db.schema);
-            Json ret = fSql.execute(sql, fSql.getConnection());
+            Arr ret = fSql.execute(sql, fSql.getConnection());
             for (Object o : ret) {
-                Json Json = (Json) o;
+                Obj Json = (Obj) o;
                 String tname = Json.s("t");
                 TableMetaData metadata = fSql.tables.get(tname);
                 if (metadata == null) {

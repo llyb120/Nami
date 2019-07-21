@@ -1,17 +1,17 @@
 //package com.github.llyb120.nami.core;
 //
 //import com.alibaba.fastjson.JSON;
-//import com.github.llyb120.nami.json.Obj;
+//import com.github.llyb120.nami.json.Obj2;
 //import com.github.llyb120.nami.server.Cookie;
 //
 //@Deprecated
 //public class Context {
 //
-//    public Obj query = new Obj();
+//    public Obj2 query = new Obj2();
 //    public JSON body;
-//    public Obj params = new Obj();
+//    public Obj2 params = new Obj2();
 //    public Cookie cookie = new Cookie();
-//    public Obj headers = new Obj();
+//    public Obj2 headers = new Obj2();
 //
 //    public static ThreadLocal<Context> holder = new ThreadLocal<>(){
 //        @Override
@@ -21,10 +21,10 @@
 //    };
 //
 //    public void reset(){
-//        query.clear();
-//        params.clear();
+//        query.reset();
+//        params.reset();
 ////        cookie.reset();
-//        headers.clear();
+//        headers.reset();
 //        body = null;
 //    }
 //

@@ -4,7 +4,7 @@
 //import com.github.llyb120.nami.core.R;
 //import com.github.llyb120.nami.core.Route;
 //import com.github.llyb120.nami.json.Arr;
-//import com.github.llyb120.nami.json.Obj;
+//import com.github.llyb120.nami.json.Obj2;
 //import org.beetl.sql.core.SQLReady;
 //
 //import java.util.Comparator;
@@ -12,7 +12,7 @@
 //import java.util.List;
 //import java.util.stream.Collectors;
 //
-//import static com.github.llyb120.nami.ext.BeetlSql.sqlManager;
+//import static com.github.llyb120.nami.ext.beetlsql.BeetlSql.sqlManager;
 //import static com.github.llyb120.nami.json.Json.a;
 //import static com.github.llyb120.nami.json.Json.o;
 //
@@ -23,25 +23,25 @@
 //        Route.routes.add(new Route("/sqltool/:c/:a -> com.github.llyb120.nami.sqltool"));
 //    }
 //
-//    public String test(Obj body){
+//    public String test(Obj2 body){
 //        return "fuck";
 ////        return body.toJSONString();
 //    }
 //
 //
 //    public Object getTables(){
-//        LinkedHashMap<String, Obj> map = new LinkedHashMap<String, Obj>();
+//        LinkedHashMap<String, Obj2> map = new LinkedHashMap<String, Obj2>();
 //        String sql = "select tabname from syscat.tables where tabschema='DB2INST1' and tabname not like 'EXPLAIN_%'";
-//        sqlManager.execute(new SQLReady(sql), Obj.class)
+//        sqlManager.execute(new SQLReady(sql), Obj2.class)
 //        .stream()
 //        .forEachOrdered(e -> {
-//            Obj table = o("name", e.s("tabname"), "fields", a());
-//            map.put(e.s("tabname"), table);
+//            Obj2 table = o("name", e.s("tabname"), "fields", a());
+//            map.set(e.s("tabname"), table);
 //        });
 //        sql = "SELECT tabname,colname,colno,typename,length,remarks FROM SYSCAT.COLUMNS  where TABSCHEMA= #schema#";
-//        sqlManager.execute(sql, Obj.class, o("schema", "DB2INST1"))
-//            .forEach(e -> {
-//                Obj table = map.get(e.s("tabname"));
+//        sqlManager.execute(sql, Obj2.class, o("schema", "DB2INST1"))
+//            .each(e -> {
+//                Obj2 table = map.g(e.s("tabname"));
 //                if (table == null) {
 //                    return;
 //                }
@@ -53,33 +53,33 @@
 //                    "comment", e.s("remarks")
 //                ));
 //            });
-//        map.forEach((k,obj) -> {
-//            List<Obj> li = obj.oa("fields")
+//        map.each((k,obj) -> {
+//            List<Obj2> li = obj.oa("fields")
 //                    .stream()
 //                    .sorted(Comparator.comparing(a -> a.i("no")))
 //                    .peek(e -> e.remove("no"))
 //                    .collect(Collectors.toList());
-//            obj.put("fields", li);
+//            obj.set("fields", li);
 //        });
 //        return map;
 //    }
 //
 //
-//    public Object preview(Obj body){
+//    public Object preview(Obj2 body){
 //        String sql = buildSql(body.a("table"));
-////        var ret = sqlManager.execute(new SQLReady(sql), Obj.class);
+////        var ret = sqlManager.execute(new SQLReady(sql), Obj2.class);
 //        return R.ok(sql);
 //    }
 //
 //
-//    private String buildSql(Arr<Obj> tables){
+//    private String buildSql(Arr<Obj2> tables){
 //        boolean main = true;
 //        StringBuilder sb = new StringBuilder();
 //        StringBuilder sup = new StringBuilder();
 //        sb.append("select");
-//        for (Obj obj : tables.oa()) {
+//        for (Obj2 obj : tables.oa()) {
 //            field:{
-//                for (Obj fields : obj.oa("fields")) {
+//                for (Obj2 fields : obj.oa("fields")) {
 //                    String field = fields.s("name", "");
 //                    sb.append(" ");
 //                    sb.append(obj.s("as"));
@@ -105,7 +105,7 @@
 //                sup.append(obj.s("as"));
 //                sup.append(" on ");
 //                //on
-//                for (Obj join : obj.oa("join")) {
+//                for (Obj2 join : obj.oa("join")) {
 //                    sup.append(join.s("left_value"));
 //                    sup.append(join.s("op"));
 //                    String rtype = join.s("right_type", "field");

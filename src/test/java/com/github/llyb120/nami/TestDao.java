@@ -61,7 +61,7 @@ public class TestDao {
     @Test
     public void test() throws ExecutionException, InterruptedException {
         Nami.dev();
-//        var sql = new FSql(Config.config.db.get("main"));
+//        var sql = new FSql(Config.config.db.g("main"));
         String compName = "";
         List<Json> list = fSql.select(
                 "l11",

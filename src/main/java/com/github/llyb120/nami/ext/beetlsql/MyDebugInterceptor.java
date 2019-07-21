@@ -1,4 +1,4 @@
-package com.github.llyb120.nami.core;
+package com.github.llyb120.nami.ext.beetlsql;
 
 
 import cn.hutool.core.util.StrUtil;
@@ -69,7 +69,7 @@ public class MyDebugInterceptor extends DebugInterceptor {
         long time = System.currentTimeMillis();
         long start = (Long) ctx.get("debug.time");
         String lineSeparator = System.getProperty("line.separator", "\n");
-        StringBuilder sb = (StringBuilder) ctx.get("logs");
+        StringBuffer sb = (StringBuffer) ctx.get("logs");
         sb.append("时间：" + (time - start) + "ms").append("  ");
         if (ctx.isUpdate()) {
             sb.append("更新：[");

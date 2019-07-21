@@ -4,7 +4,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.URLUtil;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Json;
-import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Obj;
 
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -18,9 +18,9 @@ import static com.github.llyb120.nami.server.Response.CRLF;
 import static com.github.llyb120.nami.server.Vars.*;
 
 public class Request implements AutoCloseable{
-    public Json headers = o();
-    public Json<?> query = o();
-    public Json params = o();
+    public Obj headers = o();
+    public Obj query = o();
+    public Obj params = o();
     public Method method = null;
     public String path;
     public String version;
@@ -38,7 +38,7 @@ public class Request implements AutoCloseable{
     @Override
     public void close() throws Exception {
         IoUtil.close(channel);
-        params.forEach((k,v) -> {
+        params.forEach((k, v) -> {
             IoUtil.closeIfPosible(v);
         });
     }
@@ -88,7 +88,7 @@ public class Request implements AutoCloseable{
         channel = Channels.newChannel(is);
     }
 
-    private Json decodeQuery(String query, Json ret) {
+    private Json decodeQuery(String query, Obj ret) {
         String qs = query + "&";
         qs = URLUtil.decode(qs);
         int len = qs.length();
@@ -221,19 +221,19 @@ public class Request implements AutoCloseable{
         //解析头
 //        var surplus = decodeHeaders2();
 //        decodeHeaders3();
-//        $get.clear();
-//        $post.clear();
-//        $request.clear();
+//        $g.reset();
+//        $post.reset();
+//        $request.reset();
 
-        $get.holder(query.holder());
-        params.putAll(query.map());
+        $get.map(query.map());
+        params.putAll(query);
         if(null != body){
-            if(body.isMap()){
-                params.putAll(body.map());
+            if(body instanceof Map){
+                params.putAll((Map<? extends String, ?>) body);
+                $post.map((Map) body);
             }
-            $post.holder(body.holder());
         }
-        $request.holder(params.holder());
+        $request.map(params.map());
     }
 
     public boolean hasRemaining(){
@@ -244,7 +244,7 @@ public class Request implements AutoCloseable{
         int size = 4096;
         while (hasRemaining()) {
             ByteBuffer byteBuffer = ByteBuffer.allocateDirect(size);
-//            byteBuffer.clear();
+//            byteBuffer.reset();
             int n = channel.read(byteBuffer);
             if (n < 1) {
                 break;
@@ -272,7 +272,7 @@ public class Request implements AutoCloseable{
 //        }
 //
 //        if (body instanceof Map) {
-//            params.putAll((Map) body);
+//            params.concat((Map) body);
 //        }
     }
 
@@ -361,9 +361,9 @@ public class Request implements AutoCloseable{
                     temp.tempOs.write(bs);
                 }
                 if (temp.tempOs instanceof ByteArrayOutputStream) {
-                    ((Json) body).put(temp.name, ((ByteArrayOutputStream) temp.tempOs).toString(StandardCharsets.UTF_8.name()));
+                    ((Obj) body).put(temp.name, ((ByteArrayOutputStream) temp.tempOs).toString(StandardCharsets.UTF_8.name()));
                 } else if (temp.tempOs instanceof FileOutputStream) {
-                    ((Json) body).put(temp.name, temp.file);
+                    ((Obj) body).put(temp.name, temp.file);
                 }
                 buffer.readNBytes(2);
                 temp.release();
@@ -466,7 +466,7 @@ public class Request implements AutoCloseable{
 //                    //skip \r\n
 //                    buf.readNBytes(2);
 //
-//                    ret.put(name, value);
+//                    ret.set(name, value);
 //                    //
 //                } else if (line.equals(end)) {
 //                    //end
@@ -491,7 +491,7 @@ public class Request implements AutoCloseable{
         currentBodyLength += buffer.length();
         String str = new String(buffer.readBytes(), StandardCharsets.UTF_8);
         body = o();
-        decodeQuery(str, (Json)body);
+        decodeQuery(str, (Obj)body);
     }
 
     private int getContentLength() {

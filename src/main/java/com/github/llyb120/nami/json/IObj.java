@@ -10,10 +10,10 @@
 //
 //
 //    default Map innerMap(){
-//        Map item = (Map) JsonPool.MapPool.get(this);
+//        Map item = (Map) JsonPool.MapPool.g(this);
 //        if (item == null) {
 //            item = new LinkedHashMap();
-//            JsonPool.MapPool.put(this, item);
+//            JsonPool.MapPool.set(this, item);
 //        }
 //        return item;
 //    }
@@ -21,8 +21,8 @@
 //    /*********** map **********/
 //
 //    @Override
-//    default int size() {
-//        return innerMap().size();
+//    default int length() {
+//        return innerMap().length();
 //    }
 //
 //    @Override
@@ -41,14 +41,14 @@
 //    }
 //
 //    @Override
-//    default Object get(Object key) {
-//        return innerMap().get(key);
+//    default Object g(Object key) {
+//        return innerMap().g(key);
 //    }
 //
 //
 //
-//    default Object put(String key, Object value) {
-//        return innerMap().put(key, value);
+//    default Object set(String key, Object value) {
+//        return innerMap().set(key, value);
 //    }
 //
 //    @Override
@@ -57,29 +57,29 @@
 //    }
 //
 //    @Override
-//    default void putAll(Map m) {
-//        innerMap().putAll(m);
+//    default void concat(Map m) {
+//        innerMap().concat(m);
 //    }
 //
 //
 //    @Override
-//    default void clear() {
-//        innerMap().clear();
+//    default void reset() {
+//        innerMap().reset();
 //    }
 //
 //    @Override
-//    default Set<String> keySet() {
-//        return innerMap().keySet();
+//    default Set<String> keys() {
+//        return innerMap().keys();
 //    }
 //
 //    @Override
-//    default Collection<Object> values() {
-//        return innerMap().values();
+//    default Collection<Object> vals() {
+//        return innerMap().vals();
 //    }
 //
 //    @Override
-//    default Set<Entry<String, Object>> entrySet() {
-//        return innerMap().entrySet();
+//    default Set<Entry<String, Object>> entries() {
+//        return innerMap().entries();
 //    }
 //
 //
@@ -91,7 +91,7 @@
 //    }
 //
 //    default X a(String k){
-//        Object val = get(k);
+//        Object val = g(k);
 //        if (val == null) {
 //            return null;
 //        }
@@ -124,13 +124,13 @@
 //            Object obj = objects[i];
 //            boolean readNext = false;
 //            if(obj instanceof FlexAction){
-//                for (Entry<String, ?> entry : this.entrySet()) {
+//                for (Entry<String, ?> entry : this.entries()) {
 //                    if(((FlexAction) obj).canFlex(entry.getKey(), entry.getValue())){
 //                        Object fval = ((FlexAction) obj).call(entry.getKey(), entry.getValue());
 //                        if(fval instanceof Map.Entry){
-//                            nobj.put((String) ((Entry) fval).getKey(), ((Entry) fval).getValue());
+//                            nobj.set((String) ((Entry) fval).getKey(), ((Entry) fval).getValue());
 //                        } else {
-//                            nobj.put(entry.getKey(), fval) ;
+//                            nobj.set(entry.getKey(), fval) ;
 //                        }
 //                    }
 //                }
@@ -139,15 +139,15 @@
 //            }
 //        }
 //        if(flexed){
-//            clear();
-//            putAll(nobj);
+//            reset();
+//            concat(nobj);
 //        }
 //        return (Y) this;
 //    }
 //
 //
 //    default Y o(String k){
-//        Object val = get(k);
+//        Object val = g(k);
 //        if (val == null) {
 //            return null;
 //        }
@@ -156,7 +156,7 @@
 //        }
 //        if(val instanceof Map){
 //            IObj ins = Json.newInstance(getClass());
-//            ins.putAll((Map) val);
+//            ins.concat((Map) val);
 //            return (Y) ins;
 //        }
 //        return null;

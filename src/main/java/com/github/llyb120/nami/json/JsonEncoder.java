@@ -5,6 +5,7 @@ import com.esotericsoftware.reflectasm.FieldAccess;
 import com.esotericsoftware.reflectasm.MethodAccess;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
@@ -23,16 +24,12 @@ public class JsonEncoder {
             sb.append("null");
             return;
         }
-        if(obj instanceof IJson){
-            if(((IJson) obj).isList()){
-                 encodeCollection(((IJson) obj).list());
-            } else if(((IJson) obj).isMap()){
-                encodeMap(((IJson) obj).map());
-            }
-        } else if (obj instanceof Map) {
+        if (obj instanceof Map) {
             encodeMap((Map) obj);
-        } else if (obj instanceof Iterable) {
+        } else if (obj instanceof Collection) {
             encodeCollection((Iterable) obj);
+        } else if(obj.getClass().isArray()){
+
         }
         //基本类型
         else if (obj instanceof Boolean) {
@@ -41,10 +38,15 @@ public class JsonEncoder {
             } else {
                 sb.append("false");
             }
-        } else if (obj instanceof Integer || obj instanceof Double || obj instanceof Float || obj instanceof String || obj instanceof BigDecimal) {
+        } else if (obj instanceof Integer || obj instanceof Double || obj instanceof Float || obj instanceof BigDecimal) {
+//            sb.append("\"");
+            sb.append(obj);
+//            sb.append("\"");
+        } else if(obj instanceof String){
             sb.append("\"");
             sb.append(obj);
             sb.append("\"");
+
         } else if (obj instanceof Date) {
             sb.append("\"");
             sb.append(DateUtil.formatDateTime((Date) obj));
@@ -68,8 +70,12 @@ public class JsonEncoder {
             encode(val);
             sb.append(",");
         }
-        i = 0;
-        for (String methodName : ma.getMethodNames()) {
+        String[] names = ma.getMethodNames();
+        for (i = 0; i < names.length; i++) {
+            String methodName = names[i];
+            if(methodName.length() <= 3){
+                continue;
+            }
             int idex = methodName.indexOf("get");
             if (idex == -1) {
                 continue;
@@ -83,7 +89,7 @@ public class JsonEncoder {
                 sb.append("\"");
                 sb.append(":");
                 try {
-                    Object val = ma.invoke(obj, i++);
+                    Object val = ma.invoke(obj, i);
                     encode(val);
                 } catch (Exception e) {
                     encode(null);

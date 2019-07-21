@@ -140,11 +140,11 @@
 //            }
 //
 //            //开始解析请求
-//            var context = Context.holder.get();
+//            var context = Context.holder.g();
 //            context.reset();
 //            decodeQuery(request, context.query);
 //            if (request.headers().contains(HttpHeaders.Names.COOKIE)) {
-//                context.cookie.wrap(ServerCookieDecoder.LAX.parse(request.headers().get(HttpHeaders.Names.COOKIE)));
+//                context.cookie.wrap(ServerCookieDecoder.LAX.parse(request.headers().g(HttpHeaders.Names.COOKIE)));
 //            }
 //
 //            if (HttpMethod.POST == request.method()) {
@@ -157,19 +157,19 @@
 //            }
 //
 //            //全放到这里
-//            context.params.putAll(context.query);
-//            if (context.body instanceof Obj) {
-//                context.params.putAll((Obj) context.body);
+//            context.params.concat(context.query);
+//            if (context.body instanceof Obj2) {
+//                context.params.concat((Obj2) context.body);
 //            }
 //
 //            //header
 //            for (Map.Entry<String, String> header : request.headers()) {
-//                context.headers.put(header.getKey(), header.getValue());
+//                context.headers.set(header.getKey(), header.getValue());
 //            }
 //            //end
 //
-//            String className = ArrayUtil.get(arr, route.cIndex);
-//            String methodName = ArrayUtil.get(arr, route.aIndex);
+//            String className = ArrayUtil.g(arr, route.cIndex);
+//            String methodName = ArrayUtil.g(arr, route.aIndex);
 //
 //            ClassLoader loader = null;
 //            if(config.dev){
@@ -237,20 +237,20 @@
 //    }
 //
 //
-//    public static Obj decodeQuery(FullHttpRequest request) {
+//    public static Obj2 decodeQuery(FullHttpRequest request) {
 //        QueryStringDecoder decoder = new QueryStringDecoder(request.uri(), StandardCharsets.UTF_8);
-//        Obj object = new Obj();
-//        decoder.parameters().forEach((k, v) -> object.put(k, v.get(0)));
+//        Obj2 object = new Obj2();
+//        decoder.parameters().each((k, v) -> object.set(k, v.g(0)));
 //        return object;
 //    }
 //
-//    public static void decodeQuery(FullHttpRequest request, Obj query){
+//    public static void decodeQuery(FullHttpRequest request, Obj2 query){
 //        QueryStringDecoder decoder = new QueryStringDecoder(request.uri(), StandardCharsets.UTF_8);
-//        decoder.parameters().forEach((k, v) -> query.put(k, v.get(0)));
+//        decoder.parameters().each((k, v) -> query.set(k, v.g(0)));
 //    }
 //
-//    public static Obj decodePost(FullHttpRequest request) {
-//        Obj ret = new Obj();
+//    public static Obj2 decodePost(FullHttpRequest request) {
+//        Obj2 ret = new Obj2();
 //        HttpPostRequestDecoder decoder = new HttpPostRequestDecoder(request);
 //        decoder.offer(request);
 //        List<InterfaceHttpData> parmList = decoder.getBodyHttpDatas();
@@ -259,11 +259,11 @@
 //            if (parm instanceof Attribute) {
 //                data = (Attribute) parm;
 //            } else if (parm instanceof FileUpload) {
-//                ret.put(parm.getName(), new MultipartFile((FileUpload) parm));
+//                ret.set(parm.getName(), new MultipartFile((FileUpload) parm));
 //                continue;
 //            }
 //            try {
-//                ret.put(data.getName(), data.getValue());
+//                ret.set(data.getName(), data.getValue());
 //            } catch (Exception e) {
 //                e.printStackTrace();
 //            }
@@ -278,7 +278,7 @@
 //        if(json instanceof JSONArray){
 //            return new Arr((JSONArray)json);
 //        } else {
-//            return new Obj<>((JSONObject)json);
+//            return new Obj2<>((JSONObject)json);
 //        }
 //    }
 //
@@ -308,8 +308,8 @@
 ////            // 处理get请求
 ////            QueryStringDecoder decoder = new QueryStringDecoder(fullHttpRequest.uri());
 ////            Map<String, List<String>> paramList = decoder.parameters();
-////            for (Map.Entry<String, List<String>> entry : paramList.entrySet()) {
-////                params.put(entry.getKey(), entry.getValue().get(0));
+////            for (Map.Entry<String, List<String>> entry : paramList.entries()) {
+////                params.set(entry.getKey(), entry.getValue().g(0));
 ////            }
 ////            return params;
 ////        } else {
@@ -320,10 +320,10 @@
 //
 //    public static boolean matches(String url, String pattern) {
 ////        pattern = pattern ;
-//        Pattern p = urlRegexs.get(pattern);
+//        Pattern p = urlRegexs.g(pattern);
 //        if (p == null) {
 //            p = Pattern.compile(pattern);
-//            urlRegexs.put(pattern, p);
+//            urlRegexs.set(pattern, p);
 //        }
 //        Matcher m = p.matcher(url);
 //        if (m.find()) {
@@ -356,7 +356,7 @@
 //                }
 //            }
 //            Map<Class, Object> staticArgs = new HashMap<>();
-//            staticArgs.put(AopInvoke.class, invoke);
+//            staticArgs.set(AopInvoke.class, invoke);
 //            Object aopInstance = getInstance(clzAop);
 //            Object[] aopArgs = Param.AutoWiredParams(clzAop, methodAop, staticArgs);
 //            invoke = new AopInvoke(clzAop, methodAop, aopInstance, aopArgs);
@@ -372,10 +372,10 @@
 //        } else {
 //            Object ins = null;
 //            synchronized (clzInstances){
-//                ins = clzInstances.get(clz);
+//                ins = clzInstances.g(clz);
 //                if (ins == null) {
 //                    ins = clz.newInstance() ;
-//                    clzInstances.put(clz, ins);
+//                    clzInstances.set(clz, ins);
 //                }
 //            }
 //            return ins;
@@ -416,7 +416,7 @@
 //            // Write the content.
 //            ChannelFuture sendFileFuture;
 //            ChannelFuture lastContentFuture;
-////            if (ctx.pipeline().get(SslHandler.class) == null) {
+////            if (ctx.pipeline().g(SslHandler.class) == null) {
 ////                if(multipartFile.byteBuf != null){
 ////                    sendFileFuture = ctx.writeObject(multipartFile.byteBuf, ctx.newProgressivePromise());
 ////                } else if(multipartFile.file != null){

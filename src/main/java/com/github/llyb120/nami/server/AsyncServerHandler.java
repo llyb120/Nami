@@ -62,11 +62,11 @@ import java.util.concurrent.CountDownLatch;
 //            attachment.flip();
 //            //根据
 //            byte[] message = new byte[attachment.remaining()];
-//            attachment.get(message);
+//            attachment.g(message);
 //            System.out.println(new String(message));
 //
 //            byte[] message2 = new byte[attachment.remaining()];
-//            attachment.get(message2);
+//            attachment.g(message2);
 //            System.out.println(new String(message2));
 //
 //            if(result > 0){
@@ -81,7 +81,7 @@ import java.util.concurrent.CountDownLatch;
 ////                attachment.flip();
 ////                try {
 ////                    attachment.compact();
-////                    channel.read(attachment).get();
+////                    channel.read(attachment).g();
 ////                } catch (InterruptedException e) {
 ////                    e.printStackTrace();
 ////                } catch (ExecutionException e) {
@@ -112,7 +112,7 @@ import java.util.concurrent.CountDownLatch;
 //        private void doWrite(String result) {
 //            byte[] bytes = result.getBytes();
 //            ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
-//            writeBuffer.put(bytes);
+//            writeBuffer.set(bytes);
 //            writeBuffer.flip();
 //            //异步写数据 参数与前面的read一样
 //            channel.write(writeBuffer, writeBuffer,new CompletionHandler<Integer, ByteBuffer>() {

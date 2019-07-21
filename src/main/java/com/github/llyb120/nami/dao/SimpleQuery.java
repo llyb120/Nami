@@ -6,7 +6,7 @@ public class SimpleQuery {
 //
 //    }
 //
-//    public SimpleQuery select(Object ...values){
+//    public SimpleQuery select(Object ...vals){
 //        var d =
 //    }
 }

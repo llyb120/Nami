@@ -1,23 +1,19 @@
 package com.github.llyb120.nami.json;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.CharUtil;
+import cn.hutool.core.util.StrUtil;
 import com.esotericsoftware.reflectasm.ConstructorAccess;
-import com.esotericsoftware.reflectasm.FieldAccess;
-import com.esotericsoftware.reflectasm.MethodAccess;
+import org.bson.BsonArray;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 
-import java.io.Serializable;
-import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.Array;
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.function.Function;
 
 import static com.github.llyb120.nami.core.DBService.fSql;
 
-public class Json <T> implements IJson<T>{
+public abstract class Json <T>{
 
     private boolean parallel = false;
     private ThreadLocal<Holder> local;
@@ -46,7 +42,6 @@ public class Json <T> implements IJson<T>{
         }
     }
 
-    @Override
     public Holder holder() {
         if(parallel){
             return local.get();
@@ -55,14 +50,12 @@ public class Json <T> implements IJson<T>{
         }
     }
 
-    @Override
-    public Json<T> holder(Holder holder) {
+    public void holder(Holder holder) {
         if(parallel){
             local.set(holder);
         } else {
             this.holder = holder;
         }
-        return this;
     }
 
     @Override
@@ -74,6 +67,261 @@ public class Json <T> implements IJson<T>{
         fSql.insert(tableName, this);
         return null;
     }
+
+
+
+    class Holder {
+        public List<Object> list;
+        public Map<String,Object> map;
+    }
+
+
+
+//    Map<Object,Holder> Pool = new WeakHashtable();
+
+
+//    public Holder holder(){
+//        Holder holder = Pool.get(this);
+//        if (holder == null) {
+//            holder = new Holder() ;
+//            Pool.put(this, holder);
+//        }
+//        return holder;
+//    }
+//
+//    public void holder(Holder holder){
+//        Pool.put(this, holder);
+//    }
+
+    public List<Object> list(){
+        Holder holder = holder();
+        if(holder.list != null){
+            return holder.list;
+        }
+        else if(holder.map == null){
+            holder.list = new ArrayList<>();
+            return holder.list;
+        }
+        return null;
+    }
+
+    public Map<String, Object> map(){
+        Holder holder = holder();
+        if(holder.map == null){
+            holder.map = new LinkedHashMap<>();
+        }
+        return holder.map;
+    }
+
+    public boolean isList(){
+        return holder().list != null;
+    }
+
+    public boolean isMap(){
+        return holder().map != null;
+    }
+
+    public boolean add(T arg0){
+        return list().add(arg0);
+    }
+
+    public boolean addAll(Collection arg0){
+        return list().addAll(arg0);
+    }
+
+//    public void putAll(Map<? extends String,? extends T> arg0){
+//        map().putAll(arg0);
+//    }
+
+
+//    public Object put(String key, Object value) {
+//        return map().put(key ,value);
+//    }
+
+    public void clear(){
+        Holder holder = holder();
+        if (holder.list != null) {
+            holder.list.clear();
+        }
+        if(holder.map != null){
+            holder.map.clear();
+        }
+    }
+
+    public boolean contains(Object arg0){
+        Holder holder = holder();
+        if (holder.list != null) {
+            return holder.list.contains(arg0);
+        }
+        return false;
+    }
+    public int indexOf(Object arg0){
+        Holder holder = holder();
+        if(holder.list != null){
+            return holder.list.indexOf(arg0);
+        }
+        return -1;
+    }
+
+    public int lastIndexOf(Object arg0){
+        Holder holder = holder();
+        if(holder.list != null){
+            return holder.list.lastIndexOf(arg0);
+        }
+        return -1;
+    }
+
+    public boolean isEmpty(){
+        Holder holder = holder();
+        if (holder.list != null) {
+            return holder.list.isEmpty();
+        }
+        if(holder.map != null){
+            return holder.map.isEmpty();
+        }
+        return true;
+    }
+
+    public Iterator<T> iterator(){
+        return (Iterator<T>) list().iterator();
+    }
+
+
+    public Object delete(Object object){
+        Holder holder = holder();
+        if (holder.list != null) {
+            return holder.list.remove(object);
+        }
+        if (holder.map != null){
+            return holder.map.remove(object);
+        }
+        return null;
+    }
+
+//    public Object set(int arg0, Object arg1){
+//        return list().set(arg0, arg1);
+//    }
+
+//    public Object set(String key, Object value){
+//        return map().put(key, value);
+//    }
+
+//    public Object get(Object arg0){
+//        Holder holder = holder();
+//        if(arg0 instanceof String){
+//            if (holder.map != null) {
+//                return holder.map.get(arg0);
+//            }
+//        } else {
+//            if (holder.list != null) {
+//                return holder.list.get((int) arg0);
+//            }
+//        }
+//        return null;
+//    }
+
+//    public int size(){
+//        Holder holder = holder();
+//        if (holder.list != null) {
+//            return holder.list.size();
+//        }
+//        if (holder.map != null) {
+//            return holder.map.size();
+//        }
+//        return 0;
+//    }
+
+    public boolean containsKey(Object arg0){
+        Holder holder = holder();
+        if (holder.map != null) {
+            return holder.map.containsKey(arg0);
+        }
+        return false;
+    }
+
+    public boolean containsValue(Object arg0){
+        Holder holder = holder();
+        if (holder.map != null) {
+            return holder.map.containsValue(arg0);
+        }
+        return false;
+    }
+
+//    public Set<Map.Entry<String,Object>> entrySet(){
+//        return map().entrySet();
+//    }
+
+//    public Set<String> keySet(){
+//        return map().keySet();
+//    }
+
+
+    public Collection values(){
+        Holder holder = holder();
+        if (holder.list != null) {
+            return holder.list;
+        }
+        if(holder.map != null){
+            return holder.map.values();
+        }
+        return new ArrayList();
+    }
+
+
+
+
+    /** json **/
+//    abstract public Object get(Object key);
+
+
+
+//    public Json j(Object key){
+//        Object val = get(key);
+//        if (val == null) {
+//            return null;
+//        }
+//        if(val instanceof Json){
+//            return (Json) val;
+//        }
+//        if(val.getClass().isArray()){
+//            val = Arrays.asList(val);
+//        }
+//        if(val instanceof Map){
+//            Json ins = o();
+//            ins.map().putAll((Map<? extends String, ?>) val);
+//            return ins;
+//        } else if (val instanceof Collection){
+//            Json ins = a();
+//            ins.list().addAll((Collection<?>) val);
+//            return  ins;
+//        }
+//        return null;
+//    }
+
+    public <T> T to(Class<T> clz){
+        return Json.cast(this, clz);
+    }
+
+    public Document toBsonDoc(){
+        if(isMap()){
+            return Document.parse(Json.stringify(this));
+        }
+        return new Document();
+    }
+
+    public List<? extends Bson> toBsonArray(){
+        if(isList()){
+            BsonArray source = BsonArray.parse(Json.stringify(this));
+            List list = new ArrayList(source);
+            return list;
+        }
+        return new ArrayList<>();
+    }
+
+
+
+
+
 
     //    public enum ValidateType {
 //        notnull,
@@ -104,7 +352,7 @@ public class Json <T> implements IJson<T>{
 //            SerializedLambda serializedLambda = (SerializedLambda) declaredMethod.invoke(function);
 //            String method = serializedLambda.getImplMethodName();
 //            String attr = null;
-//            if (method.startsWith("get")) {
+//            if (method.startsWith("g")) {
 //                attr = method.substring(3);
 //            } else {
 //                attr = method.substring(2);
@@ -116,18 +364,16 @@ public class Json <T> implements IJson<T>{
 //        }
 //    }
 
-    public static Json o(Object... objects) {
-        Json json = new Json();
-        json.map();
+    public static Obj o(Object... objects) {
+        Obj json = new Obj();
         for (short i = 0; i < objects.length; i += 2) {
             json.put((String) objects[i], objects[i + 1]);
         }
         return json;
     }
 
-    public static Json a(Object... objects) {
-        Json json = new Json();
-        json.list();
+    public static Arr a(Object... objects) {
+        Arr json = new Arr();
         for (Object object : objects) {
             json.add(object);
         }
@@ -135,30 +381,46 @@ public class Json <T> implements IJson<T>{
     }
 
 
-    public static Json tree(Collection<Json> list, String parentKey, String childKey) {
-        Json map = o();
-        for (Json json : list) {
-            String key = json.s(childKey);
+    public static Json tree(Collection<? extends Map> list, String parentKey, String childKey) {
+        Obj map = o();
+        for (Map map1 : list) {
+            String key = (String) map1.get(childKey);
             if (key == null) {
                 continue;
             }
-            map.put(key, json);
-//            object.put("children", a());
+            map.put(key, map1);
         }
         Json ret = a();
-        for (Json json : list) {
-            Json par = map.o(json.s(parentKey));
-            if (par == null) {
-                ret.add(json);
+        for (Map map1 : list) {
+            String key = (String) map1.get(parentKey);
+            if (key == null) {
+                ret.add(map1);
                 continue;
             }
-            Json child = par.a("children");
+            Map par = (Map) map.get(key);
+            if (par == null) {
+                continue;
+            }
+            List<Map> child = (List<Map>) par.get("children");
             if (child == null) {
-                child = a();
+                child = new ArrayList<>();
                 par.put("children", child);
             }
-            child.add(json);
+            child.add(map1);
         }
+//        for (Json json : list) {
+//            Json par = map.o(json.s(parentKey));
+//            if (par == null) {
+//                ret.add(json);
+//                continue;
+//            }
+//            Json child = par.a("children");
+//            if (child == null) {
+//                child = a();
+//                par.set("children", child);
+//            }
+//            child.add(json);
+//        }
         return ret;
     }
 
@@ -181,8 +443,8 @@ public class Json <T> implements IJson<T>{
         return cast(source, Json.class);
     }
 
-//    public static Obj toObj(Object object){
-//       return cast(object, Obj.class);
+//    public static Obj2 toObj(Object object){
+//       return cast(object, Obj2.class);
 //    }
 
 //    public static Arr toArr(Object object){
@@ -243,6 +505,13 @@ public class Json <T> implements IJson<T>{
                 return (T) source;
             } else {
                 return (T) (Integer) Integer.parseInt(String.valueOf(source));
+            }
+        }
+        if(clz == Long.class || clz == long.class){
+            if(source instanceof Long){
+                return (T) source;
+            } else {
+                return (T) (Long)Long.parseLong(String.valueOf(source));
             }
         }
         //可以返回自身

@@ -1,9 +1,10 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.io.IoUtil;
+import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.FlexAction;
-import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Obj;
 import org.beetl.sql.core.kit.GenKit;
 
 import java.io.File;
@@ -22,12 +23,12 @@ public class Config {
     public List<String> route = new Vector<>();
     public Compile compile = new Compile();
     public Cors cors = new Cors();
-    public Json ext = o();
-    public Json var = o();
+    public Obj ext = o();
+    public Obj var = o();
     public boolean dev = true;
     public List<String> link = new ArrayList<>();
     public Map<String, Link> links = new HashMap<>();
-    public Json<?> statics = o();
+    public Obj statics = o();
     public String version;
 
     private int ptr = 0;
@@ -47,12 +48,17 @@ public class Config {
     private void initConf(String path) {
         //jdk版本
         String version = System.getProperty("java.version");
-        int idex = version.indexOf(".");
-        if(idex == -1){
-            this.version = version;
+        if(version.startsWith("1.8")){
+            this.version = "1.8";
         } else {
-            this.version = version.substring(0, idex);
+            this.version = version;
         }
+//        int idex = version.indexOf(".");
+//        if(idex == -1){
+//            this.version = version;
+//        } else {
+//            this.version = version.substring(0, idex);
+//        }
         try (
                 FileInputStream fis = new FileInputStream(path);
         ) {
@@ -148,7 +154,7 @@ public class Config {
         }
     }
 
-    private void readObj(Json Json){
+    private void readObj(Obj obj){
         //read key
         String key = null;
         while((key = readNextToken()) != null) {
@@ -158,15 +164,15 @@ public class Config {
             //read value
             String value = readUntilLine2();
             if (value.equals("{")) {
-                Json nobj = o();
-                Json.put(key, nobj);
+                Obj nobj = o();
+                obj.put(key, nobj);
                 readObj(nobj);
             } else if(value.equals("[")){
-                Json narr = a();
-                Json.put(key, narr);
+                Arr narr = a();
+                obj.put(key, narr);
                 readStringArray(narr.list());
             } else {
-                Json.put(key, value);
+                obj.put(key, value);
             }
         }
     }

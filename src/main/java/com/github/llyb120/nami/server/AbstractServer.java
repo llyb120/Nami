@@ -85,8 +85,8 @@ public abstract class AbstractServer {
         Class clz = loader.loadClass(className);
 
         Object result = null;
-//        var ma = MethodAccess.get(clz);
-//        var ca = ConstructorAccess.get(clz);
+//        var ma = MethodAccess.g(clz);
+//        var ca = ConstructorAccess.g(clz);
 //        var i = 0;
 //        for (String name : ma.getMethodNames()) {
 //            if (name.equalsIgnoreCase(methodName)) {

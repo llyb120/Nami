@@ -7,6 +7,7 @@ import com.github.llyb120.nami.core.Nami;
 import com.github.llyb120.nami.core.Route;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.Buffer;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -49,18 +50,18 @@ public class TestCtrl {
 
     @Test
     public void test_03_getQuery() {
-        Json query = o("a", "1", "b", "2");
-        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getQuery", query.map());
+        Obj query = o("a", "1", "b", "2");
+        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getQuery", query);
         assertEquals(res, query.toString());
     }
 
     @Test
     public void test_04_postUrlEncoded() {
-        Json query = o("a", "1", "b", "2");
-        String res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded", query.map());
+        Obj query = o("a", "1", "b", "2");
+        String res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded", query);
         assertEquals(res, query.toString());
 
-        res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded2", query.map());
+        res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded2", query);
         assertEquals(res, "1");
     }
 

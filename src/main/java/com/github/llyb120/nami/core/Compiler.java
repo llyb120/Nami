@@ -140,12 +140,12 @@ public class Compiler {
     @Deprecated
     public static byte[] compile(String name, String compiler) throws IOException {
 //        File src = new File(config.compile.source + File.separator + name + ".java");
-//        Long lastCompile = lastModify.get(name);
+//        Long lastCompile = lastModify.g(name);
 //        if(null != lastCompile && src.lastModified() == lastCompile){
 //            return readClassFile(name);
 //        }
 //        //需要编译的情况
-//        lastModify.put(name, src.lastModified());
+//        lastModify.set(name, src.lastModified());
         if ("javac".equals(compiler)) {
             return compileWithJavac(name);
         } else {
@@ -180,7 +180,7 @@ public class Compiler {
             String prepareCode = Macro.prepareRender(code);
             String finalCode = Macro.render(prepareCode);
             IoUtil.write(new FileOutputStream(temp), true, finalCode.getBytes());
-            Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", "11", "-d", config.compile.target, temp.getAbsolutePath()});
+            Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", config.version, "-d", config.compile.target, temp.getAbsolutePath()});
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

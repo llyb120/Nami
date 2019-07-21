@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Json;
-import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Obj;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -24,7 +24,7 @@ import static com.github.llyb120.nami.json.Json.o;
 public class Response implements AutoCloseable{
     public int status;
     public Request request = new Request();
-    public Json headers = o();
+    public Obj headers = o();
     public WritableByteChannel channel;
     public AsynchronousSocketChannel aChannel;
     public static byte[] CRLF = "\r\n".getBytes();
@@ -83,8 +83,8 @@ public class Response implements AutoCloseable{
         bfs.clear();
 
 //        buffers.addAll(bfs);
-//        bfs.clear();
-//        if(buffers.size() > 0){
+//        bfs.reset();
+//        if(buffers.length() > 0){
 //            var bf = buffers.getFirst();
 //            if (bf != null) {
 //                buffers.removeFirst();
