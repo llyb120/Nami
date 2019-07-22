@@ -144,8 +144,17 @@ public class Arr extends Json implements List<Object> {
     }
 
     public List<? extends Bson> toBsonArray(){
-            BsonArray source = BsonArray.parse(toString());
-            return new ArrayList(source);
+        List list = new ArrayList();
+        for (Object o : this) {
+            if(o instanceof Obj){
+                list.add(((Obj) o).toBsonDoc());
+            } else if(o instanceof Arr){
+                list.add(((Arr) o).toBsonArray());
+            } else {
+                list.add(o);
+            }
+        }
+        return list;
     }
 
 }

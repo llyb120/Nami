@@ -203,7 +203,17 @@ public class Obj extends Json implements Map<String,Object> {
 
 
     public Document toBsonDoc(){
-        return Document.parse(toString());
+        Document docuemnt = new Document();
+        for (Entry<String, Object> entry : entrySet()) {
+            if(entry.getValue() instanceof Obj) {
+                docuemnt.put(entry.getKey(), ((Obj) entry.getValue()).toBsonDoc());
+            } else if(entry.getValue() instanceof Arr){
+                docuemnt.put(entry.getKey(), ((Arr) entry.getValue()).toBsonArray());
+            } else {
+                docuemnt.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return docuemnt;
     }
 
 //    public void forEach(KVIterator<Object> iterator){
