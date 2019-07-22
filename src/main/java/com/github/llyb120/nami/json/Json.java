@@ -448,6 +448,29 @@ public abstract class Json <T>{
 
     /******************************************************/
 
+    public Object toBson(){
+        return castBson(this);
+    }
+
+    protected Object castBson(Object object){
+        if(object == null) return object;
+        if(object instanceof Map){
+            Document document = new Document();
+            for (Object o : ((Map) object).entrySet()) {
+                Map.Entry entry = (Map.Entry) o;
+                document.put((String) entry.getKey(), castBson(entry.getValue()));
+            }
+            return document;
+        } else if(object instanceof Collection){
+            List list = new ArrayList();
+            for (Object o : ((Collection) object)) {
+                list.add(castBson(o));
+            }
+            return list;
+        } else {
+            return object;
+        }
+    }
 
     static <T> T newInstance(Class<T> clz) {
         ConstructorAccess<T> ca = ConstructorAccess.get(clz);

@@ -143,18 +143,23 @@ public class Arr extends Json implements List<Object> {
         return list().get(index);
     }
 
-    public List<? extends Bson> toBsonArray(){
-        List list = new ArrayList();
-        for (Object o : this) {
-            if(o instanceof Obj){
-                list.add(((Obj) o).toBsonDoc());
-            } else if(o instanceof Arr){
-                list.add(((Arr) o).toBsonArray());
-            } else {
-                list.add(o);
-            }
-        }
-        return list;
+    @Override
+    public List<? extends Bson> toBson() {
+        return (List<? extends Bson>) super.toBson();
     }
+
+//    public List<? extends Bson> toBsonArray(){
+//        List list = new ArrayList();
+//        for (Object o : this) {
+//            if(o instanceof Obj){
+//                list.add(((Obj) o).toBson());
+//            } else if(o instanceof Arr){
+//                list.add(((Arr) o).toBsonArray());
+//            } else {
+//                list.add(o);
+//            }
+//        }
+//        return list;
+//    }
 
 }
