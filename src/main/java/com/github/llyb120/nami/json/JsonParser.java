@@ -182,6 +182,11 @@ public class JsonParser {
         int start = -1;
         while (ptr < len) {
             char ch = str.charAt(ptr);
+            //如果在str中，遇到\无条件步进
+            if(isStr && ch == '\\'){
+                ptr += 2;
+                continue;
+            }
             isBlank = CharUtil.isBlankChar(ch);
             boolean isStrStart = (ch == '"');
             if (start > -1) {

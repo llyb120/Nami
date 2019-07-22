@@ -44,7 +44,22 @@ public class JsonEncoder {
 //            sb.append("\"");
         } else if(obj instanceof String){
             sb.append("\"");
-            sb.append(obj);
+            String str = (String) obj;
+            for (int i = 0; i < str.length(); i++) {
+                char c = str.charAt(i);
+                if(c == '\\'){
+                    sb.append(c);
+                    i++;
+                    if(i < str.length()){
+                        sb.append(str.charAt(i));
+                    }
+                    continue;
+                }
+                if(c == '"'){
+                    sb.append("\\");
+                }
+                sb.append(c);
+            }
             sb.append("\"");
 
         } else if (obj instanceof Date) {
@@ -141,5 +156,15 @@ public class JsonEncoder {
         if (sb.charAt(sb.length() - 1) == ',') {
             sb.deleteCharAt(sb.length() - 1);
         }
+    }
+
+    private static String addSlashes(String s) {
+//        s = s.replaceAll("\\\\", "\\\\\\\\");
+//        s = s.replaceAll("\\n", "\\\\n");
+//        s = s.replaceAll("\\r", "\\\\r");
+////        s = s.replaceAll("\\00", "\\\\0");
+//        s = s.replaceAll("'", "\\\\'");
+//        s = s.replaceAll("\"", "\\\\\"");
+        return s;
     }
 }

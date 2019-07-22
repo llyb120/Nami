@@ -98,7 +98,7 @@ public class Arr extends Json implements List<Object> {
 
     @Override
     public boolean add(Object o) {
-        return false;
+        return list().add(o);
     }
 
 
