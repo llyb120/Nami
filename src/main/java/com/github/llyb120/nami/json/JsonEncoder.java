@@ -62,6 +62,10 @@ public class JsonEncoder {
             }
             sb.append("\"");
 
+        } else if(obj instanceof Long){
+            sb.append("\"");
+            sb.append(obj);
+            sb.append("\"");
         } else if (obj instanceof Date) {
             sb.append("\"");
             sb.append(DateUtil.formatDateTime((Date) obj));

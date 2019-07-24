@@ -207,7 +207,13 @@ public class Obj extends Json implements Map<String,Object> {
         return (Document) super.toBson();
     }
 
-//    public Document toBsonDoc(){
+    public static Obj fromBson(Object object) {
+        return (Obj) Json.fromBson(object);
+    }
+
+
+
+    //    public Document toBsonDoc(){
 //        Document docuemnt = new Document();
 //        for (Entry<String, Object> entry : entrySet()) {
 //            if(entry.getValue() instanceof Obj) {

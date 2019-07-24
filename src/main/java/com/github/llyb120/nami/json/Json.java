@@ -368,9 +368,9 @@ public abstract class Json <T>{
 
 
     public static Json tree(Collection<? extends Map> list, String parentKey, String childKey) {
-        Obj map = o();
+        Map map = new HashMap();
         for (Map map1 : list) {
-            String key = (String) map1.get(childKey);
+            Object key =  map1.get(childKey);
             if (key == null) {
                 continue;
             }
@@ -378,7 +378,7 @@ public abstract class Json <T>{
         }
         Arr ret = a();
         for (Map map1 : list) {
-            String key = (String) map1.get(parentKey);
+            Object key =  map1.get(parentKey);
             if (key == null) {
                 ret.add(map1);
                 continue;
@@ -450,6 +450,26 @@ public abstract class Json <T>{
 
     public Object toBson(){
         return castBson(this);
+    }
+
+    protected static Object fromBson(Object object){
+        if(object instanceof Collection){
+            Arr arr = a();
+            Collection list = (Collection) object;
+            for(Object o : list){
+                arr.add(fromBson(o));
+            };
+            return arr;
+        } else if(object instanceof Map){
+            Obj obj = o();
+            Map<Object,Object> map = (Map) object;
+            for (Map.Entry<Object, Object> entry : map.entrySet()) {
+                obj.put((String) entry.getKey(), fromBson(entry.getValue()));
+            }
+            return obj;
+        } else {
+            return object;
+        }
     }
 
     protected Object castBson(Object object){

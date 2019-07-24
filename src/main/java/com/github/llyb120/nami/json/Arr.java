@@ -1,5 +1,6 @@
 package com.github.llyb120.nami.json;
 
+import cn.hutool.core.map.MapUtil;
 import com.github.llyb120.nami.json.Json;
 import org.bson.BsonArray;
 import org.bson.conversions.Bson;
@@ -146,6 +147,10 @@ public class Arr extends Json implements List<Object> {
     @Override
     public List<? extends Bson> toBson() {
         return (List<? extends Bson>) super.toBson();
+    }
+
+    public static Arr fromBson(Object object) {
+        return (Arr) Json.fromBson(object);
     }
 
 //    public List<? extends Bson> toBsonArray(){
