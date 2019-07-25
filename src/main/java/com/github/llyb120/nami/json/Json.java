@@ -1,8 +1,11 @@
 package com.github.llyb120.nami.json;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.StrUtil;
 import com.esotericsoftware.reflectasm.ConstructorAccess;
+import com.esotericsoftware.reflectasm.FieldAccess;
+import com.esotericsoftware.reflectasm.MethodAccess;
 import org.bson.BsonArray;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -472,23 +475,45 @@ public abstract class Json <T>{
         }
     }
 
-    protected Object castBson(Object object){
-        if(object == null) return object;
+    protected <T> T castBson(Object object){
+        if(object == null) return (T) object;
+        if(object.getClass().getName().startsWith("org.bson")){
+            return (T) object;
+        }
         if(object instanceof Map){
             Document document = new Document();
             for (Object o : ((Map) object).entrySet()) {
                 Map.Entry entry = (Map.Entry) o;
                 document.put((String) entry.getKey(), castBson(entry.getValue()));
             }
-            return document;
+            return (T) document;
         } else if(object instanceof Collection){
             List list = new ArrayList();
             for (Object o : ((Collection) object)) {
                 list.add(castBson(o));
             }
-            return list;
+            return (T) list;
         } else {
-            return object;
+            //尝试转换为Document
+            FieldAccess fa = FieldAccess.get(object.getClass());
+            Document document = new Document();
+            //字段
+            for (String fieldName : fa.getFieldNames()) {
+                document.put(fieldName, castBson(fa.get(object, fieldName)));
+            }
+            //getter
+            MethodAccess ma = MethodAccess.get(object.getClass());
+            int i = 0;
+            Class[][] params = ma.getParameterTypes();
+            for (String methodName : ma.getMethodNames()) {
+                if(methodName.length() > 3){
+                    if(methodName.startsWith("get") && CharUtil.isLetterUpper(methodName.charAt(3)) && params[i].length == 0){
+                        document.put(methodName.substring(3,4).toLowerCase() + methodName.substring(4), castBson(ma.invoke(object, i)));
+                    }
+                }
+                i++;
+            }
+            return (T) document;
         }
     }
 
