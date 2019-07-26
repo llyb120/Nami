@@ -11,12 +11,14 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.*;
 
 import static com.github.llyb120.nami.core.DBService.fSql;
 
-public abstract class Json <T>{
+public abstract class Json<T> {
 
 //    private boolean parallel = false;
 //    private ThreadLocal<Holder> local;
@@ -66,18 +68,16 @@ public abstract class Json <T>{
         return stringify(this);
     }
 
-    public Json<T> to(String tableName){
+    public Json<T> to(String tableName) {
         fSql.insert(tableName, this);
         return null;
     }
 
 
-
     class Holder {
         public List<Object> list;
-        public Map<String,Object> map;
+        public Map<String, Object> map;
     }
-
 
 
 //    Map<Object,Holder> Pool = new WeakHashtable();
@@ -271,11 +271,10 @@ public abstract class Json <T>{
 //    }
 
 
-
-
-    /** json **/
+    /**
+     * json
+     **/
 //    abstract public Object get(Object key);
-
 
 
 //    public Json j(Object key){
@@ -300,16 +299,9 @@ public abstract class Json <T>{
 //        }
 //        return null;
 //    }
-
-    public <T> T to(Class<T> clz){
+    public <T> T to(Class<T> clz) {
         return Json.cast(this, clz);
     }
-
-
-
-
-
-
 
 
     //    public enum ValidateType {
@@ -373,7 +365,7 @@ public abstract class Json <T>{
     public static Json tree(Collection<? extends Map> list, String parentKey, String childKey) {
         Map map = new HashMap();
         for (Map map1 : list) {
-            Object key =  map1.get(childKey);
+            Object key = map1.get(childKey);
             if (key == null) {
                 continue;
             }
@@ -381,7 +373,7 @@ public abstract class Json <T>{
         }
         Arr ret = a();
         for (Map map1 : list) {
-            Object key =  map1.get(parentKey);
+            Object key = map1.get(parentKey);
             if (key == null) {
                 ret.add(map1);
                 continue;
@@ -428,7 +420,7 @@ public abstract class Json <T>{
         return parse(new String(bs));
     }
 
-    public static <T> Json<T> toJson(Object source){
+    public static <T> Json<T> toJson(Object source) {
         return cast(source, Json.class);
     }
 
@@ -451,21 +443,22 @@ public abstract class Json <T>{
 
     /******************************************************/
 
-    public Object toBson(){
+    public Object toBson() {
         return castBson(this);
     }
 
-    protected static Object fromBson(Object object){
-        if(object instanceof Collection){
+    protected static Object fromBson(Object object) {
+        if (object instanceof Collection) {
             Arr arr = a();
             Collection list = (Collection) object;
-            for(Object o : list){
+            for (Object o : list) {
                 arr.add(fromBson(o));
-            };
+            }
+            ;
             return arr;
-        } else if(object instanceof Map){
+        } else if (object instanceof Map) {
             Obj obj = o();
-            Map<Object,Object> map = (Map) object;
+            Map<Object, Object> map = (Map) object;
             for (Map.Entry<Object, Object> entry : map.entrySet()) {
                 obj.put((String) entry.getKey(), fromBson(entry.getValue()));
             }
@@ -475,19 +468,22 @@ public abstract class Json <T>{
         }
     }
 
-    protected <T> T castBson(Object object){
-        if(object == null) return (T) object;
-        if(object.getClass().getName().startsWith("org.bson")){
+    protected <T> T castBson(Object object) {
+        if (object == null) return (T) object;
+        if (object.getClass().getName().startsWith("org.bson")) {
             return (T) object;
         }
-        if(object instanceof Map){
+        if (object.getClass().getName().startsWith("java.")) {
+            return (T) object;
+        }
+        if (object instanceof Map) {
             Document document = new Document();
             for (Object o : ((Map) object).entrySet()) {
                 Map.Entry entry = (Map.Entry) o;
                 document.put((String) entry.getKey(), castBson(entry.getValue()));
             }
             return (T) document;
-        } else if(object instanceof Collection){
+        } else if (object instanceof Collection) {
             List list = new ArrayList();
             for (Object o : ((Collection) object)) {
                 list.add(castBson(o));
@@ -506,9 +502,9 @@ public abstract class Json <T>{
             int i = 0;
             Class[][] params = ma.getParameterTypes();
             for (String methodName : ma.getMethodNames()) {
-                if(methodName.length() > 3){
-                    if(methodName.startsWith("get") && CharUtil.isLetterUpper(methodName.charAt(3)) && params[i].length == 0){
-                        document.put(methodName.substring(3,4).toLowerCase() + methodName.substring(4), castBson(ma.invoke(object, i)));
+                if (methodName.length() > 3) {
+                    if (methodName.startsWith("get") && CharUtil.isLetterUpper(methodName.charAt(3)) && params[i].length == 0) {
+                        document.put(methodName.substring(3, 4).toLowerCase() + methodName.substring(4), castBson(ma.invoke(object, i)));
                     }
                 }
                 i++;
@@ -522,20 +518,27 @@ public abstract class Json <T>{
         return ca.newInstance();
     }
 
-    static <T> T cast(Object source, Class<T> clz) {
+    public static <T> T cast(Object source, Class<T> clz) {
+        return cast(source, (Type) clz);
+    }
+
+    public static <T> T cast(Object source, Type targetType) {
         if (source == null) {
             return null;
         }
         Class<?> type = source.getClass();
         //基本类型
-        if (clz == String.class) {
+        if (targetType == Object.class) {
+            return (T) source;
+        }
+        if (targetType == String.class) {
             if (source instanceof String) {
                 return (T) source;
             } else {
                 return (T) String.valueOf(source);
             }
         }
-        if (clz == Boolean.class) {
+        if (targetType == Boolean.class) {
             if (source instanceof Boolean) {
                 return (T) source;
             } else {
@@ -554,22 +557,32 @@ public abstract class Json <T>{
                 return (T) new Boolean(false);
             }
         }
-        if (clz == Integer.class || clz == int.class) {
+        if (targetType == Integer.class || targetType == int.class) {
             if (source instanceof Integer) {
                 return (T) source;
             } else {
                 return (T) (Integer) Integer.parseInt(String.valueOf(source));
             }
         }
-        if(clz == Long.class || clz == long.class){
-            if(source instanceof Long){
+        if (targetType == Long.class || targetType == long.class) {
+            if (source instanceof Long) {
                 return (T) source;
             } else {
-                return (T) (Long)Long.parseLong(String.valueOf(source));
+                return (T) (Long) Long.parseLong(String.valueOf(source));
             }
         }
+
         //可以返回自身
-        if (clz.isAssignableFrom(source.getClass())) {
+        Class clz = null;
+        if (targetType instanceof ParameterizedType) {
+            clz = (Class) ((ParameterizedType) targetType).getRawType();
+        } else if (targetType instanceof Class) {
+            clz = (Class) targetType;
+        }
+        if (clz == null) {
+            return null;
+        }
+        if (clz == source.getClass()) {
             return (T) source;
         }
         //目标为List
@@ -578,7 +591,7 @@ public abstract class Json <T>{
                 clz = (Class<T>) ArrayList.class;
             }
             List list = (List) Json.newInstance(clz);
-            if(type.isArray()){
+            if (type.isArray()) {
                 for (int i = 0; i < Array.getLength(source); i++) {
                     list.add(Array.get(source, i));
                 }
@@ -593,7 +606,7 @@ public abstract class Json <T>{
                 clz = (Class<T>) HashSet.class;
             }
             Set list = (Set) Json.newInstance(clz);
-            if(type.isArray()){
+            if (type.isArray()) {
                 for (int i = 0; i < Array.getLength(source); i++) {
                     list.add(Array.get(source, i));
                 }
@@ -602,7 +615,7 @@ public abstract class Json <T>{
             }
             return (T) list;
         }
-        if(clz.isArray()){
+        if (clz.isArray()) {
             Class<?> arrType = clz.getComponentType();
             Collection collection = (Collection) source;
             Object narr = Array.newInstance(arrType, (collection.size()));
@@ -618,9 +631,21 @@ public abstract class Json <T>{
             if (Map.class == clz) {
                 clz = (Class<T>) HashMap.class;
             }
+            Type[] types = new Type[0];
+            if (targetType instanceof ParameterizedType) {
+                ParameterizedType p = (ParameterizedType) targetType;
+                types = p.getActualTypeArguments();
+            }
             Map map = (Map) Json.newInstance(clz);
             if (source instanceof Map) {
-                ((Map) map).putAll((Map) source);
+                if (null != types) {
+                    for (Map.Entry<Object, Object> entry : ((Map<Object, Object>) source).entrySet()) {
+                        map.put(entry.getKey(), cast(entry.getValue(), (Class<T>) types[1]));
+                    }
+                } else {
+                    ((Map) map).putAll((Map) source);
+                }
+
             } else {
                 map.putAll(BeanUtil.beanToMap(source));
             }
@@ -628,10 +653,55 @@ public abstract class Json <T>{
         }
         //把目标当bean转换
         //todo: 使用reflectasm
-        T ret = (T) BeanUtil.toBean(source, clz);
-        if (ret == null) {
-            throw new RuntimeException();
+        if (source instanceof Map) {
+            return (T) mapToBean((Map<Object, Object>) source, clz);
+        } else {
+            return (T) beanToBean(source, clz);
         }
-        return ret;
+
+    }
+
+//    private static Map beanToMap(Object source, Class clz){
+//        if(clz == Map.class){
+//            clz = HashMap.class;
+//        }
+//        Object ins = newInstance(clz);
+//        FieldAccess fa = FieldAccess.get(clz);
+//        for (String fieldName : fa.getFieldNames()) {
+//
+//        }
+//    }
+
+    private static Object mapToBean(Map<Object, Object> source, Class clz) {
+        Object ins = newInstance(clz);
+        FieldAccess fa = FieldAccess.get(clz);
+//        Class[] types = fa.getFieldTypes();
+        int i = 0;
+        for (String fieldName : fa.getFieldNames()) {
+            try {
+                Type type = clz.getDeclaredField(fieldName).getGenericType();
+                fa.set(ins, i, cast(source.get(fieldName), type));
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+            i++;
+        }
+        return ins;
+    }
+
+    private static Object beanToBean(Object source, Class clz) {
+        Object ins = newInstance(clz);
+        FieldAccess leftfa = FieldAccess.get(source.getClass());
+        FieldAccess fa = FieldAccess.get(clz);
+        Class[] types = fa.getFieldTypes();
+        int i = 0;
+        for (String fieldName : fa.getFieldNames()) {
+            try {
+                fa.set(ins, i, cast(leftfa.get(source, fieldName), types[i]));
+            } catch (Exception e) {
+            }
+            i++;
+        }
+        return ins;
     }
 }
