@@ -21,7 +21,7 @@ public class MyDebugInterceptor extends DebugInterceptor {
         }
 
         if (!this.isSimple(sqlId)) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             String sql = this.formatSql(ctx.getSql());
             List<SQLParameter> args = ctx.getParas();
 
@@ -33,12 +33,14 @@ public class MyDebugInterceptor extends DebugInterceptor {
                 .append(lineSeparator);
 
             Matcher matcher = pattern.matcher(sql);
+            StringBuffer buffer = new StringBuffer();
             int idex = -1;
             while(matcher.find()){
                 idex++;
-                matcher.appendReplacement(sb, StrUtil.wrap(String.valueOf(args.get(idex).value), "'"));
+                matcher.appendReplacement(buffer, StrUtil.wrap(String.valueOf(args.get(idex).value), "'"));
             }
-            matcher.appendTail(sb);
+            matcher.appendTail(buffer);
+            sb.append(buffer);
             sb.append(lineSeparator);
 //                .append();
 //                .append("" + this.formatSql(ctx.getSql()) + lineSeparator)
