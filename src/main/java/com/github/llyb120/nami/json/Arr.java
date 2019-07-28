@@ -1,11 +1,13 @@
 package com.github.llyb120.nami.json;
 
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.json.Json;
 import org.bson.BsonArray;
 import org.bson.conversions.Bson;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Arr extends Json implements List<Object> {
 
@@ -152,6 +154,21 @@ public class Arr extends Json implements List<Object> {
     public static Arr fromBson(Object object) {
         return (Arr) Json.fromBson(object);
     }
+
+    public String join(){
+        return join(",");
+    }
+    public String join(String ch){
+        return join(ch, "");
+    }
+    public String join(String ch,String wrap){
+        return this.stream()
+                .filter(e -> e != null)
+                .map(e -> String.valueOf(e))
+                .map(e -> StrUtil.wrap(e, wrap))
+                .collect(Collectors.joining(ch));
+    }
+
 
 //    public List<? extends Bson> toBsonArray(){
 //        List list = new ArrayList();

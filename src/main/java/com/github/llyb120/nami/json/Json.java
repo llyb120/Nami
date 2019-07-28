@@ -638,7 +638,7 @@ public abstract class Json<T> {
             }
             Map map = (Map) Json.newInstance(clz);
             if (source instanceof Map) {
-                if (null != types) {
+                if (null != types && types.length > 1) {
                     for (Map.Entry<Object, Object> entry : ((Map<Object, Object>) source).entrySet()) {
                         map.put(entry.getKey(), cast(entry.getValue(), (Class<T>) types[1]));
                     }

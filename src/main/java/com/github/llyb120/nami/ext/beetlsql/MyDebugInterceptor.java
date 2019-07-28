@@ -71,7 +71,7 @@ public class MyDebugInterceptor extends DebugInterceptor {
         long time = System.currentTimeMillis();
         long start = (Long) ctx.get("debug.time");
         String lineSeparator = System.getProperty("line.separator", "\n");
-        StringBuffer sb = (StringBuffer) ctx.get("logs");
+        StringBuilder sb = (StringBuilder) ctx.get("logs");
         sb.append("时间：" + (time - start) + "ms").append("  ");
         if (ctx.isUpdate()) {
             sb.append("更新：[");
