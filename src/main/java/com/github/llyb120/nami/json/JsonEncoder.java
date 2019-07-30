@@ -5,10 +5,7 @@ import com.esotericsoftware.reflectasm.FieldAccess;
 import com.esotericsoftware.reflectasm.MethodAccess;
 
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class JsonEncoder {
     StringBuilder sb = new StringBuilder();
@@ -29,7 +26,7 @@ public class JsonEncoder {
         } else if (obj instanceof Collection) {
             encodeCollection((Iterable) obj);
         } else if(obj.getClass().isArray()){
-
+            encodeArray((Object[]) obj);
         }
         //基本类型
         else if (obj instanceof Boolean) {
@@ -124,6 +121,16 @@ public class JsonEncoder {
     private void encodeCollection(Iterable iterable) {
         sb.append("[");
         for (Object o : iterable) {
+            encode(o);
+            sb.append(",");
+        }
+        deleteLastComma();
+        sb.append("]");
+    }
+
+    private void encodeArray(Object[] objects){
+        sb.append("[");
+        for (Object o : objects) {
             encode(o);
             sb.append(",");
         }

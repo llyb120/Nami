@@ -590,13 +590,25 @@ public abstract class Json<T> {
             if (List.class == clz) {
                 clz = (Class<T>) ArrayList.class;
             }
+            Type[] types = null;
+            if (targetType instanceof ParameterizedType) {
+                ParameterizedType p = (ParameterizedType) targetType;
+                types = p.getActualTypeArguments();
+            }
             List list = (List) Json.newInstance(clz);
             if (type.isArray()) {
                 for (int i = 0; i < Array.getLength(source); i++) {
                     list.add(Array.get(source, i));
                 }
-            } else {
-                ((List) list).addAll((Collection) source);
+            } else if(source instanceof List){
+                if(null != types && types.length > 0){
+                    List collection = (List) source;
+                    for (Object o : collection) {
+                        list.add(cast(o, types[0]));
+                    }
+                } else {
+                    ((List) list).addAll((Collection) source);
+                }
             }
             return (T) list;
         }
@@ -631,7 +643,7 @@ public abstract class Json<T> {
             if (Map.class == clz) {
                 clz = (Class<T>) HashMap.class;
             }
-            Type[] types = new Type[0];
+            Type[] types = null;
             if (targetType instanceof ParameterizedType) {
                 ParameterizedType p = (ParameterizedType) targetType;
                 types = p.getActualTypeArguments();
