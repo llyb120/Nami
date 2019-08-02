@@ -1,8 +1,8 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.io.IoUtil;
+import com.github.llyb120.nami.ext.file.SimpleStorage;
 import com.github.llyb120.nami.json.Arr;
-import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.FlexAction;
 import com.github.llyb120.nami.json.Obj;
 import org.beetl.sql.core.kit.GenKit;
@@ -28,6 +28,7 @@ public class Config {
     public boolean dev = true;
     public List<String> link = new ArrayList<>();
     public Map<String, Link> links = new HashMap<>();
+    public Map<String, StorageConfig> storages = new Hashtable<>();
     public Obj statics = o();
     public String version;
 
@@ -112,6 +113,11 @@ public class Config {
                         });
                         break;
 
+
+                    case "storage":
+                        readStorage();
+                        break;
+
                     case "ext":
                         readNextToken();
                         readObj(ext);
@@ -151,6 +157,41 @@ public class Config {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void readStorage() {
+        //skip {
+        readNextToken();
+        String key = null;
+        StorageConfig lastItem = null;
+        while((key = readNextToken()) != null){
+            if(key.equals("}")) return;
+            lastItem = new StorageConfig();
+            //skip {
+            readNextToken();
+            readStorageItem(lastItem);
+            storages.put(key, lastItem);
+
+            //make instance
+            if("simple".equalsIgnoreCase(lastItem.driver)){
+                lastItem.instance = new SimpleStorage(lastItem);
+            }
+        }
+    }
+
+    private void readStorageItem(StorageConfig storage){
+        String key = null;
+        while((key = readNextToken()) != null){
+            switch (key){
+                case "driver":
+                    storage.driver = readNextToken();
+                    break;
+
+                case "path":
+                    storage.path = new File(readNextToken());//storage.path;
+                    break;
+            }
         }
     }
 
@@ -444,5 +485,12 @@ public class Config {
         public String toField;
         public String name;
         public boolean many = false;
+    }
+
+    public static class StorageConfig {
+//        public String name;
+        public String driver;
+        public File path;
+        public com.github.llyb120.nami.ext.file.Storage instance;
     }
 }

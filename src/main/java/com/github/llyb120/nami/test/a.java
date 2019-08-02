@@ -1,6 +1,8 @@
 package com.github.llyb120.nami.test;
 
 import com.github.llyb120.nami.core.MultipartFile;
+import com.github.llyb120.nami.ext.file.SimpleStorage;
+import com.github.llyb120.nami.ext.file.Storage;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.server.Cookie;
 
@@ -80,4 +82,7 @@ public class a {
     }
 
 
+    public Object downloadStorageFile(String path) throws IOException {
+        return Storage.getStorage("test1").download(path);
+    }
 }

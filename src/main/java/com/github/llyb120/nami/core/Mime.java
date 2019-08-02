@@ -579,11 +579,18 @@ public class Mime {
     }
 
     public static String getMime(String path){
-        int dot = path.lastIndexOf(".");
-        if (dot == -1){
-            return "application/octet-stream";
+        String ext = getExt(path);
+        return map.getOrDefault("." + ext, "application/octet-stream");
+    }
+
+    public static String getExt(String name){
+        String ext;
+        int dot = name.lastIndexOf(".");
+        if (dot == -1) {
+            ext = "unknown" ;
+        } else {
+            ext = name.substring(dot + 1).toLowerCase();
         }
-        String ext = path.substring(dot);
-        return map.getOrDefault(ext, "application/octet-stream");
+        return ext;
     }
 }
