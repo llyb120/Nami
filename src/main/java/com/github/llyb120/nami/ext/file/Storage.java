@@ -9,7 +9,7 @@ import static com.github.llyb120.nami.core.Config.config;
 
 public interface Storage {
     String upload(MultipartFile file) throws IOException;
-    String uploadImage(String base64) throws IOException;
+    String upload(String base64) throws IOException;
     MultipartFile download(String id) throws IOException;
 
     public static Storage getStorage(String name){
