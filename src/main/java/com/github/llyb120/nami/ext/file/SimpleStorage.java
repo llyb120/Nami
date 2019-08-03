@@ -32,9 +32,9 @@ public class SimpleStorage implements Storage{
 
     @Override
     public String upload(String base64) {
-        if(!base64.startsWith("data:")){
-            return null;
-        }
+//        if(base64.startsWith("data:")){
+//            base64 = base64
+//        }
         int p1 = base64.indexOf("image/");
         int p2 = base64.indexOf(";");
         if(p1 == -1 || p2 == -1 || p1 >= p2){
