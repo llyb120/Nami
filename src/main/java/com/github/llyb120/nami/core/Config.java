@@ -25,7 +25,7 @@ public class Config {
     public Cors cors = new Cors();
     public Obj ext = o();
     public Obj var = o();
-    public boolean dev = true;
+    public boolean dev = false;
     public List<String> link = new ArrayList<>();
     public Map<String, Link> links = new HashMap<>();
     public Map<String, StorageConfig> storages = new Hashtable<>();
@@ -183,6 +183,7 @@ public class Config {
     private void readStorageItem(StorageConfig storage){
         String key = null;
         while((key = readNextToken()) != null){
+            if(key.equals("}")) return;
             switch (key){
                 case "driver":
                     storage.driver = readNextToken();

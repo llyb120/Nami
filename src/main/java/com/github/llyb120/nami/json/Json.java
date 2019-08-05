@@ -473,9 +473,6 @@ public abstract class Json<T> {
         if (object.getClass().getName().startsWith("org.bson")) {
             return (T) object;
         }
-        if (object.getClass().getName().startsWith("java.")) {
-            return (T) object;
-        }
         if (object instanceof Map) {
             Document document = new Document();
             for (Object o : ((Map) object).entrySet()) {
@@ -489,6 +486,9 @@ public abstract class Json<T> {
                 list.add(castBson(o));
             }
             return (T) list;
+        }
+        if (object.getClass().getName().startsWith("java.")) {
+            return (T) object;
         } else {
             //尝试转换为Document
             FieldAccess fa = FieldAccess.get(object.getClass());
@@ -544,13 +544,19 @@ public abstract class Json<T> {
             } else {
                 //尝试本身转换
                 try {
-                    return (T) new Boolean(String.valueOf(source));
-                } catch (Exception e) {
-                }
-                //尝试使用数字
-                try {
-                    BigDecimal decimal = new BigDecimal(String.valueOf(source));
-                    return (T) new Boolean(decimal.intValue() != 0);
+                    String str = String.valueOf(source);
+                    if(str.equalsIgnoreCase("true")){
+                        return (T)(Boolean)true;
+                    } else if(str.equalsIgnoreCase("false")){
+                        return (T)(Boolean)false;
+                    } else {
+                        //尝试使用数字
+                        try {
+                            BigDecimal decimal = new BigDecimal(String.valueOf(source));
+                            return (T) new Boolean(decimal.intValue() != 0);
+                        } catch (Exception e) {
+                        }
+                    }
                 } catch (Exception e) {
                 }
                 //啥都没有，那就false吧
