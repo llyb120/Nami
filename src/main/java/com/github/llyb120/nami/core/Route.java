@@ -19,20 +19,50 @@ public class Route {
     public String[] aops;
     public String className = null;
 
+//    public boolean isProxy = false;
+    public boolean isBroken = false;
+    public String proxyUrl;
 
     public String tempC;
     public String tempA;
 
     public Route(String str){
-        String[] route = str.split("\\s*->\\s*");
-        String[] left = route[0].substring(1).split("/");
+//        String[] proxy = str.split("\\s*<->\\s*");
+        if(str.contains("<->")){
+            proxyUrl = "";
+//            isProxy = true;
+        }
+//        if(proxy.length > 0){
+//            isProxy = true;
+//        }
+        String[] route = str.split("\\s*<?->\\s*");
+//        String[] left = route[0].substring(1).split("/");
         String ctrl = null;
+        if(route.length < 2) {
+            isBroken = true;
+        }
         if(route.length == 2){
             ctrl = route[1];
-        } else if(route.length == 3){
-            ctrl = route[2];
-            aops = route[1].split(",");
+        } else {
+            if(proxyUrl != null){
+                //最后一个为请求链接
+                proxyUrl = route[route.length - 1];
+                //倒数第二个为控制器
+                ctrl = route[route.length - 2];
+                //aop
+                aops = new String[route.length - 3];
+            } else {
+                ctrl = route[2];
+                aops = new String[route.length - 2];
+            }
+            System.arraycopy(route, 1, aops, 0, aops.length);
         }
+
+//        if(aops.length > 0){
+//            if(aops[aops.length - 1].contains("<->")){
+//                isProxy = true;
+//            }
+//        }
 //        int i = 0;
 //        for (String s : left) {
 //            ArrayUtil.indexOf(left, ":c");
@@ -50,9 +80,13 @@ public class Route {
             packageName = ctrl;
         }
 
-        reg = Pattern.compile(
-            "^" + route[0].replaceAll(":c|:a", "([a-zA-Z0-9\\-\\_]+)") + "$"
-        );
+        if(proxyUrl != null){
+            reg = Pattern.compile("^" + route[0]);
+        } else {
+            reg = Pattern.compile(
+                    "^" + route[0].replaceAll(":c|:a", "([a-zA-Z0-9\\-\\_]+)") + "$"
+            );
+        }
     }
 
     private Matcher match(String url){
