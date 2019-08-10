@@ -201,8 +201,16 @@ public class Obj extends Json implements Map<String,Object> {
         return val;
     }
 
+    public Obj o(String key){
+        return Json.cast(get(key), Obj.class);
+    }
 
-    @Override
+    public Arr a(String key){
+        return cast(get(key), Arr.class);
+    }
+
+
+   @Override
     public Document toBson() {
         return (Document) super.toBson();
     }

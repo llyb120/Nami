@@ -37,8 +37,7 @@ public class Nami {
 //            DBService.fSql = new FSql(config.db.g("main"));
 //        }
 
-        if(config.dev && config.compile.parallel){
-//            Compiler.start();
+        if(config.dev){
             Compiler.macOsStart();
         }
 

@@ -21,7 +21,7 @@ public class Config {
     public Map<String, Db> db = new Hashtable<>();
     public Set<String> hotswap = new HashSet<>();
     public List<String> route = new Vector<>();
-    public Compile compile = new Compile();
+//    public Compile compile = new Compile();
     public Cors cors = new Cors();
     public Obj ext = o();
     public Obj var = o();
@@ -31,6 +31,9 @@ public class Config {
     public Map<String, StorageConfig> storages = new Hashtable<>();
     public Obj statics = o();
     public String version;
+
+    public String source;
+    public String target;
 
     private int ptr = 0;
     private byte[] bs = null;
@@ -84,10 +87,6 @@ public class Config {
                         readStringArray(hotswap);
                         break;
 
-                    case "compile":
-                        readCompile();
-                        break;
-
                     case "route":
                         readNextToken();
                         readStringArray(route);
@@ -135,11 +134,9 @@ public class Config {
             for (String s : route) {
                 Route.routes.add(new Route(s));
             }
-            if (config.compile.source == null) {
-                config.compile.source = GenKit.getJavaSRCPath();
-                if (config.compile.target == null) {
-                    config.compile.target = new File(config.compile.source, "../../../target/classes").getAbsolutePath();
-                }
+            if(config.dev){
+                config.source =  GenKit.getJavaSRCPath();
+                config.target =  new File(config.source, "../../../target/classes").getAbsolutePath();
             }
             for (String s : config.link) {
                 String[] Json = s.toLowerCase().split("\\s*(:|\\.|->|=>)\\s*");
@@ -257,28 +254,28 @@ public class Config {
     }
 
 
-    private void readCompile() {
-        //skip {
-        readNextToken();
-        String token = null;
-        scan:
-        {
-            while ((token = readNextToken()) != null) {
-                switch (token) {
-                    case "compiler":
-                        compile.compiler = token;
-                        break;
-
-                    case "parallel":
-                        compile.parallel = Boolean.parseBoolean(readNextToken());
-                        break;
-
-                    case "}":
-                        break scan;
-                }
-            }
-        }
-    }
+//    private void readCompile() {
+//        //skip {
+//        readNextToken();
+//        String token = null;
+//        scan:
+//        {
+//            while ((token = readNextToken()) != null) {
+//                switch (token) {
+//                    case "compiler":
+//                        compile.compiler = token;
+//                        break;
+//
+//                    case "parallel":
+//                        compile.parallel = Boolean.parseBoolean(readNextToken());
+//                        break;
+//
+//                    case "}":
+//                        break scan;
+//                }
+//            }
+//        }
+//    }
 
     private void readDb() {
         //skip {

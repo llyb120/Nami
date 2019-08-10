@@ -30,39 +30,16 @@ public class MyClassLoadader extends ClassLoader {
             return defaultClassLoader.loadClass(name);
         }
 
-        //旧式的懒编译处罚
-        if(null != config.compile.compiler && !config.compile.parallel){
-            try {
-                byte[] b = Compiler.compile(name);
-                return defineClass(null, b, 0, b.length);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return super.findClass(name);
-            }
-        }
-
-        //新式的多线程编译
-        if(config.compile.parallel){
-            //读取已经编译的
-            Compiler.waitForAllCompiled();
-            try {
-                byte[] b = Compiler.readClass(name);
-                return defineClass(null, b, 0, b.length);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return super.findClass(name);
-            }
-        }
-
-        ClassPathResource resource = new ClassPathResource(name.replaceAll("\\.", "/") + ".class");
-        try (
-            InputStream is = resource.getStream();
-            ){
-            byte[] b = IoUtil.readBytes(is);
+        //读取已经编译的
+        Compiler.waitForAllCompiled();
+        try {
+            byte[] b = Compiler.readClass(name);
             return defineClass(null, b, 0, b.length);
         } catch (Exception e) {
+            e.printStackTrace();
             return super.findClass(name);
         }
+
     }
 
 

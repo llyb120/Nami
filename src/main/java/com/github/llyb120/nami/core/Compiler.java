@@ -4,7 +4,9 @@ import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import io.methvin.watcher.DirectoryWatcher;
+import org.apache.commons.compress.utils.IOUtils;
 import org.eclipse.jdt.internal.compiler.batch.Main;
+import sun.nio.ch.IOUtil;
 
 import javax.tools.JavaCompiler;
 import javax.tools.StandardJavaFileManager;
@@ -13,6 +15,7 @@ import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -52,7 +55,7 @@ public class Compiler {
     public static byte[] readClass(String className) throws IOException {
         synchronized (byteCodeCache) {
             String realName = className.replaceAll("\\.", "/");
-            File file = new File(config.compile.target, realName + ".class");
+            File file = new File(config.target, realName + ".class");
             String path = file.getAbsolutePath();
             SimpleClassFile scf = byteCodeCache.get(path);
             if (scf == null) {
@@ -81,14 +84,11 @@ public class Compiler {
         }
     }
 
-    public static void compile(File file, String compiler){
-        compile(file, compiler, false);
+    public static void compile(File file){
+        compile(file, false);
     }
 
-    public static void compile(File file, String compiler, boolean force) {
-        if ("javac".equals(compiler)) {
-//            return compileWithJavac(file);
-        } else {
+    public static void compile(File file,  boolean force) {
             executor.submit(() -> {
                 if(!force){
                     if (config.hotswap.size() == 0) {
@@ -97,7 +97,7 @@ public class Compiler {
                 }
                 //只动态编译需要编译的文件
                 String path = file.getAbsolutePath();
-                String classPath = path.replace(config.compile.source, "")
+                String classPath = path.replace(config.source, "")
                         .replaceAll("\\\\|/", ".")
                         .substring(1);
                 boolean flag = config.hotswap.stream()
@@ -134,73 +134,38 @@ public class Compiler {
                     }
                 }
             });
-        }
     }
 
-    @Deprecated
-    public static byte[] compile(String name, String compiler) throws IOException {
-//        File src = new File(config.compile.source + File.separator + name + ".java");
-//        Long lastCompile = lastModify.g(name);
-//        if(null != lastCompile && src.lastModified() == lastCompile){
-//            return readClassFile(name);
-//        }
-//        //需要编译的情况
-//        lastModify.set(name, src.lastModified());
-        if ("javac".equals(compiler)) {
-            return compileWithJavac(name);
-        } else {
-            return compileWithEcj(name);
-        }
-    }
 
-    public static byte[] compile(String name) throws IOException {
-        return compile(name, config.compile.compiler);
-    }
-
-    private static byte[] compileWithJavac(String name) throws IOException {
-        Iterable it = javaFileManager.getJavaFileObjects(config.compile.source + File.separator + name.replaceAll("\\.", "/") + ".java");
-        //创建编译任务
-        JavaCompiler.CompilationTask task = javaCompiler.getTask(new StringWriter(), null, null, Arrays.asList("-d", config.compile.target, "-parameters", "-nowarn", "-source", config.version), null, it);
-        //执行编译
-        task.call();
-        return readClass(name);
-    }
-
-    private static byte[] compileWithEcj(String name) throws IOException {
-        Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", config.version, "-d", config.compile.target, config.compile.source + File.separator + name.replaceAll("\\.", "/") + ".java"});
-        return readClass(name);
-    }
+//    private static byte[] compileWithJavac(String name) throws IOException {
+//        Iterable it = javaFileManager.getJavaFileObjects(config.source + File.separator + name.replaceAll("\\.", "/") + ".java");
+//        //创建编译任务
+//        JavaCompiler.CompilationTask task = javaCompiler.getTask(new StringWriter(), null, null, Arrays.asList("-d", config.target, "-parameters", "-nowarn", "-source", config.version), null, it);
+//        //执行编译
+//        task.call();
+//        return readClass(name);
+//    }
+//
+//    private static byte[] compileWithEcj(String name) throws IOException {
+//        Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", config.version, "-d", config.target, config.source + File.separator + name.replaceAll("\\.", "/") + ".java"});
+//        return readClass(name);
+//    }
 
     private static void compileWithEcj(File file) {
-        File temp = new File(tempFolder, file.getName());
-        try (
-                FileReader reader = new FileReader(file);
-        ) {
-            String code = IoUtil.read(reader);
-            String prepareCode = Macro.prepareRender(code);
-            String finalCode = Macro.render(prepareCode);
-            IoUtil.write(new FileOutputStream(temp), true, finalCode.getBytes());
-            Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", config.version, "-d", config.compile.target, temp.getAbsolutePath()});
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (temp == null) {
-                temp.delete();
-            }
-        }
+        Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", config.version, "-d", config.target, file.getAbsolutePath()});
     }
 
 
     public static void macOsStart() {
         try {
             DirectoryWatcher watcher = DirectoryWatcher.builder()
-                    .path(Paths.get(config.compile.source)) // or use paths(directoriesToWatch)
+                    .path(Paths.get(config.source)) // or use paths(directoriesToWatch)
                     .listener(event -> {
                         switch (event.eventType()) {
                             case CREATE: /* file created */
                             case MODIFY: /* file modified */
                                 if (event.path().toString().endsWith(".java")) {
-                                    compile(event.path().toFile(), "ecj");
+                                    compile(event.path().toFile());
                                 }
                                 break;
                             case DELETE: /* file deleted */
@@ -212,16 +177,17 @@ public class Compiler {
                     // .logger(logger) // defaults to LoggerFactory.getLogger(DirectoryWatcher.class)
                     // .watchService(watchService) // defaults based on OS to either JVM WatchService or the JNA macOS WatchService
                     .build();
-            System.out.println("watching dir " + config.compile.source + " to compile automaualy");
+            System.out.println("watching dir " + config.source + " to compile automaualy");
             watcher.watchAsync();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    @Deprecated
     public static void start() {
         Async.submit(() -> {
-            Path targetPath = Paths.get(config.compile.source);
+            Path targetPath = Paths.get(config.source);
             WatchService watchService = targetPath.getFileSystem().newWatchService();
             Files.walkFileTree(targetPath, new SimpleFileVisitor<Path>() {
                 @Override
@@ -231,7 +197,7 @@ public class Compiler {
                     return FileVisitResult.CONTINUE;
                 }
             });
-            System.out.println("watching dir " + config.compile.source + " to compile automaualy");
+            System.out.println("watching dir " + config.source + " to compile automaualy");
             WatchKey watchKey = null;
             while (true) {
                 try {
@@ -254,7 +220,7 @@ public class Compiler {
 
                         } else {
                             if (watchable.toString().endsWith(".java")) {
-                                compile(watchable.toFile(), "ecj");
+                                compile(watchable.toFile());
                             }
                         }
 

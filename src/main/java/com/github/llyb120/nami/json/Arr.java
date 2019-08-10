@@ -170,6 +170,11 @@ public class Arr extends Json implements List<Object> {
     }
 
 
+    public List<Obj> oa(){
+        return (List)this;
+    }
+
+
 //    public List<? extends Bson> toBsonArray(){
 //        List list = new ArrayList();
 //        for (Object o : this) {

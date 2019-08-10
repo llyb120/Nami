@@ -28,7 +28,7 @@ public class TestCompiler {
             if (start) {
                 if (file.isFile()) {
                     System.out.println("compiling " + file.getName());
-                    Compiler.compile(file, "ecj", true);
+                    Compiler.compile(file, true);
                 }
             }
     }

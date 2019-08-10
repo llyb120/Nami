@@ -5,6 +5,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
+import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
 import com.mongodb.util.JSON;
@@ -12,6 +13,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.github.llyb120.nami.json.Json.o;
@@ -91,7 +93,10 @@ public class TestJson {
 
     @Test
     public void fff(){
-        Json a = o();
+        Obj a = o("fuck", new HashMap(){{
+            put("fuck", 1);
+        }});
+        Obj b = a.o("fuck");
         a.toString();
     }
 
