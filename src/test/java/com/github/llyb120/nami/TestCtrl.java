@@ -28,7 +28,7 @@ public class TestCtrl {
 
     @BeforeClass
     public static void before() throws InterruptedException {
-        Route.routes.add(new Route("/test/:c/:a -> com.github.llyb120.nami.test"));
+//        Route.routes.add(new Route("/test/:c/:a -> com.github.llyb120.nami.test"));
         Nami.dev();
         Thread.sleep(100);
     }

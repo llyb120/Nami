@@ -96,56 +96,56 @@ public class Compiler {
         }
     }
 
-    public static void compile(File file){
+    public static void compile(File file) {
         compile(file, false);
     }
 
-    public static void compile(File file,  boolean force) {
-            executor.submit(() -> {
-                if(!force){
-                    if (config.hotswap.size() == 0) {
-                        return;
-                    }
-                }
-                //只动态编译需要编译的文件
-                String path = file.getAbsolutePath();
-                String classPath = path.replace(config.source, "")
-                        .replaceAll("\\\\|/", ".")
-                        .substring(1);
-                boolean flag = config.hotswap.stream()
-                        .anyMatch(i -> classPath.startsWith(i));
-                if(force){
-                    flag = true;
-                }
-                if (!flag) {
+    public static void compile(File file, boolean force) {
+        executor.submit(() -> {
+            if (!force) {
+                if (config.hotswap.size() == 0) {
                     return;
                 }
-                //如果一个文件在被编译，那么不再做相同的事
+            }
+            //只动态编译需要编译的文件
+            String path = file.getAbsolutePath();
+            String classPath = path.replace(config.source, "")
+                    .replaceAll("\\\\|/", ".")
+                    .substring(1);
+            boolean flag = config.hotswap.stream()
+                    .anyMatch(i -> classPath.startsWith(i));
+            if (force) {
+                flag = true;
+            }
+            if (!flag) {
+                return;
+            }
+            //如果一个文件在被编译，那么不再做相同的事
+            synchronized (compiling) {
+                if (compiling.contains(path)) {
+                    return;
+                }
+                compiling.add(path);
+            }
+            System.out.println(Thread.currentThread().getName() + ": reloading " + path);
+            try {
+                compileWithEcj(file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                //编译完成后，直接放入缓存
+                synchronized (byteCodeCache) {
+                    try {
+                        byteCodeCache.put(path, new SimpleClassFile(new File(path)));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 synchronized (compiling) {
-                    if (compiling.contains(path)) {
-                        return;
-                    }
-                    compiling.add(path);
+                    compiling.remove(path);
                 }
-                System.out.println(Thread.currentThread().getName() + ": reloading " + path);
-                try {
-                    compileWithEcj(file);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    //编译完成后，直接放入缓存
-                    synchronized (byteCodeCache) {
-                        try {
-                            byteCodeCache.put(path, new SimpleClassFile(new File(path)));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    synchronized (compiling) {
-                        compiling.remove(path);
-                    }
-                }
-            });
+            }
+        });
     }
 
 
@@ -164,13 +164,13 @@ public class Compiler {
 //    }
 
 
-
     private static JavaCompiler javac = new EclipseCompiler();
     private static Writer compileWriter = new PrintWriter(System.out);
+
     public static void compileWithEcj(File file) {
         Iterable it = javaFileManager.getJavaFileObjects(file.getAbsolutePath());
 //        //创建编译任务
-        JavaCompiler.CompilationTask task = javac.getTask(compileWriter,null, null, Arrays.asList("-noExit", "-parameters", "-nowarn", "-source", config.version, "-d", config.target), null, it);
+        JavaCompiler.CompilationTask task = javac.getTask(compileWriter, null, null, Arrays.asList("-noExit", "-parameters", "-nowarn", "-source", config.version, "-d", config.target), null, it);
         task.call();
 //        if()
 //        System.out.println(writer.getBuffer().toString());
@@ -178,33 +178,28 @@ public class Compiler {
     }
 
 
-
-    public static void macOsStart() {
-        try {
-            DirectoryWatcher watcher = DirectoryWatcher.builder()
-                    .path(Paths.get(config.source)) // or use paths(directoriesToWatch)
-                    .listener(event -> {
-                        switch (event.eventType()) {
-                            case CREATE: /* file created */
-                            case MODIFY: /* file modified */
-                                if (event.path().toString().endsWith(".java")) {
-                                    compile(event.path().toFile());
-                                }
-                                break;
-                            case DELETE: /* file deleted */
-                                ;
-                                break;
-                        }
-                    })
-                    // .fileHashing(false) // defaults to true
-                    // .logger(logger) // defaults to LoggerFactory.getLogger(DirectoryWatcher.class)
-                    // .watchService(watchService) // defaults based on OS to either JVM WatchService or the JNA macOS WatchService
-                    .build();
-            System.out.println("watching dir " + config.source + " to compile automaualy");
-            watcher.watchAsync();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void macOsStart() throws IOException {
+        DirectoryWatcher watcher = DirectoryWatcher.builder()
+                .path(Paths.get(config.source)) // or use paths(directoriesToWatch)
+                .listener(event -> {
+                    switch (event.eventType()) {
+                        case CREATE: /* file created */
+                        case MODIFY: /* file modified */
+                            if (event.path().toString().endsWith(".java")) {
+                                compile(event.path().toFile());
+                            }
+                            break;
+                        case DELETE: /* file deleted */
+                            ;
+                            break;
+                    }
+                })
+                // .fileHashing(false) // defaults to true
+                // .logger(logger) // defaults to LoggerFactory.getLogger(DirectoryWatcher.class)
+                // .watchService(watchService) // defaults based on OS to either JVM WatchService or the JNA macOS WatchService
+                .build();
+        System.out.println("watching dir " + config.source + " to compile automaualy");
+        watcher.watchAsync();
     }
 
     @Deprecated

@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class DevServer extends AbstractServer{
 
@@ -55,7 +56,9 @@ public class DevServer extends AbstractServer{
 //            resp.os = os;
             handle(resp);
         } catch (Exception e) {
-            e.printStackTrace();
+            if(!(e instanceof SocketException)){
+                e.printStackTrace();
+            }
         } finally {
             if (is != null) {
                 try {

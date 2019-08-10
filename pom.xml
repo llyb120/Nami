@@ -122,6 +122,7 @@
             <groupId>com.ibeetl</groupId>
             <artifactId>beetlsql</artifactId>
             <version>2.12.4.RELEASE</version>
+            <scope>provided</scope>
         </dependency>
 
 
@@ -134,19 +135,19 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.47</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>mysql</groupId>-->
+<!--            <artifactId>mysql-connector-java</artifactId>-->
+<!--            <version>5.1.47</version>-->
+<!--        </dependency>-->
 
-        <dependency>
-            <groupId>com.ibm.db2.jcc</groupId>
-            <artifactId>db2jcc4</artifactId>
-            <version>10.1</version>
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${project.basedir}/lib/db2jcc.jar</systemPath>-->
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.ibm.db2.jcc</groupId>-->
+<!--            <artifactId>db2jcc4</artifactId>-->
+<!--            <version>10.1</version>-->
+<!--&lt;!&ndash;            <scope>system</scope>&ndash;&gt;-->
+<!--&lt;!&ndash;            <systemPath>${project.basedir}/lib/db2jcc.jar</systemPath>&ndash;&gt;-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.eclipse.jdt/ecj -->
         <dependency>
@@ -201,12 +202,14 @@
             <groupId>org.jxls</groupId>
             <artifactId>jxls</artifactId>
             <version>2.6.0</version>
+            <scope>provided</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.jxls/jxls-poi -->
         <dependency>
             <groupId>org.jxls</groupId>
             <artifactId>jxls-poi</artifactId>
             <version>2.6.0-rc1</version>
+            <scope>provided</scope>
         </dependency>
 
 
@@ -228,23 +231,8 @@
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
             <version>3.10.2</version>
+            <scope>provided</scope>
         </dependency>
-
-
-        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>commons-fileupload</groupId>-->
-<!--            <artifactId>commons-fileupload</artifactId>-->
-<!--            <version>1.4</version>-->
-<!--        </dependency>-->
-
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>javax.servlet</groupId>-->
-<!--            <artifactId>javax.servlet-api</artifactId>-->
-<!--            <version>4.0.1</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
 
 
     </dependencies>
@@ -295,20 +283,20 @@
                 </executions>
             </plugin>
 
-<!--            <plugin>-->
-<!--                <artifactId>maven-assembly-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    &lt;!&ndash;这部分可有可无,加上的话则直接生成可运行jar包&ndash;&gt;-->
-<!--                    <archive>-->
-<!--                        <manifest>-->
-<!--                            <mainClass>com.github.llyb120.nami.TestApp</mainClass>-->
-<!--                        </manifest>-->
-<!--                    </archive>-->
-<!--                    <descriptorRefs>-->
-<!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
-<!--                    </descriptorRefs>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <!--这部分可有可无,加上的话则直接生成可运行jar包-->
+                    <archive>
+                        <manifest>
+                            <mainClass>com.github.llyb120.nami.TestApp</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
 
 
         </plugins>

@@ -17,6 +17,7 @@ import static com.github.llyb120.nami.server.Response.CRLF;
 public abstract class AbstractServer {
 
     private HashMap<Class, Object> clzInstances = new HashMap<>();
+    private ThreadLocal<ClassLoader> loaders = new ThreadLocal<>();
 
     public abstract void start(int port, boolean async) throws Exception;
 
@@ -82,6 +83,7 @@ public abstract class AbstractServer {
         } else {
             loader = getClass().getClassLoader();
         }
+        loaders.set(loader);
         Class clz = loader.loadClass(className);
 
         Object result = null;

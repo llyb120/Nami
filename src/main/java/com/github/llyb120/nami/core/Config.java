@@ -1,11 +1,11 @@
 package com.github.llyb120.nami.core;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import com.github.llyb120.nami.ext.file.SimpleStorage;
 import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.FlexAction;
 import com.github.llyb120.nami.json.Obj;
-import org.beetl.sql.core.kit.GenKit;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -490,5 +490,40 @@ public class Config {
         public String driver;
         public File path;
         public com.github.llyb120.nami.ext.file.Storage instance;
+    }
+
+
+    public static class GenKit {
+        private static String srcPathRelativeToSrc = "/main/java";
+        private static String resourcePathRelativeToSrc = "/main/resources";
+
+        public GenKit() {
+        }
+
+        public static String getJavaSRCPath() {
+            return getPath(srcPathRelativeToSrc);
+        }
+
+        public static String getJavaResourcePath() {
+            return getPath(resourcePathRelativeToSrc);
+        }
+
+        private static String getPath(String relativeToSrc) {
+            String userDir = System.getProperty("user.dir");
+            if (userDir == null) {
+                throw new NullPointerException("用户目录未找到");
+            } else {
+                File src = new File(userDir, "src");
+                File resSrc = new File(src.toString(), relativeToSrc);
+                String srcPath;
+                if (resSrc.exists()) {
+                    srcPath = resSrc.toString();
+                } else {
+                    srcPath = src.toString();
+                }
+
+                return srcPath;
+            }
+        }
     }
 }

@@ -3,7 +3,9 @@ package com.github.llyb120.nami.test;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.ext.file.SimpleStorage;
 import com.github.llyb120.nami.ext.file.Storage;
+import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.Cookie;
 
 import java.io.File;
@@ -22,11 +24,11 @@ public class a {
         return a;
     }
 
-    public Object getQuery(Json query){
+    public Object getQuery(Obj query){
         return query;
     }
 
-    public Object postUrlEncoded(Json body){
+    public Object postUrlEncoded(Obj body){
         return body;
     }
 
@@ -43,15 +45,15 @@ public class a {
         return a;
     }
 
-    public Object postJsonObject(Json body){
+    public Object postJsonObject(Obj body){
         return body;
     }
 
-    public Object postJsonArray(Json body){
+    public Object postJsonArray(Arr body){
         return body;
     }
 
-    public Object uploadFile(Json body, String test, MultipartFile file) throws IOException {
+    public Object uploadFile(Obj body, String test, MultipartFile file) throws IOException {
         File temp = File.createTempFile("dev", "dev");
 //        var temp = new File("d:/testupload.txt");
         temp.deleteOnExit();
