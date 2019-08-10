@@ -42,4 +42,11 @@ public class TestCompiler {
             ThreadUtil.sleep(1000);
         }
     }
+
+
+    @Test
+    public void test_01_single(){
+        Nami.dev();
+        Compiler.compileWithEcj(new File("D:\\work\\Nami\\src\\main\\java\\com\\github\\llyb120\\nami\\sqltool\\a.java"));
+    }
 }
