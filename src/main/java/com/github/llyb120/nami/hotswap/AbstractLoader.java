@@ -4,7 +4,6 @@ import cn.hutool.core.util.ModifierUtil;
 import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.Response;
-import org.apache.commons.collections4.queue.PredicatedQueue;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -23,6 +22,7 @@ public abstract class AbstractLoader extends ClassLoader {
         List<Field> fields = new ArrayList<>();
 
         public Holder(String s) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
+            instances.put(s, this);
             this.clz = loadClass(s);
             ins = clz.newInstance();
             for (Field field : clz.getDeclaredFields()) {
@@ -31,7 +31,6 @@ public abstract class AbstractLoader extends ClassLoader {
                     fields.add(field);
                 }
             }
-            instances.put(s, this);
         }
 
     }
