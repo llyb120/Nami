@@ -225,15 +225,12 @@ public class Request implements AutoCloseable{
 //        $post.reset();
 //        $request.reset();
 
-        $get.map(query.map());
         params.putAll(query);
         if(null != body){
             if(body instanceof Map){
                 params.putAll((Map<? extends String, ?>) body);
-                $post.map((Map) body);
             }
         }
-        $request.map(params.map());
     }
 
     public boolean hasRemaining(){

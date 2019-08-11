@@ -91,6 +91,8 @@ public class Config {
                     case "magicVar":
                         readNextToken();
                         readStringArray(magicvar);
+                        //add magic vars
+                        magicvar.add("com.github.llyb120.nami.server.Vars");
                         break;
 
                     case "route":

@@ -1,6 +1,8 @@
 package com.github.llyb120.nami.hotswap;
 
 import cn.hutool.core.util.ModifierUtil;
+import com.github.llyb120.nami.json.Arr;
+import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.Response;
 import org.apache.commons.collections4.queue.PredicatedQueue;
 
@@ -46,7 +48,18 @@ public abstract class AbstractLoader extends ClassLoader {
                     if(name.startsWith("$")){
                         name = name.substring(1);
                     }
-                    Object value = response.request.params.get(name);
+                    Object value;
+                    if(name.equalsIgnoreCase("get")){
+                        value = response.request.query;
+                    } else if(name.equalsIgnoreCase("post") && response.request.body instanceof Obj){
+                        value = response.request.body;
+                    } else if(name.equalsIgnoreCase("postA") && response.request.body instanceof Arr){
+                        value = response.request.body;
+                    } else if(name.equalsIgnoreCase("request")){
+                        value = response.request.params;
+                    } else {
+                        value = response.request.params.get(name);
+                    }
                     field.set(holder.ins, value);
                 }
 
