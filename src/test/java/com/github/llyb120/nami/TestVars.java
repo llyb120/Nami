@@ -14,7 +14,7 @@ public class TestVars {
 
     @Test
     public void test() throws InterruptedException {
-        Obj vars = new Obj(true);
+        Obj vars = new Obj();
         ExecutorService exec = Executors.newCachedThreadPool();
         for (int i = 0; i < 100 ; i++) {
             exec.submit(() -> {

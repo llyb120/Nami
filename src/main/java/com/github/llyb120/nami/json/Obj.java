@@ -7,8 +7,8 @@ import java.util.*;
 
 public class Obj extends Json implements Map<String,Object> {
 
-    private boolean parallel = false;
-    private ThreadLocal<Map<String,Object>> local;
+//    private boolean parallel = false;
+//    private ThreadLocal<Map<String,Object>> local;
     private Map<String,Object> map;
 
 //    public static interface KVIterator<U>{
@@ -16,43 +16,33 @@ public class Obj extends Json implements Map<String,Object> {
 //    }
 
     public Obj(){
-        this(false);
+        map = new HashMap<>();
     }
 
     public Obj(Map map){
-        this(false);
         map(map);
     }
 
-    public Obj(boolean p){
-        parallel = p;
-        if(p){
-            local = new ThreadLocal(){
-                @Override
-                protected Object initialValue() {
-                    return new LinkedHashMap<>();
-                }
-            };
-        } else {
-            map = new LinkedHashMap<>();
-        }
-    }
+//    public Obj(boolean p){
+//        parallel = p;
+//        if(p){
+//            local = new ThreadLocal(){
+//                @Override
+//                protected Object initialValue() {
+//                    return new LinkedHashMap<>();
+//                }
+//            };
+//        } else {
+//            map = new LinkedHashMap<>();
+//        }
+//    }
 
     public Map<String,Object> map(){
-        if(parallel){
-            return local.get();
-        } else {
-            return map;
-        }
+        return map;
     }
 
     public void map(Map map){
-        if(parallel){
-            local.set(map);
-        }
-        else {
-            this.map = map;
-        }
+        this.map = map;
     }
 
     @Override

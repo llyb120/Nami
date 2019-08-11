@@ -1,12 +1,16 @@
 package com.github.llyb120.nami.server;
 
 import com.github.llyb120.nami.core.*;
+import com.github.llyb120.nami.hotswap.AbstractLoader;
+import com.github.llyb120.nami.hotswap.DevLoader;
+import com.github.llyb120.nami.hotswap.ProductLoader;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.security.ProtectionDomain;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -17,7 +21,12 @@ import static com.github.llyb120.nami.server.Response.CRLF;
 public abstract class AbstractServer {
 
     private HashMap<Class, Object> clzInstances = new HashMap<>();
-    private ThreadLocal<ClassLoader> loaders = new ThreadLocal<>();
+    private ThreadLocal<ProductLoader> loaders = new ThreadLocal<ProductLoader>(){
+        @Override
+        protected ProductLoader initialValue() {
+            return new ProductLoader();
+        }
+    };
 
     public abstract void start(int port, boolean async) throws Exception;
 
@@ -77,14 +86,14 @@ public abstract class AbstractServer {
         }
         String[] aops = (String[]) route[3];
 
-        ClassLoader loader = null;
+        AbstractLoader loader = null;
         if(config.dev){
-            loader = new MyClassLoadader();
+            loader = new DevLoader();
         } else {
-            loader = getClass().getClassLoader();
+            loader = loaders.get();
         }
-        loaders.set(loader);
         Class clz = loader.loadClass(className);
+        loader.loadMagicVars(resp);
 
         Object result = null;
 //        var ma = MethodAccess.g(clz);

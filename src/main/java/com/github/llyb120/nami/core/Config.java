@@ -20,6 +20,7 @@ public class Config {
     public int port;
     public Map<String, Db> db = new Hashtable<>();
     public Set<String> hotswap = new HashSet<>();
+    public Vector<String> magicvar = new Vector<>();
     public List<String> route = new Vector<>();
 //    public Compile compile = new Compile();
     public Cors cors = new Cors();
@@ -85,6 +86,11 @@ public class Config {
                     case "hotswap":
                         readNextToken();
                         readStringArray(hotswap);
+                        break;
+
+                    case "magicVar":
+                        readNextToken();
+                        readStringArray(magicvar);
                         break;
 
                     case "route":
