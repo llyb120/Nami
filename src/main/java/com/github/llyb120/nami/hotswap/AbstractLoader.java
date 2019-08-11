@@ -57,7 +57,7 @@ public abstract class AbstractLoader extends ClassLoader {
                     } else if(name.equalsIgnoreCase("request")){
                         value = response.request.params;
                     } else {
-                        value = response.request.params.get(name);
+                        value = response.request.params.get(name, field.getType());
                     }
                     field.set(holder.ins, value);
                 }
