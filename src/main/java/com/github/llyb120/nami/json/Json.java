@@ -2,13 +2,10 @@ package com.github.llyb120.nami.json;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.CharUtil;
-import cn.hutool.core.util.StrUtil;
 import com.esotericsoftware.reflectasm.ConstructorAccess;
 import com.esotericsoftware.reflectasm.FieldAccess;
 import com.esotericsoftware.reflectasm.MethodAccess;
-import org.bson.BsonArray;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
@@ -699,8 +696,7 @@ public abstract class Json<T> {
             try {
                 Type type = clz.getDeclaredField(fieldName).getGenericType();
                 fa.set(ins, i, cast(source.get(fieldName), type));
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
             }
             i++;
         }
