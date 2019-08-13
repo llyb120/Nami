@@ -1,6 +1,9 @@
 package com.github.llyb120.nami.server;
 
-import com.github.llyb120.nami.core.*;
+import com.github.llyb120.nami.core.AopInvoke;
+import com.github.llyb120.nami.core.MultipartFile;
+import com.github.llyb120.nami.core.Param;
+import com.github.llyb120.nami.core.Route;
 import com.github.llyb120.nami.hotswap.AbstractLoader;
 import com.github.llyb120.nami.hotswap.DevLoader;
 import com.github.llyb120.nami.hotswap.ProductLoader;
@@ -10,7 +13,6 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.security.ProtectionDomain;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -176,7 +178,7 @@ public abstract class AbstractServer {
 
 
     public void proxyFile(Response response, MultipartFile multipartFile) throws InterruptedException, ExecutionException, IOException {
-        proxyFile(response, multipartFile, false);
+        proxyFile(response, multipartFile, true);
     }
 
     public void proxyFile(Response response, MultipartFile multipartFile, boolean download) throws IOException, ExecutionException, InterruptedException {
