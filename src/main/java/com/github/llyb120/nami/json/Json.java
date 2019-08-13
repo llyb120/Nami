@@ -535,7 +535,7 @@ public abstract class Json<T> {
                 return (T) String.valueOf(source);
             }
         }
-        if (targetType == Boolean.class) {
+        if (targetType == Boolean.class || targetType == boolean.class) {
             if (source instanceof Boolean) {
                 return (T) source;
             } else {
