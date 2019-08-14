@@ -33,21 +33,21 @@ public abstract class AbstractServer {
     public abstract void start(int port, boolean async) throws Exception;
 
 
-    protected boolean handleOptions(){
+    public void handleOptions(Response resp) throws Exception {
         //如果是options
-        return false;
+        resp.writeHeaders(-1);
+        resp.flush();
     }
 
-    protected boolean handleFavicon(){
+    public boolean handleFavicon(){
         return false;
     }
 
     public void handle(Response resp) throws Exception {
         Request req = resp.request;
         if(req.method.equals(Request.Method.OPTIONS)){
-            if(!handleOptions()){
-                return;
-            }
+            handleOptions(resp);
+            return;
         }
 
         if(req.path.equals("/favicon.ico")){
