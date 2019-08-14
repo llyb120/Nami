@@ -15,7 +15,6 @@ import java.util.Map;
 
 import static com.github.llyb120.nami.json.Json.o;
 import static com.github.llyb120.nami.server.Response.CRLF;
-import static com.github.llyb120.nami.server.Vars.*;
 
 public class Request implements AutoCloseable{
     public Obj headers = o();
@@ -552,6 +551,7 @@ public class Request implements AutoCloseable{
         if(value.length() == 0){
             return;
         }
+        value = URLUtil.decode(value);
         String[] Json = value.split("; ");
         for (String s : Json) {
             int i = s.indexOf("=");
