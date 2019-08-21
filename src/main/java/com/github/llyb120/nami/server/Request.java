@@ -197,11 +197,15 @@ public class Request implements AutoCloseable{
             if (ctype.contains("multipart/form-data")) {
                 decodeFormDataOnce();
             } else if (clen == buffer.length()) {
-                if (ctype.contains("application/x-www-form-urlencoded")) {
-                    decodeFormEncoded();
-                } else if (ctype.contains("application/json")) {
-                    decodeJsonEncoded();
-                }
+                smartDecodeBody();
+//                if (ctype.contains("application/x-www-form-urlencoded")) {
+//                    decodeFormEncoded();
+//                } else if (ctype.contains("application/json")) {
+//                    decodeJsonEncoded();
+//                } else {
+//                    //尝试判断
+//                    smar
+//                }
             }
         }
     }
@@ -488,6 +492,21 @@ public class Request implements AutoCloseable{
         String str = new String(buffer.readBytes(), StandardCharsets.UTF_8);
         body = o();
         decodeQuery(str, (Obj)body);
+    }
+
+    private void smartDecodeBody(){
+        currentBodyLength += buffer.length();
+        byte[] bytes = buffer.readBytes();
+        if(bytes.length > 0){
+            if((bytes[0] == '{' && bytes[bytes.length - 1] == '}') || (bytes[0] == '[' && bytes[bytes.length - 1] == ']')){
+                body = Json.parse(bytes);
+            } else {
+                body = o();
+                decodeQuery(new String(bytes, StandardCharsets.UTF_8), (Obj)body);
+            }
+        }
+//        String str = new String(buffer.readBytes(), StandardCharsets.UTF_8);
+//        String nstr = str.trim();
     }
 
     private int getContentLength() {

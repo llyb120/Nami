@@ -3,7 +3,10 @@ package com.github.llyb120.nami.json;
 import cn.hutool.core.util.StrUtil;
 import org.bson.Document;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Obj extends Json implements Map<String,Object> {
 
@@ -199,6 +202,33 @@ public class Obj extends Json implements Map<String,Object> {
         return cast(get(key), Arr.class);
     }
 
+
+    public Obj v(String key, Validate validate, String msg, Object ...args){
+        Object obj = get(key);
+        switch (validate){
+            case NotNull:
+                if (obj == null) {
+                    Validate.error(msg, args);
+                }
+                break;
+
+            case NotEmpty:
+                obj = s(key, "");
+                if(StrUtil.isEmptyIfStr(obj)){
+                    Validate.error(msg, args);
+                }
+                break;
+
+            case NotBlank:
+                obj = s(key, "");
+                if(StrUtil.isBlankIfStr(obj)){
+                    Validate.error(msg, args);
+                }
+                break;
+        }
+
+        return this;
+    }
 
    @Override
     public Document toBson() {
