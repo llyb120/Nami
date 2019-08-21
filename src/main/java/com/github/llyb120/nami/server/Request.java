@@ -89,7 +89,7 @@ public class Request implements AutoCloseable{
 
     private Json decodeQuery(String query, Obj ret) {
         String qs = query + "&";
-        qs = URLUtil.decode(qs);
+        qs = URLUtil.decode(URLUtil.decode(qs));
         int len = qs.length();
         int ptr = 0;
         String key = "";

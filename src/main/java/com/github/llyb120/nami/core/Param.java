@@ -79,7 +79,7 @@ public class Param {
                     idex = type.getTypeName().indexOf("[]");
                     //是数组的情况
                     if (idex > -1) {
-                        String source = resp.request.query.s(name);
+                        String source = resp.request.params.s(name);
                         if (isNotEmpty(source)) {
                             if (source.startsWith("[") && source.endsWith("]")) {
                                 Json array = a(name);
@@ -101,6 +101,8 @@ public class Param {
                         ret[i] = resp.request.params.get(name);
                     } else if (type == Request.class){
                         ret[i] = resp.request;
+                    } else if(type == Response.class){
+                        ret[i] = resp;
                     }
                     else{
                         /**

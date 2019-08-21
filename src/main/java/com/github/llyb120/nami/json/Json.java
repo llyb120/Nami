@@ -7,6 +7,7 @@ import com.esotericsoftware.reflectasm.FieldAccess;
 import com.esotericsoftware.reflectasm.MethodAccess;
 import org.bson.Document;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -15,7 +16,7 @@ import java.util.*;
 
 import static com.github.llyb120.nami.core.DBService.fSql;
 
-public abstract class Json<T> {
+public abstract class Json<T> implements Serializable {
 
 //    private boolean parallel = false;
 //    private ThreadLocal<Holder> local;

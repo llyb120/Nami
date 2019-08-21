@@ -108,6 +108,12 @@ public class AIOServer extends AbstractServer {
         }
     }
 
+    @Override
+    protected int directDownloadLength() {
+        return 4096;
+//        return super.directDownloadLength();
+    }
+
     public class ReadHandler implements CompletionHandler<Integer, ByteBuffer> {
         private AsynchronousSocketChannel sch;
         private Response response = new Response();
