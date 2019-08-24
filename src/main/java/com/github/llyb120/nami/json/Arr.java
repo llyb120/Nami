@@ -1,15 +1,12 @@
 package com.github.llyb120.nami.json;
 
-import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
-import com.github.llyb120.nami.json.Json;
-import org.bson.BsonArray;
 import org.bson.conversions.Bson;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Arr extends Json implements List<Object> {
+public class Arr<T> extends Json implements List<T> {
 
     private ArrayList list;
 
@@ -40,8 +37,8 @@ public class Arr extends Json implements List<Object> {
     }
 
     @Override
-    public Object remove(int index) {
-        return list().remove(index);
+    public T remove(int index) {
+        return (T) list().remove(index);
     }
 
     @Override
@@ -55,17 +52,17 @@ public class Arr extends Json implements List<Object> {
     }
 
     @Override
-    public ListIterator<Object> listIterator() {
+    public ListIterator<T> listIterator() {
         return list().listIterator();
     }
 
     @Override
-    public ListIterator<Object> listIterator(int index) {
+    public ListIterator<T> listIterator(int index) {
         return list().listIterator(index);
     }
 
     @Override
-    public List<Object> subList(int fromIndex, int toIndex) {
+    public List<T> subList(int fromIndex, int toIndex) {
         return list().subList(fromIndex, toIndex);
     }
 
@@ -85,7 +82,7 @@ public class Arr extends Json implements List<Object> {
     }
 
     @Override
-    public Iterator<Object> iterator() {
+    public Iterator<T> iterator() {
         return list().iterator();
     }
 
@@ -116,12 +113,12 @@ public class Arr extends Json implements List<Object> {
     }
 
     @Override
-    public boolean addAll(Collection<?> c) {
+    public boolean addAll(Collection<? extends T> c) {
         return list().addAll(c);
     }
 
     @Override
-    public boolean addAll(int index, Collection<?> c) {
+    public boolean addAll(int index, Collection<? extends T> c) {
         return list().addAll(c);
     }
 
@@ -142,8 +139,8 @@ public class Arr extends Json implements List<Object> {
     }
 
     @Override
-    public Object get(int index ) {
-        return list().get(index);
+    public T get(int index ) {
+        return (T) list().get(index);
     }
 
     @Override

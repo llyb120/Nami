@@ -9,6 +9,7 @@ import org.bson.Document;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
@@ -301,6 +302,10 @@ public abstract class Json<T> implements Serializable {
         return Json.cast(this, clz);
     }
 
+    public <T> T to(TypeReference<T> reference){
+        return Json.cast(this, reference);
+    }
+
 
     //    public enum ValidateType {
 //        notnull,
@@ -351,7 +356,8 @@ public abstract class Json<T> implements Serializable {
         return json;
     }
 
-    public static Arr a(Object... objects) {
+
+    public static <T> Arr<T> a(T ...objects){
         Arr json = new Arr();
         for (Object object : objects) {
             json.add(object);
@@ -401,6 +407,39 @@ public abstract class Json<T> implements Serializable {
 //            child.add(json);
 //        }
         return ret;
+    }
+
+    public static <T> T get(List list, String path){
+        return _get(list,path);
+    }
+    public static <T> T get(Map map, String path){
+        return _get(map,path);
+    }
+
+    private static <T> T _get(Object map, String path){
+        Object item = map;
+        for (String s : path.split("\\.")) {
+            if(item instanceof Map){
+                if(!((Map) item).containsKey(s)){
+                    return null;
+                }
+                item = ((Map) item).get(s);
+            } else if(item instanceof List){
+                try{
+                    int i = Integer.parseInt(s);
+                    if(((List) item).size() > i){
+                        item = ((List) item).get(i);
+                    } else {
+                        return null;
+                    }
+                } catch (Exception e){
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        }
+        return (T) item;
     }
 
 
@@ -512,8 +551,29 @@ public abstract class Json<T> implements Serializable {
     }
 
     static <T> T newInstance(Class<T> clz) {
-        ConstructorAccess<T> ca = ConstructorAccess.get(clz);
-        return ca.newInstance();
+        try{
+            ConstructorAccess<T> ca = ConstructorAccess.get(clz);
+            return ca.newInstance();
+        } catch (Exception e){
+            for (Constructor<?> constructor : clz.getDeclaredConstructors()) {
+                int d = 2;
+            }
+
+            return null;
+        }
+//            try {
+//                return clz.newInstance();
+//            } catch (InstantiationException ex) {
+//                ex.printStackTrace();
+//            } catch (IllegalAccessException ex) {
+//                ex.printStackTrace();
+//            }
+//            return null;
+//        }
+    }
+
+    public static <T> T cast(Object source, TypeReference<T> typeReference){
+        return cast(source, typeReference.getType());
     }
 
     public static <T> T cast(Object source, Class<T> clz) {
