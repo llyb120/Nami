@@ -306,6 +306,7 @@ public abstract class Json<T> implements Serializable {
         return Json.cast(this, reference);
     }
 
+//    public <T> T to
 
     //    public enum ValidateType {
 //        notnull,
@@ -556,20 +557,27 @@ public abstract class Json<T> implements Serializable {
             return ca.newInstance();
         } catch (Exception e){
             for (Constructor<?> constructor : clz.getDeclaredConstructors()) {
-                int d = 2;
-            }
+                Class<?>[] types = constructor.getParameterTypes();
+                if(types.length == 1){
 
+                }
+            }
             return null;
         }
-//            try {
-//                return clz.newInstance();
-//            } catch (InstantiationException ex) {
-//                ex.printStackTrace();
-//            } catch (IllegalAccessException ex) {
-//                ex.printStackTrace();
-//            }
-//            return null;
-//        }
+    }
+
+    public static <T> T newInstance(Object context, Class<T> clz){
+        for (Constructor<?> constructor : clz.getDeclaredConstructors()) {
+            Class<?>[] types = constructor.getParameterTypes();
+            if(types.length == 1 && types[0] == context.getClass()){
+                try{
+                    return (T) constructor.newInstance(context);
+                }
+                catch (Exception e){}
+            }
+        }
+        ConstructorAccess<T> ca = ConstructorAccess.get(clz);
+        return ca.newInstance(context);
     }
 
     public static <T> T cast(Object source, TypeReference<T> typeReference){

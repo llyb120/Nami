@@ -6,7 +6,7 @@ import org.bson.conversions.Bson;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Arr<T> extends Json implements List<T> {
+public class Arr<T extends Object> extends Json implements List<T> {
 
     private ArrayList list;
 

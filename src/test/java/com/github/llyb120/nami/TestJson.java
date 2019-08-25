@@ -783,6 +783,7 @@ public class TestJson {
 //        }
 
 
+        Json.newInstance(this, Node.class);
         System.out.println("Local class constructors array length: " +
                 Node.class.getDeclaredConstructors().length);
 
