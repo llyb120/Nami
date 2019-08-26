@@ -18,7 +18,7 @@ import java.util.*;
 import static com.github.llyb120.nami.core.DBService.fSql;
 
 public abstract class Json<T> implements Serializable {
-
+    public static Undefined undefined = new Undefined();
 //    private boolean parallel = false;
 //    private ThreadLocal<Holder> local;
 //    private Holder holder;
@@ -352,6 +352,10 @@ public abstract class Json<T> implements Serializable {
     public static Obj o(Object... objects) {
         Obj json = new Obj();
         for (short i = 0; i < objects.length; i += 2) {
+            Object value = objects[i + 1];
+            if(value == undefined){
+                continue;
+            }
             json.put((String) objects[i], objects[i + 1]);
         }
         return json;
@@ -361,6 +365,9 @@ public abstract class Json<T> implements Serializable {
     public static <T> Arr<T> a(T ...objects){
         Arr json = new Arr();
         for (Object object : objects) {
+            if(object == undefined){
+                continue;
+            }
             json.add(object);
         }
         return json;
