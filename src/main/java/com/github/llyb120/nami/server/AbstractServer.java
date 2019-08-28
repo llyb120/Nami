@@ -94,6 +94,7 @@ public abstract class AbstractServer {
         } else {
             loader = loaders.get();
         }
+        Thread.currentThread().setContextClassLoader(loader);
         Class clz = loader.loadClass(className);
         loader.loadMagicVars(resp);
 

@@ -47,6 +47,6 @@ public class TestCompiler {
     @Test
     public void test_01_single(){
         Nami.dev();
-        Compiler.compileWithEcj(new File("D:\\work\\Nami\\src\\main\\java\\com\\github\\llyb120\\nami\\sqltool\\a.java"));
+        Compiler.compileWithEcj(("D:\\work\\Nami\\src\\main\\java\\com\\github\\llyb120\\nami\\sqltool\\a.java"));
     }
 }

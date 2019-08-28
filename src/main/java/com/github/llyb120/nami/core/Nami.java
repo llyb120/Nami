@@ -1,16 +1,16 @@
 package com.github.llyb120.nami.core;
 
-import cn.hutool.core.thread.ThreadUtil;
-import com.github.llyb120.nami.dao.FSql;
+import com.github.llyb120.nami.hotswap.ProductLoader;
 import com.github.llyb120.nami.server.AIOServer;
 import com.github.llyb120.nami.server.AbstractServer;
 import com.github.llyb120.nami.server.DevServer;
-//import com.github.llyb120.nami.sqltool.sqltool;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import static com.github.llyb120.nami.core.Config.config;
+
+//import com.github.llyb120.nami.sqltool.sqltool;
 
 public class Nami {
 
@@ -49,6 +49,8 @@ public class Nami {
 //            chakraCore.start(true);
 ////        }
 //        System.out.println(String.format("prepare system takes %d ms", System.currentTimeMillis() - stime));
+
+        Thread.currentThread().setContextClassLoader(new ProductLoader());
 
         //暂时只能用devserver
         AbstractServer server = null;

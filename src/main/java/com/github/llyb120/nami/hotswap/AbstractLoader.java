@@ -1,19 +1,37 @@
 package com.github.llyb120.nami.hotswap;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ModifierUtil;
 import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.Response;
 
+import java.io.File;
 import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.github.llyb120.nami.core.Compiler.compileWithEcj;
 import static com.github.llyb120.nami.core.Config.config;
 
 public abstract class AbstractLoader extends ClassLoader {
+    public static ClassLoader defaultClassLoader = DevLoader.class.getClassLoader();
+    public static File userDir = new File(System.getProperty("user.dir"));
+    public static File sourceDir;
+    public static File targetDir;
+
+    static {
+        sourceDir = new File(userDir, "nami_func_source");
+        sourceDir.mkdirs();
+        targetDir = new File(userDir, "nami_func_target");
+        targetDir.mkdirs();
+    }
+
+
     private Map<String, Holder> instances = new HashMap<>();
 
     private class Holder{
@@ -33,6 +51,17 @@ public abstract class AbstractLoader extends ClassLoader {
             }
         }
 
+    }
+
+    public Class<?> loadFuncClass(String name){
+        if(name.startsWith("NamiFunc")){
+            if(!Files.exists(Paths.get(targetDir.getAbsolutePath(), name + ".class"))){
+                compileWithEcj(new File(sourceDir, name + ".java").getAbsolutePath(), targetDir.getAbsolutePath());
+            }
+            byte[] bytes = FileUtil.readBytes(new File(targetDir, name + ".class"));
+            return defineClass(name, bytes, 0, bytes.length);
+        }
+        return null;
     }
 
     public void loadMagicVars(Response response){

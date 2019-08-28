@@ -558,7 +558,7 @@ public abstract class Json<T> implements Serializable {
         }
     }
 
-    static <T> T newInstance(Class<T> clz) {
+    public static <T> T newInstance(Class<T> clz) {
         try{
             ConstructorAccess<T> ca = ConstructorAccess.get(clz);
             return ca.newInstance();

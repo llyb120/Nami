@@ -1,23 +1,10 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.collection.ConcurrentHashSet;
-import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import io.methvin.watcher.DirectoryWatcher;
-import org.apache.commons.compress.utils.IOUtils;
-import org.eclipse.jdt.core.compiler.IProblem;
-import org.eclipse.jdt.internal.compiler.CompilationResult;
-import org.eclipse.jdt.internal.compiler.ICompilerRequestor;
-import org.eclipse.jdt.internal.compiler.IErrorHandlingPolicy;
-import org.eclipse.jdt.internal.compiler.ast.CompilationUnitDeclaration;
-import org.eclipse.jdt.internal.compiler.batch.Main;
-import org.eclipse.jdt.internal.compiler.env.ICompilationUnit;
-import org.eclipse.jdt.internal.compiler.env.INameEnvironment;
-import org.eclipse.jdt.internal.compiler.env.NameEnvironmentAnswer;
-import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
 import org.eclipse.jdt.internal.compiler.tool.EclipseCompiler;
-import sun.nio.ch.IOUtil;
 
 import javax.tools.JavaCompiler;
 import javax.tools.StandardJavaFileManager;
@@ -26,12 +13,10 @@ import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static com.github.llyb120.nami.core.Config.config;
-import static org.eclipse.jdt.internal.compiler.impl.CompilerOptions.*;
 
 //import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 //import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
@@ -100,6 +85,7 @@ public class Compiler {
         compile(file, false);
     }
 
+
     public static void compile(File file, boolean force) {
         executor.submit(() -> {
             if (!force) {
@@ -129,7 +115,7 @@ public class Compiler {
             }
             System.out.println(Thread.currentThread().getName() + ": reloading " + path);
             try {
-                compileWithEcj(file);
+                compileWithEcj(path);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -167,15 +153,17 @@ public class Compiler {
     private static JavaCompiler javac = new EclipseCompiler();
     private static Writer compileWriter = new PrintWriter(System.out);
 
-    public static void compileWithEcj(File file) {
-        Iterable it = javaFileManager.getJavaFileObjects(file.getAbsolutePath());
+    public static void compileWithEcj(String path) {
+        compileWithEcj(path, null);
+    }
+    public static void compileWithEcj(String path, String target) {
+        Iterable it = javaFileManager.getJavaFileObjects(path);
 //        //创建编译任务
-        JavaCompiler.CompilationTask task = javac.getTask(compileWriter, null, null, Arrays.asList("-noExit", "-parameters", "-nowarn", "-source", config.version, "-d", config.target), null, it);
+        JavaCompiler.CompilationTask task = javac.getTask(compileWriter, null, null, Arrays.asList("-noExit", "-parameters", "-nowarn", "-source", config.version, "-d", target == null ? config.target : target), null, it);
         task.call();
-//        if()
-//        System.out.println(writer.getBuffer().toString());
 //        Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", config.version, "-d", config.target, file.getAbsolutePath()});
     }
+
 
 
     public static void macOsStart() throws IOException {

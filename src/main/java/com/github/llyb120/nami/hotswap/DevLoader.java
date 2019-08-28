@@ -1,20 +1,10 @@
 package com.github.llyb120.nami.hotswap;
 
-import cn.hutool.core.util.ModifierUtil;
-import cn.hutool.core.util.RandomUtil;
 import com.github.llyb120.nami.core.Compiler;
-import com.github.llyb120.nami.server.Response;
-
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.github.llyb120.nami.core.Config.config;
 
 public class DevLoader extends AbstractLoader {
-
-    private static ClassLoader defaultClassLoader = DevLoader.class.getClassLoader();
-
 
     @Override
     protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
@@ -23,6 +13,10 @@ public class DevLoader extends AbstractLoader {
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
+        Class<?> bs = loadFuncClass(name);
+        if (bs != null) {
+            return bs;
+        }
         boolean hotswap = config.hotswap
                 .stream()
                 .anyMatch(e -> name.startsWith(e));
