@@ -1,10 +1,8 @@
 package com.github.llyb120.nami.func;
 
-public interface Function {
+public abstract class Function {
 
-    Object call() throws Exception;
-
-    public static Object func(Function function) {
+    public static Object func(ReturnableFunction function) {
         try{
             return function.call();
         } catch (Exception e){
@@ -12,5 +10,16 @@ public interface Function {
             throw new RuntimeException();
         }
     }
+
+    public static void func(NoReturnFunction function){
+        try{
+            function.call();
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+
 
 }
