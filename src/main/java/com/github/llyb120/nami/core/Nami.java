@@ -1,6 +1,5 @@
 package com.github.llyb120.nami.core;
 
-import com.github.llyb120.nami.hotswap.ProductLoader;
 import com.github.llyb120.nami.server.AIOServer;
 import com.github.llyb120.nami.server.AbstractServer;
 import com.github.llyb120.nami.server.DevServer;
@@ -50,7 +49,7 @@ public class Nami {
 ////        }
 //        System.out.println(String.format("prepare system takes %d ms", System.currentTimeMillis() - stime));
 
-        Thread.currentThread().setContextClassLoader(new ProductLoader());
+//        Thread.currentThread().setContextClassLoader(new ProductLoader());
 
         //暂时只能用devserver
         AbstractServer server = null;

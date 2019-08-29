@@ -3,6 +3,8 @@ package com.github.llyb120.nami.func;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.esotericsoftware.reflectasm.MethodAccess;
+import com.github.llyb120.nami.core.Async;
+import com.github.llyb120.nami.hotswap.ProductLoader;
 import com.github.llyb120.nami.json.Json;
 
 import java.io.File;
@@ -10,6 +12,8 @@ import java.io.File;
 import static com.github.llyb120.nami.hotswap.AbstractLoader.sourceDir;
 
 public abstract class Function {
+
+    private static ClassLoader _loader = new ProductLoader();
 
     public static Object func(ReturnableFunction function) {
         try{
@@ -30,9 +34,9 @@ public abstract class Function {
     }
 
 
-    public static Object eval(String str) throws Exception {
+    public static <T> T eval(String str) throws Exception {
         ReturnableFunction func = compile(str);
-        return func.call();
+        return (T) func.call();
     };
 
     public static ReturnableFunction compile(String str){
@@ -42,32 +46,25 @@ public abstract class Function {
         StringBuilder sb = new StringBuilder();
         sb.append("public class ");
         sb.append(className);
-        sb.append("{ public void call(){");
+        sb.append("{ public Object call(){");
+        sb.append("try{ ");
         sb.append(str);
         sb.append(";");
+        sb.append("}catch(Exception e){ throw e; } return null;");
         //func end
         sb.append("}");
         //class end
         sb.append("}");
         FileUtil.writeString(sb.toString(), file, "UTF-8");
-        try {
-            Class<?> clz = Thread.currentThread().getContextClassLoader().loadClass(className);
-            return new ReturnableFunction() {
-                @Override
-                public Object call() throws Exception {
-                    Object ins = Json.newInstance(clz);
-                    MethodAccess ma = MethodAccess.get(clz);
-                    return ma.invoke(ins, "call");
-                }
-            };
-        } catch (Exception e) {
-            return new ReturnableFunction() {
-                @Override
-                public Object call() throws Exception {
-                    throw e;
-                }
-            };
-        }
+
+        return () -> {
+            return Async.submit(() -> {
+                Class<?> clz = _loader.loadClass(className);
+                Object ins = Json.newInstance(clz);
+                MethodAccess ma = MethodAccess.get(clz);
+                return ma.invoke(ins, "call");
+            }).get();
+        };
     }
 
 

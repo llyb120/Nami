@@ -30,7 +30,6 @@ public class Compiler {
     private static ExecutorService executor = Executors.newCachedThreadPool();
     private static Set<String> compiling = new ConcurrentHashSet<>();
     private static Map<String, SimpleClassFile> byteCodeCache = new HashMap<>();
-    private static File tempFolder = new File(System.getProperty("java.io.tmpdir"));
 
     public static class SimpleClassFile {
         public byte[] bytes;

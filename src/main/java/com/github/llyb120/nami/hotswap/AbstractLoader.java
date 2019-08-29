@@ -20,15 +20,20 @@ import static com.github.llyb120.nami.core.Config.config;
 
 public abstract class AbstractLoader extends ClassLoader {
     public static ClassLoader defaultClassLoader = DevLoader.class.getClassLoader();
-    public static File userDir = new File(System.getProperty("user.dir"));
+    public static File tempDir = new File(System.getProperty("java.io.tmpdir"));
+//    public static File userDir = new File(System.getProperty("user.dir"));
     public static File sourceDir;
     public static File targetDir;
 
     static {
-        sourceDir = new File(userDir, "nami_func_source");
-        sourceDir.mkdirs();
-        targetDir = new File(userDir, "nami_func_target");
-        targetDir.mkdirs();
+        sourceDir = new File(tempDir, "nami_func_source");
+        targetDir = new File(tempDir, "nami_func_target");
+        if(!sourceDir.exists()){
+            FileUtil.mkdir(sourceDir);
+        }
+        if(!targetDir.exists()){
+            FileUtil.mkdir(targetDir);
+        }
     }
 
 
