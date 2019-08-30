@@ -198,10 +198,27 @@ public class Obj extends Json implements Map<String,Object> {
         return Json.cast(get(key), Obj.class);
     }
 
+    public Obj oo(String key){
+        Obj ret = o(key);
+        if (ret == null) {
+            ret = o();
+            put(key, ret);
+        }
+        return ret;
+    }
+
     public Arr a(String key){
         return cast(get(key), Arr.class);
     }
 
+    public Arr aa(String key){
+        Arr ret = a(key);
+        if (ret == null) {
+            ret = a();
+            put(key, ret);
+        }
+        return ret;
+    }
 
     public Obj v(String key, Validate validate, String msg, Object ...args){
         Object obj = get(key);

@@ -795,6 +795,14 @@ public class TestJson {
     }
 
 
+    @Test
+    public void ttt(){
+        String str = "{\"data\":{\"酷酷\":\"[json]{\\\"1\\\":\\\"cghb\\\"}\"},\"files\":[],\"id\":\"5d689727000b893e8bf57ddf\",\"mode\":\"deal\"}";
+        Obj data = Json.parse(str);
+        int d = 2;
+    }
+
+
 
 }
 

@@ -1,7 +1,6 @@
 package com.github.llyb120.nami.json;
 
 import cn.hutool.core.util.CharUtil;
-import cn.hutool.core.util.NumberUtil;
 
 import java.math.BigDecimal;
 
@@ -12,6 +11,7 @@ public class JsonParser {
     private String str;
     private int ptr = 0;
     private int len = 0;
+    private StringBuilder sb = new StringBuilder();
 //        private StringBuilder sb = new StringBuilder();
 
     private enum JsonTokenType {
@@ -182,16 +182,29 @@ public class JsonParser {
         int start = -1;
         while (ptr < len) {
             char ch = str.charAt(ptr);
-            //如果在str中，遇到\无条件步进
-            if(isStr && ch == '\\'){
-                ptr += 2;
-                continue;
-            }
-            isBlank = CharUtil.isBlankChar(ch);
             boolean isStrStart = (ch == '"');
+            //如果在str中，遇到\无条件步进
+            if(isStr){
+                if(ch == '\\'){
+                    ptr++;
+                    sb.append(str.charAt(ptr));
+                    ptr++;
+                    continue;
+                }
+                if(!isStrStart){
+                    sb.append(ch);
+                }
+//                sb.append()
+            }
+//            if(isStr && ch == '\\'){
+//                ptr += 2;
+//                continue;
+//            }
+            isBlank = CharUtil.isBlankChar(ch);
             if (start > -1) {
                 if (isStrStart && isStr) {
-                    return new JsonToken(JsonTokenType.STRING, str.substring(start, ptr++));
+                    ptr++;
+                    return new JsonToken(JsonTokenType.STRING, sb.toString());
                 } else if (!isStr && (ch == '{' || ch == '}' || ch == '[' || ch == ']' || ch == ':' || ch == ',' || isBlank)) {
                     //强行中断
                     String token = str.substring(start, ptr);
@@ -214,32 +227,34 @@ public class JsonParser {
                     continue;
                 }
             } else {
-                if (ch == ':') {
-                    ptr++;
-                    return new JsonToken(JsonTokenType.COLON, ":");
-                }
-                if (ch == ',') {
-                    ptr++;
-                    return new JsonToken(JsonTokenType.COMMA, ",");
-                }
-                if (ch == '[') {
-                    ptr++;
-                    return new JsonToken(JsonTokenType.LEFT_MIDDLE_BLOCK, "[");
-                }
-                if (ch == ']') {
-                    ptr++;
-                    return new JsonToken(JsonTokenType.RIGHT_MIDDLE_BLOCK, "]");
-                }
-                if (ch == '{') {
-                    ptr++;
-                    return new JsonToken(JsonTokenType.LEFT_LARGE_BLOCK, "{");
-                }
-                if (ch == '}') {
-                    ptr++;
-                    return new JsonToken(JsonTokenType.RIGHT_LARGE_BLOCK, "}");
+                switch (ch){
+                    case ':':
+                        ptr++;
+                        return new JsonToken(JsonTokenType.COLON, ":");
+
+                    case ',':
+                        ptr++;
+                        return new JsonToken(JsonTokenType.COMMA, ",");
+
+                    case '[':
+                        ptr++;
+                        return new JsonToken(JsonTokenType.LEFT_MIDDLE_BLOCK, "[");
+
+                    case ']':
+                        ptr++;
+                        return new JsonToken(JsonTokenType.RIGHT_MIDDLE_BLOCK, "]");
+
+                    case '{':
+                        ptr++;
+                        return new JsonToken(JsonTokenType.LEFT_LARGE_BLOCK, "{");
+
+                    case '}':
+                        ptr++;
+                        return new JsonToken(JsonTokenType.RIGHT_LARGE_BLOCK, "}");
                 }
                 if (isStrStart) {
                     isStr = true;
+                    sb.setLength(0);
                     start = ptr + 1;
                 } else if (!isBlank) {
                     start = ptr;
