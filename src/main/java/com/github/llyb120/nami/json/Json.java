@@ -523,7 +523,7 @@ public abstract class Json<T> implements Serializable {
         }
     }
 
-    protected <T> T castBson(Object object) {
+    protected  <T> T castBson(Object object) {
         if (object == null) return (T) object;
         if (object.getClass().getName().startsWith("org.bson")) {
             return (T) object;
