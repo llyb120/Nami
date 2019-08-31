@@ -362,11 +362,21 @@ public abstract class Json<T> implements Serializable {
     }
 
 
+    public static <T> Arr<T> aaa(T ...objects){
+        return a(objects).spread();
+    }
+
     public static <T> Arr<T> a(T ...objects){
         Arr json = new Arr();
         for (Object object : objects) {
             if(object == undefined){
                 continue;
+            }
+            if(object instanceof Arr){
+                if(((Arr) object).spread){
+                    json.addAll((Arr)object);
+                    continue;
+                }
             }
             json.add(object);
         }

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 public class Arr<T extends Object> extends Json implements List<T> {
 
     private ArrayList list;
+    boolean spread = false;
 
     public Arr(){
         this(false);
@@ -174,6 +175,18 @@ public class Arr<T extends Object> extends Json implements List<T> {
     public Arr<T> add(Object ...objects){
         for (Object object : objects) {
            add(object);
+        }
+        return this;
+    }
+
+    public Arr<T> spread(){
+        spread = true;
+        return this;
+    }
+
+    public Object or(Object obj){
+        if(isEmpty()){
+            return obj;
         }
         return this;
     }
