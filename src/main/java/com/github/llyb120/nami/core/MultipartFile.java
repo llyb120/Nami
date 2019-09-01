@@ -1,11 +1,13 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
 
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
-import java.nio.channels.FileChannel;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.util.concurrent.ExecutionException;
 
@@ -15,6 +17,7 @@ public class MultipartFile implements AutoCloseable{
     File file;
 //    ByteBuf byteBuf;
     boolean isTemp = false;
+    String path;
 
 //    private FileUpload fileUpload;
 
@@ -26,9 +29,9 @@ public class MultipartFile implements AutoCloseable{
         this.contentType = Mime.getMime(name);
     }
 
-    public MultipartFile(String name, String contentType) {
-        this.fileName = name;
-        this.contentType = contentType;
+    public MultipartFile(String name, String path) {
+        this(name);
+        this.path = path;
     }
 
     public MultipartFile(File file) {
@@ -65,17 +68,27 @@ public class MultipartFile implements AutoCloseable{
     }
 
     public InputStream openInputStream() throws FileNotFoundException {
-        if(null == file){
-            return null;
+        if(null != file){
+            return new FileInputStream(file);
+        } else if(null != path){
+            if(path.startsWith("classpath:")){
+                String p = path.substring("classpath:".length());
+                ClassPathResource resource = new ClassPathResource(p);
+                return resource.getStream();
+            } else {
+                return new FileInputStream(path);
+            }
         }
-        return new FileInputStream(file);
+        return null;
     }
 
-    public FileChannel openChannel() throws FileNotFoundException {
-        if (file == null) {
-            return null;
+    public ReadableByteChannel openChannel() throws FileNotFoundException {
+        if (file != null) {
+            return new RandomAccessFile(file, "r").getChannel();
+        } else if(null != path){
+            return Channels.newChannel(openInputStream());
         }
-        return new RandomAccessFile(file, "r").getChannel();
+        return null;
     }
 
 //    public String fileName(){
@@ -88,7 +101,7 @@ public class MultipartFile implements AutoCloseable{
 
     public void transferTo(AsynchronousSocketChannel channel) throws IOException, ExecutionException, InterruptedException {
         try(
-                FileInputStream fis = new FileInputStream(this.file);
+                InputStream fis = openInputStream();
         ){
             byte[] bs = IoUtil.readBytes(fis);
             channel.write(ByteBuffer.wrap(bs)).get();
@@ -97,17 +110,17 @@ public class MultipartFile implements AutoCloseable{
 
     public void transferTo(WritableByteChannel channel) throws IOException {
         try(
-            FileChannel fis = new FileInputStream(this.file).getChannel();
+            ReadableByteChannel ch = openChannel();
                 ){
-            fis.transferTo(0, this.file.length(), channel);
+            IoUtil.copy(ch, channel);
         }
     }
 
     public void transferTo(OutputStream os) throws IOException {
         try(
-                FileInputStream fis = new FileInputStream(this.file);
+                InputStream fis = openInputStream();
                 ){
-            IoUtil.copyByNIO(fis, os, 4096, null);
+            IoUtil.copy(fis, os);
         }
     }
 

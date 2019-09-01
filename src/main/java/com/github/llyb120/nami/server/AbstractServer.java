@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
+import java.nio.channels.ReadableByteChannel;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -196,7 +196,7 @@ public abstract class AbstractServer {
                 int size = directDownloadLength();
 //                var buf = new Buffer();
                 try(
-                        FileChannel fis = multipartFile.openChannel();
+                    ReadableByteChannel fis = multipartFile.openChannel();
                         ){
                     int n = -1;
                     while(true){
