@@ -63,6 +63,9 @@ public class MultipartFile implements AutoCloseable{
 
 
     public long length(){
+        if(path != null){
+            return Long.MAX_VALUE;
+        }
         if(file == null) return -1;
         return file.length();
     }

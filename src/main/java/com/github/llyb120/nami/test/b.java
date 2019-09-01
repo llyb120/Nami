@@ -1,10 +1,12 @@
 package com.github.llyb120.nami.test;
+
 import cn.hutool.core.util.ClassUtil;
-import cn.hutool.core.util.ReflectUtil;
+import com.github.llyb120.nami.core.MultipartFile;
 
 import java.util.Set;
 
-import static com.github.llyb120.nami.test.Var1.*;
+import static com.github.llyb120.nami.test.Var1.$a;
+import static com.github.llyb120.nami.test.Var1.a;
 
 
 public class b {
@@ -20,5 +22,9 @@ public class b {
         Set<Class<?>> list = ClassUtil.scanPackage("com");
         System.out.println(System.currentTimeMillis() - time);
         return "1";
+    }
+
+    public MultipartFile t3(){
+        return new MultipartFile("1.js", "classpath:1.js");
     }
 }
