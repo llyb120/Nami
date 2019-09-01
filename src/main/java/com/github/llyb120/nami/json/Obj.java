@@ -1,12 +1,10 @@
 package com.github.llyb120.nami.json;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import org.bson.Document;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Obj extends Json implements Map<String,Object> {
 
@@ -192,6 +190,14 @@ public class Obj extends Json implements Map<String,Object> {
             return defaultValue;
         }
         return val;
+    }
+
+    public Date date(String key, String format){
+        try {
+            return DateUtil.parse(s(key), format).toJdkDate();
+        } catch (Exception e){
+        }
+        return null;
     }
 
     public Obj o(String key){
