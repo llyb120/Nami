@@ -1,6 +1,7 @@
 package com.github.llyb120.nami.json;
 
 import cn.hutool.core.util.StrUtil;
+import com.github.llyb120.nami.func.Arg1Function;
 import org.bson.conversions.Bson;
 
 import java.util.*;
@@ -179,10 +180,28 @@ public class Arr<T extends Object> extends Json implements List<T> {
         return this;
     }
 
+    public Arr group(Arg1Function<T> function){
+        Map<Object, Arr> cache = new LinkedHashMap<>();
+        for (T t : this) {
+            try {
+                Object key = function.call(t);
+                Arr arr = cache.get(key);
+                if (arr == null) {
+                    cache.put(key, arr = a());
+                }
+                arr.add(t);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return aaa(cache.values());
+    }
+
     public Arr<T> spread(){
         spread = true;
         return this;
     }
+
 
     public Object or(Object obj){
         if(isEmpty()){

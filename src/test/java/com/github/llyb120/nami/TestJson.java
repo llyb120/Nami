@@ -5,6 +5,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
+import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.json.TypeReference;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.github.llyb120.nami.json.Json.o;
+import static com.github.llyb120.nami.json.Json.*;
 
 public class TestJson {
 
@@ -799,6 +800,14 @@ public class TestJson {
     public void ttt(){
         String str = "{\"data\":{\"酷酷\":\"[json]{\\\"1\\\":\\\"cghb\\\"}\"},\"files\":[],\"id\":\"5d689727000b893e8bf57ddf\",\"mode\":\"deal\"}";
         Obj data = Json.parse(str);
+        int d = 2;
+    }
+
+
+    @Test
+    public void t3(){
+        Arr str = aaa(a(1, 2, 3));
+        Arr str22 = a(aaa(1, 2, 3));
         int d = 2;
     }
 

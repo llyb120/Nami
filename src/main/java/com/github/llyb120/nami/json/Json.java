@@ -362,8 +362,16 @@ public abstract class Json<T> implements Serializable {
     }
 
 
-    public static <T> Arr<T> aaa(T ...objects){
-        return a(objects).spread();
+    public static Arr<Object> aaa(Object ...objects){
+        Arr arr = a();
+        for (Object object : objects) {
+            if(object instanceof Collection){
+                arr.addAll((Collection) object);
+            } else {
+                arr.add(object);
+            }
+        }
+        return a(arr.toArray()).spread();
     }
 
     public static <T> Arr<T> a(T ...objects){
