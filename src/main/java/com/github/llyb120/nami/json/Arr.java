@@ -180,11 +180,11 @@ public class Arr<T extends Object> extends Json implements List<T> {
         return this;
     }
 
-    public Arr group(Arg1Function<T> function){
+    public <U extends T> Arr group(Arg1Function<U> function){
         Map<Object, Arr> cache = new LinkedHashMap<>();
         for (T t : this) {
             try {
-                Object key = function.call(t);
+                Object key = function.call((U)t);
                 Arr arr = cache.get(key);
                 if (arr == null) {
                     cache.put(key, arr = a());
