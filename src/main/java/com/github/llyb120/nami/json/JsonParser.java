@@ -187,10 +187,12 @@ public class JsonParser {
             //如果在str中，遇到\无条件步进
             if(isStr){
                 if(ch == '\\'){
-                    ptr++;
-                    sb.append(str.charAt(ptr));
-                    ptr++;
-                    continue;
+                    char nextChar = str.charAt(ptr + 1);
+                    if(nextChar == '"' || nextChar == '\''){
+                        ptr += 2;
+                        sb.append(nextChar);
+                        continue;
+                    }
                 }
                 if(!isStrStart){
                     sb.append(ch);

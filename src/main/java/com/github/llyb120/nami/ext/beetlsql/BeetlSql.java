@@ -10,6 +10,8 @@ import org.beetl.sql.core.db.KeyWordHandler;
 import org.beetl.sql.core.db.MySqlStyle;
 
 import java.util.Properties;
+
+import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.core.DBService.dataSource;
 
 public class BeetlSql {
@@ -17,7 +19,7 @@ public class BeetlSql {
 
     static {
         System.out.println("Initializing BeetlSql");
-        Config.Db ds = Config.config.db.get("main");
+        Config.Db ds = config.db.get("main");
         ConnectionSource source = ConnectionSourceHelper.getSingle(dataSource);
         ClasspathLoader loader = new ClasspathLoader("/sql");
         NameConversion nc;
@@ -72,7 +74,11 @@ public class BeetlSql {
         }
         Properties property = new Properties();
         property.setProperty("CHARSET", "UTF-8");
-        sqlManager = new SQLManager(style, loader,source,nc,new Interceptor[]{new MyDebugInterceptor()},ds.schema, property ,"main");
+        Interceptor[] interceptors = new Interceptor[0];
+        if(config.dev){
+            interceptors = new Interceptor[]{new MyDebugInterceptor()};
+        }
+        sqlManager = new SQLManager(style, loader,source,nc, interceptors,ds.schema, property ,"main");
 
 //        if (listener != null) {
 //            listener.onDBServiceBooted();

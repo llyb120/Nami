@@ -75,9 +75,9 @@ public class Response implements AutoCloseable{
             try {
                 aChannel.write(bf).get();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             } catch (ExecutionException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
         bfs.clear();
