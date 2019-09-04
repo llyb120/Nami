@@ -14,7 +14,7 @@ public class JsonParser {
     private StringBuilder sb = new StringBuilder();
 //        private StringBuilder sb = new StringBuilder();
 
-    private enum JsonTokenType {
+    enum JsonTokenType {
         LEFT_LARGE_BLOCK,
         RIGHT_LARGE_BLOCK,
         LEFT_MIDDLE_BLOCK,
@@ -177,6 +177,7 @@ public class JsonParser {
     }
 
     private JsonToken readToken() {
+        sb.setLength(0);
         boolean isBlank = false;
         boolean isStr = false;
         int start = -1;
@@ -254,7 +255,6 @@ public class JsonParser {
                 }
                 if (isStrStart) {
                     isStr = true;
-                    sb.setLength(0);
                     start = ptr + 1;
                 } else if (!isBlank) {
                     start = ptr;
