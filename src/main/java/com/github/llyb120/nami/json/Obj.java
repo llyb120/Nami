@@ -17,11 +17,12 @@ public class Obj extends Json implements Map<String,Object> {
 //    }
 
     public Obj(){
-        map = new HashMap<>();
+        map = new LinkedHashMap<>();
     }
 
     public Obj(Map map){
-        map(map);
+        super();
+        putAll(map);
     }
 
 //    public Obj(boolean p){
