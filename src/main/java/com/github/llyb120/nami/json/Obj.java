@@ -21,7 +21,7 @@ public class Obj extends Json implements Map<String,Object> {
     }
 
     public Obj(Map map){
-        super();
+        this();
         putAll(map);
     }
 

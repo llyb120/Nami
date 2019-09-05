@@ -361,6 +361,22 @@ public abstract class Json<T> implements Serializable {
         return json;
     }
 
+    public static Obj ooo(Object ...objects){
+        Obj json = new Obj();
+        for (short i = 0; i < objects.length; i += 2) {
+            if(objects[i] instanceof Map){
+                json.putAll((Map)objects[i]);
+                continue;
+            }
+            Object value = objects[i + 1];
+            if(value == undefined){
+                continue;
+            }
+            json.put((String) objects[i], objects[i + 1]);
+        }
+        return json;
+    }
+
 
     public static Arr<Object> aaa(Object ...objects){
         Arr arr = a();
