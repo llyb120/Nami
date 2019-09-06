@@ -323,6 +323,7 @@ public class Request implements AutoCloseable{
                             temp.step = FormDataStep.WAIT_FOR_READ_VALUE;
                             break scan;
                         }
+                        //todo: 需要解析不正确的情况, 增加容错处理
                         String[] Json = line.split("; ");
                         for (int i = 0; i < Json.length; i++) {
                             if (i > 0) {

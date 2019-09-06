@@ -700,6 +700,10 @@ public abstract class Json<T> implements Serializable {
         }
         //目标为List
         if (List.class.isAssignableFrom(clz)) {
+//            if(Arr.class.isAssignableFrom(clz)){
+//                clz = Arr.class;
+//            }
+//            else
             if (List.class == clz) {
                 clz = (Class<T>) ArrayList.class;
             }
