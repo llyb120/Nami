@@ -1,5 +1,6 @@
 package com.github.llyb120.nami.core;
 
+import com.github.llyb120.nami.cron.Crontab;
 import com.github.llyb120.nami.server.AIOServer;
 import com.github.llyb120.nami.server.AbstractServer;
 import com.github.llyb120.nami.server.DevServer;
@@ -39,6 +40,9 @@ public class Nami {
         if(config.dev){
             Compiler.macOsStart();
         }
+
+        //定时任务
+        Crontab.start();
 
         //注册基本类
 //        sqltool.init();

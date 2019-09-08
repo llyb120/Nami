@@ -1,6 +1,5 @@
 package com.github.llyb120.nami.core;
 
-import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import com.github.llyb120.nami.ext.file.SimpleStorage;
 import com.github.llyb120.nami.json.Arr;
@@ -32,6 +31,7 @@ public class Config {
     public Map<String, StorageConfig> storages = new Hashtable<>();
     public Obj statics = o();
     public String version;
+    public Arr<String> crontabs = a();
 
     public String source;
     public String target;
@@ -118,6 +118,11 @@ public class Config {
                                 return new HashMap.SimpleEntry(k.substring(0, k.length() - 1), v);
                             }
                         });
+                        break;
+
+
+                    case "crontab":
+                        readStringArray(crontabs);
                         break;
 
 
