@@ -38,7 +38,7 @@ public class DBService {
 
 //    private static void initDataSource(Nami.Listener listener){
         //修复beetl不支持java11的问题
-//        System.setProperty("java.version", "11.0");
+//        System.setProperty("java.jdkVersion", "11.0");
 //    }
 
 //    public static void start(boolean async) {

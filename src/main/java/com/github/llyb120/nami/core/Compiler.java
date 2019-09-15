@@ -137,14 +137,14 @@ public class Compiler {
 //    private static byte[] compileWithJavac(String name) throws IOException {
 //        Iterable it = javaFileManager.getJavaFileObjects(config.source + File.separator + name.replaceAll("\\.", "/") + ".java");
 //        //创建编译任务
-//        JavaCompiler.CompilationTask task = javaCompiler.getTask(new StringWriter(), null, null, Arrays.asList("-d", config.target, "-parameters", "-nowarn", "-source", config.version), null, it);
+//        JavaCompiler.CompilationTask task = javaCompiler.getTask(new StringWriter(), null, null, Arrays.asList("-d", config.target, "-parameters", "-nowarn", "-source", config.jdkVersion), null, it);
 //        //执行编译
 //        task.call();
 //        return readClass(name);
 //    }
 //
 //    private static byte[] compileWithEcj(String name) throws IOException {
-//        Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", config.version, "-d", config.target, config.source + File.separator + name.replaceAll("\\.", "/") + ".java"});
+//        Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", config.jdkVersion, "-d", config.target, config.source + File.separator + name.replaceAll("\\.", "/") + ".java"});
 //        return readClass(name);
 //    }
 
@@ -158,9 +158,9 @@ public class Compiler {
     public static void compileWithEcj(String path, String target) {
         Iterable it = javaFileManager.getJavaFileObjects(path);
 //        //创建编译任务
-        JavaCompiler.CompilationTask task = javac.getTask(compileWriter, null, null, Arrays.asList("-noExit", "-parameters", "-nowarn", "-source", config.version, "-d", target == null ? config.target : target), null, it);
+        JavaCompiler.CompilationTask task = javac.getTask(compileWriter, null, null, Arrays.asList("-noExit", "-parameters", "-nowarn", "-source", config.jdkVersion, "-d", target == null ? config.target : target), null, it);
         task.call();
-//        Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", config.version, "-d", config.target, file.getAbsolutePath()});
+//        Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", config.jdkVersion, "-d", config.target, file.getAbsolutePath()});
     }
 
 

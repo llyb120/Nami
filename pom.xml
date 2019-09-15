@@ -95,7 +95,7 @@
 <!--        <dependency>-->
 <!--            <groupId>io.netty</groupId>-->
 <!--            <artifactId>netty-all</artifactId>-->
-<!--            <version>4.1.36.Final</version>-->
+<!--            <jdkVersion>4.1.36.Final</jdkVersion>-->
 <!--            <scope>provided</scope>-->
 <!--        </dependency>-->
 
@@ -109,13 +109,13 @@
 <!--        <dependency>-->
 <!--            <groupId>com.alibaba</groupId>-->
 <!--            <artifactId>fastjson</artifactId>-->
-<!--            <version>1.2.47</version>-->
+<!--            <jdkVersion>1.2.47</jdkVersion>-->
 <!--        </dependency>-->
 
 <!--        <dependency>-->
 <!--            <groupId>com.ibeetl</groupId>-->
 <!--            <artifactId>beetl</artifactId>-->
-<!--            <version>2.9.9</version>-->
+<!--            <jdkVersion>2.9.9</jdkVersion>-->
 <!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/com.ibeetl/beetlsql -->
         <dependency>
@@ -134,7 +134,7 @@
 <!--        <dependency>-->
 <!--            <groupId>org.quartz-scheduler</groupId>-->
 <!--            <artifactId>quartz-jobs</artifactId>-->
-<!--            <version>2.3.1</version>-->
+<!--            <jdkVersion>2.3.1</jdkVersion>-->
 <!--        </dependency>-->
 
 
@@ -150,13 +150,13 @@
 <!--        <dependency>-->
 <!--            <groupId>mysql</groupId>-->
 <!--            <artifactId>mysql-connector-java</artifactId>-->
-<!--            <version>5.1.47</version>-->
+<!--            <jdkVersion>5.1.47</jdkVersion>-->
 <!--        </dependency>-->
 
 <!--        <dependency>-->
 <!--            <groupId>com.ibm.db2.jcc</groupId>-->
 <!--            <artifactId>db2jcc4</artifactId>-->
-<!--            <version>10.1</version>-->
+<!--            <jdkVersion>10.1</jdkVersion>-->
 <!--&lt;!&ndash;            <scope>system</scope>&ndash;&gt;-->
 <!--&lt;!&ndash;            <systemPath>${project.basedir}/lib/db2jcc.jar</systemPath>&ndash;&gt;-->
 <!--        </dependency>-->
@@ -174,7 +174,7 @@
 <!--        <dependency>-->
 <!--            <groupId>net.java.dev.jna</groupId>-->
 <!--            <artifactId>jna</artifactId>-->
-<!--            <version>5.3.1</version>-->
+<!--            <jdkVersion>5.3.1</jdkVersion>-->
 <!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/io.methvin/directory-watcher -->
@@ -191,7 +191,7 @@
         <!--<dependency>-->
             <!--<groupId>commons-io</groupId>-->
             <!--<artifactId>commons-io</artifactId>-->
-            <!--<version>2.6</version>-->
+            <!--<jdkVersion>2.6</jdkVersion>-->
         <!--</dependency>-->
 
         <dependency>

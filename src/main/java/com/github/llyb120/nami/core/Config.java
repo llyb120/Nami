@@ -1,6 +1,7 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.ext.file.SimpleStorage;
 import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.FlexAction;
@@ -30,7 +31,8 @@ public class Config {
     public Map<String, Link> links = new HashMap<>();
     public Map<String, StorageConfig> storages = new Hashtable<>();
     public Obj statics = o();
-    public String version;
+    public String jdkVersion;
+    public Version version = new Version();
     public Arr<String> crontabs = a();
 
     public String source;
@@ -54,15 +56,15 @@ public class Config {
         //jdk版本
         String version = System.getProperty("java.version");
         if(version.startsWith("1.8")){
-            this.version = "1.8";
+            this.jdkVersion = "1.8";
         } else {
-            this.version = version;
+            this.jdkVersion = version;
         }
-//        int idex = version.indexOf(".");
+//        int idex = jdkVersion.indexOf(".");
 //        if(idex == -1){
-//            this.version = version;
+//            this.jdkVersion = jdkVersion;
 //        } else {
-//            this.version = version.substring(0, idex);
+//            this.jdkVersion = jdkVersion.substring(0, idex);
 //        }
         try (
                 FileInputStream fis = new FileInputStream(path);
@@ -140,6 +142,11 @@ public class Config {
                         readObj(var);
                         break;
 
+                    case "version":
+                        readNextToken();
+                        readVersion();
+                        break;
+
                 }
             }
 
@@ -206,6 +213,24 @@ public class Config {
         }
     }
 
+    private void readVersion(){
+        String key = null;
+        while((key = readNextToken()) != null) {
+            switch (key){
+                case "}":
+                    return;
+                case "name":
+                    version.name = readNextToken();
+                    break;
+
+                case "no":
+                    String no = readNextToken();
+                    version.no = StrUtil.splitToInt(no, ".");
+                    break;
+            }
+        }
+    }
+
     private void readObj(Obj obj){
         //read key
         String key = null;
@@ -265,30 +290,6 @@ public class Config {
             }
         }
     }
-
-
-//    private void readCompile() {
-//        //skip {
-//        readNextToken();
-//        String token = null;
-//        scan:
-//        {
-//            while ((token = readNextToken()) != null) {
-//                switch (token) {
-//                    case "compiler":
-//                        compile.compiler = token;
-//                        break;
-//
-//                    case "parallel":
-//                        compile.parallel = Boolean.parseBoolean(readNextToken());
-//                        break;
-//
-//                    case "}":
-//                        break scan;
-//                }
-//            }
-//        }
-//    }
 
     private void readDb() {
         //skip {
@@ -503,6 +504,11 @@ public class Config {
         public String driver;
         public File path;
         public com.github.llyb120.nami.ext.file.Storage instance;
+    }
+
+    public static class Version{
+        public String name = "default";
+        public int[] no = {0,0,1};
     }
 
 
