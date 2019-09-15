@@ -2,7 +2,7 @@ package com.github.llyb120.nami;
 
 import cn.hutool.core.io.IoUtil;
 import com.github.llyb120.nami.core.Nami;
-import com.github.llyb120.nami.core.Route;
+import com.github.llyb120.nami.server.Route;
 import org.junit.Test;
 
 import java.io.*;

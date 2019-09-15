@@ -3,7 +3,6 @@ package com.github.llyb120.nami.server;
 import com.github.llyb120.nami.core.AopInvoke;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.core.Param;
-import com.github.llyb120.nami.core.Route;
 import com.github.llyb120.nami.hotswap.AbstractLoader;
 import com.github.llyb120.nami.hotswap.DevLoader;
 import com.github.llyb120.nami.hotswap.ProductLoader;

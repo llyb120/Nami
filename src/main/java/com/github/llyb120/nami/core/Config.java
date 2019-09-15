@@ -6,11 +6,14 @@ import com.github.llyb120.nami.ext.file.SimpleStorage;
 import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.FlexAction;
 import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.server.Route;
+import org.apache.commons.collections4.list.CursorableLinkedList;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static com.github.llyb120.nami.json.Json.a;
 import static com.github.llyb120.nami.json.Json.o;
@@ -34,6 +37,7 @@ public class Config {
     public String jdkVersion;
     public Version version = new Version();
     public Arr<String> crontabs = a();
+    public Arr<Server> servers = a();
 
     public String source;
     public String target;
@@ -142,8 +146,11 @@ public class Config {
                         readObj(var);
                         break;
 
+                    case "server":
+                        servers.add(readServer());
+                        break;
+
                     case "version":
-                        readNextToken();
                         readVersion();
                         break;
 
@@ -174,7 +181,78 @@ public class Config {
 
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(-1);
         }
+    }
+
+    private Server readServer(){
+        //skip {
+        readNextToken();
+        Server server = new Server();
+        String key;
+        scan:
+        while((key = readNextToken()) != null){
+            switch (key){
+                case "}":
+                    break scan;
+
+                case "location":
+                    String url = readNextToken();
+                    //分析url
+//                    int start = 0;
+//                    int end = url.length();
+//                    if(url.endsWith("/")){
+//                        end--;
+//                    }
+//                    if (url.startsWith("/")) {
+//                        start++;
+//                    }
+//                    if(start != 0 || end != url.length()){
+//                        url = url.substring(start, end);
+//                    }
+                    Location location = readLocation();
+                    String[] arr = StrUtil.split(url, "/");
+                    Route.Node node = server.root;
+                    for (String s : arr) {
+                        if(s.isEmpty()) {
+                            continue;
+                        }
+                        node = node.getNode(s);
+                    }
+                    node.ctrl = location.ctrl;
+                    server.locations.add(location);
+                    break;
+
+                case "listen":
+                    String port = readNextToken();
+                    server.listen = Integer.parseInt(port);
+                    break;
+            }
+        }
+        return server;
+    }
+
+    private Location readLocation(){
+        readNextToken();
+        Location location = new Location();
+        String key;
+        scan:
+        while((key = readNextToken()) != null){
+            switch (key){
+                case "}":
+                    break scan;
+
+                case "proxy_pass":
+                    location.proxy_pass = readNextToken();
+                    break;
+
+                case "ctrl":
+                    location.ctrl = readNextToken();
+                    break ;
+
+            }
+        }
+        return location;
     }
 
     private void readStorage() {
@@ -214,6 +292,7 @@ public class Config {
     }
 
     private void readVersion(){
+        readNextToken();
         String key = null;
         while((key = readNextToken()) != null) {
             switch (key){
@@ -504,6 +583,18 @@ public class Config {
         public String driver;
         public File path;
         public com.github.llyb120.nami.ext.file.Storage instance;
+    }
+
+    public static class Server{
+        public List<Location> locations = new CursorableLinkedList<>();
+        public int listen;
+        public Route.Node root = Route.Node.createNode(Route.Node.Type.ROOT);
+    }
+
+    public static class Location{
+        public String proxy_pass;
+        public String ctrl;
+        public String aop;
     }
 
     public static class Version{

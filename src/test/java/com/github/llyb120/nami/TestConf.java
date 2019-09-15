@@ -12,6 +12,11 @@ public class TestConf {
         long stime = System.currentTimeMillis();
         Config cfg = new Config("nami.conf");
         System.out.println(System.currentTimeMillis() - stime);
+
+
+        for (Config.Server server : cfg.servers) {
+            server.root.match("/test/a/b".split("/"));
+        }
         long e = 1;
     }
 

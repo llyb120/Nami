@@ -1,14 +1,96 @@
-package com.github.llyb120.nami.core;
+package com.github.llyb120.nami.server;
 
-import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.util.StrUtil;
+import com.github.llyb120.nami.json.Arr;
+import org.omg.CORBA.NO_IMPLEMENT;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.github.llyb120.nami.json.Json.a;
+
 
 public class Route {
+
+    public static class Node{
+        public String value;
+        public String ctrl;
+        public List<Node> children = new Vector<>();
+        public Node parent;
+        public int deep = 0;
+        public Type type = Type.NORMAL;
+
+
+        public static enum Type{
+            ROOT,
+            CLASS,
+            METHOD,
+            NORMAL;
+        }
+
+        private Node(){ }
+
+        public static Node createNode(Type type){
+            Node node = new Node();
+            node.type = type;
+            return node;
+        }
+
+        public Node getNode(String key){
+            for (Node child : children) {
+                if(child.value.equals(key)){
+                    return child;
+                }
+            }
+            Node node = new Node();
+            node.value = key;
+            node.parent = this;
+            node.deep = deep + 1;
+            if (key.equals(":c")) {
+                node.type = Type.CLASS;
+            } else if(key.equals(":a")){
+                node.type = Type.METHOD;
+            }
+            children.add(node);
+            return node;
+        }
+
+
+        private void getChild(String[] url, int i, Arr ret){
+            String key = url[i];
+            if(key.isEmpty()){
+                getChild(url, i + 1, ret);
+                return;
+            }
+            boolean isEnd = i == url.length - 1;
+            if(type == Type.CLASS || type == Type.METHOD || StrUtil.equalsIgnoreCase(value, key)){
+                if(isEnd){
+                    ret.add(this);
+                }
+            }
+            if(!isEnd){
+                for (Node child : children) {
+                    child.getChild(url, i + 1, ret);
+                }
+            }
+        }
+
+        public boolean match(String[] url){
+            if(type != Type.ROOT){
+                return false;
+            }
+            if(url.length == 0){
+                return false;
+            }
+            Arr<Node> ret = a();
+            getChild(url,0, ret);
+            return true;
+        }
+    }
 
     public static List<Route> routes = new Vector<>();
 
