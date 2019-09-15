@@ -1,5 +1,6 @@
 package com.github.llyb120.nami.core;
 
+import com.github.llyb120.nami.compiler.Compiler;
 import com.github.llyb120.nami.cron.Crontab;
 import com.github.llyb120.nami.server.AIOServer;
 import com.github.llyb120.nami.server.AbstractServer;

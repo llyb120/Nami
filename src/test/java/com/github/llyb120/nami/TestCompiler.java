@@ -1,7 +1,7 @@
 package com.github.llyb120.nami;
 
 import cn.hutool.core.thread.ThreadUtil;
-import com.github.llyb120.nami.core.Compiler;
+import com.github.llyb120.nami.compiler.Compiler;
 import com.github.llyb120.nami.core.Nami;
 import org.beetl.sql.core.kit.GenKit;
 import org.junit.Test;

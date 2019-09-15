@@ -1,15 +1,20 @@
-package com.github.llyb120.nami.core;
+package com.github.llyb120.nami.compiler;
 
 import cn.hutool.core.collection.ConcurrentHashSet;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.thread.ThreadUtil;
+import com.github.llyb120.nami.compiler.EcjCompiler;
+import com.github.llyb120.nami.compiler.InMemoryJavaFileObject;
 import io.methvin.watcher.DirectoryWatcher;
 import org.eclipse.jdt.internal.compiler.tool.EclipseCompiler;
 
-import javax.tools.JavaCompiler;
-import javax.tools.StandardJavaFileManager;
-import javax.tools.ToolProvider;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.NestingKind;
+import javax.tools.*;
 import java.io.*;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
@@ -149,20 +154,22 @@ public class Compiler {
 //    }
 
 
-    private static JavaCompiler javac = new EclipseCompiler();
+    private static JavaCompiler javac = new EcjCompiler();
     private static Writer compileWriter = new PrintWriter(System.out);
 
     public static void compileWithEcj(String path) {
         compileWithEcj(path, null);
     }
+
     public static void compileWithEcj(String path, String target) {
-        Iterable it = javaFileManager.getJavaFileObjects(path);
+        Iterable it = Collections.singletonList(new InMemoryJavaFileObject(FileUtil.mainName(path), FileUtil.readString(path, StandardCharsets.UTF_8)));
+//                 javaFileManager.getJavaFileObjects(path);
+
 //        //创建编译任务
-        JavaCompiler.CompilationTask task = javac.getTask(compileWriter, null, null, Arrays.asList("-noExit", "-parameters", "-nowarn", "-source", config.jdkVersion, "-d", target == null ? config.target : target), null, it);
+        JavaCompiler.CompilationTask task = javac.getTask(compileWriter, javaFileManager, null, Arrays.asList("-noExit", "-parameters", "-nowarn", "-source", config.jdkVersion, "-d", target == null ? config.target : target), null, it);
         task.call();
 //        Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", config.jdkVersion, "-d", config.target, file.getAbsolutePath()});
     }
-
 
 
     public static void macOsStart() throws IOException {
@@ -189,58 +196,58 @@ public class Compiler {
         watcher.watchAsync();
     }
 
-    @Deprecated
-    public static void start() {
-        Async.submit(() -> {
-            Path targetPath = Paths.get(config.source);
-            WatchService watchService = targetPath.getFileSystem().newWatchService();
-            Files.walkFileTree(targetPath, new SimpleFileVisitor<Path>() {
-                @Override
-                public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
-                        throws IOException {
-                    dir.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.OVERFLOW);
-                    return FileVisitResult.CONTINUE;
-                }
-            });
-            System.out.println("watching dir " + config.source + " to compile automaualy");
-            WatchKey watchKey = null;
-            while (true) {
-                try {
-                    watchKey = watchService.take();
-                    List<WatchEvent<?>> watchEvents = watchKey.pollEvents();
-                    for (final WatchEvent<?> event : watchEvents) {
-                        WatchEvent<Path> watchEvent = (WatchEvent<Path>) event;
-                        WatchEvent.Kind<Path> kind = watchEvent.kind();
-
-                        Path watchable = ((Path) watchKey.watchable()).resolve(watchEvent.context());
-                        if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
-                            if (Files.isDirectory(watchable)) {
-                                watchable.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
-                            } else {
-                            }
-                        }
-
-                        if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
-                            //todo: 删除对应的类文件
-
-                        } else {
-                            if (watchable.toString().endsWith(".java")) {
-                                compile(watchable.toFile());
-                            }
-                        }
-
-                    }
-                    //consumer.accept(targetPath);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    if (watchKey != null) {
-                        watchKey.reset();
-                    }
-                }
-            }
-        });
-    }
+//    @Deprecated
+//    public static void start() {
+//        Async.submit(() -> {
+//            Path targetPath = Paths.get(config.source);
+//            WatchService watchService = targetPath.getFileSystem().newWatchService();
+//            Files.walkFileTree(targetPath, new SimpleFileVisitor<Path>() {
+//                @Override
+//                public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
+//                        throws IOException {
+//                    dir.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.OVERFLOW);
+//                    return FileVisitResult.CONTINUE;
+//                }
+//            });
+//            System.out.println("watching dir " + config.source + " to compile automaualy");
+//            WatchKey watchKey = null;
+//            while (true) {
+//                try {
+//                    watchKey = watchService.take();
+//                    List<WatchEvent<?>> watchEvents = watchKey.pollEvents();
+//                    for (final WatchEvent<?> event : watchEvents) {
+//                        WatchEvent<Path> watchEvent = (WatchEvent<Path>) event;
+//                        WatchEvent.Kind<Path> kind = watchEvent.kind();
+//
+//                        Path watchable = ((Path) watchKey.watchable()).resolve(watchEvent.context());
+//                        if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
+//                            if (Files.isDirectory(watchable)) {
+//                                watchable.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
+//                            } else {
+//                            }
+//                        }
+//
+//                        if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
+//                            //todo: 删除对应的类文件
+//
+//                        } else {
+//                            if (watchable.toString().endsWith(".java")) {
+//                                compile(watchable.toFile());
+//                            }
+//                        }
+//
+//                    }
+//                    //consumer.accept(targetPath);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                } finally {
+//                    if (watchKey != null) {
+//                        watchKey.reset();
+//                    }
+//                }
+//            }
+//        });
+//    }
 
 
 }

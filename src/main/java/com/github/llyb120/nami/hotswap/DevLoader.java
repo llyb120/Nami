@@ -1,6 +1,6 @@
 package com.github.llyb120.nami.hotswap;
 
-import com.github.llyb120.nami.core.Compiler;
+import com.github.llyb120.nami.compiler.Compiler;
 
 import static com.github.llyb120.nami.core.Config.config;
 

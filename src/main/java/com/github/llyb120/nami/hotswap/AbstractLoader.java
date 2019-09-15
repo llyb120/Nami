@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.github.llyb120.nami.core.Compiler.compileWithEcj;
+import static com.github.llyb120.nami.compiler.Compiler.compileWithEcj;
 import static com.github.llyb120.nami.core.Config.config;
 
 public abstract class AbstractLoader extends ClassLoader {
