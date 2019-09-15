@@ -625,6 +625,10 @@ public abstract class Json<T> implements Serializable {
         return cast(source, typeReference.getType());
     }
 
+//    public static <T> T cast(Object source, Object instance){
+//
+//    }
+
     public static <T> T cast(Object source, Class<T> clz) {
         return cast(source, (Type) clz);
     }
@@ -801,8 +805,8 @@ public abstract class Json<T> implements Serializable {
 //        }
 //    }
 
-    private static Object mapToBean(Map<Object, Object> source, Class clz) {
-        Object ins = newInstance(clz);
+    private static Object mapToBean(Map<Object, Object> source, Object ins){
+        Class<?> clz = ins.getClass();
         FieldAccess fa = FieldAccess.get(clz);
 //        Class[] types = fa.getFieldTypes();
         int i = 0;
@@ -817,8 +821,12 @@ public abstract class Json<T> implements Serializable {
         return ins;
     }
 
-    private static Object beanToBean(Object source, Class clz) {
-        Object ins = newInstance(clz);
+    private static Object mapToBean(Map<Object, Object> source, Class clz) {
+        return mapToBean(source, newInstance(clz));
+    }
+
+    private static Object beanToBean(Object source, Object ins){
+        Class<?> clz = ins.getClass();
         FieldAccess leftfa = FieldAccess.get(source.getClass());
         FieldAccess fa = FieldAccess.get(clz);
         Class[] types = fa.getFieldTypes();
@@ -831,5 +839,8 @@ public abstract class Json<T> implements Serializable {
             i++;
         }
         return ins;
+    }
+    private static Object beanToBean(Object source, Class clz) {
+        return beanToBean(source, newInstance(clz));
     }
 }
