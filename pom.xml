@@ -153,13 +153,13 @@
 <!--            <jdkVersion>5.1.47</jdkVersion>-->
 <!--        </dependency>-->
 
-<!--        <dependency>-->
-<!--            <groupId>com.ibm.db2.jcc</groupId>-->
-<!--            <artifactId>db2jcc4</artifactId>-->
-<!--            <jdkVersion>10.1</jdkVersion>-->
-<!--&lt;!&ndash;            <scope>system</scope>&ndash;&gt;-->
-<!--&lt;!&ndash;            <systemPath>${project.basedir}/lib/db2jcc.jar</systemPath>&ndash;&gt;-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.ibm.db2.jcc</groupId>
+            <artifactId>db2jcc4</artifactId>
+            <version>10.1</version>
+            <scope>test</scope>
+            <!--<systemPath>${project.basedir}/lib/db2jcc.jar</systemPath>-->
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.eclipse.jdt/ecj -->
         <dependency>
@@ -245,6 +245,15 @@
             <version>3.10.2</version>
             <scope>provided</scope>
         </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.mozilla/rhino -->
+        <dependency>
+            <groupId>org.mozilla</groupId>
+            <artifactId>rhino</artifactId>
+            <version>1.7.11</version>
+        </dependency>
+
 
 
     </dependencies>
