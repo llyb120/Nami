@@ -16,7 +16,7 @@ public class AIOServer extends AbstractServer {
 //    private AioServer aioServer;
 
     @Override
-    public void start(int port, boolean async) throws Exception {
+    public void start(int port) throws Exception {
 //        aioServer = new AioServer(port);
 //        aioServer.setIoAction(new IoAction<ByteBuffer>() {
 //            Response response = new Response();
@@ -101,11 +101,11 @@ public class AIOServer extends AbstractServer {
             }
         });
         System.out.printf("boot server on port %d takes %s ms\n\n", port, System.currentTimeMillis() - stime);
-        if (!async) {
-            synchronized (this) {
-                this.wait();
-            }
-        }
+//        if (!async) {
+//            synchronized (this) {
+//                this.wait();
+//            }
+//        }
     }
 
     @Override

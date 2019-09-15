@@ -7,6 +7,7 @@ import com.github.llyb120.nami.server.DevServer;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.concurrent.CountDownLatch;
 
 import static com.github.llyb120.nami.core.Config.config;
 
@@ -16,7 +17,7 @@ public class Nami {
 
 //    public static ChakraCore chakraCore;
 
-    public static void start(String configPath, boolean async, Listener listener) throws Exception {
+    public static void start(String configPath,  Listener listener) throws Exception {
         //关掉烦人的警告
         Async.execute(() -> {
             disableAccessWarnings();
@@ -62,7 +63,10 @@ public class Nami {
         } else {
             server = new AIOServer();
         }
-        server.start(config.port, async);
+        server.start(config.port);
+
+        CountDownLatch cd = new CountDownLatch(1);
+        cd.await();
     }
 
     public static void dev(String config){
@@ -75,7 +79,7 @@ public class Nami {
 
     public static void start(String config, boolean async){
         try{
-            start(config, async, null);
+            start(config, null);
         }
         catch (Exception e){
             e.printStackTrace();

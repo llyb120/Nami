@@ -30,7 +30,7 @@ public abstract class AbstractServer {
         }
     };
 
-    public abstract void start(int port, boolean async) throws Exception;
+    public abstract void start(int port) throws Exception;
 
 
     public void handleOptions(Response resp) throws Exception {
