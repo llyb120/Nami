@@ -11,6 +11,7 @@ import static com.github.llyb120.nami.test.Var1.a;
 
 public class b {
 
+    //sdfdd
     public int test() throws InterruptedException {
         System.out.println(Thread.currentThread().getName() + "-" + a + "-" + $a);
         Thread.sleep(2000);

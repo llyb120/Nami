@@ -16,6 +16,7 @@ import static com.github.llyb120.nami.server.Vars.$request;
 
 public class a {
 
+    //dddfffff
     public String getWithNoArg(){
         return "ok";
     }

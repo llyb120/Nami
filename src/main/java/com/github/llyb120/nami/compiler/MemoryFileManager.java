@@ -7,8 +7,6 @@ import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.Set;
 
-import static com.github.llyb120.nami.json.Json.a;
-
 public class MemoryFileManager implements JavaFileManager {
     private static JavaFileManager fileManager;
     static {
@@ -55,7 +53,7 @@ public class MemoryFileManager implements JavaFileManager {
 
     @Override
     public JavaFileObject getJavaFileForOutput(Location location, String className, JavaFileObject.Kind kind, FileObject sibling) throws IOException {
-        return new InMemoryJavaFileObject(className, ""){
+        return new MemoryJavaFileObject(className, ""){
             @Override
             public OutputStream openOutputStream() throws IOException {
                 return os;

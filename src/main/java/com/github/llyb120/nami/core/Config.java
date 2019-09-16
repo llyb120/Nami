@@ -587,7 +587,7 @@ public class Config {
     }
 
     public static class Server{
-        public List<Location> locations = new CursorableLinkedList<>();
+        public List<Location> locations = new Vector<>();
         public int listen;
         public Route.Node root = Route.Node.createNode(Route.Node.Type.ROOT);
     }

@@ -7,11 +7,12 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.net.URI;
 
-public class InMemoryJavaFileObject extends SimpleJavaFileObject{
+public class MemoryJavaFileObject extends SimpleJavaFileObject{
 
         private String contents = null;
 
-        public InMemoryJavaFileObject(String className, String contents) {
+
+        public MemoryJavaFileObject(String className, String contents) {
             super(URI.create("string:///" + className.replace('.', '/') + JavaFileObject.Kind.SOURCE.extension), JavaFileObject.Kind.SOURCE);
             this.contents = contents;
         }
