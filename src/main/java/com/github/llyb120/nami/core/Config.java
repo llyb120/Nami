@@ -1,5 +1,6 @@
 package com.github.llyb120.nami.core;
 
+import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.ext.file.SimpleStorage;
@@ -22,7 +23,7 @@ public class Config {
     public static Config config;
     public int port;
     public Map<String, Db> db = new Hashtable<>();
-    public Set<String> hotswap = new HashSet<>();
+    public Set<String> hotswap = new ConcurrentHashSet<>();
     public Vector<String> magicvar = new Vector<>();
     public List<String> route = new Vector<>();
 //    public Compile compile = new Compile();

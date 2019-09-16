@@ -50,7 +50,7 @@ public abstract class Function {
         sb.append("try{ ");
         sb.append(str);
         sb.append(";");
-        sb.append("}catch(Exception e){ throw e; } return null;");
+        sb.append("}catch(Exception e){ throw e; } ");
         //func end
         sb.append("}");
         //class end

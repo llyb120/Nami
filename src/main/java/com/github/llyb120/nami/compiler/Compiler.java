@@ -92,11 +92,6 @@ public class Compiler {
 
     public static void compile(File file, boolean force) {
         executor.submit(() -> {
-            if (!force) {
-                if (config.hotswap.size() == 0) {
-                    return;
-                }
-            }
             //只动态编译需要编译的文件
             String path = file.getAbsolutePath();
             String classPath = path.replace(config.source, "")
@@ -165,9 +160,12 @@ public class Compiler {
         Iterable it = Collections.singletonList(new InMemoryJavaFileObject(FileUtil.mainName(path), FileUtil.readString(path, StandardCharsets.UTF_8)));
 //                 javaFileManager.getJavaFileObjects(path);
 
+        JavaFileManager fileManager = new MemoryFileManager();
 //        //创建编译任务
-        JavaCompiler.CompilationTask task = javac.getTask(compileWriter, javaFileManager, null, Arrays.asList("-noExit", "-parameters", "-nowarn", "-source", config.jdkVersion, "-d", target == null ? config.target : target), null, it);
+        JavaCompiler.CompilationTask task = javac.getTask(compileWriter, fileManager,null, Arrays.asList("-noExit", "-parameters", "-nowarn", "-source", config.jdkVersion, "-d", target == null ? config.target : target), null, it);
         task.call();
+
+        int d = 2;
 //        Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", config.jdkVersion, "-d", config.target, file.getAbsolutePath()});
     }
 
