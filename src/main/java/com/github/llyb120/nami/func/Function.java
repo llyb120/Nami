@@ -3,6 +3,7 @@ package com.github.llyb120.nami.func;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.esotericsoftware.reflectasm.MethodAccess;
+import com.github.llyb120.nami.compiler.Compiler;
 import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.hotswap.ProductLoader;
 import com.github.llyb120.nami.json.Json;
@@ -55,15 +56,17 @@ public abstract class Function {
         sb.append("}");
         //class end
         sb.append("}");
-        FileUtil.writeString(sb.toString(), file, "UTF-8");
+//        Compiler
+        Compiler.compile(className, sb.toString());
+//        FileUtil.writeString(sb.toString(), file, "UTF-8");
 
         return () -> {
-            return Async.submit(() -> {
-                Class<?> clz = _loader.loadClass(className);
-                Object ins = Json.newInstance(clz);
-                MethodAccess ma = MethodAccess.get(clz);
-                return ma.invoke(ins, "call");
-            }).get();
+//            return Async.submit(() -> {
+            Class<?> clz = _loader.loadClass(className);
+            Object ins = Json.newInstance(clz);
+            MethodAccess ma = MethodAccess.get(clz);
+            return ma.invoke(ins, "call");
+//            }).get();
         };
     }
 

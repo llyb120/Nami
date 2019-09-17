@@ -41,7 +41,7 @@ public class a {
         public String a;
         public String b;
     }
-
+//
     public Object getWithEntity(A a){
         return a;
     }
@@ -87,5 +87,9 @@ public class a {
 
     public Object downloadStorageFile(String path) throws IOException {
         return Storage.getStorage("test1").download(path);
+    }
+
+    public Object testDy(){
+        return "oh shit fuck ha2dd";
     }
 }

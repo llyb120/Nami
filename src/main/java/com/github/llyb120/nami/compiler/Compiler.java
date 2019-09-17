@@ -1,6 +1,9 @@
 package com.github.llyb120.nami.compiler;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
+import com.github.llyb120.nami.core.Async;
 import io.methvin.watcher.DirectoryWatcher;
 
 import javax.tools.*;
@@ -9,6 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static com.github.llyb120.nami.core.Config.config;
 
@@ -17,17 +22,12 @@ import static com.github.llyb120.nami.core.Config.config;
 
 public class Compiler {
 
-//    static OutputStream bos = new ByteArrayOutputStream();
-//    static PrintWriter errorWriter = new PrintWriter(bos);
-//    static JavaCompiler javaCompiler = ToolProvider.getSystemJavaCompiler();
-//    static StandardJavaFileManager javaFileManager = javaCompiler.getStandardFileManager(null, null, null);
-//    private static ExecutorService executor = Executors.newCachedThreadPool();
-//    private static Set<String> compiling = new ConcurrentHashSet<>();
-//    private static Map<String, SimpleClassFile> byteCodeCache = new HashMap<>();
-
-    private static volatile int inCompiling = 0;
+    public static ReentrantLock lock = new ReentrantLock();
     private static int threadCount = 4;
     private static BlockingQueue<MemoryJavaFileObject> queue = new LinkedBlockingQueue();
+    private static String tempDir = System.getProperty("java.io.tmpdir");
+    public static Map<String, byte[]> codeCache = new ConcurrentHashMap<>();
+    private static Map<String,Condition> classCondition = new WeakHashMap<>();
 
     static {
         ExecutorService executor = Executors.newFixedThreadPool(threadCount);
@@ -36,15 +36,32 @@ public class Compiler {
                 while (true) {
                     try {
                         MemoryJavaFileObject item = queue.take();
-                        inCompiling++;
+                        Map<String, ByteArrayOutputStream> oss = compileWithEcj(item);
+                        lock.lock();
+                        try {
+                            for (Map.Entry<String, ByteArrayOutputStream> entry : oss.entrySet()) {
+                                codeCache.put(entry.getKey(), entry.getValue().toByteArray());
+                                Condition condition = getClassCondition(entry.getKey());
+                                condition.signalAll();
+                            }
+                        } finally{
+                            lock.unlock();
+                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    } finally {
-                        inCompiling--;
                     }
                 }
             });
         }
+    }
+
+    public static Condition getClassCondition(String name){
+        Condition condition = classCondition.get(name);
+        if (condition == null) {
+            condition = lock.newCondition();
+            classCondition.put(name, condition);
+        }
+        return condition;
     }
 
 //    public static class SimpleClassFile {
@@ -83,68 +100,46 @@ public class Compiler {
 //            return scf.bytes;
 //        }
 //    }
+//
+//    public static void waitForAllCompiled() {
+//        try {
+//            while (inCompiling > 0) {
+//                TimeUnit.MILLISECONDS.sleep(16);
+//            }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    public static void waitForAllCompiled() {
-        try {
-            while (inCompiling > 0) {
-                TimeUnit.MILLISECONDS.sleep(16);
+    public static void compile(String className, String code){
+        String key = SecureUtil.md5(code);
+        lock.lock();
+        try{
+            byte[] byteCode = codeCache.get(key);
+            if (byteCode == null) {
+                queue.put(new MemoryJavaFileObject(className, code));
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } finally {
+            lock.unlock();
         }
     }
 
-    public static void compile(String className, File file) {
-//        compile(file, false);
-//        queue.add(new MemoryJavaFileObject(className, file));
-    }
 
-    public static void compile(String className, String code){
-        queue.add(new MemoryJavaFileObject(className, code));
-    }
-
-
-    public static void compile(File file, boolean force) {
-//        executor.submit(() -> {
+    public static void compile(String path) {
+        Async.execute(() -> {
 //            //只动态编译需要编译的文件
-//            String path = file.getAbsolutePath();
-//            String classPath = path.replace(config.source, "")
-//                    .replaceAll("\\\\|/", ".")
-//                    .substring(1);
-//            boolean flag = config.hotswap.stream()
-//                    .anyMatch(i -> classPath.startsWith(i));
-//            if (force) {
-//                flag = true;
-//            }
-//            if (!flag) {
-//                return;
-//            }
-//            //如果一个文件在被编译，那么不再做相同的事
-//            synchronized (compiling) {
-//                if (compiling.contains(path)) {
-//                    return;
-//                }
-//                compiling.add(path);
-//            }
-//            System.out.println(Thread.currentThread().getName() + ": reloading " + path);
-//            try {
-//                compileWithEcj(path);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            } finally {
-//                //编译完成后，直接放入缓存
-//                synchronized (byteCodeCache) {
-//                    try {
-//                        byteCodeCache.put(path, new SimpleClassFile(new File(path)));
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                synchronized (compiling) {
-//                    compiling.remove(path);
-//                }
-//            }
-//        });
+            String classPath = path
+                    .substring(1, path.length() - 5)
+                    .replace(config.source, "")
+                    .replaceAll("\\\\|/", ".");
+            boolean flag = config.hotswap.stream()
+                    .anyMatch(i -> classPath.startsWith(i));
+            if(flag){
+                compile(classPath, FileUtil.readUtf8String(path));
+            }
+        });
     }
 
 
@@ -164,22 +159,24 @@ public class Compiler {
 
 
     private static JavaCompiler javac = new EcjCompiler();
-    private static Writer compileWriter = new PrintWriter(System.out);
+//    private static Writer compileWriter = new PrintWriter(System.out);
 
-    public static void compileWithEcj(String path) {
-        compileWithEcj(path, null);
-    }
+//    public static byte[] compileWithEcj(String path) {
+//        return compileWithEcj(path, null);
+//    }
 
-    public static void compileWithEcj(String path, String target) {
-        Iterable it = Collections.singletonList(new MemoryJavaFileObject(FileUtil.mainName(path), FileUtil.readString(path, StandardCharsets.UTF_8)));
+    public static Map<String, ByteArrayOutputStream> compileWithEcj(MemoryJavaFileObject file) {
+        Iterable it = Collections.singletonList(file);
 //                 javaFileManager.getJavaFileObjects(path);
-
-        JavaFileManager fileManager = new MemoryFileManager();
+        StringWriter writer = StrUtil.getWriter();
+        MemoryFileManager fileManager = new MemoryFileManager();
 //        //创建编译任务
-        JavaCompiler.CompilationTask task = javac.getTask(compileWriter, fileManager, null, Arrays.asList("-noExit", "-parameters", "-nowarn", "-source", config.jdkVersion, "-d", target == null ? config.target : target), null, it);
-        task.call();
-
-        int d = 2;
+        JavaCompiler.CompilationTask task = javac.getTask(writer, fileManager, null, Arrays.asList("-noExit", "-parameters", "-nowarn", "-source", config.jdkVersion, "-d", tempDir), null, it);
+        boolean success = task.call();
+        if(!success){
+            System.out.println(writer.toString());
+        }
+        return fileManager.oss;
 //        Main.main(new String[]{"-noExit", "-parameters", "-nowarn", "-source", config.jdkVersion, "-d", config.target, file.getAbsolutePath()});
     }
 
@@ -191,8 +188,9 @@ public class Compiler {
                     switch (event.eventType()) {
                         case CREATE: /* file created */
                         case MODIFY: /* file modified */
-                            if (event.path().toString().endsWith(".java")) {
-                                compile(event.path().toFile());
+                            String path = event.path().toString();
+                            if (path.endsWith(".java")) {
+                                compile(path);
                             }
                             break;
                         case DELETE: /* file deleted */

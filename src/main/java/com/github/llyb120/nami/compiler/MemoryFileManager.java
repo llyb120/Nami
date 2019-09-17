@@ -4,7 +4,9 @@ import javax.tools.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 public class MemoryFileManager implements JavaFileManager {
@@ -14,7 +16,7 @@ public class MemoryFileManager implements JavaFileManager {
         fileManager = javaCompiler.getStandardFileManager(null, null, null);
     }
 
-    public OutputStream os = new ByteArrayOutputStream();
+    public Map<String,ByteArrayOutputStream> oss = new HashMap<>();//ByteArrayOutputStream();
 
     @Override
     public ClassLoader getClassLoader(Location location) {
@@ -53,10 +55,17 @@ public class MemoryFileManager implements JavaFileManager {
 
     @Override
     public JavaFileObject getJavaFileForOutput(Location location, String className, JavaFileObject.Kind kind, FileObject sibling) throws IOException {
+        String name = className.replaceAll("/", ".");
+        ByteArrayOutputStream os = oss.get(name);
+        if (os == null) {
+            os = new ByteArrayOutputStream();
+            oss.put(name, os);
+        }
+        ByteArrayOutputStream finalOs = os;
         return new MemoryJavaFileObject(className, ""){
             @Override
             public OutputStream openOutputStream() throws IOException {
-                return os;
+                return finalOs;
 //                return super.openOutputStream();
             }
         };

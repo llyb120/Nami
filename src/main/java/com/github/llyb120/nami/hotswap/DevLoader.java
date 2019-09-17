@@ -1,7 +1,5 @@
 package com.github.llyb120.nami.hotswap;
 
-import com.github.llyb120.nami.compiler.Compiler;
-
 import static com.github.llyb120.nami.core.Config.config;
 
 public class DevLoader extends AbstractLoader {
@@ -25,15 +23,17 @@ public class DevLoader extends AbstractLoader {
             return defaultClassLoader.loadClass(name);
         }
 
-        //读取已经编译的
-        Compiler.waitForAllCompiled();
-        try {
-            byte[] b = Compiler.readClass(name);
-            return defineClass(null, b, 0, b.length);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return super.findClass(name);
-        }
+        return loadCompiledClass(name);
+
+//        //读取已经编译的
+//        Compiler.waitForAllCompiled();
+//        try {
+//            byte[] b = null;//Compiler.readClass(name);
+//            return defineClass(null, b, 0, b.length);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return super.findClass(name);
+//        }
 
     }
 
