@@ -788,6 +788,9 @@ public abstract class Json<T> implements Serializable {
         //todo: 使用reflectasm
         if (source instanceof Map) {
             return (T) mapToBean((Map<Object, Object>) source, clz);
+        } else if(source.getClass().getName().startsWith("java.")){
+            //很明显不是bean的情况
+            return null;
         } else {
             return (T) beanToBean(source, clz);
         }

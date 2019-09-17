@@ -652,7 +652,11 @@ public class Request implements AutoCloseable{
      */
     public <T> T getParam(String name, Class<T> type) {
         try {
-            return (T) params.get(name, type);
+            Object value = params.get(name, type);
+            if(value != null && type.isAssignableFrom(value.getClass())){
+                return (T) value;
+            }
+            throw new RuntimeException();
         } catch (Exception e) {
             try {
                 return (T) params.to(type);
