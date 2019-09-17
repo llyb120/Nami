@@ -23,7 +23,6 @@ import static com.github.llyb120.nami.core.Config.config;
 public class Compiler {
 
     public static ReentrantLock lock = new ReentrantLock();
-    private static int threadCount = 4;
     private static BlockingQueue<MemoryJavaFileObject> queue = new LinkedBlockingQueue();
     private static String tempDir = System.getProperty("java.io.tmpdir");
     public static Map<String, byte[]> codeCache = new HashMap<>();
@@ -31,6 +30,7 @@ public class Compiler {
     private static Map<String,Condition> classCondition = new HashMap<>();
 
     static {
+        int threadCount = 8;
         ExecutorService executor = Executors.newFixedThreadPool(threadCount);
         for (int i = 0; i < threadCount; i++) {
             executor.execute(() -> {

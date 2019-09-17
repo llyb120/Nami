@@ -28,4 +28,8 @@ public class b {
     public MultipartFile t3(){
         return new MultipartFile("1.js", "classpath:1.js");
     }
+
+    public String t4(){
+        return "133";
+    }
 }
