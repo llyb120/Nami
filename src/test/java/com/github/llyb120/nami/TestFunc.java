@@ -18,10 +18,17 @@ public class TestFunc {
         Nami.dev();
         int a = eval("return 1");
         int b = eval("return 1");
+
         eval("System.out.println(123321)");
         System.out.println(a);
     }
 
+    public Object call(){
+        if(true){
+            return 1;
+        }
+        return null;
+    }
 
     @Test
     public void t2(){

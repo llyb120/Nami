@@ -44,11 +44,12 @@ public abstract class Function {
         StringBuilder sb = new StringBuilder();
         sb.append("public class ");
         sb.append(className);
-        sb.append("{ public Object call(){");
-        sb.append("try{ ");
+        sb.append("{ public Object call() throws Exception {");
+        sb.append("if(true){ ");
         sb.append(str);
         sb.append(";");
-        sb.append("}catch(Exception e){ throw e; } ");
+        sb.append("}");
+        sb.append("return null;");
         //func end
         sb.append("}");
         //class end
@@ -58,12 +59,10 @@ public abstract class Function {
 //        FileUtil.writeString(sb.toString(), file, "UTF-8");
 
         return () -> {
-//            return Async.submit(() -> {
             Class<?> clz = _loader.loadClass(className);
             Object ins = Json.newInstance(clz);
             MethodAccess ma = MethodAccess.get(clz);
             return ma.invoke(ins, "call");
-//            }).get();
         };
     }
 
