@@ -26,8 +26,9 @@ public class Compiler {
     private static int threadCount = 4;
     private static BlockingQueue<MemoryJavaFileObject> queue = new LinkedBlockingQueue();
     private static String tempDir = System.getProperty("java.io.tmpdir");
-    public static Map<String, byte[]> codeCache = new ConcurrentHashMap<>();
-    private static Map<String,Condition> classCondition = new WeakHashMap<>();
+    public static Map<String, byte[]> codeCache = new HashMap<>();
+    public static Map<String, Boolean> codeReloadCache = new HashMap<>();
+    private static Map<String,Condition> classCondition = new HashMap<>();
 
     static {
         ExecutorService executor = Executors.newFixedThreadPool(threadCount);
@@ -64,61 +65,11 @@ public class Compiler {
         return condition;
     }
 
-//    public static class SimpleClassFile {
-//        public byte[] bytes;
-//        public long lastModified;
-//
-//        public SimpleClassFile(File file) throws IOException {
-//            try (
-//                    FileInputStream fis = new FileInputStream(file);
-//            ) {
-//                byte[] bs = IoUtil.readBytes(fis);
-//                this.lastModified = file.lastModified();
-//                this.bytes = bs;
-//            }
-//        }
-//    }
-//    public static Main main = (new Main( errorWriter, errorWriter, false));
-//    public static byte[] readClass(String className) throws IOException {
-//        synchronized (byteCodeCache) {
-//            String realName = className.replaceAll("\\.", "/");
-//            File file = new File(config.target, realName + ".class");
-//            String path = file.getAbsolutePath();
-//            SimpleClassFile scf = byteCodeCache.get(path);
-//            if (scf == null) {
-//                scf = new SimpleClassFile(file);
-//                //没有的话 直接读取最新的文件
-//            } else {
-//                //比较最后修改时间，如果小于缓存则直接返回，大于则覆盖
-//                if (file.lastModified() <= scf.lastModified) {
-//                    return scf.bytes;
-//                } else {
-//                    scf = new SimpleClassFile(file);
-//                }
-//            }
-//            byteCodeCache.put(path, scf);
-//            return scf.bytes;
-//        }
-//    }
-//
-//    public static void waitForAllCompiled() {
-//        try {
-//            while (inCompiling > 0) {
-//                TimeUnit.MILLISECONDS.sleep(16);
-//            }
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     public static void compile(String className, String code){
-        String key = SecureUtil.md5(code);
         lock.lock();
         try{
-            byte[] byteCode = codeCache.get(key);
-            if (byteCode == null) {
-                queue.put(new MemoryJavaFileObject(className, code));
-            }
+            codeCache.remove(className);
+            queue.put(new MemoryJavaFileObject(className, code));
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -131,13 +82,15 @@ public class Compiler {
         Async.execute(() -> {
 //            //只动态编译需要编译的文件
             String classPath = path
-                    .substring(1, path.length() - 5)
+                    .substring(0, path.length() - 5)
                     .replace(config.source, "")
-                    .replaceAll("\\\\|/", ".");
+                    .replaceAll("\\\\|/", ".")
+                    .substring(1);
             boolean flag = config.hotswap.stream()
                     .anyMatch(i -> classPath.startsWith(i));
             if(flag){
                 compile(classPath, FileUtil.readUtf8String(path));
+                System.out.println(Thread.currentThread().getName() + " reloading " + path);
             }
         });
     }
@@ -202,7 +155,7 @@ public class Compiler {
                 // .logger(logger) // defaults to LoggerFactory.getLogger(DirectoryWatcher.class)
                 // .watchService(watchService) // defaults based on OS to either JVM WatchService or the JNA macOS WatchService
                 .build();
-        System.out.println("watching dir " + config.source + " to compile automaualy");
+        System.out.println("watching dir " + config.source + " to compile automatically");
         watcher.watchAsync();
     }
 

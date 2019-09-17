@@ -1,20 +1,17 @@
 package com.github.llyb120.nami.func;
 
-import cn.hutool.core.io.FileUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.esotericsoftware.reflectasm.MethodAccess;
 import com.github.llyb120.nami.compiler.Compiler;
-import com.github.llyb120.nami.core.Async;
-import com.github.llyb120.nami.hotswap.ProductLoader;
+import com.github.llyb120.nami.hotswap.AppClassLoader;
 import com.github.llyb120.nami.json.Json;
 
 import java.io.File;
 
-import static com.github.llyb120.nami.hotswap.AbstractLoader.sourceDir;
 
 public abstract class Function {
 
-    private static ClassLoader _loader = new ProductLoader();
+    private static ClassLoader _loader = new AppClassLoader();
 
     public static Object func(ReturnableFunction function) {
         try{
@@ -43,7 +40,7 @@ public abstract class Function {
     public static ReturnableFunction compile(String str){
         String key = SecureUtil.md5(str);
         String className = "NamiFunc" + key;
-        File file = new File(sourceDir, className + ".java");
+//        File file = new File(sourceDir, className + ".java");
         StringBuilder sb = new StringBuilder();
         sb.append("public class ");
         sb.append(className);

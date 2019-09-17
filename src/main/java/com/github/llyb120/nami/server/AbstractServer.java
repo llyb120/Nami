@@ -3,9 +3,7 @@ package com.github.llyb120.nami.server;
 import com.github.llyb120.nami.core.AopInvoke;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.core.Param;
-import com.github.llyb120.nami.hotswap.AbstractLoader;
-import com.github.llyb120.nami.hotswap.DevLoader;
-import com.github.llyb120.nami.hotswap.ProductLoader;
+import com.github.llyb120.nami.hotswap.AppClassLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,10 +20,10 @@ import static com.github.llyb120.nami.server.Response.CRLF;
 public abstract class AbstractServer {
 
     private HashMap<Class, Object> clzInstances = new HashMap<>();
-    private ThreadLocal<ProductLoader> loaders = new ThreadLocal<ProductLoader>(){
+    private ThreadLocal<AppClassLoader> loaders = new ThreadLocal<AppClassLoader>(){
         @Override
-        protected ProductLoader initialValue() {
-            return new ProductLoader();
+        protected AppClassLoader initialValue() {
+            return new AppClassLoader();
         }
     };
 
@@ -87,9 +85,9 @@ public abstract class AbstractServer {
         }
         String[] aops = (String[]) route[3];
 
-        AbstractLoader loader = null;
+        AppClassLoader loader = null;
         if(config.dev){
-            loader = new DevLoader();
+            loader = new AppClassLoader();
         } else {
             loader = loaders.get();
         }
