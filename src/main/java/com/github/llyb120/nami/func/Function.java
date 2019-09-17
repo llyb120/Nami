@@ -42,11 +42,23 @@ public abstract class Function {
         String className = "NamiFunc" + key;
 //        File file = new File(sourceDir, className + ".java");
         StringBuilder sb = new StringBuilder();
+        StringBuilder codes = new StringBuilder();
+        String[] lines = str.split("\n");
+        for (String line : lines) {
+            if(line.trim().startsWith("import ")){
+                sb.append(line);
+                sb.append(";");
+                sb.append("\n");
+            } else {
+                codes.append(line);
+                codes.append("\n");
+            }
+        }
         sb.append("public class ");
         sb.append(className);
         sb.append("{ public Object call() throws Exception {");
         sb.append("if(true){ ");
-        sb.append(str);
+        sb.append(codes);
         sb.append(";");
         sb.append("}");
         sb.append("return null;");

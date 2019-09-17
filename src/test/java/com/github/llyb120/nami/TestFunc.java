@@ -1,6 +1,7 @@
 package com.github.llyb120.nami;
 
 import com.github.llyb120.nami.core.Nami;
+import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Obj;
 import org.junit.Test;
 
@@ -8,6 +9,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static com.github.llyb120.nami.func.Function.eval;
+import static com.github.llyb120.nami.json.Json.a;
 import static com.github.llyb120.nami.json.Json.o;
 
 
@@ -21,6 +23,16 @@ public class TestFunc {
 
         eval("System.out.println(123321)");
         System.out.println(a);
+    }
+
+    @Test
+    public void testWithImport() throws Exception {
+        Nami.dev();
+        Arr sb = a();
+        sb.add("import static com.github.llyb120.nami.json.Json.a");
+        sb.add("return a(1,2,3)");
+        Arr arr = eval(sb.join("\n"));
+        int d = 2;
     }
 
     public Object call(){
