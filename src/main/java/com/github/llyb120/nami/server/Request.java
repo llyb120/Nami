@@ -6,6 +6,7 @@ import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
+import sun.nio.ch.IOUtil;
 
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -13,10 +14,7 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static com.github.llyb120.nami.json.Json.o;
@@ -36,7 +34,7 @@ public class Request implements AutoCloseable {
 
 
     //以下解析用
-    private static BlockingQueue<Holder> taskList = new LinkedBlockingQueue<Holder>();
+    private LinkedBlockingQueue<ByteBuffer> taskList = new LinkedBlockingQueue<>();
     private AnalyzePhase phase = AnalyzePhase.DECODING_HEAD;
 
     private Buffer buffer = new Buffer();
@@ -44,24 +42,24 @@ public class Request implements AutoCloseable {
     private int currentBodyLength = 0;
     private FormDataTemp temp;
     private StringBuilder sb = new StringBuilder();
-    private ReentrantLock lock = new ReentrantLock();
-
-    static {
-        int threadCount = 16;
-        for (int i = 0; i < threadCount; i++) {
-            Async.execute(() -> {
-                while (true) {
-                    Holder holder = null;
-                    try {
-                        holder = taskList.take();
-                        holder.request.analyze(holder.byteBuffer);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-    }
+    private CountDownLatch cl = new CountDownLatch(1);
+//    private ReentrantLock lock = new ReentrantLock();
+//    static {
+//        int threadCount = 16;
+//        for (int i = 0; i < threadCount; i++) {
+//            Async.execute(() -> {
+//                while (true) {
+//                    Holder holder = null;
+//                    try {
+//                        holder = taskList.take();
+//                        holder.request.analyze(holder.byteBuffer);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//        }
+//    }
 
     @Override
     public void close() throws Exception {
@@ -287,26 +285,32 @@ public class Request implements AutoCloseable {
         return !headerDecoded || currentBodyLength < getContentLength();
     }
 
-    void analyze(ByteBuffer byteBuffer) {
-        byteBuffer.flip();
-        lock.lock();
-        try {
-            int len = byteBuffer.limit();
+    void analyze() {
+        wait_for_analyze: while (true) {
+            ByteBuffer byteBuffer = null;
+            try {
+                byteBuffer = taskList.poll(5, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (byteBuffer == null) {
+                break wait_for_analyze;
+            }
+            int len = byteBuffer.position();
+            byteBuffer.flip();
             int i = 0;
             if (phase == AnalyzePhase.DECODING_HEAD) {
                 for (; i < len; i++) {
                     byte b = byteBuffer.get();
                     if (b == '\n' && sb.length() > 0 && sb.charAt(sb.length() - 1) == '\r') {
                         String line = sb.substring(0, sb.length() - 1);
-                        System.out.println(line);
-                        System.out.println("------------" + sb.toString());
-
                         sb.setLength(0);
                         if (line.isEmpty()) {
                             phase = AnalyzePhase.DECODING_BODY;
+                            i++;
                             //解析body的时候，不能再用stringbuilder
                             if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
-                                phase = AnalyzePhase.END;
+                                break wait_for_analyze;
                             }
                             break;
                         } else {
@@ -315,7 +319,6 @@ public class Request implements AutoCloseable {
                         }
                     }
                     sb.append((char) b);
-
                 }
             }
             if (phase == AnalyzePhase.DECODING_BODY) {
@@ -324,21 +327,37 @@ public class Request implements AutoCloseable {
 
                 }
             }
-        } finally {
-            lock.unlock();
         }
 
+        phase = AnalyzePhase.END;
+        cl.countDown();
+//        IoUtil.close(channel);
     }
 
-    void decode() throws Exception {
+    void read(){
         int size = 10;
-        while (phase != AnalyzePhase.END) {
-            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(size);
-            int n = channel.read(byteBuffer);
-            if (n < 1) {
-                break;
+        try {
+            while (true) {
+                ByteBuffer byteBuffer = ByteBuffer.allocateDirect(size);
+                int n = channel.read(byteBuffer);
+                if (n < 1) {
+                    break;
+                }
+                taskList.put(byteBuffer);
             }
-            taskList.put(new Holder(this, byteBuffer));
+        } catch (IOException e) {
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void decode() {
+        Async.execute(this::analyze);
+        Async.execute(this::read);
+        try {
+            cl.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         System.out.println("read end");
 //        while (hasRemaining()) {
