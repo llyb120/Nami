@@ -6,43 +6,13 @@ import com.github.llyb120.nami.func.ReturnableFunction;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ThreadFactory;
 
 public class Async {
-    private static ExecutorService executor = Executors.newFixedThreadPool(8);
-    private static ExecutorService cacheExecutor = Executors.newCachedThreadPool();
+    private static ExecutorService globalExecutor = Executors.newFixedThreadPool(1024);
 
-    public static Future submit(NoReturnFunction task){
-        return executor.submit(() -> {
-            try {
-                task.call();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    public static Future submit(ReturnableFunction function) {
-        return executor.submit(() -> function.call());
-    }
-
-    public static Future submitCache(NoReturnFunction task){
-        return cacheExecutor.submit(() -> {
-            try {
-                task.call();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    public static Future execute(NoReturnFunction task){
-        return cacheExecutor.submit(() -> {
-            try {
-                task.call();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+    public static void execute(Runnable r){
+        globalExecutor.execute(r);
     }
 
     public static void exitWhenError(NoReturnFunction task){
@@ -56,8 +26,5 @@ public class Async {
         }).start();
     }
 
-//    public interface Task{
-//        void call() throws Exception;
-//    }
 
 }

@@ -14,7 +14,7 @@ public class Chakra {
     public static void start(){
         //判断是否可以加载chakracore
         //必须异步启动
-        Async.submit(() -> {
+        Async.execute(() -> {
 //            System.loadLibrary("chakracore");
             System.loadLibrary("node");
 //            System.load("D:\\work\\easyshop\\easy-shop\\node.dll");

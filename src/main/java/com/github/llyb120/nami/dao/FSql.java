@@ -45,7 +45,7 @@ public class FSql {
         if(db.url.startsWith("jdbc:db2:")){
             driver = new DB2Driver(this);
         }
-        future = Async.execute(() -> initDataSource());
+//        future = Async.execute(() -> initDataSource());
 //        if(config.dev){
 ////            initAllTableName();
 //            future = Async.execute(() -> initDataSource());

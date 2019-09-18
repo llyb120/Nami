@@ -108,7 +108,7 @@ public class ChakraCore {
 
     public void start(boolean async) {
         if (async) {
-            Async.submit(() -> {
+            Async.execute(() -> {
                 start();
             });
         } else {

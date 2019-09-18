@@ -23,32 +23,32 @@ public class DevServer extends AbstractServer{
         Async.execute(() -> loop(server));
     }
 
-    private void loop(ServerSocket server) throws IOException {
+    private void loop(ServerSocket server) {
         while (true) {
-            Socket socket = server.accept();
-            //当有新的客户端接入时，会执行下面的代码
-            //然后创建一个新的线程处理这条Socket链路
-            Async.submitCache(() -> {
-                handle(socket);
-            });
+            Socket socket = null;
+            try {
+                socket = server.accept();
+                Socket finalSocket = socket;
+                Async.execute(() -> {
+                    handle(finalSocket);
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     private void handle(Socket _socket) {
-        InputStream is = null;
-        OutputStream os = null;
         try (
                 Response resp = new Response();
                 ){
-            is = _socket.getInputStream();
-            os = _socket.getOutputStream();
 //            req.is = is;
-            resp.request.setInputstream(is);
+            resp.setInputStream(_socket.getInputStream());
+            resp.setOutputStream(_socket.getOutputStream());
 //            var bs = new byte[1024];
 //            is.read(bs);
 //            var str = new String(bs);
             resp.request.decode();
-            resp.setOutputStream(os);
 //            resp.os = os;
             handle(resp);
         } catch (Exception e) {
@@ -56,13 +56,6 @@ public class DevServer extends AbstractServer{
                 e.printStackTrace();
             }
         } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
             if (_socket != null) {
                 try {
                     _socket.close();

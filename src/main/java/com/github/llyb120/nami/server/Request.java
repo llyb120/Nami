@@ -2,6 +2,7 @@ package com.github.llyb120.nami.server;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.URLUtil;
+import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
@@ -12,27 +13,53 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import static com.github.llyb120.nami.json.Json.o;
 import static com.github.llyb120.nami.server.Response.CRLF;
 
-public class Request implements AutoCloseable{
+public class Request implements AutoCloseable {
     public Obj headers = o();
     public Obj query = o();
     public Obj params = o();
     public Method method = null;
     public String path;
     public String version;
-//    public InputStream is;
+    //    public InputStream is;
     public ReadableByteChannel channel;
     public Json body;
     public Cookie cookie = new Cookie();
 
 
+    //以下解析用
+    private static BlockingQueue<Holder> taskList = new LinkedBlockingQueue<Holder>();
+    private AnalyzePhase phase = AnalyzePhase.DECODING_HEAD;
+
     private Buffer buffer = new Buffer();
     public boolean headerDecoded = false;
     private int currentBodyLength = 0;
     private FormDataTemp temp;
+    private StringBuilder sb = new StringBuilder();
+
+    static {
+        int threadCount = 16;
+        for (int i = 0; i < threadCount; i++) {
+            Async.execute(() -> {
+                while (true) {
+                    Holder holder = null;
+                    try {
+                        holder = taskList.take();
+                        holder.request.analyze(holder.byteBuffer);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    }
 
     @Override
     public void close() throws Exception {
@@ -50,6 +77,12 @@ public class Request implements AutoCloseable{
         DELETE
     }
 
+    enum AnalyzePhase {
+        DECODING_HEAD,
+        DECODING_BODY,
+        END;
+    }
+
     enum FormDataStep {
         //等待读出头
         WAIT_FOR_START,
@@ -57,6 +90,16 @@ public class Request implements AutoCloseable{
         WAIT_FOR_END,
         WAIT_FOR_READ_VALUE,
         ;
+    }
+
+    static class Holder {
+        public Request request;
+        public ByteBuffer byteBuffer;
+
+        public Holder(Request request, ByteBuffer byteBuffer) {
+            this.request = request;
+            this.byteBuffer = byteBuffer;
+        }
     }
 
     static class FormDataTemp {
@@ -83,7 +126,7 @@ public class Request implements AutoCloseable{
         }
     }
 
-    public void setInputstream(InputStream is) {
+    protected void setInputstream(InputStream is) {
         channel = Channels.newChannel(is);
     }
 
@@ -159,14 +202,16 @@ public class Request implements AutoCloseable{
     public void decodeOnce() throws IOException {
         decodeOnce(null, true);
     }
+
     public void decodeOnce(ByteBuffer byteBuffer) throws IOException {
         decodeOnce(byteBuffer, true);
     }
+
     public void decodeOnce(ByteBuffer byteBuffer, boolean direct) throws IOException {
         if (byteBuffer != null) {
 //            byteBuffer.flip();
             currentBodyLength += byteBuffer.remaining();
-            if(direct){
+            if (direct) {
                 buffer.writeNio(byteBuffer);
             } else {
                 buffer.write(byteBuffer);
@@ -229,32 +274,75 @@ public class Request implements AutoCloseable{
 //        $request.reset();
 
         params.putAll(query);
-        if(null != body){
-            if(body instanceof Map){
+        if (null != body) {
+            if (body instanceof Map) {
                 params.putAll((Map<? extends String, ?>) body);
             }
         }
     }
 
-    public boolean hasRemaining(){
+    public boolean hasRemaining() {
         return !headerDecoded || currentBodyLength < getContentLength();
     }
 
-    public void decode() throws Exception {
-        int size = 4096;
-        while (hasRemaining()) {
+    void analyze(ByteBuffer byteBuffer) throws InterruptedException {
+        byteBuffer.flip();
+        int len = byteBuffer.limit();
+        int i = 0;
+        if (phase == AnalyzePhase.DECODING_HEAD) {
+            for (; i < len; i++) {
+                byte b = byteBuffer.get();
+                if (b == '\n' && sb.length() > 0 && sb.charAt(sb.length() - 1) == '\r') {
+                    String line = sb.substring(0, sb.length() - 1);
+                    sb.setLength(0);
+                    if (line.isEmpty()) {
+                        phase = AnalyzePhase.DECODING_BODY;
+                        //解析body的时候，不能再用stringbuilder
+                        if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
+                            phase = AnalyzePhase.END;
+                        }
+                        break;
+                    } else {
+                        decodeHeader(line);
+                        continue;
+                    }
+                }
+                sb.append((char) b);
+            }
+        }
+        if(phase == AnalyzePhase.DECODING_BODY){
+            //解析剩余的
+            for (; i < len; i++) {
+
+            }
+        }
+
+    }
+
+    void decode() throws Exception {
+        int size = 10;
+        while (phase != AnalyzePhase.END) {
             ByteBuffer byteBuffer = ByteBuffer.allocateDirect(size);
-//            byteBuffer.reset();
             int n = channel.read(byteBuffer);
             if (n < 1) {
                 break;
             }
-            byteBuffer.flip();
-            decodeOnce(byteBuffer);
+            taskList.put(new Holder(this, byteBuffer));
         }
+        System.out.println("read end");
+//        while (hasRemaining()) {
+//            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(size);
+////            byteBuffer.reset();
+//            int n = channel.read(byteBuffer);
+//            if (n < 1) {
+//                break;
+//            }
+//            byteBuffer.flip();
+//            decodeOnce(byteBuffer);
+//        }
 
 
-        decodeEnd();
+//        decodeEnd();
 
         //解析body
 //        if (method != Method.POST) {
@@ -492,18 +580,18 @@ public class Request implements AutoCloseable{
         currentBodyLength += buffer.length();
         String str = new String(buffer.readBytes(), StandardCharsets.UTF_8);
         body = o();
-        decodeQuery(str, (Obj)body);
+        decodeQuery(str, (Obj) body);
     }
 
-    private void smartDecodeBody(){
+    private void smartDecodeBody() {
         currentBodyLength += buffer.length();
         byte[] bytes = buffer.readBytes();
-        if(bytes.length > 0){
-            if((bytes[0] == '{' && bytes[bytes.length - 1] == '}') || (bytes[0] == '[' && bytes[bytes.length - 1] == ']')){
+        if (bytes.length > 0) {
+            if ((bytes[0] == '{' && bytes[bytes.length - 1] == '}') || (bytes[0] == '[' && bytes[bytes.length - 1] == ']')) {
                 body = Json.parse(bytes);
             } else {
                 body = o();
-                decodeQuery(new String(bytes, StandardCharsets.UTF_8), (Obj)body);
+                decodeQuery(new String(bytes, StandardCharsets.UTF_8), (Obj) body);
             }
         }
 //        String str = new String(buffer.readBytes(), StandardCharsets.UTF_8);
@@ -542,7 +630,7 @@ public class Request implements AutoCloseable{
                 value = line.substring(comma + 1);
             }
             headers.put(key, value);
-            if(key.equalsIgnoreCase("Cookie")){
+            if (key.equalsIgnoreCase("Cookie")) {
                 decodeCookies(value);
             }
         }
@@ -568,15 +656,15 @@ public class Request implements AutoCloseable{
      * cookie解析器
      */
     private void decodeCookies(String value) {
-        if(value.length() == 0){
+        if (value.length() == 0) {
             return;
         }
         value = URLUtil.decode(value);
         String[] Json = value.split("; ");
         for (String s : Json) {
             int i = s.indexOf("=");
-            if(i > -1){
-                cookie.set(s.substring(0, i), s.substring(i+1), false);
+            if (i > -1) {
+                cookie.set(s.substring(0, i), s.substring(i + 1), false);
             }
         }
 
@@ -642,7 +730,6 @@ public class Request implements AutoCloseable{
 //    }
 
 
-
     /**
      * 无脑取值
      *
@@ -653,7 +740,7 @@ public class Request implements AutoCloseable{
     public <T> T getParam(String name, Class<T> type) {
         try {
             Object value = params.get(name, type);
-            if(value != null && type.isAssignableFrom(value.getClass())){
+            if (value != null && type.isAssignableFrom(value.getClass())) {
                 return (T) value;
             }
             throw new RuntimeException();

@@ -8,6 +8,7 @@ import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
@@ -33,17 +34,22 @@ public class Response implements AutoCloseable{
 //    private LinkedList<ByteBuffer> buffers = new LinkedList<>();
 //    private boolean writing = false;
 
-    public Response setOutputStream(OutputStream os){
+    Response setOutputStream(OutputStream os){
         channel = Channels.newChannel(os);
         return this;
     }
 
-    public Response setAsyncChannel(AsynchronousSocketChannel channel){
+    Response setInputStream(InputStream is){
+        request.setInputstream(is);
+        return this;
+    }
+
+    Response setAsyncChannel(AsynchronousSocketChannel channel){
         aChannel = channel;
         return this;
     }
 
-    public Response flush() throws IOException, ExecutionException, InterruptedException {
+    Response flush() throws IOException, ExecutionException, InterruptedException {
         if(aChannel != null){
             writeToAsyncChannel();
         } else if(channel != null){

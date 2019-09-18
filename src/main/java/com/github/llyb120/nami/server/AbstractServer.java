@@ -42,6 +42,10 @@ public abstract class AbstractServer {
 
     public void handle(Response resp) throws Exception {
         Request req = resp.request;
+        if(req.method == null){
+            return;
+        }
+
         if(req.method.equals(Request.Method.OPTIONS)){
             handleOptions(resp);
             return;

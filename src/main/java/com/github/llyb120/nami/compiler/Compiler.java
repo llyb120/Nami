@@ -30,24 +30,13 @@ public class Compiler {
     private static Map<String,Condition> classCondition = new HashMap<>();
 
     static {
-        int threadCount = 8;
-        ExecutorService executor = Executors.newFixedThreadPool(threadCount);
+        int threadCount = 16;
         for (int i = 0; i < threadCount; i++) {
-            executor.execute(() -> {
+            Async.execute(() -> {
                 while (true) {
                     try {
                         MemoryJavaFileObject item = queue.take();
-                        Map<String, ByteArrayOutputStream> oss = compileWithEcj(item);
-                        lock.lock();
-                        try {
-                            for (Map.Entry<String, ByteArrayOutputStream> entry : oss.entrySet()) {
-                                codeCache.put(entry.getKey(), entry.getValue().toByteArray());
-                                Condition condition = getClassCondition(entry.getKey());
-                                condition.signalAll();
-                            }
-                        } finally{
-                            lock.unlock();
-                        }
+                        compileWorker(item);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -65,6 +54,20 @@ public class Compiler {
         return condition;
     }
 
+    private static void compileWorker(MemoryJavaFileObject item){
+        Map<String, ByteArrayOutputStream> oss = compileWithEcj(item);
+        lock.lock();
+        try {
+            for (Map.Entry<String, ByteArrayOutputStream> entry : oss.entrySet()) {
+                codeCache.put(entry.getKey(), entry.getValue().toByteArray());
+                Condition condition = getClassCondition(entry.getKey());
+                condition.signalAll();
+            }
+        } finally{
+            lock.unlock();
+        }
+    }
+
     public static void compile(String className, String code){
         lock.lock();
         try{
@@ -76,7 +79,6 @@ public class Compiler {
             lock.unlock();
         }
     }
-
 
     public static void compile(String path) {
         Async.execute(() -> {
