@@ -10,6 +10,7 @@ import sun.nio.ch.IOUtil;
 
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.nio.channels.Channel;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
@@ -28,13 +29,13 @@ public class Request implements AutoCloseable {
     public String path;
     public String version;
     //    public InputStream is;
-    public ReadableByteChannel channel;
+    public Channel channel;
     public Json body;
     public Cookie cookie = new Cookie();
 
 
     //以下解析用
-    private LinkedBlockingQueue<ByteBuffer> taskList = new LinkedBlockingQueue<>();
+//    private LinkedBlockingQueue<ByteBuffer> taskList = new LinkedBlockingQueue<>();
     private AnalyzePhase phase = AnalyzePhase.DECODING_HEAD;
 
     private Buffer buffer = new Buffer();
@@ -42,8 +43,6 @@ public class Request implements AutoCloseable {
     private int currentBodyLength = 0;
     private FormDataTemp temp;
     private StringBuilder sb = new StringBuilder();
-    private CountDownLatch cl = new CountDownLatch(1);
-//    private ReentrantLock lock = new ReentrantLock();
 //    static {
 //        int threadCount = 16;
 //        for (int i = 0; i < threadCount; i++) {
@@ -126,9 +125,9 @@ public class Request implements AutoCloseable {
         }
     }
 
-    protected void setInputstream(InputStream is) {
-        channel = Channels.newChannel(is);
-    }
+//    protected void setInputstream(InputStream is) {
+//        channel = Channels.newChannel(is);
+//    }
 
     private Json decodeQuery(String query, Obj ret) {
         String qs = query + "&";
@@ -285,81 +284,80 @@ public class Request implements AutoCloseable {
         return !headerDecoded || currentBodyLength < getContentLength();
     }
 
-    void analyze() {
-        wait_for_analyze: while (true) {
-            ByteBuffer byteBuffer = null;
-            try {
-                byteBuffer = taskList.poll(5, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if (byteBuffer == null) {
-                break wait_for_analyze;
-            }
-            int len = byteBuffer.position();
-            byteBuffer.flip();
-            int i = 0;
-            if (phase == AnalyzePhase.DECODING_HEAD) {
-                for (; i < len; i++) {
-                    byte b = byteBuffer.get();
-                    if (b == '\n' && sb.length() > 0 && sb.charAt(sb.length() - 1) == '\r') {
-                        String line = sb.substring(0, sb.length() - 1);
-                        sb.setLength(0);
-                        if (line.isEmpty()) {
-                            phase = AnalyzePhase.DECODING_BODY;
-                            i++;
-                            //解析body的时候，不能再用stringbuilder
-                            if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
-                                break wait_for_analyze;
-                            }
-                            break;
-                        } else {
-                            decodeHeader(line);
-                            continue;
-                        }
-                    }
-                    sb.append((char) b);
-                }
-            }
-            if (phase == AnalyzePhase.DECODING_BODY) {
-                //解析剩余的
-                for (; i < len; i++) {
-
-                }
-            }
-        }
-
+    public void analyzeEnd() {
         phase = AnalyzePhase.END;
-        cl.countDown();
-//        IoUtil.close(channel);
-    }
 
-    void read(){
-        int size = 10;
-        try {
-            while (true) {
-                ByteBuffer byteBuffer = ByteBuffer.allocateDirect(size);
-                int n = channel.read(byteBuffer);
-                if (n < 1) {
-                    break;
-                }
-                taskList.put(byteBuffer);
+        if (null != body) {
+            if (body instanceof Map) {
+                params.putAll((Map<? extends String, ?>) body);
             }
-        } catch (IOException e) {
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
-    void decode() {
-        Async.execute(this::analyze);
-        Async.execute(this::read);
-        try {
-            cl.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    /**
+     * @param byteBuffer 应处于读模式的bytebuffer
+     * @return 是否已经解析完毕, true表示不需要再解析
+     * @throws InterruptedException
+     */
+    public boolean analyze(ByteBuffer byteBuffer) throws InterruptedException {
+        if (phase == AnalyzePhase.END) {
+            return true;
         }
-        System.out.println("read end");
+        if (phase == AnalyzePhase.DECODING_HEAD) {
+            while (byteBuffer.hasRemaining()) {
+                byte b = byteBuffer.get();
+                if (b == '\n' && sb.length() > 0 && sb.charAt(sb.length() - 1) == '\r') {
+                    String line = sb.substring(0, sb.length() - 1);
+                    sb.setLength(0);
+                    if (line.isEmpty()) {
+                        phase = AnalyzePhase.DECODING_BODY;
+                        params.putAll(query);
+                        //解析body的时候，不能再用stringbuilder
+                        if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
+                            return true;
+                        }
+                        break;
+                    } else {
+                        decodeHeader(line);
+                        continue;
+                    }
+                }
+                sb.append((char) b);
+            }
+        }
+        if (phase == AnalyzePhase.DECODING_BODY) {
+            //解析剩余的
+            String ctype = getContentType();
+            int clen = getContentLength();
+            if (ctype.contains("multipart/form-data")) {
+
+            } else if (sb.length() < getContentLength()) {
+                while (byteBuffer.hasRemaining()) {
+                    sb.append((char) byteBuffer.get());
+                }
+                if (sb.length() >= clen) {
+                    String str = sb.toString();
+                    if ((str.startsWith("{") && str.endsWith("}")) || (str.startsWith("[") && str.endsWith("]"))) {
+                        body = Json.parse(str);
+                    } else {
+                        body = o();
+                        decodeQuery(str, (Obj) body);
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
+//        }
+//        phase = AnalyzePhase.END;
+    }
+
+
+//    void decode() throws InterruptedException {
+//        analyze();
+    //结束
+//        phase = AnalyzePhase.END;
+//        System.out.println("read end");
 //        while (hasRemaining()) {
 //            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(size);
 ////            byteBuffer.reset();
@@ -374,7 +372,7 @@ public class Request implements AutoCloseable {
 
 //        decodeEnd();
 
-        //解析body
+    //解析body
 //        if (method != Method.POST) {
 //            return;
 //        }
@@ -392,7 +390,7 @@ public class Request implements AutoCloseable {
 //        if (body instanceof Map) {
 //            params.concat((Map) body);
 //        }
-    }
+//    }
 
     private String[] getFormDataKV(String str) {
         int eq = str.indexOf("=");

@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
+import java.nio.channels.Channel;
 import java.nio.channels.ReadableByteChannel;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,8 +28,9 @@ public abstract class AbstractServer {
         }
     };
 
-    public abstract void start(int port) throws Exception;
+    public static final Object EOF = new Object();
 
+    public abstract void start(int port) throws Exception;
 
     public void handleOptions(Response resp) throws Exception {
         //如果是options
@@ -130,7 +132,7 @@ public abstract class AbstractServer {
             resp.setHeader("Content-Type", "application/json; charset=utf-8");
             //close
             resp.writeObject(result);
-            resp.flush();
+            resp.close();
         }
 
     }
@@ -189,7 +191,7 @@ public abstract class AbstractServer {
         if(length > -1){
             if(directDownloadLength() >= length){
                 response.writeHeaders((int) length);
-                response.write(multipartFile).flush();
+                response.flush().write(multipartFile).close();
 //                multipartFile.transferTo(response.channel);
             } else {
                 response.setChunked(true);
@@ -215,14 +217,14 @@ public abstract class AbstractServer {
                     response.write((byte) '0')
                         .write(CRLF)
                         .write(CRLF)
-                        .flush();
+                        .close();
                 }
             }
         }
     }
 
 
-    protected int directDownloadLength(){
+    public int directDownloadLength(){
         return 4096;
     }
 }

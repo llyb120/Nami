@@ -5,10 +5,7 @@ import cn.hutool.core.io.resource.ClassPathResource;
 
 import java.io.*;
 import java.nio.ByteBuffer;
-import java.nio.channels.AsynchronousSocketChannel;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
-import java.nio.channels.WritableByteChannel;
+import java.nio.channels.*;
 import java.util.concurrent.ExecutionException;
 
 public class MultipartFile implements AutoCloseable{
@@ -102,22 +99,28 @@ public class MultipartFile implements AutoCloseable{
 //        return fileUpload.getContentType();
 //    }
 
-    public void transferTo(AsynchronousSocketChannel channel) throws IOException, ExecutionException, InterruptedException {
-        try(
-                InputStream fis = openInputStream();
-        ){
-            byte[] bs = IoUtil.readBytes(fis);
-            channel.write(ByteBuffer.wrap(bs)).get();
-        }
-    }
+//    public void transferTo(Channel channel){
+//        if(channel instanceof WritableByteChannel){
+//
+//        }
+//    }
 
-    public void transferTo(WritableByteChannel channel) throws IOException {
-        try(
-            ReadableByteChannel ch = openChannel();
-                ){
-            IoUtil.copy(ch, channel);
-        }
-    }
+//    public void transferTo(AsynchronousSocketChannel channel) throws IOException, ExecutionException, InterruptedException {
+//        try(
+//                InputStream fis = openInputStream();
+//        ){
+//            byte[] bs = IoUtil.readBytes(fis);
+//            channel.write(ByteBuffer.wrap(bs)).get();
+//        }
+//    }
+//
+//    public void transferTo(WritableByteChannel channel) throws IOException {
+//        try(
+//            ReadableByteChannel ch = openChannel();
+//                ){
+//            IoUtil.copy(ch, channel);
+//        }
+//    }
 
     public void transferTo(OutputStream os) throws IOException {
         try(

@@ -4,121 +4,75 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.github.llyb120.nami.core.MultipartFile;
+import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.nio.channels.AsynchronousSocketChannel;
-import java.nio.channels.Channels;
-import java.nio.channels.WritableByteChannel;
+import java.nio.channels.*;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 
 import static com.github.llyb120.nami.core.Config.config;
+import static com.github.llyb120.nami.json.Json.aaa;
 import static com.github.llyb120.nami.json.Json.o;
 
-public class Response implements AutoCloseable{
+public abstract class Response implements AutoCloseable{
     public int status;
     public Request request = new Request();
     public Obj headers = o();
-    public WritableByteChannel channel;
-    public AsynchronousSocketChannel aChannel;
-    public static byte[] CRLF = "\r\n".getBytes();
+//    public WritableByteChannel channel;
+//    public AsynchronousSocketChannel aChannel;
+    public Channel channel;
+    public static final byte[] CRLF = "\r\n".getBytes();
 
     private Buffer buffer = new Buffer();
-//    private LinkedList<ByteBuffer> buffers = new LinkedList<>();
-//    private boolean writing = false;
+    private boolean closed = false;
+    public static final Object EOF = new Object();
+    public AbstractServer server ;
 
-    Response setOutputStream(OutputStream os){
-        channel = Channels.newChannel(os);
-        return this;
+    public Response(AbstractServer server){
+        this.server = server;
     }
 
-    Response setInputStream(InputStream is){
-        request.setInputstream(is);
-        return this;
-    }
 
-    Response setAsyncChannel(AsynchronousSocketChannel channel){
-        aChannel = channel;
-        return this;
-    }
-
-    Response flush() throws IOException, ExecutionException, InterruptedException {
-        if(aChannel != null){
-            writeToAsyncChannel();
-        } else if(channel != null){
-            writeToChannel();
+    public Response flush() {
+        Arr bfs = aaa(buffer.getNioBuffers());
+        buffer.getNioBuffers().clear();
+        for (Object bf : bfs) {
+            flush(bf);
         }
         return this;
     }
 
-    public void close() throws InterruptedException, ExecutionException, IOException {
-        if(buffer.length() > 0){
-            flush();
+    protected abstract void flush(Object object);
+
+
+    public void close(){
+        flush();
+        flush(EOF);
+    }
+
+    public synchronized void _close() {
+        if(closed){
+            return;
         }
-        IoUtil.close(aChannel);
+        closed = true;
         IoUtil.close(channel);
         IoUtil.close(request);
     }
 
-    private void writeToChannel() throws IOException {
-        LinkedList<ByteBuffer> bfs = buffer.getNioBuffers();
-        for (ByteBuffer bf : bfs) {
-            channel.write(bf);
-        }
-        bfs.clear();
-    }
 
-    private void writeToAsyncChannel(){
-        LinkedList<ByteBuffer> bfs = buffer.getNioBuffers();
-        for (ByteBuffer bf : bfs) {
-            try {
-                aChannel.write(bf).get();
-            } catch (InterruptedException e) {
-                //e.printStackTrace();
-            } catch (ExecutionException e) {
-                //e.printStackTrace();
-            }
-        }
-        bfs.clear();
-
-//        buffers.addAll(bfs);
-//        bfs.reset();
-//        if(buffers.length() > 0){
-//            var bf = buffers.getFirst();
-//            if (bf != null) {
-//                buffers.removeFirst();
-//                aChannel.write(bf, bf, new CompletionHandler<Integer, ByteBuffer>() {
-//                    @Override
-//                    public void completed(Integer result, ByteBuffer attachment) {
-//                        synchronized (Response.this){
-//                            var bf = buffers.getFirst();
-//                            if (bf != null) {
-//                                buffers.removeFirst();
-//                                aChannel.write(bf, bf, this);
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void failed(Throwable exc, ByteBuffer attachment) {
-//                        try {
-//                            aChannel.close();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
-//            }
-//        }
-    }
-    
     public void writeHeaders(int bodyLen) throws IOException, ExecutionException, InterruptedException {
         enableCors();
         setKeepAlive(false);
@@ -140,15 +94,13 @@ public class Response implements AutoCloseable{
         buffer.writeNio(CRLF);
     }
 
-    public Response write(MultipartFile file) throws InterruptedException, ExecutionException, IOException {
-        flush();
-        if (aChannel != null) {
-            file.transferTo(aChannel);
-        }  else if (null != channel){
-            file.transferTo(channel);
-        }
-        return this;
-    }
+    public abstract Response write(MultipartFile file) throws IOException;
+
+//    {
+//        flush();
+////        file.transferTo(channel);
+//        return this;
+//    }
 
     /**
      * 写后立刻关闭！
