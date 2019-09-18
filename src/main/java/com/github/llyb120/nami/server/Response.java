@@ -57,21 +57,19 @@ public abstract class Response implements AutoCloseable{
 
     protected abstract void flush(Object object);
 
-
-    public void close(){
-        flush();
-        flush(EOF);
-    }
-
-    public synchronized void _close() {
+    public synchronized void close(){
         if(closed){
             return;
         }
+        flush();
         closed = true;
         IoUtil.close(channel);
         IoUtil.close(request);
     }
 
+    public void eof() {
+        flush(EOF);
+    }
 
     public void writeHeaders(int bodyLen) throws IOException, ExecutionException, InterruptedException {
         enableCors();

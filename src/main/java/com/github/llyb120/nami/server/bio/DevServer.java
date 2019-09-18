@@ -73,7 +73,7 @@ public class DevServer extends AbstractServer {
     }
 
     private void read(Response response, BlockingQueue<ByteBuffer> taskList){
-        int size = 10;
+        int size = 4096;
         try {
             while (true) {
                 ByteBuffer byteBuffer = ByteBuffer.allocateDirect(size);

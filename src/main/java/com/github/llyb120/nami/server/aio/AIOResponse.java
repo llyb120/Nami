@@ -43,6 +43,7 @@ public class AIOResponse extends Response {
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
+            close();
         }
     }
 

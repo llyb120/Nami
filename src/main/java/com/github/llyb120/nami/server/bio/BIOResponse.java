@@ -19,7 +19,7 @@ public class BIOResponse extends Response {
     @Override
     protected void flush(Object object) {
         if(object == EOF){
-            _close();
+            close();
             return;
         }
         try {

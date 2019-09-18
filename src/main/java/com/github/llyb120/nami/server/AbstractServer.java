@@ -132,7 +132,7 @@ public abstract class AbstractServer {
             resp.setHeader("Content-Type", "application/json; charset=utf-8");
             //close
             resp.writeObject(result);
-            resp.close();
+            resp.eof();
         }
 
     }
@@ -191,7 +191,7 @@ public abstract class AbstractServer {
         if(length > -1){
             if(directDownloadLength() >= length){
                 response.writeHeaders((int) length);
-                response.flush().write(multipartFile).close();
+                response.flush().write(multipartFile).eof();
 //                multipartFile.transferTo(response.channel);
             } else {
                 response.setChunked(true);
@@ -211,13 +211,12 @@ public abstract class AbstractServer {
                         response.write(Integer.toHexString(n).getBytes())
                                 .write(CRLF)
                                 .write((ByteBuffer)bs.flip())
-                                .write(CRLF)
-                                .flush();
+                                .write(CRLF);
                     }
                     response.write((byte) '0')
                         .write(CRLF)
                         .write(CRLF)
-                        .close();
+                        .eof();
                 }
             }
         }

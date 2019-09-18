@@ -16,21 +16,22 @@ public class WriteHandler implements CompletionHandler<Integer, ByteBuffer> {
 
     @Override
     public void completed(Integer result, ByteBuffer attachment) {
+        Object item = null;
         try {
-            Object item = response.buffers.poll(5, TimeUnit.SECONDS);
-            if (item == null || item == Response.EOF) {
-                response._close();
-                return;
-            }
-            response.channel.write((ByteBuffer) item, null, this);
+            item = response.buffers.poll(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        if (item == null || item == Response.EOF) {
+            response.close();
+            return;
+        }
+        response.channel.write((ByteBuffer) item, null, this);
     }
 
     @Override
     public void failed(Throwable exc, ByteBuffer attachment) {
         exc.printStackTrace();
-        response._close();
+        response.close();
     }
 }

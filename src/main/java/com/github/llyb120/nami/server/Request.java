@@ -299,7 +299,7 @@ public class Request implements AutoCloseable {
      * @return 是否已经解析完毕, true表示不需要再解析
      * @throws InterruptedException
      */
-    public boolean analyze(ByteBuffer byteBuffer) throws InterruptedException {
+    public boolean analyze(ByteBuffer byteBuffer) {
         if (phase == AnalyzePhase.END) {
             return true;
         }

@@ -17,21 +17,21 @@ public class ReadHandler implements CompletionHandler<Integer, ByteBuffer> {
 
     @Override
     public void completed(Integer result, ByteBuffer attachment) {
-        try {
             attachment.flip();
             boolean abort = response.request.analyze(attachment);
             if(abort){
                  response.request.analyzeEnd();
-                 response.server.handle(response);
+                try {
+                    response.server.handle(response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    response.close();
+                }
             } else {
                 attachment.flip();
                 response.channel.read(attachment, attachment, this);
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.close();
-        }
     }
 
     @Override
