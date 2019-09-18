@@ -17,6 +17,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static com.github.llyb120.nami.json.Json.o;
 import static com.github.llyb120.nami.server.Response.CRLF;
@@ -43,6 +44,7 @@ public class Request implements AutoCloseable {
     private int currentBodyLength = 0;
     private FormDataTemp temp;
     private StringBuilder sb = new StringBuilder();
+    private ReentrantLock lock = new ReentrantLock();
 
     static {
         int threadCount = 16;
@@ -285,36 +287,45 @@ public class Request implements AutoCloseable {
         return !headerDecoded || currentBodyLength < getContentLength();
     }
 
-    void analyze(ByteBuffer byteBuffer) throws InterruptedException {
+    void analyze(ByteBuffer byteBuffer) {
         byteBuffer.flip();
-        int len = byteBuffer.limit();
-        int i = 0;
-        if (phase == AnalyzePhase.DECODING_HEAD) {
-            for (; i < len; i++) {
-                byte b = byteBuffer.get();
-                if (b == '\n' && sb.length() > 0 && sb.charAt(sb.length() - 1) == '\r') {
-                    String line = sb.substring(0, sb.length() - 1);
-                    sb.setLength(0);
-                    if (line.isEmpty()) {
-                        phase = AnalyzePhase.DECODING_BODY;
-                        //解析body的时候，不能再用stringbuilder
-                        if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
-                            phase = AnalyzePhase.END;
-                        }
-                        break;
-                    } else {
-                        decodeHeader(line);
-                        continue;
-                    }
-                }
-                sb.append((char) b);
-            }
-        }
-        if(phase == AnalyzePhase.DECODING_BODY){
-            //解析剩余的
-            for (; i < len; i++) {
+        lock.lock();
+        try {
+            int len = byteBuffer.limit();
+            int i = 0;
+            if (phase == AnalyzePhase.DECODING_HEAD) {
+                for (; i < len; i++) {
+                    byte b = byteBuffer.get();
+                    if (b == '\n' && sb.length() > 0 && sb.charAt(sb.length() - 1) == '\r') {
+                        String line = sb.substring(0, sb.length() - 1);
+                        System.out.println(line);
+                        System.out.println("------------" + sb.toString());
 
+                        sb.setLength(0);
+                        if (line.isEmpty()) {
+                            phase = AnalyzePhase.DECODING_BODY;
+                            //解析body的时候，不能再用stringbuilder
+                            if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
+                                phase = AnalyzePhase.END;
+                            }
+                            break;
+                        } else {
+                            decodeHeader(line);
+                            continue;
+                        }
+                    }
+                    sb.append((char) b);
+
+                }
             }
+            if (phase == AnalyzePhase.DECODING_BODY) {
+                //解析剩余的
+                for (; i < len; i++) {
+
+                }
+            }
+        } finally {
+            lock.unlock();
         }
 
     }

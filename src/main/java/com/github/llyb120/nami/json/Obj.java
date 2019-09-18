@@ -5,6 +5,9 @@ import cn.hutool.core.util.StrUtil;
 import org.bson.Document;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 public class Obj extends Json implements Map<String,Object> {
 
@@ -17,7 +20,7 @@ public class Obj extends Json implements Map<String,Object> {
 //    }
 
     public Obj(){
-        map = new LinkedHashMap<>();
+        map = new ConcurrentHashMap();
     }
 
     public Obj(Map map){

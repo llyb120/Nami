@@ -101,6 +101,12 @@ public class TestJson {
         a.toString();
     }
 
+    @Test
+    public void testThreadSafe(){
+        Obj a = o("b", 1, "a", 2);;
+        a.forEach((k,v) -> System.out.println(k));
+    }
+
 
     @Test
     public void testtree(){
