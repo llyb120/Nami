@@ -220,50 +220,9 @@ public class Request implements AutoCloseable {
                 if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
                     return true;
                 }
-//                int d = 2;
             }
-//            while(true){
-//                int i = sb.indexOf(CRLF);
-//                if(i == -1){
-//                    break;
-//                }
-//                String line = sb.substring(0, i);
-//                sb.delete(0, i + CRLF.length());
-//                if (line.isEmpty()) {
-//                    phase = AnalyzePhase.DECODING_BODY;
-//                    params.putAll(query);
-//                    //解析body的时候，不能再用stringbuilder
-//                    if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
-//                        return true;
-//                    }
-//                    break;
-//                } else {
-//                    decodeHeader(line);
-//                }
-//            }
-//            for (byte b : bs) {
-//                if (b == '\n' && sb.length() > 0 && sb.charAt(sb.length() - 1) == '\r') {
-//                }
-//                sb.append((char) b);
-//                n++;
-//            }
         }
 
-//        if (phase != AnalyzePhase.DECODING_HEAD) {
-//            for (; n < bs.length; n++) {
-//                sb.append((char)bs[n]);
-//            }
-//            bs = new byte[byteBuffer.remaining()];
-//            byteBuffer.get(bs);
-//            sb.append(new String(bs));
-//            new String(b).split(CRLF);
-//            return true;
-//            byteBuffer.get(b);
-//            sb.append(b);
-//            while (byteBuffer.hasRemaining()) {
-//                sb.append((char) byteBuffer.get());
-//            }
-//        }
 
         if (phase == AnalyzePhase.DECODING_BODY) {
             //解析剩余的
