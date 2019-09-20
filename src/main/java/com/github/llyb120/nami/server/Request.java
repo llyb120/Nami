@@ -1,6 +1,7 @@
 package com.github.llyb120.nami.server;
 
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.URLUtil;
 import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.MultipartFile;
@@ -16,6 +17,7 @@ import java.nio.channels.Channel;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
@@ -43,9 +45,10 @@ public class Request implements AutoCloseable {
     private StringBuilder sb = new StringBuilder();
     private String formDataStart;
     private String formDataEnd;
-    private String formDataFilename;
-    private ByteArrayOutputStream fdos = null;
     private final String CRLF = "\r\n";
+    private String[] formDataKeys;
+    private OutputStream fdos;
+    private MultipartFile formDataFile;
 
 
     @Override
@@ -229,14 +232,15 @@ public class Request implements AutoCloseable {
             String ctype = getContentType();
             int clen = getContentLength();
             if (ctype.contains("multipart/form-data")) {
+                body = o();
                 phase = AnalyzePhase.DECODING_FORM_DATA;
-                fdos = new ByteArrayOutputStream();
+                formDataKeys = new String[]{"",""};
                 int idex = ctype.indexOf("boundary=");
                 if (idex == -1) {
                     return true;
                 }
                 String token = ctype.substring(idex + 9);
-                formDataStart = ("--" + token + "\n");
+                formDataStart = ("--" + token + CRLF);
                 formDataEnd = ("--" + token + "--");
             } else if (sb.length() >= clen) {
                 String str = sb.toString();
@@ -250,7 +254,7 @@ public class Request implements AutoCloseable {
             }
         }
 
-        if(phase.name().contains("FORM_DATA")) {
+        if(phase.ordinal() > 1) {
             while (true) {
                 //end
                 int startPos = sb.indexOf(formDataStart);
@@ -259,10 +263,12 @@ public class Request implements AutoCloseable {
                     sb.delete(0, formDataStart.length());
                     //切换为读属性
                     phase = AnalyzePhase.FORM_DATA_READ_PROPERTY;
+                    IoUtil.close(fdos);
                 }
                 int endPos = sb.indexOf(formDataEnd);
                 if (endPos == 0) {
                     sb.setLength(0);
+                    IoUtil.close(fdos);
                     phase = AnalyzePhase.END;
                     return true;
                 }
@@ -271,42 +277,50 @@ public class Request implements AutoCloseable {
                     if (i == -1) {
                         break;
                     }
+                    if(i == 0){
+                        sb.delete(0, i + CRLF.length());
+                        if (!formDataKeys[1].isEmpty()) {
+                            phase = AnalyzePhase.FORM_DATA_READ_FILE;
+                        } else {
+                            phase = AnalyzePhase.FORM_DATA_READ_VALUE;
+                        }
+                        continue;
+                    }
                     String line = sb.substring(0, i);
                     sb.delete(0, i + CRLF.length());
-                    if (line.contains("filename")) {
-                        formDataFilename = "fff";
-                    }
-                    phase = AnalyzePhase.FORM_DATA_READ_EMPTY;
-                }
-                if (phase == AnalyzePhase.FORM_DATA_READ_EMPTY) {
-                    int i = sb.indexOf(CRLF);
-                    if (i == -1) {
-                        break;
-                    }
-                    sb.delete(0, i + CRLF.length());
-                    if (formDataFilename != null) {
-                        phase = AnalyzePhase.FORM_DATA_READ_FILE;
-                    } else {
-                        phase = AnalyzePhase.FORM_DATA_READ_VALUE;
+                    getFormDataKeys(line, formDataKeys);
+                    if(!formDataKeys[0].isEmpty() && !formDataKeys[1].isEmpty()){
+                        try {
+                            File file = File.createTempFile("nami","nami");
+                            fdos = new FileOutputStream(file);
+                            formDataFile = new MultipartFile(formDataKeys[1], file);
+                            ((Obj)body).put(formDataKeys[0], formDataFile);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
+
                 if (phase == AnalyzePhase.FORM_DATA_READ_VALUE) {
                     int i = sb.indexOf(CRLF);
                     if (i == -1) {
                         break;
                     }
-                    String line = sb.substring(0, i);
+                    String value = sb.substring(0, i);
+                    if(!formDataKeys[0].isEmpty()){
+                        ((Obj)body).put(formDataKeys[0], value);
+                    }
                     sb.delete(0, i + CRLF.length());
                     phase = AnalyzePhase.FORM_DATA_READ_PROPERTY;
                 }
                 if (phase == AnalyzePhase.FORM_DATA_READ_FILE) {
                     int i;
                     if (startPos > 0 && endPos > 0) {
-                        i = Math.min(startPos, endPos);
+                        i = Math.min(startPos, endPos) - CRLF.length();
                     } else if(startPos > 0){
-                        i = startPos;
+                        i = startPos - CRLF.length();
                     } else if(endPos > 0){
-                        i = endPos;
+                        i = endPos - CRLF.length();
                     } else {
                         i = sb.length();
                     }
@@ -322,22 +336,66 @@ public class Request implements AutoCloseable {
                     }
                 }
                 //end
-
             }
         }
         return false;
     }
 
-
-    private String[] getFormDataKV(String str) {
-        int eq = str.indexOf("=");
-        String left = str.substring(0, eq);
-        String right = str.substring(eq + 1);
-        int first = right.indexOf("\"");
-        int last = right.lastIndexOf("\"");
-        String key = right.substring(first + 1, last);
-        return new String[]{left, key};
+    private void getFormDataKeys(String line, String[] formDataKeys){
+        if (!line.contains("=")) {
+            return;
+        }
+        formDataKeys[0] = formDataKeys[1] = "";
+        int len = line.length();
+        int i = 0;
+        int left = -1;
+        String key = "";
+        while(i < len){
+            char c = line.charAt(i);
+            if(CharUtil.isBlankChar(c) && key.isEmpty()) {
+                left = i + 1;
+            }
+            else if(c == '=' && left > -1){
+                key = line.substring(left, i);
+                left = -1;
+                //check next
+                int next = i + 1;
+                if(next < len){
+                    if(line.charAt(i + 1) == '\"'){
+                        left = next + 1;
+                    } else {
+                        left = i;
+                    }
+                }
+            } else if((i == len - 1 || c == ';') && !key.isEmpty()){
+                //如果前面是"
+                String val = "";
+                if(line.charAt(i - 1) == '"'){
+                    val = line.substring(left, i - 1);
+                } else {
+                    val = line.substring(left, i);
+                }
+                if(key.equalsIgnoreCase("name")){
+                    formDataKeys[0] = val;
+                } else {
+                    formDataKeys[1] = val;
+                }
+                left = -1;
+                key = "";
+            }
+            i++;
+        }
     }
+
+//    private String[] getFormDataKV(String str) {
+//        int eq = str.indexOf("=");
+//        String left = str.substring(0, eq);
+//        String right = str.substring(eq + 1);
+//        int first = right.indexOf("\"");
+//        int last = right.lastIndexOf("\"");
+//        String key = right.substring(first + 1, last);
+//        return new String[]{left, key};
+//    }
 
 //    private void decodeFormDataOnce() throws IOException {
 ////        ByteArrayBuffer byteArrayBuffer = new ByteArrayBuffer();

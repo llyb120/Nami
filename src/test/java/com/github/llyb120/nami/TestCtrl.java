@@ -122,14 +122,15 @@ public class TestCtrl {
         // 上传文件
         StringBuilder sb = new StringBuilder();
         // 文件参数
-        sb.append("------WebKitFormBoundaryari0emH33oMihIU4\n");
+        sb.append("------WebKitFormBoundaryari0emH33oMihIU4\r\n");
         sb.append("Content-Disposition: form-data; name=\"test\"");
         sb.append(newLine);
         sb.append(newLine);
         sb.append(fileName);
         sb.append(newLine);
-        sb.append("------WebKitFormBoundaryari0emH33oMihIU4\n" +
+        sb.append("------WebKitFormBoundaryari0emH33oMihIU4\r\n" +
                 "Content-Disposition: form-data; name=\"file\"; filename=\"" + fileName + "\"");
+        sb.append(newLine);
         sb.append("Content-Type:application/octet-stream");
         // 参数头设置完以后需要两个换行，然后才是参数内容
         sb.append(newLine);
