@@ -132,7 +132,7 @@ public abstract class AbstractServer {
             resp.setHeader("Content-Type", "application/json; charset=utf-8");
             //close
             resp.writeObject(result);
-            resp.eof();
+            resp.flush().eof();
         }
 
     }

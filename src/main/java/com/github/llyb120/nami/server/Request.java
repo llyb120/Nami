@@ -78,39 +78,39 @@ public class Request implements AutoCloseable {
         END;
     }
 
-    enum FormDataStep {
-        //等待读出头
-        WAIT_FOR_START,
-        WAIT_FOR_READ_PROPERTY,
-        WAIT_FOR_END,
-        WAIT_FOR_READ_VALUE,
-        ;
-    }
-
-
-    static class FormDataTemp {
-        String start = null;
-        String end = null;
-        byte[] limit = null;
-        FormDataStep step;
-        OutputStream tempOs;
-        String name;
-        MultipartFile file;
-
-        public void release() {
-            if (tempOs != null) {
-                try {
-                    tempOs.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            name = null;
-            file = null;
-            tempOs = null;
-            step = FormDataStep.WAIT_FOR_START;
-        }
-    }
+//    enum FormDataStep {
+//        //等待读出头
+//        WAIT_FOR_START,
+//        WAIT_FOR_READ_PROPERTY,
+//        WAIT_FOR_END,
+//        WAIT_FOR_READ_VALUE,
+//        ;
+//    }
+//
+//
+//    static class FormDataTemp {
+//        String start = null;
+//        String end = null;
+//        byte[] limit = null;
+//        FormDataStep step;
+//        OutputStream tempOs;
+//        String name;
+//        MultipartFile file;
+//
+//        public void release() {
+//            if (tempOs != null) {
+//                try {
+//                    tempOs.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            name = null;
+//            file = null;
+//            tempOs = null;
+//            step = FormDataStep.WAIT_FOR_START;
+//        }
+//    }
 
 
     private Json decodeQuery(String query, Obj ret) {
