@@ -198,9 +198,11 @@ public class Request implements AutoCloseable {
         if (phase == AnalyzePhase.END) {
             return true;
         }
+        byte[] bs = new byte[byteBuffer.remaining()];
+        byteBuffer.get(bs);
+        int n = 0;
         if (phase == AnalyzePhase.DECODING_HEAD) {
-            while (byteBuffer.hasRemaining()) {
-                byte b = byteBuffer.get();
+            for (byte b : bs) {
                 if (b == '\n' && sb.length() > 0 && sb.charAt(sb.length() - 1) == '\r') {
                     String line = sb.substring(0, sb.length() - 1);
                     sb.setLength(0);
@@ -211,20 +213,33 @@ public class Request implements AutoCloseable {
                         if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
                             return true;
                         }
+                        n++;
                         break;
                     } else {
                         decodeHeader(line);
+                        n++;
                         continue;
                     }
                 }
                 sb.append((char) b);
+                n++;
             }
         }
 
         if (phase != AnalyzePhase.DECODING_HEAD) {
-            while (byteBuffer.hasRemaining()) {
-                sb.append((char) byteBuffer.get());
+            for (; n < bs.length; n++) {
+                sb.append((char)bs[n]);
             }
+//            bs = new byte[byteBuffer.remaining()];
+//            byteBuffer.get(bs);
+//            sb.append(new String(bs));
+//            new String(b).split(CRLF);
+//            return true;
+//            byteBuffer.get(b);
+//            sb.append(b);
+//            while (byteBuffer.hasRemaining()) {
+//                sb.append((char) byteBuffer.get());
+//            }
         }
 
         if (phase == AnalyzePhase.DECODING_BODY) {
@@ -315,14 +330,16 @@ public class Request implements AutoCloseable {
                 }
                 if (phase == AnalyzePhase.FORM_DATA_READ_FILE) {
                     int i;
+                    int delI;
                     if (startPos > 0 && endPos > 0) {
-                        i = Math.min(startPos, endPos) - CRLF.length();
+                        i = delI = Math.min(startPos, endPos) - CRLF.length();
                     } else if(startPos > 0){
-                        i = startPos - CRLF.length();
+                        i = delI = startPos - CRLF.length();
                     } else if(endPos > 0){
-                        i = endPos - CRLF.length();
+                        i = delI = endPos - CRLF.length();
                     } else {
-                        i = sb.length();
+                        i = delI = sb.length();
+                        delI -= CRLF.length();
                     }
                     if(i == 0){
                         break;
@@ -332,7 +349,7 @@ public class Request implements AutoCloseable {
                     } catch (IOException e) {
                         e.printStackTrace();
                     } finally {
-                        sb.delete(0, i);
+                        sb.delete(0, delI + CRLF.length());
                     }
                 }
                 //end
