@@ -2,6 +2,7 @@ package com.github.llyb120.nami.server;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.CharUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.MultipartFile;
@@ -20,6 +21,7 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -204,25 +206,41 @@ public class Request implements AutoCloseable {
 //        byte[] bs = new byte[byteBuffer.remaining()];
 //        byteBuffer.get(bs);
         if (phase == AnalyzePhase.DECODING_HEAD) {
-            while(true){
-                int i = sb.indexOf(CRLF);
-                if(i == -1){
-                    break;
-                }
-                String line = sb.substring(0, i);
-                sb.delete(0, i + CRLF.length());
-                if (line.isEmpty()) {
-                    phase = AnalyzePhase.DECODING_BODY;
-                    params.putAll(query);
-                    //解析body的时候，不能再用stringbuilder
-                    if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
-                        return true;
-                    }
-                    break;
-                } else {
+            int i = sb.indexOf(CRLF + CRLF);
+            if(i > -1){
+                String str = sb.substring(0, i);
+                sb.delete(0, i + CRLF.length() + CRLF.length()); //                new StringTokenizer(str, CRLF).nextToken();
+                String[] lines = StrUtil.split(str, CRLF);
+                for (String line : lines) {
                     decodeHeader(line);
                 }
+                phase = AnalyzePhase.DECODING_BODY;
+                params.putAll(query);
+
+                if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
+                    return true;
+                }
+//                int d = 2;
             }
+//            while(true){
+//                int i = sb.indexOf(CRLF);
+//                if(i == -1){
+//                    break;
+//                }
+//                String line = sb.substring(0, i);
+//                sb.delete(0, i + CRLF.length());
+//                if (line.isEmpty()) {
+//                    phase = AnalyzePhase.DECODING_BODY;
+//                    params.putAll(query);
+//                    //解析body的时候，不能再用stringbuilder
+//                    if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
+//                        return true;
+//                    }
+//                    break;
+//                } else {
+//                    decodeHeader(line);
+//                }
+//            }
 //            for (byte b : bs) {
 //                if (b == '\n' && sb.length() > 0 && sb.charAt(sb.length() - 1) == '\r') {
 //                }
