@@ -13,6 +13,7 @@ import sun.nio.ch.IOUtil;
 
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.channels.Channel;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
@@ -198,38 +199,42 @@ public class Request implements AutoCloseable {
         if (phase == AnalyzePhase.END) {
             return true;
         }
-        byte[] bs = new byte[byteBuffer.remaining()];
-        byteBuffer.get(bs);
-        int n = 0;
+        CharBuffer charBuffer = StandardCharsets.UTF_8.decode(byteBuffer);
+        sb.append(charBuffer.toString());
+//        byte[] bs = new byte[byteBuffer.remaining()];
+//        byteBuffer.get(bs);
         if (phase == AnalyzePhase.DECODING_HEAD) {
-            for (byte b : bs) {
-                if (b == '\n' && sb.length() > 0 && sb.charAt(sb.length() - 1) == '\r') {
-                    String line = sb.substring(0, sb.length() - 1);
-                    sb.setLength(0);
-                    if (line.isEmpty()) {
-                        phase = AnalyzePhase.DECODING_BODY;
-                        params.putAll(query);
-                        //解析body的时候，不能再用stringbuilder
-                        if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
-                            return true;
-                        }
-                        n++;
-                        break;
-                    } else {
-                        decodeHeader(line);
-                        n++;
-                        continue;
-                    }
+            while(true){
+                int i = sb.indexOf(CRLF);
+                if(i == -1){
+                    break;
                 }
-                sb.append((char) b);
-                n++;
+                String line = sb.substring(0, i);
+                sb.delete(0, i + CRLF.length());
+                if (line.isEmpty()) {
+                    phase = AnalyzePhase.DECODING_BODY;
+                    params.putAll(query);
+                    //解析body的时候，不能再用stringbuilder
+                    if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
+                        return true;
+                    }
+                    break;
+                } else {
+                    decodeHeader(line);
+                }
             }
+//            for (byte b : bs) {
+//                if (b == '\n' && sb.length() > 0 && sb.charAt(sb.length() - 1) == '\r') {
+//                }
+//                sb.append((char) b);
+//                n++;
+//            }
         }
 
-        if (phase != AnalyzePhase.DECODING_HEAD) {
-            for (; n < bs.length; n++) {
-                sb.append((char)bs[n]);
-            }
+//        if (phase != AnalyzePhase.DECODING_HEAD) {
+//            for (; n < bs.length; n++) {
+//                sb.append((char)bs[n]);
+//            }
 //            bs = new byte[byteBuffer.remaining()];
 //            byteBuffer.get(bs);
 //            sb.append(new String(bs));
@@ -240,7 +245,7 @@ public class Request implements AutoCloseable {
 //            while (byteBuffer.hasRemaining()) {
 //                sb.append((char) byteBuffer.get());
 //            }
-        }
+//        }
 
         if (phase == AnalyzePhase.DECODING_BODY) {
             //解析剩余的
@@ -287,6 +292,11 @@ public class Request implements AutoCloseable {
                     phase = AnalyzePhase.END;
                     return true;
                 }
+                if(phase == AnalyzePhase.DECODING_FORM_DATA){
+                    if(startPos == -1 && endPos == -1){
+                        break;
+                    }
+                }
                 if (phase == AnalyzePhase.FORM_DATA_READ_PROPERTY) {
                     int i = sb.indexOf(CRLF);
                     if (i == -1) {
@@ -329,6 +339,9 @@ public class Request implements AutoCloseable {
                     phase = AnalyzePhase.FORM_DATA_READ_PROPERTY;
                 }
                 if (phase == AnalyzePhase.FORM_DATA_READ_FILE) {
+                    if(sb.length() < formDataStart.length() || sb.length() < formDataEnd.length()){
+                        break;
+                    }
                     int i;
                     int delI;
                     if (startPos > 0 && endPos > 0) {

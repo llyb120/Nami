@@ -34,6 +34,7 @@ public class DevServer extends AbstractServer {
             try {
                 Socket socket = server.accept();
                 socket.setTcpNoDelay(true);
+
                 Async.execute(() -> {
                     handle(socket);
                 });
@@ -50,18 +51,16 @@ public class DevServer extends AbstractServer {
                 ){
             resp.channel = Channels.newChannel(_socket.getOutputStream());
             resp.request.channel = Channels.newChannel(_socket.getInputStream());
-            LinkedBlockingQueue<ByteBuffer> taskList = new LinkedBlockingQueue<>();
             Pipe pipe = Pipe.open();
             Async.execute(() -> read(resp, pipe));
-            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(10);
+            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(20);
             boolean abort = false;
             while(!abort && pipe.source().read(byteBuffer) > 0){
                 byteBuffer.flip();
                 abort = resp.request.analyze(byteBuffer);
                 byteBuffer.flip();
-                int d = 2;
             }
-            System.out.println("fuck");
+//            System.out.println("fuck");
 //            ReadableByteChannel readableByteChannel = pipe.source();
 //            boolean abort = false;
 //            long stime = System.currentTimeMillis();
@@ -84,29 +83,35 @@ public class DevServer extends AbstractServer {
         }
     }
 
-    private void read(Response response, BlockingQueue<ByteBuffer> taskList){
-        int size = 409600000;
-        try {
-            while (true) {
-                ByteBuffer byteBuffer = ByteBuffer.allocateDirect(size);
-                int n = ((ReadableByteChannel) response.request.channel).read(byteBuffer);
-                if (n < 1) {
-                    break;
-                }
-                taskList.put(byteBuffer);
-            }
-        } catch (IOException e) {
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void read(Response response, BlockingQueue<ByteBuffer> taskList){
+//        int size = 409600000;
+//        try {
+//            while (true) {
+//                ByteBuffer byteBuffer = ByteBuffer.allocateDirect(size);
+//                int n = ((ReadableByteChannel) response.request.channel).read(byteBuffer);
+//                if (n < 1) {
+//                    break;
+//                }
+//                taskList.put(byteBuffer);
+//            }
+//        } catch (IOException e) {
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void read(Response response, Pipe pipe){
-//        int size = 409600000;
         try {
-            IoUtil.copy(((ReadableByteChannel) response.request.channel), pipe.sink());
-        } catch (Exception e){ }
-        System.out.println("copy end");
+            ReadableByteChannel in = (ReadableByteChannel) response.request.channel;
+            WritableByteChannel out = pipe.sink();
+            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
+            while(in.read(byteBuffer) != -1) {
+                byteBuffer.flip();
+                out.write(byteBuffer);
+                byteBuffer.flip();
+            }
+        } catch (IOException e) { }
+//        System.out.println("copy end");
 //        try {
 //            while (true) {
 //                ByteBuffer byteBuffer = ByteBuffer.allocateDirect(size);
