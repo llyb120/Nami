@@ -6,6 +6,8 @@ import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
+import com.sun.xml.internal.ws.util.ByteArrayBuffer;
+import org.bson.ByteBufNIO;
 import sun.nio.ch.IOUtil;
 
 import java.io.*;
@@ -37,28 +39,14 @@ public class Request implements AutoCloseable {
     //以下解析用
 //    private LinkedBlockingQueue<ByteBuffer> taskList = new LinkedBlockingQueue<>();
     private AnalyzePhase phase = AnalyzePhase.DECODING_HEAD;
-
-    private Buffer buffer = new Buffer();
-    public boolean headerDecoded = false;
-    private int currentBodyLength = 0;
-    private FormDataTemp temp;
+    //    private FormDataTemp temp;
     private StringBuilder sb = new StringBuilder();
-//    static {
-//        int threadCount = 16;
-//        for (int i = 0; i < threadCount; i++) {
-//            Async.execute(() -> {
-//                while (true) {
-//                    Holder holder = null;
-//                    try {
-//                        holder = taskList.take();
-//                        holder.request.analyze(holder.byteBuffer);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
-//        }
-//    }
+    private String formDataStart;
+    private String formDataEnd;
+    private String formDataFilename;
+    private ByteArrayOutputStream fdos = null;
+    private final String CRLF = "\r\n";
+
 
     @Override
     public void close() throws Exception {
@@ -79,6 +67,11 @@ public class Request implements AutoCloseable {
     enum AnalyzePhase {
         DECODING_HEAD,
         DECODING_BODY,
+        DECODING_FORM_DATA,
+        FORM_DATA_READ_PROPERTY,
+        FORM_DATA_READ_EMPTY,
+        FORM_DATA_READ_VALUE,
+        FORM_DATA_READ_FILE,
         END;
     }
 
@@ -91,15 +84,6 @@ public class Request implements AutoCloseable {
         ;
     }
 
-    static class Holder {
-        public Request request;
-        public ByteBuffer byteBuffer;
-
-        public Holder(Request request, ByteBuffer byteBuffer) {
-            this.request = request;
-            this.byteBuffer = byteBuffer;
-        }
-    }
 
     static class FormDataTemp {
         String start = null;
@@ -125,9 +109,6 @@ public class Request implements AutoCloseable {
         }
     }
 
-//    protected void setInputstream(InputStream is) {
-//        channel = Channels.newChannel(is);
-//    }
 
     private Json decodeQuery(String query, Obj ret) {
         String qs = query + "&";
@@ -195,95 +176,6 @@ public class Request implements AutoCloseable {
         }
     }
 
-    /**
-     * 每次数据进来的时候解析一次
-     */
-    public void decodeOnce() throws IOException {
-        decodeOnce(null, true);
-    }
-
-    public void decodeOnce(ByteBuffer byteBuffer) throws IOException {
-        decodeOnce(byteBuffer, true);
-    }
-
-    public void decodeOnce(ByteBuffer byteBuffer, boolean direct) throws IOException {
-        if (byteBuffer != null) {
-//            byteBuffer.flip();
-            currentBodyLength += byteBuffer.remaining();
-            if (direct) {
-                buffer.writeNio(byteBuffer);
-            } else {
-                buffer.write(byteBuffer);
-            }
-        }
-        String line = null;
-        if (!headerDecoded) {
-            while ((line = buffer.readLineStr()) != null) {
-                //关键：需要扣除掉头的长度
-                currentBodyLength -= (line.length() + 2);
-                if (line.isEmpty()) {
-                    headerDecoded = true;
-                    break;
-                }
-                decodeHeader(line);
-            }
-        }
-        if (headerDecoded) {
-            if (method == Method.GET) {
-                return;
-            }
-
-            int clen = getContentLength();
-            if (clen < 1) {
-                return;
-            }
-            String ctype = getContentType();
-            if (ctype.contains("multipart/form-data")) {
-                decodeFormDataOnce();
-            } else if (clen == buffer.length()) {
-                smartDecodeBody();
-//                if (ctype.contains("application/x-www-form-urlencoded")) {
-//                    decodeFormEncoded();
-//                } else if (ctype.contains("application/json")) {
-//                    decodeJsonEncoded();
-//                } else {
-//                    //尝试判断
-//                    smar
-//                }
-            }
-        }
-    }
-
-    public void decodeEnd() throws IOException {
-        //如果body还有剩余，则继续解析
-        if (getContentType().contains("multipart/form-data")) {
-            //如果一直没有变动，就当作解析失败
-            //补充\r\n
-            buffer.writeNio(CRLF);
-            while (buffer.length() > 0) {
-                decodeOnce(null);
-            }
-        }
-
-        //解析头
-//        var surplus = decodeHeaders2();
-//        decodeHeaders3();
-//        $g.reset();
-//        $post.reset();
-//        $request.reset();
-
-        params.putAll(query);
-        if (null != body) {
-            if (body instanceof Map) {
-                params.putAll((Map<? extends String, ?>) body);
-            }
-        }
-    }
-
-    public boolean hasRemaining() {
-        return !headerDecoded || currentBodyLength < getContentLength();
-    }
-
     public void analyzeEnd() {
         phase = AnalyzePhase.END;
 
@@ -325,72 +217,117 @@ public class Request implements AutoCloseable {
                 sb.append((char) b);
             }
         }
+
+        if (phase != AnalyzePhase.DECODING_HEAD) {
+            while (byteBuffer.hasRemaining()) {
+                sb.append((char) byteBuffer.get());
+            }
+        }
+
         if (phase == AnalyzePhase.DECODING_BODY) {
             //解析剩余的
             String ctype = getContentType();
             int clen = getContentLength();
             if (ctype.contains("multipart/form-data")) {
-
-            } else if (sb.length() < getContentLength()) {
-                while (byteBuffer.hasRemaining()) {
-                    sb.append((char) byteBuffer.get());
-                }
-                if (sb.length() >= clen) {
-                    String str = sb.toString();
-                    if ((str.startsWith("{") && str.endsWith("}")) || (str.startsWith("[") && str.endsWith("]"))) {
-                        body = Json.parse(str);
-                    } else {
-                        body = o();
-                        decodeQuery(str, (Obj) body);
-                    }
+                phase = AnalyzePhase.DECODING_FORM_DATA;
+                fdos = new ByteArrayOutputStream();
+                int idex = ctype.indexOf("boundary=");
+                if (idex == -1) {
                     return true;
                 }
+                String token = ctype.substring(idex + 9);
+                formDataStart = ("--" + token + "\n");
+                formDataEnd = ("--" + token + "--");
+            } else if (sb.length() >= clen) {
+                String str = sb.toString();
+                if ((str.startsWith("{") && str.endsWith("}")) || (str.startsWith("[") && str.endsWith("]"))) {
+                    body = Json.parse(str);
+                } else {
+                    body = o();
+                    decodeQuery(str, (Obj) body);
+                }
+                return true;
+            }
+        }
+
+        if(phase.name().contains("FORM_DATA")) {
+            while (true) {
+                //end
+                int startPos = sb.indexOf(formDataStart);
+                if (startPos == 0) {
+                    //删掉头
+                    sb.delete(0, formDataStart.length());
+                    //切换为读属性
+                    phase = AnalyzePhase.FORM_DATA_READ_PROPERTY;
+                }
+                int endPos = sb.indexOf(formDataEnd);
+                if (endPos == 0) {
+                    sb.setLength(0);
+                    phase = AnalyzePhase.END;
+                    return true;
+                }
+                if (phase == AnalyzePhase.FORM_DATA_READ_PROPERTY) {
+                    int i = sb.indexOf(CRLF);
+                    if (i == -1) {
+                        break;
+                    }
+                    String line = sb.substring(0, i);
+                    sb.delete(0, i + CRLF.length());
+                    if (line.contains("filename")) {
+                        formDataFilename = "fff";
+                    }
+                    phase = AnalyzePhase.FORM_DATA_READ_EMPTY;
+                }
+                if (phase == AnalyzePhase.FORM_DATA_READ_EMPTY) {
+                    int i = sb.indexOf(CRLF);
+                    if (i == -1) {
+                        break;
+                    }
+                    sb.delete(0, i + CRLF.length());
+                    if (formDataFilename != null) {
+                        phase = AnalyzePhase.FORM_DATA_READ_FILE;
+                    } else {
+                        phase = AnalyzePhase.FORM_DATA_READ_VALUE;
+                    }
+                }
+                if (phase == AnalyzePhase.FORM_DATA_READ_VALUE) {
+                    int i = sb.indexOf(CRLF);
+                    if (i == -1) {
+                        break;
+                    }
+                    String line = sb.substring(0, i);
+                    sb.delete(0, i + CRLF.length());
+                    phase = AnalyzePhase.FORM_DATA_READ_PROPERTY;
+                }
+                if (phase == AnalyzePhase.FORM_DATA_READ_FILE) {
+                    int i;
+                    if (startPos > 0 && endPos > 0) {
+                        i = Math.min(startPos, endPos);
+                    } else if(startPos > 0){
+                        i = startPos;
+                    } else if(endPos > 0){
+                        i = endPos;
+                    } else {
+                        i = sb.length();
+                    }
+                    if(i == 0){
+                        break;
+                    }
+                    try {
+                        fdos.write(sb.substring(0, i).getBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        sb.delete(0, i);
+                    }
+                }
+                //end
+
             }
         }
         return false;
-//        }
-//        phase = AnalyzePhase.END;
     }
 
-
-//    void decode() throws InterruptedException {
-//        analyze();
-    //结束
-//        phase = AnalyzePhase.END;
-//        System.out.println("read end");
-//        while (hasRemaining()) {
-//            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(size);
-////            byteBuffer.reset();
-//            int n = channel.read(byteBuffer);
-//            if (n < 1) {
-//                break;
-//            }
-//            byteBuffer.flip();
-//            decodeOnce(byteBuffer);
-//        }
-
-
-//        decodeEnd();
-
-    //解析body
-//        if (method != Method.POST) {
-//            return;
-//        }
-//        //header的解析器有可能多读了一部分数据
-//
-//        var ctype = getHeader("Content-Type");
-//        if (ctype.contains("application/x-www-form-urlencoded")) {
-//            decodeFormEncoded();
-//        } else if (ctype.contains("application/json")) {
-//            decodeJsonEncoded();
-//        } else if (ctype.contains("multipart/form-data")) {
-//            decodeFormDataEncoded(ctype);
-//        }
-//
-//        if (body instanceof Map) {
-//            params.concat((Map) body);
-//        }
-//    }
 
     private String[] getFormDataKV(String str) {
         int eq = str.indexOf("=");
@@ -402,229 +339,104 @@ public class Request implements AutoCloseable {
         return new String[]{left, key};
     }
 
-    private void decodeFormDataOnce() throws IOException {
-        if (temp == null) {
-            temp = new FormDataTemp();
-        }
-        if (body == null) {
-            body = o();
-        }
-        if (temp.start == null) {
-            String ctype = getContentType();
-            int idex = ctype.indexOf("boundary=");
-            if (idex == -1) {
-                return;
-            }
-            String token = ctype.substring(idex + 9);
-            temp.start = ("--" + token);
-            temp.end = ("--" + token + "--");
-            temp.limit = ("\r\n" + temp.start).getBytes();
-            temp.step = FormDataStep.WAIT_FOR_START;
-        }
-        if (temp.step != FormDataStep.WAIT_FOR_READ_VALUE) {
-            String line = null;
-            scan:
-            while ((line = buffer.readLineStr()) != null) {
-                switch (temp.step) {
-                    case WAIT_FOR_START:
-                        if (line.equals(temp.start)) {
-                            temp.step = FormDataStep.WAIT_FOR_READ_PROPERTY;
-                        } else if (line.equals(temp.end)) {
-                            return;
-                        }
-                        break;
-
-                    case WAIT_FOR_READ_PROPERTY:
-                        if (line.isEmpty()) {
-                            temp.step = FormDataStep.WAIT_FOR_READ_VALUE;
-                            break scan;
-                        }
-                        //todo: 需要解析不正确的情况, 增加容错处理
-                        String[] Json = line.split("; ");
-                        for (int i = 0; i < Json.length; i++) {
-                            if (i > 0) {
-                                String[] strs = getFormDataKV(Json[i]);
-                                switch (strs[0]) {
-                                    case "name":
-                                        temp.name = strs[1];
-                                        break;
-
-                                    case "filename":
-                                        File file = File.createTempFile("nami", "nami");
-                                        temp.file = new MultipartFile(strs[1], file, true);
-                                        temp.tempOs = new FileOutputStream(file);
-                                        break;
-                                }
-                            }
-                        }
-                        break;
-
-                    case WAIT_FOR_END:
-                        if (line.equals(temp.end)) {
-                            temp.step = FormDataStep.WAIT_FOR_START;
-                        }
-                        break;
-                }
-            }
-        } else {
-            //读取value
-            if (temp.tempOs == null) {
-                temp.tempOs = new ByteArrayOutputStream();
-            }
-            int i = buffer.indexOf(temp.limit);
-            if (i > -1) {
-                byte[] bs = buffer.readNBytes(i);
-                if (bs != null) {
-                    temp.tempOs.write(bs);
-                }
-                if (temp.tempOs instanceof ByteArrayOutputStream) {
-                    ((Obj) body).put(temp.name, ((ByteArrayOutputStream) temp.tempOs).toString(StandardCharsets.UTF_8.name()));
-                } else if (temp.tempOs instanceof FileOutputStream) {
-                    ((Obj) body).put(temp.name, temp.file);
-                }
-                buffer.readNBytes(2);
-                temp.release();
-            } else {
-                byte[] bs = buffer.readBytes();
-                if (bs != null) {
-                    temp.tempOs.write(bs);
-                }
-            }
-        }
-
-    }
-
-//    private void decodeFormDataEncoded(String ctype) {
-//        var ret = o();
-//        var clen = getContentLength();
-//        var idex = ctype.indexOf("boundary=");
-//        if (idex == -1) {
-//            return;
+//    private void decodeFormDataOnce() throws IOException {
+////        ByteArrayBuffer byteArrayBuffer = new ByteArrayBuffer();
+////        byteArrayBuffer.
+//        ByteArrayOutputStream byteArrayOutputStream;
+////        ByteArrayInputStream byteArrayInputStream =new ByteArrayInputStream();
+////        byteArrayInputStream.
+////        byteArrayOutputStream.toByteArray()
+//        if (temp == null) {
+//            temp = new FormDataTemp();
 //        }
-//        var token = ctype.substring(idex + 9);
-//        var start = "--" + token;
-//        var end = "--" + token + "--";
-//        var line = "";
-//        var limit = ("\r\n" + start).getBytes();
-//
-////        buf.blockStream(is, clen, true);
-//
-//        //部分请求可能会多一个\r\n
-////        if(line.equals("")){
-////             line = buf.readLineStr(is, StandardCharsets.UTF_8);
-////        }
-//        scan:
-//        while (clen > 0) {
+//        if (body == null) {
+//            body = o();
+//        }
+//        if (temp.start == null) {
+//            String ctype = getContentType();
+//            int idex = ctype.indexOf("boundary=");
+//            if (idex == -1) {
+//                return;
+//            }
+//            String token = ctype.substring(idex + 9);
+//            temp.start = ("--" + token);
+//            temp.end = ("--" + token + "--");
+//            temp.limit = ("\r\n" + temp.start).getBytes();
+//            temp.step = FormDataStep.WAIT_FOR_START;
+//        }
+//        if (temp.step != FormDataStep.WAIT_FOR_READ_VALUE) {
+//            String line = null;
+//            scan:
 //            while ((line = buffer.readLineStr()) != null) {
-//                if (line.equals(start)) {
-//                    File temp = null;
-//                    String name = "";
-//                    Object value = null;
-//                    scan2:
-//                    {
-//                        while (clen > 0) {
-//                            while ((line = buffer.readLineStr()) != null) {
-//                                if (line.isEmpty()) {
-//                                    break scan2;
-//                                }
-//                                //start
-//                                var Json = line.split("; ");
-//                                for (int i = 0; i < Json.length; i++) {
-//                                    if (i > 0) {
-//                                        var strs = getFormDataKV(Json[i]);
-//                                        switch (strs[0]) {
-//                                            case "name":
-//                                                name = strs[1];
-//                                                break;
+//                switch (temp.step) {
+//                    case WAIT_FOR_START:
+//                        if (line.equals(temp.start)) {
+//                            temp.step = FormDataStep.WAIT_FOR_READ_PROPERTY;
+//                        } else if (line.equals(temp.end)) {
+//                            return;
+//                        }
+//                        break;
 //
-//                                            case "filename":
-//                                                try {
-//                                                    temp = File.createTempFile("nami", "nami");
-//                                                    value = new MultipartFile(strs[1], temp, true);
-//                                                } catch (IOException e) {
-//                                                    e.printStackTrace();
-//                                                }
-//                                                break;
-//                                        }
-//                                    } else {
+//                    case WAIT_FOR_READ_PROPERTY:
+//                        if (line.isEmpty()) {
+//                            temp.step = FormDataStep.WAIT_FOR_READ_VALUE;
+//                            break scan;
+//                        }
+//                        //todo: 需要解析不正确的情况, 增加容错处理
+//                        String[] Json = line.split("; ");
+//                        for (int i = 0; i < Json.length; i++) {
+//                            if (i > 0) {
+//                                String[] strs = getFormDataKV(Json[i]);
+//                                switch (strs[0]) {
+//                                    case "name":
+//                                        temp.name = strs[1];
+//                                        break;
 //
-//                                    }
+//                                    case "filename":
+//                                        File file = File.createTempFile("nami", "nami");
+//                                        temp.file = new MultipartFile(strs[1], file, true);
+//                                        temp.tempOs = new FileOutputStream(file);
+//                                        break;
 //                                }
 //                            }
 //                        }
+//                        break;
 //
-////                        var n = buffer.writeOnce(channel, Math.min(1024, clen));
-////                        clen -= n;
-//                    }
-//
-//
-//                    //读取value
-//                    if (temp == null) {
-//                        try (
-//                                var sw = new ByteArrayOutputStream();
-//                        ) {
-//                            buf.copyUntil(is, sw, limit);
-//                            value = sw.toString(StandardCharsets.UTF_8);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
+//                    case WAIT_FOR_END:
+//                        if (line.equals(temp.end)) {
+//                            temp.step = FormDataStep.WAIT_FOR_START;
 //                        }
-//                    } else {
-//                        try (
-//                                var fos = new FileOutputStream(temp);
-//                        ) {
-////                        var sw = new ByteArrayOutputStream();
-////                        buf.copyUntil(is, sw, limit);
-////                        var e=  2;
-//                            buf.copyUntil(is, fos, limit);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                    //skip \r\n
-//                    buf.readNBytes(2);
-//
-//                    ret.set(name, value);
-//                    //
-//                } else if (line.equals(end)) {
-//                    //end
-//                    break scan;
+//                        break;
 //                }
 //            }
-////            var n = buffer.writeOnce(channel, Math.min(1024, clen));
-////            clen -= n;
+//        } else {
+//            //读取value
+//            if (temp.tempOs == null) {
+//                temp.tempOs = new ByteArrayOutputStream();
+//            }
+//            int i = buffer.indexOf(temp.limit);
+//            if (i > -1) {
+//                byte[] bs = buffer.readNBytes(i);
+//                if (bs != null) {
+//                    temp.tempOs.write(bs);
+//                }
+//                if (temp.tempOs instanceof ByteArrayOutputStream) {
+//                    ((Obj) body).put(temp.name, ((ByteArrayOutputStream) temp.tempOs).toString(StandardCharsets.UTF_8.name()));
+//                } else if (temp.tempOs instanceof FileOutputStream) {
+//                    ((Obj) body).put(temp.name, temp.file);
+//                }
+//                buffer.readNBytes(2);
+//                temp.release();
+//            } else {
+//                byte[] bs = buffer.readBytes();
+//                if (bs != null) {
+//                    temp.tempOs.write(bs);
+//                }
+//            }
 //        }
 //
-//        body = ret;
 //    }
 
-    private void decodeJsonEncoded() {
-//        buffer.writeOnce(channel, getContentLength() - buffer.length());
-        currentBodyLength += buffer.length();
-        body = Json.parse(buffer.readBytes());
-    }
-
-    private void decodeFormEncoded() {
-//        buffer.writeOnce(channel, getContentLength() - buffer.length());
-        currentBodyLength += buffer.length();
-        String str = new String(buffer.readBytes(), StandardCharsets.UTF_8);
-        body = o();
-        decodeQuery(str, (Obj) body);
-    }
-
-    private void smartDecodeBody() {
-        currentBodyLength += buffer.length();
-        byte[] bytes = buffer.readBytes();
-        if (bytes.length > 0) {
-            if ((bytes[0] == '{' && bytes[bytes.length - 1] == '}') || (bytes[0] == '[' && bytes[bytes.length - 1] == ']')) {
-                body = Json.parse(bytes);
-            } else {
-                body = o();
-                decodeQuery(new String(bytes, StandardCharsets.UTF_8), (Obj) body);
-            }
-        }
-//        String str = new String(buffer.readBytes(), StandardCharsets.UTF_8);
-//        String nstr = str.trim();
-    }
 
     private int getContentLength() {
         return headers.i("Content-Length", headers.i("content-length", 0));
@@ -664,22 +476,6 @@ public class Request implements AutoCloseable {
         }
     }
 
-//    private void decodeHeaders3() {
-//        var i = 0;
-//        String line = null;
-//        scan:
-//        do {
-//            while ((line = buffer.readLineStr()) != null) {
-//                if (line.isEmpty()) {
-//                    break scan;
-//                }
-//                System.out.println(line);
-//                decodeHeader(line);
-//            }
-//            buffer.writeOnce(channel);
-//        } while (true);
-//    }
-
     /**
      * cookie解析器
      */
@@ -697,65 +493,6 @@ public class Request implements AutoCloseable {
         }
 
     }
-
-    /**
-     * 半包解码, 解析请求头
-     *
-     * @throws Exception
-     */
-//    private byte[] decodeHeaders() throws Exception {
-//        var step = 4096;
-//        var max = step;
-//        var bs = new byte[max];
-//        var readleft = 0;
-//        var left = 0;
-//        var idex = 0;
-//        read:
-//        {
-//            while (true) {
-//                var n = is.read(bs, readleft, bs.length - readleft);
-//                if (n <= 0) {
-//                    break;
-//                }
-//                int len = readleft + n;
-//                for (int i = readleft + 1; i < len; i++) {
-//                    if (bs[i - 1] == '\r' && bs[i] == '\n') {
-//                        //截取出left到当前的
-//                        var str = new String(bs, left, i - left - 1);
-//                        //将指针指向当前
-//                        left = i + 1;
-//                        readleft = 0;
-////                        System.out.println(str);
-//                        //header读完
-//                        if (str.equals("")) {
-//                            var nbs = new byte[len - left];
-//                            System.arraycopy(bs, left, nbs, 0, nbs.length);
-//                            return nbs;
-//                        } else {
-//                            decodeHeader(str);
-//                        }
-//                    }
-//                }
-//                //如果取完了, left还是0, 表示还有数据包没有读完
-//                //如果还有剩余
-//                if (left < n) {
-//                    //扩容
-//                    if (max > 1024 * 1024 * 8) {
-//                        max *= 2;
-//                    } else {
-//                        max += step;
-//                    }
-//                    var nbs = new byte[max];
-//                    System.arraycopy(bs, 0, nbs, 0, bs.length);
-//                    readleft = bs.length;
-//                    bs = nbs;
-//                } else {
-//                    left = 0;
-//                }
-//            }
-//        }
-//        return null;
-//    }
 
 
     /**

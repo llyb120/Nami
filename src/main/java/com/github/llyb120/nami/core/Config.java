@@ -98,8 +98,6 @@ public class Config {
                     case "magicVar":
                         readNextToken();
                         readStringArray(magicvar);
-                        //add magic vars
-                        magicvar.add("com.github.llyb120.nami.server.Vars");
                         break;
 
                     case "route":
@@ -158,7 +156,6 @@ public class Config {
                 }
             }
 
-
             for (String s : route) {
                 Route.routes.add(new Route(s));
             }
@@ -166,6 +163,10 @@ public class Config {
                 config.source =  GenKit.getJavaSRCPath();
                 config.target =  new File(config.source, "../../../target/classes").getAbsolutePath();
             }
+
+            //add magic vars
+            magicvar.add("com.github.llyb120.nami.server.Vars");
+
             for (String s : config.link) {
                 String[] Json = s.toLowerCase().split("\\s*(:|\\.|->|=>)\\s*");
                 Link link = new Link();
