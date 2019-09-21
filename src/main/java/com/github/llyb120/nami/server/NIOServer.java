@@ -1,4 +1,4 @@
-package com.github.llyb120.nami.server.nio;
+package com.github.llyb120.nami.server;
 
 import cn.hutool.socket.nio.NioServer;
 import com.github.llyb120.nami.core.Async;
@@ -101,57 +101,40 @@ public class NIOServer extends AbstractServer {
     }
 
     private void handle(SocketChannel sc) {
-        Response resp = new Response(this) {
-            @Override
-            protected void flush(Object object) {
-                if (object == EOF) {
-                    close();
-                } else if (object instanceof ByteBuffer) {
-                    try {
-                        sc.write((ByteBuffer) object);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public Response write(MultipartFile file) throws IOException {
-                return null;
-            }
-        };
-        resp.channel = sc;
-        resp.request.channel = sc;
         try {
-            Pipe pipe = Pipe.open();
-            Async.execute(() -> read(resp, pipe));
-            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(20);
-            boolean abort = false;
-            while (!abort && pipe.source().read(byteBuffer) > 0) {
-                byteBuffer.flip();
-                abort = resp.request.analyze(byteBuffer);
-                byteBuffer.flip();
-            }
-            resp.request.analyzeEnd();
-            handle(resp);
+            Response resp = new Response(this, sc);
+            resp.channel = sc;
+            resp.request.channel = sc;
+
+            readQueue.put(resp);
+            analyzeQueue.put(resp);
+//            Pipe pipe = Pipe.open();
+//            Async.execute(() -> read(resp, pipe));
+//            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(20);
+//            boolean abort = false;
+//            while (!abort && pipe.source().read(byteBuffer) > 0) {
+//                byteBuffer.flip();
+//                abort = resp.request.analyze(byteBuffer);
+//                byteBuffer.flip();
+//            }
+//            resp.request.analyzeEnd();
+//            handle(resp);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            resp.close();
         }
     }
 
-    private void read(Response response, Pipe pipe) {
-        try {
-            ReadableByteChannel in = (ReadableByteChannel) response.request.channel;
-            WritableByteChannel out = pipe.sink();
-            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
-            while (in.read(byteBuffer) != -1) {
-                byteBuffer.flip();
-                out.write(byteBuffer);
-                byteBuffer.flip();
-            }
-        } catch (IOException e) {
-        }
-    }
+    //    private void read(Response response, Pipe pipe) {
+//        try {
+//            ReadableByteChannel in = (ReadableByteChannel) response.request.channel;
+//            WritableByteChannel out = pipe.sink();
+//            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
+//            while (in.read(byteBuffer) != -1) {
+//                byteBuffer.flip();
+//                out.write(byteBuffer);
+//                byteBuffer.flip();
+//            }
+//        } catch (IOException e) {
+//        }
+//    }
 }

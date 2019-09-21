@@ -3,8 +3,8 @@ package com.github.llyb120.nami.core;
 import com.github.llyb120.nami.compiler.Compiler;
 import com.github.llyb120.nami.cron.Crontab;
 import com.github.llyb120.nami.server.AbstractServer;
-import com.github.llyb120.nami.server.bio.DevServer;
-import com.github.llyb120.nami.server.nio.NIOServer;
+import com.github.llyb120.nami.server.DevServer;
+import com.github.llyb120.nami.server.NIOServer;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

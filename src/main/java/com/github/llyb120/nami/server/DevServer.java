@@ -1,7 +1,8 @@
-package com.github.llyb120.nami.server.bio;
+package com.github.llyb120.nami.server;
 
 import cn.hutool.core.io.IoUtil;
 import com.github.llyb120.nami.core.Async;
+import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.server.AbstractServer;
 import com.github.llyb120.nami.server.Response;
 
@@ -20,6 +21,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 public class DevServer extends AbstractServer {
+
+
+
 
     public void start(int port) throws Exception {
         long stime = System.currentTimeMillis();
@@ -45,21 +49,23 @@ public class DevServer extends AbstractServer {
     }
 
     private void handle(Socket socket) {
-        try (
-                BIOResponse resp = new BIOResponse(this);
-                Socket _socket = socket;
-                ){
+        try {
+            Response resp = new Response(this, socket);
+            Socket _socket = socket;
             resp.channel = Channels.newChannel(_socket.getOutputStream());
             resp.request.channel = Channels.newChannel(_socket.getInputStream());
-            Pipe pipe = Pipe.open();
-            Async.execute(() -> read(resp, pipe));
-            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(20);
-            boolean abort = false;
-            while(!abort && pipe.source().read(byteBuffer) > 0){
-                byteBuffer.flip();
-                abort = resp.request.analyze(byteBuffer);
-                byteBuffer.flip();
-            }
+//            Pipe pipe = Pipe.open();
+//            Async.execute(() -> read(resp, pipe));
+            readQueue.put(resp);
+            analyzeQueue.put(resp);
+
+//            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
+//            boolean abort = false;
+//            while(!abort && resp.pipe.source().read(byteBuffer) > 0){
+//                byteBuffer.flip();
+//                abort = resp.request.analyze(byteBuffer);
+//                byteBuffer.flip();
+//            }
 //            System.out.println("fuck");
 //            ReadableByteChannel readableByteChannel = pipe.source();
 //            boolean abort = false;
@@ -74,8 +80,8 @@ public class DevServer extends AbstractServer {
 //                int d = 2;
 //            }
 //            System.out.println(System.currentTimeMillis() - stime);
-            resp.request.analyzeEnd();
-            handle(resp);
+//            resp.request.analyzeEnd();
+//            handle(resp);
         } catch (Exception e) {
             if(!(e instanceof SocketException)){
                 e.printStackTrace();

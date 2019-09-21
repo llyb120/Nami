@@ -36,7 +36,7 @@ public class Request implements AutoCloseable {
     public String path;
     public String version;
     //    public InputStream is;
-    public Channel channel;
+    public ReadableByteChannel channel;
     public Json body;
     public Cookie cookie = new Cookie();
 
@@ -512,7 +512,7 @@ public class Request implements AutoCloseable {
     }
 
 
-    private void decodeHeader(String line) {
+    void decodeHeader(String line) {
 //        var i = line.lastIndexOf("\r\n");
 //        if(i > -1){
 //            line = line.substring(0, i);

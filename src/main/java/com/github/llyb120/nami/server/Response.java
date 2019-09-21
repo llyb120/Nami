@@ -22,29 +22,39 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.json.Json.aaa;
 import static com.github.llyb120.nami.json.Json.o;
 
-public abstract class Response implements AutoCloseable{
+public class Response implements AutoCloseable{
     public int status;
     public Request request = new Request();
     public Obj headers = o();
-//    public WritableByteChannel channel;
-//    public AsynchronousSocketChannel aChannel;
-    public Channel channel;
+    public WritableByteChannel channel;
     public static final byte[] CRLF = "\r\n".getBytes();
-
     private Buffer buffer = new Buffer();
+
     private boolean closed = false;
     public static final Object EOF = new Object();
-    public AbstractServer server ;
 
-    public Response(AbstractServer server){
+    Socket socket;
+    SocketChannel sc;
+    Pipe pipe;
+    AbstractServer server;
+
+    public Response(AbstractServer server, Socket socket) throws IOException {
+        pipe = Pipe.open();
+        this.socket = socket;
         this.server = server;
     }
 
+    public Response(AbstractServer server, SocketChannel sc) throws IOException {
+        pipe = Pipe.open();
+        this.sc = sc;
+        this.server = server;
+    }
 
     public Response flush() {
         Arr bfs = aaa(buffer.getNioBuffers());
@@ -55,7 +65,17 @@ public abstract class Response implements AutoCloseable{
         return this;
     }
 
-    protected abstract void flush(Object object);
+    public void flush(Object object){
+        if (object == EOF) {
+            close();
+        } else if (object instanceof ByteBuffer) {
+            try {
+                channel.write((ByteBuffer) object);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public synchronized void close(){
         if(closed){
@@ -65,6 +85,8 @@ public abstract class Response implements AutoCloseable{
         closed = true;
         IoUtil.close(channel);
         IoUtil.close(request);
+        IoUtil.close(socket);
+        IoUtil.close(sc);
     }
 
     public void eof() {
@@ -92,7 +114,9 @@ public abstract class Response implements AutoCloseable{
         buffer.writeNio(CRLF);
     }
 
-    public abstract Response write(MultipartFile file) throws IOException;
+    public Response write(MultipartFile file) throws IOException {
+        return this;
+    };
 
 //    {
 //        flush();
