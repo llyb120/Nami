@@ -92,29 +92,7 @@ public class MultipartFile implements AutoCloseable{
         return null;
     }
 
-//    public String fileName(){
-//        return fileUpload.getFilename();
-//    }
-//
-//    public String contentType(){
-//        return fileUpload.getContentType();
-//    }
 
-//    public void transferTo(Channel channel){
-//        if(channel instanceof WritableByteChannel){
-//
-//        }
-//    }
-
-//    public void transferTo(AsynchronousSocketChannel channel) throws IOException, ExecutionException, InterruptedException {
-//        try(
-//                InputStream fis = openInputStream();
-//        ){
-//            byte[] bs = IoUtil.readBytes(fis);
-//            channel.write(ByteBuffer.wrap(bs)).get();
-//        }
-//    }
-//
     public void transferTo(WritableByteChannel channel) throws IOException {
         try(
             ReadableByteChannel ch = openChannel();
@@ -123,13 +101,6 @@ public class MultipartFile implements AutoCloseable{
         }
     }
 
-    public void transferTo(OutputStream os) throws IOException {
-        try(
-                InputStream fis = openInputStream();
-                ){
-            IoUtil.copy(fis, os);
-        }
-    }
 
     public void transferTo(String path) throws IOException {
         transferTo(new File(path));
@@ -137,9 +108,10 @@ public class MultipartFile implements AutoCloseable{
 
     public void transferTo(File file) throws IOException {
         try(
-                FileOutputStream fos = new FileOutputStream(file);
+                FileChannel ch = new RandomAccessFile(file, "rw").getChannel();
+                ReadableByteChannel rch = openChannel();
                 ){
-            transferTo(fos);
+            ch.transferFrom(rch, 0, Long.MAX_VALUE);
         }
     }
 

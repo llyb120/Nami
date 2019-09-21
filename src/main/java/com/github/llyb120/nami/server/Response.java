@@ -1,6 +1,7 @@
 package com.github.llyb120.nami.server;
 
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.github.llyb120.nami.core.MultipartFile;
@@ -26,10 +27,9 @@ public class Response implements AutoCloseable{
     public Request request = new Request();
     public Obj headers = o();
     public WritableByteChannel channel;
-    private Buffer buffer = new Buffer();
+//    private Buffer buffer = new Buffer();
 
-    private boolean closed = false;
-    public static final Object EOF = new Object();
+    volatile boolean closed = false;
 
     Socket socket;
     SocketChannel sc;
@@ -77,24 +77,24 @@ public class Response implements AutoCloseable{
 //        }
 //    }
 
-    public synchronized void close(){
+    public void close(){
         if(closed){
             return;
         }
-        flush();
         closed = true;
+        flush();
         IoUtil.close(channel);
         IoUtil.close(request);
         IoUtil.close(socket);
         IoUtil.close(sc);
-        System.out.println(System.currentTimeMillis() - stime);
+        System.out.println("fuck" + (System.currentTimeMillis() - stime));
     }
 
 //    public void eof() {
 //        flush(EOF);
 //    }
 
-    public Response writeHeaders(int bodyLen) throws IOException, ExecutionException, InterruptedException {
+    public Response writeHeaders(int bodyLen){
         enableCors();
         setKeepAlive(false);
 
@@ -122,11 +122,11 @@ public class Response implements AutoCloseable{
 //            buffer.writeNio(line);
 //        }
 //        buffer.writeNio(CRLF);
+        flush();
         return this;
     }
 
     public Response write(MultipartFile file) throws IOException {
-        flush();
         file.transferTo(channel);
         return this;
     };
@@ -144,39 +144,27 @@ public class Response implements AutoCloseable{
      * @throws ExecutionException
      * @throws InterruptedException
      */
-    public Response write(Object body) throws IOException, ExecutionException, InterruptedException {
-        String str;
-        if (body instanceof String) {
-            str = (String) body;
-        } else {
-            str = Json.stringify(body);
-        }
-        byte[] bs = str.getBytes();
-        writeHeaders(bs.length);
-        flush();
+    public Response write(String str) throws IOException, ExecutionException, InterruptedException {
+        channel.write(StrUtil.byteBuffer(str, CharsetUtil.UTF_8));
+        return this;
+    }
+
+    public Response write(ByteBuffer byteBuffer) throws IOException {
+        channel.write(byteBuffer);
+        return this;
+    }
+
+    public Response write(byte[] bs) throws IOException {
         channel.write(ByteBuffer.wrap(bs));
         return this;
     }
 
-
-    public Response write(ByteBuffer buffers){
-        buffer.writeNio(buffers);
-        return this;
+    public Response write(byte b) throws IOException {
+        return write(new byte[]{b});
     }
 
-    public Response write(byte[] bs, int offset, int length) throws IOException, ExecutionException, InterruptedException {
-        buffer.writeNio(bs, offset, length);
-        return this;
-    }
 
-    public Response write(byte[] bs) throws IOException, ExecutionException, InterruptedException {
-        return write(bs, 0, bs.length);
-    }
 
-    public Response write(byte b) throws IOException, ExecutionException, InterruptedException {
-        buffer.writeNio(b);
-        return this;
-    }
 
     public void header(String key, String value) {
         headers.put(key, value);

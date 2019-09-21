@@ -92,48 +92,7 @@ public class DevServer extends AbstractServer {
         }
     }
 
-//    private void read(Response response, BlockingQueue<ByteBuffer> taskList){
-//        int size = 409600000;
-//        try {
-//            while (true) {
-//                ByteBuffer byteBuffer = ByteBuffer.allocateDirect(size);
-//                int n = ((ReadableByteChannel) response.request.channel).read(byteBuffer);
-//                if (n < 1) {
-//                    break;
-//                }
-//                taskList.put(byteBuffer);
-//            }
-//        } catch (IOException e) {
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
-    private void read(Response response, Pipe pipe){
-        try {
-            ReadableByteChannel in = (ReadableByteChannel) response.request.channel;
-            WritableByteChannel out = pipe.sink();
-            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
-            while(in.read(byteBuffer) != -1) {
-                byteBuffer.flip();
-                out.write(byteBuffer);
-                byteBuffer.flip();
-            }
-        } catch (IOException e) { }
-//        System.out.println("copy end");
-//        try {
-//            while (true) {
-//                ByteBuffer byteBuffer = ByteBuffer.allocateDirect(size);
-//                int n = ((ReadableByteChannel) response.request.channel).read(byteBuffer);
-//                if (n < 1) {
-//                    break;
-//                }
-//                pipe.sink().write(byteBuffer);
-//                taskList.put(byteBuffer);
-//            }
-//        } catch (IOException e) {
-//        }
-    }
 
 
 }

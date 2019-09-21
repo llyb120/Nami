@@ -3,6 +3,7 @@ package com.github.llyb120.nami.server;
 import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.core.*;
 import com.github.llyb120.nami.hotswap.AppClassLoader;
+import com.github.llyb120.nami.json.Json;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import static cn.hutool.core.util.StrUtil.CRLF;
 import static com.github.llyb120.nami.core.Config.config;
 
 public abstract class AbstractServer {
@@ -218,14 +220,22 @@ public abstract class AbstractServer {
             }
         }
 
+
         if (result instanceof File) {
             proxyFile(resp, new MultipartFile((File) result));
         } else if (result instanceof MultipartFile) {
             proxyFile(resp, (MultipartFile) result);
         } else {
             resp.header("Content-Type", "application/json; charset=utf-8");
-            //close
-            resp.write(result).close();
+            if(result instanceof String){
+                byte[] bs = ((String) result).getBytes();
+                resp.writeHeaders(bs.length)
+                        .write(bs);
+            } else {
+                byte[] bs = Json.stringify(result).getBytes();
+                resp.writeHeaders(bs.length)
+                        .write(bs);
+            }
         }
 
     }
@@ -294,21 +304,24 @@ public abstract class AbstractServer {
                         ReadableByteChannel fis = multipartFile.openChannel();
                 ) {
                     int n = -1;
+                    ByteBuffer bs = ByteBuffer.allocateDirect(size);
                     while (true) {
-                        ByteBuffer bs = ByteBuffer.allocateDirect(size);
+                        bs.clear();
                         n = fis.read(bs);
                         if (n < 1) {
                             break;
                         }
-//                        response.write(Integer.toHexString(n).getBytes())
-//                                .write(CRLF)
-//                                .write((ByteBuffer) bs.flip())
-//                                .write(CRLF);
+                        response.write((Integer.toHexString(n).getBytes()))
+                                .write(CRLF)
+                                .write((ByteBuffer) bs.flip())
+                                .write(CRLF);
                     }
-//                    response.write((byte) '0')
-//                            .write(CRLF)
-//                            .write(CRLF)
-//                            .eof();
+                    bs.clear();
+                    bs.put((byte) '0');
+                    bs.put(CRLF.getBytes());
+                    bs.put(CRLF.getBytes());
+                    bs.flip();
+                    response.write(bs);
                 }
             }
         }
@@ -316,6 +329,6 @@ public abstract class AbstractServer {
 
 
     public int directDownloadLength() {
-        return 4096000;
+        return 4096;
     }
 }

@@ -2,8 +2,10 @@ package com.github.llyb120.nami.server;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.CharUtil;
+import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
+import cn.hutool.http.HttpUtil;
 import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Json;
@@ -26,7 +28,6 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static com.github.llyb120.nami.json.Json.o;
-import static com.github.llyb120.nami.server.Response.CRLF;
 
 public class Request implements AutoCloseable {
     public Obj headers = o();
