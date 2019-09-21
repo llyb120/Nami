@@ -202,7 +202,8 @@ public class Request implements AutoCloseable {
             return true;
         }
         CharBuffer charBuffer = StandardCharsets.UTF_8.decode(byteBuffer);
-        sb.append(charBuffer.toString());
+        sb.append(charBuffer.array());
+//        sb.append(charBuffer.toString());
 //        byte[] bs = new byte[byteBuffer.remaining()];
 //        byteBuffer.get(bs);
         if (phase == AnalyzePhase.DECODING_HEAD) {
@@ -344,6 +345,7 @@ public class Request implements AutoCloseable {
                 }
                 //end
             }
+
         }
         return false;
     }

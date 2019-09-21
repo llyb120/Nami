@@ -2,6 +2,7 @@ package com.github.llyb120.nami.core;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
+import org.beetl.core.resource.ClasspathResource;
 
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -114,13 +115,13 @@ public class MultipartFile implements AutoCloseable{
 //        }
 //    }
 //
-//    public void transferTo(WritableByteChannel channel) throws IOException {
-//        try(
-//            ReadableByteChannel ch = openChannel();
-//                ){
-//            IoUtil.copy(ch, channel);
-//        }
-//    }
+    public void transferTo(WritableByteChannel channel) throws IOException {
+        try(
+            ReadableByteChannel ch = openChannel();
+                ){
+            IoUtil.copy(ch, channel);
+        }
+    }
 
     public void transferTo(OutputStream os) throws IOException {
         try(

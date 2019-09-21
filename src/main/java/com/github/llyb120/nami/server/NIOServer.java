@@ -2,6 +2,7 @@ package com.github.llyb120.nami.server;
 
 import cn.hutool.socket.nio.NioServer;
 import com.github.llyb120.nami.core.Async;
+import com.github.llyb120.nami.core.Config;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.server.AbstractServer;
 import com.github.llyb120.nami.server.Response;
@@ -17,6 +18,10 @@ public class NIOServer extends AbstractServer {
     private Selector selector;
     private ServerSocketChannel servChannel;
     private boolean running = true;
+
+    public NIOServer(Config.Server server) {
+        super(server);
+    }
 
     @Override
     public void start(int port) throws Exception {

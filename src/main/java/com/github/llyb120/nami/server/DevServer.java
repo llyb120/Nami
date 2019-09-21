@@ -2,6 +2,7 @@ package com.github.llyb120.nami.server;
 
 import cn.hutool.core.io.IoUtil;
 import com.github.llyb120.nami.core.Async;
+import com.github.llyb120.nami.core.Config;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.server.AbstractServer;
 import com.github.llyb120.nami.server.Response;
@@ -23,7 +24,9 @@ import java.util.concurrent.TimeUnit;
 public class DevServer extends AbstractServer {
 
 
-
+    public DevServer(Config.Server server) {
+        super(server);
+    }
 
     public void start(int port) throws Exception {
         long stime = System.currentTimeMillis();

@@ -1,5 +1,6 @@
 package com.github.llyb120.nami;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.http.HttpUtil;
@@ -24,6 +25,8 @@ import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestCtrl {
 
+    private int port = 8085;
+    
     @BeforeClass
     public static void before() throws InterruptedException {
 //        Route.routes.add(new Route("/test/:c/:a -> com.github.llyb120.nami.test"));
@@ -35,38 +38,38 @@ public class TestCtrl {
 
     @Test
     public void test_01_getWithNoArg() {
-        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithNoArg");
+        String res = HttpUtil.get("http://127.0.0.1:" + port + "/test/a/getWithNoArg");
         assertEquals(res, "ok");
     }
 
 
     @Test
     public void test_02_getWithArgs() {
-        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithArgs", o("a", 1).map());
+        String res = HttpUtil.get("http://127.0.0.1:" + port + "/test/a/getWithArgs", o("a", 1).map());
         assertEquals(res, "1");
     }
 
     @Test
     public void test_03_getQuery() {
         Obj query = o("a", "1", "b", "2");
-        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getQuery", query);
+        String res = HttpUtil.get("http://127.0.0.1:" + port + "/test/a/getQuery", query);
         assertEquals(res, query.toString());
     }
 
     @Test
     public void test_04_postUrlEncoded() {
         Obj query = o("a", "1", "b", "2");
-        String res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded", query);
+        String res = HttpUtil.post("http://127.0.0.1:" + port + "/test/a/postUrlEncoded", query);
         assertEquals(res, query.toString());
 
-        res = HttpUtil.post("http://127.0.0.1:" + config.port + "/test/a/postUrlEncoded2", query);
+        res = HttpUtil.post("http://127.0.0.1:" + port + "/test/a/postUrlEncoded2", query);
         assertEquals(res, "1");
     }
 
     @Test
     public void test_05_postJson() {
         Json Json = a("1", "2", "3");
-        String res = HttpUtil.createPost("http://127.0.0.1:" + config.port + "/test/a/postJsonArray")
+        String res = HttpUtil.createPost("http://127.0.0.1:" + port + "/test/a/postJsonArray")
                 .body(Json.toString())
                 .header("Content-Type", "application/json")
                 .execute()
@@ -75,7 +78,7 @@ public class TestCtrl {
         assertEquals(res, Json.toString());
 
         Json = o("a", "2", "b", a("1", "2"));
-        res = HttpUtil.createPost("http://127.0.0.1:" + config.port + "/test/a/postJsonObject")
+        res = HttpUtil.createPost("http://127.0.0.1:" + port + "/test/a/postJsonObject")
                 .body(Json.toString())
                 .header("Content-Type", "application/json")
                 .execute()
@@ -85,14 +88,14 @@ public class TestCtrl {
 
     @Test
     public void test_06_getWithEntity(){
-        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/getWithEntity", o("a", "1", "b", "2").map());
+        String res = HttpUtil.get("http://127.0.0.1:" + port + "/test/a/getWithEntity", o("a", "1", "b", "2").map());
         assertNotNull(res);
         assertNotEquals(res, "null");
     }
 
     @Test
     public void test_07_cookie(){
-        String res = HttpUtil.createGet("http://127.0.0.1:" + config.port + "/test/a/testCookie")
+        String res = HttpUtil.createGet("http://127.0.0.1:" + port + "/test/a/testCookie")
                 .header("Cookie", "_ga=GA1.2.2106664825.1561338214; UM_distinctid=16bb6c1b19615-0092e59a330b4b-2b580b4d-144000-16bb6c1b198bc; CNZZDATA1258351730=1961795621-1562137993-null%7C1562143853")
                 .execute()
                 .body();
@@ -102,14 +105,14 @@ public class TestCtrl {
     @Test
     public void test_08_php_style(){
         String val = RandomUtil.randomString(1024);
-        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleGet", o("dev", val).map());
+        String res = HttpUtil.get("http://127.0.0.1:" + port + "/test/a/phpStyleGet", o("dev", val).map());
         assertEquals(res, val);
     }
     @Test
     public void test_09_php_style() {
         String val = RandomUtil.randomString(1024);
         Obj parasm = o("dev", val);
-        String res = HttpUtil.get("http://127.0.0.1:" + config.port + "/test/a/phpStyleRequest", parasm);
+        String res = HttpUtil.get("http://127.0.0.1:" + port + "/test/a/phpStyleRequest", parasm);
         assertEquals(parasm.toString(), res);
     }
 
@@ -150,7 +153,7 @@ public class TestCtrl {
         // 写上结尾标识
         buf.write(end_data);
 
-        String res = HttpUtil.createPost("http://127.0.0.1:" + config.port + "/test/a/uploadFile")
+        String res = HttpUtil.createPost("http://127.0.0.1:" + port + "/test/a/uploadFile")
                 .contentType("multipart/form-data; boundary=----WebKitFormBoundaryari0emH33oMihIU4")
                 .body(buf.readBytes())
                 .execute()
@@ -223,10 +226,10 @@ public class TestCtrl {
 
         File temp = File.createTempFile("123", "123");
         temp.deleteOnExit();
-        HttpUtil.downloadFile("http://127.0.0.1:" + config.port + "/test/a/downloadFile1?path=" + Json[1], temp);
+        HttpUtil.downloadFile("http://127.0.0.1:" + port + "/test/a/downloadFile1?path=" + Json[1], temp);
         Assert.assertEquals(IoUtil.read(new FileReader(temp)), str);
 
-        HttpUtil.downloadFile("http://127.0.0.1:" + config.port + "/test/a/downloadFile2?path=" + Json[1], temp);
+        HttpUtil.downloadFile("http://127.0.0.1:" + port + "/test/a/downloadFile2?path=" + Json[1], temp);
         Assert.assertEquals(IoUtil.read(new FileReader(temp)), str);
 
     }
@@ -236,16 +239,17 @@ public class TestCtrl {
         String str = RandomUtil.randomString(length);
         File temp = File.createTempFile("123", "123");
         temp.deleteOnExit();
-        IoUtil.write(new FileOutputStream(temp), true, str.getBytes());
+        FileUtil.writeUtf8String(str, temp);
+//        IoUtil.write(new FileOutputStream(temp), true, str.getBytes());
         File temp2 = File.createTempFile("444", "555");
         temp2.deleteOnExit();
-        HttpUtil.downloadFile("http://127.0.0.1:" + config.port + "/test/a/downloadFile1?path=" + temp.getAbsolutePath(), temp2);
-        Assert.assertEquals(IoUtil.read(new FileReader(temp)), str);
+        HttpUtil.downloadFile("http://127.0.0.1:" + port + "/test/a/downloadFile1?path=" + temp.getAbsolutePath(), temp2);
+        Assert.assertEquals(FileUtil.readString(temp2, StandardCharsets.UTF_8), str);
 
         temp2 = File.createTempFile("444","555");
         temp2.deleteOnExit();
-        HttpUtil.downloadFile("http://127.0.0.1:" + config.port + "/test/a/downloadFile2?path=" + temp.getAbsolutePath(), temp2);
-        Assert.assertEquals(IoUtil.read(new FileReader(temp)), str);
+        HttpUtil.downloadFile("http://127.0.0.1:" + port + "/test/a/downloadFile2?path=" + temp.getAbsolutePath(), temp2);
+        Assert.assertEquals(FileUtil.readString(temp2, StandardCharsets.UTF_8), str);
     }
 
     @Test

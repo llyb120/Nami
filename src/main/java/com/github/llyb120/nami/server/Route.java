@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,14 +17,13 @@ import static com.github.llyb120.nami.json.Json.a;
 
 public class Route {
 
-    public static class Node{
+    public static class Node implements Cloneable{
         public String value;
         public String ctrl;
-        public List<Node> children = new Vector<>();
+        public ConcurrentLinkedDeque<Node> children = new ConcurrentLinkedDeque<>();
         public Node parent;
         public int deep = 0;
         public Type type = Type.NORMAL;
-
 
         public static enum Type{
             ROOT,
@@ -60,13 +60,19 @@ public class Route {
         }
 
 
-        private void getChild(String[] url, int i, Arr ret){
-            String key = url[i];
+        private void getChild(List<String> url, int i, Arr ret){
+            if(type == Type.ROOT){
+                for (Node child : children) {
+                    child.getChild(url, i, ret);
+                }
+                return;
+            }
+            String key = url.get(i);
             if(key.isEmpty()){
                 getChild(url, i + 1, ret);
                 return;
             }
-            boolean isEnd = i == url.length - 1;
+            boolean isEnd = i == url.size() - 1;
             if(type == Type.CLASS || type == Type.METHOD || StrUtil.equalsIgnoreCase(value, key)){
                 if(isEnd){
                     ret.add(this);
@@ -79,17 +85,34 @@ public class Route {
             }
         }
 
-        public boolean match(String[] url){
+//        public boolean match(String[] url){
+//            if(type != Type.ROOT){
+//                return false;
+//            }
+//            if(url.length == 0){
+//                return false;
+//            }
+//            Arr<Node> ret = a();
+//            getChild(url,0, ret);
+//            return true;
+//        }
+
+
+
+        public Node getMatched(List<String> strs){
             if(type != Type.ROOT){
-                return false;
+                return null;
             }
-            if(url.length == 0){
-                return false;
+
+            if(strs.size() == 0){
+                return null;
             }
             Arr<Node> ret = a();
-            getChild(url,0, ret);
-            return true;
+            getChild(strs, 0, ret);
+            return ret.stream().min((a, b) -> Integer.compare(b.deep, a.deep))
+                    .orElse(null);
         }
+
     }
 
     public static List<Route> routes = new Vector<>();

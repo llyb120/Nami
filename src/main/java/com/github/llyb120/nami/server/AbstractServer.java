@@ -1,29 +1,26 @@
 package com.github.llyb120.nami.server;
 
-import cn.hutool.core.io.IoUtil;
-import com.github.llyb120.nami.core.AopInvoke;
-import com.github.llyb120.nami.core.Async;
-import com.github.llyb120.nami.core.MultipartFile;
-import com.github.llyb120.nami.core.Param;
+import cn.hutool.core.util.StrUtil;
+import com.github.llyb120.nami.core.*;
 import com.github.llyb120.nami.hotswap.AppClassLoader;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
-import java.nio.channels.Channel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import static com.github.llyb120.nami.core.Config.config;
-import static com.github.llyb120.nami.server.Response.CRLF;
 
 public abstract class AbstractServer {
 
+    Config.Server server;
     private HashMap<Class, Object> clzInstances = new HashMap<>();
     private ThreadLocal<AppClassLoader> loaders = new ThreadLocal<AppClassLoader>() {
         @Override
@@ -35,9 +32,10 @@ public abstract class AbstractServer {
     static LinkedBlockingQueue<Response> analyzeQueue = new LinkedBlockingQueue<>();
     static LinkedBlockingQueue<Response> handleQueue = new LinkedBlockingQueue<>();
 
-    public static final Object EOF = new Object();
-
     public abstract void start(int port) throws Exception;
+    public AbstractServer(Config.Server server){
+        this.server = server;
+    }
 
     static {
         for (int i = 0; i < 16; i++) {
@@ -151,19 +149,39 @@ public abstract class AbstractServer {
             }
         }
         **/
-        
+
         //路由匹配
-        Object[] route = Route.getMatchedRoute(req.path);
-        if (route == null) {
+        List<String> paths = StrUtil.split(req.path, '/', false, true);
+        Route.Node node = server.root.getMatched(paths);
+        if(node == null){
             return;
         }
-        String className = (String) route[1];
-        String methodName = (String) route[2];
-        String packageName = (String) route[0];
-        if (className == null) {
-            className = packageName;
+        String methodName = null;
+        String className = null;
+        String packageName = node.ctrl;
+        do{
+            if(node.type == Route.Node.Type.METHOD){
+                methodName = paths.get(node.deep - 1);
+            } else if(node.type == Route.Node.Type.CLASS){
+                className = paths.get(node.deep - 1);
+            }
+            node = node.parent;
+        } while(node != null);
+        if(methodName == null || className == null){
+            return;
         }
-        String[] aops = (String[]) route[3];
+        className = packageName + "." + className;
+//        Object[] route = Route.getMatchedRoute(req.path);
+//        if (route == null) {
+//            return;
+//        }
+//        String className = (String) route[1];
+//        String methodName = (String) route[2];
+//        String packageName = (String) route[0];
+//        if (className == null) {
+//            className = packageName;
+//        }
+        String[] aops = null;//(String[]) route[3];
 
         AppClassLoader loader = null;
         if (config.dev) {
@@ -192,6 +210,8 @@ public abstract class AbstractServer {
                 if (aops != null) {
                     result = doAop(loader, aops, clz, method, instance, args, resp);
                 } else {
+//                    MethodAccess ma = MethodAccess.get(clz);
+//                    result = ma.invoke(instance, methodName, args);
                     result = method.invoke(instance, args);
                 }
                 break;
@@ -203,10 +223,9 @@ public abstract class AbstractServer {
         } else if (result instanceof MultipartFile) {
             proxyFile(resp, (MultipartFile) result);
         } else {
-            resp.setHeader("Content-Type", "application/json; charset=utf-8");
+            resp.header("Content-Type", "application/json; charset=utf-8");
             //close
-            resp.writeObject(result);
-            resp.flush().eof();
+            resp.write(result).close();
         }
 
     }
@@ -263,9 +282,9 @@ public abstract class AbstractServer {
         response.setFileDescription(multipartFile, download);
         if (length > -1) {
             if (directDownloadLength() >= length) {
-                response.writeHeaders((int) length);
-                response.flush().write(multipartFile).eof();
-//                multipartFile.transferTo(response.channel);
+                response.writeHeaders((int) length)
+                .write(multipartFile)
+                .close();
             } else {
                 response.setChunked(true);
                 response.writeHeaders(-1);
@@ -281,15 +300,15 @@ public abstract class AbstractServer {
                         if (n < 1) {
                             break;
                         }
-                        response.write(Integer.toHexString(n).getBytes())
-                                .write(CRLF)
-                                .write((ByteBuffer) bs.flip())
-                                .write(CRLF);
+//                        response.write(Integer.toHexString(n).getBytes())
+//                                .write(CRLF)
+//                                .write((ByteBuffer) bs.flip())
+//                                .write(CRLF);
                     }
-                    response.write((byte) '0')
-                            .write(CRLF)
-                            .write(CRLF)
-                            .eof();
+//                    response.write((byte) '0')
+//                            .write(CRLF)
+//                            .write(CRLF)
+//                            .eof();
                 }
             }
         }
@@ -297,6 +316,6 @@ public abstract class AbstractServer {
 
 
     public int directDownloadLength() {
-        return 4096;
+        return 4096000;
     }
 }

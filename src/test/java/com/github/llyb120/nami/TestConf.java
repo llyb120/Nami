@@ -26,7 +26,7 @@ public class TestConf {
 
 
         for (Config.Server server : cfg.servers) {
-            server.root.match("/test/a/b".split("/"));
+//            server.root.match("/test/a/b".split("/"));
         }
         long e = 1;
     }

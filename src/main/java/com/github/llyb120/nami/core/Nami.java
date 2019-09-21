@@ -60,9 +60,9 @@ public class Nami {
             for (Config.Server _server : config.servers) {
                 AbstractServer server = null;
                 if (config.dev) {
-                    server = new DevServer();
+                    server = new DevServer(_server);
                 } else {
-                    server = new NIOServer();
+                    server = new NIOServer(_server);
                 }
                 server.start(_server.listen);
             }

@@ -8,22 +8,15 @@ import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
 import java.nio.charset.StandardCharsets;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.LinkedBlockingQueue;
 
+import static cn.hutool.core.util.StrUtil.CRLF;
 import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.json.Json.aaa;
 import static com.github.llyb120.nami.json.Json.o;
@@ -33,7 +26,6 @@ public class Response implements AutoCloseable{
     public Request request = new Request();
     public Obj headers = o();
     public WritableByteChannel channel;
-    public static final byte[] CRLF = "\r\n".getBytes();
     private Buffer buffer = new Buffer();
 
     private boolean closed = false;
@@ -43,11 +35,14 @@ public class Response implements AutoCloseable{
     SocketChannel sc;
     Pipe pipe;
     AbstractServer server;
+    StringBuilder sb = new StringBuilder();
+    long stime;
 
     public Response(AbstractServer server, Socket socket) throws IOException {
         pipe = Pipe.open();
         this.socket = socket;
         this.server = server;
+        stime = System.currentTimeMillis();
     }
 
     public Response(AbstractServer server, SocketChannel sc) throws IOException {
@@ -57,25 +52,30 @@ public class Response implements AutoCloseable{
     }
 
     public Response flush() {
-        Arr bfs = aaa(buffer.getNioBuffers());
-        buffer.getNioBuffers().clear();
-        for (Object bf : bfs) {
-            flush(bf);
+        if(sb.length() == 0){
+            return this;
+        }
+        try {
+            channel.write(StrUtil.byteBuffer(sb.toString(), StandardCharsets.UTF_8.name()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            sb.setLength(0);
         }
         return this;
     }
-
-    public void flush(Object object){
-        if (object == EOF) {
-            close();
-        } else if (object instanceof ByteBuffer) {
-            try {
-                channel.write((ByteBuffer) object);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//
+//    public void flush(Object object){
+//        if (object == EOF) {
+//            close();
+//        } else if (object instanceof ByteBuffer) {
+//            try {
+//                channel.write((ByteBuffer) object);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     public synchronized void close(){
         if(closed){
@@ -87,34 +87,47 @@ public class Response implements AutoCloseable{
         IoUtil.close(request);
         IoUtil.close(socket);
         IoUtil.close(sc);
+        System.out.println(System.currentTimeMillis() - stime);
     }
 
-    public void eof() {
-        flush(EOF);
-    }
+//    public void eof() {
+//        flush(EOF);
+//    }
 
-    public void writeHeaders(int bodyLen) throws IOException, ExecutionException, InterruptedException {
+    public Response writeHeaders(int bodyLen) throws IOException, ExecutionException, InterruptedException {
         enableCors();
         setKeepAlive(false);
 
         //写入200
-        buffer.writeNio("HTTP/1.1 200 OK\r\n");
+        sb.append("HTTP/1.1 200 OK");
+        sb.append(CRLF);
+//        buffer.writeNio("HTTP/1.1 200 OK\r\n");
         if(bodyLen > -1){
             setContentLength(bodyLen);
         }
         if(request.cookie.hasChanged()){
-            headers.put("Set-Cookie", request.cookie.toSetCookieString());
+            header("Set-Cookie", request.cookie.toSetCookieString());
         }
-        for (Object o : headers.entrySet()) {
-            Map.Entry<String, Object> entry = (Map.Entry<String, Object>) o;
-            String value = (String) entry.getValue();
-            String line = entry.getKey() + ": " + value + "\r\n";
-            buffer.writeNio(line);
-        }
-        buffer.writeNio(CRLF);
+        headers.forEach((k,v) -> {
+            sb.append(k);
+            sb.append(": ");
+            sb.append(v);
+            sb.append(CRLF);
+        });
+        sb.append(CRLF);
+//        for (Object o : headers.entrySet()) {
+//            Map.Entry<String, Object> entry = (Map.Entry<String, Object>) o;
+//            String value = (String) entry.getValue();
+//            String line = entry.getKey() + ": " + value + "\r\n";
+//            buffer.writeNio(line);
+//        }
+//        buffer.writeNio(CRLF);
+        return this;
     }
 
     public Response write(MultipartFile file) throws IOException {
+        flush();
+        file.transferTo(channel);
         return this;
     };
 
@@ -131,16 +144,18 @@ public class Response implements AutoCloseable{
      * @throws ExecutionException
      * @throws InterruptedException
      */
-    public void writeObject(Object body) throws IOException, ExecutionException, InterruptedException {
-        byte[] bs;
+    public Response write(Object body) throws IOException, ExecutionException, InterruptedException {
+        String str;
         if (body instanceof String) {
-            bs = ((String) body).getBytes(StandardCharsets.UTF_8);
+            str = (String) body;
         } else {
-            bs = Json.stringify(body).getBytes(StandardCharsets.UTF_8);
-//            bs = JSON.toJSONBytes(body, SerializerFeature.WriteDateUseDateFormat, SerializerFeature.PrettyFormat);
+            str = Json.stringify(body);
         }
+        byte[] bs = str.getBytes();
         writeHeaders(bs.length);
-        buffer.writeNio(bs);
+        flush();
+        channel.write(ByteBuffer.wrap(bs));
+        return this;
     }
 
 
@@ -163,20 +178,20 @@ public class Response implements AutoCloseable{
         return this;
     }
 
-    public void setHeader(String key, String value) {
+    public void header(String key, String value) {
         headers.put(key, value);
     }
 
     public void setKeepAlive(boolean b){
         if(b){
-            setHeader("Connection", "keep-alive");
+            header("Connection", "keep-alive");
         } else {
-            setHeader("Connection", "close");
+            header("Connection", "close");
         }
     }
 
     public void setContentLength(int length) {
-        headers.put("Content-Length", length + "");
+        header("Content-Length", length + "");
     }
 
 
@@ -201,16 +216,16 @@ public class Response implements AutoCloseable{
 
     public void enableCors() {
         if (StrUtil.isNotEmpty(config.cors.origin)) {
-            setHeader("Access-Control-Allow-Origin", config.cors.origin);
+            header("Access-Control-Allow-Origin", config.cors.origin);
         }
         if (StrUtil.isNotEmpty(config.cors.method)) {
-            setHeader("Access-Control-Allow-Methods", config.cors.method);
+            header("Access-Control-Allow-Methods", config.cors.method);
         }
         if (StrUtil.isNotEmpty(config.cors.headers)) {
-            setHeader("Access-Control-Allow-Headers", config.cors.headers);
+            header("Access-Control-Allow-Headers", config.cors.headers);
         }
         if (StrUtil.isNotEmpty(config.cors.credentials)) {
-            setHeader("Access-Control-Allow-Credentials", config.cors.credentials);
+            header("Access-Control-Allow-Credentials", config.cors.credentials);
         }
     }
 }
