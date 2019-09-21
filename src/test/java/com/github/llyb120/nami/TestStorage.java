@@ -45,7 +45,7 @@ public class TestStorage {
 
 
         file = File.createTempFile("123",".txt");
-        HttpUtil.download("http://127.0.0.1:" + config.port + "/test/a/downloadStorageFile?path=" + id, new FileOutputStream(file), true);
+        HttpUtil.download("http://127.0.0.1:" + 8085 + "/test/a/downloadStorageFile?path=" + id, new FileOutputStream(file), true);
 
         String str = IoUtil.read(new FileReader(file));
         Assert.assertEquals(str, content);

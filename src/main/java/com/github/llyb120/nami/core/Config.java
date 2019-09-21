@@ -1,18 +1,23 @@
 package com.github.llyb120.nami.core;
 
 import cn.hutool.core.collection.ConcurrentHashSet;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.tokenizer.TokenizerUtil;
 import com.github.llyb120.nami.ext.file.SimpleStorage;
 import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.FlexAction;
 import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.Route;
 import org.apache.commons.collections4.list.CursorableLinkedList;
+import sun.nio.ch.FileChannelImpl;
+import sun.nio.ch.IOUtil;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -21,11 +26,11 @@ import static com.github.llyb120.nami.json.Json.o;
 
 public class Config {
     public static Config config;
-    public int port;
+    //    public int port;
     public Map<String, Db> db = new Hashtable<>();
     public Set<String> hotswap = new ConcurrentHashSet<>();
     public Vector<String> magicvar = new Vector<>();
-    public List<String> route = new Vector<>();
+    //    public List<String> route = new Vector<>();
 //    public Compile compile = new Compile();
     public Cors cors = new Cors();
     public Obj ext = o();
@@ -44,7 +49,8 @@ public class Config {
     public String target;
 
     private int ptr = 0;
-    private byte[] bs = null;
+    private String str = null;
+//    private byte[] bs = null;
 
     static {
 //        System.setProperty("illegal-access", "deny");
@@ -60,7 +66,7 @@ public class Config {
     private void initConf(String path) {
         //jdk版本
         String version = System.getProperty("java.version");
-        if(version.startsWith("1.8")){
+        if (version.startsWith("1.8")) {
             this.jdkVersion = "1.8";
         } else {
             this.jdkVersion = version;
@@ -71,19 +77,17 @@ public class Config {
 //        } else {
 //            this.jdkVersion = jdkVersion.substring(0, idex);
 //        }
+
         try (
-                FileInputStream fis = new FileInputStream(path);
+                FileChannel ch = new FileInputStream(path).getChannel();
         ) {
-            bs = IoUtil.readBytes(fis);
+            str = IoUtil.read(ch, StandardCharsets.UTF_8);
             String token;
             while ((token = readNextToken()) != null) {
                 switch (token) {
-                    case "port":
-                        port = Integer.parseInt(readNextToken());
-                        break;
-
                     case "db":
-                        readDb();
+                        Db db = readDb();
+                        this.db.put(db.name, db);
                         break;
 
                     case "dev":
@@ -100,11 +104,6 @@ public class Config {
                         readStringArray(magicvar);
                         break;
 
-                    case "route":
-                        readNextToken();
-                        readStringArray(route);
-                        break;
-
                     case "cors":
                         readCors();
                         break;
@@ -118,6 +117,7 @@ public class Config {
                             public boolean canFlex(String k, Object v) {
                                 return k.endsWith("/");
                             }
+
                             @Override
                             public Object call(String k, Object v) {
                                 return new HashMap.SimpleEntry(k.substring(0, k.length() - 1), v);
@@ -127,6 +127,7 @@ public class Config {
 
 
                     case "crontab":
+                        readNextToken();
                         readStringArray(crontabs);
                         break;
 
@@ -156,12 +157,9 @@ public class Config {
                 }
             }
 
-            for (String s : route) {
-                Route.routes.add(new Route(s));
-            }
-            if(config.dev){
-                config.source =  GenKit.getJavaSRCPath();
-                config.target =  new File(config.source, "../../../target/classes").getAbsolutePath();
+            if (config.dev) {
+                config.source = GenKit.getJavaSRCPath();
+                config.target = new File(config.source, "../../../target/classes").getAbsolutePath();
             }
 
             //add magic vars
@@ -180,21 +178,19 @@ public class Config {
                     config.links.put(link.fromClz + link.name, link);
                 }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
-            System.exit(-1);
         }
     }
 
-    private Server readServer(){
+    private Server readServer() {
         //skip {
         readNextToken();
         Server server = new Server();
         String key;
         scan:
-        while((key = readNextToken()) != null){
-            switch (key){
+        while ((key = readNextToken()) != null) {
+            switch (key) {
                 case "}":
                     break scan;
 
@@ -216,7 +212,7 @@ public class Config {
                     String[] arr = StrUtil.split(url, "/");
                     Route.Node node = server.root;
                     for (String s : arr) {
-                        if(s.isEmpty()) {
+                        if (s.isEmpty()) {
                             continue;
                         }
                         node = node.getNode(s);
@@ -234,13 +230,13 @@ public class Config {
         return server;
     }
 
-    private Location readLocation(){
+    private Location readLocation() {
         readNextToken();
         Location location = new Location();
         String key;
         scan:
-        while((key = readNextToken()) != null){
-            switch (key){
+        while ((key = readNextToken()) != null) {
+            switch (key) {
                 case "}":
                     break scan;
 
@@ -250,7 +246,7 @@ public class Config {
 
                 case "ctrl":
                     location.ctrl = readNextToken();
-                    break ;
+                    break;
 
             }
         }
@@ -262,8 +258,8 @@ public class Config {
         readNextToken();
         String key = null;
         StorageConfig lastItem = null;
-        while((key = readNextToken()) != null){
-            if(key.equals("}")) return;
+        while ((key = readNextToken()) != null) {
+            if (key.equals("}")) return;
             lastItem = new StorageConfig();
             //skip {
             readNextToken();
@@ -271,17 +267,17 @@ public class Config {
             storages.put(key, lastItem);
 
             //make instance
-            if("simple".equalsIgnoreCase(lastItem.driver)){
+            if ("simple".equalsIgnoreCase(lastItem.driver)) {
                 lastItem.instance = new SimpleStorage(lastItem);
             }
         }
     }
 
-    private void readStorageItem(StorageConfig storage){
+    private void readStorageItem(StorageConfig storage) {
         String key = null;
-        while((key = readNextToken()) != null){
-            if(key.equals("}")) return;
-            switch (key){
+        while ((key = readNextToken()) != null) {
+            if (key.equals("}")) return;
+            switch (key) {
                 case "driver":
                     storage.driver = readNextToken();
                     break;
@@ -293,11 +289,11 @@ public class Config {
         }
     }
 
-    private void readVersion(){
+    private void readVersion() {
         readNextToken();
         String key = null;
-        while((key = readNextToken()) != null) {
-            switch (key){
+        while ((key = readNextToken()) != null) {
+            switch (key) {
                 case "}":
                     return;
                 case "name":
@@ -312,10 +308,10 @@ public class Config {
         }
     }
 
-    private void readObj(Obj obj){
+    private void readObj(Obj obj) {
         //read key
         String key = null;
-        while((key = readNextToken()) != null) {
+        while ((key = readNextToken()) != null) {
             if (key.equals("}")) {
                 return;
             }
@@ -325,7 +321,7 @@ public class Config {
                 Obj nobj = o();
                 obj.put(key, nobj);
                 readObj(nobj);
-            } else if(value.equals("[")){
+            } else if (value.equals("[")) {
                 Arr narr = a();
                 obj.put(key, narr);
                 readStringArray(narr.list());
@@ -372,64 +368,56 @@ public class Config {
         }
     }
 
-    private void readDb() {
+    private Db readDb() {
         //skip {
         readNextToken();
         //读取一个数据源名
         String token = null;
+        Db ds = new Db();
         while ((token = readNextToken()) != null) {
             if (token.equals("}")) {
-                return;
+                return ds;
             } else {
-                Db ds = new Db();
-                this.db.put(token, ds);
-                //skip {
-                readNextToken();
-                while (true) {
-                    token = readNextToken();
-                    if (token == null) {
+                switch (token) {
+                    case "name":
+                        ds.name = readUntilLine2();
                         break;
-                    }
-                    if (token.equals("}")) {
+
+                    case "url":
+                        ds.url = readUntilLine2();
                         break;
-                    }
-                    switch (token) {
-                        case "url":
-                            ds.url = readUntilLine2();
-                            break;
 
-                        case "driver":
-                            ds.driver = readUntilLine2();
-                            break;
+                    case "driver":
+                        ds.driver = readUntilLine2();
+                        break;
 
-                        case "username":
-                            ds.username = readUntilLine2();
-                            break;
+                    case "username":
+                        ds.username = readUntilLine2();
+                        break;
 
-                        case "password":
-                            ds.password = readUntilLine2();
-                            break;
+                    case "password":
+                        ds.password = readUntilLine2();
+                        break;
 
-                        case "style":
-                            ds.style = readUntilLine2();
-                            break;
+                    case "style":
+                        ds.style = readUntilLine2();
+                        break;
 
-                        case "schema":
-                            ds.schema = readUntilLine2();
-                            break;
-                    }
+                    case "schema":
+                        ds.schema = readUntilLine2();
+                        break;
                 }
             }
         }
-
+        return ds;
     }
 
 
     private String readUntilLine2() {
         int left = -1;
         int right = -1;
-        while (ptr < bs.length) {
-            switch (bs[ptr]) {
+        while (ptr < str.length()) {
+            switch (str.charAt(ptr)) {
                 case ' ':
                 case '\t':
                 case '\r':
@@ -440,14 +428,14 @@ public class Config {
                         if (right == -1) {
                             //如果有\r
                             int p = ptr;
-                            if(bs[ptr - 1] == '\r'){
-                                p = ptr -1;
+                            if (str.charAt(ptr - 1) == '\r') {
+                                p = ptr - 1;
                             }
                             ptr++;
-                            return new String(bs, left, p - left);
+                            return str.substring(left, p);
                         } else {
                             ptr++;
-                            return new String(bs, left, right - left + 1);
+                            return str.substring(left, right + 1);
                         }
                     }
                     break;
@@ -470,14 +458,14 @@ public class Config {
 
     private String readUntilLine() {
         int lastNotEmptyPtr = -1;
-        while (ptr < bs.length) {
-            switch (bs[ptr]) {
+        while (ptr < str.length()) {
+            switch (str.charAt(ptr)) {
                 case ' ':
                 case '\t':
                 case '\r':
                 case '\n':
                     if (lastNotEmptyPtr > -1) {
-                        return new String(bs, lastNotEmptyPtr, (ptr++) - lastNotEmptyPtr);
+                        return str.substring(lastNotEmptyPtr, (ptr++) - lastNotEmptyPtr);
                     }
                     break;
 
@@ -494,19 +482,19 @@ public class Config {
 
     private String readNextToken() {
         int lastNotEmptyPtr = -1;
-        while (ptr < bs.length) {
-            switch (bs[ptr]) {
+        while (ptr < str.length()) {
+            switch (str.charAt(ptr)) {
                 case ' ':
                 case '\t':
                 case '\r':
                     if (lastNotEmptyPtr != -1) {
-                        return new String(bs, lastNotEmptyPtr, (ptr++) - lastNotEmptyPtr);
+                        return str.substring(lastNotEmptyPtr, (ptr++));
                     }
                     break;
 
                 case '{':
                     if (lastNotEmptyPtr != -1) {
-                        return new String(bs, lastNotEmptyPtr, ptr - lastNotEmptyPtr);
+                        return str.substring(lastNotEmptyPtr, ptr);
                     } else {
                         ptr++;
                         return "{";
@@ -518,7 +506,7 @@ public class Config {
 
                 case '[':
                     if (lastNotEmptyPtr != -1) {
-                        return new String(bs, lastNotEmptyPtr, (ptr) - lastNotEmptyPtr);
+                        return str.substring(lastNotEmptyPtr, (ptr));
                     } else {
                         ptr++;
                         return "[";
@@ -531,7 +519,7 @@ public class Config {
                 case '\n':
                     if (lastNotEmptyPtr != -1) {
                         ptr++;
-                        return new String(bs, lastNotEmptyPtr, ptr - lastNotEmptyPtr - 1);
+                        return str.substring(lastNotEmptyPtr, ptr);
                     }
                     break;
 
@@ -548,6 +536,7 @@ public class Config {
 
 
     public static class Db {
+        public String name = "default";
         public String url;
         public String driver;
         public String username;
@@ -581,27 +570,27 @@ public class Config {
     }
 
     public static class StorageConfig {
-//        public String name;
+        //        public String name;
         public String driver;
         public File path;
         public com.github.llyb120.nami.ext.file.Storage instance;
     }
 
-    public static class Server{
+    public static class Server {
         public List<Location> locations = new Vector<>();
         public int listen;
         public Route.Node root = Route.Node.createNode(Route.Node.Type.ROOT);
     }
 
-    public static class Location{
+    public static class Location {
         public String proxy_pass;
         public String ctrl;
         public String aop;
     }
 
-    public static class Version{
+    public static class Version {
         public String name = "default";
-        public int[] no = {0,0,1};
+        public int[] no = {0, 0, 1};
     }
 
 
