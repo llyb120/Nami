@@ -2,12 +2,28 @@ package com.github.llyb120.nami;
 
 import cn.hutool.core.io.FileUtil;
 import com.github.llyb120.nami.core.Nami;
-import jdk.internal.org.objectweb.asm.*;
+//import javassist.ClassPool;
+//import javassist.CtClass;
+//import javassist.CtMethod;
+//import javassist.CtNewMethod;
+//import javassist.bytecode.MethodInfo;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class TestApp {
 
     public static void main(String[] args) {
         Nami.start();
+//        ClassPool pool = ClassPool.getDefault();
+//        try {
+//            CtClass cc = pool.makeClass(new FileInputStream("E:\\work\\hz\\Nami\\target\\classes\\com\\github\\llyb120\\nami\\excel\\ExportUtil.class"));
+////            cc.addMethod(new CtMethod(new MethodInfo(), cc));
+//            CtMethod method = CtNewMethod.make("");
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 //            ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS|ClassWriter.COMPUTE_FRAMES);
 //
 //        ClassVisitor visitor = new ClassVisitor(Opcodes.ASM5) {

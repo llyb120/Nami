@@ -1,6 +1,7 @@
 package com.github.llyb120.nami.compiler;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.github.llyb120.nami.core.Async;
@@ -71,30 +72,30 @@ public class Compiler {
     public static void compile(String className, String code){
         lock.lock();
         try{
-            codeCache.remove(className);
             queue.put(new MemoryJavaFileObject(className, code));
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
             lock.unlock();
+            System.out.println(Thread.currentThread().getName() + " reloading " + className);
         }
     }
 
     public static void compile(String path) {
-        Async.execute(() -> {
 //            //只动态编译需要编译的文件
-            String classPath = path
-                    .substring(0, path.length() - 5)
-                    .replace(config.source, "")
-                    .replaceAll("\\\\|/", ".")
-                    .substring(1);
-            boolean flag = config.hotswap.stream()
-                    .anyMatch(i -> classPath.startsWith(i));
-            if(flag){
-                compile(classPath, FileUtil.readUtf8String(path));
-                System.out.println(Thread.currentThread().getName() + " reloading " + path);
-            }
-        });
+        lock.lock();
+        String classPath = path
+                .substring(0, path.length() - 5)
+                .replace(config.source, "")
+                .replaceAll("\\\\|/", ".")
+                .substring(1);
+        codeCache.remove(classPath);
+        lock.unlock();
+        boolean flag = config.hotswap.stream()
+                .anyMatch(i -> classPath.startsWith(i));
+        if(flag){
+            Async.execute(() -> compile(classPath, FileUtil.readUtf8String(path)));
+        }
     }
 
 

@@ -77,11 +77,22 @@ public class Config {
 //        } else {
 //            this.jdkVersion = jdkVersion.substring(0, idex);
 //        }
+        long stime = System.currentTimeMillis();
+        try(BufferedReader reader = new BufferedReader(new FileReader(path))){
+            String line;
+            while((line = reader.readLine()) != null){
 
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        long etime = System.currentTimeMillis() - stime;
         try (
                 FileChannel ch = new FileInputStream(path).getChannel();
         ) {
             str = IoUtil.read(ch, StandardCharsets.UTF_8);
+//            String[] lines = str.split("\n");//str, '\n', true, true);
+            System.out.println("read takes " + etime);
             String token;
             while ((token = readNextToken()) != null) {
                 switch (token) {

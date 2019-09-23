@@ -9,6 +9,7 @@ import com.github.llyb120.nami.server.Response;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
 import java.util.Iterator;
@@ -107,39 +108,17 @@ public class NIOServer extends AbstractServer {
 
     private void handle(SocketChannel sc) {
         try {
+            sc.setOption(StandardSocketOptions.TCP_NODELAY, true);
             Response resp = new Response(this, sc);
             resp.channel = sc;
             resp.request.channel = sc;
 
             readQueue.put(resp);
             analyzeQueue.put(resp);
-//            Pipe pipe = Pipe.open();
-//            Async.execute(() -> read(resp, pipe));
-//            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(20);
-//            boolean abort = false;
-//            while (!abort && pipe.source().read(byteBuffer) > 0) {
-//                byteBuffer.flip();
-//                abort = resp.request.analyze(byteBuffer);
-//                byteBuffer.flip();
-//            }
-//            resp.request.analyzeEnd();
-//            handle(resp);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    //    private void read(Response response, Pipe pipe) {
-//        try {
-//            ReadableByteChannel in = (ReadableByteChannel) response.request.channel;
-//            WritableByteChannel out = pipe.sink();
-//            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
-//            while (in.read(byteBuffer) != -1) {
-//                byteBuffer.flip();
-//                out.write(byteBuffer);
-//                byteBuffer.flip();
-//            }
-//        } catch (IOException e) {
-//        }
-//    }
 }

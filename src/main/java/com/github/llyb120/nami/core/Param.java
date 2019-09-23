@@ -20,9 +20,9 @@ import static com.github.llyb120.nami.json.Json.a;
 public class Param {
     private static List<Rule> ruleList = new Vector<>();
 
-    public static Object[] AutoWiredParams(Class clz, Method method, Response resp, Map<Class, Object> staticArgs) {
+    public static Object[] AutoWiredParams(Parameter[] parameters, Response resp, Map<Class, Object> staticArgs) {
 //        var context = Context.holder.g();
-        Parameter[] parameters = method.getParameters();
+//        Parameter[] parameters = method.getParameters();
         Object[] ret = new Object[parameters.length];
         int idex = -1;
         int i = 0;

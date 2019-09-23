@@ -1,6 +1,8 @@
 package com.github.llyb120.nami.server;
 
 import cn.hutool.core.util.StrUtil;
+import com.esotericsoftware.reflectasm.ConstructorAccess;
+import com.esotericsoftware.reflectasm.MethodAccess;
 import com.github.llyb120.nami.core.*;
 import com.github.llyb120.nami.hotswap.AppClassLoader;
 import com.github.llyb120.nami.json.Json;
@@ -8,6 +10,7 @@ import com.github.llyb120.nami.json.Json;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
@@ -205,21 +208,25 @@ public abstract class AbstractServer {
 //            }
 //            i++;
 //        }
-        for (Method method : clz.getDeclaredMethods()) {
-            if (method.getName().equalsIgnoreCase(methodName)) {
-                Object instance = getInstance(clz);
-                Object[] args = Param.AutoWiredParams(clz, method, resp, null);
-                if (aops != null) {
-                    result = doAop(loader, aops, clz, method, instance, args, resp);
-                } else {
-//                    MethodAccess ma = MethodAccess.get(clz);
-//                    result = ma.invoke(instance, methodName, args);
-                    result = method.invoke(instance, args);
-                }
-                break;
-            }
+        MethodAccess ma = MethodAccess.get(clz, true);
+        int i = ma.getIndex(methodName);
+        if(i == -1){
+            return;
         }
-
+        Parameter[] parameters = ma.getParameters()[i];
+        Object[] args = Param.AutoWiredParams(parameters, resp, null);
+        if (aops != null) {
+//                    result = doAop(loader, aops, clz, method, instance, args, resp);
+        } else {
+            result = ma.invoke(ma.newInstance(), i, args);
+        }
+//        for (Method method : clz.getDeclaredMethods()) {
+//            if (method.getName().equalsIgnoreCase(methodName)) {
+//                Object instance = getInstance(clz);
+//
+//                break;
+//            }
+//        }
 
         if (result instanceof File) {
             proxyFile(resp, new MultipartFile((File) result));
@@ -257,30 +264,30 @@ public abstract class AbstractServer {
     }
 
 
-    private Object doAop(ClassLoader loader, String[] aops, Class clz, Method method, Object instance, Object[] args, Response response) throws Exception {
-        AopInvoke invoke = null;
-        invoke = new AopInvoke(clz, method, instance, args);
-        int i = aops.length;
-        while (i-- > 0) {
-            String aop = aops[i];
-            //如果有已经包装的方法
-            Class<?> clzAop = loader.loadClass(aop);
-            //查找一个名为around的方法
-            Method methodAop = null;
-            for (Method m : clzAop.getMethods()) {
-                if (m.getName().equals("around")) {
-                    methodAop = m;
-                    break;
-                }
-            }
-            Map<Class, Object> staticArgs = new HashMap<>();
-            staticArgs.put(AopInvoke.class, invoke);
-            Object aopInstance = getInstance(clzAop);
-            Object[] aopArgs = Param.AutoWiredParams(clzAop, methodAop, response, staticArgs);
-            invoke = new AopInvoke(clzAop, methodAop, aopInstance, aopArgs);
-        }
-        return invoke.call();
-    }
+//    private Object doAop(ClassLoader loader, String[] aops, Class clz, Method method, Object instance, Object[] args, Response response) throws Exception {
+//        AopInvoke invoke = null;
+//        invoke = new AopInvoke(clz, method, instance, args);
+//        int i = aops.length;
+//        while (i-- > 0) {
+//            String aop = aops[i];
+//            //如果有已经包装的方法
+//            Class<?> clzAop = loader.loadClass(aop);
+//            //查找一个名为around的方法
+//            Method methodAop = null;
+//            for (Method m : clzAop.getMethods()) {
+//                if (m.getName().equals("around")) {
+//                    methodAop = m;
+//                    break;
+//                }
+//            }
+//            Map<Class, Object> staticArgs = new HashMap<>();
+//            staticArgs.put(AopInvoke.class, invoke);
+//            Object aopInstance = getInstance(clzAop);
+//            Object[] aopArgs = Param.AutoWiredParams(clzAop, methodAop, response, staticArgs);
+//            invoke = new AopInvoke(clzAop, methodAop, aopInstance, aopArgs);
+//        }
+//        return invoke.call();
+//    }
 
 
     public void proxyFile(Response response, MultipartFile multipartFile) throws InterruptedException, ExecutionException, IOException {
