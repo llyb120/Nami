@@ -51,7 +51,7 @@ public class Config {
 
     private int ptr = 0;
     private String str = null;
-    private List<String> lines ;
+    private List<String> lines;
     private int linePtr = 0;
 //    private byte[] bs = null;
 
@@ -66,13 +66,13 @@ public class Config {
     }
 
 
-    private boolean isKey(char c){
-        return c == '[' || c ==']' || c == '{' || c == '}';
+    private boolean isKey(char c) {
+        return c == '[' || c == ']' || c == '{' || c == '}';
     }
 
     private String getNextLine() {
-        if(str == null || ptr >= str.length()){
-            if(linePtr < lines.size()){
+        if (str == null || ptr >= str.length()) {
+            if (linePtr < lines.size()) {
                 str = lines.get(linePtr++);
             } else {
                 return null;
@@ -81,31 +81,32 @@ public class Config {
         }
         return str;
     }
+
     private String readToken() {
         String line = null;// = getNextLine();
-        while((line = getNextLine()) != null){
+        while ((line = getNextLine()) != null) {
             int left = -1;
-            for (; ptr < line.length(); ptr++){
+            for (; ptr < line.length(); ptr++) {
                 char c = line.charAt(ptr);
-                if(CharUtil.isBlankChar(c)){
-                    if(left > -1){
+                if (CharUtil.isBlankChar(c)) {
+                    if (left > -1) {
                         return line.substring(left, ptr++);
                     }
                     continue;
                 }
-                if(isKey(c)){
-                    if(left > -1){
+                if (isKey(c)) {
+                    if (left > -1) {
                         return line.substring(left, ptr);
-                    } else{
+                    } else {
                         ptr++;
                         return c + "";
                     }
                 }
-                if(left == -1){
+                if (left == -1) {
                     left = ptr;
                 }
             }
-            if(left > -1){
+            if (left > -1) {
                 return line.substring(left);
             }
         }
@@ -114,15 +115,15 @@ public class Config {
 
     private String readToEnd() {
         String line = getNextLine();
-            String t = line.substring(ptr).trim();
-            getNextLine();
-            ptr = Integer.MAX_VALUE;
-            return t;
+        String t = line.substring(ptr).trim();
+        str = null;
+        return t;
     }
 
-    private void startRead(String path){
+    private void startRead(String path) {
         lines = FileUtil.readUtf8Lines(new File(path));
     }
+
     private void initConf(String path) {
         //jdk版本
         String version = System.getProperty("java.version");
@@ -131,104 +132,104 @@ public class Config {
         } else {
             this.jdkVersion = version;
         }
-;
-            startRead(path);
-            String token;
-            while ((token = readToken()) != null) {
-                switch (token) {
-                    case "db":
-                        Db db = readDb();
-                        this.db.put(db.name, db);
-                        break;
+        ;
+        startRead(path);
+        String token;
+        while ((token = readToken()) != null) {
+            switch (token) {
+                case "db":
+                    Db db = readDb();
+                    this.db.put(db.name, db);
+                    break;
 
-                    case "dev":
-                        dev = Boolean.parseBoolean(readToken());
-                        break;
+                case "dev":
+                    dev = Boolean.parseBoolean(readToken());
+                    break;
 
-                    case "hotswap":
-                        readToken();
-                        readStringArray(hotswap);
-                        break;
+                case "hotswap":
+                    readToken();
+                    readStringArray(hotswap);
+                    break;
 
-                    case "magicVar":
-                        readToken();
-                        readStringArray(magicvar);
-                        break;
+                case "magicVar":
+                    readToken();
+                    readStringArray(magicvar);
+                    break;
 
-                    case "cors":
-                        readCors();
-                        break;
+                case "cors":
+                    readCors();
+                    break;
 
-                    case "static":
-                        readToken();
-                        readObj(statics);
-                        //fixme 这里不应该去掉/，而是应该补上/，所有的请求path都应该补上/，路由匹配应按照树来查找，而不是简单的正则
-                        statics.flex(new FlexAction() {
-                            @Override
-                            public boolean canFlex(String k, Object v) {
-                                return k.endsWith("/");
-                            }
+                case "static":
+                    readToken();
+                    readObj(statics);
+                    //fixme 这里不应该去掉/，而是应该补上/，所有的请求path都应该补上/，路由匹配应按照树来查找，而不是简单的正则
+                    statics.flex(new FlexAction() {
+                        @Override
+                        public boolean canFlex(String k, Object v) {
+                            return k.endsWith("/");
+                        }
 
-                            @Override
-                            public Object call(String k, Object v) {
-                                return new HashMap.SimpleEntry(k.substring(0, k.length() - 1), v);
-                            }
-                        });
-                        break;
-
-
-                    case "crontab":
-                        readToken();
-                        readStringArray(crontabs);
-                        break;
+                        @Override
+                        public Object call(String k, Object v) {
+                            return new HashMap.SimpleEntry(k.substring(0, k.length() - 1), v);
+                        }
+                    });
+                    break;
 
 
-                    case "storage":
-                        readStorage();
-                        break;
+                case "crontab":
+                    readToken();
+                    readStringArray(crontabs);
+                    break;
 
-                    case "ext":
-                        readToken();
-                        readObj(ext);
-                        break;
 
-                    case "var":
-                        readToken();
-                        readObj(var);
-                        break;
+                case "storage":
+                    readStorage();
+                    break;
 
-                    case "server":
-                        servers.add(readServer());
-                        break;
+                case "ext":
+                    readToken();
+                    readObj(ext);
+                    break;
 
-                    case "version":
-                        readVersion();
-                        break;
+                case "var":
+                    readToken();
+                    readObj(var);
+                    break;
 
-                }
+                case "server":
+                    servers.add(readServer());
+                    break;
+
+                case "version":
+                    readVersion();
+                    break;
+
             }
+        }
 
-            if (config.dev) {
-                config.source = GenKit.getJavaSRCPath();
-                config.target = new File(config.source, "../../../target/classes").getAbsolutePath();
+        if (config.dev) {
+            config.source = GenKit.getJavaSRCPath();
+            config.target = new File(config.source, "../../../target/classes").getAbsolutePath();
+        }
+
+        //add magic vars
+        magicvar.add("com.github.llyb120.nami.server.Vars");
+
+        for (String s : config.link) {
+            String[] Json = s.toLowerCase().split("\\s*(:|\\.|->|=>)\\s*");
+            Link link = new Link();
+            link.name = Json[0];
+            link.fromClz = Json[1];
+            link.fromField = Json[2];
+            link.toClz = Json[3];
+            link.toField = Json[4];
+            link.many = s.contains("=>");
+            if (Json.length == 5) {
+                config.links.put(link.fromClz + link.name, link);
             }
-
-            //add magic vars
-            magicvar.add("com.github.llyb120.nami.server.Vars");
-
-            for (String s : config.link) {
-                String[] Json = s.toLowerCase().split("\\s*(:|\\.|->|=>)\\s*");
-                Link link = new Link();
-                link.name = Json[0];
-                link.fromClz = Json[1];
-                link.fromField = Json[2];
-                link.toClz = Json[3];
-                link.toField = Json[4];
-                link.many = s.contains("=>");
-                if (Json.length == 5) {
-                    config.links.put(link.fromClz + link.name, link);
-                }
-            }
+        }
     }
 
     private Server readServer() {
@@ -386,7 +387,7 @@ public class Config {
     private void readStringArray(Collection collection) {
         String token = "";
         while ((token = readToEnd()) != null) {
-            if(token.isEmpty()){
+            if (token.isEmpty()) {
                 continue;
             }
             if (token.equals("]")) {
@@ -468,7 +469,6 @@ public class Config {
     }
 
 
-   
     public static class Db {
         public String name = "default";
         public String url;
