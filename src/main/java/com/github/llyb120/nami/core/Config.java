@@ -3,6 +3,7 @@ package com.github.llyb120.nami.core;
 import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.tokenizer.TokenizerUtil;
@@ -50,6 +51,10 @@ public class Config {
 
     private int ptr = 0;
     private String str = null;
+    private Phase phase = Phase.NORMAL;
+    private BufferedReader reader;
+    private List<String> lines ;
+    private int linePtr = 0;
 //    private byte[] bs = null;
 
     static {
@@ -62,6 +67,127 @@ public class Config {
         initConf(path);
     }
 
+    enum Phase{
+        NORMAL,
+        SERVER
+    }
+
+    private boolean isKey(char c){
+        return c == '[' || c ==']' || c == '{' || c == '}';
+    }
+
+    private String getNextLine() {
+        if(str == null || ptr >= str.length()){
+            if(linePtr < lines.size()){
+                str = lines.get(linePtr++);
+            } else {
+                return null;
+            }
+            ptr = 0;
+        }
+        return str;
+    }
+    private String readToken() {
+        String line = null;// = getNextLine();
+        while((line = getNextLine()) != null){
+            int left = -1;
+            for (; ptr < line.length(); ptr++){
+                char c = line.charAt(ptr);
+                if(CharUtil.isBlankChar(c)){
+                    if(left > -1){
+                        return line.substring(left, ptr++);
+                    }
+                    continue;
+                }
+                if(isKey(c)){
+                    if(left > -1){
+                        return line.substring(left, ptr);
+                    } else{
+                        ptr++;
+                        return c + "";
+                    }
+                }
+                if(left == -1){
+                    left = ptr;
+                }
+            }
+            if(left > -1){
+                return line.substring(left);
+            }
+        }
+        return null;
+    }
+
+    private String readToEnd() {
+        String line = null;
+        while((line = getNextLine()) != null){
+//            int i = line.length();
+            if(true) {
+                String t = line.substring(ptr).trim();
+                getNextLine();
+                ptr = Integer.MAX_VALUE;
+                return t;
+            }
+            int i = line.length();
+            int left = -1;
+            for (; ptr < i; ptr++) {
+                boolean isBlank = CharUtil.isBlankChar(line.charAt(ptr));
+                if(!isBlank) {
+                    left = ptr;
+                    break;
+                }
+            }
+            while(--i >= ptr){
+                boolean isBlank = CharUtil.isBlankChar(line.charAt(i));
+                if(!isBlank){
+                    String ret = line.substring(left, i + 1);
+                    ptr = Integer.MAX_VALUE;
+                    return ret;
+                }
+            }
+//            if(left > -1){
+//                String ret = line.substring(left);
+//                ptr = Integer.MAX_VALUE;
+//                return ret;
+//            }
+        }
+        return null;
+    }
+
+//    private void handleToken(String line, String token){
+//        System.out.println(token);
+//        switch (phase){
+//            case NORMAL:
+//            case SERVER:
+//                readToken(line);
+//                token = readToken(line);
+//                switch (token){
+//                    case "location":
+//                        break;
+//
+//                    case ""
+//                }
+//
+//
+//        }
+//        switch (token){
+//            case "server":
+//                phase = Phase.SERVER;
+//                break;
+//
+//            case "{":
+//                switch (phase){
+//                    case SERVER:
+//                }
+//                break;
+//        }
+//    }
+
+    private void startRead(String path) throws FileNotFoundException {
+        lines = new LinkedList<>(FileUtil.readUtf8Lines(new File("nami.conf")));
+    }
+    private void endRead(){
+    }
 
     private void initConf(String path) {
         //jdk版本
@@ -77,22 +203,25 @@ public class Config {
 //        } else {
 //            this.jdkVersion = jdkVersion.substring(0, idex);
 //        }
-        long stime = System.currentTimeMillis();
-        try(BufferedReader reader = new BufferedReader(new FileReader(path))){
-            String line;
-            while((line = reader.readLine()) != null){
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        long etime = System.currentTimeMillis() - stime;
-        try (
-                FileChannel ch = new FileInputStream(path).getChannel();
-        ) {
-            str = IoUtil.read(ch, StandardCharsets.UTF_8);
+//        long stime = System.currentTimeMillis();
+//        try(BufferedReader reader = new BufferedReader(new FileReader(path))){
+//            String line;
+//            String token;
+//            while((line = reader.readLine()) != null){
+//                ptr = 0;
+//                while((token = readToken(line)) != null){
+//                    handleToken(line, token);
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        long etime = System.currentTimeMillis() - stime;
+        try {
+//            str = IoUtil.read(ch, StandardCharsets.UTF_8);
 //            String[] lines = str.split("\n");//str, '\n', true, true);
-            System.out.println("read takes " + etime);
+//            System.out.println("read takes " + etime);
+            startRead(path);
             String token;
             while ((token = readNextToken()) != null) {
                 switch (token) {
@@ -189,7 +318,7 @@ public class Config {
                     config.links.put(link.fromClz + link.name, link);
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -425,6 +554,9 @@ public class Config {
 
 
     private String readUntilLine2() {
+        if(true){
+            return readToEnd();
+        }
         int left = -1;
         int right = -1;
         while (ptr < str.length()) {
@@ -467,31 +599,11 @@ public class Config {
         return null;
     }
 
-    private String readUntilLine() {
-        int lastNotEmptyPtr = -1;
-        while (ptr < str.length()) {
-            switch (str.charAt(ptr)) {
-                case ' ':
-                case '\t':
-                case '\r':
-                case '\n':
-                    if (lastNotEmptyPtr > -1) {
-                        return str.substring(lastNotEmptyPtr, (ptr++) - lastNotEmptyPtr);
-                    }
-                    break;
-
-                default:
-                    if (lastNotEmptyPtr == -1) {
-                        lastNotEmptyPtr = ptr;
-                    }
-                    break;
-            }
-            ptr++;
-        }
-        return null;
-    }
 
     private String readNextToken() {
+        if(true){
+            return readToken();
+        }
         int lastNotEmptyPtr = -1;
         while (ptr < str.length()) {
             switch (str.charAt(ptr)) {

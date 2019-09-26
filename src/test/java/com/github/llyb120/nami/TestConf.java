@@ -1,5 +1,6 @@
 package com.github.llyb120.nami;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.script.ScriptUtil;
 import com.github.llyb120.nami.core.Config;
 import com.github.llyb120.nami.core.Nami;
@@ -13,6 +14,8 @@ import org.mozilla.javascript.Scriptable;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import static com.github.llyb120.nami.ext.beetlsql.BeetlSql.sqlManager;
 
@@ -24,6 +27,10 @@ public class TestConf {
         Config cfg = new Config("nami.conf");
         System.out.println(System.currentTimeMillis() - stime);
 
+
+        long stiem = System.currentTimeMillis();
+        List<String> tokens = new LinkedList<>(FileUtil.readUtf8Lines(new File("nami.conf")));
+        System.out.println(System.currentTimeMillis() - stiem);
 
         for (Config.Server server : cfg.servers) {
 //            server.root.match("/test/a/b".split("/"));
