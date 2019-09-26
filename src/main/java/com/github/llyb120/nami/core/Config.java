@@ -51,8 +51,6 @@ public class Config {
 
     private int ptr = 0;
     private String str = null;
-    private Phase phase = Phase.NORMAL;
-    private BufferedReader reader;
     private List<String> lines ;
     private int linePtr = 0;
 //    private byte[] bs = null;
@@ -67,10 +65,6 @@ public class Config {
         initConf(path);
     }
 
-    enum Phase{
-        NORMAL,
-        SERVER
-    }
 
     private boolean isKey(char c){
         return c == '[' || c ==']' || c == '{' || c == '}';
@@ -119,76 +113,16 @@ public class Config {
     }
 
     private String readToEnd() {
-        String line = null;
-        while((line = getNextLine()) != null){
-//            int i = line.length();
-            if(true) {
-                String t = line.substring(ptr).trim();
-                getNextLine();
-                ptr = Integer.MAX_VALUE;
-                return t;
-            }
-            int i = line.length();
-            int left = -1;
-            for (; ptr < i; ptr++) {
-                boolean isBlank = CharUtil.isBlankChar(line.charAt(ptr));
-                if(!isBlank) {
-                    left = ptr;
-                    break;
-                }
-            }
-            while(--i >= ptr){
-                boolean isBlank = CharUtil.isBlankChar(line.charAt(i));
-                if(!isBlank){
-                    String ret = line.substring(left, i + 1);
-                    ptr = Integer.MAX_VALUE;
-                    return ret;
-                }
-            }
-//            if(left > -1){
-//                String ret = line.substring(left);
-//                ptr = Integer.MAX_VALUE;
-//                return ret;
-//            }
-        }
-        return null;
+        String line = getNextLine();
+            String t = line.substring(ptr).trim();
+            getNextLine();
+            ptr = Integer.MAX_VALUE;
+            return t;
     }
 
-//    private void handleToken(String line, String token){
-//        System.out.println(token);
-//        switch (phase){
-//            case NORMAL:
-//            case SERVER:
-//                readToken(line);
-//                token = readToken(line);
-//                switch (token){
-//                    case "location":
-//                        break;
-//
-//                    case ""
-//                }
-//
-//
-//        }
-//        switch (token){
-//            case "server":
-//                phase = Phase.SERVER;
-//                break;
-//
-//            case "{":
-//                switch (phase){
-//                    case SERVER:
-//                }
-//                break;
-//        }
-//    }
-
-    private void startRead(String path) throws FileNotFoundException {
-        lines = new LinkedList<>(FileUtil.readUtf8Lines(new File("nami.conf")));
+    private void startRead(String path){
+        lines = FileUtil.readUtf8Lines(new File(path));
     }
-    private void endRead(){
-    }
-
     private void initConf(String path) {
         //jdk版本
         String version = System.getProperty("java.version");
@@ -197,33 +131,10 @@ public class Config {
         } else {
             this.jdkVersion = version;
         }
-//        int idex = jdkVersion.indexOf(".");
-//        if(idex == -1){
-//            this.jdkVersion = jdkVersion;
-//        } else {
-//            this.jdkVersion = jdkVersion.substring(0, idex);
-//        }
-//        long stime = System.currentTimeMillis();
-//        try(BufferedReader reader = new BufferedReader(new FileReader(path))){
-//            String line;
-//            String token;
-//            while((line = reader.readLine()) != null){
-//                ptr = 0;
-//                while((token = readToken(line)) != null){
-//                    handleToken(line, token);
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        long etime = System.currentTimeMillis() - stime;
-        try {
-//            str = IoUtil.read(ch, StandardCharsets.UTF_8);
-//            String[] lines = str.split("\n");//str, '\n', true, true);
-//            System.out.println("read takes " + etime);
+;
             startRead(path);
             String token;
-            while ((token = readNextToken()) != null) {
+            while ((token = readToken()) != null) {
                 switch (token) {
                     case "db":
                         Db db = readDb();
@@ -231,16 +142,16 @@ public class Config {
                         break;
 
                     case "dev":
-                        dev = Boolean.parseBoolean(readNextToken());
+                        dev = Boolean.parseBoolean(readToken());
                         break;
 
                     case "hotswap":
-                        readNextToken();
+                        readToken();
                         readStringArray(hotswap);
                         break;
 
                     case "magicVar":
-                        readNextToken();
+                        readToken();
                         readStringArray(magicvar);
                         break;
 
@@ -249,7 +160,7 @@ public class Config {
                         break;
 
                     case "static":
-                        readNextToken();
+                        readToken();
                         readObj(statics);
                         //fixme 这里不应该去掉/，而是应该补上/，所有的请求path都应该补上/，路由匹配应按照树来查找，而不是简单的正则
                         statics.flex(new FlexAction() {
@@ -267,7 +178,7 @@ public class Config {
 
 
                     case "crontab":
-                        readNextToken();
+                        readToken();
                         readStringArray(crontabs);
                         break;
 
@@ -277,12 +188,12 @@ public class Config {
                         break;
 
                     case "ext":
-                        readNextToken();
+                        readToken();
                         readObj(ext);
                         break;
 
                     case "var":
-                        readNextToken();
+                        readToken();
                         readObj(var);
                         break;
 
@@ -318,24 +229,21 @@ public class Config {
                     config.links.put(link.fromClz + link.name, link);
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private Server readServer() {
         //skip {
-        readNextToken();
+        readToken();
         Server server = new Server();
         String key;
         scan:
-        while ((key = readNextToken()) != null) {
+        while ((key = readToken()) != null) {
             switch (key) {
                 case "}":
                     break scan;
 
                 case "location":
-                    String url = readNextToken();
+                    String url = readToken();
                     //分析url
 //                    int start = 0;
 //                    int end = url.length();
@@ -349,7 +257,7 @@ public class Config {
 //                        url = url.substring(start, end);
 //                    }
                     Location location = readLocation();
-                    String[] arr = StrUtil.split(url, "/");
+                    String[] arr = StrUtil.splitToArray(url, '/');
                     Route.Node node = server.root;
                     for (String s : arr) {
                         if (s.isEmpty()) {
@@ -362,7 +270,7 @@ public class Config {
                     break;
 
                 case "listen":
-                    String port = readNextToken();
+                    String port = readToEnd();
                     server.listen = Integer.parseInt(port);
                     break;
             }
@@ -371,21 +279,21 @@ public class Config {
     }
 
     private Location readLocation() {
-        readNextToken();
+        readToken();
         Location location = new Location();
         String key;
         scan:
-        while ((key = readNextToken()) != null) {
+        while ((key = readToken()) != null) {
             switch (key) {
                 case "}":
                     break scan;
 
                 case "proxy_pass":
-                    location.proxy_pass = readNextToken();
+                    location.proxy_pass = readToEnd();
                     break;
 
                 case "ctrl":
-                    location.ctrl = readNextToken();
+                    location.ctrl = readToEnd();
                     break;
 
             }
@@ -395,14 +303,14 @@ public class Config {
 
     private void readStorage() {
         //skip {
-        readNextToken();
+        readToken();
         String key = null;
         StorageConfig lastItem = null;
-        while ((key = readNextToken()) != null) {
+        while ((key = readToken()) != null) {
             if (key.equals("}")) return;
             lastItem = new StorageConfig();
             //skip {
-            readNextToken();
+            readToken();
             readStorageItem(lastItem);
             storages.put(key, lastItem);
 
@@ -415,34 +323,38 @@ public class Config {
 
     private void readStorageItem(StorageConfig storage) {
         String key = null;
-        while ((key = readNextToken()) != null) {
+        while ((key = readToken()) != null) {
             if (key.equals("}")) return;
             switch (key) {
                 case "driver":
-                    storage.driver = readNextToken();
+                    storage.driver = readToken();
                     break;
 
                 case "path":
-                    storage.path = new File(readNextToken());//storage.path;
+                    storage.path = new File(readToken());//storage.path;
                     break;
             }
         }
     }
 
     private void readVersion() {
-        readNextToken();
+        readToken();
         String key = null;
-        while ((key = readNextToken()) != null) {
+        while ((key = readToken()) != null) {
             switch (key) {
                 case "}":
                     return;
                 case "name":
-                    version.name = readNextToken();
+                    version.name = readToEnd();
                     break;
 
                 case "no":
-                    String no = readNextToken();
-                    version.no = StrUtil.splitToInt(no, ".");
+                    String no = readToEnd();
+                    String[] items = StrUtil.splitToArray(no, '.');
+                    version.no = new int[items.length];
+                    for (int i = 0; i < items.length; i++) {
+                        version.no[i] = Integer.parseInt(items[i]);
+                    }
                     break;
             }
         }
@@ -451,12 +363,12 @@ public class Config {
     private void readObj(Obj obj) {
         //read key
         String key = null;
-        while ((key = readNextToken()) != null) {
+        while ((key = readToken()) != null) {
             if (key.equals("}")) {
                 return;
             }
             //read value
-            String value = readUntilLine2();
+            String value = readToEnd();
             if (value.equals("{")) {
                 Obj nobj = o();
                 obj.put(key, nobj);
@@ -473,7 +385,10 @@ public class Config {
 
     private void readStringArray(Collection collection) {
         String token = "";
-        while ((token = readUntilLine2()) != null) {
+        while ((token = readToEnd()) != null) {
+            if(token.isEmpty()){
+                continue;
+            }
             if (token.equals("]")) {
                 break;
             }
@@ -483,22 +398,22 @@ public class Config {
 
     private void readCors() {
         //skip {
-        readNextToken();
+        readToken();
         String token = null;
         scan:
         {
-            while ((token = readNextToken()) != null) {
+            while ((token = readToken()) != null) {
                 switch (token) {
                     case "origin":
-                        cors.origin = readUntilLine2();
+                        cors.origin = readToEnd();
                         break;
 
                     case "method":
-                        cors.method = readUntilLine2();
+                        cors.method = readToEnd();
                         break;
 
                     case "headers":
-                        cors.headers = readUntilLine2();
+                        cors.headers = readToEnd();
                         break;
 
                     case "}":
@@ -510,41 +425,41 @@ public class Config {
 
     private Db readDb() {
         //skip {
-        readNextToken();
+        readToken();
         //读取一个数据源名
         String token = null;
         Db ds = new Db();
-        while ((token = readNextToken()) != null) {
+        while ((token = readToken()) != null) {
             if (token.equals("}")) {
                 return ds;
             } else {
                 switch (token) {
                     case "name":
-                        ds.name = readUntilLine2();
+                        ds.name = readToEnd();
                         break;
 
                     case "url":
-                        ds.url = readUntilLine2();
+                        ds.url = readToEnd();
                         break;
 
                     case "driver":
-                        ds.driver = readUntilLine2();
+                        ds.driver = readToEnd();
                         break;
 
                     case "username":
-                        ds.username = readUntilLine2();
+                        ds.username = readToEnd();
                         break;
 
                     case "password":
-                        ds.password = readUntilLine2();
+                        ds.password = readToEnd();
                         break;
 
                     case "style":
-                        ds.style = readUntilLine2();
+                        ds.style = readToEnd();
                         break;
 
                     case "schema":
-                        ds.schema = readUntilLine2();
+                        ds.schema = readToEnd();
                         break;
                 }
             }
@@ -553,111 +468,7 @@ public class Config {
     }
 
 
-    private String readUntilLine2() {
-        if(true){
-            return readToEnd();
-        }
-        int left = -1;
-        int right = -1;
-        while (ptr < str.length()) {
-            switch (str.charAt(ptr)) {
-                case ' ':
-                case '\t':
-                case '\r':
-                    break;
-
-                case '\n':
-                    if (left > -1) {
-                        if (right == -1) {
-                            //如果有\r
-                            int p = ptr;
-                            if (str.charAt(ptr - 1) == '\r') {
-                                p = ptr - 1;
-                            }
-                            ptr++;
-                            return str.substring(left, p);
-                        } else {
-                            ptr++;
-                            return str.substring(left, right + 1);
-                        }
-                    }
-                    break;
-
-                default:
-                    if (left == -1) {
-                        left = ptr;
-                    } else {
-                        right = ptr;
-                    }
-                    break;
-            }
-//            if(bs[ptr] == '\n'){
-//                return new String(bs, lastptr, (ptr++) - lastptr).trim();
-//            }
-            ptr++;
-        }
-        return null;
-    }
-
-
-    private String readNextToken() {
-        if(true){
-            return readToken();
-        }
-        int lastNotEmptyPtr = -1;
-        while (ptr < str.length()) {
-            switch (str.charAt(ptr)) {
-                case ' ':
-                case '\t':
-                case '\r':
-                    if (lastNotEmptyPtr != -1) {
-                        return str.substring(lastNotEmptyPtr, (ptr++));
-                    }
-                    break;
-
-                case '{':
-                    if (lastNotEmptyPtr != -1) {
-                        return str.substring(lastNotEmptyPtr, ptr);
-                    } else {
-                        ptr++;
-                        return "{";
-                    }
-
-                case '}':
-                    ptr++;
-                    return "}";
-
-                case '[':
-                    if (lastNotEmptyPtr != -1) {
-                        return str.substring(lastNotEmptyPtr, (ptr));
-                    } else {
-                        ptr++;
-                        return "[";
-                    }
-
-                case ']':
-                    ptr++;
-                    return "]";
-
-                case '\n':
-                    if (lastNotEmptyPtr != -1) {
-                        ptr++;
-                        return str.substring(lastNotEmptyPtr, ptr);
-                    }
-                    break;
-
-                default:
-                    if (lastNotEmptyPtr == -1) {
-                        lastNotEmptyPtr = ptr;
-                    }
-                    break;
-            }
-            ptr++;
-        }
-        return null;
-    }
-
-
+   
     public static class Db {
         public String name = "default";
         public String url;

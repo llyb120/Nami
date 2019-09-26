@@ -28,10 +28,9 @@ public class TestConf {
         System.out.println(System.currentTimeMillis() - stime);
 
 
-        long stiem = System.currentTimeMillis();
-        List<String> tokens = new LinkedList<>(FileUtil.readUtf8Lines(new File("nami.conf")));
-        System.out.println(System.currentTimeMillis() - stiem);
-
+//        long stiem = System.currentTimeMillis();
+//        List<String> tokens = new LinkedList<>(FileUtil.readUtf8Lines(new File("nami.conf")));
+//        System.out.println(System.currentTimeMillis() - stiem);
         for (Config.Server server : cfg.servers) {
 //            server.root.match("/test/a/b".split("/"));
         }
