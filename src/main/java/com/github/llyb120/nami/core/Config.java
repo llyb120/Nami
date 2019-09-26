@@ -56,15 +56,13 @@ public class Config {
 //    private byte[] bs = null;
 
     static {
-//        System.setProperty("illegal-access", "deny");
+        config = new Config(Env.configPath);
     }
 
 
-    public Config(String path) {
-        config = this;
+    private Config(String path) {
         initConf(path);
     }
-
 
     private boolean isKey(char c) {
         return c == '[' || c == ']' || c == '{' || c == '}';
@@ -209,15 +207,15 @@ public class Config {
             }
         }
 
-        if (config.dev) {
-            config.source = GenKit.getJavaSRCPath();
-            config.target = new File(config.source, "../../../target/classes").getAbsolutePath();
+        if (dev) {
+            source = GenKit.getJavaSRCPath();
+            target = new File(source, "../../../target/classes").getAbsolutePath();
         }
 
         //add magic vars
         magicvar.add("com.github.llyb120.nami.server.Vars");
 
-        for (String s : config.link) {
+        for (String s : link) {
             String[] Json = s.toLowerCase().split("\\s*(:|\\.|->|=>)\\s*");
             Link link = new Link();
             link.name = Json[0];
@@ -227,7 +225,7 @@ public class Config {
             link.toField = Json[4];
             link.many = s.contains("=>");
             if (Json.length == 5) {
-                config.links.put(link.fromClz + link.name, link);
+                links.put(link.fromClz + link.name, link);
             }
         }
     }

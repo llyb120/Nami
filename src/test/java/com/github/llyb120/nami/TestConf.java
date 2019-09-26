@@ -24,7 +24,7 @@ public class TestConf {
     @Test
     public void test() throws IOException {
         long stime = System.currentTimeMillis();
-        Config cfg = new Config("nami.conf");
+        Config cfg = Config.config;
         System.out.println(System.currentTimeMillis() - stime);
 
 

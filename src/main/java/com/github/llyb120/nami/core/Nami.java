@@ -2,6 +2,7 @@ package com.github.llyb120.nami.core;
 
 import com.github.llyb120.nami.compiler.Compiler;
 import com.github.llyb120.nami.cron.Crontab;
+import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.AbstractServer;
 import com.github.llyb120.nami.server.DevServer;
 import com.github.llyb120.nami.server.NIOServer;
@@ -11,20 +12,20 @@ import java.lang.reflect.Method;
 import java.util.concurrent.CountDownLatch;
 
 import static com.github.llyb120.nami.core.Config.config;
+import static com.github.llyb120.nami.json.Json.o;
 
 //import com.github.llyb120.nami.sqltool.sqltool;
 
 public class Nami {
 
 //    public static ChakraCore chakraCore;
-
     public static void start(String configPath, Listener listener, boolean async) {
         //关掉烦人的警告
 //        Async.execute(() -> {
 //            disableAccessWarnings();
 //        });
         try {
-            Config.config = new Config(configPath);
+            Env.configPath = configPath;
 
 //        Config.init(configPath);
 //        if(config.ext.b("BeetlSql")){
