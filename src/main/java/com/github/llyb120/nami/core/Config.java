@@ -2,23 +2,14 @@ package com.github.llyb120.nami.core;
 
 import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.CharUtil;
-import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.tokenizer.TokenizerUtil;
 import com.github.llyb120.nami.ext.file.SimpleStorage;
 import com.github.llyb120.nami.json.Arr;
-import com.github.llyb120.nami.json.FlexAction;
 import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.Route;
-import org.apache.commons.collections4.list.CursorableLinkedList;
-import sun.nio.ch.FileChannelImpl;
-import sun.nio.ch.IOUtil;
 
-import java.io.*;
-import java.nio.channels.FileChannel;
-import java.nio.charset.StandardCharsets;
+import java.io.File;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -28,23 +19,23 @@ import static com.github.llyb120.nami.json.Json.o;
 public class Config {
     public static Config config;
     //    public int port;
-    public Map<String, Db> db = new Hashtable<>();
+    public Map<String, Db> db = new ConcurrentHashMap<>();
     public Set<String> hotswap = new ConcurrentHashSet<>();
-    public Vector<String> magicvar = new Vector<>();
+    public Set<String> magicvar = new ConcurrentHashSet<>();
     //    public List<String> route = new Vector<>();
 //    public Compile compile = new Compile();
     public Cors cors = new Cors();
     public Obj ext = o();
-    public Obj var = o();
+    public Map var = new ConcurrentHashMap();
     public boolean dev = false;
     public List<String> link = new ArrayList<>();
     public Map<String, Link> links = new HashMap<>();
-    public Map<String, StorageConfig> storages = new Hashtable<>();
-    public Obj statics = o();
+    public Map<String, StorageConfig> storages = new ConcurrentHashMap<>();
+//    public Obj statics = o();
     public String jdkVersion;
     public Version version = new Version();
-    public Arr<String> crontabs = a();
-    public Arr<Server> servers = a();
+    public List<String> crontabs = new ArrayList<>();
+    public List<Server> servers = new ArrayList<>();
 
     public String source;
     public String target;
@@ -158,22 +149,22 @@ public class Config {
                     readCors();
                     break;
 
-                case "static":
-                    readToken();
-                    readObj(statics);
-                    //fixme 这里不应该去掉/，而是应该补上/，所有的请求path都应该补上/，路由匹配应按照树来查找，而不是简单的正则
-                    statics.flex(new FlexAction() {
-                        @Override
-                        public boolean canFlex(String k, Object v) {
-                            return k.endsWith("/");
-                        }
-
-                        @Override
-                        public Object call(String k, Object v) {
-                            return new HashMap.SimpleEntry(k.substring(0, k.length() - 1), v);
-                        }
-                    });
-                    break;
+//                case "static":
+//                    readToken();
+//                    readObj(statics);
+//                    //fixme 这里不应该去掉/，而是应该补上/，所有的请求path都应该补上/，路由匹配应按照树来查找，而不是简单的正则
+//                    statics.flex(new FlexAction() {
+//                        @Override
+//                        public boolean canFlex(String k, Object v) {
+//                            return k.endsWith("/");
+//                        }
+//
+//                        @Override
+//                        public Object call(String k, Object v) {
+//                            return new HashMap.SimpleEntry(k.substring(0, k.length() - 1), v);
+//                        }
+//                    });
+//                    break;
 
 
                 case "crontab":
@@ -359,7 +350,7 @@ public class Config {
         }
     }
 
-    private void readObj(Obj obj) {
+    private void readObj(Map obj) {
         //read key
         String key = null;
         while ((key = readToken()) != null) {
