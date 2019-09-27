@@ -6,6 +6,7 @@ import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.Config;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.core.Param;
+import com.github.llyb120.nami.func.Expression;
 import com.github.llyb120.nami.hotswap.AppClassLoader;
 import com.github.llyb120.nami.json.Json;
 
@@ -47,8 +48,9 @@ public abstract class AbstractServer {
             Async.execute(() -> {
                 ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
                 while (true) {
+                    Response resp = null;
                     try {
-                        Response resp = readQueue.take();
+                        resp = readQueue.take();
                         byteBuffer.clear();
                         ReadableByteChannel in = resp.request.channel;
                         WritableByteChannel out = resp.pipe.sink();
@@ -58,6 +60,10 @@ public abstract class AbstractServer {
                             byteBuffer.flip();
                         }
                     } catch (InterruptedException | IOException e) {
+                        e.printStackTrace();
+                        if(resp != null){
+                            resp.close();
+                        }
                     }
 
                 }
@@ -66,27 +72,34 @@ public abstract class AbstractServer {
             Async.execute(() -> {
                 ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
                 while (true) {
+                    Response resp = null; //analyzeQueue.take();
                     try {
-                        Response resp = analyzeQueue.take();
+                        resp = analyzeQueue.take();
                         byteBuffer.clear();
                         boolean abort = false;
                         while (!abort && resp.pipe.source().read(byteBuffer) > 0) {
                             byteBuffer.flip();
                             abort = resp.request.analyze(byteBuffer);
                             byteBuffer.flip();
+                            if(resp.request.phase.ordinal() > Request.AnalyzePhase.DECODING_HEAD.ordinal()){
+                                handleQueue.put(resp);
+                            }
                         }
                         resp.request.analyzeEnd();
-                        try {
-                            resp.server.handle(resp);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        } finally {
-                            resp.close();
-                        }
-
+//                        try {
+//                            resp.server.handle(resp);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        } finally {
+//                            resp.close();
+//                        }
 //                        handleQueue.put(resp);
                     } catch (InterruptedException | IOException e) {
                         e.printStackTrace();
+
+                        if (resp != null) {
+                            resp.close();
+                        }
                     }
                 }
             });
@@ -214,11 +227,18 @@ public abstract class AbstractServer {
             return;
         }
         Parameter[] parameters = ma.getParameters()[i];
-        Object[] args = Param.AutoWiredParams(parameters, resp, null);
+        Expression expression = () -> {
+            Object[] args = Param.AutoWiredParams(parameters, resp, null);
+            return ma.invoke(ma.newInstance(), i, args);
+        };
+
+        Object ret = expression.call();
+
+//        Object[] args = Param.AutoWiredParams(parameters, resp, null);
 //        if (aops != null) {
 //                    result = doAop(loader, aops, clz, method, instance, args, resp);
 //        } else {
-            result = ma.invoke(ma.newInstance(), i, args);
+//            result = ma.invoke(ma.newInstance(), i, args);
 //        }
 //        for (Method method : clz.getDeclaredMethods()) {
 //            if (method.getName().equalsIgnoreCase(methodName)) {

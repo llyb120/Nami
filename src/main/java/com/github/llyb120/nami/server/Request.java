@@ -35,7 +35,7 @@ public class Request implements AutoCloseable {
 
     //以下解析用
 //    private LinkedBlockingQueue<ByteBuffer> taskList = new LinkedBlockingQueue<>();
-    private AnalyzePhase phase = AnalyzePhase.DECODING_HEAD;
+    AnalyzePhase phase = AnalyzePhase.DECODING_HEAD;
     //    private FormDataTemp temp;
     private StringBuilder sb = new StringBuilder();
     private String formDataStart;
