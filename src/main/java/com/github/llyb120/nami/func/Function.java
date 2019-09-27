@@ -6,14 +6,12 @@ import com.github.llyb120.nami.compiler.Compiler;
 import com.github.llyb120.nami.hotswap.AppClassLoader;
 import com.github.llyb120.nami.json.Json;
 
-import java.io.File;
-
 
 public abstract class Function {
 
     private static ClassLoader _loader = new AppClassLoader();
 
-    public static Object func(ReturnableFunction function) {
+    public static Object func(Expression function) {
         try{
             return function.call();
         } catch (Exception e){
@@ -33,11 +31,11 @@ public abstract class Function {
 
 
     public static <T> T eval(String str) throws Exception {
-        ReturnableFunction func = compile(str);
+        Expression func = compile(str);
         return (T) func.call();
     };
 
-    public static ReturnableFunction compile(String str){
+    public static Expression compile(String str){
         String key = SecureUtil.md5(str);
         String className = "NamiFunc" + key;
 //        File file = new File(sourceDir, className + ".java");

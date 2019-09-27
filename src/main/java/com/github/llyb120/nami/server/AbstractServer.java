@@ -1,22 +1,22 @@
 package com.github.llyb120.nami.server;
 
 import cn.hutool.core.util.StrUtil;
-import com.esotericsoftware.reflectasm.ConstructorAccess;
 import com.esotericsoftware.reflectasm.MethodAccess;
-import com.github.llyb120.nami.core.*;
+import com.github.llyb120.nami.core.Async;
+import com.github.llyb120.nami.core.Config;
+import com.github.llyb120.nami.core.MultipartFile;
+import com.github.llyb120.nami.core.Param;
 import com.github.llyb120.nami.hotswap.AppClassLoader;
 import com.github.llyb120.nami.json.Json;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -186,7 +186,7 @@ public abstract class AbstractServer {
 //        if (className == null) {
 //            className = packageName;
 //        }
-        String[] aops = null;//(String[]) route[3];
+//        String[] aops = null;//(String[]) route[3];
 
         AppClassLoader loader = null;
         if (config.dev) {
@@ -215,11 +215,11 @@ public abstract class AbstractServer {
         }
         Parameter[] parameters = ma.getParameters()[i];
         Object[] args = Param.AutoWiredParams(parameters, resp, null);
-        if (aops != null) {
+//        if (aops != null) {
 //                    result = doAop(loader, aops, clz, method, instance, args, resp);
-        } else {
+//        } else {
             result = ma.invoke(ma.newInstance(), i, args);
-        }
+//        }
 //        for (Method method : clz.getDeclaredMethods()) {
 //            if (method.getName().equalsIgnoreCase(methodName)) {
 //                Object instance = getInstance(clz);

@@ -12,6 +12,7 @@ import com.github.llyb120.nami.server.Route;
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 import static com.github.llyb120.nami.json.Json.a;
 import static com.github.llyb120.nami.json.Json.o;
@@ -286,6 +287,15 @@ public class Config {
                     location.ctrl = readToEnd();
                     break;
 
+                case "aop":
+                    key = readToken();
+                    if(key.equals("[")){
+                        readStringArray(location.aop);
+                    } else {
+                        location.aop.add(key);
+                    }
+                    break;
+
             }
         }
         return location;
@@ -508,7 +518,7 @@ public class Config {
     public static class Location {
         public String proxy_pass;
         public String ctrl;
-        public String aop;
+        public Queue<String> aop = new ConcurrentLinkedDeque<>();
     }
 
     public static class Version {
