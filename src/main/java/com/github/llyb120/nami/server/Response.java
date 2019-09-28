@@ -88,7 +88,6 @@ public class Response implements AutoCloseable{
         IoUtil.close(socket);
         IoUtil.close(sc);
         cl.countDown();
-        System.out.println("fuck" + (System.currentTimeMillis() - stime));
     }
 
 //    public void eof() {

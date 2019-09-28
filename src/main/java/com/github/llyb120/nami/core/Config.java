@@ -306,34 +306,29 @@ public class Config {
         //skip {
         readToken();
         String key = null;
-        StorageConfig lastItem = null;
+        StorageConfig storage = new StorageConfig();
         while ((key = readToken()) != null) {
-            if (key.equals("}")) return;
-            lastItem = new StorageConfig();
-            //skip {
-            readToken();
-            readStorageItem(lastItem);
-            storages.put(key, lastItem);
-
-            //make instance
-            if ("simple".equalsIgnoreCase(lastItem.driver)) {
-                lastItem.instance = new SimpleStorage(lastItem);
-            }
-        }
-    }
-
-    private void readStorageItem(StorageConfig storage) {
-        String key = null;
-        while ((key = readToken()) != null) {
-            if (key.equals("}")) return;
             switch (key) {
+                case "name":
+                    storage.name = readToEnd();
+                    break;
+
                 case "driver":
-                    storage.driver = readToken();
+                    storage.driver = readToEnd();
                     break;
 
                 case "path":
-                    storage.path = new File(readToken());//storage.path;
+                    storage.path = new File(readToEnd());//storage.path;
                     break;
+
+                case "}":
+                    storages.put(storage.name, storage);
+
+                    //make instance
+                    if ("simple".equalsIgnoreCase(storage.driver)) {
+                        storage.instance = new SimpleStorage(storage);
+                    }
+                    return;
             }
         }
     }
@@ -504,7 +499,7 @@ public class Config {
     }
 
     public static class StorageConfig {
-        //        public String name;
+        public String name;
         public String driver;
         public File path;
         public com.github.llyb120.nami.ext.file.Storage instance;
