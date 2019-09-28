@@ -2,10 +2,12 @@ package com.github.llyb120.nami;
 
 import cn.hutool.core.io.IoUtil;
 import com.github.llyb120.nami.core.Nami;
-import com.github.llyb120.nami.server.Route;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -18,7 +20,6 @@ public class TestElse {
 
     @Test
     public void ttt(){
-        Route.routes.add(new Route("/dev/:c/:a -> com.github.llyb120.nami.dev"));
         Nami.start();
     }
 

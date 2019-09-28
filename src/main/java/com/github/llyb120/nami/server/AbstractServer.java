@@ -1,6 +1,5 @@
 package com.github.llyb120.nami.server;
 
-import cn.hutool.core.util.StrUtil;
 import com.esotericsoftware.reflectasm.MethodAccess;
 import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.Config;
@@ -17,7 +16,6 @@ import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -60,10 +58,6 @@ public abstract class AbstractServer {
                             byteBuffer.flip();
                         }
                     } catch (InterruptedException | IOException e) {
-                        e.printStackTrace();
-                        if(resp != null){
-                            resp.close();
-                        }
                     }
 
                 }
@@ -77,15 +71,18 @@ public abstract class AbstractServer {
                         resp = analyzeQueue.take();
                         byteBuffer.clear();
                         boolean abort = false;
+                        boolean once = false;
                         while (!abort && resp.pipe.source().read(byteBuffer) > 0) {
                             byteBuffer.flip();
                             abort = resp.request.analyze(byteBuffer);
                             byteBuffer.flip();
-                            if(resp.request.phase.ordinal() > Request.AnalyzePhase.DECODING_HEAD.ordinal()){
+                            if(resp.request.phase != Request.AnalyzePhase.DECODING_HEAD && !once){
+                                once = true;
                                 handleQueue.put(resp);
                             }
                         }
                         resp.request.analyzeEnd();
+                        resp.cl.countDown();
 //                        try {
 //                            resp.server.handle(resp);
 //                        } catch (Exception e) {
@@ -95,20 +92,14 @@ public abstract class AbstractServer {
 //                        }
 //                        handleQueue.put(resp);
                     } catch (InterruptedException | IOException e) {
-                        e.printStackTrace();
-
-                        if (resp != null) {
-                            resp.close();
-                        }
                     }
                 }
             });
 
             Async.execute(() -> {
                 while (true) {
-                    try (
-                            Response resp = handleQueue.take();
-                    ) {
+                    try {
+                        Response resp = handleQueue.take();
                         resp.server.handle(resp);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -169,26 +160,40 @@ public abstract class AbstractServer {
         **/
 
         //路由匹配
-        List<String> paths = StrUtil.split(req.path, '/', false, true);
-        Route.Node node = server.root.getMatched(paths);
-        if(node == null){
-            return;
-        }
-        String methodName = null;
-        String className = null;
-        String packageName = node.ctrl;
-        do{
-            if(node.type == Route.Node.Type.METHOD){
-                methodName = paths.get(node.deep - 1);
-            } else if(node.type == Route.Node.Type.CLASS){
-                className = paths.get(node.deep - 1);
+        int n = server.locations.size();
+        Route.Item item = null;
+        while(n-- > 0){
+            Route route = server.locations.get(n);
+            item = (route.match(req.path));
+            if (item == null) {
+                continue;
             }
-            node = node.parent;
-        } while(node != null);
-        if(methodName == null || className == null){
+            break;
+        }
+        if (item == null) {
             return;
         }
-        className = packageName + "." + className;
+
+//        List<String> paths = StrUtil.split(req.path, '/', false, true);
+//        Route.Node node = server.root.getMatched(paths);
+//        if(node == null){
+//            return;
+//        }
+//        String methodName = null;
+//        String className = null;
+//        String packageName = node.ctrl;
+//        do{
+//            if(node.type == Route.Node.Type.METHOD){
+//                methodName = paths.get(node.deep - 1);
+//            } else if(node.type == Route.Node.Type.CLASS){
+//                className = paths.get(node.deep - 1);
+//            }
+//            node = node.parent;
+//        } while(node != null);
+//        if(methodName == null || className == null){
+//            return;
+//        }
+//        className = packageName + "." + className;
 //        Object[] route = Route.getMatchedRoute(req.path);
 //        if (route == null) {
 //            return;
@@ -208,7 +213,7 @@ public abstract class AbstractServer {
             loader = loaders.get();
         }
         Thread.currentThread().setContextClassLoader(loader);
-        Class clz = loader.loadClass(className);
+        Class clz = loader.loadClass(item.className);
         loader.loadMagicVars(resp);
 
         Object result = null;
@@ -222,31 +227,41 @@ public abstract class AbstractServer {
 //            i++;
 //        }
         MethodAccess ma = MethodAccess.get(clz, true);
-        int i = ma.getIndex(methodName);
+        int i = ma.getIndex(item.methodName);
         if(i == -1){
             return;
         }
         Parameter[] parameters = ma.getParameters()[i];
         Expression expression = () -> {
+            resp.cl.await();
             Object[] args = Param.AutoWiredParams(parameters, resp, null);
             return ma.invoke(ma.newInstance(), i, args);
         };
 
-        Object ret = expression.call();
+        if (item.aops != null) {
+             n = item.aops.size();
+             while(n-- > 0){
+                 String clzName = item.aops.get(n);
+                 Class aopClz = loader.loadClass(clzName);
+                 MethodAccess aopMa = MethodAccess.get(aopClz, true);
+                 Aop aop = (Aop) aopMa.newInstance();
+                 Expression lastExpression = expression;
+                 if(aop instanceof HalfAop){
+                     expression = () -> {
+                         return aop.around(req,resp,lastExpression);
+                     };
+                 } else {
+                     expression = () -> {
+                         resp.cl.await();
+                         return aop.around(req,resp,lastExpression);
+                     };
+                 }
+             }
 
-//        Object[] args = Param.AutoWiredParams(parameters, resp, null);
-//        if (aops != null) {
-//                    result = doAop(loader, aops, clz, method, instance, args, resp);
-//        } else {
-//            result = ma.invoke(ma.newInstance(), i, args);
-//        }
-//        for (Method method : clz.getDeclaredMethods()) {
-//            if (method.getName().equalsIgnoreCase(methodName)) {
-//                Object instance = getInstance(clz);
-//
-//                break;
-//            }
-//        }
+        }
+
+        result = expression.call();
+
 
         if (result instanceof File) {
             proxyFile(resp, new MultipartFile((File) result));
@@ -267,21 +282,21 @@ public abstract class AbstractServer {
 
     }
 
-    private Object getInstance(Class clz) throws IllegalAccessException, InstantiationException {
-        if (config.dev) {
-            return clz.newInstance();
-        } else {
-            Object ins = null;
-            synchronized (clzInstances) {
-                ins = clzInstances.get(clz);
-                if (ins == null) {
-                    ins = clz.newInstance();
-                    clzInstances.put(clz, ins);
-                }
-            }
-            return ins;
-        }
-    }
+//    private Object getInstance(Class clz) throws IllegalAccessException, InstantiationException {
+//        if (config.dev) {
+//            return clz.newInstance();
+//        } else {
+//            Object ins = null;
+//            synchronized (clzInstances) {
+//                ins = clzInstances.get(clz);
+//                if (ins == null) {
+//                    ins = clz.newInstance();
+//                    clzInstances.put(clz, ins);
+//                }
+//            }
+//            return ins;
+//        }
+//    }
 
 
 //    private Object doAop(ClassLoader loader, String[] aops, Class clz, Method method, Object instance, Object[] args, Response response) throws Exception {

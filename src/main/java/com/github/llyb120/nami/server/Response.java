@@ -5,21 +5,20 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.github.llyb120.nami.core.MultipartFile;
-import com.github.llyb120.nami.json.Arr;
-import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.nio.channels.*;
+import java.nio.channels.Pipe;
+import java.nio.channels.SocketChannel;
+import java.nio.channels.WritableByteChannel;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 
 import static cn.hutool.core.util.StrUtil.CRLF;
 import static com.github.llyb120.nami.core.Config.config;
-import static com.github.llyb120.nami.json.Json.aaa;
 import static com.github.llyb120.nami.json.Json.o;
 
 public class Response implements AutoCloseable{
@@ -37,6 +36,7 @@ public class Response implements AutoCloseable{
     AbstractServer server;
     StringBuilder sb = new StringBuilder();
     long stime;
+    CountDownLatch cl = new CountDownLatch(1);
 
     public Response(AbstractServer server, Socket socket) throws IOException {
         pipe = Pipe.open();
@@ -87,6 +87,7 @@ public class Response implements AutoCloseable{
         IoUtil.close(request);
         IoUtil.close(socket);
         IoUtil.close(sc);
+        cl.countDown();
         System.out.println("fuck" + (System.currentTimeMillis() - stime));
     }
 

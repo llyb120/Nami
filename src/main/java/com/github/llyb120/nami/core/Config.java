@@ -12,7 +12,7 @@ import com.github.llyb120.nami.server.Route;
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static com.github.llyb120.nami.json.Json.a;
 import static com.github.llyb120.nami.json.Json.o;
@@ -247,16 +247,16 @@ public class Config {
 //                    if(start != 0 || end != url.length()){
 //                        url = url.substring(start, end);
 //                    }
-                    Location location = readLocation();
-                    String[] arr = StrUtil.splitToArray(url, '/');
-                    Route.Node node = server.root;
-                    for (String s : arr) {
-                        if (s.isEmpty()) {
-                            continue;
-                        }
-                        node = node.getNode(s);
-                    }
-                    node.ctrl = location.ctrl;
+                    Route location = readLocation(url);
+//                    String[] arr = StrUtil.splitToArray(url, '/');
+//                    Route.Node node = server.root;
+//                    for (String s : arr) {
+//                        if (s.isEmpty()) {
+//                            continue;
+//                        }
+//                        node = node.getNode(s);
+//                    }
+//                    node.ctrl = location.ctrl;
                     server.locations.add(location);
                     break;
 
@@ -269,9 +269,10 @@ public class Config {
         return server;
     }
 
-    private Location readLocation() {
+    private Route readLocation(String url) {
         readToken();
-        Location location = new Location();
+        Route route = new Route();
+        route.setUrl(url);
         String key;
         scan:
         while ((key = readToken()) != null) {
@@ -280,25 +281,25 @@ public class Config {
                     break scan;
 
                 case "proxy_pass":
-                    location.proxy_pass = readToEnd();
+//                    location.proxy_pass = readToEnd();
                     break;
 
                 case "ctrl":
-                    location.ctrl = readToEnd();
+                    route.ctrl = readToEnd();
                     break;
 
                 case "aop":
                     key = readToken();
                     if(key.equals("[")){
-                        readStringArray(location.aop);
+                        readStringArray(route.aops);
                     } else {
-                        location.aop.add(key);
+                        route.aops.add(key);
                     }
                     break;
 
             }
         }
-        return location;
+        return route;
     }
 
     private void readStorage() {
@@ -510,16 +511,13 @@ public class Config {
     }
 
     public static class Server {
-        public List<Location> locations = new Vector<>();
+        public List<Route> locations = new CopyOnWriteArrayList<>();
         public int listen;
-        public Route.Node root = Route.Node.createNode(Route.Node.Type.ROOT);
     }
 
-    public static class Location {
-        public String proxy_pass;
-        public String ctrl;
-        public Queue<String> aop = new ConcurrentLinkedDeque<>();
-    }
+//    public static class Location {
+//        public Route route;
+//    }
 
     public static class Version {
         public String name = "default";

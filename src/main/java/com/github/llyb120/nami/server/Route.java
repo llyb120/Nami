@@ -5,11 +5,68 @@ import com.github.llyb120.nami.json.Arr;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.github.llyb120.nami.json.Json.a;
 
 
 public class Route {
+    public List<String> aops = new CopyOnWriteArrayList<>();
+    public String ctrl;
+    public String proxyPass;
+    private Pattern matchReg;
+    private boolean confirmClass = false;
+    private boolean classFirst = false;
+
+    private static Pattern reg = Pattern.compile(":c|:a");
+
+    public void setUrl(String location) {
+        int cIndex = location.indexOf(":c");
+        int aIndex = location.indexOf(":a");
+        if(cIndex == -1){
+            confirmClass = true;
+        }
+        if(cIndex > -1 && aIndex > -1){
+            if(cIndex < aIndex){
+                classFirst = true;
+            }
+        }
+        matchReg = Pattern.compile("^" + location.replaceAll(":c|:a", "([^/]+)"));
+    }
+
+    public Item match(String url){
+        Matcher matcher = matchReg.matcher(url);
+        if(matcher.find()){
+            Item item = new Item();
+            switch (matcher.groupCount()){
+                case 1:
+                    item.className = ctrl;
+                    item.methodName = matcher.group(1);
+                    break;
+
+                case 2:
+                    if(classFirst){
+                        item.className = ctrl + "." + matcher.group(1);
+                        item.methodName = matcher.group(2);
+                    } else {
+                        item.className = ctrl + "." + matcher.group(2);
+                        item.methodName = matcher.group(1);
+                    }
+                    break;
+            }
+            item.aops = aops;
+            return item;
+        }
+        return null;
+    }
+
+    public static class Item{
+        public String className;
+        public String methodName;
+        public List<String> aops;
+    }
 
     public static class Node implements Cloneable{
         public String value;

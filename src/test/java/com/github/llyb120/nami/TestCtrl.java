@@ -14,10 +14,12 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.json.Json.a;
 import static com.github.llyb120.nami.json.Json.o;
 import static org.junit.Assert.*;
@@ -213,6 +215,7 @@ public class TestCtrl {
 //         resp = new String(conn.getInputStream().readAllBytes());
         String[] Json = res.split("\\|");
         Assert.assertEquals(Json[0], fileName);
+        System.out.println(Json[1]);
         byte[] bs = IoUtil.readBytes(new FileInputStream(Json[1]));
         Assert.assertArrayEquals(bs, str.getBytes());
 //            BufferedReader reader = new BufferedReader(new InputStreamReader(
