@@ -27,7 +27,7 @@ public class Config {
 //    public Compile compile = new Compile();
     public Cors cors = new Cors();
     public Obj ext = o();
-    public Map var = new ConcurrentHashMap();
+    public Obj var = o();
     public boolean dev = false;
     public List<String> link = new ArrayList<>();
     public Map<String, Link> links = new HashMap<>();

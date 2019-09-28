@@ -9,19 +9,11 @@ import java.util.stream.Collectors;
 
 public class Arr<T extends Object> extends Json implements List<T> {
 
-    private ArrayList list;
+    private List list;
     boolean spread = false;
 
     public Arr(){
-        this(false);
-    }
-
-    public Arr(boolean p){
-        if(p){
-
-        } else {
-            list = new ArrayList();
-        }
+        list = Collections.synchronizedList(new ArrayList<>());
     }
 
     public List list(){

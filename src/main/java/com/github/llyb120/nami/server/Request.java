@@ -566,6 +566,8 @@ public class Request implements AutoCloseable {
             Object value = params.get(name, type);
             if (value != null && type.isAssignableFrom(value.getClass())) {
                 return (T) value;
+            } else if(type.getName().startsWith("java.")){
+                return (T) value;
             }
             throw new RuntimeException();
         } catch (Exception e) {
