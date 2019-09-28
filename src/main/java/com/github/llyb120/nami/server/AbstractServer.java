@@ -46,7 +46,7 @@ public abstract class AbstractServer {
             ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
             ReadableByteChannel in = resp.request.channel;
             WritableByteChannel out = resp.pipe.sink();
-            while (in.read(byteBuffer) != -1) {
+            while (in.read(byteBuffer) > 0) {
                 byteBuffer.flip();
                 out.write(byteBuffer);
                 byteBuffer.flip();

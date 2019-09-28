@@ -8,11 +8,11 @@ import com.github.llyb120.nami.server.Response;
 public class TestHalf implements HalfAop {
     @Override
     public Object around(Request request, Response response, Expression expression) throws Exception {
-        try{
-            System.out.println("half before");
+//        try{
+//            System.out.println("half before");
             return expression.call();
-        } finally {
-            System.out.println("half after");
-        }
+//        } finally {
+//            System.out.println("half after");
+//        }
     }
 }

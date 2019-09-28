@@ -42,8 +42,8 @@ public class DevServer extends AbstractServer {
     private void handle(Socket socket) {
         try {
             Response resp = new Response(this, socket);
-            resp.channel = Channels.newChannel(socket.getOutputStream());
-            resp.request.channel = Channels.newChannel(socket.getInputStream());
+            resp.channel = Channels.newChannel((socket.getOutputStream()));
+            resp.request.channel = Channels.newChannel((socket.getInputStream()));
             Async.execute(() -> read(resp));
             Async.execute(() -> analyze(resp));
         } catch (Exception e) {

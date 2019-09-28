@@ -28,12 +28,11 @@ import static org.junit.Assert.*;
 public class TestCtrl {
 
     private int port = 8085;
-    
+
     @BeforeClass
     public static void before() throws InterruptedException {
 //        Route.routes.add(new Route("/test/:c/:a -> com.github.llyb120.nami.test"));
         Nami.dev();
-        Thread.sleep(100);
     }
 
 
