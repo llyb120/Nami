@@ -1,19 +1,18 @@
 package com.github.llyb120.nami;
 
-import cn.hutool.core.io.FileUtil;
 import com.github.llyb120.nami.core.Nami;
+
 //import javassist.ClassPool;
 //import javassist.CtClass;
 //import javassist.CtMethod;
 //import javassist.CtNewMethod;
 //import javassist.bytecode.MethodInfo;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-
 public class TestApp {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+//        new b().test();
+//        Thread.sleep(1000);
         Nami.start();
 //        ClassPool pool = ClassPool.getDefault();
 //        try {

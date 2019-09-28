@@ -19,7 +19,7 @@ public class BeetlSql {
 
     static {
         System.out.println("Initializing BeetlSql");
-        Config.Db ds = config.db.get("main");
+        Config.Db ds = config.db.get("default");
         ConnectionSource source = ConnectionSourceHelper.getSingle(dataSource);
         ClasspathLoader loader = new ClasspathLoader("/sql");
         NameConversion nc;
@@ -78,7 +78,7 @@ public class BeetlSql {
         if(config.dev){
             interceptors = new Interceptor[]{new MyDebugInterceptor()};
         }
-        sqlManager = new SQLManager(style, loader,source,nc, interceptors,ds.schema, property ,"main");
+        sqlManager = new SQLManager(style, loader,source,nc, interceptors,ds.schema, property ,"default");
 
 //        if (listener != null) {
 //            listener.onDBServiceBooted();

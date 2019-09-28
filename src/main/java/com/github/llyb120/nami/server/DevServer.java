@@ -42,37 +42,10 @@ public class DevServer extends AbstractServer {
     private void handle(Socket socket) {
         try {
             Response resp = new Response(this, socket);
-            Socket _socket = socket;
-            resp.channel = Channels.newChannel(_socket.getOutputStream());
-            resp.request.channel = Channels.newChannel(_socket.getInputStream());
-//            Pipe pipe = Pipe.open();
-//            Async.execute(() -> read(resp, pipe));
-            readQueue.put(resp);
-            analyzeQueue.put(resp);
-
-//            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
-//            boolean abort = false;
-//            while(!abort && resp.pipe.source().read(byteBuffer) > 0){
-//                byteBuffer.flip();
-//                abort = resp.request.analyze(byteBuffer);
-//                byteBuffer.flip();
-//            }
-//            System.out.println("fuck");
-//            ReadableByteChannel readableByteChannel = pipe.source();
-//            boolean abort = false;
-//            long stime = System.currentTimeMillis();
-//            while (!abort) {
-//                ByteBuffer byteBuffer = taskList.poll(5, TimeUnit.SECONDS);
-//                if (byteBuffer == null) {
-//                    break;
-//                }
-//                byteBuffer.flip();
-//                abort =  resp.request.analyze(byteBuffer);
-//                int d = 2;
-//            }
-//            System.out.println(System.currentTimeMillis() - stime);
-//            resp.request.analyzeEnd();
-//            handle(resp);
+            resp.channel = Channels.newChannel(socket.getOutputStream());
+            resp.request.channel = Channels.newChannel(socket.getInputStream());
+            Async.execute(() -> read(resp));
+            Async.execute(() -> analyze(resp));
         } catch (Exception e) {
             if(!(e instanceof SocketException)){
                 e.printStackTrace();

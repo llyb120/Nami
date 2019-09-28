@@ -1,17 +1,15 @@
 package com.github.llyb120.nami.server;
 
-import cn.hutool.socket.nio.NioServer;
 import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.Config;
-import com.github.llyb120.nami.core.MultipartFile;
-import com.github.llyb120.nami.server.AbstractServer;
-import com.github.llyb120.nami.server.Response;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.StandardSocketOptions;
-import java.nio.ByteBuffer;
-import java.nio.channels.*;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -23,6 +21,7 @@ public class NIOServer extends AbstractServer {
     public NIOServer(Config.Server server) {
         super(server);
     }
+
 
     @Override
     public void start(int port) throws Exception {
@@ -113,9 +112,8 @@ public class NIOServer extends AbstractServer {
             resp.channel = sc;
             resp.request.channel = sc;
 
-            readQueue.put(resp);
-            analyzeQueue.put(resp);
-
+            Async.execute(() -> read(resp));
+            Async.execute(() -> analyze(resp));
         } catch (Exception e) {
             e.printStackTrace();
         }

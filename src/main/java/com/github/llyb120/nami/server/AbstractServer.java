@@ -41,75 +41,117 @@ public abstract class AbstractServer {
         this.server = server;
     }
 
-    static {
-        for (int i = 0; i < 16; i++) {
-            Async.execute(() -> {
-                ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
-                while (true) {
-                    Response resp = null;
-                    try {
-                        resp = readQueue.take();
-                        byteBuffer.clear();
-                        ReadableByteChannel in = resp.request.channel;
-                        WritableByteChannel out = resp.pipe.sink();
-                        while (in.read(byteBuffer) != -1) {
-                            byteBuffer.flip();
-                            out.write(byteBuffer);
-                            byteBuffer.flip();
-                        }
-                    } catch (InterruptedException | IOException e) {
-                    }
-
-                }
-            });
-
-            Async.execute(() -> {
-                ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
-                while (true) {
-                    Response resp = null; //analyzeQueue.take();
-                    try {
-                        resp = analyzeQueue.take();
-                        byteBuffer.clear();
-                        boolean abort = false;
-                        boolean once = false;
-                        while (!abort && resp.pipe.source().read(byteBuffer) > 0) {
-                            byteBuffer.flip();
-                            abort = resp.request.analyze(byteBuffer);
-                            byteBuffer.flip();
-                            if(resp.request.phase != Request.AnalyzePhase.DECODING_HEAD && !once){
-                                once = true;
-                                handleQueue.put(resp);
-                            }
-                        }
-                        resp.request.analyzeEnd();
-                        resp.cl.countDown();
-//                        try {
-//                            resp.server.handle(resp);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        } finally {
-//                            resp.close();
-//                        }
-//                        handleQueue.put(resp);
-                    } catch (InterruptedException | IOException e) {
-                    }
-                }
-            });
-
-            Async.execute(() -> {
-                while (true) {
-                    try {
-                        Response resp = handleQueue.take();
-                        resp.server.handle(resp);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-        }
-
+    void read(Response resp) {
+        try{
+            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
+            ReadableByteChannel in = resp.request.channel;
+            WritableByteChannel out = resp.pipe.sink();
+            while (in.read(byteBuffer) != -1) {
+                byteBuffer.flip();
+                out.write(byteBuffer);
+                byteBuffer.flip();
+            }
+        } catch (IOException e){}
     }
+
+    protected void analyze(Response resp) {
+        try {
+            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
+            boolean abort = false;
+            boolean once = false;
+            while (!abort && resp.pipe.source().read(byteBuffer) > 0) {
+                byteBuffer.flip();
+                abort = resp.request.analyze(byteBuffer);
+                byteBuffer.flip();
+                if (resp.request.phase != Request.AnalyzePhase.DECODING_HEAD && !once) {
+                    once = true;
+                    Async.execute(() -> handle(resp));
+                }
+            }
+            resp.request.analyzeEnd();
+            resp.cl.countDown();
+        }catch (IOException e){}
+    }
+
+    public void handle(Response resp){
+        try(Response r = resp){
+            _handle(resp);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+//    static {
+//        for (int i = 0; i < 16; i++) {
+//            Async.execute(() -> {
+//                ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
+//                while (true) {
+//                    Response resp = null;
+//                    try {
+//                        resp = readQueue.take();
+//                        byteBuffer.clear();
+//                        ReadableByteChannel in = resp.request.channel;
+//                        WritableByteChannel out = resp.pipe.sink();
+//                        while (in.read(byteBuffer) != -1) {
+//                            byteBuffer.flip();
+//                            out.write(byteBuffer);
+//                            byteBuffer.flip();
+//                        }
+//                    } catch (InterruptedException | IOException e) {
+//                    }
+//
+//                }
+//            });
+//
+//            Async.execute(() -> {
+//                ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
+//                while (true) {
+//                    Response resp = null; //analyzeQueue.take();
+//                    try {
+//                        resp = analyzeQueue.take();
+//                        byteBuffer.clear();
+//                        boolean abort = false;
+//                        boolean once = false;
+//                        while (!abort && resp.pipe.source().read(byteBuffer) > 0) {
+//                            byteBuffer.flip();
+//                            abort = resp.request.analyze(byteBuffer);
+//                            byteBuffer.flip();
+//                            if(resp.request.phase != Request.AnalyzePhase.DECODING_HEAD && !once){
+//                                once = true;
+//                                handleQueue.put(resp);
+//                            }
+//                        }
+//                        resp.request.analyzeEnd();
+//                        resp.cl.countDown();
+////                        try {
+////                            resp.server.handle(resp);
+////                        } catch (Exception e) {
+////                            e.printStackTrace();
+////                        } finally {
+////                            resp.close();
+////                        }
+////                        handleQueue.put(resp);
+//                    } catch (InterruptedException | IOException e) {
+//                    }
+//                }
+//            });
+//
+//            Async.execute(() -> {
+//                while (true) {
+//                    try {
+//                        Response resp = handleQueue.take();
+//                        resp.server.handle(resp);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//
+//        }
+//
+//    }
 
     public void handleOptions(Response resp) throws Exception {
         //如果是options
@@ -121,7 +163,7 @@ public abstract class AbstractServer {
         return false;
     }
 
-    public void handle(Response resp) throws Exception {
+    public final void _handle(Response resp) throws Exception {
         Request req = resp.request;
         if (req.method == null) {
             return;
