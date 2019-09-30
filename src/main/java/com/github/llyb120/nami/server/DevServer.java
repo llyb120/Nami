@@ -29,7 +29,6 @@ public class DevServer extends AbstractServer {
             try {
                 Socket socket = server.accept();
                 socket.setTcpNoDelay(true);
-
                 Async.execute(() -> {
                     handle(socket);
                 });
@@ -44,8 +43,10 @@ public class DevServer extends AbstractServer {
             Response resp = new Response(this, socket);
             resp.channel = Channels.newChannel((socket.getOutputStream()));
             resp.request.channel = Channels.newChannel((socket.getInputStream()));
-            Async.execute(() -> read(resp));
-            Async.execute(() -> analyze(resp));
+            handle(resp);
+//            Async.execute(() -> read(resp));
+//            Async.execute(() -> analyze(resp));
+
         } catch (Exception e) {
             if(!(e instanceof SocketException)){
                 e.printStackTrace();

@@ -198,23 +198,23 @@ public class Request implements AutoCloseable {
 //        sb.append(charBuffer.toString());
 //        byte[] bs = new byte[byteBuffer.remaining()];
 //        byteBuffer.get(bs);
-        if (phase == AnalyzePhase.DECODING_HEAD) {
-            int i = sb.indexOf(CRLF + CRLF);
-            if(i > -1){
-                String str = sb.substring(0, i);
-                sb.delete(0, i + CRLF.length() + CRLF.length()); //                new StringTokenizer(str, CRLF).nextToken();
-                String[] lines = StrUtil.split(str, CRLF);
-                for (String line : lines) {
-                    decodeHeader(line);
-                }
-                phase = AnalyzePhase.DECODING_BODY;
-                params.putAll(query);
-
-                if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
-                    return true;
-                }
-            }
-        }
+//        if (phase == AnalyzePhase.DECODING_HEAD) {
+//            int i = sb.indexOf(CRLF + CRLF);
+//            if(i > -1){
+//                String str = sb.substring(0, i);
+//                sb.delete(0, i + CRLF.length() + CRLF.length()); //                new StringTokenizer(str, CRLF).nextToken();
+//                String[] lines = StrUtil.split(str, CRLF);
+//                for (String line : lines) {
+//                    decodeHeader(line);
+//                }
+//                phase = AnalyzePhase.DECODING_BODY;
+//                params.putAll(query);
+//
+//                if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
+//                    return true;
+//                }
+//            }
+//        }
 
 
         if (phase == AnalyzePhase.DECODING_BODY) {
@@ -506,7 +506,19 @@ public class Request implements AutoCloseable {
     }
 
 
-    void decodeHeader(String line) {
+    void decodeHeaders(String headers){
+        String[] lines = StrUtil.split(headers, CRLF);
+        for (String line : lines) {
+            decodeHeader(line);
+        }
+        phase = AnalyzePhase.DECODING_BODY;
+        params.putAll(query);
+//                if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {
+//                    return;
+//                }
+    }
+
+    private void decodeHeader(String line) {
 //        var i = line.lastIndexOf("\r\n");
 //        if(i > -1){
 //            line = line.substring(0, i);

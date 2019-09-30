@@ -111,9 +111,7 @@ public class NIOServer extends AbstractServer {
             Response resp = new Response(this, sc);
             resp.channel = sc;
             resp.request.channel = sc;
-
-            Async.execute(() -> read(resp));
-            Async.execute(() -> analyze(resp));
+            handle(resp);
         } catch (Exception e) {
             e.printStackTrace();
         }

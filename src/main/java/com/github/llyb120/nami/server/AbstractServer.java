@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.lang.reflect.Parameter;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
-import java.nio.channels.WritableByteChannel;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -41,45 +40,74 @@ public abstract class AbstractServer {
         this.server = server;
     }
 
-    void read(Response resp) {
-        try{
-            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
-            ReadableByteChannel in = resp.request.channel;
-            WritableByteChannel out = resp.pipe.sink();
-            while (in.read(byteBuffer) > 0) {
-                byteBuffer.flip();
-                out.write(byteBuffer);
-                byteBuffer.flip();
+    void handle(Response resp){
+        //读取header
+        ByteBuffer buf = ByteBuffer.allocateDirect(4096 + 4);
+        try (Response r = resp){
+            int n = resp.request.channel.read(buf);
+            if(n < 1){
+                return;
             }
-        } catch (IOException e){}
+            String head = null;
+            for(int i = 0; i < n - 3 ; i++){
+                if(buf.get(i) == '\r' && buf.get(i + 1) == '\n' && buf.get(i + 2) == '\r' && buf.get(i + 3) == '\n'){
+                    byte[] bs = new byte[i];
+                    buf.flip();
+                    buf.get(bs);
+                    buf.position(buf.position() + 4);
+                    head = new String(bs);
+                    break;
+                }
+            }
+            if(head != null){
+                resp.request.decodeHeaders(head);
+                if(resp.request.method == Request.Method.POST){
+                    Async.execute(() -> analyze(resp, buf));
+                } else {
+                    resp.request.analyzeEnd();
+                    resp.cl.countDown();
+                }
+                _handle(resp);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    protected void analyze(Response resp) {
+//    void read(Response resp) {
+//        try{
+//            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
+//            ReadableByteChannel in = resp.request.channel;
+//            WritableByteChannel out = resp.pipe.sink();
+//            while (in.read(byteBuffer) > 0) {
+//                byteBuffer.flip();
+//                out.write(byteBuffer);
+//                byteBuffer.flip();
+//            }
+//        } catch (IOException e){}
+//    }
+
+    protected void analyze(Response resp, ByteBuffer buf) {
         try {
-            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
-            boolean abort = false;
-            boolean once = false;
-            while (!abort && resp.pipe.source().read(byteBuffer) > 0) {
-                byteBuffer.flip();
-                abort = resp.request.analyze(byteBuffer);
-                byteBuffer.flip();
-                if (resp.request.phase != Request.AnalyzePhase.DECODING_HEAD && !once) {
-                    once = true;
-                    Async.execute(() -> handle(resp));
-                }
+            boolean abort = resp.request.analyze(buf);
+            buf.flip();
+            while (!abort && resp.request.channel.read(buf) > 0) {
+                buf.flip();
+                abort = resp.request.analyze(buf);
+                buf.flip();
             }
             resp.request.analyzeEnd();
             resp.cl.countDown();
         }catch (IOException e){}
     }
 
-    public void handle(Response resp){
-        try(Response r = resp){
-            _handle(resp);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//    public void handle(Response resp){
+//        try(Response r = resp){
+//            _handle(resp);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 
 
 

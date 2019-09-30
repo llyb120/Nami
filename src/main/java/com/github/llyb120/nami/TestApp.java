@@ -11,6 +11,26 @@ import com.github.llyb120.nami.core.Nami;
 public class TestApp {
 
     public static void main(String[] args) throws InterruptedException {
+        System.setProperty("co.paralleluniverse.fibers.verifyInstrumentation", "false");
+//        System.out.println(config.dev);
+//
+////        QuaLo
+//        for (int i = 0; i < 10000000; i++) {
+//            int finalI = i;
+//            new Fiber<Void>(){
+//                @Override
+//                protected Void run() throws SuspendExecution, InterruptedException {
+//                    System.out.println(finalI);
+//                    return null;
+//                }
+//            }.start();
+//        }
+//        long stime = System.currentTimeMillis();
+//        for (String s : config.hotswap) {
+//            Set<Class<?>> clzs = ClassUtil.scanPackage(s);
+//            int d = 2;
+//        }
+//        System.out.println(System.currentTimeMillis() - stime);
 //        new b().test();
 //        Thread.sleep(1000);
         Nami.start();
