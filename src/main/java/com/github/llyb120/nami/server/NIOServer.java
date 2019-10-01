@@ -104,10 +104,11 @@ public class NIOServer extends AbstractServer {
 
     private void handle(SocketChannel sc) {
         try {
+            sc.configureBlocking(true);
             sc.setOption(StandardSocketOptions.TCP_NODELAY, true);
             Response resp = new Response(this, sc);
             resp.os = Channels.newOutputStream(sc);
-            resp.request.is= Channels.newInputStream(sc);
+            resp.request.is = Channels.newInputStream(sc);
             handle(resp);
         } catch (Exception e) {
             e.printStackTrace();

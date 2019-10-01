@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -76,6 +77,14 @@ public class TestElse {
 
         int la = 2;
 
+    }
+
+
+    @Test
+    public void ttt22(){
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(1024);
+        byte[] arr = byteBuffer.array();
+        int d = 2;
     }
 
 }

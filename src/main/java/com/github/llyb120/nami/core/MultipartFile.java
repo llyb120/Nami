@@ -70,7 +70,7 @@ public class MultipartFile implements AutoCloseable{
 
     public InputStream openInputStream() throws FileNotFoundException {
         if(null != file){
-            return new FileInputStream(file);
+            return new BufferedInputStream(new FileInputStream(file));
         } else if(null != path){
             if(path.startsWith("classpath:")){
                 String p = path.substring("classpath:".length());
