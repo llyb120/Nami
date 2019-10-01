@@ -13,6 +13,8 @@ import java.io.File;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static com.github.llyb120.nami.json.Json.a;
 import static com.github.llyb120.nami.json.Json.o;
@@ -45,6 +47,7 @@ public class Config {
     private String str = null;
     private List<String> lines;
     private int linePtr = 0;
+    private Pattern hotPattern;
 //    private byte[] bs = null;
 
     static {
@@ -203,6 +206,12 @@ public class Config {
             source = GenKit.getJavaSRCPath();
             target = new File(source, "../../../target/classes").getAbsolutePath();
         }
+
+        //hot
+        hotPattern = Pattern.compile(hotswap.stream()
+            .map(e -> e.replace(".", "\\."))
+            .map(e -> e + "\\.*")
+            .collect(Collectors.joining("|")));
 
         //add magic vars
         magicvar.add("com.github.llyb120.nami.server.Vars");
@@ -461,6 +470,11 @@ public class Config {
             }
         }
         return ds;
+    }
+
+
+    public boolean isHotSwap(String className){
+        return hotPattern.matcher(className).find();
     }
 
 

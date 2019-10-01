@@ -274,7 +274,7 @@ public abstract class AbstractServer {
         }
         Thread.currentThread().setContextClassLoader(loader);
         Class clz = loader.loadClass(item.className);
-        loader.loadMagicVars(resp);
+//        loader.loadMagicVars(resp);
 
         Object result = null;
 //        var ma = MethodAccess.g(clz);
