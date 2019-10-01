@@ -1,18 +1,16 @@
 package com.github.llyb120.nami.server;
 
 import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Obj;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.Socket;
-import java.nio.ByteBuffer;
 import java.nio.channels.Pipe;
 import java.nio.channels.SocketChannel;
-import java.nio.channels.WritableByteChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
@@ -25,7 +23,8 @@ public class Response implements AutoCloseable{
     public int status;
     public Request request = new Request();
     public Obj headers = o();
-    public WritableByteChannel channel;
+//    public WritableByteChannel channel;
+    public OutputStream os;
 //    private Buffer buffer = new Buffer();
 
     volatile boolean closed = false;
@@ -56,7 +55,8 @@ public class Response implements AutoCloseable{
             return this;
         }
         try {
-            channel.write(StrUtil.byteBuffer(sb.toString(), StandardCharsets.UTF_8.name()));
+            os.write(sb.toString().getBytes());
+//            channel.write(StrUtil.byteBuffer(sb.toString(), StandardCharsets.UTF_8.name()));
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -83,7 +83,7 @@ public class Response implements AutoCloseable{
         }
         closed = true;
         flush();
-        IoUtil.close(channel);
+        IoUtil.close(os);
         IoUtil.close(request);
         IoUtil.close(socket);
         IoUtil.close(sc);
@@ -127,7 +127,7 @@ public class Response implements AutoCloseable{
     }
 
     public Response write(MultipartFile file) throws IOException {
-        file.transferTo(channel);
+        file.transferTo(os);
         return this;
     };
 
@@ -145,22 +145,28 @@ public class Response implements AutoCloseable{
      * @throws InterruptedException
      */
     public Response write(String str) throws IOException, ExecutionException, InterruptedException {
-        channel.write(StrUtil.byteBuffer(str, CharsetUtil.UTF_8));
+        os.write((str.getBytes(StandardCharsets.UTF_8)));
         return this;
     }
 
-    public Response write(ByteBuffer byteBuffer) throws IOException {
-        channel.write(byteBuffer);
+//    public Response write(ByteBuffer byteBuffer) throws IOException {
+//        channel.write(byteBuffer);
+//        return this;
+//    }
+
+    public Response write(byte[] bs, int start, int len) throws IOException {
+        os.write(bs, start, len);
         return this;
     }
 
     public Response write(byte[] bs) throws IOException {
-        channel.write(ByteBuffer.wrap(bs));
+        os.write((bs));
         return this;
     }
 
     public Response write(byte b) throws IOException {
-        return write(new byte[]{b});
+        os.write(b);
+        return this;
     }
 
 

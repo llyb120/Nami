@@ -6,10 +6,7 @@ import com.github.llyb120.nami.core.Config;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.StandardSocketOptions;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
+import java.nio.channels.*;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -109,8 +106,8 @@ public class NIOServer extends AbstractServer {
         try {
             sc.setOption(StandardSocketOptions.TCP_NODELAY, true);
             Response resp = new Response(this, sc);
-            resp.channel = sc;
-            resp.request.channel = sc;
+            resp.os = Channels.newOutputStream(sc);
+            resp.request.is= Channels.newInputStream(sc);
             handle(resp);
         } catch (Exception e) {
             e.printStackTrace();

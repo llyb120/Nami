@@ -11,12 +11,9 @@ import com.github.llyb120.nami.json.Json;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Parameter;
-import java.nio.ByteBuffer;
-import java.nio.channels.ReadableByteChannel;
-import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import static cn.hutool.core.util.StrUtil.CRLF;
 import static com.github.llyb120.nami.core.Config.config;
@@ -24,16 +21,12 @@ import static com.github.llyb120.nami.core.Config.config;
 public abstract class AbstractServer {
 
     Config.Server server;
-    private HashMap<Class, Object> clzInstances = new HashMap<>();
     private ThreadLocal<AppClassLoader> loaders = new ThreadLocal<AppClassLoader>() {
         @Override
         protected AppClassLoader initialValue() {
             return new AppClassLoader();
         }
     };
-    static LinkedBlockingQueue<Response> readQueue = new LinkedBlockingQueue<>();
-    static LinkedBlockingQueue<Response> analyzeQueue = new LinkedBlockingQueue<>();
-    static LinkedBlockingQueue<Response> handleQueue = new LinkedBlockingQueue<>();
 
     public abstract void start(int port) throws Exception;
     public AbstractServer(Config.Server server){
@@ -42,27 +35,26 @@ public abstract class AbstractServer {
 
     void handle(Response resp){
         //读取header
-        ByteBuffer buf = ByteBuffer.allocateDirect(4096 + 4);
+        byte[] bs = new byte[4096 + 4];
+        int i = 0;
         try (Response r = resp){
-            int n = resp.request.channel.read(buf);
+            int n = resp.request.is.read(bs);
             if(n < 1){
                 return;
             }
             String head = null;
-            for(int i = 0; i < n - 3 ; i++){
-                if(buf.get(i) == '\r' && buf.get(i + 1) == '\n' && buf.get(i + 2) == '\r' && buf.get(i + 3) == '\n'){
-                    byte[] bs = new byte[i];
-                    buf.flip();
-                    buf.get(bs);
-                    buf.position(buf.position() + 4);
-                    head = new String(bs);
+            for(; i < n - 3 ; i++){
+                if(bs[i]== '\r' && bs[i + 1] == '\n' && bs[i + 2] == '\r' && bs[i + 3] == '\n'){
+                    head = new String(bs, 0, i);
+                    i += 4;
                     break;
                 }
             }
             if(head != null){
                 resp.request.decodeHeaders(head);
                 if(resp.request.method == Request.Method.POST){
-                    Async.execute(() -> analyze(resp, buf));
+                    int finalI = i;
+                    Async.execute(() -> analyze(resp, bs, finalI, n - finalI));
                 } else {
                     resp.request.analyzeEnd();
                     resp.cl.countDown();
@@ -87,14 +79,12 @@ public abstract class AbstractServer {
 //        } catch (IOException e){}
 //    }
 
-    protected void analyze(Response resp, ByteBuffer buf) {
+    protected void analyze(Response resp, byte[] bs, int start, int length) {
         try {
-            boolean abort = resp.request.analyze(buf);
-            buf.flip();
-            while (!abort && resp.request.channel.read(buf) > 0) {
-                buf.flip();
-                abort = resp.request.analyze(buf);
-                buf.flip();
+            boolean abort = resp.request.analyze(bs, start, length);
+            int n = -1;
+            while (!abort && (n = resp.request.is.read(bs)) > 0) {
+                abort = resp.request.analyze(bs, 0, n);
             }
             resp.request.analyzeEnd();
             resp.cl.countDown();
@@ -413,26 +403,25 @@ public abstract class AbstractServer {
                 int size = directDownloadLength();
 //                var buf = new Buffer();
                 try (
-                        ReadableByteChannel fis = multipartFile.openChannel();
+                    InputStream is = multipartFile.openInputStream();
+//                        ReadableByteChannel fis = multipartFile.openChannel();
                 ) {
                     int n = -1;
-                    ByteBuffer bs = ByteBuffer.allocateDirect(size);
+                    byte[] bs = new byte[4096];
                     while (true) {
-                        bs.clear();
-                        n = fis.read(bs);
+                        n = is.read(bs);
                         if (n < 1) {
                             break;
                         }
                         response.write((Integer.toHexString(n).getBytes()))
                                 .write(CRLF)
-                                .write((ByteBuffer) bs.flip())
+                                .write(bs, 0, n)
                                 .write(CRLF);
                     }
-                    bs.clear();
-                    bs.put((byte) '0');
-                    bs.put(CRLF.getBytes());
-                    bs.put(CRLF.getBytes());
-                    bs.flip();
+                    response
+                        .write((byte)'0')
+                        .write(CRLF)
+                        .write(CRLF);
                     response.write(bs);
                 }
             }

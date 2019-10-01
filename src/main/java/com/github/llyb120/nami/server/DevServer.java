@@ -3,11 +3,12 @@ package com.github.llyb120.nami.server;
 import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.Config;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.nio.channels.Channels;
 
 public class DevServer extends AbstractServer {
 
@@ -41,8 +42,8 @@ public class DevServer extends AbstractServer {
     private void handle(Socket socket) {
         try {
             Response resp = new Response(this, socket);
-            resp.channel = Channels.newChannel((socket.getOutputStream()));
-            resp.request.channel = Channels.newChannel((socket.getInputStream()));
+            resp.os = new BufferedOutputStream((socket.getOutputStream()));
+            resp.request.is = new BufferedInputStream(socket.getInputStream());
             handle(resp);
 //            Async.execute(() -> read(resp));
 //            Async.execute(() -> analyze(resp));

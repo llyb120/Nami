@@ -8,14 +8,7 @@ import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.channels.ReadableByteChannel;
-import java.nio.charset.StandardCharsets;
+import java.io.*;
 import java.util.Map;
 
 import static com.github.llyb120.nami.json.Json.o;
@@ -27,8 +20,8 @@ public class Request implements AutoCloseable {
     public Method method = null;
     public String path;
     public String version;
-    //    public InputStream is;
-    public ReadableByteChannel channel;
+    public InputStream is;
+//    public ReadableByteChannel channel;
     public Json body;
     public Cookie cookie = new Cookie();
 
@@ -48,7 +41,7 @@ public class Request implements AutoCloseable {
 
     @Override
     public void close() throws Exception {
-        IoUtil.close(channel);
+        IoUtil.close(is);
         params.forEach((k, v) -> {
             IoUtil.closeIfPosible(v);
         });
@@ -189,12 +182,11 @@ public class Request implements AutoCloseable {
      * @return 是否已经解析完毕, true表示不需要再解析
      * @throws InterruptedException
      */
-    public boolean analyze(ByteBuffer byteBuffer) {
+    public boolean analyze(byte[] bs, int start, int max) {
         if (phase == AnalyzePhase.END) {
             return true;
         }
-        CharBuffer charBuffer = StandardCharsets.UTF_8.decode(byteBuffer);
-        sb.append(charBuffer.array());
+        sb.append(new String(bs, start, max));
 //        sb.append(charBuffer.toString());
 //        byte[] bs = new byte[byteBuffer.remaining()];
 //        byteBuffer.get(bs);
