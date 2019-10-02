@@ -3,37 +3,33 @@ package com.github.llyb120.nami.hotswap;
 import static com.github.llyb120.nami.core.Config.config;
 
 public class AppClassLoader extends ClassLoader {
-    public static ClassLoader defaultClassLoader = ClassLoader.getSystemClassLoader();//AppClassLoader.class.getClassLoader();
-
 
     @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {
-        return loadCompiledClass(name);
+        return findClass(name);
     }
 
-
-
-
-    protected Class<?> loadCompiledClass(String name) throws ClassNotFoundException {
-        Class<?> clz = findLoadedClass(name);
-        if (clz != null) {
-            return clz;
-        }
-        boolean isScript = name.startsWith("NamiFunc");
-        if(config.dev){
-//            boolean hotswap = config.hotswap
-//                    .stream()
-//                    .anyMatch(name::startsWith);
-            if(!config.isHotSwap(name) && !isScript){
-                return defaultClassLoader.loadClass(name);
-            }
-        } else {
-            if(!isScript){
-                return defaultClassLoader.loadClass(name);
-            }
-        }
-
-        return HotLoader.load(name, isScript);
+    @Override
+    protected Class<?> findClass(String name) throws ClassNotFoundException {
+        return HotLoader.load(name, false);
+//        Class<?> clz = findLoadedClass(name);
+//        if (clz != null) {
+//            return clz;
+//        }
+//        boolean isScript = name.startsWith("NamiFunc");
+//        if(config.dev){
+////            boolean hotswap = config.hotswap
+////                    .stream()
+////                    .anyMatch(name::startsWith);
+//            if(!config.isHotSwap(name) && !isScript){
+//                return defaultClassLoader.loadClass(name);
+//            }
+//        } else {
+//            if(!isScript){
+//                return defaultClassLoader.loadClass(name);
+//            }
+//        }
+//        return HotLoader.load(name, isScript);
     }
 
 //    public void loadMagicVars(Response response) {
