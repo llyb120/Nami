@@ -3,6 +3,7 @@ package com.github.llyb120.nami.server;
 import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.json.Arr;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -10,12 +11,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.github.llyb120.nami.json.Json.a;
+import static com.github.llyb120.nami.core.Config.config;
 
 
 public class Route {
     public List<String> aops = new CopyOnWriteArrayList<>();
     public String ctrl;
     public String proxyPass;
+    public String root;
+    public String location;
     private Pattern matchReg;
     private boolean confirmClass = false;
     private boolean classFirst = false;
@@ -34,9 +38,30 @@ public class Route {
             }
         }
         matchReg = Pattern.compile("^" + location.replaceAll(":c|:a", "([^/]+)"));
+        this.location = location;
+        matchReg = Pattern.compile("^" + location);
     }
 
     public Item match(String url){
+        if (root == null) {
+            return
+                null;
+        }
+        String real = url.replaceFirst("^" + location, "");
+        File file =  new File(config.workDir, config.pkg.replace(".", "/") + "/" + root + "/" + real);
+        File javaFile = file.getParentFile();
+        String javaName = javaFile.getName();
+        javaFile = new File(javaFile.getParent(), javaName + ".java");
+        if(javaFile.exists()){
+            Item item = new Item();
+            item.className = config.pkg + "." + root.replace("/",".") + "." + javaName;
+            item.methodName = file.getName();
+            return item;
+        }
+
+        if(true){
+            return null;
+        }
         Matcher matcher = matchReg.matcher(url);
         if(matcher.find()){
             Item item = new Item();

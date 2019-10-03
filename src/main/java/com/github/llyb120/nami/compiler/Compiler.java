@@ -97,9 +97,9 @@ public class Compiler {
         String path = file.getAbsolutePath();
         String classPath = path
             .substring(0, path.length() - 5)
-            .replace(config.source, "")
-            .replace("\\", "")
-            .replace("/", "")
+            .replace(config.workspace, "")
+            .replace("\\", ".")
+            .replace("/", ".")
             .substring(1);
         boolean flag = config.isHotSwap(classPath);
         if (flag) {
@@ -150,7 +150,7 @@ public class Compiler {
 
 
     private static File findSrcFile(String className) {
-        File file = new File(config.source, className.replace(".", "/") + ".java");
+        File file = new File(config.workDir, className.replace(".", "/") + ".java");
         return file;
     }
 
@@ -170,7 +170,7 @@ public class Compiler {
 //    }
 
 
-    private static JavaCompiler javac = new EcjCompiler();
+    public static JavaCompiler javac = new EcjCompiler();
 //    private static Writer compileWriter = new PrintWriter(System.out);
 
 //    public static byte[] compileWithEcj(String path) {
@@ -214,7 +214,7 @@ public class Compiler {
 
     public static void macOsStart() throws IOException {
         DirectoryWatcher watcher = DirectoryWatcher.builder()
-            .path(Paths.get(config.source)) // or use paths(directoriesToWatch)
+            .path((config.workDir.toPath())) // or use paths(directoriesToWatch)
             .listener(event -> {
                 switch (event.eventType()) {
                     case CREATE: /* file created */
@@ -233,7 +233,7 @@ public class Compiler {
             // .logger(logger) // defaults to LoggerFactory.getLogger(DirectoryWatcher.class)
             // .watchService(watchService) // defaults based on OS to either JVM WatchService or the JNA macOS WatchService
             .build();
-        System.out.println("watching dir " + config.source + " to compile automatically");
+        System.out.println("watching dir " + config.workDir.getAbsolutePath() + " to compile automatically");
         watcher.watchAsync();
     }
 

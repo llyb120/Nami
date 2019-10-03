@@ -39,15 +39,18 @@ public class Config {
     public Version version = new Version();
     public List<String> crontabs = new ArrayList<>();
     public List<Server> servers = new ArrayList<>();
+    public String workspace;
+    public String pkg;
 
     public String source;
-    public String target;
+//    public String target;
 
     private int ptr = 0;
     private String str = null;
     private List<String> lines;
     private int linePtr = 0;
     private Pattern hotPattern;
+    public File workDir;
 //    private byte[] bs = null;
 
     static {
@@ -139,6 +142,14 @@ public class Config {
                     dev = Boolean.parseBoolean(readToken());
                     break;
 
+                case "workspace":
+                    workspace = readToEnd();
+                    break;
+
+                case "package":
+                    pkg = readToEnd();
+                    break;
+
                 case "hotswap":
                     readToken();
                     readStringArray(hotswap);
@@ -204,8 +215,11 @@ public class Config {
 
         if (dev) {
             source = GenKit.getJavaSRCPath();
-            target = new File(source, "../../../target/classes").getAbsolutePath();
+//            target = new File(source, "../../../target/classes").getAbsolutePath();
         }
+
+        workDir = new File(workspace);
+        workspace = workDir.getAbsolutePath();
 
         //hot
         hotPattern = Pattern.compile(hotswap.stream()
@@ -214,7 +228,7 @@ public class Config {
             .collect(Collectors.joining("|")));
 
         //add magic vars
-        magicvar.add("com.github.llyb120.nami.server.Vars");
+//        magicvar.add("com.github.llyb120.nami.server.Vars");
 
         for (String s : link) {
             String[] Json = s.toLowerCase().split("\\s*(:|\\.|->|=>)\\s*");
@@ -290,7 +304,12 @@ public class Config {
                     break scan;
 
                 case "proxy_pass":
+                    readToEnd();
 //                    location.proxy_pass = readToEnd();
+                    break;
+
+                case "root":
+                    route.root = readToEnd();
                     break;
 
                 case "ctrl":

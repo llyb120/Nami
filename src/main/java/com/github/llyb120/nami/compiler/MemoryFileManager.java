@@ -9,12 +9,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import static com.github.llyb120.nami.compiler.Compiler.javac;
+
 public class MemoryFileManager implements JavaFileManager {
-    private static JavaFileManager fileManager;
-    static {
-        JavaCompiler javaCompiler = ToolProvider.getSystemJavaCompiler();
-        fileManager = javaCompiler.getStandardFileManager(null, null, null);
-    }
+    private static JavaFileManager fileManager = javac.getStandardFileManager(null, null, null);;
 
     public Map<String,ByteArrayOutputStream> oss = new HashMap<>();//ByteArrayOutputStream();
 

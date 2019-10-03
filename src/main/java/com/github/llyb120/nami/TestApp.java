@@ -11,7 +11,7 @@ import com.github.llyb120.nami.core.Nami;
 public class TestApp {
 
     public static void main(String[] args) throws InterruptedException {
-        System.setProperty("co.paralleluniverse.fibers.verifyInstrumentation", "false");
+//        System.setProperty("co.paralleluniverse.fibers.verifyInstrumentation", "false");
 //        System.out.println(config.dev);
 //
 ////        QuaLo
