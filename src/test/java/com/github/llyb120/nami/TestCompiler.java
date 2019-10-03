@@ -1,8 +1,6 @@
 package com.github.llyb120.nami;
 
 import cn.hutool.core.thread.ThreadUtil;
-import com.github.llyb120.nami.compiler.BlockMap;
-import com.github.llyb120.nami.compiler.Compiler;
 import com.github.llyb120.nami.core.Nami;
 import org.beetl.sql.core.kit.GenKit;
 import org.junit.Test;
@@ -57,15 +55,12 @@ public class TestCompiler {
     @Test
     public void test_02_blockMap() throws InterruptedException {
         ExecutorService service = Executors.newFixedThreadPool(16);
-        BlockMap blockMap = new BlockMap();
         for (int i = 0; i < 16; i++) {
             service.execute(() -> {
-                System.out.println(Thread.currentThread().getName() + new String(blockMap.get("fuck")));
             });
         }
 
         Thread.sleep(2000);
-        blockMap.put("fuck", "111".getBytes());
         Thread.sleep(10000);
     }
 }

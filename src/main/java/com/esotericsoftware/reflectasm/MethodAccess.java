@@ -105,7 +105,7 @@ public abstract class MethodAccess {
     public static MethodAccess get(Class type){
         return get(type, false);
     }
-    
+
     /** Creates a new MethodAccess for the specified type.
      * @param type Must not be a primitive type, or void. */
     static public MethodAccess get (Class type, boolean insertNewInstance) {
@@ -306,7 +306,7 @@ public abstract class MethodAccess {
                     mv.visitMaxs(0, 0);
                     mv.visitEnd();
                 }
-                
+
                 if(insertNewInstance){
 
                     /** insert new instance **/
@@ -315,7 +315,7 @@ public abstract class MethodAccess {
                     insertNewInstance(cw, classNameInternal);
 //                    insertNewInstanceInner(cw, classNameInternal, enclosingClassNameInternal);
                 }
-                
+
                 cw.visitEnd();
                 byte[] data = cw.toByteArray();
                 accessClass = loader.defineAccessClass(accessClassName, data);

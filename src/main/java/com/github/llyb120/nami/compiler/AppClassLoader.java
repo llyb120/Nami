@@ -1,8 +1,24 @@
-package com.github.llyb120.nami.hotswap;
+package com.github.llyb120.nami.compiler;
+
+import com.github.llyb120.nami.compiler.data.AopData;
+import com.github.llyb120.nami.compiler.data.MethodData;
+import com.github.llyb120.nami.server.Aop;
+import com.github.llyb120.nami.server.Ctrl;
+import com.github.llyb120.nami.compiler.data.ControllerData;
+
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static com.github.llyb120.nami.core.Config.config;
 
 public class AppClassLoader extends ClassLoader {
+    public static ClassLoader defaultClassLoader = ClassLoader.getSystemClassLoader();//AppClassLoader.class.getClassLoader();
+    public static AppClassLoader loader = new AppClassLoader();
+
+    private Map<String, ControllerData> controllerCache = new ConcurrentHashMap<>();
+    private Map<String, AopData> aopCache = new ConcurrentHashMap<>();
 
     @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {
@@ -11,57 +27,73 @@ public class AppClassLoader extends ClassLoader {
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
-        return HotLoader.load(name, false);
-//        Class<?> clz = findLoadedClass(name);
-//        if (clz != null) {
-//            return clz;
-//        }
-//        boolean isScript = name.startsWith("NamiFunc");
-//        if(config.dev){
-////            boolean hotswap = config.hotswap
-////                    .stream()
-////                    .anyMatch(name::startsWith);
-//            if(!config.isHotSwap(name) && !isScript){
-//                return defaultClassLoader.loadClass(name);
-//            }
-//        } else {
-//            if(!isScript){
-//                return defaultClassLoader.loadClass(name);
-//            }
-//        }
-//        return HotLoader.load(name, isScript);
+        Class<?> clz = findLoadedClass(name);
+        if (clz != null) {
+            return clz;
+        }
+        if (name.startsWith("java.")) {
+            return defaultClassLoader.loadClass(name);
+        }
+        if (config.isHotSwap(name)) {
+            Compiler.ByteCode byteCode = Compiler.getByteCode(name, false);
+            if (byteCode != null) {
+                clz = defineClass(name, byteCode.bytes, 0, byteCode.bytes.length);
+            }
+        }
+        if (clz == null) {
+            return defaultClassLoader.loadClass(name);
+        }
+        analyzeClass(name, clz);
+        return clz;
     }
 
-//    public void loadMagicVars(Response response) {
-//        for (String s : config.magicvar) {
-//            try {
-//                Holder holder = instances.get(s);
-//                if (holder == null) {
-//                    holder = new Holder(s);
-//                }
-//                for (Field field : holder.fields) {
-//                    String name = field.getName();
-//                    if (name.startsWith("$")) {
-//                        name = name.substring(1);
-//                    }
-//                    Object value;
-//                    if (name.equalsIgnoreCase("get")) {
-//                        value = response.request.query;
-//                    } else if (name.equalsIgnoreCase("post") && response.request.body instanceof Obj) {
-//                        value = response.request.body;
-//                    } else if (name.equalsIgnoreCase("postA") && response.request.body instanceof Arr) {
-//                        value = response.request.body;
-//                    } else if (name.equalsIgnoreCase("request")) {
-//                        value = response.request.params;
-//                    } else {
-//                        value = response.request.params.get(name, field.getType());
-//                    }
-//                    field.set(holder.ins, value);
-//                }
-//
-//            } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
+
+    private void analyzeClass(String clzName, Class<?> clz) {
+        if(clz.isInterface()){
+            return;
+        }
+        if (Ctrl.class.isAssignableFrom(clz) ) {
+            analyzeController(clzName, clz);
+        }
+        if(Aop.class.isAssignableFrom(clz)){
+            analyzeAop(clzName, clz);
+        }
+    }
+
+    private void analyzeAop(String clzName, Class<?> clz) {
+        try {
+            AopData data = new AopData(clz);
+            aopCache.put(clzName, data);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void analyzeController(String clzName, Class<?> clz) {
+        ControllerData data = new ControllerData(clz);
+        for (Method method : clz.getDeclaredMethods()) {
+            MethodData methodData = new MethodData(clz);
+            methodData.method = method;
+            methodData.parameters = method.getParameters();
+            data.methods.put(method.getName(), methodData);
+        }
+        controllerCache.put(clzName, data);
+    }
+
+
+    public ControllerData loadController(String clzName) throws ClassNotFoundException {
+        Class clz = loadClass(clzName);
+        if (clz == null) {
+            return null;
+        }
+        return controllerCache.get(clzName);
+    }
+
+    public AopData loadAop(String clzName) throws ClassNotFoundException {
+        Class clz = loadClass(clzName);
+        if (clz == null) {
+            return null;
+        }
+        return aopCache.get(clzName);
+    }
 }

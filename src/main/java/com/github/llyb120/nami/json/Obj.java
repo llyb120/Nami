@@ -6,7 +6,7 @@ import org.bson.Document;
 
 import java.util.*;
 
-public class Obj extends Json implements Map<String,Object> {
+public final class Obj extends Json implements Map<String,Object> {
 
 //    private boolean parallel = false;
 //    private ThreadLocal<Map<String,Object>> local;

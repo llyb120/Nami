@@ -1,12 +1,14 @@
 package com.github.llyb120.nami.server;
 
 import com.esotericsoftware.reflectasm.MethodAccess;
+import com.github.llyb120.nami.compiler.AppClassLoader;
+import com.github.llyb120.nami.compiler.data.ControllerData;
+import com.github.llyb120.nami.compiler.data.MethodData;
 import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.Config;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.core.Param;
 import com.github.llyb120.nami.func.Expression;
-import com.github.llyb120.nami.hotswap.AppClassLoader;
 import com.github.llyb120.nami.json.Json;
 
 import java.io.File;
@@ -21,38 +23,33 @@ import static com.github.llyb120.nami.core.Config.config;
 public abstract class AbstractServer {
 
     Config.Server server;
-    private ThreadLocal<AppClassLoader> loaders = new ThreadLocal<AppClassLoader>() {
-        @Override
-        protected AppClassLoader initialValue() {
-            return new AppClassLoader();
-        }
-    };
 
     public abstract void start(int port) throws Exception;
-    public AbstractServer(Config.Server server){
+
+    public AbstractServer(Config.Server server) {
         this.server = server;
     }
 
-    void handle(Response resp){
+    void handle(Response resp) {
         //读取header
         byte[] bs = new byte[4096 + 4];
         int i = 0;
-        try (Response r = resp){
+        try (Response r = resp) {
             int n = resp.request.is.read(bs);
-            if(n < 1){
+            if (n < 1) {
                 return;
             }
             String head = null;
-            for(; i < n - 3 ; i++){
-                if(bs[i]== '\r' && bs[i + 1] == '\n' && bs[i + 2] == '\r' && bs[i + 3] == '\n'){
+            for (; i < n - 3; i++) {
+                if (bs[i] == '\r' && bs[i + 1] == '\n' && bs[i + 2] == '\r' && bs[i + 3] == '\n') {
                     head = new String(bs, 0, i);
                     i += 4;
                     break;
                 }
             }
-            if(head != null){
+            if (head != null) {
                 resp.request.decodeHeaders(head);
-                if(resp.request.method == Request.Method.POST){
+                if (resp.request.method == Request.Method.POST) {
                     int finalI = i;
                     Async.execute(() -> analyze(resp, bs, finalI, n - finalI));
                 } else {
@@ -88,7 +85,8 @@ public abstract class AbstractServer {
             }
             resp.request.analyzeEnd();
             resp.cl.countDown();
-        }catch (IOException e){}
+        } catch (IOException e) {
+        }
     }
 
 //    public void handle(Response resp){
@@ -98,7 +96,6 @@ public abstract class AbstractServer {
 //            e.printStackTrace();
 //        }
 //    }
-
 
 
 //    static {
@@ -200,29 +197,29 @@ public abstract class AbstractServer {
 
         //静态资源
         /**
-        for (String s : config.statics.keySet()) {
-            if (req.path.startsWith(s)) {
-                String relative = req.path.replace(s, "");
-                File file = new File(config.statics.s(s), relative);
-                if (file.exists()) {
-                    if (file.isFile()) {
-                        proxyFile(resp, new MultipartFile(file), false);
-                    } else {
-                        file = new File(file, "index.html");
-                        if (file.exists()) {
-                            proxyFile(resp, new MultipartFile(file), false);
-                        }
-                    }
-                }
-                return;
-            }
-        }
-        **/
+         for (String s : config.statics.keySet()) {
+         if (req.path.startsWith(s)) {
+         String relative = req.path.replace(s, "");
+         File file = new File(config.statics.s(s), relative);
+         if (file.exists()) {
+         if (file.isFile()) {
+         proxyFile(resp, new MultipartFile(file), false);
+         } else {
+         file = new File(file, "index.html");
+         if (file.exists()) {
+         proxyFile(resp, new MultipartFile(file), false);
+         }
+         }
+         }
+         return;
+         }
+         }
+         **/
 
         //路由匹配
         int n = server.locations.size();
         Route.Item item = null;
-        while(n-- > 0){
+        while (n-- > 0) {
             Route route = server.locations.get(n);
             item = (route.match(req.path));
             if (item == null) {
@@ -266,14 +263,18 @@ public abstract class AbstractServer {
 //        }
 //        String[] aops = null;//(String[]) route[3];
 
-        AppClassLoader loader = null;
-        if (config.dev) {
-            loader = new AppClassLoader();
-        } else {
-            loader = loaders.get();
-        }
+        AppClassLoader loader = AppClassLoader.loader;
         Thread.currentThread().setContextClassLoader(loader);
-        Class clz = loader.loadClass(item.className);
+        ControllerData controllerData = loader.loadController(item.className);
+        if (controllerData == null) {
+            return;
+        }
+        MethodData methodData = controllerData.methods.get(item.methodName);
+        if (methodData == null) {
+            return;
+        }
+
+//        Class clz = loader.loadClass(item.className);
 //        loader.loadMagicVars(resp);
 
         Object result = null;
@@ -286,37 +287,36 @@ public abstract class AbstractServer {
 //            }
 //            i++;
 //        }
-        MethodAccess ma = MethodAccess.get(clz, true);
-        int i = ma.getIndex(item.methodName);
-        if(i == -1){
-            return;
-        }
-        Parameter[] parameters = ma.getParameters()[i];
+//        MethodAccess ma = MethodAccess.get(clz, true);
+//        int i = ma.getIndex(item.methodName);
+//        if(i == -1){
+//            return;
+//        }
         Expression expression = () -> {
             resp.cl.await();
-            Object[] args = Param.AutoWiredParams(parameters, resp, null);
-            return ma.invoke(ma.newInstance(), i, args);
+            Object[] args = Param.AutoWiredParams(methodData.parameters, resp, null);
+            Ctrl ctrl = (Ctrl) controllerData.newInstance();
+            ctrl.init(resp.request, resp);
+            return methodData.method.invoke(ctrl, args);
         };
 
         if (item.aops != null) {
-             n = item.aops.size();
-             while(n-- > 0){
-                 String clzName = item.aops.get(n);
-                 Class aopClz = loader.loadClass(clzName);
-                 MethodAccess aopMa = MethodAccess.get(aopClz, true);
-                 Aop aop = (Aop) aopMa.newInstance();
-                 Expression lastExpression = expression;
-                 if(aop instanceof HalfAop){
-                     expression = () -> {
-                         return aop.around(req,resp,lastExpression);
-                     };
-                 } else {
-                     expression = () -> {
-                         resp.cl.await();
-                         return aop.around(req,resp,lastExpression);
-                     };
-                 }
-             }
+            n = item.aops.size();
+            while (n-- > 0) {
+                String clzName = item.aops.get(n);
+//                 Class aopClz = loader.loadClass(clzName);
+//                 MethodAccess aopMa = MethodAccess.get(aopClz, true);
+//                 Aop aop = (Aop) aopMa.newInstance();
+                Expression lastExpression = expression;
+                expression = () -> {
+                    Aop aop = loader.loadAop(clzName).newInstance();
+                    if (aop instanceof HalfAop) {
+                    } else {
+                        resp.cl.await();
+                    }
+                    return aop.around(req, resp, lastExpression);
+                };
+            }
 
         }
 
@@ -329,7 +329,7 @@ public abstract class AbstractServer {
             proxyFile(resp, (MultipartFile) result);
         } else {
             resp.header("Content-Type", "application/json; charset=utf-8");
-            if(result instanceof String){
+            if (result instanceof String) {
                 byte[] bs = ((String) result).getBytes();
                 resp.writeHeaders(bs.length)
                         .write(bs);
@@ -395,15 +395,15 @@ public abstract class AbstractServer {
         if (length > -1) {
             if (directDownloadLength() >= length) {
                 response.writeHeaders((int) length)
-                .write(multipartFile)
-                .close();
+                        .write(multipartFile)
+                        .close();
             } else {
                 response.setChunked(true);
                 response.writeHeaders(-1);
                 int size = directDownloadLength();
 //                var buf = new Buffer();
                 try (
-                    InputStream is = multipartFile.openInputStream();
+                        InputStream is = multipartFile.openInputStream();
 //                        ReadableByteChannel fis = multipartFile.openChannel();
                 ) {
                     int n = -1;
@@ -419,9 +419,9 @@ public abstract class AbstractServer {
                                 .write(CRLF);
                     }
                     response
-                        .write((byte)'0')
-                        .write(CRLF)
-                        .write(CRLF);
+                            .write((byte) '0')
+                            .write(CRLF)
+                            .write(CRLF);
                     response.write(bs);
                 }
             }

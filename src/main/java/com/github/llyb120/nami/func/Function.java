@@ -2,8 +2,8 @@ package com.github.llyb120.nami.func;
 
 import cn.hutool.crypto.SecureUtil;
 import com.esotericsoftware.reflectasm.MethodAccess;
+import com.github.llyb120.nami.compiler.AppClassLoader;
 import com.github.llyb120.nami.compiler.Compiler;
-import com.github.llyb120.nami.hotswap.AppClassLoader;
 import com.github.llyb120.nami.json.Json;
 
 

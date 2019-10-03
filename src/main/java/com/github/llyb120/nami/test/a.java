@@ -1,22 +1,16 @@
 package com.github.llyb120.nami.test;
 
-import cn.hutool.core.date.DateTime;
 import com.github.llyb120.nami.core.MultipartFile;
-import com.github.llyb120.nami.ext.file.SimpleStorage;
 import com.github.llyb120.nami.ext.file.Storage;
 import com.github.llyb120.nami.json.Arr;
-import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.server.Ctrl;
 import com.github.llyb120.nami.server.Cookie;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 
-import static com.github.llyb120.nami.server.Vars.$get;
-import static com.github.llyb120.nami.server.Vars.$request;
-
-public class a {
+public class a extends Ctrl {
 
     //dddfffff
     public String getWithNoArg(){

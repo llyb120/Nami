@@ -7,7 +7,7 @@ import org.bson.conversions.Bson;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Arr<T extends Object> extends Json implements List<T> {
+public final class Arr<T extends Object> extends Json implements List<T> {
 
     private List list;
     boolean spread = false;

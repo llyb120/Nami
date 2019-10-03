@@ -32,7 +32,8 @@ public class Compiler {
     public static Map<String, Future> compiling = new HashMap<>();
     //    public static Map<String, Boolean> codeReloadCache = new HashMap<>();
     private static Map<String, Condition> classCondition = new HashMap<>();
-
+    private static long lastRecompileTime = -1;
+    private static final int MIN_COMPILE_STEP = 300;
 
     static class ByteCode{
         public byte[] bytes;
@@ -102,6 +103,11 @@ public class Compiler {
             .substring(1);
         boolean flag = config.isHotSwap(classPath);
         if (flag) {
+            long now = System.currentTimeMillis();
+            if(now - lastRecompileTime > MIN_COMPILE_STEP){
+                lastRecompileTime = now;
+                AppClassLoader.loader = new AppClassLoader();
+            }
             System.out.println(Thread.currentThread().getName() + " reloading " + classPath);
             return compile(classPath, file);
         } else {
@@ -110,7 +116,7 @@ public class Compiler {
     }
 
 
-    public static byte[] getByteCode(String className, File file, boolean force) {
+    public static ByteCode getByteCode(String className, File file, boolean force) {
         ByteCode byteCode = null;
         lock.lock();
         try {
@@ -135,10 +141,10 @@ public class Compiler {
 //            }
 //            return new byte[0];
 //        });
-        return byteCode.bytes;
+        return byteCode;
     }
 
-    public static byte[] getByteCode(String className, boolean force) {
+    public static ByteCode getByteCode(String className, boolean force) {
         return getByteCode(className, findSrcFile(className), force);
     }
 
