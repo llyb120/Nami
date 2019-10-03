@@ -1,4 +1,4 @@
-package com.github.llyb120.nami.test;
+package com.github.llyb120.test;
 
 public class Var1 {
     public static String $id;

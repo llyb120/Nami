@@ -65,7 +65,7 @@ public abstract class Function {
         //class end
         sb.append("}");
 //        Compiler
-        Compiler.compile(className, sb.toString());
+//        Compiler.compile(className, sb.toString());
 //        FileUtil.writeString(sb.toString(), file, "UTF-8");
 
         return () -> {

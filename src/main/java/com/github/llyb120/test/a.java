@@ -1,20 +1,22 @@
-package com.github.llyb120.nami.test;
+package com.github.llyb120.test;
 
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.ext.file.Storage;
 import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Obj;
-import com.github.llyb120.nami.server.Ctrl;
 import com.github.llyb120.nami.server.Cookie;
+import com.github.llyb120.nami.server.Ctrl;
 
 import java.io.File;
 import java.io.IOException;
 
+import static com.github.llyb120.test.Fuck.boshit;
+
 public class a extends Ctrl {
 
-    //dddfffff
+    //dddfffffdd
     public String getWithNoArg(){
-        return "ok";
+        return "ok" + boshit();
     }
 
     public String getWithArgs(String a){

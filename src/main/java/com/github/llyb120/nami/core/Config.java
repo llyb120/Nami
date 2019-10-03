@@ -42,7 +42,7 @@ public class Config {
     public String workspace;
     public String pkg;
 
-    public String source;
+//    public String source;
 //    public String target;
 
     private int ptr = 0;
@@ -213,10 +213,10 @@ public class Config {
             }
         }
 
-        if (dev) {
-            source = GenKit.getJavaSRCPath();
+//        if (dev) {
+//            source = GenKit.getJavaSRCPath();
 //            target = new File(source, "../../../target/classes").getAbsolutePath();
-        }
+//        }
 
         workDir = new File(workspace);
         workspace = workDir.getAbsolutePath();
@@ -493,6 +493,9 @@ public class Config {
 
 
     public boolean isHotSwap(String className){
+        if(className.startsWith("com.github.llyb120.nami.")){
+            return false;
+        }
         return hotPattern.matcher(className).find();
     }
 

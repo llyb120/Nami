@@ -1,6 +1,7 @@
 package com.github.llyb120.nami.compiler;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
 
 import javax.tools.JavaFileObject;
 import javax.tools.SimpleJavaFileObject;
@@ -29,4 +30,15 @@ public class MemoryJavaFileObject extends SimpleJavaFileObject{
         public CharSequence getCharContent(boolean ignoreEncodingErrors) throws IOException {
             return content;
         }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof MemoryJavaFileObject && name.equals(((MemoryJavaFileObject) obj).name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }

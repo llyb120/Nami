@@ -1,20 +1,19 @@
-package com.github.llyb120.nami.test;
+package com.github.llyb120.test;
 
 import cn.hutool.core.util.ClassUtil;
 import com.github.llyb120.nami.core.MultipartFile;
 
 import java.util.Set;
 
-import static com.github.llyb120.nami.test.Var1.$a;
-import static com.github.llyb120.nami.test.Var1.a;
+import static com.github.llyb120.test.Var1.$a;
 
 
 public class b {
 
     //sdfdd
     public int test() throws InterruptedException {
-        System.out.println(Thread.currentThread().getName() + "-" + a + "-" + $a);
-        Thread.sleep(2000);
+//        System.out.println(Thread.currentThread().getName() + "-" + a + "-" + $a);
+//        Thread.sleep(2000);
         return 1;
     }
 

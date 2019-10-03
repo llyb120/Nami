@@ -1,22 +1,19 @@
 package com.github.llyb120.nami.compiler;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.core.Async;
 import io.methvin.watcher.DirectoryWatcher;
 
 import javax.tools.JavaCompiler;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
+import java.io.*;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.github.llyb120.nami.core.Config.config;
 
@@ -79,13 +76,66 @@ public class Compiler {
 //        }
 //    }
 
-    public static Future compile(String className, Object object) {
+    private static void analyzeCodeImport(String className, File file, Map<String, MemoryJavaFileObject> ret){
+        if(ret.containsKey(className)){
+            return;
+        }
+        String code = FileUtil.readUtf8String(file);
+        ret.put(className, new MemoryJavaFileObject(className, code));
+        BufferedReader reader = new BufferedReader(new StringReader(code));
+        String line = null;
+        try{
+            while((line = reader.readLine()) != null){
+                line = line.trim();
+                if(line.startsWith("public") && line.contains("class")){
+                    break;
+                }
+                if(line.startsWith("import")){
+                    line = line.substring("import".length(), line.length() - 1)
+                            .trim();
+                    String pkg;
+                    boolean isStatic = false;
+                    if(line.startsWith("static")){
+                        pkg = line.substring("static".length())
+                                .trim();
+                        isStatic = true;
+                    } else {
+                        pkg = line;
+                    }
+                    if(!config.isHotSwap(pkg)){
+                        continue;
+                    }
+                    if(isStatic){
+                        int lastdot = pkg.lastIndexOf(".");
+                        if(lastdot > -1){
+                            pkg = pkg.substring(0, lastdot);
+                        }
+                        File f = findSrcFile(pkg);
+                        if(f.exists()){
+                            analyzeCodeImport(pkg, f, ret);
+                        }
+                    } else {
+
+                    }
+                }
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public static Future compile(String className, File file) {
         Future future = null;
         synchronized (compiling){
             future = compiling.get(className);
             if(null == future || future.isDone() || future.isCancelled()){
+                Map<String, MemoryJavaFileObject> ret = new HashMap<>();
+                analyzeCodeImport(className, file, ret);
                 future = Async.execute(() -> {
-                    compileWithEcj(new MemoryJavaFileObject(className,object));
+//                    ret.add(new MemoryJavaFileObject(className, file));
+                    compileWithEcj(ret);
                 });
                 compiling.put(className, future);
             }
@@ -177,25 +227,28 @@ public class Compiler {
 //        return compileWithEcj(path, null);
 //    }
 
-    public static Map<String, ByteArrayOutputStream> compileWithEcj(MemoryJavaFileObject file) {
-        Iterable it = Collections.singletonList(file);
+    public static Map<String, ByteArrayOutputStream> compileWithEcj(Map<String, MemoryJavaFileObject> files) {
+//        Iterable it = Collections.singletonList(file);
 //                 javaFileManager.getJavaFileObjects(path);
         StringWriter writer = StrUtil.getWriter();
         MemoryFileManager fileManager = new MemoryFileManager();
-//        //创建编译任务
+        Collection<MemoryJavaFileObject> mfs = files.values();
+        //创建编译任务
         JavaCompiler.CompilationTask task = javac.getTask(writer,
                                                           fileManager,
                                                           null,
                                                           Arrays.asList("-noExit",
                                                                         "-parameters",
                                                                         "-nowarn",
-                                                                        "-source",
+                                                                  "-source",
                                                                         config.jdkVersion,
+//                                                                        "-sourcepath",
+//                                                                       "E:\\work\\Nami\\src\\main\\java\\com\\github\\llyb120\\nami\\test",
                                                                         "-d",
                                                                         tempDir
                                                           ),
                                                           null,
-                                                          it
+                                                         mfs
         );
         boolean success = task.call();
         if (!success) {
@@ -203,7 +256,11 @@ public class Compiler {
         }
         for (Map.Entry<String, ByteArrayOutputStream> entry : fileManager.oss.entrySet()) {
             ByteCode byteCode = new ByteCode();
-            byteCode.lastModified = file.lastModified;
+            for (MemoryJavaFileObject file : mfs) {
+                if(entry.getKey().startsWith(file.name)){
+                    byteCode.lastModified = file.lastModified;
+                }
+            }
             byteCode.bytes = entry.getValue().toByteArray();
             codeCache.put(entry.getKey(), byteCode);
         }

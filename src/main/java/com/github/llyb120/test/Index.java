@@ -1,4 +1,4 @@
-package com.github.llyb120.nami.test;
+package com.github.llyb120.test;
 
 public class Index {
 

@@ -1,4 +1,4 @@
-package com.github.llyb120.nami.test;
+package com.github.llyb120.test;
 
 import com.github.llyb120.nami.func.Expression;
 import com.github.llyb120.nami.server.HalfAop;
