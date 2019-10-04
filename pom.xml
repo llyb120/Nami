@@ -5,7 +5,7 @@
     <groupId>com.github.llyb120</groupId>
     <packaging>jar</packaging>
     <artifactId>nami</artifactId>
-    <version>1.1.7-SNAPSHOT</version>
+    <version>1.2.0-SNAPSHOT</version>
     <!--<version>1.1.6-RELEASE</version>-->
     <modelVersion>4.0.0</modelVersion>
 
@@ -172,12 +172,11 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.eclipse.jdt/ecj -->
-        <dependency>
-            <groupId>org.eclipse.jdt</groupId>
-            <artifactId>ecj</artifactId>
-            <version>3.17.0</version>
-        </dependency>
-
+<!--        <dependency>-->
+<!--            <groupId>org.eclipse.jdt</groupId>-->
+<!--            <artifactId>ecj</artifactId>-->
+<!--            <version>3.17.0</version>-->
+<!--        </dependency>-->
 
 
         <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->

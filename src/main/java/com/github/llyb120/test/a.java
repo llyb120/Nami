@@ -10,13 +10,18 @@ import com.github.llyb120.nami.server.Ctrl;
 import java.io.File;
 import java.io.IOException;
 
-import static com.github.llyb120.test.Fuck.boshit;
 
 public class a extends Ctrl {
 
-    //dddfffffdd
+    //dddfffffddf1ffff
     public String getWithNoArg(){
-        return "ok" + boshit();
+            new bb();
+            new fff();
+            new ddd();
+            new ccc();
+            new ffd();//222ffff12f2131233213112333213fffasffffadsfffafdsafdasf
+            new ba();
+        return pp.d() + "123ff ff ffho";
     }
 
     public String getWithArgs(String a){

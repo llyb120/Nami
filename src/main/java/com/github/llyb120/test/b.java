@@ -5,7 +5,6 @@ import com.github.llyb120.nami.core.MultipartFile;
 
 import java.util.Set;
 
-import static com.github.llyb120.test.Var1.$a;
 
 
 public class b {

@@ -2,6 +2,7 @@ package com.github.llyb120.nami.compiler;
 
 import javax.tools.*;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -48,7 +49,16 @@ public class MemoryFileManager implements JavaFileManager {
 
     @Override
     public JavaFileObject getJavaFileForInput(Location location, String className, JavaFileObject.Kind kind) throws IOException {
-        return fileManager.getJavaFileForInput(location, className, kind);
+        JavaFileObject item =fileManager.getJavaFileForInput(location, className, kind);
+        return item;
+//        if (item == null && kind == JavaFileObject.Kind.CLASS) {
+//            String clzName = className.replace("/", ".");
+//            File file = Compiler.toJavaFile(className, false);
+//            if(file.exists()){
+//                item = new MemoryJavaFileObject(clzName, file);
+//            }
+//        }
+//        return item;
     }
 
     @Override

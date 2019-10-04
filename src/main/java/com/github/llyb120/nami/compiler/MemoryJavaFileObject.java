@@ -37,6 +37,7 @@ public class MemoryJavaFileObject extends SimpleJavaFileObject{
         return obj instanceof MemoryJavaFileObject && name.equals(((MemoryJavaFileObject) obj).name);
     }
 
+
     @Override
     public int hashCode() {
         return name.hashCode();

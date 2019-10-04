@@ -4,6 +4,7 @@ import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.StrUtil;
+import com.github.llyb120.nami.compiler.Compiler;
 import com.github.llyb120.nami.ext.file.SimpleStorage;
 import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Obj;
@@ -23,7 +24,7 @@ public class Config {
     public static Config config;
     //    public int port;
     public Map<String, Db> db = new ConcurrentHashMap<>();
-    public Set<String> hotswap = new ConcurrentHashSet<>();
+//    public Set<String> hotswap = new ConcurrentHashSet<>();
     public Set<String> magicvar = new ConcurrentHashSet<>();
     //    public List<String> route = new Vector<>();
 //    public Compile compile = new Compile();
@@ -150,10 +151,10 @@ public class Config {
                     pkg = readToEnd();
                     break;
 
-                case "hotswap":
-                    readToken();
-                    readStringArray(hotswap);
-                    break;
+//                case "hotswap":
+//                    readToken();
+//                    readStringArray(hotswap);
+//                    break;
 
                 case "magicVar":
                     readToken();
@@ -222,11 +223,10 @@ public class Config {
         workspace = workDir.getAbsolutePath();
 
         //hot
-        hotPattern = Pattern.compile(hotswap.stream()
-            .map(e -> e.replace(".", "\\."))
-            .map(e -> e + "\\.*")
-            .collect(Collectors.joining("|")));
-
+//        hotPattern = Pattern.compile(hotswap.stream()
+//            .map(e -> e.replace(".", "\\."))
+//            .map(e -> e + "\\.*")
+//            .collect(Collectors.joining("|")));
         //add magic vars
 //        magicvar.add("com.github.llyb120.nami.server.Vars");
 
@@ -492,11 +492,18 @@ public class Config {
     }
 
 
-    public boolean isHotSwap(String className){
-        if(className.startsWith("com.github.llyb120.nami.")){
-            return false;
+    public File findSrcFile(String className){
+        if(className.startsWith("java.")){
+            return null;
         }
-        return hotPattern.matcher(className).find();
+        if(className.startsWith("com.github.llyb120.nami.")){
+            return null;
+        }
+        File file = Compiler.toJavaFile(className);
+        if(file.exists()){
+            return file;
+        }
+        return null;
     }
 
 

@@ -82,9 +82,13 @@ public class TestElse {
 
     @Test
     public void ttt22(){
-        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(1024);
-        byte[] arr = byteBuffer.array();
-        int d = 2;
+//        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(1024);
+//        byte[] arr = byteBuffer.array();
+//        int d = 2;
+        File f = new File("../../abc").getAbsoluteFile();
+        f.mkdirs();
+        int d = (int) f.lastModified();
+        int e = 1;
     }
 
 }

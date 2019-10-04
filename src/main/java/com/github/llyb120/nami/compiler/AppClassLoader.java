@@ -1,15 +1,20 @@
 package com.github.llyb120.nami.compiler;
 
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.ClassUtil;
 import com.github.llyb120.nami.compiler.data.AopData;
 import com.github.llyb120.nami.compiler.data.MethodData;
 import com.github.llyb120.nami.server.Aop;
 import com.github.llyb120.nami.server.Ctrl;
 import com.github.llyb120.nami.compiler.data.ControllerData;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import static com.github.llyb120.nami.core.Config.config;
 
@@ -34,10 +39,22 @@ public class AppClassLoader extends ClassLoader {
         if (name.startsWith("java.")) {
             return defaultClassLoader.loadClass(name);
         }
-        if (config.isHotSwap(name)) {
-            Compiler.ByteCode byteCode = Compiler.getByteCode(name, false);
-            if (byteCode != null) {
-                clz = defineClass(name, byteCode.bytes, 0, byteCode.bytes.length);
+        //源文件
+        File srcFile = config.findSrcFile(name);
+        if (null != srcFile) {
+            //字节码文件
+            File classFile = Compiler.toClassFile(name);
+            if(!classFile.exists() || classFile.lastModified() < srcFile.lastModified()) {
+                //尝试重新编译
+                Future future = Compiler.recompile(srcFile, false);
+                try {
+                    future.get();
+                } catch (InterruptedException | ExecutionException e) {
+                }
+            }
+            if(classFile.exists()){
+                byte[] bytes = FileUtil.readBytes(classFile);
+                clz = defineClass(name, bytes, 0, bytes.length);
             }
         }
         if (clz == null) {
