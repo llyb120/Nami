@@ -1,9 +1,8 @@
 package com.github.llyb120.nami.version;
 
-import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.func.Expression;
 import com.github.llyb120.nami.func.NoReturnFunction;
+import com.github.llyb120.nami.util.Util;
 
 import static com.github.llyb120.nami.core.Config.config;
 
@@ -35,7 +34,15 @@ public class Version {
     }
 
     public static boolean eq(int[] va, int[] vb){
-        return ArrayUtil.join(va, ",").equals(ArrayUtil.join(vb, ",."));
+        if(va.length != vb.length){
+            return false;
+        }
+        for (int i = 0; i < va.length; i++) {
+            if(va[i] != vb[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static boolean lte(int[] va, int[] vb){
@@ -43,10 +50,13 @@ public class Version {
     }
 
     public static boolean match(String vname, String version){
-        if(!StrUtil.equalsIgnoreCase(config.version.name, vname)){
+        if(vname == null){
             return false;
         }
-        int[] vs = StrUtil.splitToInt(version, ".");
+        if(!vname.equalsIgnoreCase(config.version.name)){
+            return false;
+        }
+        int[] vs = Util.splitToInt(version, '.');
         if(!gte(config.version.no, vs)){
             return false;
         }

@@ -1,7 +1,6 @@
 package com.github.llyb120.nami.compiler;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
+import com.github.llyb120.nami.util.Util;
 
 import javax.tools.JavaFileObject;
 import javax.tools.SimpleJavaFileObject;
@@ -19,7 +18,7 @@ public class MemoryJavaFileObject extends SimpleJavaFileObject{
             this.name = className;
             if(contents instanceof File){
                 this.lastModified = ((File) contents).lastModified();
-                this.content = FileUtil.readUtf8String((File) contents);
+                this.content = Util.readString(((File) contents));
             } else if(contents instanceof String){
                 this.lastModified = System.currentTimeMillis();
                 this.content = (String) contents;

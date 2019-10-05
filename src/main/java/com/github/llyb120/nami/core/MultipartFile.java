@@ -1,7 +1,7 @@
 package com.github.llyb120.nami.core;
 
-import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
+import com.github.llyb120.nami.util.Util;
 
 import java.io.*;
 import java.nio.channels.Channels;
@@ -96,7 +96,7 @@ public class MultipartFile implements AutoCloseable{
         try(
             InputStream is = openInputStream();
             ){
-            IoUtil.copy(is, os);
+            Util.copy(is, os);
         }
     }
 
@@ -104,7 +104,7 @@ public class MultipartFile implements AutoCloseable{
         try(
             ReadableByteChannel ch = openChannel();
                 ){
-            IoUtil.copy(ch, channel);
+            Util.copy(ch, channel);
         }
     }
 

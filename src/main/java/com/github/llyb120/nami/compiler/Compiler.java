@@ -1,21 +1,19 @@
 package com.github.llyb120.nami.compiler;
 
-import cn.hutool.core.collection.ConcurrentHashSet;
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.thread.ThreadUtil;
-import cn.hutool.core.util.ClassUtil;
-import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.json.Arr;
 import io.methvin.watcher.DirectoryWatcher;
+
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.locks.Condition;
+import java.io.File;
+import java.io.IOException;
+import java.util.Set;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.Collectors;
 
 import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.json.Json.a;
@@ -38,7 +36,7 @@ public class Compiler {
     static volatile Future compileTask;
     static long compileStartTime = -1;
 //    private static Timer compileTimer = new Timer();
-    private static Set<String> compileTaskSet = new ConcurrentHashSet<>();
+    private static Set<String> compileTaskSet = new ConcurrentSkipListSet<>();
 
     static {
         CLASS_DIR = new File(config.workDir, "../../../target/classes");

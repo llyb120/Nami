@@ -1,7 +1,7 @@
 package com.github.llyb120.nami.ext.beetlsql;
 
-import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.core.Config;
+import com.github.llyb120.nami.util.Util;
 import org.beetl.sql.core.*;
 import org.beetl.sql.core.annotatoin.Table;
 import org.beetl.sql.core.db.DB2SqlStyle;
@@ -28,7 +28,7 @@ public class BeetlSql {
 
                 @Override
                 public String getClassName(String tableName) {
-                    String name = StrUtil.toCamelCase(tableName.toLowerCase());
+                    String name = Util.toCamelCase(tableName.toLowerCase());
                     return name.substring(0,1).toUpperCase() + name.substring(1);
                 }
 

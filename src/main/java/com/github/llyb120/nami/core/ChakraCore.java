@@ -1,16 +1,13 @@
 package com.github.llyb120.nami.core;
 
-import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.thread.ThreadUtil;
+import com.github.llyb120.nami.util.Util;
 import com.sun.jna.*;
 import com.sun.jna.ptr.PointerByReference;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static com.github.llyb120.nami.core.Config.config;
 
@@ -118,7 +115,11 @@ public class ChakraCore {
 
     public void await() {
         while (!fatal && instance == null) {
-            ThreadUtil.sleep(100);
+            try {
+                TimeUnit.MICROSECONDS.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -224,14 +225,7 @@ public class ChakraCore {
 
     public Pointer eval(File file){
         String str = "";
-        try(
-            FileInputStream fis = new FileInputStream(file);
-            ){
-            str = IoUtil.read(fis, StandardCharsets.UTF_8);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        str = Util.readString(file);
         str = String.format("(function($$path,exports){ %s; return exports; })('%s', {})", str, file.getParent().replaceAll("\\\\", "/"));
 //        Pointer fun = eval("(function($$path,exports){ %s; return exports; })");
         return eval(str, file.getPath());

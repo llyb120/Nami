@@ -1,11 +1,5 @@
 package com.github.llyb120.nami.dao;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.io.resource.ClassPathResource;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
-import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.Config;
 import com.github.llyb120.nami.core.Nami;
 import com.github.llyb120.nami.json.Arr;
@@ -18,8 +12,9 @@ import org.beetl.sql.core.kit.GenKit;
 import javax.sql.DataSource;
 import java.io.*;
 import java.sql.*;
-import java.util.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
@@ -92,6 +87,7 @@ public class FSql {
         sb.append(table);
         sb.append("(");
         StringBuilder val = new StringBuilder();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         if(object instanceof Map){
             if(((Map) object).size() > 0){
                 ((Map) object).forEach((k,v) -> {
@@ -101,7 +97,7 @@ public class FSql {
                         val.append("null,");
                     } else {
                         if(v instanceof Date){
-                           v = DateUtil.formatDateTime((Date)v);
+                            v = sdf.format(v);
                         }
                         val.append("'");
                         val.append(v);
@@ -143,7 +139,7 @@ public class FSql {
                 sb.append(" and ");
                 sb.append(getField(table, (String)values[i]));
                 sb.append(" = ");
-                sb.append(StrUtil.wrap((String)values[++i], "'"));
+                sb.append("'" + ((String)values[++i]) + "'");
             }
         }
     }

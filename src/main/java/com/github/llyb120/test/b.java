@@ -1,9 +1,6 @@
 package com.github.llyb120.test;
 
-import cn.hutool.core.util.ClassUtil;
 import com.github.llyb120.nami.core.MultipartFile;
-
-import java.util.Set;
 
 
 
@@ -18,8 +15,8 @@ public class b {
 
     public String t2(){
         long time = System.currentTimeMillis();
-        Set<Class<?>> list = ClassUtil.scanPackage("com");
-        System.out.println(System.currentTimeMillis() - time);
+//        Set<Class<?>> list = ClassUtil.scanPackage("com");
+//        System.out.println(System.currentTimeMillis() - time);
         return "1";
     }
 

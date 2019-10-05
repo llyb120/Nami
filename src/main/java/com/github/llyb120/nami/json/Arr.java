@@ -1,6 +1,5 @@
 package com.github.llyb120.nami.json;
 
-import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.func.Arg1Function;
 import org.bson.conversions.Bson;
 
@@ -156,7 +155,7 @@ public final class Arr<T extends Object> extends Json implements List<T> {
         return this.stream()
                 .filter(e -> e != null)
                 .map(e -> String.valueOf(e))
-                .map(e -> StrUtil.wrap(e, wrap))
+                .map(e -> wrap + e + wrap)
                 .collect(Collectors.joining(ch));
     }
 

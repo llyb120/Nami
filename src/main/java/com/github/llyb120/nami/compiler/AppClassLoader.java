@@ -1,16 +1,14 @@
 package com.github.llyb120.nami.compiler;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.ClassUtil;
 import com.github.llyb120.nami.compiler.data.AopData;
+import com.github.llyb120.nami.compiler.data.ControllerData;
 import com.github.llyb120.nami.compiler.data.MethodData;
 import com.github.llyb120.nami.server.Aop;
 import com.github.llyb120.nami.server.Ctrl;
-import com.github.llyb120.nami.compiler.data.ControllerData;
+import com.github.llyb120.nami.util.Util;
 
 import java.io.File;
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
@@ -53,7 +51,7 @@ public class AppClassLoader extends ClassLoader {
                 }
             }
             if(classFile.exists()){
-                byte[] bytes = FileUtil.readBytes(classFile);
+                byte[] bytes = Util.readBytes(classFile);
                 clz = defineClass(name, bytes, 0, bytes.length);
             }
         }

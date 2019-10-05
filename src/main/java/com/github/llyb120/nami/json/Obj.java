@@ -1,9 +1,9 @@
 package com.github.llyb120.nami.json;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.StrUtil;
+import com.github.llyb120.nami.util.Util;
 import org.bson.Document;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public final class Obj extends Json implements Map<String,Object> {
@@ -151,7 +151,7 @@ public final class Obj extends Json implements Map<String,Object> {
 
     public String s(Object key, String defaultValue){
         String str = s(key);
-        if(StrUtil.isEmpty(str)){
+        if(Util.isEmpty(str)){
             return defaultValue;
         }
         return str;
@@ -195,7 +195,7 @@ public final class Obj extends Json implements Map<String,Object> {
 
     public Date date(String key, String format){
         try {
-            return DateUtil.parse(s(key), format).toJdkDate();
+            return new SimpleDateFormat(format).parse(s(key));
         } catch (Exception e){
         }
         return null;
@@ -238,14 +238,14 @@ public final class Obj extends Json implements Map<String,Object> {
 
             case NotEmpty:
                 obj = s(key, "");
-                if(StrUtil.isEmptyIfStr(obj)){
+                if(Util.isEmptyIfStr(obj)){
                     Validate.error(msg, args);
                 }
                 break;
 
             case NotBlank:
                 obj = s(key, "");
-                if(StrUtil.isBlankIfStr(obj)){
+                if(Util.isBlankIfStr(obj)){
                     Validate.error(msg, args);
                 }
                 break;

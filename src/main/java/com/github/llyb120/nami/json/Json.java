@@ -1,10 +1,9 @@
 package com.github.llyb120.nami.json;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.CharUtil;
 import com.esotericsoftware.reflectasm.ConstructorAccess;
 import com.esotericsoftware.reflectasm.FieldAccess;
 import com.esotericsoftware.reflectasm.MethodAccess;
+import com.github.llyb120.nami.util.Util;
 import org.bson.Document;
 
 import java.io.Serializable;
@@ -582,7 +581,7 @@ public abstract class Json<T> implements Serializable {
             Class[][] params = ma.getParameterTypes();
             for (String methodName : ma.getMethodNames()) {
                 if (methodName.length() > 3) {
-                    if (methodName.startsWith("get") && CharUtil.isLetterUpper(methodName.charAt(3)) && params[i].length == 0) {
+                    if (methodName.startsWith("get") && Util.isLetterUpper(methodName.charAt(3)) && params[i].length == 0) {
                         document.put(methodName.substring(3, 4).toLowerCase() + methodName.substring(4), castBson(ma.invoke(object, i)));
                     }
                 }

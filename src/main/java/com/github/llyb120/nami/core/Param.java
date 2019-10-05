@@ -5,16 +5,15 @@ import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.server.Cookie;
 import com.github.llyb120.nami.server.Request;
 import com.github.llyb120.nami.server.Response;
+import com.github.llyb120.nami.util.Util;
 import org.beetl.sql.core.annotatoin.Table;
 
-import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import static cn.hutool.core.util.StrUtil.isNotEmpty;
 import static com.github.llyb120.nami.json.Json.a;
 
 public class Param {
@@ -80,7 +79,7 @@ public class Param {
                     //是数组的情况
                     if (idex > -1) {
                         String source = resp.request.params.s(name);
-                        if (isNotEmpty(source)) {
+                        if (Util.isNotEmpty(source)) {
                             if (source.startsWith("[") && source.endsWith("]")) {
                                 Json array = a(name);
                                 ret[i] = array.to(type);

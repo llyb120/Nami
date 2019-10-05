@@ -3,9 +3,8 @@ package com.github.llyb120.nami.core;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.CharsetUtil;
-import cn.hutool.core.util.StrUtil;
-import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.util.Util;
 import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
@@ -68,7 +67,7 @@ public class Macro {
         Matcher matcher = usePattern.matcher(str);
         StringBuffer sb = new StringBuffer();
         while(matcher.find()){
-            List<String> args = StrUtil.splitTrim(matcher.group(1), ",");
+            List<String> args = Util.splitTrim(matcher.group(1), ",");
             String code = matcher.group(2);
             String[] names = args.get(0).trim().split("\\.");
             loadMacro(names[0]);

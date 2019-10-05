@@ -1,6 +1,5 @@
 package com.github.llyb120.nami.server;
 
-import com.esotericsoftware.reflectasm.MethodAccess;
 import com.github.llyb120.nami.compiler.AppClassLoader;
 import com.github.llyb120.nami.compiler.data.ControllerData;
 import com.github.llyb120.nami.compiler.data.MethodData;
@@ -14,14 +13,11 @@ import com.github.llyb120.nami.json.Json;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Parameter;
 import java.util.concurrent.ExecutionException;
 
-import static cn.hutool.core.util.StrUtil.CRLF;
-import static com.github.llyb120.nami.core.Config.config;
 
 public abstract class AbstractServer {
-
+    static final String CRLF = "\r\n";
     Config.Server server;
 
     public abstract void start(int port) throws Exception;

@@ -1,6 +1,6 @@
 package com.github.llyb120.nami.json;
 
-import cn.hutool.core.util.CharUtil;
+import com.github.llyb120.nami.util.Util;
 
 import java.math.BigDecimal;
 
@@ -203,7 +203,7 @@ public class JsonParser {
 //                ptr += 2;
 //                continue;
 //            }
-            isBlank = CharUtil.isBlankChar(ch);
+            isBlank = Util.isBlankChar(ch);
             if (start > -1) {
                 if (isStrStart && isStr) {
                     ptr++;

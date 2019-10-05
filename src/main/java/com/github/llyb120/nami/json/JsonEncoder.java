@@ -1,11 +1,14 @@
 package com.github.llyb120.nami.json;
 
-import cn.hutool.core.date.DateUtil;
 import com.esotericsoftware.reflectasm.FieldAccess;
 import com.esotericsoftware.reflectasm.MethodAccess;
+import com.github.llyb120.nami.util.Util;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Map;
+import java.util.Set;
 
 public class JsonEncoder {
     StringBuilder sb = new StringBuilder();
@@ -65,7 +68,7 @@ public class JsonEncoder {
             sb.append("\"");
         } else if (obj instanceof Date) {
             sb.append("\"");
-            sb.append(DateUtil.formatDateTime((Date) obj));
+            sb.append(Util.formatDateTime((Date) obj));
             sb.append("\"");
         } else {
             encodeEntity(obj);

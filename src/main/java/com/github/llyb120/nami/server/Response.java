@@ -1,10 +1,9 @@
 package com.github.llyb120.nami.server;
 
-import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.URLUtil;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.util.Util;
+import sun.net.util.URLUtil;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -15,9 +14,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 
-import static cn.hutool.core.util.StrUtil.CRLF;
 import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.json.Json.o;
+import static com.github.llyb120.nami.server.AbstractServer.CRLF;
 
 public class Response implements AutoCloseable{
     public int status;
@@ -83,10 +82,10 @@ public class Response implements AutoCloseable{
         }
         closed = true;
         flush();
-        IoUtil.close(os);
-        IoUtil.close(request);
-        IoUtil.close(socket);
-        IoUtil.close(sc);
+        Util.close(os);
+        Util.close(request);
+        Util.close(socket);
+        Util.close(sc);
         cl.countDown();
     }
 
@@ -209,16 +208,16 @@ public class Response implements AutoCloseable{
 
 
     public void enableCors() {
-        if (StrUtil.isNotEmpty(config.cors.origin)) {
+        if (Util.isNotEmpty(config.cors.origin)) {
             header("Access-Control-Allow-Origin", config.cors.origin);
         }
-        if (StrUtil.isNotEmpty(config.cors.method)) {
+        if (Util.isNotEmpty(config.cors.method)) {
             header("Access-Control-Allow-Methods", config.cors.method);
         }
-        if (StrUtil.isNotEmpty(config.cors.headers)) {
+        if (Util.isNotEmpty(config.cors.headers)) {
             header("Access-Control-Allow-Headers", config.cors.headers);
         }
-        if (StrUtil.isNotEmpty(config.cors.credentials)) {
+        if (Util.isNotEmpty(config.cors.credentials)) {
             header("Access-Control-Allow-Credentials", config.cors.credentials);
         }
     }

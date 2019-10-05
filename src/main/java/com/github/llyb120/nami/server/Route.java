@@ -1,6 +1,5 @@
 package com.github.llyb120.nami.server;
 
-import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.json.Arr;
 
 import java.io.File;
@@ -10,8 +9,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.github.llyb120.nami.json.Json.a;
 import static com.github.llyb120.nami.core.Config.config;
+import static com.github.llyb120.nami.json.Json.a;
 
 
 public class Route {
@@ -149,7 +148,7 @@ public class Route {
                 return;
             }
             boolean isEnd = i == url.size() - 1;
-            if(type == Type.CLASS || type == Type.METHOD || StrUtil.equalsIgnoreCase(value, key)){
+            if(type == Type.CLASS || type == Type.METHOD || key.equalsIgnoreCase(value)){
                 if(isEnd){
                     ret.add(this);
                 }

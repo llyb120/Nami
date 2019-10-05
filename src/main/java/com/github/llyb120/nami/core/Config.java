@@ -1,21 +1,18 @@
 package com.github.llyb120.nami.core;
 
-import cn.hutool.core.collection.ConcurrentHashSet;
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.CharUtil;
-import cn.hutool.core.util.StrUtil;
 import com.github.llyb120.nami.compiler.Compiler;
 import com.github.llyb120.nami.ext.file.SimpleStorage;
 import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.Route;
+import com.github.llyb120.nami.util.Util;
 
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import static com.github.llyb120.nami.json.Json.a;
 import static com.github.llyb120.nami.json.Json.o;
@@ -25,7 +22,7 @@ public class Config {
     //    public int port;
     public Map<String, Db> db = new ConcurrentHashMap<>();
 //    public Set<String> hotswap = new ConcurrentHashSet<>();
-    public Set<String> magicvar = new ConcurrentHashSet<>();
+    public Set<String> magicvar = new ConcurrentSkipListSet<>();
     //    public List<String> route = new Vector<>();
 //    public Compile compile = new Compile();
     public Cors cors = new Cors();
@@ -85,7 +82,7 @@ public class Config {
             int left = -1;
             for (; ptr < line.length(); ptr++) {
                 char c = line.charAt(ptr);
-                if (CharUtil.isBlankChar(c)) {
+                if (Util.isBlankChar(c)) {
                     if (left > -1) {
                         return line.substring(left, ptr++);
                     }
@@ -118,7 +115,7 @@ public class Config {
     }
 
     private void startRead(String path) {
-        lines = FileUtil.readUtf8Lines(new File(path));
+        lines = Util.readLines(path);
     }
 
     private void initConf(String path) {
@@ -374,7 +371,7 @@ public class Config {
 
                 case "no":
                     String no = readToEnd();
-                    String[] items = StrUtil.splitToArray(no, '.');
+                    String[] items = Util.splitToArray(no, '.');
                     version.no = new int[items.length];
                     for (int i = 0; i < items.length; i++) {
                         version.no[i] = Integer.parseInt(items[i]);

@@ -1,7 +1,6 @@
 package com.github.llyb120.nami.ext.beetlsql;
 
 
-import cn.hutool.core.util.StrUtil;
 import org.beetl.sql.core.InterceptorContext;
 import org.beetl.sql.core.engine.SQLParameter;
 import org.beetl.sql.ext.DebugInterceptor;
@@ -37,7 +36,7 @@ public class MyDebugInterceptor extends DebugInterceptor {
             int idex = -1;
             while(matcher.find()){
                 idex++;
-                matcher.appendReplacement(buffer, StrUtil.wrap(String.valueOf(args.get(idex).value), "'"));
+                matcher.appendReplacement(buffer, "'" + String.valueOf(args.get(idex).value) + "'");
             }
             matcher.appendTail(buffer);
             sb.append(buffer);

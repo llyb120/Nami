@@ -1,17 +1,17 @@
 package com.github.llyb120.nami.server;
 
-import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.util.CharUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.URLUtil;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.util.Util;
 
 import java.io.*;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import static com.github.llyb120.nami.json.Json.o;
+import static com.github.llyb120.nami.server.AbstractServer.CRLF;
 
 public class Request implements AutoCloseable {
     public Obj headers = o();
@@ -33,7 +33,6 @@ public class Request implements AutoCloseable {
     private StringBuilder sb = new StringBuilder();
     private String formDataStart;
     private String formDataEnd;
-    private final String CRLF = "\r\n";
     private String[] formDataKeys;
     private OutputStream fdos;
     private MultipartFile formDataFile;
@@ -41,9 +40,9 @@ public class Request implements AutoCloseable {
 
     @Override
     public void close() throws Exception {
-        IoUtil.close(is);
+        Util.close(is);
         params.forEach((k, v) -> {
-            IoUtil.closeIfPosible(v);
+            Util.closeIfPosible(v);
         });
     }
 
@@ -103,7 +102,11 @@ public class Request implements AutoCloseable {
 
     private Json decodeQuery(String query, Obj ret) {
         String qs = query + "&";
-        qs = URLUtil.decode(URLUtil.decode(qs));
+        try{
+            qs = URLDecoder.decode(qs, StandardCharsets.UTF_8.name());
+            qs = URLDecoder.decode(qs, StandardCharsets.UTF_8.name());
+        } catch (UnsupportedEncodingException e) {
+        }
         int len = qs.length();
         int ptr = 0;
         String key = "";
@@ -245,12 +248,12 @@ public class Request implements AutoCloseable {
                     sb.delete(0, formDataStart.length());
                     //切换为读属性
                     phase = AnalyzePhase.FORM_DATA_READ_PROPERTY;
-                    IoUtil.close(fdos);
+                    Util.close(fdos);
                 }
                 int endPos = sb.indexOf(formDataEnd);
                 if (endPos == 0) {
                     sb.setLength(0);
-                    IoUtil.close(fdos);
+                    Util.close(fdos);
                     phase = AnalyzePhase.END;
                     return true;
                 }
@@ -345,7 +348,7 @@ public class Request implements AutoCloseable {
         String key = "";
         while(i < len){
             char c = line.charAt(i);
-            if(CharUtil.isBlankChar(c) && key.isEmpty()) {
+            if(Util.isBlankChar(c) && key.isEmpty()) {
                 left = i + 1;
             }
             else if(c == '=' && left > -1){
@@ -499,7 +502,7 @@ public class Request implements AutoCloseable {
 
 
     void decodeHeaders(String headers){
-        String[] lines = StrUtil.split(headers, CRLF);
+        String[] lines = Util.splitToArray(headers, CRLF);
         for (String line : lines) {
             decodeHeader(line);
         }
@@ -546,7 +549,10 @@ public class Request implements AutoCloseable {
         if (value.length() == 0) {
             return;
         }
-        value = URLUtil.decode(value);
+        try {
+            value = URLDecoder.decode(value, StandardCharsets.UTF_8.name());
+        } catch (UnsupportedEncodingException e) {
+        }
         String[] Json = value.split("; ");
         for (String s : Json) {
             int i = s.indexOf("=");

@@ -1,6 +1,5 @@
 package com.github.llyb120.nami.server;
 
-import cn.hutool.core.io.IoUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -130,7 +129,9 @@ public class ByteBuff {
             } else {
                 readLen = Math.min(block.max - block.current, step);
             }
-            byte[] bs = IoUtil.readBytes(is, readLen);
+            byte[] bs = new byte[readLen];
+            is.read(bs);
+//            byte[] bs = IoUtil.readBytes(is, readLen);
             block.current += readLen;
             write(bs, 0, readLen);
             return readLen;

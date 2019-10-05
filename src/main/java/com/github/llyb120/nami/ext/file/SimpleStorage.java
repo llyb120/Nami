@@ -1,14 +1,14 @@
 package com.github.llyb120.nami.ext.file;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.IdUtil;
 import com.github.llyb120.nami.core.Config;
 import com.github.llyb120.nami.core.Mime;
 import com.github.llyb120.nami.core.MultipartFile;
+import com.github.llyb120.nami.util.Util;
 import sun.misc.BASE64Decoder;
 
 import java.io.*;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Base64;
 
 public class SimpleStorage implements Storage{
 
@@ -22,10 +22,10 @@ public class SimpleStorage implements Storage{
 
     @Override
     public String upload(MultipartFile file) throws IOException {
-        String date = DateUtil.formatDate(new Date());
+        String date = LocalDate.now().toString();
         File dir = new File(config.path, date) ;
         dir.mkdirs();
-        File target = new File(dir, IdUtil.fastSimpleUUID() + "." + Mime.getExt(file.fileName));
+        File target = new File(dir, Util.fastSimpleUUID() + "." + Mime.getExt(file.fileName));
         file.transferTo(target);
         return "/" + date + "/" + target.getName();
     }
@@ -43,11 +43,15 @@ public class SimpleStorage implements Storage{
         String ext = base64.substring(p1 + 6, p2);
         int comma = base64.indexOf(",");
         String cnt = base64.substring(comma + 1);
-        String date = DateUtil.formatDate(new Date());
+//        LocalDate.now().toString();
+//        SimpleDateFormat sdf = new
+        String date = LocalDate.now().toString();//DateUtil.formatDate(new Date());
         File dir = new File(config.path, date) ;
         dir.mkdirs();
-        File target = new File(dir, IdUtil.fastSimpleUUID() + "." + ext);
+        File target = new File(dir, Util.fastSimpleUUID() + "." + ext);
         BASE64Decoder decoder = new BASE64Decoder();
+        byte[] bs = Base64.getDecoder().decode(cnt);
+//        Base64.getDecoder().decode()
         try(
                 OutputStream fos = new FileOutputStream(target);
                 InputStream is = new StringBufferInputStream(cnt);
