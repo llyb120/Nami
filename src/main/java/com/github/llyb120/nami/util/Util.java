@@ -4,6 +4,8 @@ import java.io.*;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -11,6 +13,11 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
+
+/**
+ * util包下所有代码基本源于 https://github.com/looly/hutool
+ * 官网 https://www.hutool.cn/
+ */
 public class Util {
 
     public static boolean isBlankChar(char c) {
@@ -134,6 +141,12 @@ public class Util {
         return new String(bs);
     }
 
+    public static byte[] readBytes(InputStream is){
+        FastByteArrayOutputStream bos = new FastByteArrayOutputStream();
+        copy(is, bos);
+        return bos.toByteArray();
+    }
+
     public static byte[] readBytes(File file){
         byte[] bs = new byte[(int) file.length()];
         try(
@@ -208,18 +221,19 @@ public class Util {
     public static List<String> split(String str, String c, boolean trim){
         int i = 0;
         int len = str.length();
+        int step = c.length();
         List<String> ret = new ArrayList<>();
         while(i < len){
             int idex = str.indexOf(c, i);
             if(idex == -1){
-                break;
+                idex = len;
             }
             String sub = str.substring(i, idex);
             if(trim){
                 sub = sub.trim();
             }
             ret.add(sub);
-            i = idex + 1;
+            i = idex + step;
         }
         return ret;
     }
@@ -304,4 +318,66 @@ public class Util {
         return copy(Channels.newInputStream(is), Channels.newOutputStream(os));
     }
 
+    /**
+     * 序列化<br>
+     * 对象必须实现Serializable接口
+     *
+     * @param <T> 对象类型
+     * @param obj 要被序列化的对象
+     * @return 序列化后的字节码
+     */
+    public static <T> byte[] serialize(T obj) {
+        if (null == obj || false == (obj instanceof Serializable)) {
+            return null;
+        }
+
+        FastByteArrayOutputStream byteOut = new FastByteArrayOutputStream();
+        try (
+                ObjectOutputStream oos = new ObjectOutputStream(byteOut);
+                ){
+            oos.writeObject(obj);
+            oos.flush();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return byteOut.toByteArray();
+    }
+
+
+    /**
+     * 反序列化<br>
+     * 对象必须实现Serializable接口
+     *
+     * @param <T> 对象类型
+     * @param bytes 反序列化的字节码
+     * @return 反序列化后的对象
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T unserialize(byte[] bytes) {
+        ObjectInputStream ois = null;
+        try {
+            ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+            ois = new ObjectInputStream(bais);
+            return (T) ois.readObject();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public static String md5(String dataStr) {
+        try {
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            m.update(dataStr.getBytes(StandardCharsets.UTF_8));
+            byte s[] = m.digest();
+            String result = "";
+            for (int i = 0; i < s.length; i++) {
+                result += Integer.toHexString((0x000000FF & s[i]) | 0xFFFFFF00).substring(6);
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

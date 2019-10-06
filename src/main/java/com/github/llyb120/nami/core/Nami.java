@@ -1,8 +1,6 @@
 package com.github.llyb120.nami.core;
 
 import com.github.llyb120.nami.compiler.Compiler;
-import com.github.llyb120.nami.cron.Crontab;
-import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.AbstractServer;
 import com.github.llyb120.nami.server.DevServer;
 import com.github.llyb120.nami.server.NIOServer;
@@ -12,7 +10,6 @@ import java.lang.reflect.Method;
 import java.util.concurrent.CountDownLatch;
 
 import static com.github.llyb120.nami.core.Config.config;
-import static com.github.llyb120.nami.json.Json.o;
 
 //import com.github.llyb120.nami.sqltool.sqltool;
 
@@ -38,13 +35,11 @@ public class Nami {
 //        if (main != null) {
 //            DBService.fSql = new FSql(config.db.g("main"));
 //        }
-
-            if (config.dev) {
-                Compiler.macOsStart();
-            }
-
+//            if (config.dev) {
+            System.out.println(Compiler.lock);
+//            }
             //定时任务
-            Crontab.start();
+//            Crontab.start();
 
             //注册基本类
 //        sqltool.init();

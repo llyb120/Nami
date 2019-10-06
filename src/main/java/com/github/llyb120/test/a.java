@@ -21,7 +21,7 @@ public class a extends Ctrl {
             new ccc();
             new ffd();//222ffff12f2131233213112333213fffasffffadsfffafdsafdasf
             new ba();
-        return pp.d() + "123ff ff ffho";
+        return "ok" ;
     }
 
     public String getWithArgs(String a){

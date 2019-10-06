@@ -1,16 +1,10 @@
 package com.github.llyb120.nami.json;
 
-import com.esotericsoftware.reflectasm.ConstructorAccess;
-import com.esotericsoftware.reflectasm.FieldAccess;
-import com.esotericsoftware.reflectasm.MethodAccess;
 import com.github.llyb120.nami.util.Util;
 import org.bson.Document;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -569,56 +563,53 @@ public abstract class Json<T> implements Serializable {
             return (T) object;
         } else {
             //尝试转换为Document
-            FieldAccess fa = FieldAccess.get(object.getClass());
             Document document = new Document();
             //字段
-            for (String fieldName : fa.getFieldNames()) {
-                document.put(fieldName, castBson(fa.get(object, fieldName)));
+            for (Field field : object.getClass().getDeclaredFields()) {
+                try {
+                    document.put(field.getName(), castBson(field.get(object)));
+                } catch (IllegalAccessException e) {
+                }
             }
             //getter
-            MethodAccess ma = MethodAccess.get(object.getClass());
-            int i = 0;
-            Class[][] params = ma.getParameterTypes();
-            for (String methodName : ma.getMethodNames()) {
+            for (Method method : object.getClass().getDeclaredMethods()) {
+                String methodName = method.getName();
                 if (methodName.length() > 3) {
-                    if (methodName.startsWith("get") && Util.isLetterUpper(methodName.charAt(3)) && params[i].length == 0) {
-                        document.put(methodName.substring(3, 4).toLowerCase() + methodName.substring(4), castBson(ma.invoke(object, i)));
+                    if (methodName.startsWith("get") && Util.isLetterUpper(methodName.charAt(3)) && method.getParameterCount() == 0) {
+                        try {
+                            document.put(methodName.substring(3, 4).toLowerCase() + methodName.substring(4), castBson(method.invoke(object)));
+                        } catch (IllegalAccessException | InvocationTargetException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-                i++;
             }
             return (T) document;
         }
     }
 
     public static <T> T newInstance(Class<T> clz) {
-        try{
-            ConstructorAccess<T> ca = ConstructorAccess.get(clz);
-            return ca.newInstance();
-        } catch (Exception e){
-            for (Constructor<?> constructor : clz.getDeclaredConstructors()) {
-                Class<?>[] types = constructor.getParameterTypes();
-                if(types.length == 1){
-
-                }
-            }
-            return null;
+        try {
+            return clz.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
-    public static <T> T newInstance(Object context, Class<T> clz){
-        for (Constructor<?> constructor : clz.getDeclaredConstructors()) {
-            Class<?>[] types = constructor.getParameterTypes();
-            if(types.length == 1 && types[0] == context.getClass()){
-                try{
-                    return (T) constructor.newInstance(context);
-                }
-                catch (Exception e){}
-            }
-        }
-        ConstructorAccess<T> ca = ConstructorAccess.get(clz);
-        return ca.newInstance(context);
-    }
+//    public static <T> T newInstance(Object context, Class<T> clz){
+//        for (Constructor<?> constructor : clz.getDeclaredConstructors()) {
+//            Class<?>[] types = constructor.getParameterTypes();
+//            if(types.length == 1 && types[0] == context.getClass()){
+//                try{
+//                    return (T) constructor.newInstance(context);
+//                }
+//                catch (Exception e){}
+//            }
+//        }
+//        ConstructorAccess<T> ca = ConstructorAccess.get(clz);
+//        return ca.newInstance(context);
+//    }
 
     public static <T> T cast(Object source, TypeReference<T> typeReference){
         return cast(source, typeReference.getType());
@@ -779,7 +770,16 @@ public abstract class Json<T> implements Serializable {
                 }
 
             } else {
-                map.putAll(BeanUtil.beanToMap(source));
+                //public属性
+                for (Field field : source.getClass().getDeclaredFields()) {
+                    if(Modifier.isPublic(field.getModifiers())){
+                        try {
+                            map.put(field, field.get(source));
+                        } catch (IllegalAccessException e) {
+                        }
+                    }
+                }
+                // TODO: 2019/10/5 需要扫描getter
             }
             return (T) map;
         }
@@ -809,16 +809,14 @@ public abstract class Json<T> implements Serializable {
 
     private static Object mapToBean(Map<Object, Object> source, Object ins){
         Class<?> clz = ins.getClass();
-        FieldAccess fa = FieldAccess.get(clz);
+//        FieldAccess fa = FieldAccess.get(clz);
 //        Class[] types = fa.getFieldTypes();
-        int i = 0;
-        for (String fieldName : fa.getFieldNames()) {
+        for (Field field : clz.getDeclaredFields()) {
             try {
-                Type type = clz.getDeclaredField(fieldName).getGenericType();
-                fa.set(ins, i, cast(source.get(fieldName), type));
+                Type type = field.getType();
+                field.set(ins, cast(source.get(field), type));
             } catch (Exception e) {
             }
-            i++;
         }
         return ins;
     }
@@ -828,18 +826,29 @@ public abstract class Json<T> implements Serializable {
     }
 
     private static Object beanToBean(Object source, Object ins){
-        Class<?> clz = ins.getClass();
-        FieldAccess leftfa = FieldAccess.get(source.getClass());
-        FieldAccess fa = FieldAccess.get(clz);
-        Class[] types = fa.getFieldTypes();
-        int i = 0;
-        for (String fieldName : fa.getFieldNames()) {
+        Class<?> clz = source.getClass();
+        for (Field rightField : ins.getClass().getDeclaredFields()) {
             try {
-                fa.set(ins, i, cast(leftfa.get(source, fieldName), types[i]));
-            } catch (Exception e) {
+                Field leftField = clz.getDeclaredField(rightField.getName());
+                if (leftField == null) {
+                    continue;
+                }
+                rightField.set(ins, cast(leftField.get(source), rightField.getType()));
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
             }
-            i++;
         }
+//        FieldAccess leftfa = FieldAccess.get(source.getClass());
+//        FieldAccess fa = FieldAccess.get(clz);
+//        Class[] types = fa.getFieldTypes();
+//        int i = 0;
+//        for (String fieldName : fa.getFieldNames()) {
+//            try {
+//                fa.set(ins, i, cast(leftfa.get(source, fieldName), types[i]));
+//            } catch (Exception e) {
+//            }
+//            i++;
+//        }
         return ins;
     }
     private static Object beanToBean(Object source, Class clz) {

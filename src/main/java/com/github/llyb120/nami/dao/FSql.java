@@ -5,6 +5,8 @@ import com.github.llyb120.nami.core.Nami;
 import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.util.ClassPathResource;
+import com.github.llyb120.nami.util.Util;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.beetl.sql.core.kit.GenKit;
@@ -250,7 +252,7 @@ public class FSql {
             try(
                     InputStream is = new ClassPathResource("fsql/cache/ALL_TABLES").getStream();
                     ){
-                tables = ObjectUtil.unserialize(IoUtil.readBytes(is));
+                tables = Util.unserialize(Util.readBytes(is));
             } catch (Exception e){
                 System.out.println("加载缓存失败，你可能需要生成fsql的缓存");
             }
@@ -299,7 +301,7 @@ public class FSql {
             }
 
             raf.write(
-                    ObjectUtil.serialize(fSql.tables)
+                    Util.serialize(fSql.tables)
             );
 
         } catch (IOException | SQLException e) {

@@ -3,6 +3,7 @@ package com.github.llyb120.nami.server;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
+import com.github.llyb120.nami.util.FastByteBuffer;
 import com.github.llyb120.nami.util.Util;
 
 import java.io.*;
@@ -178,6 +179,30 @@ public class Request implements AutoCloseable {
                 params.putAll((Map<? extends String, ?>) body);
             }
         }
+    }
+
+    void decodeBody(byte[] bs, int start, int len) throws IOException {
+        //如果足够
+        int clen = getContentLength();
+        byte[] bodybs = new byte[clen];
+        System.arraycopy(bs, start, bodybs, 0, len);
+        if(len >= clen){
+        } else {
+            is.read(bodybs, len, clen - len);
+        }
+        String str = new String(bodybs, StandardCharsets.UTF_8);
+        if ((str.startsWith("{") && str.endsWith("}")) || (str.startsWith("[") && str.endsWith("]"))) {
+            body = Json.parse(str);
+        } else {
+            body = o();
+            decodeQuery(str, (Obj) body);
+        }
+    }
+
+    void decodeFormData(byte[] bs, int start, int len){
+        FastByteBuffer buf = new FastByteBuffer();
+        buf.append(bs, start, len);
+
     }
 
     /**
@@ -492,11 +517,11 @@ public class Request implements AutoCloseable {
 //    }
 
 
-    private int getContentLength() {
+    int getContentLength() {
         return headers.i("Content-Length", headers.i("content-length", 0));
     }
 
-    private String getContentType() {
+    String getContentType() {
         return getHeader("Content-Type");
     }
 
@@ -553,7 +578,7 @@ public class Request implements AutoCloseable {
             value = URLDecoder.decode(value, StandardCharsets.UTF_8.name());
         } catch (UnsupportedEncodingException e) {
         }
-        String[] Json = value.split("; ");
+        String[] Json = Util.splitToArray(value, "; ");//value.split("; ");
         for (String s : Json) {
             int i = s.indexOf("=");
             if (i > -1) {

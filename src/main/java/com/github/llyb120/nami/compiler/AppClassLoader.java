@@ -9,6 +9,7 @@ import com.github.llyb120.nami.util.Util;
 
 import java.io.File;
 import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
@@ -44,7 +45,7 @@ public class AppClassLoader extends ClassLoader {
             File classFile = Compiler.toClassFile(name);
             if(!classFile.exists() || classFile.lastModified() < srcFile.lastModified()) {
                 //尝试重新编译
-                Future future = Compiler.recompile(srcFile, false);
+                Future future = Compiler.recompile(Collections.singletonList(srcFile.getAbsolutePath()), false);
                 try {
                     future.get();
                 } catch (InterruptedException | ExecutionException e) {

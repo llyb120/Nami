@@ -47,7 +47,13 @@ public abstract class AbstractServer {
                 resp.request.decodeHeaders(head);
                 if (resp.request.method == Request.Method.POST) {
                     int finalI = i;
-                    Async.execute(() -> analyze(resp, bs, finalI, n - finalI));
+                    Async.execute(() -> {
+                        try {
+                            analyze(resp, bs, finalI, n - finalI);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
                 } else {
                     resp.request.analyzeEnd();
                     resp.cl.countDown();
@@ -58,6 +64,7 @@ public abstract class AbstractServer {
             e.printStackTrace();
         }
     }
+
 
 //    void read(Response resp) {
 //        try{
@@ -72,17 +79,25 @@ public abstract class AbstractServer {
 //        } catch (IOException e){}
 //    }
 
-    protected void analyze(Response resp, byte[] bs, int start, int length) {
-        try {
-            boolean abort = resp.request.analyze(bs, start, length);
-            int n = -1;
-            while (!abort && (n = resp.request.is.read(bs)) > 0) {
-                abort = resp.request.analyze(bs, 0, n);
-            }
-            resp.request.analyzeEnd();
-            resp.cl.countDown();
-        } catch (IOException e) {
+    void analyze(Response resp, byte[] bs, int start, int length) throws IOException {
+        if(resp.request.getContentType().contains("multipart/form-data")){
+            resp.request.decodeFormData(bs, start,length);
+        } else {
+            resp.request.decodeBody(bs, start, length);
         }
+        resp.request.analyzeEnd();
+        resp.cl.countDown();
+
+//        try {
+//            boolean abort = resp.request.analyze(bs, start, length);
+//            int n = -1;
+//            while (!abort && (n = resp.request.is.read(bs)) > 0) {
+//                abort = resp.request.analyze(bs, 0, n);
+//            }
+//            resp.request.analyzeEnd();
+//            resp.cl.countDown();
+//        } catch (IOException e) {
+//        }
     }
 
 //    public void handle(Response resp){

@@ -2,12 +2,16 @@ package com.github.llyb120.nami.compiler;
 
 import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.json.Arr;
-import io.methvin.watcher.DirectoryWatcher;
 
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -17,6 +21,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.json.Json.a;
+
+//import io.methvin.watcher.DirectoryWatcher;
 
 //import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 //import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
@@ -47,7 +53,17 @@ public class Compiler {
         javac = ToolProvider.getSystemJavaCompiler(); //new EcjCompiler();
         if (javac == null) {
             System.err.println("无法初始化编译器，请参照 https://www.cnblogs.com/yjmyzz/p/3521554.html");
+            System.exit(-1);
         }
+
+        Async.execute(() -> {
+            try {
+                watch();
+            } catch (IOException | InterruptedException e) {
+                System.err.println("");
+                System.exit(-1);
+            }
+        });
     }
 
 //    static class ByteCode {
@@ -171,21 +187,19 @@ public class Compiler {
 //        return future;
 //    }
 
-    static Future recompile(File file, boolean reloadLoader) {
-        compileTaskSet.add(file.getAbsolutePath());
-        compileStartTime += 50;
+    static Future recompile(Collection<String> files, boolean reloadLoader){
         if(compileTask == null){
             compileTask = Async.execute(() -> {
-                if(compileStartTime > -1){
-                    try{
-                        long left;
-                        while((left = compileStartTime - System.currentTimeMillis()) > 0){
-                            Thread.sleep(left);
-                        }
-                    } catch (InterruptedException e) {
-                    }
-                }
-                boolean success = compileAll();
+//                if(compileStartTime > -1){
+//                    try{
+//                        long left;
+//                        while((left = compileStartTime - System.currentTimeMillis()) > 0){
+//                            Thread.sleep(left);
+//                        }
+//                    } catch (InterruptedException e) {
+//                    }
+//                }
+                boolean success = compileAll(files);
                 if(success){
                     if(reloadLoader){
                         AppClassLoader.loader = new AppClassLoader();
@@ -283,12 +297,12 @@ public class Compiler {
 //        return compileWithEcj(path, null);
 //    }
 
-    public static boolean compileAll(){
+    public static boolean compileAll(Collection<String> files){
         lock.lock();
         try{
-            if(compileTaskSet.isEmpty()){
-                return false;
-            }
+//            if(compileTaskSet.isEmpty()){
+//                return false;
+//            }
             System.out.println(Thread.currentThread().getName() + " recompiling");
 //            LinkedList<Object> names = new LinkedList<>(compileTaskQueue
 //                    .stream()
@@ -304,9 +318,13 @@ public class Compiler {
                     "-sourcepath",
                     config.workspace,
                     "-d",
-                    "E:\\work\\Nami\\target\\classes"
+                    CLASS_DIR.getAbsolutePath()
+//                    file.getAbsolutePath()
+//                    "E:\\work\\Nami\\target\\classes"
             );
-            args.addAll(compileTaskSet);
+
+            args.addAll(files);
+//            args.addAll(compileTaskSet);
 //            names.addFirst(null);
 //            names.addFirst(null);
 //            names.addFirst(null);
@@ -340,7 +358,7 @@ public class Compiler {
                 return true;
             }
         } finally {
-            compileTaskSet.clear();
+//            compileTaskSet.clear();
             lock.unlock();
         }
 
@@ -394,29 +412,96 @@ public class Compiler {
 //    }
 
 
-    public static void macOsStart() throws IOException {
-        DirectoryWatcher watcher = DirectoryWatcher.builder()
-                .path((config.workDir.toPath())) // or use paths(directoriesToWatch)
-                .listener(event -> {
-                    switch (event.eventType()) {
-                        case CREATE: /* file created */
-                        case MODIFY: /* file modified */
-                            File file = event.path().toFile();
-                            if (file.getName().endsWith(".java") && config.findSrcFile(toClassName(file)) != null){
-                                recompile(file, true);
-                            }
-                            break;
-                        case DELETE: /* file deleted */
-                            ;
-                            break;
+//    public static void macOsStart() throws IOException {
+//        DirectoryWatcher watcher = DirectoryWatcher.builder()
+//                .path((config.workDir.toPath())) // or use paths(directoriesToWatch)
+//                .listener(event -> {
+//                    switch (event.eventType()) {
+//                        case CREATE: /* file created */
+//                        case MODIFY: /* file modified */
+//                            File file = event.path().toFile();
+//                            if (file.getName().endsWith(".java") && config.findSrcFile(toClassName(file)) != null){
+//                                recompile(file);
+//                            }
+//                            break;
+//                        case DELETE: /* file deleted */
+//                            ;
+//                            break;
+//                    }
+//                })
+//                // .fileHashing(false) // defaults to true
+//                // .logger(logger) // defaults to LoggerFactory.getLogger(DirectoryWatcher.class)
+//                // .watchService(watchService) // defaults based on OS to either JVM WatchService or the JNA macOS WatchService
+//                .build();
+//        System.out.println("watching dir " + config.workspace + " to compile automatically");
+//        watcher.watchAsync();
+//    }
+
+
+    private static Set<String> watchList = new ConcurrentSkipListSet<>();
+    private static Future watchAction;
+    private static void recompileOne(String file){
+        watchList.add(file);
+        if (watchAction != null) {
+            watchAction.cancel(true);
+        }
+        watchAction = Async.execute(() -> {
+            try {
+                Thread.sleep(16);
+            } catch (InterruptedException e) {
+                return;
+            }
+            List<String> args = new ArrayList(watchList);
+            watchList.clear();
+            recompile(args, true);
+            watchAction = null;
+        });
+    }
+
+    public static void watch() throws IOException, InterruptedException {
+        WatchService watcher = FileSystems.getDefault().newWatchService();
+        Files.walkFileTree(Paths.get(config.workspace), new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                dir.register(watcher,
+                        StandardWatchEventKinds.ENTRY_CREATE,
+                        StandardWatchEventKinds.ENTRY_DELETE,
+                        StandardWatchEventKinds.ENTRY_MODIFY);
+                return FileVisitResult.CONTINUE;
+            }
+
+        });
+
+        while (true) {
+            WatchKey key = watcher.take();
+            for (WatchEvent<?> event: key.pollEvents()) {
+                Path path = ((Path) key.watchable()).resolve((Path)event.context());
+                WatchEvent.Kind eventKind = event.kind();
+                if(eventKind == StandardWatchEventKinds.ENTRY_CREATE){
+                    if(Files.isDirectory(path)){
+                        path.register(watcher,
+                                StandardWatchEventKinds.ENTRY_CREATE,
+                                StandardWatchEventKinds.ENTRY_DELETE,
+                                StandardWatchEventKinds.ENTRY_MODIFY);
+                    } else {
+                        String p = path.toString();
+                        if(p.endsWith(".java")){
+                            recompileOne(p);
+                        }
                     }
-                })
-                // .fileHashing(false) // defaults to true
-                // .logger(logger) // defaults to LoggerFactory.getLogger(DirectoryWatcher.class)
-                // .watchService(watchService) // defaults based on OS to either JVM WatchService or the JNA macOS WatchService
-                .build();
-        System.out.println("watching dir " + config.workspace + " to compile automatically");
-        watcher.watchAsync();
+                } else if(eventKind == StandardWatchEventKinds.ENTRY_MODIFY){
+                    if(!Files.isDirectory(path)){
+                        String p = path.toString();
+                        if(p.endsWith(".java")){
+                            recompileOne(p);
+                        }
+                    }
+                } else if(eventKind == StandardWatchEventKinds.ENTRY_DELETE){
+                }
+            }
+            key.reset();
+        }
+
     }
 
 }

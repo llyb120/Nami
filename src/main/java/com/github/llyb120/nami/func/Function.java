@@ -1,10 +1,7 @@
 package com.github.llyb120.nami.func;
 
-import cn.hutool.crypto.SecureUtil;
-import com.esotericsoftware.reflectasm.MethodAccess;
 import com.github.llyb120.nami.compiler.AppClassLoader;
-import com.github.llyb120.nami.compiler.Compiler;
-import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.util.Util;
 
 
 public abstract class Function {
@@ -36,7 +33,7 @@ public abstract class Function {
     };
 
     public static Expression compile(String str){
-        String key = SecureUtil.md5(str);
+        String key = Util.md5(str);
         String className = "NamiFunc" + key;
 //        File file = new File(sourceDir, className + ".java");
         StringBuilder sb = new StringBuilder();
@@ -69,10 +66,12 @@ public abstract class Function {
 //        FileUtil.writeString(sb.toString(), file, "UTF-8");
 
         return () -> {
-            Class<?> clz = _loader.loadClass(className);
-            Object ins = Json.newInstance(clz);
-            MethodAccess ma = MethodAccess.get(clz);
-            return ma.invoke(ins, "call");
+            // TODO: 2019/10/5 这个功能基本报废
+//            Class<?> clz = _loader.loadClass(className);
+//            Object ins = Json.newInstance(clz);
+//            MethodAccess ma = MethodAccess.get(clz);
+//            return ma.invoke(ins, "call");
+            return null;
         };
     }
 

@@ -1,9 +1,9 @@
 package com.github.llyb120.nami.json;
 
-import com.esotericsoftware.reflectasm.FieldAccess;
-import com.esotericsoftware.reflectasm.MethodAccess;
 import com.github.llyb120.nami.util.Util;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
@@ -76,22 +76,29 @@ public class JsonEncoder {
     }
 
     private void encodeEntity(Object obj) {
-        FieldAccess fa = FieldAccess.get(obj.getClass());
-        MethodAccess ma = MethodAccess.get(obj.getClass());
+//        FieldAccess fa = FieldAccess.get(obj.getClass());
+//        MethodAccess ma = MethodAccess.get(obj.getClass());
         int i = 0;
         sb.append("{");
-        for (String fieldName : fa.getFieldNames()) {
+        for (Field field : obj.getClass().getDeclaredFields()) {
+
             sb.append("\"");
-            sb.append(fieldName);
+            sb.append(field.getName());
             sb.append("\"");
             sb.append(":");
-            Object val = fa.get(obj, i++);
+            Object val = null; //.get(obj, i++);
+            try {
+                val = field.get(obj);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
             encode(val);
             sb.append(",");
         }
-        String[] names = ma.getMethodNames();
-        for (i = 0; i < names.length; i++) {
-            String methodName = names[i];
+//        String[] names = ma.getMethodNames();
+//        for (i = 0; i < names.length; i++) {
+        for (Method method : obj.getClass().getDeclaredMethods()) {
+            String methodName = method.getName();
             if(methodName.length() <= 3){
                 continue;
             }
@@ -100,15 +107,15 @@ public class JsonEncoder {
                 continue;
             }
             String key = methodName.substring(idex + 3, idex + 4).toLowerCase() + methodName.substring(idex + 4);
-            Class[] types = ma.getParameterTypes()[i];
-            Class retType = ma.getReturnTypes()[i];
+            Class[] types = method.getParameterTypes();
+            Class retType = method.getReturnType();
             if (types.length == 0 && !"void".equals(retType.getName())) {
                 sb.append("\"");
                 sb.append(key);
                 sb.append("\"");
                 sb.append(":");
                 try {
-                    Object val = ma.invoke(obj, i);
+                    Object val = method.invoke(obj);
                     encode(val);
                 } catch (Exception e) {
                     encode(null);

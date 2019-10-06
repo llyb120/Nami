@@ -7,7 +7,7 @@ import cn.hutool.http.HttpUtil;
 import com.github.llyb120.nami.core.Nami;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
-import com.github.llyb120.nami.server.Buffer;
+import com.github.llyb120.nami.util.FastByteBuffer;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
@@ -140,23 +140,23 @@ public class TestCtrl {
         sb.append(newLine);
         sb.append(newLine);
 
-        Buffer buf = new Buffer();
-        buf.write(sb.toString());
+        FastByteBuffer buf = new FastByteBuffer();
+        buf.append(sb.toString().getBytes(StandardCharsets.UTF_8));
         String str = RandomUtil.randomString(4024) + "\r\n" + RandomUtil.randomString(4024);
         byte[] bufferOut = new byte[2048];
         int bytes = 0;
         // 每次读2KB数据,并且将文件数据写入到输出流中
-        buf.write(str.getBytes(StandardCharsets.UTF_8));
+        buf.append(str.getBytes(StandardCharsets.UTF_8));
         // 最后添加换行
-        buf.write(newLine.getBytes());
+        buf.append(newLine.getBytes());
         // 定义最后数据分隔线，即--加上BOUNDARY再加上--。
         byte[] end_data = "------WebKitFormBoundaryari0emH33oMihIU4--".getBytes();
         // 写上结尾标识
-        buf.write(end_data);
+        buf.append(end_data);
 
         String res = HttpUtil.createPost("http://127.0.0.1:" + port + "/test/a/uploadFile")
                 .contentType("multipart/form-data; boundary=----WebKitFormBoundaryari0emH33oMihIU4")
-                .body(buf.readBytes())
+                .body(buf.toArray())
                 .execute()
                 .body();
 
@@ -224,6 +224,7 @@ public class TestCtrl {
 //            while ((line = reader.readLine()) != null) {
 //                buffer.append(line);
 //            }
+
 
 
         File temp = File.createTempFile("123", "123");

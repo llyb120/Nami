@@ -3,11 +3,12 @@ package com.github.llyb120.nami.server;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.util.Util;
-import sun.net.util.URLUtil;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
+import java.net.URLEncoder;
 import java.nio.channels.Pipe;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
@@ -138,7 +139,6 @@ public class Response implements AutoCloseable{
 
     /**
      * 写后立刻关闭！
-     * @param body
      * @throws IOException
      * @throws ExecutionException
      * @throws InterruptedException
@@ -189,7 +189,12 @@ public class Response implements AutoCloseable{
 
 
     public void setFileDescription(MultipartFile multipartFile, boolean download){
-        String fileName = URLUtil.encode(multipartFile.fileName, StandardCharsets.UTF_8);
+        String fileName = multipartFile.fileName;
+        try {
+            fileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8.name());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         setContentType(multipartFile.contentType);
         if(download){
             headers.put("Content-Disposition", "attachment; filename=\"" + fileName + "\"; filename*=utf-8''" + fileName);

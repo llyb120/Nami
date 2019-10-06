@@ -1,6 +1,6 @@
 package com.github.llyb120.nami.core;
 
-import cn.hutool.core.io.resource.ClassPathResource;
+import com.github.llyb120.nami.util.ClassPathResource;
 import com.github.llyb120.nami.util.Util;
 
 import java.io.*;
