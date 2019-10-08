@@ -3,6 +3,8 @@ package com.github.llyb120.nami.server;
 import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.Config;
 
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.StandardSocketOptions;
@@ -108,7 +110,7 @@ public class NIOServer extends AbstractServer {
             sc.setOption(StandardSocketOptions.TCP_NODELAY, true);
             Response resp = new Response(this, sc);
             resp.os = Channels.newOutputStream(sc);
-            resp.request.is = Channels.newInputStream(sc);
+            resp.request.is = new DataInputStream(new BufferedInputStream(Channels.newInputStream(sc)));
             handle(resp);
         } catch (Exception e) {
             e.printStackTrace();

@@ -98,12 +98,14 @@ public class Param {
                         }
                     } else if (type == MultipartFile.class) {
                         ret[i] = resp.request.params.get(name);
+                        break;
                     } else if (type == Request.class){
                         ret[i] = resp.request;
+                        break;
                     } else if(type == Response.class){
                         ret[i] = resp;
-                    }
-                    else{
+                        break;
+                    } else{
                         /**
                          * 从这里开始，因为类是动态加载的，所以对自定义的类要判定名字
                          */

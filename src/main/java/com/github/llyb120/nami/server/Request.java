@@ -3,7 +3,6 @@ package com.github.llyb120.nami.server;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
-import com.github.llyb120.nami.util.FastByteBuffer;
 import com.github.llyb120.nami.util.Util;
 
 import java.io.*;
@@ -21,7 +20,7 @@ public class Request implements AutoCloseable {
     public Method method = null;
     public String path;
     public String version;
-    public InputStream is;
+    public DataInputStream is;
 //    public ReadableByteChannel channel;
     public Json body;
     public Cookie cookie = new Cookie();
@@ -33,8 +32,10 @@ public class Request implements AutoCloseable {
     //    private FormDataTemp temp;
     private StringBuilder sb = new StringBuilder();
     private String formDataStart;
+    private byte[] formDataTokenBs;
     private String formDataEnd;
     private String[] formDataKeys;
+    private int formDataPtr = 0;
     private OutputStream fdos;
     private MultipartFile formDataFile;
 
@@ -59,6 +60,7 @@ public class Request implements AutoCloseable {
         DECODING_HEAD,
         DECODING_BODY,
         DECODING_FORM_DATA,
+        FORM_DATA_READ_START_END,
         FORM_DATA_READ_PROPERTY,
         FORM_DATA_READ_EMPTY,
         FORM_DATA_READ_VALUE,
@@ -181,15 +183,15 @@ public class Request implements AutoCloseable {
         }
     }
 
-    void decodeBody(byte[] bs, int start, int len) throws IOException {
+    void decodeBody() throws IOException {
         //如果足够
         int clen = getContentLength();
         byte[] bodybs = new byte[clen];
-        System.arraycopy(bs, start, bodybs, 0, len);
-        if(len >= clen){
-        } else {
-            is.read(bodybs, len, clen - len);
-        }
+//        System.arraycopy(bs, start, bodybs, 0, len);
+//        if(len >= clen){
+//        } else {
+        is.read(bodybs);
+//        }
         String str = new String(bodybs, StandardCharsets.UTF_8);
         if ((str.startsWith("{") && str.endsWith("}")) || (str.startsWith("[") && str.endsWith("]"))) {
             body = Json.parse(str);
@@ -199,11 +201,150 @@ public class Request implements AutoCloseable {
         }
     }
 
-    void decodeFormData(byte[] bs, int start, int len){
-        FastByteBuffer buf = new FastByteBuffer();
-        buf.append(bs, start, len);
+    void decodeFormData() throws IOException {
+        body = o();
+        String ctype = getContentType();
+        int idex = ctype.indexOf("boundary=");
+        if (idex == -1) {
+            return;
+        }
+        String token = ctype.substring(idex + 9);
+        formDataStart = ("--" + token + CRLF);
+        formDataEnd = ("--" + token + "--");
+        formDataTokenBs = ("--" + token).getBytes(StandardCharsets.UTF_8);
+        int clen = getContentLength();
+        byte[] bodybs = new byte[clen];
+        is.read(bodybs);
+        phase = AnalyzePhase.FORM_DATA_READ_START_END;
+        AnalyzePhase preparePhase = null;
+        int ptr = 0;
+        loop:while(true){
+            System.out.println(phase.name());
+            switch (phase){
+                case FORM_DATA_READ_START_END:
+                    idex = byteArrayIndexOf(bodybs, formDataTokenBs, ptr);
+                    if(idex == -1){
+                        break loop;
+                    }
+                    Util.close(fdos);
+                    //检查接下来两个
+                    if(bodybs[idex + formDataTokenBs.length + 0] == '\r' && bodybs[idex + formDataTokenBs.length + 1] == '\n'){
+                        ptr = idex + formDataTokenBs.length + 2;
+                        phase = AnalyzePhase.FORM_DATA_READ_PROPERTY;
+                    } else if(bodybs[idex + formDataTokenBs.length + 0] == '-' && bodybs[idex + formDataTokenBs.length + 1] == '-'){
+                        break loop;
+                    }
+                    break;
 
+                case FORM_DATA_READ_PROPERTY:
+                    idex = byteArrayIndexOf(bodybs, CRLF.getBytes(), ptr);
+                    if(idex == -1){
+                        break loop;
+                    }
+                    //准备读取值
+                    if(idex == ptr){
+                        ptr += 2;
+                        phase = preparePhase;//AnalyzePhase.FORM_DATA_READ_VALUE;
+                        preparePhase = null;
+                        break;
+                    }
+                    //读取属性
+                    formDataKeys = new String[]{"", ""};
+                    getFormDataKeys(new String(bodybs, ptr, idex - ptr), formDataKeys);
+                    if(preparePhase == null){
+                        if (!formDataKeys[1].isEmpty()) {
+                            preparePhase = AnalyzePhase.FORM_DATA_READ_FILE;
+                        } else {
+                            preparePhase = AnalyzePhase.FORM_DATA_READ_VALUE;
+                        }
+                    }
+                    if(!formDataKeys[0].isEmpty() && !formDataKeys[1].isEmpty()){
+                        File file = File.createTempFile("nami","nami");
+                        fdos = new FileOutputStream(file);
+                        formDataFile = new MultipartFile(formDataKeys[1], file);
+                        ((Obj)body).put(formDataKeys[0], formDataFile);
+                    }
+                    ptr = idex + 2;
+                    break;
+
+                case FORM_DATA_READ_VALUE:
+                    idex = byteArrayIndexOf(bodybs, CRLF.getBytes(), ptr);
+                    if(idex == -1){
+                        break loop;
+                    }
+                    String value = new String(bodybs, ptr, idex - ptr);
+                    if(!formDataKeys[0].isEmpty()){
+                        ((Obj)body).put(formDataKeys[0], value);
+                    }
+                    ptr = idex + 2;
+                    phase = AnalyzePhase.FORM_DATA_READ_START_END;
+                    break;
+
+
+                case FORM_DATA_READ_FILE:
+                    idex = byteArrayIndexOf(bodybs, formDataTokenBs, ptr);
+                    if(idex == -1){
+                        break loop;
+                    }
+                    //需要排除掉最后的\r\n
+                    fdos.write(bodybs, ptr, idex - ptr - 2);
+                    phase = AnalyzePhase.FORM_DATA_READ_START_END;
+                    ptr = idex;
+                    break;
+
+            }
+            if(ptr >= clen){
+                break loop;
+            }
+        }
+//        buf.append(bs, start, len);
+////        byte[] endFlag = formDataEnd.getBytes(StandardCharsets.UTF_8);
+//        phase = AnalyzePhase.FORM_DATA_READ_START_END;
+//        int clen = getContentLength();
+//        formDataStep(bs, start, len);
+//        System.out.println("fuck");
+//        while(true){
+//            if(clen >= len){
+//                break;
+//            }
+//            int n = is.read(bs);
+//            if(n < 1){
+//                break;
+//            }
+//        }
     }
+
+    private int byteArrayIndexOf(byte[] src, byte[] target, int from){
+        int ptr = 0;
+        for (int i = from; i < src.length; i++) {
+            if(src[i] == target[ptr]){
+                ptr++;
+            } else {
+                ptr = 0;
+            }
+            if(ptr >= target.length){
+                return i - ptr + 1;
+            }
+        }
+        return -1;
+    }
+
+//    void formDataStep(byte[] bs, int start, int len){
+//        for (int i = start; i < len; i++) {
+//            if(bs[i] == formDataTokenBs[formDataPtr]){
+//                formDataPtr++;
+//            } else {
+//                formDataPtr = 0;
+//            }
+//            if(formDataPtr == formDataTokenBs.length){
+//                formDataPtr = 0;
+//            }
+//            System.out.println(formDataTokenBs.length + "  " + formDataPtr);
+////            if(ptr > formDataStart.getBytes().length){
+////                int d = 2;
+////            }
+//        }
+//    }
 
     /**
      * @param byteBuffer 应处于读模式的bytebuffer
@@ -526,11 +667,18 @@ public class Request implements AutoCloseable {
     }
 
 
-    void decodeHeaders(String headers){
-        String[] lines = Util.splitToArray(headers, CRLF);
-        for (String line : lines) {
+    void decodeHeaders() throws IOException {
+        String line;
+        while((line = is.readLine()) != null){
+            if(line.isEmpty()){
+                break;
+            }
             decodeHeader(line);
         }
+//        String[] lines = Util.splitToArray(headers, CRLF);
+//        for (String line : lines) {
+//            decodeHeader(line);
+//        }
         phase = AnalyzePhase.DECODING_BODY;
         params.putAll(query);
 //                if (method == Method.HEAD || method == Method.GET || method == Method.OPTIONS) {

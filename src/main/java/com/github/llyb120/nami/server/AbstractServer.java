@@ -31,25 +31,25 @@ public abstract class AbstractServer {
         byte[] bs = new byte[4096 + 4];
         int i = 0;
         try (Response r = resp) {
-            int n = resp.request.is.read(bs);
-            if (n < 1) {
-                return;
-            }
-            String head = null;
-            for (; i < n - 3; i++) {
-                if (bs[i] == '\r' && bs[i + 1] == '\n' && bs[i + 2] == '\r' && bs[i + 3] == '\n') {
-                    head = new String(bs, 0, i);
-                    i += 4;
-                    break;
-                }
-            }
-            if (head != null) {
-                resp.request.decodeHeaders(head);
+//            int n = resp.request.is.read(bs);
+//            if (n < 1) {
+//                return;
+//            }
+//            String head = null;
+//            for (; i < n - 3; i++) {
+//                if (bs[i] == '\r' && bs[i + 1] == '\n' && bs[i + 2] == '\r' && bs[i + 3] == '\n') {
+//                    head = new String(bs, 0, i);
+//                    i += 4;
+//                    break;
+//                }
+//            }
+//            if (head != null) {
+                resp.request.decodeHeaders();
                 if (resp.request.method == Request.Method.POST) {
                     int finalI = i;
                     Async.execute(() -> {
                         try {
-                            analyze(resp, bs, finalI, n - finalI);
+                            analyze(resp);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -59,7 +59,7 @@ public abstract class AbstractServer {
                     resp.cl.countDown();
                 }
                 _handle(resp);
-            }
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,11 +79,11 @@ public abstract class AbstractServer {
 //        } catch (IOException e){}
 //    }
 
-    void analyze(Response resp, byte[] bs, int start, int length) throws IOException {
+    void analyze(Response resp) throws IOException {
         if(resp.request.getContentType().contains("multipart/form-data")){
-            resp.request.decodeFormData(bs, start,length);
+            resp.request.decodeFormData();
         } else {
-            resp.request.decodeBody(bs, start, length);
+            resp.request.decodeBody();
         }
         resp.request.analyzeEnd();
         resp.cl.countDown();

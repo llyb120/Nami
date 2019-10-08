@@ -3,6 +3,8 @@ package com.github.llyb120.nami.server;
 import com.github.llyb120.nami.core.Async;
 import com.github.llyb120.nami.core.Config;
 
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -41,7 +43,7 @@ public class DevServer extends AbstractServer {
         try {
             Response resp = new Response(this, socket);
             resp.os = socket.getOutputStream();
-            resp.request.is = socket.getInputStream();
+            resp.request.is = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             handle(resp);
 //            Async.execute(() -> read(resp));
 //            Async.execute(() -> analyze(resp));
