@@ -1,7 +1,7 @@
 package com.github.llyb120.nami.version;
 
 import com.github.llyb120.nami.func.Expression;
-import com.github.llyb120.nami.func.NoReturnFunction;
+import com.github.llyb120.nami.func.VoidFunction;
 import com.github.llyb120.nami.util.Util;
 
 import static com.github.llyb120.nami.core.Config.config;
@@ -70,7 +70,7 @@ public class Version {
         return function.call();
     }
 
-    public static void doIfOnVersion(String vname, String version, NoReturnFunction function) throws Exception {
+    public static void doIfOnVersion(String vname, String version, VoidFunction function) throws Exception {
         if(!match(vname,version)){
             return;
         }

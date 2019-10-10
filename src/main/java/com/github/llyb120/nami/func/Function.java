@@ -17,7 +17,7 @@ public abstract class Function {
         }
     }
 
-    public static void func(NoReturnFunction function){
+    public static void func(VoidFunction function){
         try{
             function.call();
         } catch (Exception e){

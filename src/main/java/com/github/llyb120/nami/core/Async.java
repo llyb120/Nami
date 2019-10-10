@@ -1,6 +1,6 @@
 package com.github.llyb120.nami.core;
 
-import com.github.llyb120.nami.func.NoReturnFunction;
+import com.github.llyb120.nami.func.VoidFunction;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -17,7 +17,7 @@ public class Async {
         return globalExecutor.submit(r);
     }
 
-    public static void exitWhenError(NoReturnFunction task){
+    public static void exitWhenError(VoidFunction task){
         new Thread(() -> {
             try {
                 task.call();

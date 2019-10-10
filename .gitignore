@@ -6,3 +6,4 @@ node_modules
 nami_func_source
 nami_func_target
 
+/lib/

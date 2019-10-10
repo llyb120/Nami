@@ -25,6 +25,8 @@ public class TestElse {
 
     @Test
     public void test() throws IOException {
+        System.out.println("\033[34m 日了狗了");
+        if(true) return;
         FileOutputStream out = new FileOutputStream("d:/gate.txt");
        //行数计算
         File file = new File("C:\\Users\\Administrator\\Downloads\\llyb120-hz-gateway-master\\hz-gateway");
