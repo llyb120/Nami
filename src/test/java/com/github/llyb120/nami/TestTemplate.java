@@ -18,7 +18,8 @@ public class TestTemplate {
         MonkeyTmpl parse = new MonkeyTmpl(str);
         String render = parse.render(
                 o("keys", a(1,2,3,4),
-                        "con1",1
+                        "con1",1,
+                        "topcon","fuck"
                 )
         );
         FileUtil.writeUtf8String(render, new File("E:\\work\\Nami\\deprecated\\rendered.txt"));

@@ -2,8 +2,7 @@ package com.github.llyb120.nami.template;
 
 import com.github.llyb120.nami.util.Util;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class MonkeyTmpl {
@@ -12,7 +11,7 @@ public class MonkeyTmpl {
     private int ptr;
     private int startPtr;
     private MonkeyParsePhase phase = MonkeyParsePhase.NORMAL;
-    private List<MonkeyNode> stack = new ArrayList<>();
+    private LinkedList<MonkeyNode> stack = new LinkedList<>();
 
     public MonkeyTmpl(String temp){
         this.temp = temp;
@@ -59,7 +58,7 @@ public class MonkeyTmpl {
                             break;
 
                         case TAG_END:
-                            stack.remove(stack.size() - 1);
+                            stack.removeLast();
                             startPtr = ptr + 1;
                             phase = MonkeyParsePhase.NORMAL;
                             break;
@@ -77,7 +76,7 @@ public class MonkeyTmpl {
         }
         MonkeyNode node = new MonkeyNode(MonkeyNodeType.PROPERTY);
         node.value = temp.substring(startPtr, ptr);
-        MonkeyNode par = getParentNode();
+        MonkeyNode par = stack.getLast();
         par.children.add(node);
     }
 
@@ -87,7 +86,7 @@ public class MonkeyTmpl {
         }
         MonkeyNode node = new MonkeyNode(MonkeyNodeType.TAG);
         node.value = temp.substring(startPtr, ptr);
-        MonkeyNode par = getParentNode();
+        MonkeyNode par = stack.getLast();
         par.children.add(node);
         stack.add(node);
     }
@@ -97,29 +96,17 @@ public class MonkeyTmpl {
             MonkeyNode node = new MonkeyNode(MonkeyNodeType.STRING);
             node.value = temp.substring(startPtr, ptr);
             //查找父节点
-            MonkeyNode par = getParentNode();
+            MonkeyNode par = stack.getLast();
             par.children.add(node);
         }
     }
 
-    private MonkeyNode getParentNode(){
-        int i = stack.size();
-        while(i-- > 0){
-            MonkeyNode par = stack.get(i);
-            if(par.type == MonkeyNodeType.ROOT || par.type == MonkeyNodeType.TAG){
-                return par;
-            }
-        }
-        throw new RuntimeException();
-    }
 
     private char getNextChar(){
        return temp.charAt(ptr + 1);
     }
 
     public String render(Map data){
-        StringBuilder sb = new StringBuilder();
-        stack.get(0).render(sb, data);
-        return sb.toString();
+        return stack.get(0).render(data);
     }
 }
