@@ -17,7 +17,9 @@ public class TestTemplate {
         String str = Util.readString(new File("E:\\work\\Nami\\deprecated\\test.txt"));
         MonkeyTmpl parse = new MonkeyTmpl(str);
         String render = parse.render(
-                o("keys", a(1,2,3,4))
+                o("keys", a(1,2,3,4),
+                        "con1",1
+                )
         );
         FileUtil.writeUtf8String(render, new File("E:\\work\\Nami\\deprecated\\rendered.txt"));
         int d = 2;

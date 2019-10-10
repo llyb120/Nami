@@ -1,1 +1,6 @@
-select  1  2  3  4  from t_user
+select  1  2  3  4  1,2,3,4 from t_user
+where 1 = 1
+
+    and cubi = 1
+
+

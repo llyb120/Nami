@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MonkeyNode {
     public MonkeyNodeType type;
@@ -42,10 +43,20 @@ public class MonkeyNode {
                 }
             } else if(type == MonkeyNodeType.PROPERTY){
                 if(value.equals("$v")){
-                    sb.append(String.valueOf(data));
+                    if(data != null){
+                        sb.append(data);
+                    }
                 }
-                if(data instanceof Map){
-                    sb.append(((Map) data).getOrDefault(value, ""));
+                else if(data instanceof Map){
+                    Object v = ((Map) data).get(value);
+                    if(v instanceof Collection){
+                        sb.append(((Collection) v).stream()
+                                .filter(e -> e != null)
+                                .map(e -> String.valueOf(e))
+                                .collect(Collectors.joining(",")));
+                    } else if(v != null){
+                        sb.append(v);
+                    }
                 }
             }
         }
