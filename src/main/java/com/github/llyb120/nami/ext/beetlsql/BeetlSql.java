@@ -12,7 +12,7 @@ import org.beetl.sql.core.db.MySqlStyle;
 import java.util.Properties;
 
 import static com.github.llyb120.nami.core.Config.config;
-import static com.github.llyb120.nami.core.DBService.dataSource;
+import static com.github.llyb120.nami.dao.FSqlDataSource.dataSource;
 
 public class BeetlSql {
     public static SQLManager sqlManager;

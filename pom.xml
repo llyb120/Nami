@@ -126,7 +126,7 @@
             <groupId>com.ibeetl</groupId>
             <artifactId>beetlsql</artifactId>
             <version>2.12.4.RELEASE</version>
-            <scope>provided</scope>
+<!--            <scope>provided</scope>-->
         </dependency>
 
         <dependency>

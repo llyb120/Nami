@@ -2,16 +2,16 @@ package com.github.llyb120.nami;
 
 import cn.hutool.core.io.IoUtil;
 import com.github.llyb120.nami.core.Nami;
+import com.github.llyb120.nami.json.Json;
+import com.github.llyb120.nami.json.Obj;
+import org.beetl.sql.core.SQLReady;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.*;
 
 import static com.github.llyb120.nami.ext.beetlsql.BeetlSql.sqlManager;
 
@@ -20,7 +20,11 @@ public class TestElse {
 
     @Test
     public void ttt(){
-        Nami.start();
+        Nami.dev();
+        List<Obj> d = sqlManager.execute(new SQLReady("select count(1) from t_user"), Obj.class);
+        List<Obj> e = sqlManager.execute(new SQLReady("select count(1) from t_user"), Obj.class);
+        System.out.println(Json.stringify(d));
+        System.out.println(Json.stringify(e));
     }
 
     @Test
