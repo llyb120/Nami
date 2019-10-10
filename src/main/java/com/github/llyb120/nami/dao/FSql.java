@@ -7,8 +7,6 @@ import com.github.llyb120.nami.json.Json;
 import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.util.ClassPathResource;
 import com.github.llyb120.nami.util.Util;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import org.beetl.sql.core.kit.GenKit;
 
 import javax.sql.DataSource;
@@ -313,22 +311,6 @@ public class FSql {
         }
     }
 
-
-    private void initDataSource(){
-        HikariConfig hikariConfig = new HikariConfig();
-        //设置url
-        hikariConfig.setJdbcUrl(db.url);
-        //数据库帐号
-        hikariConfig.setUsername(db.username);
-        //数据库密码
-        hikariConfig.setPassword(db.password);
-        hikariConfig.setDriverClassName(db.driver);
-        hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
-//            hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
-//            hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-
-        dataSource = new HikariDataSource(hikariConfig);
-    }
 
     static class TableMetaData implements Serializable {
         String name;

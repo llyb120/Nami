@@ -1,12 +1,10 @@
 package com.github.llyb120.test;
 
-import com.github.llyb120.nami.cron.ICron;
 
 import java.util.Date;
 
-public class testcron implements ICron {
+public class testcron {
 
-    @Override
     public void run() throws Exception {
         System.out.println(new Date().getTime());
     }
