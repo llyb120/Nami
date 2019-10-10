@@ -68,10 +68,13 @@ public class MonkeyNode {
             return stack.get(stack.size() - 1);
         }
         Object ret = null;
-        for (Object o : stack) {
+        int i = stack.size();
+        while(i-- > 0){
+            Object o = stack.get(i);
             if(o instanceof Map){
                 if(((Map) o).containsKey(value)){
                     ret = ((Map) o).get(value);
+                    break;
                 }
             }
         }
