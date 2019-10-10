@@ -1,6 +1,7 @@
 package com.github.llyb120.nami;
 
 import cn.hutool.core.io.FileUtil;
+import com.github.llyb120.nami.func.Expression;
 import com.github.llyb120.nami.template.MonkeyTmpl;
 import com.github.llyb120.nami.util.Util;
 import org.junit.Test;
@@ -17,9 +18,9 @@ public class TestTemplate {
         String str = Util.readString(new File("E:\\work\\Nami\\deprecated\\test.txt"));
         MonkeyTmpl parse = new MonkeyTmpl(str);
         String render = parse.render(
-                o("keys", a(1,2,3,4),
-                        "con1",1,
-                        "topcon","fuck"
+                o("keys", a(1, 2, 3, 4),
+                        "con1", 1,
+                        "topcon", (Expression) () -> "rilegou"
                 )
         );
         FileUtil.writeUtf8String(render, new File("E:\\work\\Nami\\deprecated\\rendered.txt"));

@@ -1,6 +1,11 @@
 package com.github.llyb120.nami.template;
 
-import java.util.*;
+import com.github.llyb120.nami.func.Expression;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MonkeyNode {
@@ -15,17 +20,17 @@ public class MonkeyNode {
         }
     }
 
-    private void renderRoot(StringBuilder sb, LinkedList stack){
+    private void renderRoot(StringBuilder sb, List stack){
         for (MonkeyNode child : children) {
             child.render(sb, stack);
         }
     }
 
-    private void renderString(StringBuilder sb, LinkedList stack){
+    private void renderString(StringBuilder sb, List stack){
         sb.append(value);
     }
 
-    private void renderTag(StringBuilder sb, LinkedList stack){
+    private void renderTag(StringBuilder sb, List stack){
         Object data = getData(stack);
             if(data instanceof Collection){
                 for (Object datum : ((Collection) data)) {
@@ -33,17 +38,17 @@ public class MonkeyNode {
                     for (MonkeyNode child : children) {
                         child.render(sb, stack);
                     }
-                    stack.removeLast();
+                    stack.remove(stack.size() - 1);
                 }
             } else if(data != null){
                 stack.add(data);
                 for (MonkeyNode child : children) {
                     child.render(sb, stack);
                 }
-                stack.removeLast();
+                stack.remove(stack.size() - 1);
             }
     }
-    private void renderProperty(StringBuilder sb, LinkedList stack){
+    private void renderProperty(StringBuilder sb, List stack){
         Object data = getData(stack);
         if(data instanceof Collection){
             sb.append(((Collection) data).stream()
@@ -55,12 +60,12 @@ public class MonkeyNode {
         }
     }
 
-    private Object getData(LinkedList stack){
+    private Object getData(List stack){
         if(stack.size() < 1){
             return null;
         }
         if(value.equals("$v")){
-            return stack.getLast();
+            return stack.get(stack.size() - 1);
         }
         Object ret = null;
         for (Object o : stack) {
@@ -70,10 +75,16 @@ public class MonkeyNode {
                 }
             }
         }
+        if(ret instanceof Expression){
+            try {
+                ret = ((Expression) ret).call();
+            } catch (Exception e) {
+            }
+        }
         return ret;
     }
 
-    private void render(StringBuilder sb, LinkedList stack){
+    private void render(StringBuilder sb, List stack){
         switch (type){
             case ROOT:
                 renderRoot(sb, stack);
@@ -98,7 +109,7 @@ public class MonkeyNode {
             throw new RuntimeException();
         }
         StringBuilder sb = new StringBuilder();
-        LinkedList stack = new LinkedList();
+        List stack = new ArrayList();
         stack.add(data);
         render(sb, stack);//, data);
         return sb.toString();
