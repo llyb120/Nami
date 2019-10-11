@@ -1,30 +1,28 @@
 package com.github.llyb120.test;
 
 
-import java.util.Date;
+import com.github.llyb120.nami.cron.CronBean;
 
-public class testcron {
+public class testcron extends CronBean {
+    @Override
+    public void run() {
 
-    public void run() throws Exception {
-        System.out.println(new Date().getTime());
     }
 
-
-    public Object a(String a1, int a2){
+    @Override
+    public String cronExpression() {
+//        return ""
         return null;
     }
 
-    public Object test(String methodName, Object ...args){
-        switch (methodName){
-            case "a":
-                return a((String)args[0], (Integer) args[1]);
-            case "ba":
-                return a((String)args[0], (Integer) args[1]);
-            case "aaa":
-                return a((String)args[0], (Integer) args[1]);
+//    public void run() throws Exception {
+//        System.out.println(new Date().getTime());
+//    }
+//
+//    @Override
+//    public String cronExpression() {
+//        return null;
+//    }
 
-            default:
-                return null;
-        }
-    }
+
 }

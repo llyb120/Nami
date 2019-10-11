@@ -360,10 +360,10 @@ public class Compiler {
                     args.toArray(new String[0])
             );
             if(status == 0){
-                System.out.println(Thread.currentThread().getName() + " reloading context");
+//                System.out.println(Thread.currentThread().getName() + " reloading context");
 //                Thread.currentThread().setContextClassLoader(AppClassLoader.loader);
 //                Set<Class<?>> clzs = ClassUtil.scanPackage("com.github.llyb120.test");
-                int d = 2;
+//                int d = 2;
                 return true;
             }
         } finally {
