@@ -259,8 +259,7 @@ public class Compiler {
         return toJavaFile(className, true);
     }
 
-    public static String toClassName(File file){
-        String path = file.getAbsolutePath();
+    public static String toClassName(String path){
         String classPath = path
                 .substring(0, path.length() - 5)
                 .replace(config.workspace, "")
@@ -270,6 +269,10 @@ public class Compiler {
             classPath = classPath.substring(1);
         }
         return classPath;
+    }
+    public static String toClassName(File file){
+        String path = file.getAbsolutePath();
+        return toClassName(path);
     }
 
     public static File toClassFile(String className){
@@ -323,7 +326,13 @@ public class Compiler {
 //                    "E:\\work\\Nami\\target\\classes"
             );
 
-            args.addAll(files);
+            for (String file : files) {
+                if(file.endsWith("Bean.java") && !file.equals("Bean.java")){
+                    AppClassLoader.removeBean(toClassName(file));
+                }
+                args.add(file);
+            }
+//            args.addAll(files);
 //            args.addAll(compileTaskSet);
 //            names.addFirst(null);
 //            names.addFirst(null);
@@ -460,6 +469,7 @@ public class Compiler {
 
     public static void watch() throws IOException, InterruptedException {
         WatchService watcher = FileSystems.getDefault().newWatchService();
+        List<String> beans = new ArrayList<>();
         Files.walkFileTree(Paths.get(config.workspace), new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
@@ -470,6 +480,25 @@ public class Compiler {
                 return FileVisitResult.CONTINUE;
             }
 
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                String fileName = file.toFile().getName();
+                if(fileName.endsWith("Bean.java") && fileName.length() > "Bean.java".length()){
+                    beans.add(file.toString());
+                }
+                return FileVisitResult.CONTINUE;
+            }
+        });
+
+        //初始化bean
+        Async.execute(() -> {
+            recompile(beans, false);
+            for (String bean : beans) {
+                try {
+                    AppClassLoader.loader.loadClass(toClassName(bean));
+                } catch (ClassNotFoundException e) {
+                }
+            }
         });
 
         while (true) {
