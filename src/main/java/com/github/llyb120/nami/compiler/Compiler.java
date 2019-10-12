@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.Future;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.json.Json.a;
@@ -73,7 +74,13 @@ public class Compiler {
                 boolean success = compileAll(files);
                 if(success){
                     if(reloadLoader){
+                        List<String> clzs = files.stream()
+                                .map(Compiler::toClassName)
+                                .collect(Collectors.toList());
+                        AppClassLoader.removeBeans(clzs);
+                        //如果需要，卸载掉正在运行的bean
                         AppClassLoader.loader = new AppClassLoader();
+                        AppClassLoader.loader.preloadClasses(clzs);
                     }
                 }
                 compileTask = null;
@@ -228,12 +235,7 @@ public class Compiler {
         Async.execute(() -> {
 //            recompile(beans, false);
             info("loading beans");
-            for (String bean : beans) {
-                try {
-                    AppClassLoader.loader.loadClass(bean);
-                } catch (ClassNotFoundException e) {
-                }
-            }
+            AppClassLoader.loader.preloadClasses(beans);
         });
 
         while (true) {

@@ -22,7 +22,6 @@ public class AppClassLoader extends ClassLoader {
     public static ClassLoader defaultClassLoader = ClassLoader.getSystemClassLoader();//AppClassLoader.class.getClassLoader();
     public static AppClassLoader loader = new AppClassLoader();
 
-
     private static Map<String,BeanHolder> beans = new HashMap<>();
 
     private Map<String, ControllerData> controllerCache = new ConcurrentHashMap<>();
@@ -41,6 +40,15 @@ public class AppClassLoader extends ClassLoader {
     @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {
         return findClass(name);
+    }
+
+    public void preloadClasses(Collection<String> clzs) {
+        for (String clz : clzs) {
+            try {
+                loadClass(clz);
+            } catch (ClassNotFoundException e) {
+            }
+        }
     }
 
     @Override
@@ -114,8 +122,7 @@ public class AppClassLoader extends ClassLoader {
 
     public static void removeBeans(Collection<String> paths){
         synchronized (beans){
-            for (String path : paths) {
-                String clzName = Compiler.toClassName(path);
+            for (String clzName : paths) {
                 BeanHolder holder = beans.get(clzName);
                 if (holder != null) {
                     try {

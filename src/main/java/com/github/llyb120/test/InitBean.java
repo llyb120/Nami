@@ -16,7 +16,7 @@ public class InitBean extends Bean {
 
     @Override
     public void onDestroy() throws Exception {
-        System.out.println("222on dedffsfffdsafffftroy ");
+        System.out.println("222on dedffsfffdsafffffftroy ");
         d = 3;
     }
 }
