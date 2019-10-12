@@ -1,6 +1,5 @@
 package com.github.llyb120.nami.core;
 
-import com.github.llyb120.nami.compiler.Compiler;
 import com.github.llyb120.nami.ext.file.SimpleStorage;
 import com.github.llyb120.nami.json.Arr;
 import com.github.llyb120.nami.json.Obj;
@@ -489,19 +488,20 @@ public class Config {
     }
 
 
-    public File findSrcFile(String className){
-        if(className.startsWith("java.")){
-            return null;
-        }
-        if(className.startsWith("com.github.llyb120.nami.")){
-            return null;
-        }
-        File file = Compiler.toJavaFile(className);
-        if(file.exists()){
-            return file;
-        }
-        return null;
-    }
+    //123ffff
+//    public File findSrcFile(String className){
+//        if(className.startsWith("java.")){
+//            return null;
+//        }
+//        if(className.startsWith("com.github.llyb120.nami.")){
+//            return null;
+//        }
+//        File file = Compiler.toJavaFile(className);
+//        if(file.exists()){
+//            return file;
+//        }
+//        return null;
+//    }
 
 
     public static class Db {

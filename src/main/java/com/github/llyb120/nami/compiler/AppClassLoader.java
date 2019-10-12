@@ -17,8 +17,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import static com.github.llyb120.nami.core.Config.config;
-
 public class AppClassLoader extends ClassLoader {
     public static ClassLoader defaultClassLoader = ClassLoader.getSystemClassLoader();//AppClassLoader.class.getClassLoader();
     public static AppClassLoader loader = new AppClassLoader();
@@ -58,7 +56,7 @@ public class AppClassLoader extends ClassLoader {
             return holder.clz;
         }
         //源文件
-        File srcFile = config.findSrcFile(name);
+        File srcFile = Compiler.toJavaFile(name);
         if (null != srcFile) {
             //字节码文件
             File classFile = Compiler.toClassFile(name);

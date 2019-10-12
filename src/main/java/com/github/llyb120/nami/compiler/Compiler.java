@@ -38,7 +38,7 @@ public class Compiler {
 //    private static long lastRecompileTime = -1;
 //    private static final int MIN_COMPILE_STEP = 300;
     static volatile Future compileTask;
-    static long compileStartTime = -1;
+//    static long compileStartTime = -1;
 //    private static Timer compileTimer = new Timer();
 //    private static Set<String> compileTaskSet = new ConcurrentSkipListSet<>();
 
@@ -213,6 +213,7 @@ public class Compiler {
 
     }
 
+    //sdafa
 
 //    public static ByteCode getByteCode(String className, File file, boolean force) {
 //        ByteCode byteCode = null;
@@ -247,16 +248,38 @@ public class Compiler {
 //    }
 
 
-    public static File toJavaFile(String className, boolean useDot) {
-        if(useDot){
-            className = className.replace(".", "/");
+//    public static File toJavaFile(String className, boolean useDot) {
+//        if(useDot){
+//            className = className.replace(".", "/");
+//        }
+//        File file = new File(config.workspace, className + ".java");
+//        return file;
+//    }
+
+    public static File toJavaFile(String className) {
+        if (!canCompile(className)) {
+            return null;
         }
+        className = className.replace(".", "/");
         File file = new File(config.workspace, className + ".java");
+        if(!file.exists()){
+            return null;
+        }
         return file;
     }
 
-    public static File toJavaFile(String className) {
-        return toJavaFile(className, true);
+    public static boolean canCompile(String className){
+        if(className.startsWith("java.")){
+            return false;
+        }
+        if(className.startsWith("com.github.llyb120.nami.")){
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean canCompile(File file){
+        return canCompile(toClassName(file));
     }
 
     public static String toClassName(String path){
@@ -449,8 +472,11 @@ public class Compiler {
 
     private static Set<String> watchList = new ConcurrentSkipListSet<>();
     private static Future watchAction;
-    private static void recompileOne(String file){
-        watchList.add(file);
+    private static void recompileOne(File file){
+        if (!canCompile(file)) {
+            return;
+        }
+        watchList.add(file.getAbsolutePath());
         if (watchAction != null) {
             watchAction.cancel(true);
         }
@@ -515,14 +541,14 @@ public class Compiler {
                     } else {
                         String p = path.toString();
                         if(p.endsWith(".java")){
-                            recompileOne(p);
+                            recompileOne(path.toFile());
                         }
                     }
                 } else if(eventKind == StandardWatchEventKinds.ENTRY_MODIFY){
                     if(!Files.isDirectory(path)){
                         String p = path.toString();
                         if(p.endsWith(".java")){
-                            recompileOne(p);
+                            recompileOne(path.toFile());
                         }
                     }
                 } else if(eventKind == StandardWatchEventKinds.ENTRY_DELETE){
