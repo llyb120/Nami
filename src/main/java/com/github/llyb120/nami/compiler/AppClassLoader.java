@@ -10,6 +10,7 @@ import com.github.llyb120.nami.util.Util;
 
 import java.io.File;
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -111,16 +112,19 @@ public class AppClassLoader extends ClassLoader {
         }
     }
 
-    public static void removeBean(String clzName){
+    public static void removeBeans(Collection<String> paths){
         synchronized (beans){
-            BeanHolder holder = beans.get(clzName);
-            if (holder != null) {
-                try {
-                    holder.ins.onDestroy();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    beans.remove(clzName);
+            for (String path : paths) {
+                String clzName = Compiler.toClassName(path);
+                BeanHolder holder = beans.get(clzName);
+                if (holder != null) {
+                    try {
+                        holder.ins.onDestroy();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        beans.remove(clzName);
+                    }
                 }
             }
         }
@@ -162,4 +166,9 @@ public class AppClassLoader extends ClassLoader {
         }
         return aopCache.get(clzName);
     }
+
+
+
+
+//    public static void scan()
 }

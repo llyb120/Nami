@@ -2,9 +2,7 @@ package com.github.llyb120.test;
 
 import com.github.llyb120.nami.json.Obj;
 import com.github.llyb120.nami.server.Ctrl;
-import org.beetl.sql.core.SQLReady;
 
-import static com.github.llyb120.nami.ext.beetlsql.BeetlSql.sqlManager;
 import static com.github.llyb120.nami.json.Json.o;
 
 public class testsql extends Ctrl {
@@ -31,7 +29,8 @@ public class testsql extends Ctrl {
         ));
 
 //        Scriptable
-        return sqlManager.execute(new SQLReady("select count(1) from t_user"), Obj.class);
+        return null;
+//        return sqlManager.execute(new SQLReady("select count(1) from t_user"), Obj.class);
     }
 
     public void select(Obj obj){

@@ -19,6 +19,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.json.Json.a;
+import static com.github.llyb120.nami.log.Log.info;
 
 //import io.methvin.watcher.DirectoryWatcher;
 
@@ -349,13 +350,9 @@ public class Compiler {
 //                    "E:\\work\\Nami\\target\\classes"
             );
 
-            for (String file : files) {
-                if(file.endsWith("Bean.java") && !file.equals("Bean.java")){
-                    AppClassLoader.removeBean(toClassName(file));
-                }
-                args.add(file);
-            }
-//            args.addAll(files);
+            //todo: remove掉bean后需要重新装载
+            AppClassLoader.removeBeans(files);
+            args.addAll(files);
 //            args.addAll(compileTaskSet);
 //            names.addFirst(null);
 //            names.addFirst(null);
@@ -508,20 +505,26 @@ public class Compiler {
 
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                String fileName = file.toFile().getName();
-                if(fileName.endsWith("Bean.java") && fileName.length() > "Bean.java".length()){
-                    beans.add(file.toString());
+//                String fileName = file.toFile().getName();
+                File f = file.toFile();
+                String clzName = toClassName(f);
+                if(canCompile(clzName)){
+                    beans.add(clzName);
                 }
+//                if(fileName.endsWith("Bean.java") && fileName.length() > "Bean.java".length()){
+//                    beans.add(file.toString());
+//                }
                 return FileVisitResult.CONTINUE;
             }
         });
 
         //初始化bean
         Async.execute(() -> {
-            recompile(beans, false);
+//            recompile(beans, false);
+            info("loading beans");
             for (String bean : beans) {
                 try {
-                    AppClassLoader.loader.loadClass(toClassName(bean));
+                    AppClassLoader.loader.loadClass(bean);
                 } catch (ClassNotFoundException e) {
                 }
             }
