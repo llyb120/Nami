@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.util.concurrent.CountDownLatch;
 
 import static com.github.llyb120.nami.core.Config.config;
+import static com.github.llyb120.nami.log.Log.info;
 
 //import com.github.llyb120.nami.sqltool.sqltool;
 
@@ -21,6 +22,7 @@ public class Nami {
 //        Async.execute(() -> {
 //            disableAccessWarnings();
 //        });
+        info("NaMi is starting");
         try {
             Env.configPath = configPath;
 
@@ -36,7 +38,7 @@ public class Nami {
 //            DBService.fSql = new FSql(config.db.g("main"));
 //        }
 //            if (config.dev) {
-            System.out.println(Compiler.lock);
+            Compiler.start();
 //            }
             //定时任务
 //            Crontab.start();

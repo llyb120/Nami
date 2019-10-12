@@ -15,5 +15,5 @@ public abstract class CronBean extends Bean {
     }
 
     public abstract void run();
-    public abstract String cronExpression();
+    public abstract String expression();
 }

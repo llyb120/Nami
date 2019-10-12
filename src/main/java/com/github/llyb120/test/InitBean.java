@@ -2,7 +2,7 @@ package com.github.llyb120.test;
 
 import com.github.llyb120.nami.bean.Bean;
 
-public class InitBean implements Bean {
+public class InitBean extends Bean {
 
     public static int d = 1;
 

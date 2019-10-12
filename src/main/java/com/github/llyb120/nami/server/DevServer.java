@@ -10,6 +10,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
+import static com.github.llyb120.nami.log.Log.info;
+
 public class DevServer extends AbstractServer {
 
 
@@ -21,7 +23,7 @@ public class DevServer extends AbstractServer {
         long stime = System.currentTimeMillis();
         ServerSocket server = new ServerSocket(port);
         Async.execute(() -> loop(server));
-        System.out.printf("boot server on port %d takes %s ms\n\n", port, System.currentTimeMillis() - stime);
+        info("boot server on port %d takes %s ms", port, System.currentTimeMillis() - stime);
     }
 
 

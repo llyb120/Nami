@@ -1,15 +1,11 @@
 package com.github.llyb120.test;
 
 
-import com.github.llyb120.nami.cron.CronBean;
-
-public class testcron extends CronBean {
-    @Override
+public class testcron {
     public void run() {
 
     }
 
-    @Override
     public String cronExpression() {
 //        return ""
         return null;

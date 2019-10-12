@@ -13,10 +13,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.Future;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static com.github.llyb120.nami.core.Config.config;
@@ -30,7 +28,7 @@ import static com.github.llyb120.nami.json.Json.a;
 public class Compiler {
 
     public static ReentrantLock lock = new ReentrantLock();
-    private static BlockingQueue<MemoryJavaFileObject> queue = new LinkedBlockingQueue();
+//    private static BlockingQueue<MemoryJavaFileObject> queue = new LinkedBlockingQueue();
     public static File CLASS_DIR;// = null;System.getProperty("java.io.tmpdir");
     public static JavaCompiler javac;
 //    public static Map<String, ByteCode> codeCache = new ConcurrentHashMap<>();
@@ -42,7 +40,7 @@ public class Compiler {
     static volatile Future compileTask;
     static long compileStartTime = -1;
 //    private static Timer compileTimer = new Timer();
-    private static Set<String> compileTaskSet = new ConcurrentSkipListSet<>();
+//    private static Set<String> compileTaskSet = new ConcurrentSkipListSet<>();
 
     static {
         CLASS_DIR = new File(config.workDir, "../../../target/classes");
@@ -65,6 +63,8 @@ public class Compiler {
             }
         });
     }
+
+    public static void start(){ }
 
 //    static class ByteCode {
 //        public byte[] bytes;
@@ -306,7 +306,7 @@ public class Compiler {
 //            if(compileTaskSet.isEmpty()){
 //                return false;
 //            }
-            System.out.println(Thread.currentThread().getName() + " recompiling");
+//            System.out.println(Thread.currentThread().getName() + " recompiling");
 //            LinkedList<Object> names = new LinkedList<>(compileTaskQueue
 //                    .stream()
 //                    .distinct()

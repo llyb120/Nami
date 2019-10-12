@@ -219,7 +219,7 @@ public class Request implements AutoCloseable {
         AnalyzePhase preparePhase = null;
         int ptr = 0;
         loop:while(true){
-            System.out.println(phase.name());
+//            System.out.println(phase.name());
             switch (phase){
                 case FORM_DATA_READ_START_END:
                     idex = byteArrayIndexOf(bodybs, formDataTokenBs, ptr);
