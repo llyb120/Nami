@@ -1,6 +1,7 @@
 package com.github.llyb120.nami.server;
 
 import com.github.llyb120.nami.core.Async;
+import com.github.llyb120.nami.util.Util;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -10,11 +11,12 @@ import java.net.StandardSocketOptions;
 import java.nio.channels.*;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.Future;
 
 public class NIOServer extends AbstractServer {
     private Selector selector;
     private ServerSocketChannel servChannel;
-    private boolean running = true;
+    private Future running;
 
     public NIOServer(String[] packages) {
         super(packages);
@@ -39,11 +41,17 @@ public class NIOServer extends AbstractServer {
 
         System.out.printf("boot server on port %d takes %s ms\n\n", port, System.currentTimeMillis() - stime);
 
-        Async.execute(this::loop);
+        running = Async.execute(this::loop);
+    }
+
+    @Override
+    public void shutdown() {
+        running.cancel(true);
+        Util.close(selector);
     }
 
     private void loop() {
-        while (running) {
+        while (true) {
             try {
                 //多路复用器开始工作（轮询），选择已就绪的通道
                 //等待某个通道准备就绪时最多阻塞1秒，若超时则返回。
@@ -68,16 +76,6 @@ public class NIOServer extends AbstractServer {
                 e.printStackTrace();
             }
 
-        }
-
-        //多路复用器关闭后，所有注册在上面的Channel和Pipe等资源都会自动去注册并关闭
-        //所以不需要重复释放资源
-        if (selector != null) {
-            try {
-                selector.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 

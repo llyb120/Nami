@@ -1,6 +1,7 @@
 package com.github.llyb120.nami.server;
 
 import com.github.llyb120.nami.core.Async;
+import com.github.llyb120.nami.util.Util;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -15,6 +16,7 @@ import static com.github.llyb120.nami.log.Log.info;
 public class DevServer extends AbstractServer {
 
     private Future running = null;
+    private ServerSocket server;
 
     public DevServer(String[] packages) {
         super(packages);
@@ -22,7 +24,7 @@ public class DevServer extends AbstractServer {
 
     public void start(int port) throws Exception {
         long stime = System.currentTimeMillis();
-        ServerSocket server = new ServerSocket(port);
+        server = new ServerSocket(port);
         running = Async.execute(() -> loop(server));
         info("boot server on port %d takes %s ms", port, System.currentTimeMillis() - stime);
     }
@@ -30,6 +32,7 @@ public class DevServer extends AbstractServer {
     @Override
     public void shutdown() {
         running.cancel(true);
+        Util.close(server);
     }
 
 
