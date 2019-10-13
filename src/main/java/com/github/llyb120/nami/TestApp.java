@@ -11,6 +11,8 @@ import com.github.llyb120.nami.core.Nami;
 public class TestApp {
 
     public static void main(String[] args) throws InterruptedException {
+
+
 //        System.out.println(System.getProperty("java.home"));
 //        System.setProperty("co.paralleluniverse.fibers.verifyInstrumentation", "false");
 //        System.out.println(config.dev);
@@ -34,7 +36,7 @@ public class TestApp {
 //        System.out.println(System.currentTimeMillis() - stime);
 //        new b().test();
 //        Thread.sleep(1000);
-        Nami.start();
+        Nami.start(args);
 //        ClassPool pool = ClassPool.getDefault();
 //        try {
 //            CtClass cc = pool.makeClass(new FileInputStream("E:\\work\\hz\\Nami\\target\\classes\\com\\github\\llyb120\\nami\\excel\\ExportUtil.class"));

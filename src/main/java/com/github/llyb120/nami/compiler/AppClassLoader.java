@@ -1,21 +1,21 @@
 package com.github.llyb120.nami.compiler;
 
-import com.github.llyb120.nami.bean.Server;
+import com.github.llyb120.nami.bean.*;
 import com.github.llyb120.nami.compiler.data.AopData;
 import com.github.llyb120.nami.compiler.data.ControllerData;
 import com.github.llyb120.nami.compiler.data.MethodData;
+import com.github.llyb120.nami.server.AbstractServer;
 import com.github.llyb120.nami.server.Aop;
 import com.github.llyb120.nami.server.Ctrl;
 import com.github.llyb120.nami.server.DevServer;
 import com.github.llyb120.nami.util.Util;
+import com.github.llyb120.nami.version.Version;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -33,12 +33,70 @@ public class AppClassLoader extends ClassLoader {
 
     static class BeanHolder{
         public Class clz;
-//        public Bean ins;
+        public Object ins;
+        public List<Method> createMethods = new ArrayList<>();
+        public List<Method> destroyMethods = new ArrayList<>();
 
-//        public BeanHolder(Class clz, Bean ins) {
-//            this.clz = clz;
-//            this.ins = ins;
-//        }
+        private AbstractServer server;
+
+        public BeanHolder(Class clz) throws IllegalAccessException, InstantiationException{
+            this.clz = clz;
+            this.ins = clz.newInstance();
+
+            scanMethods();
+            onCreate();
+        }
+
+        public void scanMethods(){
+            Server server = (Server) clz.getAnnotation(Server.class);
+            if (server != null) {
+                this.server = new DevServer(server.packages());
+                try {
+                    this.server.start(server.port());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    error("启动服务器失败");
+                }
+            }
+
+            for (Method method : clz.getDeclaredMethods()) {
+                if(!isValidBean(method)){
+                    continue;
+                }
+                OnCreate create = method.getAnnotation(OnCreate.class);
+                if (create != null) {
+                    createMethods.add(method);
+                }
+                OnDestroy destroy = method.getAnnotation(OnDestroy.class);
+                if (destroy != null) {
+                    destroyMethods.add(method);
+                }
+            }
+        }
+
+        public void onCreate() {
+            for (Method method : createMethods) {
+                try{
+                    method.invoke(ins);
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        public void onDestroy(){
+            if (server != null) {
+                server.shutdown();
+            }
+            for (Method method : destroyMethods) {
+                try{
+                    method.invoke(ins);
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 
     @Override
@@ -89,12 +147,15 @@ public class AppClassLoader extends ClassLoader {
         if (clz == null) {
             return defaultClassLoader.loadClass(name);
         }
-        analyzeClass(name, clz);
+        try {
+            analyzeClass(name, clz);
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
+        }
         return clz;
     }
 
 
-    private void analyzeClass(String clzName, Class<?> clz) {
+    private void analyzeClass(String clzName, Class<?> clz) throws IllegalAccessException, InstantiationException, InvocationTargetException {
         if(clz.isInterface()){
             return;
         }
@@ -109,20 +170,30 @@ public class AppClassLoader extends ClassLoader {
 //        }
     }
 
-    private void isValidBean(Class clz){
-
+    private static boolean isValidBean(Class clz){
+        OnVersion version = (OnVersion) clz.getAnnotation(OnVersion.class);
+        if (version == null) {
+            return true;
+        }
+        return Version.match(version.name(), version.version());
     }
 
-    private void analyzeBean(String clzName, Class<?> clz) {
+    private static boolean isValidBean(Method method){
+        OnVersion version = (OnVersion) method.getAnnotation(OnVersion.class);
+        if (version == null) {
+            return true;
+        }
+        return Version.match(version.name(), version.version());
+    }
+
+
+    private void analyzeBean(String clzName, Class<?> clz) throws InstantiationException, IllegalAccessException, InvocationTargetException {
+        if(!isValidBean(clz)){
+            return;
+        }
         for (Annotation annotation : clz.getAnnotations()) {
-            if(annotation instanceof Server){
-                Server server = (Server) annotation;
-                try {
-                    new DevServer(server.packages()).start(server.port());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    error("启动服务器失败");
-                }
+            if(annotation instanceof Server || annotation instanceof Bean){
+                beans.put(clzName, new BeanHolder(clz));
             }
         }
         //是否装载过别的类
@@ -144,13 +215,8 @@ public class AppClassLoader extends ClassLoader {
             for (String clzName : paths) {
                 BeanHolder holder = beans.get(clzName);
                 if (holder != null) {
-                    try {
-//                        holder.ins.onDestroy();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        beans.remove(clzName);
-                    }
+                    holder.onDestroy();
+                    beans.remove(clzName);
                 }
             }
         }

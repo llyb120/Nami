@@ -9,13 +9,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.concurrent.Future;
 
 import static com.github.llyb120.nami.log.Log.info;
 
 public class DevServer extends AbstractServer {
 
-    private Future running = null;
     private ServerSocket server;
 
     public DevServer(String[] packages) {
@@ -25,19 +23,19 @@ public class DevServer extends AbstractServer {
     public void start(int port) throws Exception {
         long stime = System.currentTimeMillis();
         server = new ServerSocket(port);
-        running = Async.execute(() -> loop(server));
+        Async.execute(() -> loop(server));
         info("boot server on port %d takes %s ms", port, System.currentTimeMillis() - stime);
     }
 
     @Override
     public void shutdown() {
-        running.cancel(true);
+        running = false;
         Util.close(server);
     }
 
 
     private void loop(ServerSocket server) {
-        while (true) {
+        while (running) {
             try {
                 Socket socket = server.accept();
                 socket.setTcpNoDelay(true);

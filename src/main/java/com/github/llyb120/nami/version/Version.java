@@ -1,10 +1,9 @@
 package com.github.llyb120.nami.version;
 
+import com.github.llyb120.nami.core.Env;
 import com.github.llyb120.nami.func.Expression;
 import com.github.llyb120.nami.func.VoidFunction;
 import com.github.llyb120.nami.util.Util;
-
-import static com.github.llyb120.nami.core.Config.config;
 
 public class Version {
 
@@ -30,7 +29,7 @@ public class Version {
             }
             return a >= b;
         }
-        return false;
+        return true;
     }
 
     public static boolean eq(int[] va, int[] vb){
@@ -53,11 +52,11 @@ public class Version {
         if(vname == null){
             return false;
         }
-        if(!vname.equalsIgnoreCase(config.version.name)){
+        if(!vname.equalsIgnoreCase(Env.versionName)){
             return false;
         }
         int[] vs = Util.splitToInt(version, '.');
-        if(!gte(config.version.no, vs)){
+        if(!gte(Env.versionNo, vs)){
             return false;
         }
         return true;

@@ -16,6 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 
 public abstract class AbstractServer {
+    protected volatile boolean running = true;
     static final String CRLF = "\r\n";
 //    Config.Server server;
     protected String[] packages;

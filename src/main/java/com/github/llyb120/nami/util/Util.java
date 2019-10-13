@@ -206,7 +206,7 @@ public class Util {
         while(i < len){
             int idex = str.indexOf(c, i);
             if(idex == -1){
-                break;
+                idex = len;
             }
             String sub = str.substring(i, idex);
             if(trim){

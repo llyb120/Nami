@@ -16,14 +16,20 @@ public class Server {
         info("我是调试环境");
     }
 
-    @OnVersion(name = "prod", version = "2.0")
+    @OnVersion(name = "dev", version = "0.9")
     @OnCreate
     public void start2(){
         info("我是生产环境");
     }
 
+    @OnVersion(name = "dev", version = "2.0")
+    @OnCreate
+    public void start3() {
+        info("not show");
+    }
+
     @OnDestroy
     public void end(){
-
+        info("end");//asdfaffdasfa
     }
 }

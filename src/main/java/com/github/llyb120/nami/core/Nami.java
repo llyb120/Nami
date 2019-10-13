@@ -1,10 +1,10 @@
 package com.github.llyb120.nami.core;
 
 import com.github.llyb120.nami.compiler.Compiler;
+import com.github.llyb120.nami.util.Util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.concurrent.CountDownLatch;
 
 import static com.github.llyb120.nami.log.Log.info;
 
@@ -13,14 +13,32 @@ import static com.github.llyb120.nami.log.Log.info;
 public class Nami {
 
 //    public static ChakraCore chakraCore;
-    public static void start(String configPath, Listener listener, boolean async) {
+    public static void start(String[] args) {
         //关掉烦人的警告
 //        Async.execute(() -> {
 //            disableAccessWarnings();
 //        });
         info("NaMi is starting");
-        try {
-            Env.configPath = configPath;
+        for (int i = 0; i < args.length; i++) {
+            switch (args[i]){
+                case "-v":
+                    String version = args[++i];
+                    int j = version.indexOf(":");
+                    if(j > -1){
+                        Env.versionName = version.substring(0, j);
+                        Env.versionNo = Util.splitToInt(version.substring(j + 1), '.');
+                    }
+                    break;
+            }
+        }
+        if(Util.isEmpty(Env.versionName)){
+            Env.versionName = "default";
+        }
+        if (Env.versionNo == null) {
+            Env.versionNo = new int[]{1,0};
+        }
+//        try {
+//            Env.configPath = configPath;
 
 //        Config.init(configPath);
 //        if(config.ext.b("BeetlSql")){
@@ -61,31 +79,27 @@ public class Nami {
 //                server.start(_server.listen);
 //            }
 
-            if (!async) {
-                CountDownLatch cd = new CountDownLatch(1);
-                cd.await();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-    }
-
-    public static void dev(String config) {
-        start(config, true);
+//            if (!async) {
+//                CountDownLatch cd = new CountDownLatch(1);
+//                cd.await();
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.exit(-1);
+//        }
     }
 
     public static void dev() {
-        dev("nami.conf");
+        start(new String[0]);
     }
 
-    private static void start(String config, boolean async) {
-        start(config, null, async);
-    }
+//    private static void start(String config, boolean async) {
+//        start(config, null, async);
+//    }
 
-    public static void start() {
-        start("nami.conf", false);
-    }
+//    public static void start() {
+//        start("nami.conf", false);
+//    }
 
     public static abstract class Listener {
         public void onDBServiceBooted() {

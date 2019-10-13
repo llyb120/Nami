@@ -11,12 +11,10 @@ import java.net.StandardSocketOptions;
 import java.nio.channels.*;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.concurrent.Future;
 
 public class NIOServer extends AbstractServer {
     private Selector selector;
     private ServerSocketChannel servChannel;
-    private Future running;
 
     public NIOServer(String[] packages) {
         super(packages);
@@ -41,17 +39,17 @@ public class NIOServer extends AbstractServer {
 
         System.out.printf("boot server on port %d takes %s ms\n\n", port, System.currentTimeMillis() - stime);
 
-        running = Async.execute(this::loop);
+        Async.execute(this::loop);
     }
 
     @Override
     public void shutdown() {
-        running.cancel(true);
+        running = false;
         Util.close(selector);
     }
 
     private void loop() {
-        while (true) {
+        while (running) {
             try {
                 //多路复用器开始工作（轮询），选择已就绪的通道
                 //等待某个通道准备就绪时最多阻塞1秒，若超时则返回。
