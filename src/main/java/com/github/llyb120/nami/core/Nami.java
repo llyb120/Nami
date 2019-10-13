@@ -1,15 +1,11 @@
 package com.github.llyb120.nami.core;
 
 import com.github.llyb120.nami.compiler.Compiler;
-import com.github.llyb120.nami.server.AbstractServer;
-import com.github.llyb120.nami.server.DevServer;
-import com.github.llyb120.nami.server.NIOServer;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.concurrent.CountDownLatch;
 
-import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.log.Log.info;
 
 //import com.github.llyb120.nami.sqltool.sqltool;
@@ -55,15 +51,15 @@ public class Nami {
 //        Thread.currentThread().setContextClassLoader(new ProductLoader());
 
             //暂时只能用devserver
-            for (Config.Server _server : config.servers) {
-                AbstractServer server = null;
-                if (config.dev) {
-                    server = new DevServer(_server);
-                } else {
-                    server = new NIOServer(_server);
-                }
-                server.start(_server.listen);
-            }
+//            for (Config.Server _server : config.servers) {
+//                AbstractServer server = null;
+//                if (config.dev) {
+//                    server = new DevServer(_server);
+//                } else {
+//                    server = new NIOServer(_server);
+//                }
+//                server.start(_server.listen);
+//            }
 
             if (!async) {
                 CountDownLatch cd = new CountDownLatch(1);

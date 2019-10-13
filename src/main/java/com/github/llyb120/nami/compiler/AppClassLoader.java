@@ -1,14 +1,16 @@
 package com.github.llyb120.nami.compiler;
 
-import com.github.llyb120.nami.bean.Bean;
+import com.github.llyb120.nami.bean.Server;
 import com.github.llyb120.nami.compiler.data.AopData;
 import com.github.llyb120.nami.compiler.data.ControllerData;
 import com.github.llyb120.nami.compiler.data.MethodData;
 import com.github.llyb120.nami.server.Aop;
 import com.github.llyb120.nami.server.Ctrl;
+import com.github.llyb120.nami.server.DevServer;
 import com.github.llyb120.nami.util.Util;
 
 import java.io.File;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Collections;
@@ -17,6 +19,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+
+import static com.github.llyb120.nami.log.Log.error;
 
 public class AppClassLoader extends ClassLoader {
     public static ClassLoader defaultClassLoader = ClassLoader.getSystemClassLoader();//AppClassLoader.class.getClassLoader();
@@ -29,12 +33,12 @@ public class AppClassLoader extends ClassLoader {
 
     static class BeanHolder{
         public Class clz;
-        public Bean ins;
+//        public Bean ins;
 
-        public BeanHolder(Class clz, Bean ins) {
-            this.clz = clz;
-            this.ins = ins;
-        }
+//        public BeanHolder(Class clz, Bean ins) {
+//            this.clz = clz;
+//            this.ins = ins;
+//        }
     }
 
     @Override
@@ -100,24 +104,39 @@ public class AppClassLoader extends ClassLoader {
         if(Aop.class.isAssignableFrom(clz)){
             analyzeAop(clzName, clz);
         }
-        if(Bean.class.isAssignableFrom(clz)){
-            analyzeBean(clzName, clz);
-        }
+//        if(Bean.class.isAssignableFrom(clz)){
+        analyzeBean(clzName, clz);
+//        }
+    }
+
+    private void isValidBean(Class clz){
+
     }
 
     private void analyzeBean(String clzName, Class<?> clz) {
-        //是否装载过别的类
-        Bean ins = null;
-        try {
-            ins = (Bean) clz.newInstance();
-            ins.onCreate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (ins != null) {
-                beans.put(clzName, new BeanHolder(clz, ins));
+        for (Annotation annotation : clz.getAnnotations()) {
+            if(annotation instanceof Server){
+                Server server = (Server) annotation;
+                try {
+                    new DevServer(server.packages()).start(server.port());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    error("启动服务器失败");
+                }
             }
         }
+        //是否装载过别的类
+//        Bean ins = null;
+//        try {
+//            ins = (Bean) clz.newInstance();
+//            ins.onCreate();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (ins != null) {
+//                beans.put(clzName, new BeanHolder(clz, ins));
+//            }
+//        }
     }
 
     public static void removeBeans(Collection<String> paths){
@@ -126,7 +145,7 @@ public class AppClassLoader extends ClassLoader {
                 BeanHolder holder = beans.get(clzName);
                 if (holder != null) {
                     try {
-                        holder.ins.onDestroy();
+//                        holder.ins.onDestroy();
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {

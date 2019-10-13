@@ -4,7 +4,6 @@ import com.github.llyb120.nami.compiler.AppClassLoader;
 import com.github.llyb120.nami.compiler.data.ControllerData;
 import com.github.llyb120.nami.compiler.data.MethodData;
 import com.github.llyb120.nami.core.Async;
-import com.github.llyb120.nami.core.Config;
 import com.github.llyb120.nami.core.MultipartFile;
 import com.github.llyb120.nami.core.Param;
 import com.github.llyb120.nami.func.Expression;
@@ -18,12 +17,14 @@ import java.util.concurrent.ExecutionException;
 
 public abstract class AbstractServer {
     static final String CRLF = "\r\n";
-    Config.Server server;
+//    Config.Server server;
+    protected String[] packages;
 
     public abstract void start(int port) throws Exception;
+    public abstract void shutdown();
 
-    public AbstractServer(Config.Server server) {
-        this.server = server;
+    public AbstractServer(String[] packages) {
+        this.packages = packages;
     }
 
     void handle(Response resp) {
@@ -228,19 +229,41 @@ public abstract class AbstractServer {
          **/
 
         //路由匹配
-        int n = server.locations.size();
-        Route.Item item = null;
-        while (n-- > 0) {
-            Route route = server.locations.get(n);
-            item = (route.match(req.path));
-            if (item == null) {
-                continue;
-            }
-            break;
+        String path = req.path.replace("/", ".");
+//        if(path.endsWith(".")){
+//            path = path.substring(0, path.length() - 1);
+//        }
+        int dot = path.lastIndexOf(".", path.length() - 1);
+        String className = null;
+        String methodName = null;
+        if(dot > -1){
+            className = packages[0] + path.substring(0, dot);
+            methodName = path.substring(dot + 1);
         }
-        if (item == null) {
-            return;
-        }
+//        for (String aPackage : packages) {
+
+//            File file = new File(Env.workspace, aPackage.replace(".", "/") + req.path);
+//            File par = file.getParentFile();
+//            File src =
+
+//            Path file = Paths.get(Env.workspace, aPackage, req.path, ".java");
+//            if(Files.exists(file)){
+//
+//            }
+//        }
+//        int n = server.locations.size();
+//        Route.Item item = null;
+//        while (n-- > 0) {
+//            Route route = server.locations.get(n);
+//            item = (route.match(req.path));
+//            if (item == null) {
+//                continue;
+//            }
+//            break;
+//        }
+//        if (item == null) {
+//            return;
+//        }
 
 //        List<String> paths = StrUtil.split(req.path, '/', false, true);
 //        Route.Node node = server.root.getMatched(paths);
@@ -276,11 +299,11 @@ public abstract class AbstractServer {
 
         AppClassLoader loader = AppClassLoader.loader;
         Thread.currentThread().setContextClassLoader(loader);
-        ControllerData controllerData = loader.loadController(item.className);
+        ControllerData controllerData = loader.loadController(className);
         if (controllerData == null) {
             return;
         }
-        MethodData methodData = controllerData.methods.get(item.methodName);
+        MethodData methodData = controllerData.methods.get(methodName);
         if (methodData == null) {
             return;
         }
@@ -311,25 +334,25 @@ public abstract class AbstractServer {
             return methodData.method.invoke(ctrl, args);
         };
 
-        if (item.aops != null) {
-            n = item.aops.size();
-            while (n-- > 0) {
-                String clzName = item.aops.get(n);
-//                 Class aopClz = loader.loadClass(clzName);
-//                 MethodAccess aopMa = MethodAccess.get(aopClz, true);
-//                 Aop aop = (Aop) aopMa.newInstance();
-                Expression lastExpression = expression;
-                expression = () -> {
-                    Aop aop = loader.loadAop(clzName).newInstance();
-                    if (aop instanceof HalfAop) {
-                    } else {
-                        resp.cl.await();
-                    }
-                    return aop.around(req, resp, lastExpression);
-                };
-            }
-
-        }
+//        if (item.aops != null) {
+//            n = item.aops.size();
+//            while (n-- > 0) {
+//                String clzName = item.aops.get(n);
+////                 Class aopClz = loader.loadClass(clzName);
+////                 MethodAccess aopMa = MethodAccess.get(aopClz, true);
+////                 Aop aop = (Aop) aopMa.newInstance();
+//                Expression lastExpression = expression;
+//                expression = () -> {
+//                    Aop aop = loader.loadAop(clzName).newInstance();
+//                    if (aop instanceof HalfAop) {
+//                    } else {
+//                        resp.cl.await();
+//                    }
+//                    return aop.around(req, resp, lastExpression);
+//                };
+//            }
+//
+//        }
 
         result = expression.call();
 

@@ -1,6 +1,7 @@
 package com.github.llyb120.nami.bean;
 
-public abstract class Bean {
-    public void onCreate() throws Exception{};
-    public void onDestroy() throws Exception{};
+import java.lang.annotation.Inherited;
+
+@Inherited
+public @interface Bean {
 }

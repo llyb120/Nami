@@ -1,7 +1,6 @@
 package com.github.llyb120.nami.server;
 
 import com.github.llyb120.nami.core.Async;
-import com.github.llyb120.nami.core.Config;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -17,8 +16,8 @@ public class NIOServer extends AbstractServer {
     private ServerSocketChannel servChannel;
     private boolean running = true;
 
-    public NIOServer(Config.Server server) {
-        super(server);
+    public NIOServer(String[] packages) {
+        super(packages);
     }
 
 
