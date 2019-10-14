@@ -36,8 +36,8 @@ public class Config {
     public Version version = new Version();
     public List<String> crontabs = new ArrayList<>();
     public List<Server> servers = new ArrayList<>();
-    public String workspace;
-    public String pkg;
+//    public String workspace;
+//    public String pkg;
 
 //    public String source;
 //    public String target;
@@ -140,11 +140,11 @@ public class Config {
                     break;
 
                 case "workspace":
-                    workspace = readToEnd();
+                    readToEnd();
                     break;
 
                 case "package":
-                    pkg = readToEnd();
+                    readToEnd();
                     break;
 
 //                case "hotswap":
@@ -215,8 +215,8 @@ public class Config {
 //            target = new File(source, "../../../target/classes").getAbsolutePath();
 //        }
 
-        workDir = new File(workspace);
-        workspace = workDir.getAbsolutePath();
+//        workDir = new File(workspace);
+//        workspace = workDir.getAbsolutePath();
 
         //hot
 //        hotPattern = Pattern.compile(hotswap.stream()

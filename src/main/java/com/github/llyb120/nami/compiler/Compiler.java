@@ -1,6 +1,7 @@
 package com.github.llyb120.nami.compiler;
 
 import com.github.llyb120.nami.core.Async;
+import com.github.llyb120.nami.core.Env;
 import com.github.llyb120.nami.json.Arr;
 
 import javax.tools.JavaCompiler;
@@ -97,7 +98,7 @@ public class Compiler {
             return null;
         }
         className = className.replace(".", "/");
-        File file = new File(config.workspace, className + ".java");
+        File file = new File(Env.workspace, className + ".java");
         if(!file.exists()){
             return null;
         }
@@ -121,7 +122,7 @@ public class Compiler {
     public static String toClassName(String path){
         String classPath = path
                 .substring(0, path.length() - 5)
-                .replace(config.workspace, "")
+                .replace(Env.workspace, "")
                 .replace("\\", ".")
                 .replace("/", ".");
         if(classPath.startsWith(".")){
@@ -150,9 +151,9 @@ public class Compiler {
                     "-parameters",
                     "-nowarn",
                     "-source",
-                    config.jdkVersion,
+                    Env.jdkVersion,
                     "-sourcepath",
-                    config.workspace,
+                    Env.workspace,
                     "-d",
                     CLASS_DIR.getAbsolutePath()
 //                    file.getAbsolutePath()
@@ -206,7 +207,7 @@ public class Compiler {
     public static void watch() throws IOException, InterruptedException {
         WatchService watcher = FileSystems.getDefault().newWatchService();
         List<String> beans = new ArrayList<>();
-        Files.walkFileTree(Paths.get(config.workspace), new SimpleFileVisitor<Path>() {
+        Files.walkFileTree(Paths.get(Env.workspace), new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
                 dir.register(watcher,
