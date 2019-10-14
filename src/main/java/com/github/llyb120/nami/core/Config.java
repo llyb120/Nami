@@ -47,7 +47,7 @@ public class Config {
     private List<String> lines;
     private int linePtr = 0;
     private Pattern hotPattern;
-    public File workDir;
+//    public File workDir;
 //    private byte[] bs = null;
 
     static {

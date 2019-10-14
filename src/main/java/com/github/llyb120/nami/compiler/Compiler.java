@@ -19,7 +19,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
-import static com.github.llyb120.nami.core.Config.config;
 import static com.github.llyb120.nami.json.Json.a;
 import static com.github.llyb120.nami.log.Log.info;
 
@@ -36,7 +35,7 @@ public class Compiler {
     static volatile Future compileTask;
 
     static {
-        CLASS_DIR = new File(config.workDir, "../../../target/classes");
+        CLASS_DIR = new File(Env.workspace, "../../../target/classes");
         if(!CLASS_DIR.exists()){
             CLASS_DIR = new File(System.getProperty("java.io.tmpdir"), "nami-classes");
             CLASS_DIR.mkdirs();

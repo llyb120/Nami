@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.Enumeration;
 
 import static com.github.llyb120.nami.log.Log.debug;
+import static com.github.llyb120.nami.log.Log.info;
 
 public class Env {
     public static String configPath = "nami.conf";
@@ -43,7 +44,8 @@ public class Env {
                 if("jar".equals(protocol)){
                     int i = url.getPath().lastIndexOf("!");
                     if(i > -1){
-                        File file = new File(url.getPath().substring(0, i), "/../app");
+                        File file = new File(url.getPath().substring("file:/".length(), i), "/../../app");
+                        info(file.getAbsolutePath());
                         if(file.exists()){
                             bootMode = Mode.PHP;
                             workDir = file;
