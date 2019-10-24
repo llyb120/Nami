@@ -4,6 +4,7 @@ import com.github.llyb120.nami.bean.*;
 import com.github.llyb120.nami.compiler.data.AopData;
 import com.github.llyb120.nami.compiler.data.ControllerData;
 import com.github.llyb120.nami.compiler.data.MethodData;
+import com.github.llyb120.nami.core.Config;
 import com.github.llyb120.nami.server.AbstractServer;
 import com.github.llyb120.nami.server.Aop;
 import com.github.llyb120.nami.server.Ctrl;
@@ -39,7 +40,7 @@ public class AppClassLoader extends ClassLoader {
 
         private AbstractServer server;
 
-        public BeanHolder(Class clz) throws IllegalAccessException, InstantiationException{
+        public BeanHolder(Class clz) throws IllegalAccessException, InstantiationException, InvocationTargetException {
             this.clz = clz;
             this.ins = clz.newInstance();
 
@@ -47,7 +48,7 @@ public class AppClassLoader extends ClassLoader {
             onCreate();
         }
 
-        public void scanMethods(){
+        public void scanMethods() throws InvocationTargetException, IllegalAccessException {
             Server server = (Server) clz.getAnnotation(Server.class);
             if (server != null) {
                 this.server = new DevServer(server.packages());
@@ -70,6 +71,16 @@ public class AppClassLoader extends ClassLoader {
                 OnDestroy destroy = method.getAnnotation(OnDestroy.class);
                 if (destroy != null) {
                     destroyMethods.add(method);
+                }
+
+                OnConfig config = method.getAnnotation(OnConfig.class);
+                if(config != null){
+                    Object value = method.invoke(ins);
+                    if (value != null) {
+                        if(value instanceof Config.Db){
+                            Config.config.db.put(((Config.Db) value).name, (Config.Db) value);
+                        }
+                    }
                 }
             }
         }

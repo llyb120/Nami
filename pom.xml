@@ -153,7 +153,7 @@
             <groupId>com.ibm.db2.jcc</groupId>
             <artifactId>db2jcc4</artifactId>
             <version>10.1</version>
-            <scope>test</scope>
+<!--            <scope>test</scope>-->
             <!--<systemPath>${project.basedir}/lib/db2jcc.jar</systemPath>-->
         </dependency>
 
