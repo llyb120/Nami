@@ -156,6 +156,14 @@ public final class Obj extends Json implements Map<String,Object> {
         }
         return str;
     }
+    public String ss(String key){
+        String str = s(key);
+        if(Util.isEmpty(str)){
+            put(key, "");
+            return "";
+        }
+        return str;
+    }
 
     public Integer i(Object k, int defaultValue){
         Integer val = i(k);

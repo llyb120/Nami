@@ -13,7 +13,7 @@ public class Server {
     @OnVersion(name = "dev", version = "1.0")
     @OnCreate
     public void start(){
-        info("我是调试环境");
+        info("我是调试环境3");
     }
 
     @OnVersion(name = "dev", version = "0.9")

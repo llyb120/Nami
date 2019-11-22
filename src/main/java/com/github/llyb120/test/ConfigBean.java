@@ -2,12 +2,14 @@ package com.github.llyb120.test;
 
 import com.github.llyb120.nami.bean.Bean;
 import com.github.llyb120.nami.bean.OnConfig;
+import com.github.llyb120.nami.bean.OnVersion;
 import com.github.llyb120.nami.core.Config;
 
 @Bean
 public class ConfigBean {
 
     @OnConfig
+    @OnVersion(name = "dev")
     public Config.Db db(){
         Config.Db db = new Config.Db() ;
         db.url = "jdbc:db2://47.94.97.138:50000/test";
@@ -15,5 +17,11 @@ public class ConfigBean {
         db.username = "db2inst1";
         db.password = "db2inst1";
         return db;
+    }
+
+    @OnConfig
+    @OnVersion(name = "prod")
+    public Config.Db db2(){
+        return null;
     }
 }
