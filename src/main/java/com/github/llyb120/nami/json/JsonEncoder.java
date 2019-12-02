@@ -3,6 +3,7 @@ package com.github.llyb120.nami.json;
 import cn.hutool.core.date.DateUtil;
 import com.esotericsoftware.reflectasm.FieldAccess;
 import com.esotericsoftware.reflectasm.MethodAccess;
+import org.bson.types.Decimal128;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -67,6 +68,8 @@ public class JsonEncoder {
             sb.append("\"");
             sb.append(DateUtil.formatDateTime((Date) obj));
             sb.append("\"");
+        } else if(obj instanceof Decimal128){
+            sb.append(((Decimal128) obj).bigDecimalValue());
         } else {
             encodeEntity(obj);
         }
