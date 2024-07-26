@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <groupId>com.github.llyb120</groupId>
+    <packaging>jar</packaging>
+    <artifactId>nami</artifactId>
+    <version>1.2.0-SNAPSHOT</version>
+    <!--<version>1.1.6-RELEASE</version>-->
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/llyb120/Nami</url>
+        <connection>https://github.com/llyb120/Nami.git</connection>
+        <developerConnection>https://github.com/llyb120/Nami</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>anumbrella</name>
+            <email>11xxxxx4@qq.com</email>
+            <url>http://www.anumbrella.net</url>
+        </developer>
+    </developers>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Maven Central Staging Repository</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+
+    <repositories>
+        <repository>
+            <id>maven-ali</id>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>nexus</id>
+            <name>Team Nexus Repository</name>
+            <url>https://artifacts.alfresco.com/nexus/content/repositories/public</url>
+        </repository>
+        <repository>
+            <id>alfresco-public-snapshots</id>
+            <url>https://artifacts.alfresco.com/nexus/content/groups/public-snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>alfresco-public</id>
+            <url>https://artifacts.alfresco.com/nexus/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>Maven Central</id>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+    </repositories>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+
+<!--        <dependency>-->
+<!--            <groupId>io.netty</groupId>-->
+<!--            <artifactId>netty-all</artifactId>-->
+<!--            <jdkVersion>4.1.36.Final</jdkVersion>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>4.5.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--        <dependency>-->
+<!--            <groupId>com.alibaba</groupId>-->
+<!--            <artifactId>fastjson</artifactId>-->
+<!--            <jdkVersion>1.2.47</jdkVersion>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>com.ibeetl</groupId>-->
+<!--            <artifactId>beetl</artifactId>-->
+<!--            <jdkVersion>2.9.9</jdkVersion>-->
+<!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/com.ibeetl/beetlsql -->
+        <dependency>
+            <groupId>com.ibeetl</groupId>
+            <artifactId>beetlsql</artifactId>
+            <version>2.12.4.RELEASE</version>
+            <scope>provided</scope>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.quartz-scheduler</groupId>-->
+<!--            <artifactId>quartz-jobs</artifactId>-->
+<!--            <jdkVersion>2.3.1</jdkVersion>-->
+<!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/co.paralleluniverse/quasar-core -->
+<!--        <dependency>-->
+<!--            <groupId>co.paralleluniverse</groupId>-->
+<!--            <artifactId>quasar-core</artifactId>-->
+<!--            <version>0.7.10</version>-->
+<!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<!--        <dependency>-->
+<!--            <groupId>mysql</groupId>-->
+<!--            <artifactId>mysql-connector-java</artifactId>-->
+<!--            <jdkVersion>5.1.47</jdkVersion>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>com.ibm.db2.jcc</groupId>
+            <artifactId>db2jcc4</artifactId>
+            <version>10.1</version>
+<!--            <scope>test</scope>-->
+            <!--<systemPath>${project.basedir}/lib/db2jcc.jar</systemPath>-->
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jdt/ecj -->
+<!--        <dependency>-->
+<!--            <groupId>org.eclipse.jdt</groupId>-->
+<!--            <artifactId>ecj</artifactId>-->
+<!--            <version>3.17.0</version>-->
+<!--        </dependency>-->
+
+
+        <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
+<!--        <dependency>-->
+<!--            <groupId>net.java.dev.jna</groupId>-->
+<!--            <artifactId>jna</artifactId>-->
+<!--            <jdkVersion>5.3.1</jdkVersion>-->
+<!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/io.methvin/directory-watcher -->
+<!--        <dependency>-->
+<!--            <groupId>io.methvin</groupId>-->
+<!--            <artifactId>directory-watcher</artifactId>-->
+<!--            <version>0.9.6</version>-->
+<!--        </dependency>-->
+
+
+
+
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <!--<dependency>-->
+            <!--<groupId>commons-io</groupId>-->
+            <!--<artifactId>commons-io</artifactId>-->
+            <!--<jdkVersion>2.6</jdkVersion>-->
+        <!--</dependency>-->
+
+<!--        <dependency>-->
+<!--             <groupId>org.slf4j</groupId>-->
+<!--             <artifactId>slf4j-nop</artifactId>-->
+<!--             <version>1.7.2</version>-->
+<!--         </dependency>-->
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+
+<!--        excel-export-->
+        <!-- https://mvnrepository.com/artifact/org.jxls/jxls -->
+        <dependency>
+            <groupId>org.jxls</groupId>
+            <artifactId>jxls</artifactId>
+            <version>2.6.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jxls/jxls-poi -->
+        <dependency>
+            <groupId>org.jxls</groupId>
+            <artifactId>jxls-poi</artifactId>
+            <version>2.6.0-rc1</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.github.spullara.mustache.java</groupId>
+            <artifactId>compiler</artifactId>
+            <version>0.9.6</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.esotericsoftware/reflectasm -->
+<!--        <dependency>-->
+<!--            <groupId>com.esotericsoftware</groupId>-->
+<!--            <artifactId>reflectasm</artifactId>-->
+<!--            <version>1.11.9</version>-->
+<!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/org.javassist/javassist -->
+        <!--<dependency>-->
+            <!--<groupId>org.javassist</groupId>-->
+            <!--<artifactId>javassist</artifactId>-->
+            <!--<version>3.25.0-GA</version>-->
+        <!--</dependency>-->
+
+
+
+
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.10.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.mozilla/rhino -->
+        <dependency>
+            <groupId>org.mozilla</groupId>
+            <artifactId>rhino</artifactId>
+            <version>1.7.11</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.github.llyb120.nami.TestApp</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.18.1</version>
+                <configuration>
+                    <!--<parallel>classes</parallel>-->
+                    <!--<threadCount>5</threadCount>-->
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <doclint>none</doclint>
+                    <charset>UTF-8</charset>
+                    <encoding>UTF-8</encoding>
+                    <docencoding>UTF-8</docencoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <!--这部分可有可无,加上的话则直接生成可运行jar包-->
+                    <archive>
+                        <manifest>
+                            <mainClass>com.github.llyb120.nami.TestApp</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>com.vlkan</groupId>-->
+<!--                <artifactId>quasar-maven-plugin</artifactId>-->
+<!--                <version>0.7.3</version>-->
+<!--                <configuration>-->
+<!--                    <check>true</check>-->
+<!--                    <debug>true</debug>-->
+<!--                    <verbose>true</verbose>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>compile</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>instrument</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
+
+        </plugins>
+    </build>
+</project>
